@@ -1,0 +1,12 @@
+.project
+.settings
+.DS_Store
+*.sublime-*
+coverage
+data
+doc
+log
+src
+test
+var/local
+var/lib
