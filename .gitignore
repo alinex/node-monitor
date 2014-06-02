@@ -4,7 +4,7 @@
 *.sublime-*
 coverage/
 data/
-doc/
+/doc/
 lib/
 log/
 node_modules/
