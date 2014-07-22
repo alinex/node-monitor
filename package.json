@@ -26,10 +26,15 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "debug": "1.x",
+    "alinex-util": "0.1.x",
+    "colors": "0.6.x"
+  },
   "devDependencies": {
     "alinex-make": "0.2.x",
-    "coveralls": "2.x"
+    "chai": "1.x",
+    "alinex-error": "0.x"
   },
   "optionalDependencies": {},
   "engines": {

@@ -10,3 +10,4 @@ src
 test
 var/local
 var/lib
+build

@@ -5,8 +5,9 @@
 coverage/
 data/
 /doc/
-lib/
-log/
-node_modules/
-var/lib/
-var/local/
+/lib/
+/log/
+/node_modules/
+/var/lib/
+/var/local/
+/build/
