@@ -1,18 +1,20 @@
 # Ping test class
 # =================================================
+# This is a basic test to check if connection to a specific server is possible.
+# Keep in mind that some servers mare blocked through firewall settings.
 
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
-os = require 'os'
-{spawn} = require 'child_process'
-debug = require('debug')('monitor:ping')
+debug = require('debug')('monitor:sensor:ping')
 colors = require 'colors'
 EventEmitter = require('events').EventEmitter
-
 object = require('alinex-util').object
 Sensor = require './base'
+# specific modules for this check
+os = require 'os'
+{spawn} = require 'child_process'
 
 # Sensor class
 # -------------------------------------------------
@@ -32,7 +34,7 @@ class PingSensor extends Sensor
   # results.
   @values = [
     name: 'success'
-    description: "true if test succeeded"
+    description: "true if packets were echoed back"
     type: 'bool'
   ,
     name: 'responsetime'
@@ -48,15 +50,15 @@ class PingSensor extends Sensor
   # ### Default Configuration
   # The values starting with underscore are general help messages.
   @config =
-    _ip: "IP address to test"
+    _host: "hostname or ip address to test"
     count: 1
-    _count: "Number of packets to send"
+    _count: "number of packets to send"
     timeout: 1
-    _timeout: "Timeout in seconds"
+    _timeout: "timeout in seconds for response"
 
   # ### Create instance
   constructor: (config) ->
-    super object.extend @constructor.config, config
+    super object.extend {}, @constructor.config, config
     unless config
       throw new Error "Could not initialize sensor without configuration."
 
@@ -67,7 +69,7 @@ class PingSensor extends Sensor
     ping = switch
       when p is 'linux'
         cmd: '/bin/ping'
-        args: ['-c', @config.count, '-w', @config.timeout]
+        args: ['-c', @config.count, '-W', @config.timeout]
       when p.match /^win/
         cmd: 'C:/windows/system32/ping.exe'
         args: ['-n', @config.count, '-w', @config.timeout*1000]
@@ -76,10 +78,10 @@ class PingSensor extends Sensor
         args: ['-c', @config.count, '-t', @config.timeout]
       else
         throw new Error "Operating system #{p} is not supported in ping."
-    ping.args.push @config.ip
+    ping.args.push @config.host
 
     # run the ping test
-    @_start "Ping #{@config.ip}..."
+    @_start "Ping #{@config.host}..."
     @result.data = ''
     debug "exec> #{ping.cmd} #{ping.args.join ' '}"
     proc = spawn ping.cmd, ping.args
@@ -89,7 +91,7 @@ class PingSensor extends Sensor
     proc.stdout.on 'data', (data) ->
       stdout += (text = data.toString())
       for line in text.trim().split /\n/
-        debug line[if ~line.indexOf "%" then 'yellow' else 'grey'] if line
+        debug line.grey
     proc.stderr.on 'data', (data) ->
       stderr += (text = data.toString())
       for line in text.trim().split /\n/
@@ -112,10 +114,16 @@ class PingSensor extends Sensor
       # get the values
       @result.value = {}
       @result.value.success = code is 0
-      match = /time=(\d+.?\d*) ms/.exec stdout
-      @result.value.responsetime = match?[1]
+      num = 0
+      value = 0
+      re = /time=(\d+.?\d*) ms/g
+      while match = re.exec stdout
+        num++
+        value += parseFloat match[1]
+      @result.value.responsetime = Math.round(value/num*10)/10.0
       match = /\s(\d+)% packet loss/.exec stdout
       @result.value.quality = 100-match?[1]
+      debug @result.value
       # evaluate to check status
       status = switch
         when not @result.value.success

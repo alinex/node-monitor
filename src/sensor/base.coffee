@@ -19,7 +19,7 @@ class Sensor extends EventEmitter
 
   # ### Create instance
   constructor: (config) ->
-    @config = object.extend @constructor.config, config
+    @config = object.extend {}, @constructor.config, config
     unless config
       throw new Error "Could not initialize sensor without configuration."
 
