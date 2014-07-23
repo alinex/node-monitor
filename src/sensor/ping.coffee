@@ -25,7 +25,7 @@ class PingSensor extends Sensor
     description: "Test the reachability of a host on a IP network and measure the
     round-trip time for the messages send."
     category: 'net'
-    level: 'server' # service, cluster, app, group
+    level: 1
 
   # ### Value Definition
   # This will define the values measured and their specifics, used to display

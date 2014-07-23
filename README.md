@@ -29,7 +29,7 @@ This will install the package, in your current directory.
 Usage
 -------------------------------------------------
 
-Till now you may only use this as a module, it's no stanalone application, yet.
+The sensors may be used standalone without the complete monitoring application.
 
 ### Sensor run
 
@@ -95,8 +95,13 @@ API
 #### Static properties
 
 - `meta` - some meta data for this test type
+  - `name` - title of the test
+  - `description` - short description what will be checked
+  - `category` - to group similiar tests together
+  - `level` - gives a hint if it is a low level or higher level test
 - `values` - meta information for the measurement values
-- `config` - the default configuration (with help text)
+- `config` - the default configuration
+  (each entry starting with underscore gives the help text for that value)
 
 #### Properties
 
