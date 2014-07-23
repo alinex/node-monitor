@@ -20,6 +20,7 @@ describe "Ping sensor", ->
       expect(ping.result.status).to.equal 'ok'
       expect(ping.result.data).to.exist
       expect(ping.result.message).to.not.exist
+      console.log ping
       done()
 
   it "should return fail", (done) ->

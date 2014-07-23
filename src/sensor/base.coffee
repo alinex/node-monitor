@@ -14,12 +14,12 @@ colors = require 'colors'
 class Sensor extends EventEmitter
 
   # ### Default Configuration
-  @config:
+  @config =
     verbose: false
 
   # ### Create instance
   constructor: (config) ->
-    @config = object.extend Sensor.config, config
+    @config = object.extend @constructor.config, config
     unless config
       throw new Error "Could not initialize sensor without configuration."
 
@@ -35,7 +35,7 @@ class Sensor extends EventEmitter
     @result.status = status
     @result.message = message if message
     if @config.verbose and status is 'fail' and message
-      console.log "#{@type} #{status}: #{message}".red
+      console.log "#{@constructor.meta.name} #{status}: #{message}".red
       console.log @result.data.grey
     @emit status
     @emit 'end'

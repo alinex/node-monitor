@@ -18,21 +18,50 @@ Sensor = require './base'
 # -------------------------------------------------
 class PingSensor extends Sensor
 
+  # ### General information
+  # This information may be used later for display and explanation.
+  @meta =
+    name: 'Ping'
+    description: "Test the reachability of a host on a IP network and measure the
+    round-trip time for the messages send."
+    category: 'net'
+    level: 'server' # service, cluster, app, group
+
+  # ### Value Definition
+  # This will define the values measured and their specifics, used to display
+  # results.
+  @values = [
+    name: 'success'
+    description: "true if test succeeded"
+    type: 'bool'
+  ,
+    name: 'responsetime'
+    description: "round-trip time of the first packet"
+    type: 'int'
+    unit: 'ms'
+  ,
+    name: 'quality'
+    description: "quality of response (packets succeeded)"
+    type: 'percent'
+  ]
+
   # ### Default Configuration
-  @config:
-    ip: null # given by call
+  # The values starting with underscore are general help messages.
+  @config =
+    _ip: "IP address to test"
     count: 1
+    _count: "Number of packets to send"
     timeout: 1
+    _timeout: "Timeout in seconds"
 
   # ### Create instance
   constructor: (config) ->
-    super object.extend PingSensor.config, config
+    super object.extend @constructor.config, config
     unless config
       throw new Error "Could not initialize sensor without configuration."
 
-  type: 'Ping'
-
   run: (cb = ->) ->
+
     # comand syntax, os dependent
     p = os.platform()
     ping = switch
@@ -48,30 +77,56 @@ class PingSensor extends Sensor
       else
         throw new Error "Operating system #{p} is not supported in ping."
     ping.args.push @config.ip
+
     # run the ping test
     @_start "Ping #{@config.ip}..."
     @result.data = ''
     debug "exec> #{ping.cmd} #{ping.args.join ' '}"
     proc = spawn ping.cmd, ping.args
-    proc.stdout.on 'data', (data) =>
-      for line in data.toString().trim().split /\n/
-        @result.data += line + "\n" if ~line.indexOf "%"
+
+    # collect results
+    stdout = stderr = ''
+    proc.stdout.on 'data', (data) ->
+      stdout += (text = data.toString())
+      for line in text.trim().split /\n/
         debug line[if ~line.indexOf "%" then 'yellow' else 'grey'] if line
     proc.stderr.on 'data', (data) ->
-      for line in data.toString().trim().split /\n/
-        @result.data += "Error: #{line}\n"
+      stderr += (text = data.toString())
+      for line in text.trim().split /\n/
         debug line.magenta
+    store = (code) =>
+      @result.data = ''
+      @result.data += "STDOUT:\n#{stdout}\n" if stdout
+      @result.data += "STDERR:\n#{stderr}\n" if stderr
+      @result.data += "RETURN CODE: #{code}" if code?
+
     # Error management
     proc.on 'error', (err) ->
+      store()
       @_end 'fail', err
       cb err
-    proc.on 'exit', (status) =>
-      if status != 0
-        message = "#{@type} exited with code #{status}"
-        @_end 'fail', message
-        return cb new Error message
-      # correct internal links
-      @_end 'ok'
+
+    # process finished
+    proc.on 'exit', (code) =>
+      store code
+      # get the values
+      @result.value = {}
+      @result.value.success = code is 0
+      match = /time=(\d+.?\d*) ms/.exec stdout
+      @result.value.responsetime = match?[1]
+      match = /\s(\d+)% packet loss/.exec stdout
+      @result.value.quality = 100-match?[1]
+      # evaluate to check status
+      status = switch
+        when not @result.value.success
+          'fail'
+        else
+          'ok'
+      message = switch status
+        when 'fail'
+          "#{@constructor.meta.name} exited with code #{status}"
+      @_end status, message
+      return cb new Error message if status is 'fail'
       cb()
 
 # Export class

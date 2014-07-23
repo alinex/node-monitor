@@ -37,7 +37,7 @@ To use any sensor you have to load it (example from a simple ping test):
 
     var PingSensor = require('../../lib/sensor/ping');
 
-And you have to configure it. This may also be a 
+And you have to configure it. This may also be a
 [alinex-config](http://alinex.github.io/node-config) object.
 
     var ping = new PingSensor({
@@ -92,13 +92,20 @@ API
 - `warn` - warning means high load or critical state
 - `fail` - not working correctly
 
+#### Static properties
+
+- `meta` - some meta data for this test type
+- `values` - meta information for the measurement values
+- `config` - the default configuration (with help text)
+
 #### Properties
 
 - `config` - configuration (given combined with defaults)
 - `result` - the results:
   - `date` - start date of last or current run
-  - `status` - status of the last or current run 
-  - `data` - additional data from the last or current run
+  - `status` - status of the last or current run
+  - `value` - map of measured values
+  - `data` - complete data from the last or current run
   - `message` - error message of the last or current run
 
 
