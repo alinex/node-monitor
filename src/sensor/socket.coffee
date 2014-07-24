@@ -15,7 +15,7 @@ Sensor = require './base'
 
 # Sensor class
 # -------------------------------------------------
-class PingSensor extends Sensor
+class SocketSensor extends Sensor
 
   # ### General information
   # This information may be used later for display and explanation.
@@ -44,36 +44,31 @@ class PingSensor extends Sensor
   # The values starting with underscore are general help messages.
   @config =
     _host: "hostname or ip address to test"
+    _port: "portnumber to connect to"
     timeout: 1
     _timeout: "timeout in seconds"
+    responsetime: 1000
+    _responsetime: "maximum time till connection is established"
 
   # ### Create instance
   constructor: (config) ->
-    super object.extend @constructor.config, config
+    super object.extend {}, @constructor.config, config
     unless config
       throw new Error "Could not initialize sensor without configuration."
 
+  # ### Run the check
   run: (cb = ->) ->
 
-    # comand syntax, os dependent
-    p = os.platform()
-    ping = switch
-      when p is 'linux'
-        cmd: '/bin/ping'
-        args: ['-c', @config.count, '-w', @config.timeout]
-      when p.match /^win/
-        cmd: 'C:/windows/system32/ping.exe'
-        args: ['-n', @config.count, '-w', @config.timeout*1000]
-      when p is 'darwin'
-        cmd: '/sbin/ping'
-        args: ['-c', @config.count, '-t', @config.timeout]
-      else
-        throw new Error "Operating system #{p} is not supported in ping."
-    ping.args.push @config.ip
-
     # run the ping test
-    @_start "Ping #{@config.ip}..."
+    @_start "Connect #{@config.host}:#{@config.port}..."
     @result.data = ''
+
+
+
+
+
+
+
     debug "exec> #{ping.cmd} #{ping.args.join ' '}"
     proc = spawn ping.cmd, ping.args
 
@@ -82,7 +77,7 @@ class PingSensor extends Sensor
     proc.stdout.on 'data', (data) ->
       stdout += (text = data.toString())
       for line in text.trim().split /\n/
-        debug line[if ~line.indexOf "%" then 'yellow' else 'grey'] if line
+        debug line.grey
     proc.stderr.on 'data', (data) ->
       stderr += (text = data.toString())
       for line in text.trim().split /\n/
@@ -103,25 +98,39 @@ class PingSensor extends Sensor
     proc.on 'exit', (code) =>
       store code
       # get the values
-      @result.value = {}
-      @result.value.success = code is 0
-      match = /time=(\d+.?\d*) ms/.exec stdout
-      @result.value.responsetime = match?[1]
+      @result.value = value = {}
+      value.success = code is 0
+      num = 0
+      sum = 0
+      re = /time=(\d+.?\d*) ms/g
+      while match = re.exec stdout
+        time = parseFloat match[1]
+        num++
+        sum += time
+        if not value.responsemin? or time < value.responsemin
+          value.responsemin = time
+        if not value.responsemax? or time > value.responsemax
+          value.responsemax = time
+      value.responsetime = Math.round(sum/num*10)/10.0
       match = /\s(\d+)% packet loss/.exec stdout
-      @result.value.quality = 100-match?[1]
+      value.quality = 100-match?[1]
+      debug value
       # evaluate to check status
       status = switch
-        when not @result.value.success
+        when not value.success or value.quality < 100
           'fail'
+        when  @config.responsetime? and value.responsetime > @config.responsetime
+        ,  @config.responsemax? and value.responsemax > @config.responsemax
+          'warn'
         else
           'ok'
       message = switch status
         when 'fail'
-          "#{@constructor.meta.name} exited with status #{status}"
+          "#{@constructor.meta.name} exited with code #{status}"
       @_end status, message
       return cb new Error message if status is 'fail'
       cb()
 
 # Export class
 # -------------------------------------------------
-module.exports = PingSensor
+module.exports = SocketSensor

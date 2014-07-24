@@ -93,6 +93,7 @@ class PingSensor extends Sensor
     unless config
       throw new Error "Could not initialize sensor without configuration."
 
+  # ### Run the check
   run: (cb = ->) ->
 
     # comand syntax, os dependent
