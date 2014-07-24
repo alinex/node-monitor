@@ -82,10 +82,9 @@ class PingSensor extends Sensor
     timeout: 1
     _timeout: "timeout in seconds for response"
     responsetime: 500
-    _responsetime: "maximum average round-trip time (else warning state)"
+    _responsetime: "maximum average round-trip time in ms (else warning state)"
     responsemax: 1000
-    _responsemax: "maximum round-trip time of any packet (else warning state)"
-
+    _responsemax: "maximum round-trip time in ms of any packet (else warning state)"
 
   # ### Create instance
   constructor: (config) ->
@@ -172,7 +171,7 @@ class PingSensor extends Sensor
           'ok'
       message = switch status
         when 'fail'
-          "#{@constructor.meta.name} exited with code #{status}"
+          "#{@constructor.meta.name} exited with status #{status}"
       @_end status, message
       return cb new Error message if status is 'fail'
       cb()
