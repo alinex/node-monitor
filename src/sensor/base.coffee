@@ -34,9 +34,14 @@ class Sensor extends EventEmitter
   _end: (status, message) ->
     @result.status = status
     @result.message = message if message
-    if @config.verbose and status is 'fail' and message
-      console.log "#{@constructor.meta.name} #{status}: #{message}".red
-      console.log @result.data.grey
+    if @config.verbose and status isnt 'ok'
+      if status is 'fail' and message
+        console.log "#{@constructor.meta.name} #{status}: #{message}".red
+      else if status is 'fail'
+        console.log "#{@constructor.meta.name} #{status}!".red
+      else
+        console.log "#{@constructor.meta.name} #{status}!".magenta
+      console.log @result.value
     @emit status
     @emit 'end'
 

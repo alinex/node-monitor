@@ -35,7 +35,7 @@ The sensors may be used standalone without the complete monitoring application.
 
 To use any sensor you have to load it (example from a simple ping test):
 
-    var PingSensor = require('../../lib/sensor/ping');
+    var PingSensor = require('alinex-monitor/lib/sensor/ping');
 
 And you have to configure it. This may also be a
 [alinex-config](http://alinex.github.io/node-config) object.
