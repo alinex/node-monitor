@@ -27,10 +27,6 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "debug": "1.x",
-    "alinex-util": "0.1.x",
-    "colors": "0.6.x",
-    "request": "2.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",
