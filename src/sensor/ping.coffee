@@ -112,7 +112,7 @@ class PingSensor extends Sensor
     ping.args.push @config.host
 
     # run the ping test
-    @_start "Ping #{@config.host}..."
+    @_start "Ping #{@config.host}"
     @result.data = ''
     debug "exec> #{ping.cmd} #{ping.args.join ' '}"
     proc = spawn ping.cmd, ping.args
@@ -134,8 +134,9 @@ class PingSensor extends Sensor
       @result.data += "RETURN CODE: #{code}" if code?
 
     # Error management
-    proc.on 'error', (err) ->
+    proc.on 'error', (err) =>
       store()
+      debug err.toString().red
       @_end 'fail', err
       cb err
 

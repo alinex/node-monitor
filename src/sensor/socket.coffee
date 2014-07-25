@@ -61,7 +61,7 @@ class SocketSensor extends Sensor
   run: (cb = ->) ->
 
     # run the ping test
-    @_start "Connect #{@config.host}:#{@config.port}..."
+    @_start "Connect #{@config.host}:#{@config.port}"
     @result.data = ''
 
     socket = new net.Socket()
@@ -94,12 +94,14 @@ class SocketSensor extends Sensor
       return cb new Error message if status is 'fail'
       cb()
 
-    socket.on 'timeout', ->
-      message = "server not responding, timeout occured"
+    socket.on 'timeout', =>
+      message = "server not responding, timeout occurred"
+      debug message.red
       @_end 'fail', message
       cb new Error message
 
-    socket.on 'error', (err) ->
+    socket.on 'error', (err) =>
+      debug err.toString().red
       @_end 'fail', err
       cb err
 

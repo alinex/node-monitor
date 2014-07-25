@@ -10,53 +10,56 @@ describe "Socket connection sensor", ->
     socket = new SocketSensor {}
     expect(socket).to.have.property 'config'
 
-  it.only "should connect to webserver", (done) ->
-    ping = new SocketSensor
+  it "should connect to webserver", (done) ->
+    socket = new SocketSensor
       host: '193.99.144.80'
       port: 80
-    ping.run (err) ->
+    socket.run (err) ->
       expect(err).to.not.exist
-      expect(ping.result).to.exist
-      expect(ping.result.date).to.exist
-      expect(ping.result.status).to.equal 'ok'
-      expect(ping.result.data).to.exist
-      expect(ping.result.message).to.not.exist
+      expect(socket.result).to.exist
+      expect(socket.result.date).to.exist
+      expect(socket.result.status).to.equal 'ok'
+      expect(socket.result.data).to.exist
+      expect(socket.result.message).to.not.exist
       done()
 
-  it "should succeed with domain name", (done) ->
-    ping = new PingSensor
+  it "should connect to webserver by hostname", (done) ->
+    socket = new SocketSensor
       host: 'heise.de'
-    ping.run (err) ->
+      port: 80
+    socket.run (err) ->
       expect(err).to.not.exist
-      expect(ping.result).to.exist
-      expect(ping.result.date).to.exist
-      expect(ping.result.status).to.equal 'ok'
-      expect(ping.result.data).to.exist
-      expect(ping.result.message).to.not.exist
+      expect(socket.result).to.exist
+      expect(socket.result.date).to.exist
+      expect(socket.result.status).to.equal 'ok'
+      expect(socket.result.data).to.exist
+      expect(socket.result.message).to.not.exist
       done()
 
-  it "should send multiple packets", (done) ->
-    @timeout 10000
-    ping = new PingSensor
+  it "should fail to connect to wrong port", (done) ->
+    @timeout 5000
+    socket = new SocketSensor
       host: '193.99.144.80'
-      count: 10
-    ping.run (err) ->
-      expect(err).to.not.exist
-      expect(ping.result).to.exist
-      expect(ping.result.date).to.exist
-      expect(ping.result.status).to.equal 'ok'
-      expect(ping.result.data).to.exist
-      expect(ping.result.message).to.not.exist
+      port: 1298
+    socket.run (err) ->
+      expect(err).to.exist
+      expect(socket.result).to.exist
+      expect(socket.result.date).to.exist
+      expect(socket.result.status).to.equal 'fail'
+      expect(socket.result.data).to.exist
+      expect(socket.result.message).to.exist
       done()
 
-  it "should return fail", (done) ->
-    ping = new PingSensor
-      host: '137.168.111.222'
-    ping.run (err) ->
+  it "should fail to connect to wrong host", (done) ->
+    @timeout 5000
+    socket = new SocketSensor
+      host: 'unknownsubdomain.nonexisting.host'
+      port: 80
+    socket.run (err) ->
       expect(err).to.exist
-      expect(ping.result).to.exist
-      expect(ping.result.date).to.exist
-      expect(ping.result.status).to.equal 'fail'
-      expect(ping.result.data).to.exist
-      expect(ping.result.message).to.exist
+      expect(socket.result).to.exist
+      expect(socket.result.date).to.exist
+      expect(socket.result.status).to.equal 'fail'
+      expect(socket.result.data).to.exist
+      expect(socket.result.message).to.exist
       done()
