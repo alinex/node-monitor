@@ -29,18 +29,25 @@ This will install the package, in your current directory.
 Usage
 -------------------------------------------------
 
-The sensors may be used standalone without the complete monitoring application.
+The sensors may be used as module without the complete monitoring application.
+
+### Get the sensors
+
+To use any sensor you have to load it (example from a simple ping test):
+
+    var Ping = require('alinex-monitor/lib/sensor/ping');
+
 
 ### Sensor run
 
 To use any sensor you have to load it (example from a simple ping test):
 
-    var PingSensor = require('alinex-monitor/lib/sensor/ping');
+    var monitor = require('alinex-monitor/lib/sensor/ping');
 
 And you have to configure it. This may also be a
 [alinex-config](http://alinex.github.io/node-config) object.
 
-    var ping = new PingSensor({
+    var ping = new monitor.Ping({
       ip: '193.99.144.80'
     });
 
@@ -77,7 +84,7 @@ API
 ### Sensor classes
 
 - [Sensor](src/sensor/base.coffee) - base class
-- [PingSensor](src/sensor/ping.coffee) - network ping test
+- [Ping](src/sensor/ping.coffee) - network ping test
 
 #### Methods
 
