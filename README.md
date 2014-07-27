@@ -36,12 +36,88 @@ Currently only the following submodules exists:
 
 In the future there will also be:
 
+- alinex-monitor-rest -
+  a rest interface to connect to other services
+- alinex-monitor-controller -
+  wrapper over sensor to react on changes
 - alinex-monitor-collector -
-  a storage for collected data
-- alinex-monitor-web -
-  a web frontend application
+  a longtime storage for collected data for analysis
 - alinex-monitor-action -
   an alert system with possible auto repair
+- alinex-monitor-frontend -
+  a web frontend application
+- alinex-monitor-shell -
+  a command shell for interactive work
+
+
+Development
+-------------------------------------------------
+
+Because it is in the development here some thoughts in which direction it may
+lead.
+
+#### Alinex-config
+
+Used with check routines.
+
+#### Config file for each controller
+
+- name
+- description
+- dependency
+  - list of other controllers
+- sensor
+  - type: ping...
+  - config:
+  - server: local
+- check interval
+- actor config
+- contact
+  - name: address or [address]
+- rules
+
+#### REST
+
+POST /monitor/sensor/ping
+POST /monitor/actor/cmd
+GET /monitor/controller/name
+GET /monitor/collector/name
+
+to call sensor remotely
+
+- commandline
+- http (with basic-auth)
+  - POST /monitor/sensor/ping
+
+#### Controller Status
+
+- ok if all sensors are ok
+- warn if one sensor has at least warn state
+- fail if sensor failed but all dependencies are ok or warn
+
+#### Controller Rules
+
+- min. time to react on changed state
+- type of action:
+  - run actor
+  - send email
+  - call service
+- rerun after time
+
+#### Controller storage
+
+- last time ok
+- first time of current state
+
+#### Collector
+
+#### System installation
+
+- local sensor
+- local controller
+- local collector
+- remote collector
+- remote frontend
 
 
 License
