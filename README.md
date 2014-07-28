@@ -36,14 +36,15 @@ Currently only the following submodules exists:
 
 In the future there will also be:
 
+- alinex-monitor-action -
+  actions to be called
+
 - alinex-monitor-rest -
   a rest interface to connect to other services
 - alinex-monitor-controller -
   wrapper over sensor to react on changes
 - alinex-monitor-collector -
   a longtime storage for collected data for analysis
-- alinex-monitor-action -
-  an alert system with possible auto repair
 - alinex-monitor-frontend -
   a web frontend application
 - alinex-monitor-shell -
@@ -56,11 +57,15 @@ Development
 Because it is in the development here some thoughts in which direction it may
 lead.
 
-#### Alinex-config
+#### Sensor
 
-Used with check routines.
+Used with check routines in alinex config.
 
-#### Config file for each controller
+#### Actor
+
+#### Controller
+
+Config:
 
 - name
 - description
@@ -76,26 +81,13 @@ Used with check routines.
   - name: address or [address]
 - rules
 
-#### REST
-
-POST /monitor/sensor/ping
-POST /monitor/actor/cmd
-GET /monitor/controller/name
-GET /monitor/collector/name
-
-to call sensor remotely
-
-- commandline
-- http (with basic-auth)
-  - POST /monitor/sensor/ping
-
-#### Controller Status
+Status:
 
 - ok if all sensors are ok
 - warn if one sensor has at least warn state
 - fail if sensor failed but all dependencies are ok or warn
 
-#### Controller Rules
+Rules:
 
 - min. time to react on changed state
 - type of action:
@@ -104,12 +96,27 @@ to call sensor remotely
   - call service
 - rerun after time
 
-#### Controller storage
+Storage
 
 - last time ok
 - first time of current state
 
+#### REST Interface
+
+POST /monitor/sensor/ping
+POST /monitor/actor/cmd
+GET /monitor/controller/name
+GET /monitor/collector/name
+
+- http (with basic-auth)
+
+#### Commandline Interface
+
+To interactively work with sensors.
+
 #### Collector
+
+#### Frontend
 
 #### System installation
 

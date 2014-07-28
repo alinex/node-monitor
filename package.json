@@ -27,6 +27,7 @@
     "lib": "./lib"
   },
   "dependencies": {
+    "alinex-monitor-sensor": "0.x"
   },
   "devDependencies": {
     "alinex-make": "0.2.x",

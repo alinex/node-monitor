@@ -6,11 +6,3 @@
 
 # include base modules
 
-# find configuration files
-
-# init controller
-
-# run controller once
-
-
-
