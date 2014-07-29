@@ -5,10 +5,10 @@ Package: alinex-monitor
 [![Coverage Status] (https://coveralls.io/repos/alinex/node-monitor/badge.png?branch=master)](https://coveralls.io/r/alinex/node-monitor?branch=master)
 [![Dependency Status] (https://gemnasium.com/alinex/node-monitor.png)](https://gemnasium.com/alinex/node-monitor)
 
-This should be an application to make server management easy and fast.
-
-In the moment it is incomplete and not usable. But you may use some of the
-submodules directly in your own application.
+This application will make server management easy and fast. It will check the
+whole IT landscape from the host to the application. While most monitoring
+tools has it's focus on the server here the focus lies more on the application
+side.
 
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
@@ -29,7 +29,8 @@ This will install the package, in your current directory.
 Submodules
 -------------------------------------------------
 
-Currently only the following submodules exists:
+Some parts of the monitoring application are provided as separate modules to
+be updated independly of the monitor app itself.
 
 - [alinex-monitor-sensor](http://alinex.github.io/node-monitor-sensor) -
   collection of sensors to check systems and services
@@ -37,18 +38,7 @@ Currently only the following submodules exists:
 In the future there will also be:
 
 - alinex-monitor-action -
-  actions to be called
-
-- alinex-monitor-rest -
-  a rest interface to connect to other services
-- alinex-monitor-controller -
-  wrapper over sensor to react on changes
-- alinex-monitor-collector -
-  a longtime storage for collected data for analysis
-- alinex-monitor-frontend -
-  a web frontend application
-- alinex-monitor-shell -
-  a command shell for interactive work
+  actions to be called from the controler
 
 
 Development
