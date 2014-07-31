@@ -1,0 +1,61 @@
+# Monitoring configuration
+# =================================================
+
+# Runtime configuration
+# -------------------------------------------------
+
+# Run only tests which have the same setting under ¸controller.runat`
+# configuration. If nothing added this will run all unspecified controller.
+# Using this setting it is possible to use the same controller configuration on
+# different machine while each one only executes their own controllers.
+runat:
+
+
+# Contacts
+# -------------------------------------------------
+# With this list you have the possibility to define alias names for contacts
+# which contains the details or a list of other alias names to use as a group.
+# After defining it here in a central place you may everywhere use the short
+# alias names of persons and groups.
+contact:
+
+# Email template
+# -------------------------------------------------
+# This list contains some templates used for emails. You may overwrite it in the
+# controllers action config if you want.
+
+# Some variables (starting with $-sign) are possible here.
+email:
+
+  default:
+    subject: $config => $status
+    body:
+      "<h1>$name</h1>
+      <p>$description</p>
+      <p><b>This test had status $status at $date!</b></p>
+      <p>$hint</p>"
+
+  fail:
+    subject: Failed $config
+    body:
+      "<h1>$name</h1>
+      <p>$description</p>
+      <p><b>This test failed at $date!</b></p>
+      <p>$hint</p>"
+
+  warn:
+    subject: Warning for $config
+    body:
+      "<h1>$name</h1>
+      <p>$description</p>
+      <p><b>This test has warn state since $date!</b></p>
+      <p>$hint</p>"
+
+  ok:
+    subject: OK for $config
+    body:
+      "<h1>$name</h1>
+      <p>$description</p>
+      <p><b>This test succeeds again since $date!</b></p>
+      <p>$hint</p>"
+
