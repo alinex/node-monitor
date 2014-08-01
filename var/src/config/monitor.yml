@@ -17,7 +17,7 @@ runat:
 # which contains the details or a list of other alias names to use as a group.
 # After defining it here in a central place you may everywhere use the short
 # alias names of persons and groups.
-contact:
+contacts:
 
 # Email template
 # -------------------------------------------------
