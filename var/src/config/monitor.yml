@@ -4,7 +4,7 @@
 # Runtime configuration
 # -------------------------------------------------
 
-# Run only tests which have the same setting under ¸controller.runat`
+# Run only tests which have the same setting under `controller.runat`
 # configuration. If nothing added this will run all unspecified controller.
 # Using this setting it is possible to use the same controller configuration on
 # different machine while each one only executes their own controllers.
