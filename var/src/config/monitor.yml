@@ -10,6 +10,15 @@
 # different machine while each one only executes their own controllers.
 runat:
 
+# Default time (in seconds) to rerun the check.
+interval: 300
+# Default time (in seconds) in which the value is seen as valid and should not be rechecked.
+validity: 60
+
+# Default activities
+# -------------------------------------------------
+# They will be used if no other rule defined in controller.
+rules:
 
 # Contacts
 # -------------------------------------------------

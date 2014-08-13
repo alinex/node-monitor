@@ -22,14 +22,13 @@ Config.addCheck 'monitor', (source, values, cb) ->
   validator.check source, values,
     title: "Monitoring Configuration"
     check: 'type.object'
+    mandatoryKeys: ['interval', 'validity']
     allowedKeys: true
     entries:
-      runat:
-        title: "Location"
-        description: "the location of this machine to run only tests which have
-          the same location or no location at all"
-        check: 'type.string'
-        optional: true
+      runat: Controller.configRunat
+      interval: Controller.configInterval
+      validity: Controller.configValidity
+      rules: Controller.configRules
       contacts:
         title: "Contacts"
         description: "the possible contacts to be referred from controller for
@@ -92,6 +91,7 @@ async.parallel
     # find controller configs in folder
     Config.find 'controller', (err, list) ->
       return cb err if err
+      console.log list
       async.map list, (name, cb) ->
         # add controller check
         Config.addCheck name, Controller.check, (err) ->
@@ -109,17 +109,13 @@ async.parallel
     return setTimeout ->
       throw err
     , 1000
-
-  return setTimeout ->
-    # init controller
-    for ctrl in controller
-      debug "controller #{ctrl.config._name} initialized."
-
-    console.log controller
-  , 1000
+  for ctrl in controller
+    debug "controller #{ctrl.config._name} initialized."
+  # run controller once
+  for ctrl in controller
+    console.log ctrl
 
 
-# run controller once
 
 
 

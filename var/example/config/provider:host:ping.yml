@@ -1,0 +1,74 @@
+# Monitoring controller configuration
+# =================================================
+# This is an example of a complete controller configuration.
+
+# Meta information
+# -------------------------------------------------
+# This is used in displaying and communicating with the user.
+
+name: Local ping on server vz23761
+description: Ping the server internally to check if network is configured correctly.
+
+# Runtime configuration
+# -------------------------------------------------
+
+# Time (in seconds) to rerun the check.
+interval: 300
+# Time (in seconds) in which the value is seen as valid and should not be rechecked.
+validity: 60
+# Run this test only on a machine which has the same setting under `monitor.runat`
+# configuration.
+runat: vz23761
+
+# Dependencies
+# -------------------------------------------------
+# The list of dependencies are controllers which have to work to make this one
+# work also. Use `checkdepend: true` in the `actor` config to skip action if
+# this is not the cause.
+
+# All listed controllers have to work.
+depend:
+
+# Analysis
+# -------------------------------------------------
+# All given sensors have to succeed for the controller to succeed. Only one
+# sensor will be added, mostly.
+
+# The hash of the sensor contains the sensor configuration.
+sensors:
+  ping:
+    host: 85.25.98.24
+
+# Alternatively the grouping may be used as alias to some other controller or
+# to combine multiple controllers with `fail`, `warn` state or as `cluster`
+group:
+
+# Activities
+# -------------------------------------------------
+
+rules:
+  -
+    # Only work on specific status.
+    status: fail
+    # Number of minimum attempts before informing.
+    attempt: 3
+    # Time (in seconds) to wait before informing.
+    latency: 60
+    # Only inform if dependent jobs not failed. This prevents of hundred of
+    # messages if a central system failed.
+    dependskip: true
+    # Timeout (in seconds) without status change before informing again.
+    redo: 1800
+    # Type of actor to run with it's configuration
+    email:
+      to: plusserver # email address or alias from monitor.contact
+      template: fail # template to use defined under monitor.email
+
+# Additional information
+# ------------------------------------------------
+# This will be used to give the user more information about the possible problem
+# and what may be done.-
+
+hint:
+  "If the local ping won't work it may be a problem with the network card or
+  it's configuration."
