@@ -7,66 +7,20 @@
 # include base modules
 debug = require('debug')('monitor')
 async = require 'async'
+# include alinex modules
 Config = require 'alinex-config'
 validator = require 'alinex-validator'
 require('alinex-error').install()
-# include classes
+# include classes and helpers
 Controller = require './controller'
-
+check = require './check'
 
 # Definition of Configuration
 # -------------------------------------------------
 # The configuration will be set in the [alinex-validator](http://alinex.github.io/node-validator)
 # style. It will be checked after configuration load.
 Config.addCheck 'monitor', (source, values, cb) ->
-  validator.check source, values,
-    title: "Monitoring Configuration"
-    check: 'type.object'
-    mandatoryKeys: ['interval', 'validity']
-    allowedKeys: true
-    entries:
-      runat: Controller.configRunat
-      interval: Controller.configInterval
-      validity: Controller.configValidity
-      rules: Controller.configRules
-      contacts:
-        title: "Contacts"
-        description: "the possible contacts to be referred from controller for
-          email alerts"
-        check: 'type.object'
-        entries:
-          check: 'type.any'
-          entries: [
-            title: "Contact Group"
-            description: "the list of references in the group specifies the individual
-              contacts"
-            check: 'type.array'
-            entries:
-              check: 'type.string'
-          ,
-            title: "Contact Details"
-            description: "the name and email address for a specific contact"
-            check: 'type.object'
-            mandatoryKeys: ['email']
-            allowedKeys: ['name']
-            entries:
-              check: 'type.string'
-          ]
-      email:
-        title: "Email Templates"
-        description: "the email templates to be used for different states"
-        check: 'type.object'
-        mandatoryKeys: ['default']
-        allowedKeys: ['fail', 'warn', 'ok']
-        entries:
-          title: "Email Template"
-          description: "the subject and HTML body which is used to create the email
-            (variables are included)"
-          check: 'type.object'
-          mandatoryKeys: ['subject', 'body']
-          entries:
-            check: 'type.string'
-  , (err, result) ->
+  validator.check source, values, check.monitor, (err, result) ->
     return cb err if err
     # additional checks
     for key, value of result.contacts
