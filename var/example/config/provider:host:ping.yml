@@ -33,11 +33,17 @@ depend:
 # -------------------------------------------------
 # All given sensors have to succeed for the controller to succeed. Only one
 # sensor will be added, mostly.
-
-# The hash of the sensor contains the sensor configuration.
 sensors:
-  ping:
-    host: 85.25.98.24
+  -
+    name: firstPing
+    sensor: ping
+    config:
+      host: 85.25.98.24
+  -
+    name: secondPing
+    sensor: ping
+    config:
+      host: 85.25.98.25
 
 # Alternatively the grouping may be used as alias to some other controller or
 # to combine multiple controllers with `fail`, `warn` state or as `cluster`

@@ -45,7 +45,6 @@ async.parallel
     # find controller configs in folder
     Config.find 'controller', (err, list) ->
       return cb err if err
-      console.log list
       async.map list, (name, cb) ->
         # add controller check
         Config.addCheck name, Controller.check, (err) ->
@@ -63,13 +62,29 @@ async.parallel
     return setTimeout ->
       throw err
     , 1000
-  for ctrl in controller
-    debug "controller #{ctrl.config._name} initialized."
-  # run controller once
-  for ctrl in controller
-    console.log ctrl
 
+  # check controller once
+  async.each controller, (ctrl, cb) ->
+    ctrl.run (err) ->
+      return cb err if err
+      console.log "#{ctrl.lastrun} - #{ctrl.name} - #{colorStatus ctrl.status}"
+      unless ctrl.message
+        console.log ctrl.message.grey
+      cb()
+  , (err) ->
+    throw err if err
+    console.log 'DONE'.green
 
-
-
+# Helper to colorize output
+# -------------------------------------------------
+colorStatus = (status) ->
+  switch status
+    when 'ok'
+      status.green
+    when 'warn'
+      status.yellow
+    when 'fail'
+      status.red
+    else
+      status
 

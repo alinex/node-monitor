@@ -168,7 +168,26 @@ exports.controller =
     sensors:
       title: "Sensors"
       description: "the configuration of sensors to run"
-      check: 'type.object'
+      check: 'type.array'
+      optional: true
+      default: []
+      entries:
+        title: "Sensor"
+        description: "the type and configuration for a sensor run"
+        check: 'type.object'
+        mandatoryKeys: ['sensor', 'config']
+        allowedKeys: true
+        entries:
+          sensor:
+            title: "Sensor Class"
+            description: "the  class name of a sensor to run"
+            check: 'type.string'
+            lowerCase: true
+            upperCase: 'first'
+          config:
+            title: "Sensor Configuration"
+            description: "the configuration for a sensor run"
+            check: 'type.object'
     rules: rules
     hint:
       title: "Hints"

@@ -5,6 +5,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('monitor:controller')
 async = require 'async'
 # include alinex modules
 sensor = require 'alinex-monitor-sensor'
@@ -29,23 +30,46 @@ class Controller
       return cb err if err
       values = result
       # check sensors
-      async.each Object.keys(values.sensors), (sensorName, cb) ->
-        source = name+'.sensors.'+sensorName
-        values = values.sensors[sensorName]
-        check = sensor[string.ucFirst sensorName].meta.config
-        validator.check source, values, check, cb
+      async.each [0..values.sensors.length-1], (num, cb) ->
+        sensorName = values.sensors[num].sensor
+        source = "#{name}.sensors[#{num}].config"
+        values = values.sensors[num].config
+        validator.check source, values, sensor[sensorName].meta.config, cb
       , cb
 
   # ### Create instance
   constructor: (@config) ->
     unless config
       throw new Error "Could not initialize controller without configuration."
+    @name = config._name
+    debug "#{@name} initialized."
 
-  status: 'undefined'
+  status: null
 
-  run: ->
+  run: (cb) ->
+    debug "#{@name} start new run"
+    # run the sensors
+    async.map [0..@config.sensors.length-1], (num, cb) =>
+      sensorName = @config.sensors[num].sensor
+      config = @config.sensors[num].config
+      sensor = new sensor[sensorName] config
+      sensor.run cb
+    , (err, sensors) =>
+      return err if err
+      # store results
+      messages = []
+      for sensor in sensors
+        # calculate status
+        if sensor.result.status is 'fail' or not @status or @status is 'ok'
+          @status = sensor.result.status
+        # get message
+        messages.push sensor.result.message if sensor.result.message
+      @message = messages.join '\n' if messages.length
+      @lastrun = sensor.result.date
+      cb()
 
-
+  message: ->
+    '????'
 
 # Export class
 # -------------------------------------------------
