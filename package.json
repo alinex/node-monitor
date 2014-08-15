@@ -27,13 +27,13 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-config": "^0.2.1",
+    "alinex-config": "0.2.x",
     "alinex-monitor-sensor": "0.x",
-    "alinex-validator": "^0.1.1",
-    "async": "^0.9.0"
+    "alinex-validator": "0.2.x",
+    "async": "0.9.x"
   },
   "devDependencies": {
-    "alinex-make": "0.2.x",
+    "alinex-make": "0.3.x",
     "chai": "1.x",
     "alinex-error": "0.x"
   },
