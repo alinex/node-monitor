@@ -27,7 +27,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-config": "0.2.x",
+    "alinex-config": "0.3.x",
     "alinex-monitor-sensor": "0.x",
     "alinex-validator": "0.2.x",
     "async": "0.9.x"

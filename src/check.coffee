@@ -5,13 +5,6 @@
 
 # Parts which are used later
 # -------------------------------------------------
-runat =
-  title: "Location"
-  description: "the location of this machine to run only tests which have
-    the same location or no location at all"
-  type: 'string'
-  optional: true
-
 interval =
   title: "Check Interval"
   description: "the default time (in seconds) to rerun a check"
@@ -90,7 +83,12 @@ exports.monitor =
   mandatoryKeys: ['interval', 'validity']
   allowedKeys: true
   entries:
-    runat: runat
+    master:
+      title: "Master Hostname"
+      description: "the hostname of the machine to run unspecific tests or no
+      hostname to use this machine"
+      type: 'string'
+      optional: true
     interval: interval
     validity: validity
     rules: rules
@@ -150,7 +148,12 @@ exports.controller =
       description: "a short abstract of what this controller will check"
       type: 'string'
       optional: true
-    runat: runat
+    runat:
+      title: "Run at host"
+      description: "the hostname of the machine to run the tests or no hostname to
+      run on master"
+      type: 'string'
+      optional: true
     interval: interval
     validity: validity
     depend:
@@ -185,6 +188,7 @@ exports.controller =
             title: "Sensor Configuration"
             description: "the configuration for a sensor run"
             type: 'object'
+
     rules: rules
     hint:
       title: "Hints"

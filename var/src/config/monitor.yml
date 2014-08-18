@@ -4,11 +4,11 @@
 # Runtime configuration
 # -------------------------------------------------
 
-# Run only tests which have the same setting under `controller.runat`
-# configuration. If nothing added this will run all unspecified controller.
-# Using this setting it is possible to use the same controller configuration on
-# different machine while each one only executes their own controllers.
-runat:
+# Define the server hostname of the machine, which should run all controllers
+# not specific for a special machine. Keep it empty to make the current machine
+# the master. controllers which have an `runat` setting will only run on the
+# defined hostname.
+master:
 
 # Default time (in seconds) to rerun the check.
 interval: 300

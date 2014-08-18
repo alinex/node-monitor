@@ -7,6 +7,7 @@
 # include base modules
 debug = require('debug')('monitor')
 async = require 'async'
+os = require 'os'
 # include alinex modules
 Config = require 'alinex-config'
 validator = require 'alinex-validator'
@@ -35,7 +36,7 @@ Config.addCheck 'monitor', (source, values, cb) ->
 # -------------------------------------------------
 
 # do parallel config loading
-debug "load configurations"
+debug "load configurations for #{os.hostname()}"
 async.parallel
   # read monitor config
   config: (cb) ->
@@ -58,11 +59,7 @@ async.parallel
         return cb err if err
         cb null, results
 , (err, {config,controller}) ->
-  if err
-    return setTimeout ->
-      throw err
-    , 1000
-
+  throw err if err
   # check controller once
   async.each controller, (ctrl, cb) ->
     ctrl.run (err) ->
