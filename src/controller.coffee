@@ -26,7 +26,7 @@ class Controller
   # It allows to use human readable settings.
   @check = (name, values, cb) =>
     # check general config
-    validator.check name, values, check.controller, (err, result) ->
+    validator.check name, check.controller, values, (err, result) ->
       return cb err if err
       values = result
       # check sensors
@@ -34,7 +34,7 @@ class Controller
         sensorName = values.sensors[num].sensor
         source = "#{name}.sensors[#{num}].config"
         values = values.sensors[num].config
-        validator.check source, values, sensor[sensorName].meta.config, cb
+        validator.check source, sensor[sensorName].meta.config, values, cb
       , cb
 
   # ### Create instance
@@ -52,20 +52,20 @@ class Controller
     async.map [0..@config.sensors.length-1], (num, cb) =>
       sensorName = @config.sensors[num].sensor
       config = @config.sensors[num].config
-      sensor = new sensor[sensorName] config
-      sensor.run cb
+      instance = new sensor[sensorName] config
+      instance.run cb
     , (err, sensors) =>
       return err if err
       # store results
       messages = []
-      for sensor in sensors
+      for instance in sensors
         # calculate status
-        if sensor.result.status is 'fail' or not @status or @status is 'ok'
-          @status = sensor.result.status
+        if instance.result.status is 'fail' or not @status or @status is 'ok'
+          @status = instance.result.status
         # get message
-        messages.push sensor.result.message if sensor.result.message
+        messages.push instance.result.message if instance.result.message
       @message = messages.join '\n' if messages.length
-      @lastrun = sensor.result.date
+      @lastrun = instance.result.date
       cb()
 
   message: ->

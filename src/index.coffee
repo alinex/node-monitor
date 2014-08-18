@@ -20,7 +20,7 @@ check = require './check'
 # The configuration will be set in the [alinex-validator](http://alinex.github.io/node-validator)
 # style. It will be checked after configuration load.
 Config.addCheck 'monitor', (source, values, cb) ->
-  validator.check source, values, check.monitor, (err, result) ->
+  validator.check source, check.monitor, values, (err, result) ->
     return cb err if err
     # additional checks
     for key, value of result.contacts

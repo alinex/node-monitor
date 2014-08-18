@@ -11,3 +11,4 @@ data/
 /var/lib/
 /var/local/
 /build/
+npm-debug.log
