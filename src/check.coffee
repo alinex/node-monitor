@@ -24,8 +24,6 @@ rules =
   description: "the rules which should be followed after state changes"
   type: 'array'
   default: []
-  mandatoryKeys: ['status']
-  allowedKeys: true
   entries:
     title: "Activity Rule"
     description: "a rule definition describing when and what to do"
@@ -156,11 +154,15 @@ exports.controller =
       optional: true
     interval: interval
     validity: validity
+    disabled:
+      title: "Disabled"
+      description: "a flag to temporarily disable this check"
+      type: 'boolean'
     depend:
       title: "Dependent Controllers"
       description: "a list of controllers which this controller depend on"
       type: 'array'
-      separator: /,\s*/
+      delimiter: /,\s*/
       default: []
       entries:
         title: "Name of Controller"

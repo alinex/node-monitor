@@ -47,9 +47,15 @@ Development
 Because it is in the development here some thoughts in which direction it may
 lead.
 
+### Controller
+
+A controller is
+Used with alinex-validator checked configuration files
+
+
 #### Sensor
 
-Used with check routines in alinex config.
+
 
 #### Actor
 

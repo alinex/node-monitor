@@ -26,6 +26,7 @@ class Controller
   # It allows to use human readable settings.
   @check = (name, values, cb) =>
     # check general config
+    debug "#{@name} check configuration"
     validator.check name, check.controller, values, (err, result) ->
       return cb err if err
       values = result
@@ -44,10 +45,20 @@ class Controller
     @name = config._name
     debug "#{@name} initialized."
 
-  status: null
+  # ### Status
+  # The status of a controller may be one of the underlying sensor: ok, warn, fail
+  # or disabled, undefined.
+  # The status disabled will be used as ok and undefined as warning for the
+  # following logic.
+  status: 'undefined'
 
+  # ### Create instance
   run: (cb) ->
     debug "#{@name} start new run"
+    if @config.disabled
+      @lastrun = new Date
+      @status = 'disabled'
+      return cb()
     # run the sensors
     async.map [0..@config.sensors.length-1], (num, cb) =>
       sensorName = @config.sensors[num].sensor
@@ -60,7 +71,7 @@ class Controller
       messages = []
       for instance in sensors
         # calculate status
-        if instance.result.status is 'fail' or not @status or @status is 'ok'
+        if instance.result.status is 'fail' or @status is 'undefined' or @status is 'ok'
           @status = instance.result.status
         # get message
         messages.push instance.result.message if instance.result.message

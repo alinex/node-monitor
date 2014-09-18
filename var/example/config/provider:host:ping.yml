@@ -19,6 +19,8 @@ validity: 60
 # Run this test only on a machine which has the same setting under `monitor.runat`
 # configuration.
 runat: vz23761
+# It may be disabled temporarily, seen as ok without check
+disabled: false
 
 # Dependencies
 # -------------------------------------------------

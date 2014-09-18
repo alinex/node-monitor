@@ -16,6 +16,7 @@ require('alinex-error').install()
 Controller = require './controller'
 check = require './check'
 
+
 # Definition of Configuration
 # -------------------------------------------------
 # The configuration will be set in the [alinex-validator](http://alinex.github.io/node-validator)
@@ -34,6 +35,9 @@ Config.addCheck 'monitor', (source, values, cb) ->
 
 # Initialize Monitor
 # -------------------------------------------------
+
+# list of all controllers
+controller = {}
 
 # do parallel config loading
 debug "load configurations for #{os.hostname()}"
@@ -60,8 +64,17 @@ async.parallel
         cb null, results
 , (err, {config,controller}) ->
   throw err if err
+  run controller
+
+# Run Monitor
+# -------------------------------------------------
+# Currently this will step over all defined controllers running each and output
+# the results.
+run = (controller) ->
+  debug "start monitor on #{os.hostname()}"
   # check controller once
   async.each controller, (ctrl, cb) ->
+    debug "run #{ctrl.name} controller"
     ctrl.run (err) ->
       return cb err if err
       console.log "#{ctrl.lastrun} - #{ctrl.name} - #{colorStatus ctrl.status}"
@@ -82,6 +95,8 @@ colorStatus = (status) ->
       status.yellow
     when 'fail'
       status.red
+    when 'disabled'
+      status.grey
     else
       status
 
