@@ -57,6 +57,9 @@ async.parallel
           # read in configuration
           new Config name, (err, config) ->
             return cb err if err
+            #
+            if config.runat? and config.runat isnt os.hostname()
+              return cb null
             # return new controller instance
             cb null, new Controller config
       , (err, results) ->
@@ -66,6 +69,8 @@ async.parallel
   if err
     error.report err
   else
+    # filter out all not relevant controllers
+    controller = controller.filter (n) -> n?
     run controller
 
 # Run Monitor
