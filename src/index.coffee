@@ -8,6 +8,9 @@
 debug = require('debug')('monitor')
 async = require 'async'
 os = require 'os'
+util = require 'util'
+yargs = require 'yargs'
+colors = require 'colors'
 # include alinex modules
 Config = require 'alinex-config'
 validator = require 'alinex-validator'
@@ -16,6 +19,34 @@ error = require 'alinex-error'
 Controller = require './controller'
 check = require './check'
 error.install()
+
+# Start argument parsing
+# -------------------------------------------------
+GLOBAL.argv = yargs
+.usage("""
+  Server monitoring toolkit.
+
+  Usage: $0 [-vC]
+  """)
+# examples
+.example('$0', 'to simply check all controllers once')
+.example('$0 -v', 'to get more information of each check')
+# general options
+.boolean('C')
+.alias('C', 'nocolors')
+.describe('C', 'turn of color output')
+.boolean('v')
+.alias('v', 'verbose')
+.describe('v', 'run in verbose mode')
+# general help
+.help('h')
+.alias('h', 'help')
+.showHelpOnFail(false, "Specify --help for available options")
+.argv
+# implement some global switches
+colors.mode = 'none' if argv.nocolors
+
+console.log "Starting system checks...".blue.bold
 
 # Definition of Configuration
 # -------------------------------------------------
@@ -80,17 +111,40 @@ async.parallel
 run = (controller) ->
   debug "start monitor on #{os.hostname()}"
   # check controller once
+  status = 'undefined'
   async.each controller, (ctrl, cb) ->
     debug "run #{ctrl.name} controller"
     ctrl.run (err) ->
       return cb err if err
+      # overall status
+      if ctrl.status is 'fail' or status is 'undefined' or status is 'ok'
+        status = ctrl.status
+      # output
       console.log "#{ctrl.lastrun} - #{ctrl.name} - #{colorStatus ctrl.status}"
-      unless ctrl.message
-        console.log ctrl.message.grey
+      if argv.verbose
+        console.log "#{ctrl.config.name}:"
+        for instance in ctrl.sensors
+          console.log util.inspect(instance.config).grey
+          console.log util.inspect(instance.result.value).grey
+          console.log "-> #{colorStatus instance.result.status}".grey
+      if ctrl.message
+        console.log ctrl.message.yellow
+      if ctrl.status in ['fail', 'warn']
+        console.log ctrl.config.hint.magenta
       cb()
   , (err) ->
     throw err if err
-    console.log 'DONE'.green
+    console.log "DONE => #{colorStatus status}"
+    # return with exit code
+    switch status
+      when 'warn'
+        process.exit 1
+      when 'fail'
+        process.exit 2
+      when 'ok', 'disabled'
+        process.exit 0
+      else
+        process.exit 3
 
 # Helper to colorize output
 # -------------------------------------------------

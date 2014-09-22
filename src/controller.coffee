@@ -68,7 +68,7 @@ class Controller
       config = @config.sensors[num].config
       instance = new sensor[sensorName] config
       instance.run cb
-    , (err, sensors) =>
+    , (err, @sensors) =>
       return err if err
       # store results
       messages = []
@@ -81,9 +81,6 @@ class Controller
       @message = messages.join '\n' if messages.length
       @lastrun = instance.result.date
       cb()
-
-  message: ->
-    '????'
 
 # Export class
 # -------------------------------------------------
