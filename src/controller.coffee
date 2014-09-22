@@ -33,9 +33,11 @@ class Controller
       # check sensors
       async.each [0..values.sensors.length-1], (num, cb) ->
         sensorName = values.sensors[num].sensor
+        unless sensor[sensorName]?
+          return cb new Error "Sensor type #{sensorName} not accessible in alinex-monitor-sensor."
         source = "#{name}.sensors[#{num}].config"
-        values = values.sensors[num].config
-        validator.check source, sensor[sensorName].meta.config, values, cb
+        val = values.sensors[num].config
+        validator.check source, sensor[sensorName].meta.config, val, cb
       , cb
 
   # ### Create instance
@@ -55,6 +57,7 @@ class Controller
   # ### Create instance
   run: (cb) ->
     debug "#{@name} start new run"
+    # check if a run is necessary
     if @config.disabled
       @lastrun = new Date
       @status = 'disabled'

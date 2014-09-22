@@ -11,11 +11,11 @@ os = require 'os'
 # include alinex modules
 Config = require 'alinex-config'
 validator = require 'alinex-validator'
-require('alinex-error').install()
+error = require 'alinex-error'
 # include classes and helpers
 Controller = require './controller'
 check = require './check'
-
+error.install()
 
 # Definition of Configuration
 # -------------------------------------------------
@@ -63,8 +63,10 @@ async.parallel
         return cb err if err
         cb null, results
 , (err, {config,controller}) ->
-  throw err if err
-  run controller
+  if err
+    error.report err
+  else
+    run controller
 
 # Run Monitor
 # -------------------------------------------------
