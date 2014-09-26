@@ -19,6 +19,15 @@ check = require './check'
 # -------------------------------------------------
 class Controller
 
+  @calcStatus = (list...) ->
+    status = null
+    for entry in list
+      if not status? or status is 'running' or entry is 'fail'
+        status = entry
+      else if status is 'ok'
+        status = entry
+    status
+
 
   # ### Check method for configuration
   #
@@ -52,7 +61,7 @@ class Controller
   # or disabled, undefined.
   # The status disabled will be used as ok and undefined as warning for the
   # following logic.
-  status: 'undefined'
+  status: 'running'
 
   # ### Create instance
   run: (cb) ->
@@ -73,10 +82,7 @@ class Controller
       # store results
       messages = []
       for instance in sensors
-        # calculate status
-        if instance.result.status is 'fail' or @status is 'undefined' or @status is 'ok'
-          @status = instance.result.status
-        # get message
+        @status = Controller.calcStatus @status, instance.result.status
         messages.push instance.result.message if instance.result.message
       @message = messages.join '\n' if messages.length
       @lastrun = instance.result.date

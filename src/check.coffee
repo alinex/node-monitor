@@ -5,20 +5,6 @@
 
 # Parts which are used later
 # -------------------------------------------------
-interval =
-  title: "Check Interval"
-  description: "the default time (in seconds) to rerun a check"
-  type: 'interval'
-  unit: 's'
-  min: 0
-
-validity =
-  title: "Result Validity"
-  description: "the time (in seconds) the result will be valid and should not be rechecked"
-  type: 'interval'
-  unit: 's'
-  min: 0
-
 rules =
   title: "Activities"
   description: "the rules which should be followed after state changes"
@@ -78,7 +64,6 @@ rules =
 exports.monitor =
   title: "Monitoring Configuration"
   type: 'object'
-  mandatoryKeys: ['interval', 'validity']
   allowedKeys: true
   entries:
     master:
@@ -87,14 +72,13 @@ exports.monitor =
       hostname to use this machine"
       type: 'string'
       optional: true
-    interval: interval
-    validity: validity
     rules: rules
     contacts:
       title: "Contacts"
       description: "the possible contacts to be referred from controller for
         email alerts"
       type: 'object'
+      default: {}
       entries:
         type: 'any'
         entries: [
@@ -134,7 +118,6 @@ exports.monitor =
 exports.controller =
   title: "Monitoring controller configuration"
   type: 'object'
-  mandatoryKeys: ['name']
   allowedKeys: true
   entries:
     name:
@@ -152,12 +135,25 @@ exports.controller =
       run on master"
       type: 'string'
       optional: true
-    interval: interval
-    validity: validity
+    interval:
+      title: "Check Interval"
+      description: "the default time (in seconds) to rerun a check"
+      type: 'interval'
+      unit: 's'
+      min: 0
+      default: 300
+    validity:
+      title: "Result Validity"
+      description: "the time (in seconds) the result will be valid and should not be rechecked"
+      type: 'interval'
+      unit: 's'
+      min: 0
+      default: 60
     disabled:
       title: "Disabled"
       description: "a flag to temporarily disable this check"
       type: 'boolean'
+      default: false
     depend:
       title: "Dependent Controllers"
       description: "a list of controllers which this controller depend on"
@@ -177,7 +173,6 @@ exports.controller =
         title: "Sensor"
         description: "the type and configuration for a sensor run"
         type: 'object'
-        mandatoryKeys: ['sensor', 'config']
         allowedKeys: true
         entries:
           sensor:
@@ -197,3 +192,4 @@ exports.controller =
       description: "a complete description what may be done if this check failed
         and other things which are helpful to know"
       type: 'string'
+      optional: true

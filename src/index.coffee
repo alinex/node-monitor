@@ -124,9 +124,12 @@ run = (controller) ->
       if argv.verbose
         console.log "#{ctrl.config.name}:"
         for instance in ctrl.sensors
-          console.log util.inspect(instance.config).grey
-          console.log util.inspect(instance.result.value).grey
-          console.log "-> #{colorStatus instance.result.status}".grey
+          out = {}
+          for key, val of instance.config
+            out[key] = val if val?
+          console.log "values:  #{util.inspect(instance.result.value).replace /\n\s+/g, ' '}".grey
+          console.log "config:  #{util.inspect(out).replace /\n\s+/g, ' '}".grey
+          console.log "success: #{colorStatus instance.result.status}".grey
       if ctrl.message
         console.log ctrl.message.yellow
       if ctrl.status in ['fail', 'warn']

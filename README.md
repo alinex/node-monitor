@@ -26,6 +26,29 @@ This will install the package, in your current directory.
 [![NPM](https://nodei.co/npm/alinex-monitor.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-monitor/)
 
 
+Usage
+-------------------------------------------------
+The  monitor may be called on the command line to execute all configured controllers
+and give the results as a check list.
+
+### Status
+
+The monitor and controllers use the following status:
+
+__running__ if the sensor is already analyzing, you have to wait
+
+__disabled__ if this controller is currently not checked - this will be used
+like ok for further processing
+
+__ok__ if everything is perfect, there nothing have to be done - exit code 0
+
+__warn__ if the sensor reached the warning level, know you have to keep an eye on it
+- exit code 1
+
+__fail__ if the sensor failed and there is a problem - exit code 2
+
+
+
 Submodules
 -------------------------------------------------
 
@@ -38,7 +61,9 @@ be updated independly of the monitor app itself.
 In the future there will also be:
 
 - alinex-monitor-action -
-  actions to be called from the controler
+  actions to be called from the controller
+- alinex-monitor-collector
+- alinex-monitor-frontend
 
 
 Development
@@ -46,51 +71,6 @@ Development
 
 Because it is in the development here some thoughts in which direction it may
 lead.
-
-### Controller
-
-A controller is
-Used with alinex-validator checked configuration files
-
-
-#### Sensor
-
-
-
-#### Actor
-
-#### Controller
-
-Config:
-
-- name
-- description
-- dependency
-  - list of other controllers
-- sensor
-  - type: ping...
-  - config:
-  - server: local
-- check interval
-- actor config
-- contact
-  - name: address or [address]
-- rules
-
-Status:
-
-- ok if all sensors are ok
-- warn if one sensor has at least warn state
-- fail if sensor failed but all dependencies are ok or warn
-
-Rules:
-
-- min. time to react on changed state
-- type of action:
-  - run actor
-  - send email
-  - call service
-- rerun after time
 
 Storage
 
