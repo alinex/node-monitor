@@ -32,12 +32,12 @@
     "alinex-util": "^0.1.7",
     "alinex-validator": "0.2.x",
     "async": "0.9.x",
-    "colors": "0.6.x",
+    "chalk": "0.5.x",
     "debug": "0.8.0 - 2.x",
     "yargs": "1.x"
   },
   "devDependencies": {
-    "alinex-make": "0.3.x",
+    "alinex-make": "0.4.x",
     "chai": "1.x",
     "alinex-error": "0.x"
   },

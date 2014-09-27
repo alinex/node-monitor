@@ -10,7 +10,7 @@ async = require 'async'
 os = require 'os'
 util = require 'util'
 yargs = require 'yargs'
-colors = require 'colors'
+chalk = require 'chalk'
 # include alinex modules
 Config = require 'alinex-config'
 validator = require 'alinex-validator'
@@ -44,9 +44,9 @@ GLOBAL.argv = yargs
 .showHelpOnFail(false, "Specify --help for available options")
 .argv
 # implement some global switches
-colors.mode = 'none' if argv.nocolors
+chalk.enabled = false if argv.nocolors
 
-console.log "Starting system checks...".blue.bold
+console.log chalk.blue.bold "Starting system checks..."
 
 # Definition of Configuration
 # -------------------------------------------------
@@ -127,13 +127,13 @@ run = (controller) ->
           out = {}
           for key, val of instance.config
             out[key] = val if val?
-          console.log "values:  #{util.inspect(instance.result.value).replace /\n\s+/g, ' '}".grey
-          console.log "config:  #{util.inspect(out).replace /\n\s+/g, ' '}".grey
-          console.log "success: #{colorStatus instance.result.status}".grey
+          console.log chalk.grey "values:  #{util.inspect(instance.result.value).replace /\n\s+/g, ' '}"
+          console.log chalk.grey "config:  #{util.inspect(out).replace /\n\s+/g, ' '}"
+          console.log chalk.grey "success: #{colorStatus instance.result.status}"
       if ctrl.message
-        console.log ctrl.message.yellow
+        console.log chalk.yellow ctrl.message
       if ctrl.status in ['fail', 'warn']
-        console.log ctrl.config.hint.magenta
+        console.log chalk.magenta ctrl.config.hint
       cb()
   , (err) ->
     throw err if err
@@ -154,13 +154,13 @@ run = (controller) ->
 colorStatus = (status) ->
   switch status
     when 'ok'
-      status.green
+      chalk.green status
     when 'warn'
-      status.yellow
+      chalk.yellow status
     when 'fail'
-      status.red
+      chalk.red status
     when 'disabled'
-      status.grey
+      chalk.grey status
     else
       status
 
