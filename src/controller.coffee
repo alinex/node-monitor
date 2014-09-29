@@ -19,16 +19,6 @@ check = require './check'
 # -------------------------------------------------
 class Controller
 
-  @calcStatus = (list...) ->
-    status = null
-    for entry in list
-      if not status? or status is 'running' or entry is 'fail'
-        status = entry
-      else if status is 'ok'
-        status = entry
-    status
-
-
   # ### Check method for configuration
   #
   # This function may be used to be added to [alinex-config](https://alinex.github.io/node-config).
@@ -62,7 +52,7 @@ class Controller
   # following logic.
   status: 'running'
 
-  # ### Create instance
+  # ### Run the controller
   run: (cb) ->
     debug "#{@name} start new run"
     # check if a run is necessary
@@ -70,22 +60,39 @@ class Controller
       @lastrun = new Date
       @status = 'disabled'
       return cb()
-    # run the sensors
-    async.map [0..@config.sensors.length-1], (num, cb) =>
-      sensorName = @config.sensors[num].sensor
-      config = @config.sensors[num].config
-      instance = new sensor[sensorName] config
-      instance.run cb
-    , (err, @sensors) =>
+    # run the sensors and controllers
+    async.map [0..@config.depend.length-1], (num, cb) =>
+      # run if it is a sensor
+      sensorName = @config.depend[num].sensor
+      if sensorName?
+        config = @config.sensors[num].config
+        instance = new sensor[sensorName] config
+        return instance.run cb
+      # return directly if valid
+      controllerName = @config.depend[num].controller
+      # listen event if running
+      # else run
+    , (err, @depend) =>
       return err if err
       # store results
       messages = []
-      for instance in sensors
-        @status = Controller.calcStatus @status, instance.result.status
+      status = []
+      for instance in depend
+        status.push instance.result.status
         messages.push instance.result.message if instance.result.message
+        @lastrun = instance.result.date if @lastrun < instance.result.date
+      @status = @calcStatus status
       @message = messages.join '\n' if messages.length
-      @lastrun = instance.result.date
       cb()
+
+  calcStatus = (list...) ->
+    status = null
+    for entry in list
+      if not status? or status is 'running' or entry is 'fail'
+        status = entry
+      else if status is 'ok'
+        status = entry
+    status
 
 # Export class
 # -------------------------------------------------

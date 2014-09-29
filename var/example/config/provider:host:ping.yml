@@ -24,18 +24,12 @@ disabled: false
 
 # Dependencies
 # -------------------------------------------------
-# The list of dependencies are controllers which have to work to make this one
-# work also. Use `checkdepend: true` in the `actor` config to skip action if
-# this is not the cause.
-
-# All listed controllers have to work.
+# The list of dependencies are controllers and sensors which have to work to make
+# this one work. Use `checkdepend: true` in the `actor` config to skip action
+# if this is not the cause controller.
+# It is possible to combine sensors and controllers here. The weight parameter
+# is specific to the combine method, see below.
 depend:
-
-# Analysis
-# -------------------------------------------------
-# All given sensors have to succeed for the controller to succeed. Only one
-# sensor will be added, mostly.
-sensors:
   -
     sensor: ping
     config:
@@ -44,10 +38,18 @@ sensors:
     sensor: ping
     config:
       host: 85.25.98.25
+  -
+    controller: mysql
+    weight: 2
 
-# Alternatively the grouping may be used as alias to some other controller or
-# to combine multiple controllers with `fail`, `warn` state or as `cluster`
-group:
+# ### Combine values
+# For multiple dependencies this value defines how the individual sensors or
+# controllers are combined to  calculate the overall status:
+#
+# - `or` - the highest status will be used (supporting weight: min)
+# - `and` - only the highest common status is used (supporting weight: max)
+# - `average` - the average value will be used (supporting weight: 0..9)
+combine: or
 
 # Activities
 # -------------------------------------------------

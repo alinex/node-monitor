@@ -58,6 +58,19 @@ rules =
             description: "the template to be used for emails"
             type: 'string'
 
+weight =
+  title: "Weight"
+  description: "the special weight for the combination of dependencies"
+  optional: true
+  type: 'any'
+  entries: [
+    type: 'string'
+    values: ['min', 'max']
+  ,
+    type: 'integer'
+    min: 0
+  ]
+
 # monitor
 # -------------------------------------------------
 # Configuration for the base class
@@ -164,32 +177,52 @@ exports.controller =
         title: "Name of Controller"
         description: "the name of the controller which is dependent for this"
         type: 'string'
-    sensors:
-      title: "Sensors"
-      description: "the configuration of sensors to run"
+    depend:
+      title: "Dependencies"
+      description: "the list of sensors and controllers which are the data sources"
       type: 'array'
       default: []
       entries:
-        title: "Sensor"
-        description: "the type and configuration for a sensor run"
-        type: 'object'
-        allowedKeys: true
-        entries:
-          sensor:
-            title: "Sensor Class"
-            description: "the  class name of a sensor to run"
-            type: 'string'
-            lowerCase: true
-            upperCase: 'first'
-          config:
-            title: "Sensor Configuration"
-            description: "the configuration for a sensor run"
-            type: 'object'
-
+        type: 'any'
+        entries: [
+          title: "Sensor"
+          description: "the type and configuration for a sensor run"
+          type: 'object'
+          allowedKeys: true
+          entries:
+            sensor:
+              title: "Sensor Class"
+              description: "the  class name of a sensor to run"
+              type: 'string'
+              lowerCase: true
+              upperCase: 'first'
+            config:
+              title: "Sensor Configuration"
+              description: "the configuration for a sensor run"
+              type: 'object'
+            weight: weight
+        ,
+          title: "Base Controller"
+          description: "the controller which is the base for this one"
+          type: 'object'
+          allowedKeys: true
+          entries:
+            controller:
+              title: "Controller Name"
+              description: "the  name of the depending controller"
+              type: 'string'
+            weight: weight
+        ]
+    combine:
+      title: "Combine Method"
+      description: "the calculation of the combined status"
+      type: 'string'
+      values: ['and', 'or', 'average']
+      default: 'and'
     rules: rules
     hint:
       title: "Hints"
-      description: "a complete description what may be done if this check failed
-        and other things which are helpful to know"
+      description: "a specific description for this controller that describes
+        what may be done if this check failed and other things which are helpful to know"
       type: 'string'
       optional: true
