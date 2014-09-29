@@ -50,10 +50,9 @@ class Controller
       , cb
 
   # ### Create instance
-  constructor: (@config) ->
+  constructor: (@name,  @config) ->
     unless config
       throw new Error "Could not initialize controller without configuration."
-    @name = config._name
     debug "#{@name} initialized."
 
   # ### Status

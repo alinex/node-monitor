@@ -37,12 +37,10 @@ depend:
 # sensor will be added, mostly.
 sensors:
   -
-    name: firstPing
     sensor: ping
     config:
       host: 85.25.98.24
   -
-    name: secondPing
     sensor: ping
     config:
       host: 85.25.98.25

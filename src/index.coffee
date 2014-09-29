@@ -52,7 +52,8 @@ console.log chalk.blue.bold "Starting system checks..."
 # -------------------------------------------------
 # The configuration will be set in the [alinex-validator](http://alinex.github.io/node-validator)
 # style. It will be checked after configuration load.
-Config.addCheck 'monitor', (source, values, cb) ->
+config = Config.instance 'monitor'
+config.setCheck (source, values, cb) ->
   validator.check source, check.monitor, values, (err, result) ->
     return cb err if err
     # additional checks
@@ -75,7 +76,8 @@ debug "load configurations for #{os.hostname()}"
 async.parallel
   # read monitor config
   config: (cb) ->
-    new Config 'monitor', cb
+    config = Config.instance 'monitor'
+    config.load cb
   # get controller
   controller: (cb) ->
     # find controller configs in folder
@@ -83,16 +85,15 @@ async.parallel
       return cb err if err
       async.map list, (name, cb) ->
         # add controller check
-        Config.addCheck name, Controller.check, (err) ->
+        config = Config.instance name
+        config.setCheck Controller.check
+        config.load (err, config) ->
           return cb err if err
-          # read in configuration
-          new Config name, (err, config) ->
-            return cb err if err
-            #
-            if config.runat? and config.runat isnt os.hostname()
-              return cb null
-            # return new controller instance
-            cb null, new Controller config
+          # check if controller is valid for this host
+          if config.runat? and config.runat isnt os.hostname()
+            return cb null
+          # return new controller instance
+          cb null, new Controller name, config
       , (err, results) ->
         return cb err if err
         cb null, results

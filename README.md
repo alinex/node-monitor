@@ -48,6 +48,25 @@ __warn__ if the sensor reached the warning level, know you have to keep an eye o
 __fail__ if the sensor failed and there is a problem - exit code 2
 
 
+Structure
+-------------------------------------------------
+
+### Monitor
+
+The monitor is the main programm running everything.
+
+### Controller
+
+Each element which is individually accessible is an controller. This may be a
+reference to a specific sensor check or a group of other controllers. The controller
+also specifies how to interpret the sensor status.
+
+### Sensor
+
+The sensor retrieves the system information. It is configured and called from the
+controller and checks specific parts of the system. It gives a status, the measurement
+and some informational data.
+
 
 Submodules
 -------------------------------------------------
