@@ -33,33 +33,33 @@ email:
 
   default:
     subject: $config => $status
-    body:
-      "<h1>$name</h1>
+    body: |
+      <h1>$name</h1>
       <p>$description</p>
       <p><b>This test had status $status at $date!</b></p>
-      <p>$hint</p>"
+      <p>$hint</p>
 
   fail:
     subject: Failed $config
-    body:
-      "<h1>$name</h1>
+    body: |
+      <h1>$name</h1>
       <p>$description</p>
       <p><b>This test failed at $date!</b></p>
-      <p>$hint</p>"
+      <p>$hint</p>
 
   warn:
     subject: Warning for $config
-    body:
-      "<h1>$name</h1>
+    body: |
+      <h1>$name</h1>
       <p>$description</p>
       <p><b>This test has warn state since $date!</b></p>
-      <p>$hint</p>"
+      <p>$hint</p>
 
   ok:
     subject: OK for $config
-    body:
-      "<h1>$name</h1>
+    body: |
+      <h1>$name</h1>
       <p>$description</p>
       <p><b>This test succeeds again since $date!</b></p>
-      <p>$hint</p>"
+      <p>$hint</p>
 

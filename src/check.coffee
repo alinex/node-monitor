@@ -71,6 +71,13 @@ weight =
     min: 0
   ]
 
+hint =
+  title: "Hint"
+  description: "a specific description for this sensor/controller that describes
+    what may be done if this check failed and other things which are helpful to know"
+  type: 'string'
+  optional: true
+
 # monitor
 # -------------------------------------------------
 # Configuration for the base class
@@ -201,6 +208,7 @@ exports.controller =
               description: "the configuration for a sensor run"
               type: 'object'
             weight: weight
+            hint: hint
         ,
           title: "Base Controller"
           description: "the controller which is the base for this one"
@@ -212,6 +220,7 @@ exports.controller =
               description: "the  name of the depending controller"
               type: 'string'
             weight: weight
+            hint: hint
         ]
     combine:
       title: "Combine Method"
@@ -221,7 +230,7 @@ exports.controller =
       default: 'and'
     rules: rules
     hint:
-      title: "Hints"
+      title: "Hint"
       description: "a specific description for this controller that describes
         what may be done if this check failed and other things which are helpful to know"
       type: 'string'

@@ -7,7 +7,8 @@
 # This is used in displaying and communicating with the user.
 
 name: Local ping on server vz23761
-description: Ping the server internally to check if network is configured correctly.
+description: >
+  Ping the server internally to check if network is configured correctly.
 
 # Runtime configuration
 # -------------------------------------------------
@@ -30,16 +31,13 @@ disabled: false
 # It is possible to combine sensors and controllers here. The weight parameter
 # is specific to the combine method, see below.
 depend:
-  -
-    sensor: ping
+  - sensor: ping
     config:
       host: 85.25.98.24
-  -
-    sensor: ping
+  - sensor: ping
     config:
       host: 85.25.98.25
-  -
-    controller: mysql
+  - controller: mysql
     weight: 2
 
 # ### Combine values
@@ -55,8 +53,7 @@ combine: or
 # -------------------------------------------------
 
 rules:
-  -
-    # Only work on specific status.
+  - # Only work on specific status.
     status: fail
     # Number of minimum attempts before informing.
     attempt: 3
@@ -77,6 +74,6 @@ rules:
 # This will be used to give the user more information about the possible problem
 # and what may be done.-
 
-hint:
-  "If the local ping won't work it may be a problem with the network card or
-  it's configuration."
+hint: >
+  If the local ping won't work it may be a problem with the network card or
+  it's configuration.
