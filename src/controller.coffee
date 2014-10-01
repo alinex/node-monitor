@@ -41,7 +41,7 @@ class Controller
       , cb
 
   # ### Create instance
-  constructor: (@name,  @config) ->
+  constructor: (@name, @config) ->
     unless config
       throw new Error "Could not initialize controller without configuration."
     debug "#{@name} initialized."
@@ -71,6 +71,7 @@ class Controller
       if sensorName?
         config = @config.depend[num].config
         instance = new sensor[sensorName] config
+        instance.weight = @config.depend[num].weight ? 1
         return instance.run cb
       # return directly if valid
       controllerName = @config.depend[num].controller
@@ -78,26 +79,85 @@ class Controller
       # else run
     , (err, @depend) =>
       return err if err
-      # store results
+      # calculate status
+      status = @calcStatus @config.combine depend
+      # combine messages
       messages = []
-      status = []
       for instance in depend
-        status.push instance.result.status
         messages.push instance.result.message if instance.result.message
-        @lastrun = instance.result.date if @lastrun < instance.result.date
-      @result.status = @calcStatus status
       @result.message = messages.join '\n' if messages.length
       cb()
 
-  calcStatus: (status...) ->
-    list = [].concat.apply [], status
-    status = null
-    for entry in list
-      if not status? or status is 'running' or entry is 'fail'
-        status = entry
-      else if status is 'ok'
-        status = entry
-    status
+  # ### Calculate status
+  #
+  # The three methods are:
+  #
+  # - or - the one with the highest failure value is used
+  # - and - the lowest failure value is used
+  # - average - the average status (arithmetic round) is used
+  #
+  # With the `weight` settings on the different entries single group entries may
+  # be rated specific not like the others. Use a number in `average` to make the
+  # weight higher (1 is normal).  Also the weight 'up' makes this the highest
+  # priority in method `and` and `average` or 'down' will degrade in `or` method.
+  calcStatus: (combine, depend) ->
+    # translate name to number
+    values =
+      'ok': 0
+      'disabled': 0
+      'warn': 1
+      'fail': 2
+    # calculate values
+    switch combine
+      when 'or'
+        status = 0
+        max = 0
+        for instance in depend
+          continue if instance.weight is 0
+          val = values[instance.result.status]
+          if instance.weight is 'down'
+            max = val if val > max
+          else
+            status = val if val > status
+        status = max if max > status
+      when 'and'
+        status = 9
+        num = 0
+        max = 0
+        for instance in depend
+          continue if instance.weight is 0
+          val = values[instance.result.status]
+          status = val if val < status
+          max = val if instance.weight is 'up' and val > max
+          num++
+        status = 0 unless num
+        status = max if max > status
+      when 'average'
+        status = 0
+        num = 0
+        max = 0
+        for instance in depend
+          continue if instance.weight is 0
+          status += values[instance.result.status] * instance.weight
+          num += instance.weight
+          max = val if instance.weight is 'up' and val > max
+        status = Math.round status/num
+        status = max if max > status
+    # translate status number to name
+    for name, val in values
+      return name if status is val
+    return 'ok'
+
+  # ### Format output
+  format: ->
+    # Introduce
+    text = "#{@config.name}:\n"
+    text += "#{@config.description}\n" if @config.description
+    # add dependent text
+    for instance in @config.depend
+      text += instance.format()
+    # add hint
+    text += "\n#{@config.hint}" if @config.hint
 
 # Export class
 # -------------------------------------------------

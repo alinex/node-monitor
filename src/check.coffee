@@ -64,9 +64,14 @@ weight =
   optional: true
   type: 'any'
   entries: [
+    title: "Up/Down"
+    description: "the info to rate the status more important on 'and'/'average'
+      or less important on 'or' combination method"
     type: 'string'
-    values: ['min', 'max']
+    values: ['up', 'down']
   ,
+    title: "Priority"
+    description: "the priority for the 'average' combination method"
     type: 'integer'
     min: 0
   ]
