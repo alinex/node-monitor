@@ -30,12 +30,13 @@ class Controller
       return cb err if err
       values = result
       # check sensors
-      async.each [0..values.sensors.length-1], (num, cb) ->
-        sensorName = values.sensors[num].sensor
+      async.each [0..values.depend.length-1], (num, cb) ->
+        return cb() unless values.depend[num].sensor?
+        sensorName = values.depend[num].sensor
         unless sensor[sensorName]?
           return cb new Error "Sensor type #{sensorName} not accessible in alinex-monitor-sensor."
-        source = "#{name}.sensors[#{num}].config"
-        val = values.sensors[num].config
+        source = "#{name}.depend[#{num}].config"
+        val = values.depend[num].config
         validator.check source, sensor[sensorName].meta.config, val, cb
       , cb
 
@@ -61,11 +62,14 @@ class Controller
       @status = 'disabled'
       return cb()
     # run the sensors and controllers
+    @result =
+      date: new Date
+      status: 'running'
     async.map [0..@config.depend.length-1], (num, cb) =>
       # run if it is a sensor
       sensorName = @config.depend[num].sensor
       if sensorName?
-        config = @config.sensors[num].config
+        config = @config.depend[num].config
         instance = new sensor[sensorName] config
         return instance.run cb
       # return directly if valid
@@ -81,11 +85,12 @@ class Controller
         status.push instance.result.status
         messages.push instance.result.message if instance.result.message
         @lastrun = instance.result.date if @lastrun < instance.result.date
-      @status = @calcStatus status
-      @message = messages.join '\n' if messages.length
+      @result.status = @calcStatus status
+      @result.message = messages.join '\n' if messages.length
       cb()
 
-  calcStatus = (list...) ->
+  calcStatus: (status...) ->
+    list = [].concat.apply [], status
     status = null
     for entry in list
       if not status? or status is 'running' or entry is 'fail'

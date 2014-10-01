@@ -175,16 +175,6 @@ exports.controller =
       type: 'boolean'
       default: false
     depend:
-      title: "Dependent Controllers"
-      description: "a list of controllers which this controller depend on"
-      type: 'array'
-      delimiter: /,\s*/
-      default: []
-      entries:
-        title: "Name of Controller"
-        description: "the name of the controller which is dependent for this"
-        type: 'string'
-    depend:
       title: "Dependencies"
       description: "the list of sensors and controllers which are the data sources"
       type: 'array'

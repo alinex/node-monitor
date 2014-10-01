@@ -61,6 +61,14 @@ Each element which is individually accessible is an controller. This may be a
 reference to a specific sensor check or a group of other controllers. The controller
 also specifies how to interpret the sensor status.
 
+- `config` - configuration (given combined with defaults)
+- `result` - the results:
+  - `date` - start date of last or current run
+  - `status` - status of the last or current run (ok, warn, fail)
+  - `message` - error message of the last or current run
+  - `value` - map of measured values
+  - `analysis` - additional analysis data
+
 ### Sensor
 
 The sensor retrieves the system information. It is configured and called from the

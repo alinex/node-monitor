@@ -118,10 +118,10 @@ run = (controller) ->
     ctrl.run (err) ->
       return cb err if err
       # overall status
-      if ctrl.status is 'fail' or status is 'undefined' or status is 'ok'
-        status = ctrl.status
+      if ctrl.result.status is 'fail' or status is 'undefined' or status is 'ok'
+        status = ctrl.result.status
       # output
-      console.log "#{ctrl.lastrun} - #{ctrl.name} - #{colorStatus ctrl.status}"
+      console.log "#{ctrl.result.date} - #{ctrl.name} - #{colorStatus ctrl.result.status}"
       if argv.verbose
         console.log "#{ctrl.config.name}:"
         for instance in ctrl.sensors
