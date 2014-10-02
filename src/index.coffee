@@ -122,23 +122,12 @@ run = (controller) ->
         status = ctrl.result.status
       # output
       console.log "#{ctrl.result.date} - #{ctrl.name} - #{colorStatus ctrl.result.status}"
-      if argv.verbose
-        console.log "#{ctrl.config.name}:"
-        for instance in ctrl.sensors
-          out = {}
-          for key, val of instance.config
-            out[key] = val if val?
-          console.log chalk.grey "values:  #{util.inspect(instance.result.value).replace /\n\s+/g, ' '}"
-          console.log chalk.grey "config:  #{util.inspect(out).replace /\n\s+/g, ' '}"
-          console.log chalk.grey "success: #{colorStatus instance.result.status}"
-      if ctrl.message
-        console.log chalk.yellow ctrl.message
-      if ctrl.status in ['fail', 'warn']
-        console.log chalk.magenta ctrl.config.hint
+      if argv.verbose or ctrl.result.status in ['warn', 'fail']
+        console.log '  ' + wordwrap(ctrl.format()).replace /\n/g, '\n  '
       cb()
   , (err) ->
     throw err if err
-    console.log "DONE => #{colorStatus status}"
+    console.log "\nMONITOR DONE => #{colorStatus status}"
     # return with exit code
     switch status
       when 'warn'
@@ -152,16 +141,41 @@ run = (controller) ->
 
 # Helper to colorize output
 # -------------------------------------------------
-colorStatus = (status) ->
+colorStatus = (status, text) ->
+  text = status unless text?
   switch status
     when 'ok'
-      chalk.green status
+      chalk.green text
     when 'warn'
-      chalk.yellow status
+      chalk.yellow text
     when 'fail'
-      chalk.red status
+      chalk.red text
     when 'disabled'
-      chalk.grey status
+      chalk.grey text
     else
-      status
+      text
 
+# ### WordWrap
+#
+# - width -
+#   maximum amount of characters per line
+# - break
+#   string that will be added whenever it's needed to break the line
+# - cutType
+#   0 = words longer than "maxLength" will not be broken
+#   1 = words will be broken when needed
+#   2 = any word that trespass the limit will be broken
+wordwrap = (str, width = 100, brk = '\n', cut = 1) ->
+  return str unless str and width
+  l = (r = str.split("\n")).length
+  i = -1
+  while ++i < l
+    s = r[i]
+    r[i] = ""
+    while s.length > width
+      j = (if cut is 2 or (j = s.slice(0, width + 1).match(/\S*(\s)?$/))[1] then \
+      width else j.input.length - j[0].length or cut is 1 and m or \
+      j.input.length + (j = s.slice(m).match(/^\S*/)).input.length)
+      r[i] += s.slice(0, j) + ((if (s = s.slice(j)).length then brk else ""))
+    r[i] += s
+  r.join "\n"

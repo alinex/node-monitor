@@ -7,6 +7,7 @@
 # include base modules
 debug = require('debug')('monitor:controller')
 async = require 'async'
+chalk = require 'chalk'
 # include alinex modules
 sensor = require 'alinex-monitor-sensor'
 validator = require 'alinex-validator'
@@ -80,7 +81,7 @@ class Controller
     , (err, @depend) =>
       return err if err
       # calculate status
-      status = @calcStatus @config.combine depend
+      @result.status = @calcStatus @config.combine, depend
       # combine messages
       messages = []
       for instance in depend
@@ -151,14 +152,44 @@ class Controller
   # ### Format output
   format: ->
     # Introduce
-    text = "#{@config.name}:\n"
-    text += "#{@config.description}\n" if @config.description
+    text = chalk.bold """#{@name}: #{@config.name}
+    ======================================================================"""
+    text += "\n#{@config.description}" if @config.description
+    text += "\nResult: #{colorStatus @result.status, @result.status.toUpperCase()}"
+    text += " #{colorStatus @result.status, @result.message}" if @result.message
+    text += "\n\n#{@config.hint}" if @config.hint
+    # add dependencie
+    text += "\n\nIndividual tests:\n"
+    for instance in @depend
+      text += "\n- #{instance.constructor.name} - #{colorStatus instance.result.status}"
     # add dependent text
-    for instance in @config.depend
-      text += instance.format()
+    for instance in @depend
+      if argv.verbose or ctrl.result.status in ['warn', 'fail']
+        continue if instance instanceof Controller
+        text += chalk.bold """\n\n#{instance.constructor.name}
+        ----------------------------------------------------------------------"""
+        text += "\n#{instance.format()}"
     # add hint
-    text += "\n#{@config.hint}" if @config.hint
+    text
+
 
 # Export class
 # -------------------------------------------------
 module.exports = Controller
+
+# Helper to colorize output
+# -------------------------------------------------
+colorStatus = (status, text) ->
+  text = status unless text?
+  switch status
+    when 'ok'
+      chalk.green text
+    when 'warn'
+      chalk.yellow text
+    when 'fail'
+      chalk.red text
+    when 'disabled'
+      chalk.grey text
+    else
+      text
+
