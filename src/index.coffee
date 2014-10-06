@@ -78,7 +78,7 @@ async.parallel
   config: (cb) ->
     config = Config.instance 'monitor'
     config.load cb
-  # get controller
+  # get controller configuration
   controller: (cb) ->
     # find controller configs in folder
     Config.find 'controller', (err, list) ->
@@ -89,43 +89,28 @@ async.parallel
         config.setCheck Controller.check
         config.load (err, config) ->
           return cb err if err
-          # check if controller is valid for this host
-          if config.runat? and config.runat isnt os.hostname()
-            return cb null
-          # return new controller instance
-          cb null, new Controller name, config
-      , (err, results) ->
-        return cb err if err
-        cb null, results
+          # return controller name
+          cb null, name
+      , cb
 , (err, {config,controller}) ->
-  if err
-    error.report err
-  else
-    # filter out all not relevant controllers
-    controller = controller.filter (n) -> n?
-    run controller
-
-# Run Monitor
-# -------------------------------------------------
-# Currently this will step over all defined controllers running each and output
-# the results.
-run = (controller) ->
+  return error.report err if err
+#    # filter out all not relevant controllers
+#    controller = controller.filter (n) -> n?
   debug "start monitor on #{os.hostname()}"
-  # check controller once
   status = 'undefined'
   async.each controller, (ctrl, cb) ->
-    debug "run #{ctrl.name} controller"
-    ctrl.run (err) ->
+    Controller.run ctrl, (err, instance) ->
       return cb err if err
       # overall status
-      if ctrl.result.status is 'fail' or status is 'undefined' or status is 'ok'
-        status = ctrl.result.status
+      if instance.result.status is 'fail' or status is 'undefined' or status is 'ok'
+        status = instance.result.status
       # output
-      console.log "#{ctrl.result.date} - #{ctrl.name} - #{colorStatus ctrl.result.status}"
-      if argv.verbose or ctrl.result.status in ['warn', 'fail']
-        console.log '  ' + wordwrap(ctrl.format()).replace /\n/g, '\n  '
-      cb()
-  , (err) ->
+      console.log "#{instance.result.date} - #{instance.name} -
+        #{colorStatus instance.result.status}"
+      if argv.verbose or instance.result.status in ['warn', 'fail']
+        console.log '  ' + wordwrap(instance.format()).replace /\n/g, '\n  '
+      cb null, instance
+  , (err, instances) ->
     throw err if err
     console.log "\nMONITOR DONE => #{colorStatus status}"
     # return with exit code
@@ -138,6 +123,7 @@ run = (controller) ->
         process.exit 0
       else
         process.exit 3
+
 
 # Helper to colorize output
 # -------------------------------------------------
