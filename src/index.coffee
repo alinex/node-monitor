@@ -102,7 +102,8 @@ async.parallel
     Controller.run ctrl, (err, instance) ->
       return cb err if err
       # overall status
-      if instance.result.status is 'fail' or status is 'undefined' or status is 'ok'
+      if instance.result.status is 'fail' or status is 'undefined' or \
+      status is 'disabled' or (status is 'ok' and instance.result.status is 'warn')
         status = instance.result.status
       # output
       console.log "#{instance.result.date} - #{instance.name} -
