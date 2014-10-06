@@ -69,7 +69,15 @@ class Controller extends EventEmitter
   running: false
   run: (cb) ->
     @config.load (err, config) =>
-      # check if controller is already running and listen
+      # check if configuration is correct
+      if err
+        @result =
+          date: new Date
+          status: 'disabled'
+        debug chalk.grey "#{@name} disabled caused by config error"
+        console.warn chalk.magenta "Controller #{@name} configuration error: #{err}"
+        return cb null, @result
+      # check if controller is already running and listen on it
       if @running
         return @once 'done', -> cb null, @result
       # check if controller is disabled manually
@@ -114,7 +122,10 @@ class Controller extends EventEmitter
         controllerName = config.depend[num].controller
         Controller.run controllerName, cb
       , (err, @depend) =>
-        return err if err
+        if err
+          @result.status = 'disabled'
+          @result.message = "Depend error: #{err}"
+          return @emit 'done', @result
         # calculate status
         @result.status = calcStatus @config.combine, depend
         # combine messages
