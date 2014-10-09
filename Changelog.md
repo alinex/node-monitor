@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.0.2 (2014-10-09)
+-------------------------------------------------
+- Make monitor runable with start script.
+
 Version 0.0.1 (2014-10-09)
 -------------------------------------------------
 - Made first release ready.
