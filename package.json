@@ -22,6 +22,7 @@
   "bin": {
     "monitor": "./bin/monitor"
   },
+  "man": "./man/monitor.1",
   "scripts": {
     "prepublish": "node_modules/.bin/alinex-make -c compile",
     "install": "node lib/install",
@@ -31,6 +32,7 @@
   "prefereGlobal": true,
   "directories": {
     "bin": "./bin",
+    "man": "./man",
     "lib": "./lib"
   },
   "dependencies": {
