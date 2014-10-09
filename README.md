@@ -48,6 +48,11 @@ __warn__ if the sensor reached the warning level, know you have to keep an eye o
 __fail__ if the sensor failed and there is a problem - exit code 2
 
 
+Configuration
+-------------------------------------------------
+To be described....
+
+
 Structure
 -------------------------------------------------
 
@@ -84,50 +89,6 @@ be updated independly of the monitor app itself.
 
 - [alinex-monitor-sensor](http://alinex.github.io/node-monitor-sensor) -
   collection of sensors to check systems and services
-
-In the future there will also be:
-
-- alinex-monitor-action -
-  actions to be called from the controller
-- alinex-monitor-collector
-- alinex-monitor-frontend
-
-
-Development
--------------------------------------------------
-
-Because it is in the development here some thoughts in which direction it may
-lead.
-
-Storage
-
-- last time ok
-- first time of current state
-
-#### REST Interface
-
-POST /monitor/sensor/ping
-POST /monitor/actor/cmd
-GET /monitor/controller/name
-GET /monitor/collector/name
-
-- http (with basic-auth)
-
-#### Commandline Interface
-
-To interactively work with sensors.
-
-#### Collector
-
-#### Frontend
-
-#### System installation
-
-- local sensor
-- local controller
-- local collector
-- remote collector
-- remote frontend
 
 
 License
