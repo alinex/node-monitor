@@ -19,17 +19,32 @@ Install
 
 The easiest way to use it is to install it with the node package manager:
 
-    > npm install -g alinex-monitor
+	> sudo apt-get install nodejs
+    > sudo npm install -g alinex-monitor
 
-This will install the package, in your current directory.
+This will install the package in `/usr/local` directory.
+
+You may create a symbolic link for the configuration files to `/etc/alinex-monitor` this
+enables you to put all the configuration files in a common path.
+
+    > ln -s /etc/alinex-monitor /usr/local/lib/node_modules/alinex-monitor/var/local
+
+Now setup the controller configuration under this path: `/etc/alinex-monitor/config`
+(see below).
 
 [![NPM](https://nodei.co/npm/alinex-monitor.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-monitor/)
 
 
 Usage
 -------------------------------------------------
-The  monitor may be called on the command line to execute all configured controllers
-and give the results as a check list.
+After the monitor and it's controllers are fully configured it may be run by only calling:
+
+	> monitor
+
+This will start the monitor on the command line and check all controllers. For each
+controller a line is printed with it's status.
+If a controller got a problem it will give a detailed report on the console.
+
 
 ### Status
 
@@ -50,7 +65,8 @@ __fail__ if the sensor failed and there is a problem - exit code 2
 
 Configuration
 -------------------------------------------------
-To be described....
+As described above it has may be accessed through /etc/alinex-monitor/config` but it's 
+real path is in the application's directory `var/local/config`.
 
 
 Structure
