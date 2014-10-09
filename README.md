@@ -19,7 +19,7 @@ Install
 
 The easiest way to use it is to install it with the node package manager:
 
-    > npm install alinex-monitor
+    > npm install -g alinex-monitor
 
 This will install the package, in your current directory.
 

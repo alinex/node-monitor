@@ -19,11 +19,14 @@
   "contributors": [],
   "license": "Apache-2.0",
   "main": "./lib/index.js",
+  "bin": "bin/monitor",
   "scripts": {
     "prepublish": "node_modules/.bin/alinex-make -c compile",
-    "test": "node_modules/.bin/alinex-make -c test"
+    "test": "node_modules/.bin/alinex-make -c test",
+    "start": "bin/monitor"
   },
   "directories": {
+    "bin": "./bin",
     "lib": "./lib"
   },
   "dependencies": {
