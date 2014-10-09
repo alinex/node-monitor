@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>provider:host:ping.yml</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/example/config/provider:host:pingyml", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#monitoring%20controller%20configuration">Monitoring controller configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#meta%20information">Meta information</a>
+      </div>
+      <div class="heading h2">
+        <a href="#runtime%20configuration">Runtime configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#dependencies">Dependencies</a>
+      </div>
+      <div class="heading h3">
+        <a href="#combine%20values">Combine values</a>
+      </div>
+      <div class="heading h2">
+        <a href="#activities">Activities</a>
+      </div>
+      <div class="heading h2">
+        <a href="#additional%20information">Additional information</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="monitoring%20controller%20configuration">
+  <h1>
+    <a href="#monitoring%20controller%20configuration" name="monitoring%20controller%20configuration" class="pilcrow">&#182;</a>
+    Monitoring controller configuration
+  </h1>
+</div>
+
+
+<p>This is an example of a complete controller configuration.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="meta%20information">
+  <h2>
+    <a href="#meta%20information" name="meta%20information" class="pilcrow">&#182;</a>
+    Meta information
+  </h2>
+</div>
+
+
+<p>This is used in displaying and communicating with the user.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Local ping on server vz23761</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+  <span class="no">Ping the server internally to check if network is configured correctly.</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="runtime%20configuration">
+  <h2>
+    <a href="#runtime%20configuration" name="runtime%20configuration" class="pilcrow">&#182;</a>
+    Runtime configuration
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>Time (in seconds) to rerun the check.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">300</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Time (in seconds) in which the value is seen as valid and should not be rechecked.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Run this test only on a machine which has the same setting under <code>monitor.runat</code>
+configuration.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">runat</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vz23761</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>It may be disabled temporarily, seen as ok without check</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">disabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="dependencies">
+  <h2>
+    <a href="#dependencies" name="dependencies" class="pilcrow">&#182;</a>
+    Dependencies
+  </h2>
+</div>
+
+
+<p>The list of dependencies are controllers and sensors which have to work to make
+this one work. Use <code>checkdepend: true</code> in the <code>actor</code> config to skip action
+if this is not the cause controller.
+It is possible to combine sensors and controllers here. The weight parameter
+is specific to the combine method, see below.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">depend</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ping</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">85.25.98.24</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ping</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">85.25.98.25</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">controller</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql</span>
+    <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="combine%20values">
+  <h3>
+    <a href="#combine%20values" name="combine%20values" class="pilcrow">&#182;</a>
+    Combine values
+  </h3>
+</div>
+
+
+<p>For multiple dependencies this value defines how the individual sensors or
+controllers are combined to  calculate the overall status:</p>
+
+<ul>
+<li><code>or</code> - the highest status will be used (supporting weight: min)</li>
+<li><code>and</code> - only the highest common status is used (supporting weight: max)</li>
+<li><code>average</code> - the average value will be used (supporting weight: 0..9)</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">combine</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">or</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="activities">
+  <h2>
+    <a href="#activities" name="activities" class="pilcrow">&#182;</a>
+    Activities
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="l-Scalar-Plain">rules</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="c1"># Only work on specific status.</span>
+    <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>Number of minimum attempts before informing.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">attempt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>Time (in seconds) to wait before informing.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">latency</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>Only inform if dependent jobs not failed. This prevents of hundred of
+messages if a central system failed.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">dependskip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>Timeout (in seconds) without status change before informing again.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">redo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1800</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>Type of actor to run with it's configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">to</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">plusserver</span> <span class="c1"># email address or alias from monitor.contact</span>
+      <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span> <span class="c1"># template to use defined under monitor.email</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="additional%20information">
+  <h2>
+    <a href="#additional%20information" name="additional%20information" class="pilcrow">&#182;</a>
+    Additional information
+  </h2>
+</div>
+
+
+<p>This will be used to give the user more information about the possible problem
+and what may be done.-</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="l-Scalar-Plain">hint</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+  <span class="no">If the local ping won&#39;t work it may be a problem with the network card or</span>
+  <span class="no">it&#39;s configuration.</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

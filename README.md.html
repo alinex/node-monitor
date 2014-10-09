@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -27,6 +27,27 @@
       </div>
       <div class="heading h2">
         <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#status">Status</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#structure">Structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#monitor">Monitor</a>
+      </div>
+      <div class="heading h3">
+        <a href="#controller">Controller</a>
+      </div>
+      <div class="heading h3">
+        <a href="#sensor">Sensor</a>
       </div>
       <div class="heading h2">
         <a href="#submodules">Submodules</a>
@@ -50,12 +71,12 @@
 <a href="https://coveralls.io/r/alinex/node-monitor?branch=master"><img src="https://coveralls.io/repos/alinex/node-monitor/badge.png?branch=master" alt="Coverage Status" title="" /></a>
 <a href="https://gemnasium.com/alinex/node-monitor"><img src="https://gemnasium.com/alinex/node-monitor.png" alt="Dependency Status" title="" /></a></p>
 
-<p>This should be an application to make server management easy and fast.</p>
+<p>This application will make server management easy and fast. It will check the
+whole IT landscape from the host to the application. While most monitoring
+tools has it's focus on the server here the focus lies more on the application
+side.</p>
 
-<p>In the moment it is incomplete and not usable. But you may use some of the
-submodules directly in your own application.</p>
-
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -80,6 +101,108 @@ following the code standards defined there.</p>
 <p><a href="https://nodei.co/npm/alinex-monitor/"><img src="https://nodei.co/npm/alinex-monitor.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
 
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>The  monitor may be called on the command line to execute all configured controllers
+and give the results as a check list.</p>
+
+
+<div class="pilwrap" id="status">
+  <h3>
+    <a href="#status" name="status" class="pilcrow">&#182;</a>
+    Status
+  </h3>
+</div>
+
+
+<p>The monitor and controllers use the following status:</p>
+
+<p><strong>running</strong> if the sensor is already analyzing, you have to wait</p>
+
+<p><strong>disabled</strong> if this controller is currently not checked - this will be used
+like ok for further processing</p>
+
+<p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
+
+<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on it
+- exit code 1</p>
+
+<p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
+
+
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+<p>To be described....</p>
+
+
+<div class="pilwrap" id="structure">
+  <h2>
+    <a href="#structure" name="structure" class="pilcrow">&#182;</a>
+    Structure
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="monitor">
+  <h3>
+    <a href="#monitor" name="monitor" class="pilcrow">&#182;</a>
+    Monitor
+  </h3>
+</div>
+
+
+<p>The monitor is the main programm running everything.</p>
+
+
+<div class="pilwrap" id="controller">
+  <h3>
+    <a href="#controller" name="controller" class="pilcrow">&#182;</a>
+    Controller
+  </h3>
+</div>
+
+
+<p>Each element which is individually accessible is an controller. This may be a
+reference to a specific sensor check or a group of other controllers. The controller
+also specifies how to interpret the sensor status.</p>
+
+<ul>
+<li><code>config</code> - configuration (given combined with defaults)</li>
+<li><code>result</code> - the results:
+<ul><li><code>date</code> - start date of last or current run</li>
+<li><code>status</code> - status of the last or current run (ok, warn, fail)</li>
+<li><code>message</code> - error message of the last or current run</li>
+<li><code>value</code> - map of measured values</li>
+<li><code>analysis</code> - additional analysis data</li></ul></li>
+</ul>
+
+
+<div class="pilwrap" id="sensor">
+  <h3>
+    <a href="#sensor" name="sensor" class="pilcrow">&#182;</a>
+    Sensor
+  </h3>
+</div>
+
+
+<p>The sensor retrieves the system information. It is configured and called from the
+controller and checks specific parts of the system. It gives a status, the measurement
+and some informational data.</p>
+
+
 <div class="pilwrap" id="submodules">
   <h2>
     <a href="#submodules" name="submodules" class="pilcrow">&#182;</a>
@@ -88,26 +211,12 @@ following the code standards defined there.</p>
 </div>
 
 
-<p>Currently only the following submodules exists:</p>
+<p>Some parts of the monitoring application are provided as separate modules to
+be updated independly of the monitor app itself.</p>
 
 <ul>
-<li><a href="http://alinex.github.io/node-monitor-sensor">alinex-monitor-sensor</a> -
+<li><a href="http://alinex.github.io/node-monitor-sensor.html">alinex-monitor-sensor</a> -
 collection of sensors to check systems and services</li>
-</ul>
-
-<p>In the future there will also be:</p>
-
-<ul>
-<li>alinex-monitor-collector -
-a storage for collected data</li>
-<li>alinex-monitor-action -
-an alert system with possible auto repair</li>
-<li>alinex-monitor-frontend -
-a web frontend application</li>
-<li>alinex-monitor-rest -
-a rest interface to connect to other services</li>
-<li>alinex-monitor-shell -
-a command shell for interactive work</li>
 </ul>
 
 

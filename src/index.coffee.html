@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -27,6 +27,21 @@
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#start%20argument%20parsing">Start argument parsing</a>
+      </div>
+      <div class="heading h2">
+        <a href="#definition%20of%20configuration">Definition of Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#initialize%20monitor">Initialize Monitor</a>
+      </div>
+      <div class="heading h2">
+        <a href="#helper%20to%20colorize%20output">Helper to colorize output</a>
+      </div>
+      <div class="heading h3">
+        <a href="#wordwrap">WordWrap</a>
       </div>
     </div>
   </div>
@@ -71,6 +86,445 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor&#39;</span><span class="p">)</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">os = </span><span class="nx">require</span> <span class="s">&#39;os&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+<span class="nv">yargs = </span><span class="nx">require</span> <span class="s">&#39;yargs&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">Config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
+<span class="nv">error = </span><span class="nx">require</span> <span class="s">&#39;alinex-error&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include classes and helpers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">Controller = </span><span class="nx">require</span> <span class="s">&#39;./controller&#39;</span>
+<span class="nv">check = </span><span class="nx">require</span> <span class="s">&#39;./check&#39;</span>
+<span class="nx">error</span><span class="p">.</span><span class="nx">install</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="start%20argument%20parsing">
+  <h2>
+    <a href="#start%20argument%20parsing" name="start%20argument%20parsing" class="pilcrow">&#182;</a>
+    Start argument parsing
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">GLOBAL.argv = </span><span class="nx">yargs</span>
+<span class="p">.</span><span class="nx">usage</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">  Server monitoring toolkit.</span>
+
+<span class="s">  Usage: $0 [-vC]</span>
+<span class="s">  &quot;&quot;&quot;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>examples</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0&#39;</span><span class="p">,</span> <span class="s">&#39;to simply check all controllers once&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -v&#39;</span><span class="p">,</span> <span class="s">&#39;to get more information of each check&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>general options</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;nocolors&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;turn of color output&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;verbose&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;run in verbose mode&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>general help</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="s">&#39;help&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">showHelpOnFail</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s">&quot;Specify --help for available options&quot;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">argv</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>implement some global switches</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">chalk.enabled = </span><span class="kc">false</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Starting system checks...&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="definition%20of%20configuration">
+  <h2>
+    <a href="#definition%20of%20configuration" name="definition%20of%20configuration" class="pilcrow">&#182;</a>
+    Definition of Configuration
+  </h2>
+</div>
+
+
+<p>The configuration will be set in the <a href="http://alinex.github.io/node-validator.html">alinex-validator</a>
+style. It will be checked after configuration load.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;monitor&#39;</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nf">(source, values, cb) -&gt;</span>
+  <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">check</span><span class="p">.</span><span class="nx">monitor</span><span class="p">,</span> <span class="nx">values</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>additional checks</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">result</span><span class="p">.</span><span class="nx">contacts</span>
+      <span class="k">continue</span> <span class="k">unless</span> <span class="nx">value</span> <span class="k">instanceof</span> <span class="nb">Array</span>
+      <span class="k">for</span> <span class="nx">entry</span> <span class="k">in</span> <span class="nx">value</span>
+        <span class="k">unless</span> <span class="nx">result</span><span class="p">.</span><span class="nx">contacts</span><span class="p">[</span><span class="nx">entry</span><span class="p">]</span><span class="o">?</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;No matching entry &#39;</span><span class="si">#{</span><span class="nx">entry</span><span class="si">}</span><span class="s">&#39; from group &#39;</span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s">&#39; in </span><span class="si">#{</span><span class="nx">source</span><span class="si">}</span><span class="s"> found.&quot;</span>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialize%20monitor">
+  <h2>
+    <a href="#initialize%20monitor" name="initialize%20monitor" class="pilcrow">&#182;</a>
+    Initialize Monitor
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>list of all controllers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">controller = </span><span class="p">{}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>do parallel config loading</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">debug</span> <span class="s">&quot;load configurations for </span><span class="si">#{</span><span class="nx">os</span><span class="p">.</span><span class="nx">hostname</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>read monitor config</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">config: </span><span class="nf">(cb) -&gt;</span>
+    <span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;monitor&#39;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nx">cb</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>get controller configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">controller: </span><span class="nf">(cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>find controller configs in folder</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Config</span><span class="p">.</span><span class="nx">find</span> <span class="s">&#39;controller&#39;</span><span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(name, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>add controller check</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">config = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">name</span>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">setCheck</span> <span class="nx">Controller</span><span class="p">.</span><span class="nx">check</span>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err, config) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>return controller name</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">name</span>
+      <span class="p">,</span> <span class="nx">cb</span>
+<span class="p">,</span> <span class="nf">(err, {config,controller}) -&gt;</span>
+  <span class="k">return</span> <span class="nx">error</span><span class="p">.</span><span class="nx">report</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p># filter out all not relevant controllers
+   controller = controller.filter (n) -> n?</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">debug</span> <span class="s">&quot;start monitor on </span><span class="si">#{</span><span class="nx">os</span><span class="p">.</span><span class="nx">hostname</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nv">status = </span><span class="s">&#39;undefined&#39;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">controller</span><span class="p">,</span> <span class="nf">(ctrl, cb) -&gt;</span>
+    <span class="nx">Controller</span><span class="p">.</span><span class="nx">run</span> <span class="nx">ctrl</span><span class="p">,</span> <span class="nf">(err, instance) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>overall status</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;fail&#39;</span> <span class="o">or</span> <span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;undefined&#39;</span> <span class="o">or</span> <span class="o">\</span>
+      <span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;disabled&#39;</span> <span class="o">or</span> <span class="p">(</span><span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;ok&#39;</span> <span class="o">and</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;warn&#39;</span><span class="p">)</span>
+        <span class="nv">status = </span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>output</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">instance</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> -</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>{colorStatus instance.result.status}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">      if argv.verbose or instance.result.status in [&#39;warn&#39;, &#39;fail&#39;]</span>
+<span class="s">        console.log &#39;  &#39; + wordwrap(instance.format()).replace /\n/g, &#39;\n  &#39;</span>
+<span class="s">      cb null, instance</span>
+<span class="s">  , (err, instances) -&gt;</span>
+<span class="s">    throw err if err</span>
+<span class="s">    console.log &quot;</span><span class="err">\</span><span class="nx">nMONITOR</span> <span class="nx">DONE</span> <span class="o">=&gt;</span> <span class="c1">#{colorStatus status}&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>return with exit code</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">switch</span> <span class="nx">status</span>
+      <span class="k">when</span> <span class="s">&#39;warn&#39;</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
+      <span class="k">when</span> <span class="s">&#39;fail&#39;</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">2</span>
+      <span class="k">when</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;disabled&#39;</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+      <span class="k">else</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">3</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="helper%20to%20colorize%20output">
+  <h2>
+    <a href="#helper%20to%20colorize%20output" name="helper%20to%20colorize%20output" class="pilcrow">&#182;</a>
+    Helper to colorize output
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">colorStatus = </span><span class="nf">(status, text) -&gt;</span>
+  <span class="nv">text = </span><span class="nx">status</span> <span class="k">unless</span> <span class="nx">text</span><span class="o">?</span>
+  <span class="k">switch</span> <span class="nx">status</span>
+    <span class="k">when</span> <span class="s">&#39;ok&#39;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="nx">text</span>
+    <span class="k">when</span> <span class="s">&#39;warn&#39;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="nx">text</span>
+    <span class="k">when</span> <span class="s">&#39;fail&#39;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="nx">text</span>
+    <span class="k">when</span> <span class="s">&#39;disabled&#39;</span>
+      <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">text</span>
+    <span class="k">else</span>
+      <span class="nx">text</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="wordwrap">
+  <h3>
+    <a href="#wordwrap" name="wordwrap" class="pilcrow">&#182;</a>
+    WordWrap
+  </h3>
+</div>
+
+
+<ul>
+<li>width -
+maximum amount of characters per line</li>
+<li>break
+string that will be added whenever it's needed to break the line</li>
+<li>cutType
+0 = words longer than "maxLength" will not be broken
+1 = words will be broken when needed
+2 = any word that trespass the limit will be broken</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">wordwrap = </span><span class="nf">(str, width = 100, brk = &#39;\n&#39;, cut = 1) -&gt;</span>
+  <span class="k">return</span> <span class="nx">str</span> <span class="k">unless</span> <span class="nx">str</span> <span class="o">and</span> <span class="nx">width</span>
+  <span class="nv">l = </span><span class="p">(</span><span class="nv">r = </span><span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">)).</span><span class="nx">length</span>
+  <span class="nv">i = </span><span class="o">-</span><span class="mi">1</span>
+  <span class="k">while</span> <span class="o">++</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span>
+    <span class="nv">s = </span><span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+    <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="k">while</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">width</span>
+      <span class="nv">j = </span><span class="p">(</span><span class="k">if</span> <span class="nx">cut</span> <span class="o">is</span> <span class="mi">2</span> <span class="o">or</span> <span class="p">(</span><span class="nv">j = </span><span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\S*(\s)?$/</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span> <span class="k">then</span> <span class="o">\</span>
+      <span class="nx">width</span> <span class="k">else</span> <span class="nx">j</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="nx">j</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span> <span class="o">or</span> <span class="nx">cut</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">and</span> <span class="nx">m</span> <span class="o">or</span> <span class="o">\</span>
+      <span class="nx">j</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="p">(</span><span class="nv">j = </span><span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">m</span><span class="p">).</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\S*/</span><span class="p">)).</span><span class="nx">input</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+      <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="k">if</span> <span class="p">(</span><span class="nv">s = </span><span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">j</span><span class="p">)).</span><span class="nx">length</span> <span class="k">then</span> <span class="nx">brk</span> <span class="k">else</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+    <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">s</span>
+  <span class="nx">r</span><span class="p">.</span><span class="nx">join</span> <span class="s">&quot;\n&quot;</span>
 </pre></div>
         </td>
       </tr>
