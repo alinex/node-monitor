@@ -105,6 +105,8 @@ async.parallel
       if instance.result.status is 'fail' or status is 'undefined' or \
       status is 'disabled' or (status is 'ok' and instance.result.status is 'warn')
         status = instance.result.status
+      # skip output if disabled
+      return cb null, instance if instance.result.status is 'disabled'
       # output
       console.log "#{instance.result.date} - #{instance.name} -
         #{colorStatus instance.result.status}"

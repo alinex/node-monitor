@@ -146,6 +146,7 @@ class Controller extends EventEmitter
     text += " #{colorStatus @result.status, @result.message}" if @result.message
     text += "\n\n#{@config.hint}" if @config.hint
     # add dependencie
+    return text unless @depend
     text += "\n\nIndividual tests:\n"
     for instance in @depend
       text += "\n- #{instance.constructor.name} - #{colorStatus instance.result.status}"
@@ -156,7 +157,6 @@ class Controller extends EventEmitter
         text += chalk.bold """\n\n#{instance.constructor.name}
         ----------------------------------------------------------------------"""
         text += "\n#{instance.format()}"
-    # add hint
     text
 
 
