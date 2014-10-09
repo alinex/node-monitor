@@ -24,15 +24,18 @@
   },
   "scripts": {
     "prepublish": "node_modules/.bin/alinex-make -c compile",
+    "install": "node lib/install",
     "test": "node_modules/.bin/alinex-make -c test",
     "start": "bin/monitor"
   },
+  "prefereGlobal": true,
   "directories": {
     "bin": "./bin",
     "lib": "./lib"
   },
   "dependencies": {
     "alinex-config": "0.3.x",
+    "alinex-fs": "0.1.x",
     "alinex-monitor-sensor": "0.1.x",
     "alinex-util": "^0.1.7",
     "alinex-validator": "0.3.x",
