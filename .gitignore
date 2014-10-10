@@ -2,8 +2,8 @@
 .settings
 .DS_Store
 *.sublime-*
-coverage/
-data/
+/coverage/
+/data/
 /doc/
 /lib/
 /log/
@@ -12,3 +12,4 @@ data/
 /var/local/
 /build/
 npm-debug.log
+/man/
