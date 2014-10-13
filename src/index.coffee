@@ -72,31 +72,29 @@ config.setCheck (source, values, cb) ->
 
 # Get list of controllers
 # -------------------------------------------------
+list = (cb) ->
+  Config.find 'controller', (err, list) ->
+    return cb err if err
+    # if no controller specified, get list of all
+    if not argv._.length
+      controller = list
+    else
+      if typeof argv._ is 'string'
+        controller = [argv._]
+      else
+        # get collection
+        controller = []
+        for name in argv._
+          ########## TODO add posibility for using wildcards
+          controller.push name if name in list
+    cb null, controller
 
-Config.find 'controller', (err, list) ->
-  return error.report err if err
-  # if no controller specified, get list of all
-  if not argv._?
-    controller = list
-  if typeof argv._ is 'string'
-    controller = [argv._]
-  else
-    # get collection
-    controller = []
-    for name in argv._
-      ########## TODO add posibility for using wildcards
-      controller.push name if name in list
-
-  debug "controller list initialized", controller
-
-  # check what to do
-  if argv.tree
-    console.log "Tree not implemented, yet!"
-  else if argv.list
-    console.log "List of controllers:"
-    console.log "- #{name}" for name in controller
-  else
-    debug "load configurations"
+# Read configuration
+# -------------------------------------------------
+config = (cb) ->
+  debug "load configuration"
+  list (err, controller) ->
+    return cb err if err
     async.parallel
       # read monitor config
       config: (cb) ->
@@ -111,49 +109,41 @@ Config.find 'controller', (err, list) ->
             # add controller check
             config = Config.instance name
             config.setCheck Controller.check
-            cb null, name
+            config.load (err) -> cb err, name
           , cb
-    , (err, {config,controller}) ->
-      return error.report err if err
-      debug "start monitor on #{os.hostname()}"
-      process.exit 1
+    , cb
 
-return
-
-
-
-
-# Initialize Monitor
+# Start routine
 # -------------------------------------------------
+exitCodes = 
+  warn: 1
+  fail: 2
+  ok: 0
+  disabled: 0
+config (err, {config,controller}) ->
+  throw err if err
+  debug "initialized with #{controller.length} controllers"
+  # check what to do
+  if argv.tree
+    console.log "Tree not implemented, yet!"
+  else if argv.list
+    console.log "List of controllers:"
+    for name in controller
+      ctrlConfig = Config.instance(name).data
+      console.log "- #{name} - #{ctrlConfig.name}"
+      if argv.verbose
+        console.log chalk.grey "  #{ctrlConfig.description}" if ctrlConfig.description
+  else
+    run config, controller, (err, status) ->
+      throw err if err
+      console.log "\nMONITOR DONE => #{colorStatus status}"
+      code = exitCodes[status]?
+      process.exit code ? 3
 
-# list of all controllers
-controller = {}
 
-# do parallel config loading
-debug "load configurations for #{os.hostname()}"
-async.parallel
-  # read monitor config
-  config: (cb) ->
-    config = Config.instance 'monitor'
-    config.load cb
-  # get controller configuration
-  controller: (cb) ->
-    # find controller configs in folder
-    Config.find 'controller', (err, list) ->
-      return cb err if err
-      async.map list, (name, cb) ->
-        # add controller check
-        config = Config.instance name
-        config.setCheck Controller.check
-        config.load (err, config) ->
-          return cb err if err
-          # return controller name
-          cb null, name
-      , cb
-, (err, {config,controller}) ->
-  return error.report err if err
-#    # filter out all not relevant controllers
-#    controller = controller.filter (n) -> n?
+# Monitoring run
+# -------------------------------------------------
+run = (config, controller, cb) -> 
   debug "start monitor on #{os.hostname()}"
   status = 'undefined'
   async.each controller, (ctrl, cb) ->
@@ -172,18 +162,8 @@ async.parallel
         console.log '  ' + wordwrap(instance.format()).replace /\n/g, '\n  '
       cb null, instance
   , (err, instances) ->
-    throw err if err
-    console.log "\nMONITOR DONE => #{colorStatus status}"
-    # return with exit code
-    switch status
-      when 'warn'
-        process.exit 1
-      when 'fail'
-        process.exit 2
-      when 'ok', 'disabled'
-        process.exit 0
-      else
-        process.exit 3
+    return cb err if err
+    cb null, status
 
 
 # Helper to colorize output
