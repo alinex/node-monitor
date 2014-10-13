@@ -33,16 +33,18 @@ GLOBAL.argv = yargs
 .example('$0 -v', 'to get more information of each check')
 .example('$0 -c rz:web1:cpu', 'to call a single controller')
 # general options
-.boolean('C')
 .alias('C', 'nocolors')
 .describe('C', 'turn of color output')
-.boolean('v')
+.boolean('C')
 .alias('v', 'verbose')
 .describe('v', 'run in verbose mode')
+.boolean('v')
 .alias('l', 'list')
 .describe('l', 'list the configured controllers')
+.boolean('l')
 .alias('t', 'tree')
 .describe('t', 'show the controller list as tree')
+.boolean('t')
 # general help
 .help('h')
 .alias('h', 'help')
@@ -125,7 +127,26 @@ config (err, {config,controller}) ->
   debug "initialized with #{controller.length} controllers"
   # check what to do
   if argv.tree
-    console.log "Tree not implemented, yet!"
+    done = {}
+    trees = {}
+    root = {}
+    # calculate the tree recursively
+    tree = (name) ->
+      ctrlConfig = Config.instance(name).data
+      trees[name] = "- #{name} - #{ctrlConfig.name}"
+      for depend in ctrlConfig.depend
+        continue unless depend.controller?
+        tree depend.controller unless done[depend.controller]?
+        delete root[depend.controller]
+        trees[name] += "\n  #{trees[depend.controller].replace /\n/, '  '}"
+      done[name] = true
+      root[name] = true
+    # make structures by calling above method
+    for name in controller
+      tree name unless done[name]?
+    # output result
+    for name of root
+      console.log trees[name]
   else if argv.list
     console.log "List of controllers:"
     for name in controller
