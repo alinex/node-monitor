@@ -26,11 +26,12 @@ GLOBAL.argv = yargs
 .usage("""
   Server monitoring toolkit.
 
-  Usage: $0 [-vC]
+  Usage: $0 [-vCc]
   """)
 # examples
 .example('$0', 'to simply check all controllers once')
 .example('$0 -v', 'to get more information of each check')
+.example('$0 -c rz:web1:cpu', 'to call a single controller')
 # general options
 .boolean('C')
 .alias('C', 'nocolors')
@@ -38,6 +39,10 @@ GLOBAL.argv = yargs
 .boolean('v')
 .alias('v', 'verbose')
 .describe('v', 'run in verbose mode')
+.alias('l', 'list')
+.describe('l', 'list the configured controllers')
+.alias('t', 'tree')
+.describe('t', 'show the controller list as tree')
 # general help
 .help('h')
 .alias('h', 'help')
@@ -63,6 +68,59 @@ config.setCheck (source, values, cb) ->
         unless result.contacts[entry]?
           return cb new Error "No matching entry '#{entry}' from group '#{key}' in #{source} found."
     cb null, result
+
+
+# Get list of controllers
+# -------------------------------------------------
+
+Config.find 'controller', (err, list) ->
+  return error.report err if err
+  # if no controller specified, get list of all
+  if not argv._?
+    controller = list
+  if typeof argv._ is 'string'
+    controller = [argv._]
+  else
+    # get collection
+    controller = []
+    for name in argv._
+      ########## TODO add posibility for using wildcards
+      controller.push name if name in list
+
+  debug "controller list initialized", controller
+
+  # check what to do
+  if argv.tree
+    console.log "Tree not implemented, yet!"
+  else if argv.list
+    console.log "List of controllers:"
+    console.log "- #{name}" for name in controller
+  else
+    debug "load configurations"
+    async.parallel
+      # read monitor config
+      config: (cb) ->
+        config = Config.instance 'monitor'
+        config.load cb
+      # get controller configuration
+      controller: (cb) ->
+        # find controller configs in folder
+        Config.find 'controller', (err, list) ->
+          return cb err if err
+          async.map controller, (name, cb) ->
+            # add controller check
+            config = Config.instance name
+            config.setCheck Controller.check
+            cb null, name
+          , cb
+    , (err, {config,controller}) ->
+      return error.report err if err
+      debug "start monitor on #{os.hostname()}"
+      process.exit 1
+
+return
+
+
 
 
 # Initialize Monitor
