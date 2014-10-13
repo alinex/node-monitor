@@ -192,10 +192,8 @@ calcStatus = (combine, depend) ->
       for instance in depend
         continue if instance.weight is 0
         val = values[instance.result.status]
-        if instance.weight is 'down'
-          max = val if val > max
-        else
-          status = val if val > status
+        val-- if instance.weight is 'down' and val > 0
+        status = val if val > status
       status = max if max > status
     when 'and'
       status = 9

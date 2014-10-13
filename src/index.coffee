@@ -153,7 +153,7 @@ config (err, {config,controller}) ->
       ctrlConfig = Config.instance(name).data
       console.log "- #{name} - #{ctrlConfig.name}"
       if argv.verbose
-        console.log chalk.grey "  #{ctrlConfig.description}" if ctrlConfig.description
+        console.log chalk.grey "  #{ctrlConfig.description.trim()}" if ctrlConfig.description
   else
     run config, controller, (err, status) ->
       throw err if err
