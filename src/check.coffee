@@ -221,8 +221,8 @@ exports.controller =
       title: "Combine Method"
       description: "the calculation of the combined status"
       type: 'string'
-      values: ['and', 'or', 'average']
-      default: 'and'
+      values: ['min', 'max', 'average']
+      default: 'max'
     rules: rules
     hint:
       title: "Hint"

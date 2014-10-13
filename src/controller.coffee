@@ -169,14 +169,14 @@ module.exports = Controller
 #
 # The three methods are:
 #
-# - or - the one with the highest failure value is used
-# - and - the lowest failure value is used
+# - max - the one with the highest failure value is used
+# - min - the lowest failure value is used
 # - average - the average status (arithmetic round) is used
 #
 # With the `weight` settings on the different entries single group entries may
 # be rated specific not like the others. Use a number in `average` to make the
-# weight higher (1 is normal).  Also the weight 'up' makes this the highest
-# priority in method `and` and `average` or 'down' will degrade in `or` method.
+# weight higher (1 is normal).  Also the weight 'up' and 'down' changes the error
+# level for one step before using in calculation.
 calcStatus = (combine, depend) ->
   # translate name to number
   values =
@@ -186,38 +186,36 @@ calcStatus = (combine, depend) ->
     'fail': 2
   # calculate values
   switch combine
-    when 'or'
+    when 'max'
       status = 0
-      max = 0
       for instance in depend
         continue if instance.weight is 0
         val = values[instance.result.status]
         val-- if instance.weight is 'down' and val > 0
+        val++ if instance.weight is 'up' and val < 2
         status = val if val > status
-      status = max if max > status
-    when 'and'
+    when 'min'
       status = 9
       num = 0
-      max = 0
       for instance in depend
         continue if instance.weight is 0
         val = values[instance.result.status]
+        val-- if instance.weight is 'down' and val > 0
+        val++ if instance.weight is 'up' and val < 2
         status = val if val < status
-        max = val if instance.weight is 'up' and val > max
         num++
       status = 0 unless num
-      status = max if max > status
     when 'average'
       status = 0
       num = 0
-      max = 0
       for instance in depend
         continue if instance.weight is 0
-        status += values[instance.result.status] * instance.weight
+        val = values[instance.result.status]
+        val-- if instance.weight is 'down' and val > 0
+        val++ if instance.weight is 'up' and val < 2
+        status += val * instance.weight
         num += instance.weight
-        max = val if instance.weight is 'up' and val > max
       status = Math.round status/num
-      status = max if max > status
   # translate status number to name
   for name, val in values
     return name if status is val
