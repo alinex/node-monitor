@@ -11,12 +11,76 @@ Usage
 After the monitor and it's controllers are fully configured it may be run by
 only calling:
 
-  > monitor
+    > monitor
+
+    Run sensors once...
+
+    Tue Oct 14 2014 08:20:21 GMT+0200 (CEST) - ekz:onepointvm:memory - ok
+    Tue Oct 14 2014 08:20:21 GMT+0200 (CEST) - ekz:onepointvm - ok
+    Tue Oct 14 2014 08:20:21 GMT+0200 (CEST) - ekz:onepointvm:diskfree - ok
+
+    Done => ok
 
 This will start the monitor on the command line and check all controllers. For each
 controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.
 
+Global pptions:
+
+    -C, --nocolors  turn of color output
+    -v, --verbose   run in verbose mode
+    -h, --help      Show help
+
+### Show controllers
+
+Use the `-l` or `--list` option to list all possible configured controllers or
+`-t`, `--tree` to get the same as tree view. Additionally `-v` may be used to
+get some descriptive information.
+
+    > monitor -l
+
+    List configured controllers
+
+    - ekz:onepointvm - onepoint server
+    - ekz:onepointvm:cpu - CPU activity on server onepoint
+    - ekz:onepointvm:diskfree - Free diskspace on server onepoint
+    - ekz:onepointvm:memory - Free memory on server onepoint
+    - ekz:onepointvm:upgrade - Security upgrades on server onepoint
+    - plusserver:vz23761:ping - Local ping on server vz23761
+
+    Done.
+
+    > monitor -t
+
+    Tree view of configured controllers
+
+    - ekz:onepointvm - onepoint server
+      - ekz:onepointvm:cpu - CPU activity on server onepoint
+      - ekz:onepointvm:memory - Free memory on server onepoint
+      - ekz:onepointvm:diskfree - Free diskspace on server onepoint
+      - ekz:onepointvm:upgrade - Security upgrades on server onepoint
+    - plusserver:vz23761:ping - Local ping on server vz23761
+
+    Done.
+
+### Run specific controller
+
+It's also possible to only run specific controller if they are given as additional
+parameters like:
+
+    > monitor ekz:onepointvm:cpu
+
+    Run sensors once...
+
+    Tue Oct 14 2014 08:20:21 GMT+0200 (CEST) - ekz:onepointvm:cpu - ok
+
+    Done => ok
+
+Keep in mind that dependend controllers will run, too.
+
+
+Display information
+-------------------------------------------------
 
 ### Status
 

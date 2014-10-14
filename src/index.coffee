@@ -26,11 +26,12 @@ GLOBAL.argv = yargs
 .usage("""
   Server monitoring toolkit.
 
-  Usage: $0 [-vCc]
+  Usage: $0 [-vCclt] <controller...>
   """)
 # examples
 .example('$0', 'to simply check all controllers once')
 .example('$0 -v', 'to get more information of each check')
+.example('$0 -l', 'to list the possible checks')
 .example('$0 -c rz:web1:cpu', 'to call a single controller')
 # general options
 .alias('C', 'nocolors')
@@ -53,7 +54,6 @@ GLOBAL.argv = yargs
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 
-console.log chalk.blue.bold "Starting system checks..."
 
 # Definition of Configuration
 # -------------------------------------------------
@@ -117,7 +117,7 @@ config = (cb) ->
 
 # Start routine
 # -------------------------------------------------
-exitCodes = 
+exitCodes =
   warn: 1
   fail: 2
   ok: 0
@@ -127,6 +127,7 @@ config (err, {config,controller}) ->
   debug "initialized with #{controller.length} controllers"
   # check what to do
   if argv.tree
+    console.log chalk.blue.bold "Tree view of configured controllers\n"
     done = {}
     trees = {}
     root = {}
@@ -148,24 +149,26 @@ config (err, {config,controller}) ->
     for name of root
       console.log trees[name]
   else if argv.list
-    console.log "List of controllers:"
+    console.log chalk.blue.bold "List configured controllers\n"
     for name in controller
       ctrlConfig = Config.instance(name).data
       console.log "- #{name} - #{ctrlConfig.name}"
       if argv.verbose
         console.log chalk.grey "  #{ctrlConfig.description.trim()}" if ctrlConfig.description
   else
+    console.log chalk.blue.bold "Run sensors once...\n"
     run config, controller, (err, status) ->
       throw err if err
-      console.log "\nMONITOR DONE => #{colorStatus status}"
+      console.log "\nDone => #{colorStatus status}"
       code = exitCodes[status]?
       process.exit code ? 3
+  console.log chalk.green.bold "\nDone.\n"
 
 
 # Monitoring run
 # -------------------------------------------------
-run = (config, controller, cb) -> 
-  debug "start monitor on #{os.hostname()}"
+run = (config, controller, cb) ->
+  debug "run monitor on #{os.hostname()}"
   status = 'undefined'
   async.each controller, (ctrl, cb) ->
     Controller.run ctrl, (err, instance) ->
