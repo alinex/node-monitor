@@ -25,7 +25,7 @@
   "man": "./man/monitor.1",
   "scripts": {
     "prepublish": "node_modules/.bin/alinex-make -c compile",
-    "postinstall": "[ -f lib/install.js ] && node_modules/.bin/alinex-make -c compile; node lib/install",
+    "postinstall": "[ -f lib/install.js ] || node_modules/.bin/alinex-make -c compile; node lib/install",
     "test": "node_modules/.bin/alinex-make -c test",
     "start": "bin/monitor"
   },
