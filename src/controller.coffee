@@ -56,7 +56,7 @@ class Controller extends EventEmitter
 
   # ### Short to run controller
   @run = (name, cb) ->
-    ctrl = @instance(name)
+    ctrl = @instance name
     ctrl.run (err) -> cb err, ctrl
 
   # ### Create instance
@@ -98,29 +98,35 @@ class Controller extends EventEmitter
       if @result? and @result.date.getTime() >= Date.now() - config.validity
         return cb null, @result
       # start normal run
-      @running = 'true'
+      @running = true
       # listen on finished loading
       @once 'error', (err) ->
+        @running = false
         debug chalk.red "#{@name} failed with #{err}"
         cb err, @result
       @once 'done', ->
+        @running = false
         debug "#{@name} done", @result
         cb null, @result
       # run the controller
       @result =
         date: new Date
         status: 'running'
-      debug "#{@name} start new run"
-      async.map [0..config.depend.length-1], (num, cb) =>
+      debug "#{@name} analyzing"
+      async.mapSeries [0..config.depend.length-1], (num, cb) =>
         # run sensor
         sensorName = config.depend[num].sensor
         if sensorName?
           instance = new sensor[sensorName] config.depend[num].config
           instance.weight = config.depend[num].weight ? 1
-          return instance.run cb
+          return instance.run (err, result) ->
+            debug "#{sensorName} sensor done"
+            cb err, result
         # run sub controller
         controllerName = config.depend[num].controller
-        Controller.run controllerName, cb
+        Controller.run controllerName, (err, result) ->
+          debug "#{controllerName} done"
+          cb err, result
       , (err, @depend) =>
         if err
           @result.status = 'disabled'

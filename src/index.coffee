@@ -157,11 +157,11 @@ config (err, {config,controller}) ->
         console.log chalk.grey "  #{ctrlConfig.description.trim()}" if ctrlConfig.description
   else
     console.log chalk.blue.bold "Run sensors once...\n"
-    run config, controller, (err, status) ->
+    return run config, controller, (err, status) ->
       throw err if err
-      console.log "\nDone => #{colorStatus status}"
+      console.log chalk.bold "\nDone => #{colorStatus status}\n"
       code = exitCodes[status]?
-      process.exit code ? 3
+      #process.exit code ? 3
   console.log chalk.green.bold "\nDone.\n"
 
 
@@ -170,7 +170,7 @@ config (err, {config,controller}) ->
 run = (config, controller, cb) ->
   debug "run monitor on #{os.hostname()}"
   status = 'undefined'
-  async.each controller, (ctrl, cb) ->
+  async.eachSeries controller, (ctrl, cb) ->
     Controller.run ctrl, (err, instance) ->
       return cb err if err
       # overall status
@@ -185,7 +185,7 @@ run = (config, controller, cb) ->
       if argv.verbose or instance.result.status in ['warn', 'fail']
         console.log '  ' + wordwrap(instance.format()).replace /\n/g, '\n  '
       cb null, instance
-  , (err, instances) ->
+  , (err) ->
     return cb err if err
     cb null, status
 
