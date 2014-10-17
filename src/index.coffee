@@ -107,13 +107,16 @@ config = (cb) ->
         # find controller configs in folder
         Config.find 'controller', (err, list) ->
           return cb err if err
-          async.map controller, (name, cb) ->
+          async.map list, (name, cb) ->
             # add controller check
             config = Config.instance name
             config.setCheck Controller.check
             config.load (err) -> cb err, name
           , cb
-    , cb
+    , (err, {config,list}) ->
+      cb null,
+        config: config
+        controller: controller
 
 # Start routine
 # -------------------------------------------------
@@ -139,7 +142,7 @@ config (err, {config,controller}) ->
         continue unless depend.controller?
         tree depend.controller unless done[depend.controller]?
         delete root[depend.controller]
-        trees[name] += "\n  #{trees[depend.controller].replace /\n/, '  '}"
+        trees[name] += "\n  #{trees[depend.controller].replace /\n/, '\n  '}"
       done[name] = true
       root[name] = true
     # make structures by calling above method
