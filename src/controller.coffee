@@ -113,7 +113,7 @@ class Controller extends EventEmitter
         date: new Date
         status: 'running'
       debug "#{@name} analyzing"
-      async.mapSeries [0..config.depend.length-1], (num, cb) =>
+      async.map [0..config.depend.length-1], (num, cb) =>
         # run sensor
         sensorName = config.depend[num].sensor
         if sensorName?
@@ -133,7 +133,7 @@ class Controller extends EventEmitter
           @result.message = "Depend error: #{err}"
           return @emit 'done', @result
         # calculate status
-        @result.status = calcStatus @config.combine, depend
+        @result.status = calcStatus config.combine, depend
         # combine messages
         messages = []
         for instance in depend
@@ -193,13 +193,17 @@ calcStatus = (combine, depend) ->
   # calculate values
   switch combine
     when 'max'
+      console.log '---------------max'
       status = 0
       for instance in depend
         continue if instance.weight is 0
         val = values[instance.result.status]
+        console.log '---------------?', val
         val-- if instance.weight is 'down' and val > 0
         val++ if instance.weight is 'up' and val < 2
+        console.log '---------------!', val
         status = val if val > status
+        console.log '---------------=', status
     when 'min'
       status = 9
       num = 0
@@ -223,7 +227,7 @@ calcStatus = (combine, depend) ->
         num += instance.weight
       status = Math.round status/num
   # translate status number to name
-  for name, val in values
+  for name, val of values
     return name if status is val
   return 'ok'
 

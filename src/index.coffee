@@ -173,7 +173,7 @@ config (err, {config,controller}) ->
 run = (config, controller, cb) ->
   debug "run monitor on #{os.hostname()}"
   status = 'undefined'
-  async.eachSeries controller, (ctrl, cb) ->
+  async.each controller, (ctrl, cb) ->
     Controller.run ctrl, (err, instance) ->
       return cb err if err
       # overall status
