@@ -142,7 +142,7 @@ config (err, {config,controller}) ->
         continue unless depend.controller?
         tree depend.controller unless done[depend.controller]?
         delete root[depend.controller]
-        trees[name] += "\n  #{trees[depend.controller].replace /\n/, '\n  '}"
+        trees[name] += "\n  #{trees[depend.controller].replace /\n/g, '\n  '}"
       done[name] = true
       root[name] = true
     # make structures by calling above method
