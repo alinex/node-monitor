@@ -10,6 +10,9 @@
 # defined hostname.
 master:
 
+# This defines a list of alias names which should run on the defined hostname.
+alias:
+
 # Default activities
 # -------------------------------------------------
 # They will be used if no other rule defined in controller.
