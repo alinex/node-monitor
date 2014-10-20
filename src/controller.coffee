@@ -134,6 +134,7 @@ class Controller extends EventEmitter
           return @emit 'done', @result
         # calculate status
         @result.status = calcStatus config.combine, depend
+        @result.sensorStatus = calcStatus config.combine, depend, true
         # combine messages
         messages = []
         for instance in depend
@@ -155,10 +156,10 @@ class Controller extends EventEmitter
     return text unless @depend
     text += "\n\nIndividual tests:\n"
     for instance in @depend
-      text += "\n- #{instance.constructor.name} - #{colorStatus instance.result.status}"
+      text += "\n- #{instance.name ? instance.constructor.name} - #{colorStatus instance.result.status}"
     # add dependent text
     for instance in @depend
-      if argv.verbose or ctrl.result.status in ['warn', 'fail']
+      if argv.verbose or instance.result.status in ['warn', 'fail']
         continue if instance instanceof Controller
         text += chalk.bold """\n\n#{instance.constructor.name}
         ----------------------------------------------------------------------"""
@@ -183,7 +184,7 @@ module.exports = Controller
 # be rated specific not like the others. Use a number in `average` to make the
 # weight higher (1 is normal).  Also the weight 'up' and 'down' changes the error
 # level for one step before using in calculation.
-calcStatus = (combine, depend) ->
+calcStatus = (combine, depend, onlySensors = false) ->
   # translate name to number
   values =
     'ok': 0
@@ -193,22 +194,20 @@ calcStatus = (combine, depend) ->
   # calculate values
   switch combine
     when 'max'
-      console.log '---------------max'
       status = 0
       for instance in depend
         continue if instance.weight is 0
+        continue if onlySensors and instance instanceof Controller
         val = values[instance.result.status]
-        console.log '---------------?', val
         val-- if instance.weight is 'down' and val > 0
         val++ if instance.weight is 'up' and val < 2
-        console.log '---------------!', val
         status = val if val > status
-        console.log '---------------=', status
     when 'min'
       status = 9
       num = 0
       for instance in depend
         continue if instance.weight is 0
+        continue if onlySensors and instance instanceof Controller
         val = values[instance.result.status]
         val-- if instance.weight is 'down' and val > 0
         val++ if instance.weight is 'up' and val < 2
@@ -220,6 +219,7 @@ calcStatus = (combine, depend) ->
       num = 0
       for instance in depend
         continue if instance.weight is 0
+        continue if onlySensors and instance instanceof Controller
         val = values[instance.result.status]
         val-- if instance.weight is 'down' and val > 0
         val++ if instance.weight is 'up' and val < 2

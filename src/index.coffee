@@ -185,7 +185,7 @@ run = (config, controller, cb) ->
       # output
       console.log "#{instance.result.date} - #{instance.name} -
         #{colorStatus instance.result.status}"
-      if argv.verbose or instance.result.status in ['warn', 'fail']
+      if argv.verbose or instance.result.sensorStatus in ['warn', 'fail']
         console.log '  ' + wordwrap(instance.format()).replace /\n/g, '\n  '
       cb null, instance
   , (err) ->
