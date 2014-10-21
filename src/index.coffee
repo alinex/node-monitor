@@ -18,6 +18,8 @@ error = require 'alinex-error'
 # include classes and helpers
 Controller = require './controller'
 check = require './check'
+
+error.config.stack.view = false
 error.install()
 
 # Start argument parsing
