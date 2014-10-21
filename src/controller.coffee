@@ -88,12 +88,16 @@ class Controller extends EventEmitter
         debug chalk.grey "#{@name} disabled manually"
         return cb null, @result
       # check if disabled on this machine
-      if config.runat? and config.runat isnt os.hostname()
-        @result =
-          date: new Date
-          status: 'disabled'
-        debug chalk.grey "#{@name} disabled because wrong host"
-        return cb null, @result
+      if config.runat?
+        runat = config.runat
+        monitor = Config.instance 'monitor'
+        runat = monitor.data.alias[runat] if monitor.data?.alias?[runat]?
+        unless runat is os.hostname()
+          @result =
+            date: new Date
+            status: 'disabled'
+          debug chalk.grey "#{@name} disabled because wrong host"
+          return cb null, @result
       # return if already run
       if @result? and @result.date.getTime() >= Date.now() - config.validity
         return cb null, @result

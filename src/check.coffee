@@ -97,6 +97,13 @@ exports.monitor =
       hostname to use this machine"
       type: 'string'
       optional: true
+    alias:
+      title: "Alias names for hostnames"
+      description: "the mapping for the used names to the real hostnames"
+      type: 'object'
+      optional: true
+      entries:
+        type: 'string'
     rules: rules
     contacts:
       title: "Contacts"
