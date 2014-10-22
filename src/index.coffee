@@ -139,7 +139,6 @@ config (err, {config,controller}) ->
     # calculate the tree recursively
     tree = (name) ->
       ctrlConfig = Config.instance(name).data
-      console.log name, ctrlConfig
       trees[name] = "- #{name} - #{ctrlConfig.name}"
       for depend in ctrlConfig.depend
         continue unless depend.controller?
