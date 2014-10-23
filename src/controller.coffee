@@ -191,10 +191,10 @@ module.exports = Controller
 calcStatus = (combine, depend, onlySensors = false) ->
   # translate name to number
   values =
-    'ok': 0
     'disabled': 0
-    'warn': 1
-    'fail': 2
+    'ok': 1
+    'warn': 2
+    'fail': 3
   # calculate values
   switch combine
     when 'max'
