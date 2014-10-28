@@ -48,6 +48,9 @@ GLOBAL.argv = yargs
 .alias('t', 'tree')
 .describe('t', 'show the controller list as tree')
 .boolean('t')
+.alias('r', 'reverse')
+.describe('r', 'show the tree in reverse order (used by)')
+.boolean('r')
 # general help
 .help('h')
 .alias('h', 'help')
@@ -131,30 +134,12 @@ config (err, {config,controller}) ->
   throw err if err
   debug "initialized with #{controller.length} controllers"
   # check what to do
-  if argv.tree
-    console.log chalk.blue.bold "Tree view of configured controllers\n"
-    done = {}
-    trees = {}
-    root = {}
-    # calculate the tree recursively
-    tree = (name) ->
-      ctrlConfig = Config.instance(name).data
-      trees[name] = "- #{name} - #{ctrlConfig.name}"
-      for depend in ctrlConfig.depend
-        continue unless depend.controller?
-        tree depend.controller unless done[depend.controller]?
-        delete root[depend.controller]
-        trees[name] += "\n  #{trees[depend.controller].replace /\n/g, '\n  '}"
-      done[name] = true
-      root[name] = true
-    # make structures by calling above method
-    for name in controller
-      tree name unless done[name]?
-    # output result
-    for name of root
-      console.log trees[name]
+  if argv.reverse
+    reverse config, controller
+  else if argv.tree or
+    tree config, controller
   else if argv.list
-    console.log chalk.blue.bold "List configured controllers\n"
+    console.log chalk.blue.bold "List controllers\n"
     for name in controller
       ctrlConfig = Config.instance(name).data
       console.log "- #{name} - #{ctrlConfig.name}"
@@ -169,6 +154,57 @@ config (err, {config,controller}) ->
       #process.exit code ? 3
   console.log chalk.green.bold "\nDone.\n"
 
+
+# Create monitoring tree
+# -------------------------------------------------
+tree = (config, controller) ->
+  console.log chalk.blue.bold "Tree view of controllers showing what is checked\n"
+  done = {}
+  trees = {}
+  root = {}
+  # calculate the tree recursively
+  maketree = (name) ->
+    ctrlConfig = Config.instance(name).data
+    trees[name] = "- #{name} - #{ctrlConfig.name}"
+    for depend in ctrlConfig.depend
+      continue unless depend.controller?
+      maketree depend.controller unless done[depend.controller]?
+      delete root[depend.controller]
+      trees[name] += "\n  #{trees[depend.controller].replace /\n/g, '\n  '}"
+    done[name] = true
+    root[name] = true
+  # make structures by calling above method
+  for name in controller
+    maketree name unless done[name]?
+  # output result
+  for name of root
+    console.log trees[name]
+
+# Create reverse monitoring tree
+# -------------------------------------------------
+reverse = (config, controller) ->
+  console.log chalk.blue.bold "Reverse tree of controllers showing area of damage\n"
+  names = {}
+  depends = {}
+  root = {}
+  # calculate the tree
+  for name in controller
+    ctrlConfig = Config.instance(name).data
+    names[name] = "- #{name} - #{ctrlConfig.name}"
+    for depend in ctrlConfig.depend
+      continue unless depend.controller?
+      depends[depend.controller] = [] unless depends[depend.controller]?
+      depends[depend.controller].push name
+  # tree interpretation on output
+  output = (name, indent='') ->
+    if depends[name]
+      console.log indent + names[name]
+      for depend in depends[name]
+        output depend, indent + '  '
+    else
+      console.log chalk.bold indent + names[name]
+  for name in controller
+    output name
 
 # Monitoring run
 # -------------------------------------------------

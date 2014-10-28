@@ -34,12 +34,12 @@ Global pptions:
 ### Show controllers
 
 Use the `-l` or `--list` option to list all possible configured controllers or
-`-t`, `--tree` to get the same as tree view. Additionally `-v` may be used to
-get some descriptive information.
+`-t`, `--tree`, `-r`, `--reverse` to get the same as tree view. Additionally
+`-v` may be used to get some descriptive information.
 
     > monitor -l
 
-    List configured controllers
+    List of controllers
 
     - ekz:onepointvm - onepoint server
     - ekz:onepointvm:cpu - CPU activity on server onepoint
@@ -52,7 +52,7 @@ get some descriptive information.
 
     > monitor -t
 
-    Tree view of configured controllers
+    Tree view of controllers showing what is checked
 
     - ekz:onepointvm - onepoint server
       - ekz:onepointvm:cpu - CPU activity on server onepoint
@@ -60,6 +60,19 @@ get some descriptive information.
       - ekz:onepointvm:diskfree - Free diskspace on server onepoint
       - ekz:onepointvm:upgrade - Security upgrades on server onepoint
     - plusserver:vz23761:ping - Local ping on server vz23761
+
+    Done.
+
+    > monitor -r
+
+    Reverse tree of controllers showing area of damage
+
+    - host:ekz:onepoint:cpu - CPU activity on server onepoint
+      - host:ekz:onepoint - onepoint server
+        - service:manage:apache - apache for manage tools
+          - service:manage - manage tools
+          - service:manage:https - access for manage tools
+            - service:manage - manage tools
 
     Done.
 

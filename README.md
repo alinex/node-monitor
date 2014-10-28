@@ -39,6 +39,8 @@ This will start the monitor on the command line and check all controllers. For e
 controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.
 
+See the [Manpage for more details](./src/man/monitor.1.md) for a detailed
+information on how to invoke the monitor on the command line.
 
 ### Status
 
