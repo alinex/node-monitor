@@ -136,7 +136,7 @@ config (err, {config,controller}) ->
   # check what to do
   if argv.reverse
     reverse config, controller
-  else if argv.tree or
+  else if argv.tree
     tree config, controller
   else if argv.list
     console.log chalk.blue.bold "List controllers\n"
