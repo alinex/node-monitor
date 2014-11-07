@@ -99,20 +99,17 @@ Display information
 
 The monitor and controllers use the following status:
 
-__running__ if the sensor is already analyzing, you have to wait
-
-__disabled__ if this controller is currently not checked - this will be used
-like ok for further processing
-
-__ok__ if everything is perfect, there nothing have to be done - exit code 0
-
-__warn__ if the sensor reached the warning level, know you have to keep an eye on
-it - exit code 1
-
-__fail__ if the sensor failed and there is a problem - exit code 2
+- __running__ if the sensor is already analyzing, you have to wait
+- __disabled__ if this controller is currently not checked - this will be used
+  like ok for further processing
+- __ok__ if everything is perfect, there nothing have to be done - exit code 0
+- __warn__ if the sensor reached the warning level, know you have to keep an eye on
+  it - exit code 1
+- __fail__ if the sensor failed and there is a problem - exit code 2
 
 
 Configuration
 -------------------------------------------------
-As described above it has may be accessed through `/etc/alinex-monitor/config` but it's
+As described above it may be accessed at `/etc/alinex-monitor/config` but it's
 real path is in the application's directory `var/local/config`.
+
