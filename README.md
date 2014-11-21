@@ -17,10 +17,15 @@ following the code standards defined there.
 Install
 -------------------------------------------------
 
-The easiest way to use it is to install it with the node package manager:
+The easiest way to use it is to install it with the node package manager, so
+first install node:
 
-    > sudo apt-get install nodejs
-    > sudo npm install -g alinex-monitor
+    curl -sL https://deb.nodesource.com/setup | sudo bash -
+    sudo apt-get install nodejs
+
+And then install the package:
+
+    sudo npm install -g alinex-monitor
 
 This will install the package in `/usr/local` directory.
 
