@@ -6,11 +6,11 @@
 # -------------------------------------------------
 # This is used in displaying and communicating with the user.
 
-name: Local ping on server vz23761
+name: Local ping
 description: >
-  Ping the server internally to check if network is configured correctly.
+  Ping to the server internally indicates that the local network settings are correct.
 
-# Runtime configuration
+# Monitor runtime configuration
 # -------------------------------------------------
 
 # Time (in seconds) to rerun the check.
@@ -49,9 +49,8 @@ depend:
 # - `average` - the average value will be used (supporting weight: 0..9)
 combine: or
 
-# Activities
+# Monitor Activities
 # -------------------------------------------------
-
 rules:
   - # Only work on specific status.
     status: fail
@@ -69,11 +68,30 @@ rules:
       to: plusserver # email address or alias from monitor.contact
       template: fail # template to use defined under monitor.email
 
-# Additional information
+# Help in problem solving
 # ------------------------------------------------
 # This will be used to give the user more information about the possible problem
 # and what may be done.-
-
 hint: >
   If the local ping won't work it may be a problem with the network card or
   it's configuration.
+
+# Additional information
+# ------------------------------------------------
+# Persons which are involved with this:
+contacts:
+  aschi: Administrator, System setup
+  mflam: Administrator
+
+# Further information in external references
+refs:
+  homepage:
+  code:
+  api: http://the-website.com
+  issues:
+  other:
+
+# General documentation of other things like description of usage and general
+# priority. Or other things to know about.
+info: >
+  It's one of the core systems which should never fail.
