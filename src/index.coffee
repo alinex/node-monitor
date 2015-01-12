@@ -55,6 +55,7 @@ GLOBAL.argv = yargs
 .help('h')
 .alias('h', 'help')
 .showHelpOnFail(false, "Specify --help for available options")
+.strict()
 .argv
 # implement some global switches
 chalk.enabled = false if argv.nocolors
