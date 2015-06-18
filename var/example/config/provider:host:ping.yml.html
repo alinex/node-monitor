@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../../doc-style.css" />
   <script src="../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/example/config/provider:host:pingyml", defaultSidebar = true;
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/example/config/provider:host:ping.yml", defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
   <script src="../../../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -29,7 +39,7 @@
         <a href="#meta%20information">Meta information</a>
       </div>
       <div class="heading h2">
-        <a href="#runtime%20configuration">Runtime configuration</a>
+        <a href="#monitor%20runtime%20configuration">Monitor runtime configuration</a>
       </div>
       <div class="heading h2">
         <a href="#dependencies">Dependencies</a>
@@ -38,7 +48,10 @@
         <a href="#combine%20values">Combine values</a>
       </div>
       <div class="heading h2">
-        <a href="#activities">Activities</a>
+        <a href="#monitor%20activities">Monitor Activities</a>
+      </div>
+      <div class="heading h2">
+        <a href="#help%20in%20problem%20solving">Help in problem solving</a>
       </div>
       <div class="heading h2">
         <a href="#additional%20information">Additional information</a>
@@ -46,7 +59,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -78,9 +91,9 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Local ping on server vz23761</span>
+<span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Local ping</span>
 <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-  <span class="no">Ping the server internally to check if network is configured correctly.</span>
+  <span class="no">Ping to the server internally indicates that the local network settings are correct.</span>
 
 
 </pre></div>
@@ -88,10 +101,10 @@
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="runtime%20configuration">
+<div class="pilwrap" id="monitor%20runtime%20configuration">
   <h2>
-    <a href="#runtime%20configuration" name="runtime%20configuration" class="pilcrow">&#182;</a>
-    Runtime configuration
+    <a href="#monitor%20runtime%20configuration" name="monitor%20runtime%20configuration" class="pilcrow">&#182;</a>
+    Monitor runtime configuration
   </h2>
 </div>
 
@@ -215,16 +228,15 @@ controllers are combined to  calculate the overall status:</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="activities">
+<div class="pilwrap" id="monitor%20activities">
   <h2>
-    <a href="#activities" name="activities" class="pilcrow">&#182;</a>
-    Activities
+    <a href="#monitor%20activities" name="monitor%20activities" class="pilcrow">&#182;</a>
+    Monitor Activities
   </h2>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-
 <span class="l-Scalar-Plain">rules</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="c1"># Only work on specific status.</span>
     <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
@@ -303,10 +315,10 @@ messages if a central system failed.</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="additional%20information">
+<div class="pilwrap" id="help%20in%20problem%20solving">
   <h2>
-    <a href="#additional%20information" name="additional%20information" class="pilcrow">&#182;</a>
-    Additional information
+    <a href="#help%20in%20problem%20solving" name="help%20in%20problem%20solving" class="pilcrow">&#182;</a>
+    Help in problem solving
   </h2>
 </div>
 
@@ -315,10 +327,65 @@ messages if a central system failed.</p>
 and what may be done.-</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-
 <span class="l-Scalar-Plain">hint</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
   <span class="no">If the local ping won&#39;t work it may be a problem with the network card or</span>
   <span class="no">it&#39;s configuration.</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="additional%20information">
+  <h2>
+    <a href="#additional%20information" name="additional%20information" class="pilcrow">&#182;</a>
+    Additional information
+  </h2>
+</div>
+
+
+<p>Persons which are involved with this:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">contacts</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">aschi</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Administrator, System setup</span>
+  <span class="l-Scalar-Plain">mflam</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Administrator</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>Further information in external references</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">refs</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">homepage</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">code</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">api</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://the-website.com</span>
+  <span class="l-Scalar-Plain">issues</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">other</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>General documentation of other things like description of usage and general
+priority. Or other things to know about.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">info</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+  <span class="no">It&#39;s one of the core systems which should never fail.</span>
 </pre></div>
         </td>
       </tr>

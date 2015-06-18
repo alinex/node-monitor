@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/controllercoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/controller.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -61,7 +71,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -168,7 +178,7 @@
 </div>
 
 
-<p>This function may be used to be added to <a href="https://alinex.github.io/node-config.html">alinex-config</a>.
+<p>This function may be used to be added to <a href="https://alinex.github.io/node-config">alinex-config</a>.
 It allows to use human readable settings.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -274,7 +284,7 @@ It allows to use human readable settings.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@run = </span><span class="nf">(name, cb) -&gt;</span>
-    <span class="nv">ctrl = </span><span class="nx">@instance</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+    <span class="nv">ctrl = </span><span class="nx">@instance</span> <span class="nx">name</span>
     <span class="nx">ctrl</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err) -&gt;</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">ctrl</span>
 
 
@@ -378,12 +388,16 @@ It allows to use human readable settings.</p>
 <p>check if disabled on this machine</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">runat</span><span class="o">?</span> <span class="o">and</span> <span class="nx">config</span><span class="p">.</span><span class="nx">runat</span> <span class="o">isnt</span> <span class="nx">os</span><span class="p">.</span><span class="nx">hostname</span><span class="p">()</span>
-        <span class="vi">@result =</span>
-          <span class="nv">date: </span><span class="k">new</span> <span class="nb">Date</span>
-          <span class="nv">status: </span><span class="s">&#39;disabled&#39;</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> disabled because wrong host&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@result</span>
+      <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">runat</span><span class="o">?</span>
+        <span class="nv">runat = </span><span class="nx">config</span><span class="p">.</span><span class="nx">runat</span>
+        <span class="nv">monitor = </span><span class="nx">Config</span><span class="p">.</span><span class="nx">instance</span> <span class="s">&#39;monitor&#39;</span>
+        <span class="nv">runat = </span><span class="nx">monitor</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">alias</span><span class="p">[</span><span class="nx">runat</span><span class="p">]</span> <span class="k">if</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">data</span><span class="o">?</span><span class="p">.</span><span class="nx">alias</span><span class="o">?</span><span class="p">[</span><span class="nx">runat</span><span class="p">]</span><span class="o">?</span>
+        <span class="k">unless</span> <span class="nx">runat</span> <span class="o">is</span> <span class="nx">os</span><span class="p">.</span><span class="nx">hostname</span><span class="p">()</span>
+          <span class="vi">@result =</span>
+            <span class="nv">date: </span><span class="k">new</span> <span class="nb">Date</span>
+            <span class="nv">status: </span><span class="s">&#39;disabled&#39;</span>
+          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> disabled because wrong host&quot;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@result</span>
 
 </pre></div>
         </td>
@@ -410,7 +424,7 @@ It allows to use human readable settings.</p>
 <p>start normal run</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="vi">@running = </span><span class="s">&#39;true&#39;</span>
+      <span class="vi">@running = </span><span class="kc">true</span>
 
 </pre></div>
         </td>
@@ -424,9 +438,11 @@ It allows to use human readable settings.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">@once</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="vi">@running = </span><span class="kc">false</span>
         <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> failed with </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">@result</span>
       <span class="nx">@once</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+        <span class="vi">@running = </span><span class="kc">false</span>
         <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> done&quot;</span><span class="p">,</span> <span class="nx">@result</span>
         <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@result</span>
 
@@ -444,7 +460,7 @@ It allows to use human readable settings.</p>
       <span class="vi">@result =</span>
         <span class="nv">date: </span><span class="k">new</span> <span class="nb">Date</span>
         <span class="nv">status: </span><span class="s">&#39;running&#39;</span>
-      <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> start new run&quot;</span>
+      <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> analyzing&quot;</span>
       <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">config</span><span class="p">.</span><span class="nx">depend</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nf">(num, cb) =&gt;</span>
 
 </pre></div>
@@ -462,7 +478,9 @@ It allows to use human readable settings.</p>
         <span class="k">if</span> <span class="nx">sensorName</span><span class="o">?</span>
           <span class="nv">instance = </span><span class="k">new</span> <span class="nx">sensor</span><span class="p">[</span><span class="nx">sensorName</span><span class="p">]</span> <span class="nx">config</span><span class="p">.</span><span class="nx">depend</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">config</span>
           <span class="nv">instance.weight = </span><span class="nx">config</span><span class="p">.</span><span class="nx">depend</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">weight</span> <span class="o">?</span> <span class="mi">1</span>
-          <span class="k">return</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+          <span class="k">return</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, result) -&gt;</span>
+            <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">sensorName</span><span class="si">}</span><span class="s"> sensor done&quot;</span>
+            <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span>
 
 </pre></div>
         </td>
@@ -476,7 +494,9 @@ It allows to use human readable settings.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nv">controllerName = </span><span class="nx">config</span><span class="p">.</span><span class="nx">depend</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">controller</span>
-        <span class="nx">Controller</span><span class="p">.</span><span class="nx">run</span> <span class="nx">controllerName</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nx">Controller</span><span class="p">.</span><span class="nx">run</span> <span class="nx">controllerName</span><span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
+          <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">controllerName</span><span class="si">}</span><span class="s"> done&quot;</span>
+          <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">result</span>
       <span class="p">,</span> <span class="nf">(err, @depend) =&gt;</span>
         <span class="k">if</span> <span class="nx">err</span>
           <span class="vi">@result.status = </span><span class="s">&#39;disabled&#39;</span>
@@ -494,7 +514,8 @@ It allows to use human readable settings.</p>
 <p>calculate status</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="vi">@result.status = </span><span class="nx">calcStatus</span> <span class="nx">@config</span><span class="p">.</span><span class="nx">combine</span><span class="p">,</span> <span class="nx">depend</span>
+        <span class="vi">@result.status = </span><span class="nx">calcStatus</span> <span class="nx">config</span><span class="p">.</span><span class="nx">combine</span><span class="p">,</span> <span class="nx">depend</span>
+        <span class="vi">@result.sensorStatus = </span><span class="nx">calcStatus</span> <span class="nx">config</span><span class="p">.</span><span class="nx">combine</span><span class="p">,</span> <span class="nx">depend</span><span class="p">,</span> <span class="kc">true</span>
 
 </pre></div>
         </td>
@@ -560,9 +581,10 @@ It allows to use human readable settings.</p>
 <p>add dependencie</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">return</span> <span class="nx">text</span> <span class="k">unless</span> <span class="nx">@depend</span>
     <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n\nIndividual tests:\n&quot;</span>
     <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">@depend</span>
-      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n- </span><span class="si">#{</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">colorStatus</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n- </span><span class="si">#{</span><span class="nx">instance</span><span class="p">.</span><span class="nx">name</span> <span class="o">?</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">colorStatus</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -576,23 +598,11 @@ It allows to use human readable settings.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">@depend</span>
-      <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span> <span class="o">or</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;warn&#39;</span><span class="p">,</span> <span class="s">&#39;fail&#39;</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span> <span class="o">or</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;warn&#39;</span><span class="p">,</span> <span class="s">&#39;fail&#39;</span><span class="p">]</span>
         <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span> <span class="k">instanceof</span> <span class="nx">Controller</span>
         <span class="nx">text</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;&quot;&quot;\n\n</span><span class="si">#{</span><span class="nx">instance</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"></span>
 <span class="s">        ----------------------------------------------------------------------&quot;&quot;&quot;</span>
         <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">instance</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
-</div>
-<p>add hint</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">text</span>
 
 
@@ -631,18 +641,35 @@ It allows to use human readable settings.</p>
 <p>The three methods are:</p>
 
 <ul>
-<li>or - the one with the highest failure value is used</li>
-<li>and - the lowest failure value is used</li>
+<li>max - the one with the highest failure value is used</li>
+<li>min - the lowest failure value is used</li>
 <li>average - the average status (arithmetic round) is used</li>
 </ul>
 
 <p>With the <code>weight</code> settings on the different entries single group entries may
 be rated specific not like the others. Use a number in <code>average</code> to make the
-weight higher (1 is normal).  Also the weight 'up' makes this the highest
-priority in method <code>and</code> and <code>average</code> or 'down' will degrade in <code>or</code> method.</p>
+weight higher (1 is normal).  Also the weight 'up' and 'down' changes the error
+level for one step before using in calculation.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">calcStatus = </span><span class="nf">(combine, depend) -&gt;</span>
+<span class="nv">calcStatus = </span><span class="nf">(combine, depend, onlySensors = false) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+</div>
+<p>translate name to number</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">values =</span>
+    <span class="s">&#39;disabled&#39;</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="s">&#39;ok&#39;</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="s">&#39;warn&#39;</span><span class="o">:</span> <span class="mi">2</span>
+    <span class="s">&#39;fail&#39;</span><span class="o">:</span> <span class="mi">3</span>
 
 </pre></div>
         </td>
@@ -652,14 +679,43 @@ priority in method <code>and</code> and <code>average</code> or 'down' will degr
 <div class="pilwrap">
   <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
 </div>
-<p>translate name to number</p>
+<p>calculate values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">values =</span>
-    <span class="s">&#39;ok&#39;</span><span class="o">:</span> <span class="mi">0</span>
-    <span class="s">&#39;disabled&#39;</span><span class="o">:</span> <span class="mi">0</span>
-    <span class="s">&#39;warn&#39;</span><span class="o">:</span> <span class="mi">1</span>
-    <span class="s">&#39;fail&#39;</span><span class="o">:</span> <span class="mi">2</span>
+  <span class="k">switch</span> <span class="nx">combine</span>
+    <span class="k">when</span> <span class="s">&#39;max&#39;</span>
+      <span class="nv">status = </span><span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">depend</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="mi">0</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="nx">onlySensors</span> <span class="o">and</span> <span class="nx">instance</span> <span class="k">instanceof</span> <span class="nx">Controller</span>
+        <span class="nv">val = </span><span class="nx">values</span><span class="p">[</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span>
+        <span class="nx">val</span><span class="o">--</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;down&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="nx">val</span><span class="o">++</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;up&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&lt;</span> <span class="mi">2</span>
+        <span class="nv">status = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">status</span>
+    <span class="k">when</span> <span class="s">&#39;min&#39;</span>
+      <span class="nv">status = </span><span class="mi">9</span>
+      <span class="nv">num = </span><span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">depend</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="mi">0</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="nx">onlySensors</span> <span class="o">and</span> <span class="nx">instance</span> <span class="k">instanceof</span> <span class="nx">Controller</span>
+        <span class="nv">val = </span><span class="nx">values</span><span class="p">[</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span>
+        <span class="nx">val</span><span class="o">--</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;down&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="nx">val</span><span class="o">++</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;up&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&lt;</span> <span class="mi">2</span>
+        <span class="nv">status = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">&lt;</span> <span class="nx">status</span>
+        <span class="nx">num</span><span class="o">++</span>
+      <span class="nv">status = </span><span class="mi">0</span> <span class="k">unless</span> <span class="nx">num</span>
+    <span class="k">when</span> <span class="s">&#39;average&#39;</span>
+      <span class="nv">status = </span><span class="mi">0</span>
+      <span class="nv">num = </span><span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">depend</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="mi">0</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="nx">onlySensors</span> <span class="o">and</span> <span class="nx">instance</span> <span class="k">instanceof</span> <span class="nx">Controller</span>
+        <span class="nv">val = </span><span class="nx">values</span><span class="p">[</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span>
+        <span class="nx">val</span><span class="o">--</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;down&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="nx">val</span><span class="o">++</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;up&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&lt;</span> <span class="mi">2</span>
+        <span class="nx">status</span> <span class="o">+=</span> <span class="nx">val</span> <span class="o">*</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span>
+        <span class="nx">num</span> <span class="o">+=</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span>
+      <span class="nv">status = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">status</span><span class="o">/</span><span class="nx">num</span>
 
 </pre></div>
         </td>
@@ -669,57 +725,10 @@ priority in method <code>and</code> and <code>average</code> or 'down' will degr
 <div class="pilwrap">
   <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
 </div>
-<p>calculate values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">switch</span> <span class="nx">combine</span>
-    <span class="k">when</span> <span class="s">&#39;or&#39;</span>
-      <span class="nv">status = </span><span class="mi">0</span>
-      <span class="nv">max = </span><span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">depend</span>
-        <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="mi">0</span>
-        <span class="nv">val = </span><span class="nx">values</span><span class="p">[</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;down&#39;</span>
-          <span class="nv">max = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">max</span>
-        <span class="k">else</span>
-          <span class="nv">status = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">status</span>
-      <span class="nv">status = </span><span class="nx">max</span> <span class="k">if</span> <span class="nx">max</span> <span class="o">&gt;</span> <span class="nx">status</span>
-    <span class="k">when</span> <span class="s">&#39;and&#39;</span>
-      <span class="nv">status = </span><span class="mi">9</span>
-      <span class="nv">num = </span><span class="mi">0</span>
-      <span class="nv">max = </span><span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">depend</span>
-        <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="mi">0</span>
-        <span class="nv">val = </span><span class="nx">values</span><span class="p">[</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span>
-        <span class="nv">status = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">&lt;</span> <span class="nx">status</span>
-        <span class="nv">max = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;up&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">max</span>
-        <span class="nx">num</span><span class="o">++</span>
-      <span class="nv">status = </span><span class="mi">0</span> <span class="k">unless</span> <span class="nx">num</span>
-      <span class="nv">status = </span><span class="nx">max</span> <span class="k">if</span> <span class="nx">max</span> <span class="o">&gt;</span> <span class="nx">status</span>
-    <span class="k">when</span> <span class="s">&#39;average&#39;</span>
-      <span class="nv">status = </span><span class="mi">0</span>
-      <span class="nv">num = </span><span class="mi">0</span>
-      <span class="nv">max = </span><span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">instance</span> <span class="k">in</span> <span class="nx">depend</span>
-        <span class="k">continue</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="mi">0</span>
-        <span class="nx">status</span> <span class="o">+=</span> <span class="nx">values</span><span class="p">[</span><span class="nx">instance</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">]</span> <span class="o">*</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span>
-        <span class="nx">num</span> <span class="o">+=</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span>
-        <span class="nv">max = </span><span class="nx">val</span> <span class="k">if</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">weight</span> <span class="o">is</span> <span class="s">&#39;up&#39;</span> <span class="o">and</span> <span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">max</span>
-      <span class="nv">status = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">status</span><span class="o">/</span><span class="nx">num</span>
-      <span class="nv">status = </span><span class="nx">max</span> <span class="k">if</span> <span class="nx">max</span> <span class="o">&gt;</span> <span class="nx">status</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
-</div>
 <p>translate status number to name</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span> <span class="k">in</span> <span class="nx">values</span>
+  <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">values</span>
     <span class="k">return</span> <span class="nx">name</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">is</span> <span class="nx">val</span>
   <span class="k">return</span> <span class="s">&#39;ok&#39;</span>
 

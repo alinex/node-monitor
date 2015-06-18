@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/checkcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/check.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -37,7 +47,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -51,7 +61,7 @@
 
 
 <p>This contains different check definitions for the
-<a href="http://alinex.github.io/node-validator.html">alinex-validator</a>.</p>
+<a href="http://alinex.github.io/node-validator">alinex-validator</a>.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
         </td>
@@ -173,6 +183,13 @@
 <span class="s">      hostname to use this machine&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
       <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">alias:</span>
+      <span class="nv">title: </span><span class="s">&quot;Alias names for hostnames&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the mapping for the used names to the real hostnames&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+      <span class="nv">entries:</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
     <span class="nv">rules: </span><span class="nx">rules</span>
     <span class="nv">contacts:</span>
       <span class="nv">title: </span><span class="s">&quot;Contacts&quot;</span>
@@ -311,8 +328,8 @@
       <span class="nv">title: </span><span class="s">&quot;Combine Method&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the calculation of the combined status&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;and&#39;</span><span class="p">,</span> <span class="s">&#39;or&#39;</span><span class="p">,</span> <span class="s">&#39;average&#39;</span><span class="p">]</span>
-      <span class="nv">default: </span><span class="s">&#39;and&#39;</span>
+      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">,</span> <span class="s">&#39;max&#39;</span><span class="p">,</span> <span class="s">&#39;average&#39;</span><span class="p">]</span>
+      <span class="nv">default: </span><span class="s">&#39;max&#39;</span>
     <span class="nv">rules: </span><span class="nx">rules</span>
     <span class="nv">hint:</span>
       <span class="nv">title: </span><span class="s">&quot;Hint&quot;</span>

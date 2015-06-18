@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../../doc-style.css" />
   <script src="../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/src/config/monitoryml", defaultSidebar = true;
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/src/config/monitor.yml", defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
   <script src="../../../fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -40,7 +50,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -84,6 +94,20 @@ defined hostname.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>This defines a list of alias names which should run on the defined hostname.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">alias</span><span class="p-Indicator">:</span>
 
 
 </pre></div>
@@ -152,7 +176,7 @@ controllers action config if you want.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>Some variables (starting with $-sign) are possible here.</p>
         </td>

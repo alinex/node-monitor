@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -58,7 +68,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="docs markdown">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="package%3A%20alinex-monitor">
   <h1>
     <a href="#package%3A%20alinex-monitor" name="package%3A%20alinex-monitor" class="pilcrow">&#182;</a>
@@ -76,7 +86,7 @@ whole IT landscape from the host to the application. While most monitoring
 tools has it's focus on the server here the focus lies more on the application
 side.</p>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -88,15 +98,27 @@ following the code standards defined there.</p>
 </div>
 
 
-<p>The easiest way to use it is to install it with the node package manager:</p>
+<p>The easiest way to use it is to install it with the node package manager, so
+first install node:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">monitor</span>
+<div class="highlight"><pre><code><span class="nx">curl</span> <span class="o">-</span><span class="nx">sL</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//deb.nodesource.com/setup | sudo bash -</span>
+<span class="nx">sudo</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">install</span> <span class="nx">nodejs</span>
 </code></pre></div>
 
 
 
-<p>This will install the package, in your current directory.</p>
+<p>And then install the package:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">sudo</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">monitor</span>
+</code></pre></div>
+
+
+
+<p>This will install the package in <code>/usr/local</code> directory.</p>
+
+<p>Now setup the controller configuration under the displayed path (see below).</p>
 
 <p><a href="https://nodei.co/npm/alinex-monitor/"><img src="https://nodei.co/npm/alinex-monitor.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
@@ -109,8 +131,20 @@ following the code standards defined there.</p>
 </div>
 
 
-<p>The  monitor may be called on the command line to execute all configured controllers
-and give the results as a check list.</p>
+<p>After the monitor and it's controllers are fully configured it may be run by only calling:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span>
+</code></pre></div>
+
+
+
+<p>This will start the monitor on the command line and check all controllers. For each
+controller a line is printed with it's status.
+If a controller got a problem it will give a detailed report on the console.</p>
+
+<p>See the <a href="./src/man/monitor.1.md.html">Manpage for more details</a> for a detailed
+information on how to invoke the monitor on the command line.</p>
 
 
 <div class="pilwrap" id="status">
@@ -130,8 +164,8 @@ like ok for further processing</p>
 
 <p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
 
-<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on it
-- exit code 1</p>
+<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
+it - exit code 1</p>
 
 <p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
 
@@ -144,7 +178,8 @@ like ok for further processing</p>
 </div>
 
 
-<p>To be described....</p>
+<p>As described above it has may be accessed through <code>/etc/alinex-monitor/config</code> but it's
+real path is in the application's directory <code>var/local/config</code>.</p>
 
 
 <div class="pilwrap" id="structure">
@@ -215,7 +250,7 @@ and some informational data.</p>
 be updated independly of the monitor app itself.</p>
 
 <ul>
-<li><a href="http://alinex.github.io/node-monitor-sensor.html">alinex-monitor-sensor</a> -
+<li><a href="http://alinex.github.io/node-monitor-sensor">alinex-monitor-sensor</a> -
 collection of sensors to check systems and services</li>
 </ul>
 
