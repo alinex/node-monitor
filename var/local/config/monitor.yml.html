@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>monitor.yml</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/local/config/monitor.yml", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#monitoring%20contacts">Monitoring contacts</a>
+      </div>
+      <div class="heading h2">
+        <a href="#runtime%20configuration">Runtime configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#default%20activities">Default activities</a>
+      </div>
+      <div class="heading h2">
+        <a href="#contacts">Contacts</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="monitoring%20contacts">
+  <h1>
+    <a href="#monitoring%20contacts" name="monitoring%20contacts" class="pilcrow">&#182;</a>
+    Monitoring contacts
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="runtime%20configuration">
+  <h2>
+    <a href="#runtime%20configuration" name="runtime%20configuration" class="pilcrow">&#182;</a>
+    Runtime configuration
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>Define the server hostname of the machine, which should run all controllers
+not specific for a special machine. Keep it empty to make the current machine
+the master. controllers which have an <code>runat</code> setting will only run on the
+defined hostname.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pc-alex-linux</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>This defines a list of alias names which should run on the defined hostname.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">alias</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">internet</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vz23761</span>
+  <span class="l-Scalar-Plain">internal</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pc-alex-linux</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="default%20activities">
+  <h2>
+    <a href="#default%20activities" name="default%20activities" class="pilcrow">&#182;</a>
+    Default activities
+  </h2>
+</div>
+
+
+<p>They will be used if no other rule defined in controller.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">rules</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="c1"># Only work on specific status.</span>
+    <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Number of minimum attempts before informing.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">num</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Time (in seconds) to wait before informing.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">latency</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Only inform if dependent jobs not failed. This prevents of hundred of
+messages if a central system failed.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">dependskip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>Timeout (in seconds) without status change before informing again.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">redo</span><span class="p-Indicator">:</span> <span class="s">&#39;30m&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>Type of actor to run with it's configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">to</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">plusserver</span> <span class="c1"># email address or alias from monitor.contact</span>
+      <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span> <span class="c1"># template to use defined under monitor.email</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="contacts">
+  <h2>
+    <a href="#contacts" name="contacts" class="pilcrow">&#182;</a>
+    Contacts
+  </h2>
+</div>
+
+
+<p>With this list you have the possibility to define alias names for contacts
+which contains the details or a list of other alias names to use as a group.
+After defining it here in a central place you may everywhere use the short
+alias names of persons and groups.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">contacts</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>Define some groups</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="l-Scalar-Plain">plusserver</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span> <span class="nv">aschi</span><span class="p-Indicator">,</span> <span class="nv">malbr</span> <span class="p-Indicator">]</span>
+  <span class="l-Scalar-Plain">centron</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span> <span class="nv">aschi</span><span class="p-Indicator">,</span> <span class="nv">malbr</span><span class="p-Indicator">,</span> <span class="nv">yzhao</span> <span class="p-Indicator">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>Define persons</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="l-Scalar-Plain">aschi</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Alexander Schilling</span>
+    <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alexander.schilling@soforthoeren.de</span>
+
+  <span class="l-Scalar-Plain">malbr</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Michael Albrecht</span>
+    <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">michael.albrecht@divibib.com</span>
+
+  <span class="l-Scalar-Plain">yzhao</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Yingli Zhao</span>
+    <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yingli.zhao@divibib.com</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
