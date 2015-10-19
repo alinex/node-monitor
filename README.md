@@ -34,6 +34,66 @@ Now setup the controller configuration under the displayed path (see below).
 [![NPM](https://nodei.co/npm/alinex-monitor.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-monitor/)
 
 
+New Ideas
+=================================================
+
+Roadmap
+-------------------------------------------------
+- cli
+- config
+- controller daemon
+- Check/Sensor structure
+- run checks
+- ssh checks
+- db checks
+- store results => db
+- create reports
+- store reports
+- send emails on state change
+
+Storage
+-------------------------------------------------
+tablespace mng_monitor
+
+mon_system (=check)
+* system_id (p)
+- alias # publication
+- host
+mon_event
+* check_id (p)
+- system_id (i)
+- alias # string: full
+- unit # string
+mon_event_minute
+* id (p)
+- event_id (i)
+- time # string (i)
+- num # number of measurements in timeframe
+- min
+- max
+- avg
+- status # ok/warn/error/unknown
+mon_event_...(hour/day/week/month)
+mon_report
+* id (p)
+- event_id (i)
+- time # datetime (i)
+- status # ok/warn/error/unknown
+- report markdown
+
+# delete
+minute # 1 day
+hour # 1 week = 168
+daily # 6 month 183
+week # 5 year = 210
+month # endless (10 year = 120)
+
+
+
+
+
+
+
 Usage
 -------------------------------------------------
 After the monitor and it's controllers are fully configured it may be run by only calling:
