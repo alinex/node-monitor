@@ -1,10 +1,15 @@
 {
   "name": "alinex-monitor",
   "version": "0.0.2",
-  "description": "",
-  "copyright": "Alexander Schilling 2014",
+  "description": "Monitoring IT services over the network.",
+  "copyright": "Alexander Schilling 2015",
   "private": false,
-  "keywords": [],
+  "keywords": [
+    "monitor",
+    "analysis",
+    "alarm",
+    "sensor"
+  ],
   "homepage": "http://alinex.github.io/node-monitor/",
   "repository": {
     "type": "git",
@@ -24,9 +29,8 @@
   },
   "man": "./man/monitor.1",
   "scripts": {
-    "prepublish": "node_modules/.bin/alinex-make -c compile",
-    "postinstall": "[ -f lib/install.js ] || node_modules/.bin/alinex-make -c compile; node lib/install",
-    "test": "node_modules/.bin/alinex-make -c test",
+    "prepublish": "node_modules/.bin/builder -c compile --uglify",
+    "test": "node_modules/.bin/builder -c test",
     "start": "bin/monitor"
   },
   "prefereGlobal": true,
@@ -36,20 +40,16 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-config": "0.3.x",
-    "alinex-fs": "0.1.x",
-    "alinex-monitor-sensor": "0.1.x",
-    "alinex-util": "^0.1.7",
-    "alinex-validator": "0.3.x",
-    "async": "0.9.x",
-    "chalk": "0.5.x",
-    "debug": ">=0.8.0 <3.0.0",
-    "yargs": "1.x"
+    "alinex-async": "^0.2.3",
+    "alinex-config": "^1.0.6",
+    "chalk": "^1.1.1",
+    "debug": "^2.2.0",
+    "yargs": "^3.27.0"
   },
   "devDependencies": {
-    "alinex-make": "0.4.x",
-    "chai": "1.x",
-    "alinex-error": "0.x"
+    "alinex-builder": "^1.1.7",
+    "alinex-validator": "^1.0.5",
+    "chai": "^3.3.0"
   },
   "optionalDependencies": {},
   "engines": {

@@ -10,28 +10,31 @@ whole IT landscape from the host to the application. While most monitoring
 tools has it's focus on the server here the focus lies more on the application
 side.
 
-It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
-following the code standards defined there.
+> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
 
 
 Install
 -------------------------------------------------
 
-The easiest way to use it is to install it with the node package manager, so
-first install node:
+[![NPM](https://nodei.co/npm/alinex-monitor.png?downloads=true&downloadRank=true&stars=true)
+ ![Downloads](https://nodei.co/npm-dl/alinex-monitor.png?months=9&height=3)
+](https://www.npmjs.com/package/alinex-monitor)
 
-    curl -sL https://deb.nodesource.com/setup | sudo bash -
-    sudo apt-get install nodejs
+Install the package globally using npm:
 
-And then install the package:
+``` sh
+sudo npm install -g alinex-monitor --production
+```
 
-    sudo npm install -g alinex-monitor
+After global installation you may directly call `monitor` from anywhere.
 
-This will install the package in `/usr/local` directory.
+``` sh
+monitor --help
+```
 
-Now setup the controller configuration under the displayed path (see below).
+Always have a look at the latest [changes](Changelog.md).
 
-[![NPM](https://nodei.co/npm/alinex-monitor.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-monitor/)
 
 
 New Ideas
