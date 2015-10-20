@@ -1,0 +1,97 @@
+# Monitoring controller configuration
+# =================================================
+# This is an example of a complete controller configuration.
+
+# Meta information
+# -------------------------------------------------
+# This is used in displaying and communicating with the user.
+
+name: Local ping
+description: >
+  Ping to the server internally indicates that the local network settings are correct.
+
+# Monitor runtime configuration
+# -------------------------------------------------
+
+# Time (in seconds) to rerun the check.
+interval: 300
+# Time (in seconds) in which the value is seen as valid and should not be rechecked.
+validity: 60
+# Run this test only on a machine which has the same setting under `monitor.runat`
+# configuration.
+runat: vz23761
+# It may be disabled temporarily, seen as ok without check
+disabled: false
+
+# Dependencies
+# -------------------------------------------------
+# The list of dependencies are controllers and sensors which have to work to make
+# this one work. Use `checkdepend: true` in the `actor` config to skip action
+# if this is not the cause controller.
+# It is possible to combine sensors and controllers here. The weight parameter
+# is specific to the combine method, see below.
+depend:
+  - sensor: ping
+    config:
+      host: 85.25.98.24
+  - sensor: ping
+    config:
+      host: 85.25.98.25
+  - controller: mysql
+    weight: 2
+
+# ### Combine values
+# For multiple dependencies this value defines how the individual sensors or
+# controllers are combined to  calculate the overall status:
+#
+# - `or` - the highest status will be used (supporting weight: min)
+# - `and` - only the highest common status is used (supporting weight: max)
+# - `average` - the average value will be used (supporting weight: 0..9)
+combine: or
+
+# Monitor Activities
+# -------------------------------------------------
+rules:
+  - # Only work on specific status.
+    status: fail
+    # Number of minimum attempts before informing.
+    attempt: 3
+    # Time (in seconds) to wait before informing.
+    latency: 60
+    # Only inform if dependent jobs not failed. This prevents of hundred of
+    # messages if a central system failed.
+    dependskip: true
+    # Timeout (in seconds) without status change before informing again.
+    redo: 1800
+    # Type of actor to run with it's configuration
+    email:
+      to: plusserver # email address or alias from monitor.contact
+      template: fail # template to use defined under monitor.email
+
+# Help in problem solving
+# ------------------------------------------------
+# This will be used to give the user more information about the possible problem
+# and what may be done.-
+hint: >
+  If the local ping won't work it may be a problem with the network card or
+  it's configuration.
+
+# Additional information
+# ------------------------------------------------
+# Persons which are involved with this:
+contacts:
+  aschi: Administrator, System setup
+  mflam: Administrator
+
+# Further information in external references
+refs:
+  homepage:
+  code:
+  api: http://the-website.com
+  issues:
+  other:
+
+# General documentation of other things like description of usage and general
+# priority. Or other things to know about.
+info: >
+  It's one of the core systems which should never fail.

@@ -11,7 +11,7 @@ yargs = require 'yargs'
 chalk = require 'chalk'
 fspath = require 'path'
 # include alinex modules
-Config = require 'alinex-config'
+config = require 'alinex-config'
 # include classes and helpers
 schema = require './configSchema'
 #Controller = require './controller'
@@ -28,7 +28,8 @@ GLOBAL.argv = yargs
 .example('$0', 'to simply check all services once')
 .example('$0 -v', 'to get more information of each check')
 .example('$0 -l', 'to list the possible groups and services')
-.example('$0 -c rz:web1:cpu', 'to call a single service or group')
+.example('$0 rz:web1:cpu', 'to call a single service or group')
+.example('$0 -d', 'run contineously as a daemon')
 # general options
 .alias('C', 'nocolors')
 .describe('C', 'turn of color output')
@@ -45,9 +46,13 @@ GLOBAL.argv = yargs
 .alias('r', 'reverse')
 .describe('r', 'show the tree in reverse order (used by)')
 .boolean('r')
+.alias('d', 'daemon')
+.describe('d', 'run as a daemon')
+.boolean('d')
 # general help
 .help('h')
 .alias('h', 'help')
+.epilogue("For more information, look into the man page.")
 .showHelpOnFail(false, "Specify --help for available options")
 .strict()
 .argv
@@ -57,29 +62,58 @@ chalk.enabled = false if argv.nocolors
 
 # Setup
 # -------------------------------------------------
+# add schema for module's configuration
+config.setSchema '/monitor', schema
 # set module search path
 config.register 'monitor', fspath.dirname __dirname
-# add schema for module's configuration
-config.setSchema '/monitor', schema, cb
+# register selected controllers from /etc/monitor-controller
+if argv._?
+  # specific controllers only
+  for ctrl in argv._
+    config.origin.push
+      uri: "/etc/monitor-controller/#{ctrl}*"
+      path: 'monitor/controller'
+      filter: 'monitor-controller'
+else
+  # read all controllers
+  config.origin.push
+    uri: "/etc/monitor-controller/*"
+    path: 'monitor/controller'
+    filter: 'monitor-controller'
 
-
-process.exit 1
-
-# Definition of Configuration
+# Commands
 # -------------------------------------------------
-# The configuration will be set in the [alinex-validator](http://alinex.github.io/node-validator)
-# style. It will be checked after configuration load.
-config = Config.instance 'monitor'
-config.setCheck (source, values, cb) ->
-  validator.check source, check.monitor, values, (err, result) ->
-    return cb err if err
-    # additional checks
-    for key, value of result.contacts
-      continue unless value instanceof Array
-      for entry in value
-        unless result.contacts[entry]?
-          return cb new Error "No matching entry '#{entry}' from group '#{key}' in #{source} found."
-    cb null, result
+list = (conf) ->
+  for ctrl of conf.controller
+    console.log ctrl
+
+# Main routine
+# -------------------------------------------------
+config.init (err, conf) ->
+  throw err if err
+  if yargs.list
+    list conf
+  else if yargs.list
+    # tree
+    # reverse
+    console.log "to be programmed..."
+  else if yargs.daemon
+    console.log "to be programmed..."
+  else
+    # run once
+    console.log "to be programmed..."
+
+
+
+return
+
+exitCodes =
+  ok: 0
+  warn: 1
+  fail: 2
+  disabled: 0
+
+
 
 
 # Get list of controllers
@@ -130,11 +164,6 @@ config = (cb) ->
 
 # Start routine
 # -------------------------------------------------
-exitCodes =
-  warn: 1
-  fail: 2
-  ok: 0
-  disabled: 0
 config (err, {config,controller}) ->
   throw err if err
   debug "initialized with #{controller.length} controllers"
