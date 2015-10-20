@@ -7,14 +7,20 @@
 # include base modules
 debug = require('debug')('monitor')
 async = require 'alinex-async'
+os = require 'os'
+util = require 'util'
 yargs = require 'yargs'
 chalk = require 'chalk'
-fspath = require 'path'
 # include alinex modules
 Config = require 'alinex-config'
+validator = require 'alinex-validator'
+error = require 'alinex-error'
 # include classes and helpers
-schema = require './configSchema'
-#Controller = require './controller'
+Controller = require './controller'
+check = require './check'
+
+error.config.stack.view = false
+error.install()
 
 # Start argument parsing
 # -------------------------------------------------
@@ -25,10 +31,10 @@ GLOBAL.argv = yargs
   Usage: $0 [-vCclt] <controller...>
   """)
 # examples
-.example('$0', 'to simply check all services once')
+.example('$0', 'to simply check all controllers once')
 .example('$0 -v', 'to get more information of each check')
-.example('$0 -l', 'to list the possible groups and services')
-.example('$0 -c rz:web1:cpu', 'to call a single service or group')
+.example('$0 -l', 'to list the possible checks')
+.example('$0 -c rz:web1:cpu', 'to call a single controller')
 # general options
 .alias('C', 'nocolors')
 .describe('C', 'turn of color output')
@@ -37,10 +43,10 @@ GLOBAL.argv = yargs
 .describe('v', 'run in verbose mode')
 .boolean('v')
 .alias('l', 'list')
-.describe('l', 'list the configured groups and services')
+.describe('l', 'list the configured controllers')
 .boolean('l')
 .alias('t', 'tree')
-.describe('t', 'show the service list as tree')
+.describe('t', 'show the controller list as tree')
 .boolean('t')
 .alias('r', 'reverse')
 .describe('r', 'show the tree in reverse order (used by)')
@@ -54,16 +60,6 @@ GLOBAL.argv = yargs
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 
-
-# Setup
-# -------------------------------------------------
-# set module search path
-config.register 'monitor', fspath.dirname __dirname
-# add schema for module's configuration
-config.setSchema '/monitor', schema, cb
-
-
-process.exit 1
 
 # Definition of Configuration
 # -------------------------------------------------
