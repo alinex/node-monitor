@@ -87,6 +87,27 @@ list = (conf) ->
   for ctrl of conf.controller
     console.log ctrl
 
+tree = (conf) ->
+  console.log "tree to be programmed..."
+
+once = (conf) ->
+  # run all sensor in parallel
+  # debug call once
+  # give output
+  # collected results
+  # output summary
+  console.log "default to be programmed..."
+
+daemon = (conf) ->
+  # instantiate all controllers
+  # call parallel
+  # set Event for next call before running
+  # check rules
+  # send emails
+  console.log "daemon to be programmed..."
+
+
+
 # Main routine
 # -------------------------------------------------
 config.init (err) ->
@@ -94,11 +115,12 @@ config.init (err) ->
   conf = config.get 'monitor'
   if argv.list
     list conf
+  else if argv.tree or argv.reverse
+    tree conf
   else if argv.daemon
-    console.log "daemon to be programmed..."
+    daedmon conf
   else
-    # run once
-    console.log "default to be programmed..."
+    once conf
 
 return
 
