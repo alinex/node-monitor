@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 
 check = require '../../lib/check'
 
-describe "Monitor", ->
+describe "Base", ->
 
   describe "configuration", ->
 

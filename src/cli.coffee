@@ -18,7 +18,7 @@ schema = require './configSchema'
 
 # Start argument parsing
 # -------------------------------------------------
-GLOBAL.argv = yargs
+argv = yargs
 .usage("""
   Server monitoring toolkit.
 
@@ -66,20 +66,20 @@ chalk.enabled = false if argv.nocolors
 config.setSchema '/monitor', schema
 # set module search path
 config.register 'monitor', fspath.dirname __dirname
+
 # register selected controllers from /etc/monitor-controller
-if argv._?
+if argv._.length
   # specific controllers only
   for ctrl in argv._
-    config.origin.push
-      uri: "/etc/monitor-controller/#{ctrl}*"
+    config.register 'monitor', fspath.dirname(__dirname),
+      uri: "#{ctrl}*"
+      folder: 'controller'
       path: 'monitor/controller'
-      filter: 'monitor-controller'
 else
   # read all controllers
-  config.origin.push
-    uri: "/etc/monitor-controller/*"
+  config.register 'monitor-controller', fspath.dirname(__dirname),
+    folder: 'controller'
     path: 'monitor/controller'
-    filter: 'monitor-controller'
 
 # Commands
 # -------------------------------------------------
@@ -89,23 +89,26 @@ list = (conf) ->
 
 # Main routine
 # -------------------------------------------------
-config.init (err, conf) ->
+config.init (err) ->
   throw err if err
-  if yargs.list
+  conf = config.get 'monitor'
+  if argv.list
     list conf
-  else if yargs.list
-    # tree
-    # reverse
-    console.log "to be programmed..."
-  else if yargs.daemon
-    console.log "to be programmed..."
+  else if argv.daemon
+    console.log "daemon to be programmed..."
   else
     # run once
-    console.log "to be programmed..."
-
-
+    console.log "default to be programmed..."
 
 return
+
+
+
+
+
+
+
+
 
 exitCodes =
   ok: 0
