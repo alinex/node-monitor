@@ -13,3 +13,4 @@
 /build/
 npm-debug.log
 /man/
+var/local

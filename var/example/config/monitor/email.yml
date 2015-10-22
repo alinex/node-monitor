@@ -1,41 +1,48 @@
 # Email Report Configuration
 # =================================================
 
-email:
+# Default (extended)
+# -------------------------------------------------
 
-  default:
-    from: monitor
-    to: operations
-    #cc:
-    #bcc:
-    subject: "{{alias}} => {{status}}"
-    body: |
-      <h1>$name</h1>
-      <p>$description</p>
-      <p><b>This test failed at $date!</b></p>
-      <p>$hint</p>
+default:
+  to: operations
 
-  fail:
-    subject: Failed $alias
-    body: |
-      <h1>$name</h1>
-      <p>$description</p>
-      <p><b>This test failed at $date!</b></p>
-      <p>$hint</p>
+# Own Templates
+# -------------------------------------------------
 
-  warn:
-    subject: Warning for $alias
-    body: |
-      <h1>$name</h1>
-      <p>$description</p>
-      <p><b>This test has warn state since $date!</b></p>
-      <p>$hint</p>
+fail:
+  subject: >
+    Failed {{alias}}
+  body: >
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
 
-  ok:
-    subject: OK for $alias
-    body: |
-      <h1>$name</h1>
-      <p>$description</p>
-      <p><b>This test succeeds again since $date!</b></p>
-      <p>$hint</p>
+warn:
+  subject: >
+    Warning for {{alias}}
+  body: >
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
+
+ok:
+  subject: >
+    OK for {{alias}}
+  body: >
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
 

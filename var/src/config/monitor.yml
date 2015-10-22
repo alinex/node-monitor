@@ -1,0 +1,27 @@
+# Defaults for Monitoring
+# =================================================
+# This file holds a list of contacts to be used from within the rules and
+# specific controllers.
+
+# System Contact
+# -------------------------------------------------
+contact:
+  monitor:
+    name: Alinex Monitor
+    email: monitor@localhost
+
+# Email Template
+# -------------------------------------------------
+email:
+  default:
+    from: monitor
+    subject: >
+      {{alias}} => {{status}}
+    body: >
+      {{name}}\n
+      ==========================================================================\n
+      {{description}}\n
+      \n
+      This test failed at {{date}}!\n
+      \n
+      {{hint}}\n

@@ -19,11 +19,11 @@ interval: 5m
 # -------------------------------------------------
 # The list of dependencies are sensors which have to work to make this controller
 # fully work.
-sensor:
-  - #ssh
-    type: ping
+check:
+  - sensor: ping
     config:
       host:127.0.0.1
+    #ssh
     # weight setting specific to value of the following 'combine' setting:
     # With the `weight` settings on the different entries single group entries may
     # be rated specific not like the others. Use a number in `average` to make the
@@ -45,19 +45,19 @@ rule:
   - warn
   - ok
 
-info: >
+info: |+
   This system is used for software development, building and deployment. An
   outage will have direct effects to the developers so that they can't submit,
   test and deploy their code.
 
-hint: >
+hint: |+
   All neccessary parts are on the same machine, so that you only have to bring
   this machine to work. Backups of the data are made on vs10152.
-  \n\n
+
   Keep in mind that the machine is in the test net and you have to use a valid
   VPN connection for accessing.
 
-contacts: operations
+contact: operations
 
 refs:
   access:
