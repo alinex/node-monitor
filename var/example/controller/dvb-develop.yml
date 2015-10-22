@@ -1,0 +1,72 @@
+# Monitoring controller configuration
+# =================================================
+# This is an example of a complete controller configuration.
+
+name: Development Center
+description: Server containing miscelaneous tools to help in the development process.
+
+# Monitor runtime configuration
+# -------------------------------------------------
+
+# It may be disabled temporarily, seen as ok without check
+disabled: false
+# Time (in seconds) in which the value is seen as valid and should not be rechecked.
+validity: 1m
+# Time (in seconds) to rerun the check.
+interval: 5m
+
+# Sensors to run
+# -------------------------------------------------
+# The list of dependencies are sensors which have to work to make this controller
+# fully work.
+sensor:
+  - #ssh
+    type: ping
+    config:
+      host:127.0.0.1
+    # weight setting specific to value of the following 'combine' setting:
+    # With the `weight` settings on the different entries single group entries may
+    # be rated specific not like the others. Use a number in `average` to make the
+    # weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
+    # level for one step before using in calculation on all combine methods.
+    #weight: 2
+
+# ### Combine values
+# For multiple dependencies this value defines how the individual sensors are
+# combined to calculate the overall status:
+#
+# - max - the one with the highest failure value is used
+# - min - the lowest failure value is used
+# - average - the average status (arithmetic round) is used
+combine: max
+
+rule:
+  - fail
+  - warn
+  - ok
+
+info: >
+  This system is used for software development, building and deployment. An
+  outage will have direct effects to the developers so that they can't submit,
+  test and deploy their code.
+
+hint: >
+  All neccessary parts are on the same machine, so that you only have to bring
+  this machine to work. Backups of the data are made on vs10152.
+  \n\n
+  Keep in mind that the machine is in the test net and you have to use a valid
+  VPN connection for accessing.
+
+contacts: operations
+
+refs:
+  access:
+    subversion: http://192.168.200.106/svn
+    nexus: http://192.168.200.106:8081/nexus
+    jenkins: http://192.168.200.106:8080/
+    sonarqube: http://192.168.200.106:9000/
+  doc: https://manage.divibib.com/confluence/pages/viewpage.action?pageId=48398354
+  #issues:
+  #api:
+  #code:
+  #other:

@@ -186,7 +186,7 @@ module.exports = Controller
 #
 # With the `weight` settings on the different entries single group entries may
 # be rated specific not like the others. Use a number in `average` to make the
-# weight higher (1 is normal).  Also the weight 'up' and 'down' changes the error
+# weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
 # level for one step before using in calculation.
 calcStatus = (combine, depend, onlySensors = false) ->
   # translate name to number

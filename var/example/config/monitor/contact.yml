@@ -3,6 +3,12 @@
 # This file holds a list of contacts to be used from within the rules and
 # specific controllers.
 
+# System
+# -------------------------------------------------
+monitor:
+  name: Alinex Monitor
+  email: monitor@localhost
+
 # Groups
 # -------------------------------------------------
 operations: [aschi, malbr, yzhao]
@@ -14,8 +20,7 @@ aschi:
   position: IT Operations
   company: divibib GmbH
   email: alexander.schilling@4readers.org
-  phone:
-    - 07129/922545
+  phone: 07129/922545
 
 malbr:
   name: Michael Albrecht

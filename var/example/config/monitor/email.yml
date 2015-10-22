@@ -4,16 +4,16 @@
 email:
 
   default:
-    subject: $alias => $status
+    from: monitor
+    to: operations
+    #cc:
+    #bcc:
+    subject: "{{alias}} => {{status}}"
     body: |
-      {{name}}
-      =========================================================
-      \
-      {{description}}
-      \
-      This test had status $status at {{date}}!
-      \
-      {{hint}}
+      <h1>$name</h1>
+      <p>$description</p>
+      <p><b>This test failed at $date!</b></p>
+      <p>$hint</p>
 
   fail:
     subject: Failed $alias

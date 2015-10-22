@@ -18,9 +18,8 @@ contact =
       type: 'array'
       toArray: true
       minLength: 1
-      entries: [
+      entries:
         type: 'string'
-      ]
     ,
       title: "Contact Details"
       description: "the name and email address for a specific contact"
@@ -51,6 +50,23 @@ contact =
     ]
   ]
 
+# Email Templates
+# -------------------------------------------------
+
+email =
+  title: "Email Templates"
+  description: "the possible templates used for sending emails"
+  type: 'object'
+  default: {}
+
+# Email Templates
+# -------------------------------------------------
+
+controller =
+  title: "Controller"
+  description: "the list of controllers to check"
+  type: 'object'
+  default: {}
 
 # Complete Schema Definition
 # -------------------------------------------------
@@ -62,4 +78,5 @@ module.exports =
   allowedKeys: true
   keys:
     contact: contact
-
+    email: email
+    controller: controller
