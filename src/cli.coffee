@@ -13,15 +13,15 @@ fspath = require 'path'
 # include alinex modules
 config = require 'alinex-config'
 # include classes and helpers
-schema = require './configSchema'
+logo = require './logo'
+monitor = require './index'
 #Controller = require './controller'
 
 # Start argument parsing
 # -------------------------------------------------
 argv = yargs
 .usage("""
-  Server monitoring toolkit.
-
+  #{logo}
   Usage: $0 [-vCclt] <controller...>
   """)
 # examples
@@ -55,17 +55,28 @@ argv = yargs
 .epilogue("For more information, look into the man page.")
 .showHelpOnFail(false, "Specify --help for available options")
 .strict()
+.fail (err) ->
+  console.error """
+    #{logo}
+    #{chalk.red.bold 'CLI Parameter Failure:'} #{chalk.red err}
+
+    """
+  process.exit 1
 .argv
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 
+console.log require './logo'
 
+
+monitor.setup argv._
 # Setup
 # -------------------------------------------------
 # add schema for module's configuration
 config.setSchema '/monitor', schema
 # set module search path
 config.register 'monitor', fspath.dirname __dirname
+
 
 # register selected controllers from /etc/monitor-controller
 if argv._.length
