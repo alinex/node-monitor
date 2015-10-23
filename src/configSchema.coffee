@@ -53,45 +53,144 @@ contact =
 # -------------------------------------------------
 
 email =
-  title: "Email Templates"
-  description: "the possible templates used for sending emails"
+  title: "Email Template"
+  description: "a single template used for emails"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    base:
+      title: "Base Template"
+      description: "the template used as base for this"
+      type: 'string'
+      list: '<<<context:///monitor/email>>>'
+    from:
+      title: "From"
+      description: "the address emails are send from"
+      type: 'string'
+      default: 'monitor'
+    to:
+      title: "To"
+      description: "the address emails are send to"
+      type: 'string'
+    cc:
+      title: "Cc"
+      description: "the carbon copy addresses"
+      type: 'string'
+    bcc:
+      title: "Bcc"
+      description: "the blind carbon copy addresses"
+      type: 'string'
+    subject:
+      title: "Subject"
+      description: "the subject line of the generated email"
+      type: 'handlebars'
+    body:
+      title: "Content"
+      description: "the body content of the generated email"
+      type: 'handlebars'
+
+
+# Rule Definition
+# -------------------------------------------------
+
+rule =
+  title: "Rules"
+  description: "the list of all possible rules to be referenced from controller"
   type: 'object'
   entries: [
-    title: "Email Template"
-    description: "a single template used for emails"
+    title: "Rule"
+    description: "a rule to run after the controller is done"
     type: 'object'
-    mandatoryKeys: ['subject', 'body']
     allowedKeys: true
     keys:
-      from:
-        title: "From"
-        description: "the address emails are send from"
+      status:
+        title: "Status"
+        description: "the status on which to act"
         type: 'string'
-        default: 'monitor'
-      to:
-        title: "To"
-        description: "the address emails are send to"
-        type: 'string'
-      cc:
-        title: "Cc"
-        description: "the carbon copy addresses"
-        type: 'string'
-      bcc:
-        title: "Bcc"
-        description: "the blind carbon copy addresses"
-        type: 'string'
-      subject:
-        title: "Subject"
-        description: "the subject line of the generated email"
-        type: 'handlebars'
-      body:
-        title: "Content"
-        description: "the body content of the generated email"
-        type: 'handlebars'
+        list: ['ok', 'warn', 'fail']
+      attempt:
+        title: "Number of Checks"
+        description: "the minimal number of checks to wait before executing this rule"
+        type: 'integer'
+        min: 1
+      latency:
+        title: "Latency"
+        description: "the time (in seconds) to wait before executing this rule"
+        type: 'interval'
+        unit: 's'
+        min: 0
+      dependskip:
+        title: "Dependent Skip"
+        description: "the flag indicating if this rule should be skipped if
+          dependent controllers failed"
+        type: 'boolean'
+        default: false
+      email: email
+      redo:
+        title: "Redo Action"
+        description: "the time (in seconds) after which the action will be executed again"
+        type: 'interval'
+        unit: 's'
+        min: 0
   ]
 
-# Email Templates
+# Controller
 # -------------------------------------------------
+
+# ### Defining the checks first
+
+check =
+  title: "Checks"
+  description: "the list of checks which have to be run"
+  type: 'array'
+  default: []
+  entries:
+    title: "Check"
+    description: "the type and configuration for a check run"
+    type: 'object'
+    allowedKeys: true
+    keys:
+      sensor:
+        title: "Sensor Class"
+        description: "the  class name of a sensor to run"
+        type: 'string'
+        lowerCase: true
+        upperCase: 'first'
+      config:
+        title: "Sensor Configuration"
+        description: "the configuration for a sensor run"
+        type: 'object'
+      #           ssh:
+      weight:
+        title: "Weight"
+        description: "the special weight for the combination of sensors"
+        optional: true
+        type: 'or'
+        or: [
+          title: "Up/Down"
+          description: "the info to rate the status more or less important
+            in the calculation"
+          type: 'string'
+          values: ['up', 'down']
+        ,
+          # wenn combine = 'average' ->
+          # if:
+          #   cmd: 'eq'
+          #   op1: '<<<combine>>>'
+          #   op2: 'average'
+          title: "Priority"
+          description: "the priority for the 'average' combination method"
+          type: 'integer'
+          min: 0
+        ]
+      hint:
+        title: "Hint"
+        description: "a specific description for this sensor that describes
+          what may be done if this check failed and other things which are
+          helpful to know"
+        type: 'handlebars'
+
+# ### Controller containing Checks
 
 controller =
   title: "Controller List"
@@ -131,66 +230,21 @@ controller =
         unit: 's'
         min: 0
         default: 300
-      check:
-        title: "Checks"
-        description: "the list of checks which have to be run"
-        type: 'array'
-        default: []
-        entries:
-          title: "Check"
-          description: "the type and configuration for a check run"
-          type: 'object'
-          allowedKeys: true
-          keys:
-            sensor:
-              title: "Sensor Class"
-              description: "the  class name of a sensor to run"
-              type: 'string'
-              lowerCase: true
-              upperCase: 'first'
-            config:
-              title: "Sensor Configuration"
-              description: "the configuration for a sensor run"
-              type: 'object'
-            #           ssh:
-            weight:
-              title: "Weight"
-              description: "the special weight for the combination of sensors"
-              optional: true
-              type: 'or'
-              or: [
-                title: "Up/Down"
-                description: "the info to rate the status more or less important
-                  in the calculation"
-                type: 'string'
-                values: ['up', 'down']
-              ,
-                # wenn combine = 'average' ->
-                # if:
-                #   cmd: 'eq'
-                #   op1: '<<<combine>>>'
-                #   op2: 'average'
-                title: "Priority"
-                description: "the priority for the 'average' combination method"
-                type: 'integer'
-                min: 0
-              ]
-            hint:
-              title: "Hint"
-              description: "a specific description for this sensor that describes
-                what may be done if this check failed and other things which are
-                helpful to know"
-              type: 'handlebars'
+      check: check
       combine:
         title: "Combine Method"
         description: "the calculation of the combined status"
         type: 'string'
         values: ['min', 'max', 'average']
         default: 'max'
-        #      rule:
-        #        - fail
-        #        - warn
-        #        - ok
+      rule:
+        title: "Rules"
+        description: "the list of rules (references) to be used"
+        type: 'array'
+        toArray: true
+        entries:
+          type: 'string'
+          list: '<<<context:///monitor/rule>>>'
       info:
         title: "Info"
         description: "a general information about this part of the system"
@@ -200,22 +254,25 @@ controller =
         description: "a specific description for this controller that describes
           what may be done if this check failed and other things which are helpful to know"
         type: 'handlebars'
-      #      contact:
-      #         type: 'string'
-      #         list: '<<<contact>>>'
-      #      ref:
-      #        access:
-      #          subversion: http://192.168.200.106/svn
-      #          nexus: http://192.168.200.106:8081/nexus
-      #          jenkins: http://192.168.200.106:8080/
-      #          sonarqube: http://192.168.200.106:9000/
-      #        doc: https://manage.divibib.com/confluence/pages/viewpage.action?pageId=48398354
-      #        issues:
-      #        api:
-      #        code:
-      #        other:
+      contact:
+        title: "Contact"
+        description: "the list of contacts (references) responsible for this system or part"
+        type: 'array'
+        toArray: true
+        entries:
+          type: 'string'
+          list: '<<<context:///monitor/contact>>>'
+      ref:
+        title: "References"
+        description: "the list of URL references which may help getting informed
+          as title - URL pairs"
+        type: 'object'
+        entries: [
+          title: "Access URL"
+          description: "the URL to access this reference"
+          type: 'string'
+        ]
   ]
-
 
 
 # Complete Schema Definition
@@ -228,5 +285,10 @@ module.exports =
   allowedKeys: true
   keys:
     contact: contact
-    email: email
+    email:
+      title: "Email Templates"
+      description: "the possible templates used for sending emails"
+      type: 'object'
+      entries: [ email ]
+    rule: rule
     controller: controller

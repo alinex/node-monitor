@@ -22,7 +22,7 @@ interval: 5m
 check:
   - sensor: ping
     config:
-      host:127.0.0.1
+      host: 127.0.0.1
     #ssh
     # weight setting specific to value of the following 'combine' setting:
     # With the `weight` settings on the different entries single group entries may
@@ -59,12 +59,13 @@ hint: |+
 
 contact: operations
 
-refs:
-  access:
-    subversion: http://192.168.200.106/svn
-    nexus: http://192.168.200.106:8081/nexus
-    jenkins: http://192.168.200.106:8080/
-    sonarqube: http://192.168.200.106:9000/
+ref:
+  # system access
+  subversion: http://192.168.200.106/svn
+  nexus: http://192.168.200.106:8081/nexus
+  Jenkins: http://192.168.200.106:8080/
+  sonarqube: http://192.168.200.106:9000/
+  # user/developer help
   doc: https://manage.divibib.com/confluence/pages/viewpage.action?pageId=48398354
   #issues:
   #api:

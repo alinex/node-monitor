@@ -8,7 +8,7 @@
 contact:
   monitor:
     name: Alinex Monitor
-    email: monitor@localhost
+    email: monitor@<<<cmd://hostname#1 | localhost>>>
 
 # Email Template
 # -------------------------------------------------
@@ -25,3 +25,31 @@ email:
       This test failed at {{date}}!\n
       \n
       {{hint}}\n
+
+# Rule Definition
+# -------------------------------------------------
+
+rule:
+
+  fail:
+    status: fail
+    attempt: 3
+    latency: 60
+    dependskip: true
+    email:
+      base: fail
+    redo: 3h
+
+  warn:
+    status: warn
+    attempt: 3
+    latency: 60
+    dependskip: true
+    email:
+      base: warn
+    redo: 3h
+
+  ok:
+    status: ok
+    email:
+      base: ok

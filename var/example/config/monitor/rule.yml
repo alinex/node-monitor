@@ -1,19 +1,21 @@
-# Monitoring controller configuration
+# Rule Definition
 # =================================================
-# This is an example of a complete controller configuration.
 
-#- # Only work on specific status.
-#  status: fail
-#  # Number of minimum attempts before informing.
-#  attempt: 3
-#  # Time (in seconds) to wait before informing.
-#  latency: 60
-#  # Only inform if dependent jobs not failed. This prevents of hundred of
-#  # messages if a central system failed.
-#  dependskip: true
-#  # Timeout (in seconds) without status change before informing again.
-#  redo: 1800
-#  # Type of actor to run with it's configuration
-#  email:
-#    to: plusserver # email address or alias from monitor.contact
-#    template: fail # template to use defined under monitor.email
+# ### specific check
+specific:
+  # Only work on specific status.
+  status: fail
+  # Number of minimum attempts before informing.
+  attempt: 3
+  # Time (in seconds) to wait before informing.
+  latency: 60
+  # Only inform if dependent jobs not failed. This prevents of hundred of
+  # messages if a central system failed.
+  dependskip: true
+  # Type of actor to run with it's configuration
+  email:
+    base: fail # template to use defined under monitor/email
+  # Timeout (in seconds) without status change before informing again.
+  redo: 3h
+
+
