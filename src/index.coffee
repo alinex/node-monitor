@@ -14,6 +14,7 @@ config = require 'alinex-config'
 async = require 'alinex-async'
 # include classes and helpers
 schema = require './configSchema'
+Controller = require './controller'
 
 
 class Monitor extends EventEmitter
@@ -55,14 +56,14 @@ class Monitor extends EventEmitter
     debug "Instantiate controllers..."
     @controller = {}
     for name, def of @conf.controller
-      debug chalk.grey "-> #{name}"
+      @controller[name] = new Controller name, def
 
   # Run Controller
   # -------------------------------------------------
 
   once: ->
     @instantiate() unless @controller
-    console.log @controller
+    ctrl.run() for name, ctrl of @controller
     this
 
   start: ->
