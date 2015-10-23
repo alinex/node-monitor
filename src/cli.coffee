@@ -5,7 +5,6 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug')('monitor')
 async = require 'alinex-async'
 yargs = require 'yargs'
 chalk = require 'chalk'
@@ -77,22 +76,6 @@ list = (conf) ->
 tree = (conf) ->
   console.log "tree to be programmed..."
 
-once = (conf) ->
-  # run all sensor in parallel
-  # debug call once
-  # give output
-  # collected results
-  # output summary
-  console.log "default to be programmed..."
-
-daemon = (conf) ->
-  # instantiate all controllers
-  # call parallel
-  # set Event for next call before running
-  # check rules
-  # send emails
-  console.log "daemon to be programmed..."
-
 
 # Main routine
 # -------------------------------------------------
@@ -111,6 +94,9 @@ monitor.init (err) ->
   else if argv.tree or argv.reverse
     tree conf
   else if argv.daemon
-    daedmon conf
+    monitor.start()
+    monitor.on 'done', (ctrl) ->
   else
-    once conf
+    monitor.once()
+    monitor.on 'done', (ctrl) ->
+      console.log '------- done', ctrl
