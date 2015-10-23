@@ -66,31 +66,6 @@ argv = yargs
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 
-console.log require './logo'
-
-
-monitor.setup argv._
-# Setup
-# -------------------------------------------------
-# add schema for module's configuration
-config.setSchema '/monitor', schema
-# set module search path
-config.register 'monitor', fspath.dirname __dirname
-
-
-# register selected controllers from /etc/monitor-controller
-if argv._.length
-  # specific controllers only
-  for ctrl in argv._
-    config.register 'monitor', fspath.dirname(__dirname),
-      uri: "#{ctrl}*"
-      folder: 'controller'
-      path: 'monitor/controller'
-else
-  # read all controllers
-  config.register 'monitor-controller', fspath.dirname(__dirname),
-    folder: 'controller'
-    path: 'monitor/controller'
 
 # Commands
 # -------------------------------------------------
@@ -121,7 +96,11 @@ daemon = (conf) ->
 
 # Main routine
 # -------------------------------------------------
-config.init (err) ->
+console.log require './logo'
+monitor.setup argv._
+
+console.log "Initializing..."
+monitor.init (err) ->
   if err
     console.error chalk.red.bold "FAILED: #{err.message}"
     console.error err.description
