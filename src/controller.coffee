@@ -20,11 +20,11 @@ class Controller extends EventEmitter
 
   # ### Create instance
   constructor: (@name, @conf) ->
-    debug "#{@name} Initialized controller"
+    debug "#{chalk.grey @name} Initialized controller"
 
-  run: ->
-    debug "#{@name} Start analyzation..."
-
+  run: (cb) ->
+    debug "#{chalk.grey @name} Start analyzation..."
+    cb()
 
 # Export class
 # -------------------------------------------------

@@ -76,6 +76,11 @@ list = (conf) ->
 tree = (conf) ->
   console.log "tree to be programmed..."
 
+fail = (err) ->
+  if err
+    console.error chalk.red.bold "FAILED: #{err.message}"
+    console.error err.description
+    process.exit 1
 
 # Main routine
 # -------------------------------------------------
@@ -84,10 +89,7 @@ monitor.setup argv._
 
 console.log "Initializing..."
 monitor.init (err) ->
-  if err
-    console.error chalk.red.bold "FAILED: #{err.message}"
-    console.error err.description
-    process.exit 1
+  fail err
   conf = config.get 'monitor'
   if argv.list
     list conf
@@ -97,6 +99,8 @@ monitor.init (err) ->
     monitor.start()
     monitor.on 'done', (ctrl) ->
   else
-    monitor.once()
-    monitor.on 'done', (ctrl) ->
-      console.log '------- done', ctrl
+    monitor.on 'result', (ctrl) ->
+      console.log '------- result', ctrl.name
+    monitor.onetime (err, results) ->
+      fail err
+      console.log '------- done'
