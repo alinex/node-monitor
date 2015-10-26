@@ -52,19 +52,27 @@ class Monitor extends EventEmitter
   # Controller Setup
   # -------------------------------------------------
 
-  instantiate: ->
+  instantiate: (cb) ->
+    return cb() if @controller
     debug "Instantiate controllers..."
     @controller = {}
     for name, def of @conf.controller
       @controller[name] = new Controller name, def
+    # parallel instantiation
+    async.each @controller, (ctrl, cb) =>
+      ctrl.init cb
+    , cb
 
   # Run Controller
   # -------------------------------------------------
 
-  onetime: ->
-    @instantiate() unless @controller
-    ctrl.run() for name, ctrl of @controller
-    this
+  onetime: (cb = ->) ->
+    @instantiate (err) =>
+      return cb err if err
+      async.mapOf @controller, (ctrl, name, cb) ->
+        ctrl.run cb
+      , cb
+      this
 
   start: ->
     @instantiate() unless @controller

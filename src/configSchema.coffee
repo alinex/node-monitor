@@ -160,7 +160,6 @@ check =
         title: "Sensor Configuration"
         description: "the configuration for a sensor run"
         type: 'object'
-      #           ssh:
       weight:
         title: "Weight"
         description: "the special weight for the combination of sensors"

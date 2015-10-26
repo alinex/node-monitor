@@ -16,7 +16,7 @@ describe "Diskfree", ->
       test.meta diskfree, cb
 
     it "should return success", (cb) ->
-      @timeout 5000
+      @timeout 10000
       test.validator diskfree,
         share: '/'
       , (err, conf) ->

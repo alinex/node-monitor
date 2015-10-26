@@ -20,10 +20,14 @@ interval: 5m
 # The list of dependencies are sensors which have to work to make this controller
 # fully work.
 check:
-  - sensor: ping
+  - sensor: diskfree
     config:
-      host: 127.0.0.1
-    #ssh
+      remote: 192.168.200.106
+      share: /
+  - sensor: diskfree
+    config:
+      remote: 192.168.200.106
+      share: /run
     # weight setting specific to value of the following 'combine' setting:
     # With the `weight` settings on the different entries single group entries may
     # be rated specific not like the others. Use a number in `average` to make the

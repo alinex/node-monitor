@@ -127,7 +127,7 @@ exports.meta =
 exports.run = (name, config, cb = ->) ->
   work =
     sensor: this
-    name: "#{name}:#{@meta.title.toLowerCase()}"
+    name: name
     config: config
     result: {}
   sensor.start work
@@ -136,6 +136,7 @@ exports.run = (name, config, cb = ->) ->
     remote: config.remote
     cmd: 'df'
     args: ['-kT', config.share]
+    priority: 'immediately'
     check:
       noExitCode: true
   , (err, exec) ->

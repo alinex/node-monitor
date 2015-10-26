@@ -11,6 +11,7 @@ chalk = require 'chalk'
 fspath = require 'path'
 # include alinex modules
 config = require 'alinex-config'
+Exec = require 'alinex-exec'
 # include classes and helpers
 logo = require './logo'
 monitor = require './index'
@@ -88,19 +89,20 @@ console.log require './logo'
 monitor.setup argv._
 
 console.log "Initializing..."
-monitor.init (err) ->
-  fail err
-  conf = config.get 'monitor'
-  if argv.list
-    list conf
-  else if argv.tree or argv.reverse
-    tree conf
-  else if argv.daemon
-    monitor.start()
-    monitor.on 'done', (ctrl) ->
-  else
-    monitor.on 'result', (ctrl) ->
-      console.log '------- result', ctrl.name
-    monitor.onetime (err, results) ->
-      fail err
-      console.log '------- done'
+Exec.init (err) ->
+  monitor.init (err) ->
+    fail err
+    conf = config.get 'monitor'
+    if argv.list
+      list conf
+    else if argv.tree or argv.reverse
+      tree conf
+    else if argv.daemon
+      monitor.start()
+      monitor.on 'done', (ctrl) ->
+    else
+      monitor.on 'result', (ctrl) ->
+        console.log '------- result', ctrl.name
+      monitor.onetime (err, results) ->
+        fail err
+        console.log '------- done'
