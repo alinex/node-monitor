@@ -56,6 +56,7 @@ exports.schema =
       delimiter: /,\s+/
       entries:
         title: "Directory"
+        description: "the list of directories to check for waste of space"
         type: 'string'
 #    analysisTimeout:
 #      title: "Analysis Time"

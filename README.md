@@ -47,13 +47,14 @@ controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.
 
 
-Sensors
+Sensor
 -------------------------------------------------
 The sensors contains:
 
 - schema - the definition for the configuration
 - meta - some meta informations used to make descriptive reports
 - run() - the method to really use this sensor
+- analysis() - make an analysis run
 
 # ### Meta Data
 
@@ -64,6 +65,19 @@ The following meta data are available:
 - category - one of 'sys', 'net', 'srv'
 - hint - additional help for problems
 
+# ### Result
+
+After running a sensor you get a result object containing:
+
+- date - array with start and end date of run
+- status - one of: 'ok', 'warn', 'fail' ('running')
+- values - object containing specific values
+
+
+System Sensors
+-------------------------------------------------
+
+# ### Diskfree
 
 
 
