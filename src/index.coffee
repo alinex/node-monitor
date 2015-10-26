@@ -61,7 +61,7 @@ class Monitor extends EventEmitter
   # Run Controller
   # -------------------------------------------------
 
-  once: ->
+  onetime: ->
     @instantiate() unless @controller
     ctrl.run() for name, ctrl of @controller
     this

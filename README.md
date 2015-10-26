@@ -36,6 +36,36 @@ monitor --help
 Always have a look at the latest [changes](Changelog.md).
 
 
+Usage
+-------------------------------------------------
+After the monitor and it's controllers are fully configured it may be run by only calling:
+
+  > monitor
+
+This will start the monitor on the command line and check all controllers. For each
+controller a line is printed with it's status.
+If a controller got a problem it will give a detailed report on the console.
+
+
+Sensors
+-------------------------------------------------
+The sensors contains:
+
+- schema - the definition for the configuration
+- meta - some meta informations used to make descriptive reports
+- run() - the method to really use this sensor
+
+# ### Meta Data
+
+The following meta data are available:
+
+- title
+- description
+- category - one of 'sys', 'net', 'srv'
+- hint - additional help for problems
+
+
+
 
 New Ideas
 =================================================
