@@ -12,6 +12,7 @@ EventEmitter = require('events').EventEmitter
 # include alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
+Exec = require 'alinex-exec'
 # include classes and helpers
 schema = require './configSchema'
 Controller = require './controller'
@@ -23,24 +24,30 @@ class Monitor extends EventEmitter
   # -------------------------------------------------
 
   setup: (selection = null) ->
-    # add schema for module's configuration
-    config.setSchema '/monitor', schema
-    # set module search path
-    config.register 'monitor', fspath.dirname __dirname
+    # setup module configs first
+    async.each [Exec], (mod, cb) ->
+      mod.setup cb
+    , (err) ->
+      return cb err if err
 
-    # register selected controllers from /etc/monitor-controller
-    if selection?.length
-      # specific controllers only
-      for ctrl in selection
-        config.register 'monitor', fspath.dirname(__dirname),
-          uri: "#{ctrl}*"
+      # add schema for module's configuration
+      config.setSchema '/monitor', schema
+      # set module search path
+      config.register 'monitor', fspath.dirname __dirname
+
+      # register selected controllers from /etc/monitor-controller
+      if selection?.length
+        # specific controllers only
+        for ctrl in selection
+          config.register 'monitor', fspath.dirname(__dirname),
+            uri: "#{ctrl}*"
+            folder: 'controller'
+            path: 'monitor/controller'
+      else
+        # read all controllers
+        config.register 'monitor-controller', fspath.dirname(__dirname),
           folder: 'controller'
           path: 'monitor/controller'
-    else
-      # read all controllers
-      config.register 'monitor-controller', fspath.dirname(__dirname),
-        folder: 'controller'
-        path: 'monitor/controller'
 
   init: (cb) ->
     debug "Loading configuration..."
@@ -59,7 +66,7 @@ class Monitor extends EventEmitter
     for name, def of @conf.controller
       @controller[name] = new Controller name, def
     # parallel instantiation
-    async.each @controller, (ctrl, cb) =>
+    async.each @controller, (ctrl, cb) ->
       ctrl.init cb
     , cb
 

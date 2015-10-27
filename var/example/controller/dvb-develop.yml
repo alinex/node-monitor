@@ -22,11 +22,11 @@ interval: 5m
 check:
   - sensor: diskfree
     config:
-      remote: 192.168.200.106
+      remote: dvb-develop
       share: /
   - sensor: diskfree
     config:
-      remote: 192.168.200.106
+      remote: dvb-develop
       share: /run
     # weight setting specific to value of the following 'combine' setting:
     # With the `weight` settings on the different entries single group entries may

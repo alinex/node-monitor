@@ -1,0 +1,64 @@
+# Setup for process management
+# =================================================
+# Default settings to fully use a machine.
+
+# Retry if failed
+# -------------------------------------------------
+retry:
+  # check for host vital signs
+  vital:
+   # time to recheck host vital signs
+    interval: 3s
+    # maximum load% per CPU core per second in usage to start
+    startload: 80%
+  # a queue will be created if host is overloaded
+  queue:
+    # specify the time after that a retry for queued executions should run
+    interval: 3s
+  # too much processes opened on system
+  ulimit:
+    # time to sleep till next try
+    interval: 1s
+  # process failed retry check
+  error:
+    # number of attempts
+    times: 3
+    # time to sleep till next try
+    interval: 3s
+
+# Priority Levels
+# -------------------------------------------------
+# This defines the possible priority levels to be used.
+priority:
+  # specify the default priority
+  default: medium
+  # specify the possible priorities with their checks
+  level:
+    anytime:
+      maxCpu: 20%
+      maxLoad: 20%
+      nice: 19
+    low:
+      maxCpu: 40%
+      maxLoad: 60%
+      nice: 10
+    medium:
+      maxCpu: 60%
+      maxLoad: 100%
+      nice: 5
+    high:
+      maxCpu: 90%
+      maxLoad: 150%
+    immediately:
+      nice: -20
+
+# Remote Server
+# -------------------------------------------------
+# Define remote hosts or host pools to be used through ssh.
+remote:
+  server:
+    # virtual name for server
+    dvb-develop:
+      host: 192.168.200.106
+      username: root
+      privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
