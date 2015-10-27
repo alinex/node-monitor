@@ -12,7 +12,7 @@ fspath = require 'path'
 # include alinex modules
 config = require 'alinex-config'
 # include classes and helpers
-logo = require './logo'
+logo = require('./logo') 'Monitoring Application'
 monitor = require './index'
 #Controller = require './controller'
 
@@ -84,7 +84,7 @@ fail = (err) ->
 
 # Main routine
 # -------------------------------------------------
-console.log require('./logo') 'alinex', 'Monitoring Application'
+console.log logo
 monitor.setup argv._
 
 console.log "Initializing..."
