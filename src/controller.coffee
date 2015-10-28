@@ -6,6 +6,7 @@
 
 # include base modules
 debug = require('debug')('monitor:controller')
+debugSensor = require('debug')('monitor:sensor')
 chalk = require 'chalk'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
@@ -24,10 +25,10 @@ class Controller extends EventEmitter
   init: (cb) ->
     async.mapOf @conf.check, (check, num, cb) =>
       try
-        sensor = require "./sensor/#{check.sensor.toLowerCase()}"
+        sensor = require "./sensor/#{check.sensor}"
       catch err
-        debug chalk.red "Failed to load '#{check.sensor.toLowerCase()}' lib because of: #{err}"
-        return cb new Error "Check '#{check.sensor.toLowerCase()}' not supported"
+        debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
+        return cb new Error "Check '#{check.sensor}' not supported"
       validator.check
         name: "#{@name}:#{num}"
         value: check.config
@@ -43,17 +44,22 @@ class Controller extends EventEmitter
   run: (cb) ->
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
-      debug "#{chalk.grey @name} Running check ##{num}:#{check.sensor}..."
-      sensor = require "./sensor/#{check.sensor.toLowerCase()}"
+      name = "#{check.sensor}:#{check.name}"
+      debug "#{chalk.grey @name} Running check #{name}..."
+      sensor = require "./sensor/#{check.sensor}"
       # run sensor
-      sensor.run "#{@name}:#{num}", check.config, (err, res) ->
+      sensor.run "#{@name}:#{name}", check.config, (err, res) =>
         return cb err if err
         # keep results
-        console.log res
-        # output status line on console
+#        console.log res
+        # status info
+        debugSensor "#{chalk.grey @name} Check #{name} => #{colorStatus res.status}"
         # store results
         cb()
-    , cb
+    , ->
+      # calculate controller status
+      #@emit 'result', this
+      cb()
 
     # analysis on state change
     # run analyzer
@@ -70,3 +76,20 @@ class Controller extends EventEmitter
 # -------------------------------------------------
 
 module.exports =  Controller
+
+# Helper to colorize output
+# -------------------------------------------------
+colorStatus = (status, text) ->
+  text = status unless text?
+  switch status
+    when 'ok'
+      chalk.green text
+    when 'warn'
+      chalk.yellow text
+    when 'fail'
+      chalk.red text
+    when 'disabled'
+      chalk.grey text
+    else
+      text
+

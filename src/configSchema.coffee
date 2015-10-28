@@ -155,7 +155,10 @@ check =
         description: "the  class name of a sensor to run"
         type: 'string'
         lowerCase: true
-        upperCase: 'first'
+      name:
+        title: "Check Name"
+        description: "the configuration for a sensor run"
+        type: 'string'
       config:
         title: "Sensor Configuration"
         description: "the configuration for a sensor run"

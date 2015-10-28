@@ -61,4 +61,4 @@ remote:
     dvb-develop:
       host: 192.168.200.106
       username: root
-      privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
+      privateKey: <<<file:///home/alex/.ssh/divibib>>>
