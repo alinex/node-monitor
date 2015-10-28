@@ -65,6 +65,7 @@ class Monitor extends EventEmitter
     @controller = {}
     for name, def of @conf.controller
       @controller[name] = new Controller name, def
+      @controller[name].on 'result', (ctrl) => @emit 'result', ctrl
     # parallel instantiation
     async.each @controller, (ctrl, cb) ->
       ctrl.init cb
@@ -78,8 +79,10 @@ class Monitor extends EventEmitter
       return cb err if err
       async.mapOf @controller, (ctrl, name, cb) ->
         ctrl.run cb
-      , cb
-      this
+      , (err) ->
+        Exec.close()
+        cb err
+    this
 
   start: ->
     @instantiate() unless @controller

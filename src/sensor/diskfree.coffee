@@ -9,7 +9,7 @@
 # -------------------------------------------------
 
 # include base modules
-exports.debug = debug = require('debug')('monitor:diskfree')
+exports.debug = debug = require('debug')('monitor:sensor:diskfree')
 chalk = require 'chalk'
 os = require 'os'
 # include alinex modules
