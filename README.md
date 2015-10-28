@@ -128,6 +128,17 @@ mon_report
 - status # ok/warn/error/unknown
 - report markdown
 
+* controller I
+- category   I
+- sensor     I
+- sensorId   I
+- name       I
+- status
+- date
+- min
+- avg
+- max
+
 # delete
 minute # 1 day
 hour # 1 week = 168
