@@ -21,3 +21,5 @@ exports.validator = (sensor, values, cb) ->
     value: values
     schema: sensor.schema
   , cb
+
+exports.analysis = (sensor, config, cb) ->

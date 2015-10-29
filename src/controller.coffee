@@ -92,4 +92,3 @@ colorStatus = (status, text) ->
       chalk.grey text
     else
       text
-

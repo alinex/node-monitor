@@ -12,10 +12,11 @@
 exports.debug = debug = require('debug')('monitor:sensor:diskfree')
 chalk = require 'chalk'
 os = require 'os'
+math = require 'mathjs'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object} = require 'alinex-util'
+{object, string} = require 'alinex-util'
 # include classes and helpers
 sensor = require '../sensor'
 
@@ -49,15 +50,19 @@ exports.schema =
 #      min: 500
 #      default: 5000
     analysis:
-      title: "Analysis Paths"
-      description: "list of directories to monitor their volume on warning"
-      type: 'array'
-      optional: true
-      delimiter: /,\s+/
-      entries:
-        title: "Directory"
-        description: "the list of directories to check for waste of space"
-        type: 'string'
+      title: "Analysis Run"
+      description: "the configuration for the analysis if it may be run"
+      type: 'object'
+      keys:
+        dirs:
+          title: "Analysis Paths"
+          description: "list of directories to monitor their volume on warning"
+          type: 'array'
+          delimiter: /,\s+/
+          entries:
+            title: "Directory"
+            description: "the list of directories to check for waste of space"
+            type: 'string'
 #    analysisTimeout:
 #      title: "Analysis Time"
 #      description: "the time in milliseconds the analysis test may take before
@@ -161,37 +166,37 @@ exports.run = (name, config, cb = ->) ->
 
 # Run the Sensor
 # -------------------------------------------------
-exports.analysis = (name, config, result, cb = ->) ->
-  return cb() config.analysis?.length
+exports.analysis = (name, config, cb = ->) ->
+  return cb() unless config.analysis?
   # get additional information
-  result.analysis = """
+  report = analysis = """
     Maybe some files in one of the following directories may be deleted or moved:
-    | PATH                                |  FILES  |    SIZE    |   OLDEST   |
-    | ----------------------------------- | ------: | ---------: | :--------- |\n"""
-  async.mapLimit config.analysis, os.cpus().length, (dir, cb) ->
+
+    | PATH                                |  FILES   |    SIZE    |   OLDEST    |
+    | ----------------------------------- | -------: | ---------: | :---------- |\n"""
+  async.mapLimit config.analysis.dirs, os.cpus().length, (dir, cb) ->
     Exec.run
-      cmd: 'find'
+      cmd: 'sh'
       args: [
-        dir
-        '-type', 'f'
-        '-exec', 'ls'
-        '-ltr'
-        '--time-style=+%Y-%m-%d'
-        '{}'
-        '\\;'
+        '-c'
+        "find #{dir} -type f -exec ls -ltr --time-style=+%Y-%m-%d {} +
+        | awk '{n++;b+=$5;if(d==\"\"){d=$6};if(d>$6){d=$6}} END{print n,b,d}'"
       ]
-#    | awk '{n++;b+=$5;if(d==\"\"){d=$6};if(d>$6){d=$6}} END{print n,b,d}'"
-#    exec cmd,
-#      timeout: @config.analysisTimeout
-#    , (err, stdout, stderr) ->
-#      unless stdout
-#        return cb null, "| #{string.rpad dir, 35} |       ? |          ? | ?          |\n"
-#      col = stdout.toString().split /\s+/
-#      byte = math.unit parseInt(col[1]), 'B'
-#      cb null, "| #{string.rpad dir, 35} | #{string.lpad col[0], 7}
-#      | #{string.lpad byte.format(3), 10}
-#      | #{string.lpad col[2], 10} |\n"
-#  , (err, lines) =>
-#    @result.analysis += line for line in lines
-#    debug @result.analysis
-#    @_end status, message, cb
+    , (err, proc) ->
+      return cb err if err
+      exact = if proc.stderr() then '*' else ' '
+      unless stdout = proc.stdout()
+        return cb null, "| #{string.rpad dir, 35} |        ? |          ? |      ?      |\n"
+      col = stdout.split /\s+/
+      byte = math.unit parseInt(col[1]), 'B'
+      cb null, "| #{string.rpad dir, 35} | #{string.lpad col[0], 7}#{exact}
+      | #{string.lpad byte.format(3), 9}#{exact}
+      | #{string.lpad col[2], 10}#{exact} |\n"
+  , (err, res) ->
+    # add together
+    report += res.join ''
+    # add comment for *
+    if report.match /\* \|/
+      report += "\nThe rows marked with a '*' are only assumptions, because not all files were
+      \nreadable. All the values are minimum values, the real values may be higher."
+    cb null, report

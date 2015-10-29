@@ -42,3 +42,17 @@ describe "Diskfree", ->
           expect(res.values.free).to.be.above 0
           expect(res.message).to.not.exist
           cb()
+
+  describe "analysis", ->
+
+    it "should make an analysis report", (cb) ->
+      test.validator diskfree,
+        share: '/'
+        analysis:
+          dirs: '/tmp, /var/log'
+      , (err, conf) ->
+        diskfree.analysis 'test', conf, (err, report) ->
+          expect(err).to.not.exist
+          expect(report).to.exist
+          console.log report
+          cb()
