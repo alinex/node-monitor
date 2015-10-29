@@ -326,6 +326,7 @@ Roadmap
 - send emails on state change
 - add check type: serial: []
 - add check type: controller: ....
+- disabled controller
 
 
 License

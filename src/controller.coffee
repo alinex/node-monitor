@@ -22,6 +22,7 @@ class Controller extends EventEmitter
   # ### Create instance
   constructor: (@name, @conf) ->
 
+  # ### Initialize
   init: (cb) ->
     async.mapOf @conf.check, (check, num, cb) =>
       try
@@ -41,6 +42,20 @@ class Controller extends EventEmitter
       debug "#{chalk.grey @name} Initialized controller"
       cb err
 
+  # ### Data storage with last results
+  #
+  # Last status
+  status: 'disabled'
+  # Check results containing:
+  #
+  # - date
+  # - status
+  # - values
+  checks: []
+  # controller status
+  controller: []
+
+  # ### Run once
   run: (cb) ->
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
@@ -50,15 +65,24 @@ class Controller extends EventEmitter
       # run sensor
       sensor.run "#{@name}:#{name}", check.config, (err, res) =>
         return cb err if err
-        # keep results
-#        console.log res
         # status info
         debugSensor "#{chalk.grey @name} Check #{name} => #{colorStatus res.status}"
-        # store results
-        cb()
-    , ->
+        # check for status change -> analysis
+        return cb null, res if res.status in ['disabled', @status]
+        # run analysis
+        sensor.analysis "#{@name}:#{name}", check.config, (err, report) =>
+          return cb err if err
+          res.analysis = report
+          cb null, res
+    , (err, res) ->
+      console.log res
+      # store sensor results
+      @checks.unshift res
+      @checks.pop() if @checks.length > 5
       # calculate controller status
-      #@emit 'result', this
+      @status = calcStatus @config.combine, res
+      debug "#{chalk.grey @name} Controller => #{colorStatus @status}"
+      @emit 'result', this
       cb()
 
     # analysis on state change
@@ -76,6 +100,63 @@ class Controller extends EventEmitter
 # -------------------------------------------------
 
 module.exports =  Controller
+
+# Calculating Controller Status
+# -------------------------------------------------
+#
+# The three methods are:
+#
+# - max - the one with the highest failure value is used
+# - min - the lowest failure value is used
+# - average - the average status (arithmetic round) is used
+#
+# With the `weight` settings on the different entries single group entries may
+# be rated specific not like the others. Use a number in `average` to make the
+# weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
+# level for one step before using in calculation.
+calcStatus = (combine, check, result) ->
+  # translate name to number
+  values =
+    'disabled': 0
+    'ok': 1
+    'warn': 2
+    'fail': 3
+  # calculate values
+  switch combine
+    when 'max'
+      status = 0
+      for num, setup of check
+        continue if setup.weight is 0
+        val = values[result[num].status]
+        val-- if setup.weight is 'down' and val > 0
+        val++ if setup.weight is 'up' and val < 2
+        status = val if val > status
+    when 'min'
+      status = 9
+      num = 0
+      for num, setup of check
+        continue if setup.weight is 0
+        val = values[result[num].status]
+        val-- if setup.weight is 'down' and val > 0
+        val++ if setup.weight is 'up' and val < 2
+        status = val if val < status
+        num++
+      status = 0 unless num
+    when 'average'
+      status = 0
+      num = 0
+      for num, setup of check
+        continue if setup.weight is 0
+        val = values[result[num].status]
+        val-- if setup.weight is 'down' and val > 0
+        val++ if setup.weight is 'up' and val < 2
+        status += val * setup.weight
+        num += setup.weight
+      status = Math.round status/num
+  # translate status number to name
+  for name, val of values
+    return name if status is val
+  return 'ok'
 
 # Helper to colorize output
 # -------------------------------------------------
