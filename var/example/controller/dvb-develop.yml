@@ -3,7 +3,7 @@
 # This is an example of a complete controller configuration.
 
 name: Development Center
-description: Server containing miscelaneous tools to help in the development process.
+description: Server containing miscellaneous tools to help in the development process.
 
 # Monitor runtime configuration
 # -------------------------------------------------
@@ -57,7 +57,7 @@ info: |+
   test and deploy their code.
 
 hint: |+
-  All neccessary parts are on the same machine, so that you only have to bring
+  All necessary parts are on the same machine, so that you only have to bring
   this machine to work. Backups of the data are made on vs10152.
 
   Keep in mind that the machine is in the test net and you have to use a valid
