@@ -49,20 +49,6 @@ exports.schema =
 #      unit: 'ms'
 #      min: 500
 #      default: 5000
-    analysis:
-      title: "Analysis Run"
-      description: "the configuration for the analysis if it may be run"
-      type: 'object'
-      keys:
-        dirs:
-          title: "Analysis Paths"
-          description: "list of directories to monitor their volume on warning"
-          type: 'array'
-          delimiter: /,\s+/
-          entries:
-            title: "Directory"
-            description: "the list of directories to check for waste of space"
-            type: 'string'
 #    analysisTimeout:
 #      title: "Analysis Time"
 #      description: "the time in milliseconds the analysis test may take before
@@ -74,6 +60,20 @@ exports.schema =
     warn: sensor.schema.warn
     fail: object.extend {}, sensor.schema.fail,
       default: 'free is 0'
+    analysis:
+      title: "Analysis Run"
+      description: "the configuration for the analysis if it is run"
+      type: 'object'
+      keys:
+        dirs:
+          title: "Analysis Paths"
+          description: "the list of directories to monitor their volume"
+          type: 'array'
+          delimiter: /,\s+/
+          entries:
+            title: "Directory"
+            description: "the list of directories to check for waste of space"
+            type: 'string'
 
 # General information
 # -------------------------------------------------

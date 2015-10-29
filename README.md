@@ -188,6 +188,15 @@ The sensors contains:
 - run() - the method to really use this sensor returning a data object
 - analysis() - make an analysis run
 
+### Config
+
+Each sensor has its own configuration settings like seen above in the controller
+configuration. The common keys are:
+
+- warn - the javascript code to check to set status to warn
+- fail - the javascript code to check to set status to fail
+- analysis - the configuration for the analysis if it is run
+
 ### Meta Data
 
 The following meta data are available:
@@ -212,6 +221,15 @@ System Sensors
 -------------------------------------------------
 
 ### Diskfree
+
+This sensor will check the disk usage on a specific block device.
+
+- remote - the remote server, there to run the sensor
+- share - the disk share's path or mount point to check
+- warn - the javascript code to check for warn status
+- fail - the javascript code to check for fail status (default: 'free is 0')
+- analysis - the configuration for the analysis if it is run
+  - dirs - the list of directories to monitor their volume
 
 
 Storage
