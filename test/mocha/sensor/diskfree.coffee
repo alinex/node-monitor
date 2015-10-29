@@ -23,7 +23,6 @@ describe "Diskfree", ->
         expect(res.values.total).to.be.above 0
         expect(res.values.used).to.be.above 0
         expect(res.values.free).to.be.above 0
-        expect(res.message).to.not.exist
         cb()
 
     it "should work with binary values", (cb) ->
@@ -34,7 +33,7 @@ describe "Diskfree", ->
         expect(res.values.total).to.be.above 0
         expect(res.values.used).to.be.above 0
         expect(res.values.free).to.be.above 0
-        expect(res.message).to.not.exist
+        expect(res.status).to.be.equal 'warn'
         cb()
 
   describe "analysis", ->

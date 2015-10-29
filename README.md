@@ -222,7 +222,8 @@ System Sensors
 
 ### Diskfree
 
-This sensor will check the disk usage on a specific block device.
+This sensor will check the disk usage on a specific block device. The configuration
+allows:
 
 - remote - the remote server, there to run the sensor
 - share - the disk share's path or mount point to check
@@ -230,6 +231,27 @@ This sensor will check the disk usage on a specific block device.
 - fail - the javascript code to check for fail status (default: 'free is 0')
 - analysis - the configuration for the analysis if it is run
   - dirs - the list of directories to monitor their volume
+
+### CPU
+
+Checking the CPU utilization of all cores together. With the configuration values:
+
+- remote - the remote server, there to run the sensor
+- warn - the javascript code to check for warn status (default: 'active >= 100%')
+- fail - the javascript code to check for fail status
+- analysis - the configuration for the analysis if it is run
+  - procNum - number of top processes to list
+
+
+
+
+
+cores same as cpu but for single cores
+
+cat /proc/loadavg
+
+vmstat
+
 
 
 Storage

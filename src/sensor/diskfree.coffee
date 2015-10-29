@@ -10,7 +10,6 @@
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:diskfree')
-chalk = require 'chalk'
 os = require 'os'
 math = require 'mathjs'
 # include alinex modules
@@ -64,6 +63,7 @@ exports.schema =
       title: "Analysis Run"
       description: "the configuration for the analysis if it is run"
       type: 'object'
+      allowedKeys: true
       keys:
         dirs:
           title: "Analysis Paths"
@@ -144,14 +144,14 @@ exports.run = (name, config, cb = ->) ->
     priority: 'immediately'
     check:
       noExitCode: true
-  , (err, exec) ->
+  , (err, proc) ->
     sensor.end work
     # analyse results
     if err
       work.err = err
     else
       val = work.result.values
-      lines = exec.stdout().split /\n/
+      lines = proc.stdout().split /\n/
       col = lines[1].split /\s+/
       val.share = col[0]
       val.type = col[1]
