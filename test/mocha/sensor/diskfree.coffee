@@ -17,42 +17,33 @@ describe "Diskfree", ->
 
     it "should return success", (cb) ->
       @timeout 10000
-      test.validator diskfree,
+      test.run diskfree,
         share: '/'
-      , (err, conf) ->
-        diskfree.run 'test', conf, (err, res) ->
-          expect(err).to.not.exist
-          expect(res).to.exist
-          expect(res.values.total).to.be.above 0
-          expect(res.values.used).to.be.above 0
-          expect(res.values.free).to.be.above 0
-          expect(res.message).to.not.exist
-          cb()
+      , (err, res) ->
+        expect(res.values.total).to.be.above 0
+        expect(res.values.used).to.be.above 0
+        expect(res.values.free).to.be.above 0
+        expect(res.message).to.not.exist
+        cb()
 
     it "should work with binary values", (cb) ->
-      test.validator diskfree,
+      test.run diskfree,
         share: '/'
         warn: 'free < 1GB'
-      , (err, conf) ->
-        diskfree.run 'test', conf, (err, res) ->
-          expect(err).to.not.exist
-          expect(res).to.exist
-          expect(res.values.total).to.be.above 0
-          expect(res.values.used).to.be.above 0
-          expect(res.values.free).to.be.above 0
-          expect(res.message).to.not.exist
-          cb()
+      , (err, res) ->
+        expect(res.values.total).to.be.above 0
+        expect(res.values.used).to.be.above 0
+        expect(res.values.free).to.be.above 0
+        expect(res.message).to.not.exist
+        cb()
 
   describe "analysis", ->
 
     it "should make an analysis report", (cb) ->
-      test.validator diskfree,
+      test.analysis diskfree,
         share: '/'
         analysis:
           dirs: '/tmp, /var/log'
-      , (err, conf) ->
-        diskfree.analysis 'test', conf, (err, report) ->
-          expect(err).to.not.exist
-          expect(report).to.exist
-          console.log report
-          cb()
+      , (err, report) ->
+        console.log report
+        cb()

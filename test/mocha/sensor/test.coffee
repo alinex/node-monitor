@@ -22,4 +22,16 @@ exports.validator = (sensor, values, cb) ->
     schema: sensor.schema
   , cb
 
+exports.run = (sensor, config, cb) ->
+  @validator sensor, config, (err, conf) ->
+    sensor.run 'test', conf, (err, res) ->
+      expect(err, 'error').to.not.exist
+      expect(res, 'result').to.exist
+      cb null, res
+
 exports.analysis = (sensor, config, cb) ->
+  @validator sensor, config, (err, conf) ->
+    sensor.analysis 'test', conf, (err, res) ->
+      expect(err, 'error').to.not.exist
+      expect(res, 'analysis').to.exist
+      cb null, res
