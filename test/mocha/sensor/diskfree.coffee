@@ -33,7 +33,7 @@ describe "Diskfree", ->
         expect(res.values.total).to.be.above 0
         expect(res.values.used).to.be.above 0
         expect(res.values.free).to.be.above 0
-        expect(res.status).to.be.equal 'warn'
+        expect(res.status).to.be.equal 'ok'
         cb()
 
   describe "analysis", ->

@@ -10,6 +10,7 @@
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:cpu')
+chalk = require 'chalk'
 os = require 'os'
 # include alinex modules
 async = require 'alinex-async'
@@ -29,6 +30,8 @@ exports.schema =
   title: "CPU check configuration"
   description: "the configuration to check the CPU utilization"
   type: 'object'
+  default:
+    warn: 'active >= 100%'
   allowedKeys: true
   keys:
     remote:
@@ -126,8 +129,8 @@ exports.run = (name, config, cb = ->) ->
   async.map [
     remote: config.remote
     cmd: 'sh'
-    args: ['-c', "cat /proc/cpuinfo | egrep '(model name|processor|cpu MHz)'
-    | sort | uniq | sed 's/.*: //'"]
+    args: ['-c', "cat /proc/cpuinfo | egrep '(model name|processor|cpu MHz)'"]
+#    | sort | uniq | sed 's/.*: //'"]
     priority: 'immediately'
     check:
       noExitCode: true
@@ -148,20 +151,25 @@ exports.run = (name, config, cb = ->) ->
     else
       val = work.result.values
       # cpu info values
-      [speed, model, ..., cpus] = proc[0].stdout().split /\n/
-      val.speed = Number speed
-      val.cpu = model.replace /\s+/g, ' '
-      val.cpus = Number cpus
+      val.cpus = 0
+      val.speed = 0
+      for line in proc[0].stdout().split /\n/
+        match =  line.match(/^(\w+(?: \w+)*).*:\s+(.*)/)
+        switch match[1]
+          when 'processor' then val.cpus++
+          when 'model name' then val.cpu = match[2]
+          when 'cpu MHz' then val.speed += Number match[2]
+      val.speed /= val.cpus
       # cpu load
       col = proc[1].stdout().split /\s+/
-      val.user = 100 / Number col[1]
-      val.system = 100 / Number col[3]
-      val.nice = 100 / Number col[5]
-      val.idle = 100 / Number col[7]
-      val.active = 1 - 100 / val.idle
-      val.wait = 100 / Number col[9]
-      val.hwint = 100 / Number col[11]
-      val.swint = 100 / Number col[13]
+      val.user = Number col[1] / 100
+      val.system = Number col[3] / 100
+      val.nice = Number col[5] / 100
+      val.idle = Number col[7] / 100
+      val.active = 1 - val.idle
+      val.wait = Number col[9] / 100
+      val.hwint = Number col[11] / 100
+      val.swint = Number col[13] / 100
       sensor.result work
       cb err, work.result
 
@@ -171,7 +179,7 @@ exports.analysis = (name, config, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
   report = analysis = """
-    Currently the top #{@config.analysis} cpu consuming processes are:
+    Currently the top #{config.analysis.procNum} cpu consuming processes are:
 
     |  PID  |  %CPU |  %MEM | COMMAND                                            |
     | ----: | ----: | ----: | -------------------------------------------------- |\n"""

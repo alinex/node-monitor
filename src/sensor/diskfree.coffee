@@ -197,6 +197,10 @@ exports.analysis = (name, config, cb = ->) ->
     report += res.join ''
     # add comment for *
     if report.match /\* \|/
-      report += "\nThe rows marked with a '*' are only assumptions, because not all files were
-      \nreadable. All the values are minimum values, the real values may be higher."
+      report += "\n__(*)__\n: The rows marked with a '*' are only assumptions, because not all
+      \nfiles were readable. All the values are minimum values, the real values may
+      \nbe higher.\n"
+    if report.match /\? \|/
+      report += "\n__(?)__\n: The rows marked with a '?' as value could not be determinded, mostly
+      \nbecause their content is too large to discover in time.\n"
     cb null, report

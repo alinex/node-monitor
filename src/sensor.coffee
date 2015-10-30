@@ -8,6 +8,7 @@
 chalk = require 'chalk'
 vm = require 'vm'
 math = require 'mathjs'
+util = require 'util'
 # include alinex modules
 # include classes and helpers
 
@@ -46,6 +47,12 @@ exports.end = (work) ->
 # Analysis
 # -------------------------------------------------
 exports.result = (work) ->
+  result work
+  work.sensor.debug "#{chalk.grey work.name} result status: #{work.result.status}"
+  for n, v of work.result.values
+    work.sensor.debug "#{chalk.grey work.name} result #{n}: #{v}"
+
+result = (work) ->
   if work.err
     return work.result.status = 'fail'
   unless Object.keys work.result
@@ -54,7 +61,7 @@ exports.result = (work) ->
   for status in ['fail', 'warn']
     continue unless work.config[status]
     rule = work.config[status]
-    work.sensor.debug "#{chalk.grey work.name} check #{status} rule: #{rule}"
+    work.sensor.debug chalk.grey "#{work.name} check #{status} rule: #{rule}"
     # replace data values
     for name, value of work.result.values
       if Array.isArray value
@@ -95,12 +102,11 @@ exports.result = (work) ->
     for name, value of {and: '&&', or: '||', is: '==', isnt: '!=', not: '!'}
       re = new RegExp "\\b#{name}\\b", 'g'
       rule = rule.replace re, value
-    work.sensor.debug "#{chalk.grey work.name} optimized: #{rule}"
+    work.sensor.debug chalk.grey "#{work.name} optimized: #{rule}"
     # run the code in sandbox
     sandbox = {}
-    vm.runInNewContext "result = #{rule}", sandbox, 'monitor-sensor-rule.vm'
-    work.sensor.debug "#{chalk.grey work.name} result: #{status} = #{sandbox.result}"
+    vm.runInNewContext "result = #{rule}", sandbox, {filename: 'monitor-sensor-rule.vm'}
+    work.sensor.debug chalk.grey "#{work.name} rule result: #{status} = #{sandbox.result}"
     if sandbox.result
-      work.result.status = status
-      break
+      return work.result.status = status
   work.result.status = 'ok'

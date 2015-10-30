@@ -35,6 +35,9 @@ monitor --help
 
 Always have a look at the latest [changes](Changelog.md).
 
+kramdown
+: A Markdown-superset converter
+: makes it easier
 
 Usage
 -------------------------------------------------

@@ -20,7 +20,10 @@ exports.validator = (sensor, values, cb) ->
     name: 'test'
     value: values
     schema: sensor.schema
-  , cb
+  , (err, conf) ->
+    expect(err, 'error').to.not.exist
+    cb err, conf
+
 
 exports.run = (sensor, config, cb) ->
   @validator sensor, config, (err, conf) ->

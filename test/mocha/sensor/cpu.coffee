@@ -23,7 +23,6 @@ describe "CPU", ->
 
     it "should work with binary values", (cb) ->
       test.run cpu,
-        share: '/'
         warn: 'active > 0.01%'
       , (err, res) ->
         expect(res.values.active).to.be.above 0
@@ -35,7 +34,7 @@ describe "CPU", ->
     it "should make an analysis report", (cb) ->
       test.analysis cpu,
         analysis:
-          topNum: 5
+          procNum: 5
       , (err, report) ->
         console.log report
         cb()
