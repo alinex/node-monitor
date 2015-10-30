@@ -339,13 +339,14 @@ can be visualized using a data analyzation tool like dbVisualizer.
 Roadmap
 -------------------------------------------------
 
-- controller daemon
+- add timeouts for analysis in diskfree
 - generate reports
-- add timeouts for check and analysis
+- test report generation
 - convert old sensors
+- controller daemon
+- add postgres db support
 - db checks
 - store results => db
-- create reports
 - store reports
 - send emails on state change
 - add check type: serial: []
