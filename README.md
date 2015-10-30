@@ -354,6 +354,8 @@ Roadmap
 - disabled controller
 - add example reports for each sensor to doc
 
+- add over time report
+
 
 License
 -------------------------------------------------

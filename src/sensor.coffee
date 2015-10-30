@@ -10,6 +10,7 @@ vm = require 'vm'
 math = require 'mathjs'
 util = require 'util'
 # include alinex modules
+{string} = require 'alinex-util'
 # include classes and helpers
 
 
@@ -110,3 +111,62 @@ result = (work) ->
     if sandbox.result
       return work.result.status = status
   work.result.status = 'ok'
+
+exports.report = (work) ->
+  meta = work.sensor.meta
+  report = """\n#{meta.title} (#{work.name})
+  -----------------------------------------------------------------------------\n
+  """
+  report += """\n#{meta.description}
+
+  Last check results from #{work.result.date[0]} are:
+
+  |          LABEL          |                     VALUE                        |
+  | ----------------------- | -----------------------------------------------: |\n
+  """
+  # table of values
+  for name, set of meta.values
+    val = ''
+    if work.result.values[name]?
+      val = formatValue work.result.values[name], set
+    report += "| #{string.rpad set.title, 23} | #{string.lpad val.toString(), 48} |\n"
+  report += "\n#{work.sensor.meta.hint}\n"
+  report += """\nThis has been checked with the following setup:
+
+  |       CONFIG       |  VALUE                                                |
+  | ------------------ | ----------------------------------------------------: |\n
+  """
+  for name, set of work.sensor.schema.keys
+    continue if name is 'analysis'
+    continue unless work.config[name]?
+    val = formatValue work.config[name], set
+    if name in ['fail', 'warn']
+      # replace values
+      for vname, value of work.result.values
+        re = new RegExp "\\b#{vname}\\b", 'g'
+        val = val.replace re, (str) ->
+          meta.values[vname]?.title ? vname
+    report += "| #{string.rpad set.title, 18}
+    | #{string.lpad val.toString(), 53} |\n"
+  report += "\n#{work.result.analysis}\n" if work.result.analysis
+  string.wordwrap report
+
+# ### Format a value for better human readable display
+formatValue = (value, config) ->
+  switch config.type
+    when 'percent'
+      (Math.round(value * 100) / 100).toString() + ' %'
+    when 'byte'
+      byte = math.unit value, 'B'
+      byte.format 3
+    when 'interval'
+      long =
+        d: 'day'
+        m: 'minute'
+      unit = long[config.unit] ? config.unit
+      interval = math.unit value, unit
+      interval.format 3
+    else
+      val = value
+      val += " #{config.unit}" if val and config.unit
+      val

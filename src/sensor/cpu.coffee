@@ -58,11 +58,11 @@ exports.schema =
 # -------------------------------------------------
 # This information may be used later for display and explanation.
 exports.meta =
-  title: 'Cpu'
+  title: 'CPU'
   description: "Check the current activity in average percent of all cores."
   category: 'sys'
   hint: "A high cpu usage means that the server may not start another task immediately.
-  If the load is also very high the system is overloaded check if any application
+  If the load is also very high the system is overloaded, check if any application
   goes evil."
 
   # ### Result values
@@ -210,7 +210,8 @@ exports.analysis = (name, config, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
   report = analysis = """
-    Currently the top #{config.analysis.procNum} cpu consuming processes are:
+    The top #{config.analysis.procNum} cpu consuming processes are listed below.
+    Maybe one of them is the cause.
 
     |  PID  |  %CPU |  %MEM | COMMAND                                            |
     | ----: | ----: | ----: | -------------------------------------------------- |\n"""
@@ -220,6 +221,7 @@ exports.analysis = (name, config, cb = ->) ->
       '-c'
       "ps axu | awk '{print $2, $3, $4, $11}' | sort -k2 -nr | head -#{config.analysis.procNum}"
     ]
+    priority: 'immediately'
   , (err, proc) ->
     return cb err if err
     for line in proc.stdout().split /\n/

@@ -38,3 +38,14 @@ exports.analysis = (sensor, config, cb) ->
       expect(err, 'error').to.not.exist
       expect(res, 'analysis').to.exist
       cb null, res
+
+exports.report = (sensor, config, result, cb) ->
+  @validator sensor, config, (err, conf) ->
+    base = require '../../../src/sensor'
+    report = base.report
+      name: 'test'
+      sensor: sensor
+      config: conf
+      result: result
+    expect(report, 'report').to.exist
+    cb null, report

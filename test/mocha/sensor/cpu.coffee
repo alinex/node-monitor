@@ -5,7 +5,10 @@ validator = require 'alinex-validator'
 test = require './test'
 cpu = require '../../../src/sensor/cpu'
 
-describe "CPU", ->
+describe.only "CPU", ->
+  @timeout 10000
+
+  store = null
 
   describe "run", ->
 
@@ -16,12 +19,14 @@ describe "CPU", ->
       test.meta cpu, cb
 
     it "should return success", (cb) ->
-      @timeout 10000
       test.run cpu, {}, (err, res) ->
+        store = res
         expect(res.values.active).to.be.above 0
         cb()
 
-    it "should work with binary values", (cb) ->
+  describe "check", ->
+
+    it "should give warn on active", (cb) ->
       test.run cpu,
         warn: 'active > 0.01%'
       , (err, res) ->
@@ -29,12 +34,22 @@ describe "CPU", ->
         expect(res.status).to.be.equal 'warn'
         cb()
 
-  describe "analysis", ->
+  describe "reporting", ->
 
-    it "should make an analysis report", (cb) ->
+    it "should get analysis data", (cb) ->
+      @timeout 5000
       test.analysis cpu,
         analysis:
           procNum: 5
       , (err, report) ->
+        store.analysis = report
+        console.log report
+        cb()
+
+    it "should make the report", (cb) ->
+      test.report cpu,
+        analysis:
+          procNum: 5
+      , store, (err, report) ->
         console.log report
         cb()
