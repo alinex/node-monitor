@@ -115,6 +115,14 @@ exports.meta =
       title: "Software Interrupt Time"
       description: "percentage of time spent serving software interrupts"
       type: 'percent'
+    low:
+      title: "Lowest CPU Core"
+      description: "percentage of lowest usage of a cpu core"
+      type: 'percent'
+    high:
+      title: "Highest CPU Core"
+      description: "percentage of highest usage of a cpu core"
+      type: 'percent'
 
 # Run the Sensor
 # -------------------------------------------------
@@ -137,7 +145,14 @@ exports.run = (name, config, cb = ->) ->
   ,
     remote: config.remote
     cmd: 'sh'
-    args: ['-c', "top -b -n 1 | head -n 3 | tail -n 1"]
+    args: ['-c', "grep cpu /proc/stat"]
+    priority: 'immediately'
+    check:
+      noExitCode: true
+  ,
+    remote: config.remote
+    cmd: 'sh'
+    args: ['-c', "sleep 3 && grep cpu /proc/stat"]
     priority: 'immediately'
     check:
       noExitCode: true
@@ -161,15 +176,31 @@ exports.run = (name, config, cb = ->) ->
           when 'cpu MHz' then val.speed += Number match[2]
       val.speed /= val.cpus
       # cpu load
-      col = proc[1].stdout().split /\s+/
-      val.user = Number col[1] / 100
-      val.system = Number col[3] / 100
-      val.nice = Number col[5] / 100
-      val.idle = Number col[7] / 100
-      val.active = 1 - val.idle
-      val.wait = Number col[9] / 100
-      val.hwint = Number col[11] / 100
-      val.swint = Number col[13] / 100
+      l1 = proc[1].stdout().split(/\n/).map (line) ->
+        line.split(/\s+/).map (c) ->
+          if string.starts c, 'cpu' then 0 else Number c
+      l2 = proc[2].stdout().split(/\n/).map  (line) ->
+        line.split(/\s+/).map (c) ->
+          if string.starts c, 'cpu' then 0 else Number c
+      for num in [0..l1.length-1]
+        l1[num][0] += c for c in l1[num][1..]
+        l2[num][0] += c for c in l2[num][1..]
+      # get percentage
+      val.user = (l2[0][1] - l1[0][1]) / (l2[0][0] - l1[0][0])
+      val.nice = (l2[0][2] - l1[0][2]) / (l2[0][0] - l1[0][0])
+      val.system = (l2[0][3] - l1[0][3]) / (l2[0][0] - l1[0][0])
+      val.idle = (l2[0][4] - l1[0][4]) / (l2[0][0] - l1[0][0])
+      val.wait = (l2[0][5] - l1[0][5]) / (l2[0][0] - l1[0][0])
+      val.hwint = (l2[0][6] - l1[0][6]) / (l2[0][0] - l1[0][0])
+      val.swint = (l2[0][7] - l1[0][7]) / (l2[0][0] - l1[0][0])
+      val.active = 1.0 - val.idle
+      # get min/max cpus
+      val.low = 1.0
+      val.high = 0.0
+      for num in [1..l1.length-1]
+        active = 1.0 - (l2[num][4] - l1[num][4]) / (l2[num][0] - l1[num][0])
+        val.low = active if active < val.low
+        val.high = active if active > val.high
       sensor.result work
       cb err, work.result
 
