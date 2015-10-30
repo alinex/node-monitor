@@ -8,7 +8,8 @@
     "monitor",
     "analysis",
     "alarm",
-    "sensor"
+    "sensor",
+    "controller"
   ],
   "homepage": "http://alinex.github.io/node-monitor/",
   "repository": {

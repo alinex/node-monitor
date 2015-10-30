@@ -100,7 +100,7 @@ monitor.init (err) ->
     monitor.on 'done', (ctrl) ->
   else
     monitor.on 'result', (ctrl) ->
-      console.log '------- result', ctrl.name
+      console.log '-------> result', ctrl.name
     monitor.onetime (err, results) ->
       fail err
-      console.log '------- done'
+      console.log '-------> done'

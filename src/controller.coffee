@@ -70,17 +70,18 @@ class Controller extends EventEmitter
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
-        sensor.analysis "#{@name}:#{name}", check.config, (err, report) =>
+        sensor.analysis "#{@name}:#{name}", check.config, (err, report) ->
           return cb err if err
           res.analysis = report
           cb null, res
-    , (err, res) ->
-      console.log res
+    , (err, res) =>
+      res = Object.keys(res).map (k) -> res[k] # convert to array
+#      console.log res
       # store sensor results
       @checks.unshift res
       @checks.pop() if @checks.length > 5
       # calculate controller status
-      @status = calcStatus @config.combine, res
+      @status = calcStatus @conf.combine, @conf.check, res
       debug "#{chalk.grey @name} Controller => #{colorStatus @status}"
       @emit 'result', this
       cb()

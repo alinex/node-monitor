@@ -247,8 +247,6 @@ Checking the CPU utilization of all cores together. With the configuration value
 
 
 
-
-
 cores same as cpu but for single cores
 
 cat /proc/loadavg
@@ -342,7 +340,8 @@ Roadmap
 -------------------------------------------------
 
 - controller daemon
-- analysis run
+- generate reports
+- add timeouts for check and analysis
 - convert old sensors
 - db checks
 - store results => db
@@ -352,12 +351,13 @@ Roadmap
 - add check type: serial: []
 - add check type: controller: ....
 - disabled controller
+- add example reports for each sensor to doc
 
 
 License
 -------------------------------------------------
 
-Copyright 2014 Alexander Schilling
+Copyright 2015 Alexander Schilling
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
