@@ -36,7 +36,7 @@ describe "Diskfree", ->
         expect(res.status).to.be.equal 'ok'
         cb()
 
-  describe "analysis", ->
+  describe "reporting", ->
 
     it "should make an analysis report", (cb) ->
       test.analysis diskfree,
@@ -44,5 +44,14 @@ describe "Diskfree", ->
         analysis:
           dirs: '/tmp, /var/log'
       , (err, report) ->
+        console.log report
+        cb()
+
+    it "should make the report", (cb) ->
+      test.report cpu,
+        share: '/'
+        analysis:
+          dirs: '/tmp, /var/log'
+      , store, (err, report) ->
         console.log report
         cb()

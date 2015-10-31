@@ -35,9 +35,6 @@ monitor --help
 
 Always have a look at the latest [changes](Changelog.md).
 
-kramdown
-: A Markdown-superset converter
-: makes it easier
 
 Usage
 -------------------------------------------------
@@ -339,12 +336,13 @@ can be visualized using a data analyzation tool like dbVisualizer.
 Roadmap
 -------------------------------------------------
 
+- release exec with timeout
+- add postgres db support
+
 - add timeouts for analysis in diskfree
-- generate reports
-- test report generation
+- generate controller report
 - convert old sensors
 - controller daemon
-- add postgres db support
 - db checks
 - store results => db
 - store reports
@@ -355,6 +353,8 @@ Roadmap
 - add example reports for each sensor to doc
 
 - add over time report
+- -v verbose show/send always report
+- -m send to other email instead of controller contacts
 
 
 License
