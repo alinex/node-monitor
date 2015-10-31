@@ -3,9 +3,9 @@ expect = chai.expect
 validator = require 'alinex-validator'
 
 test = require './test'
-cpu = require '../../../src/sensor/cpu'
+load = require '../../../src/sensor/load'
 
-describe "CPU", ->
+describe "Load", ->
   @timeout 10000
 
   store = null
@@ -13,24 +13,24 @@ describe "CPU", ->
   describe "run", ->
 
     it "should has correct validator rules", (cb) ->
-      test.schema cpu, cb
+      test.schema load, cb
 
     it "should has meta data", (cb) ->
-      test.meta cpu, cb
+      test.meta load, cb
 
     it "should return success", (cb) ->
-      test.run cpu, {}, (err, res) ->
+      test.run load, {}, (err, res) ->
         store = res
-        expect(res.values.active).to.be.above 0
+        expect(res.values.short).to.be.above 0
         cb()
 
   describe "check", ->
 
-    it "should give warn on active", (cb) ->
-      test.run cpu,
-        warn: 'active > 0.01%'
+    it "should give warn on short load", (cb) ->
+      test.run load,
+        warn: 'short > 0.01'
       , (err, res) ->
-        expect(res.values.active).to.be.above 0
+        expect(res.values.short).to.be.above 0
         expect(res.status).to.be.equal 'warn'
         cb()
 
@@ -38,12 +38,12 @@ describe "CPU", ->
 
     it "should get analysis data", (cb) ->
       @timeout 5000
-      test.analysis cpu, {}, (err, report) ->
+      test.analysis load, {}, (err, report) ->
         store.analysis = report
         console.log report
         cb()
 
     it "should make the report", (cb) ->
-      test.report cpu, {}, store, (err, report) ->
+      test.report load, {}, store, (err, report) ->
         console.log report
         cb()

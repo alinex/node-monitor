@@ -11,7 +11,6 @@
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:cpu')
 chalk = require 'chalk'
-os = require 'os'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
@@ -32,6 +31,8 @@ exports.schema =
   type: 'object'
   default:
     warn: 'active >= 100%'
+    analysis:
+      minCpu: 0.1
   allowedKeys: true
   keys:
     remote:
@@ -47,9 +48,15 @@ exports.schema =
       type: 'object'
       allowedKeys: true
       keys:
-        procNum:
+        minCpu:
+          title: "Minimum %CPU"
+          description: "the minimum CPU usage to include"
+          type: 'percent'
+          min: 0
+          default: 0.1
+        numProc:
           title: "Top X"
-          description: "the number of top cpu heavy processes for analysis"
+          description: "the number of top CPU heavy processes for analysis"
           type: 'integer'
           min: 1
           default: 5
@@ -61,7 +68,7 @@ exports.meta =
   title: 'CPU'
   description: "Check the current activity in average percent of all cores."
   category: 'sys'
-  hint: "A high cpu usage means that the server may not start another task immediately.
+  hint: "A high CPU usage means that the server may not start another task immediately.
   If the load is also very high the system is overloaded, check if any application
   goes evil."
 
@@ -70,10 +77,6 @@ exports.meta =
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
-    cpu:
-      title: "CPU Model"
-      description: "cpu model name with brand"
-      type: 'string'
     cpus:
       title: "CPU Cores"
       description: "number of cpu cores"
@@ -117,11 +120,11 @@ exports.meta =
       type: 'percent'
     low:
       title: "Lowest CPU Core"
-      description: "percentage of lowest usage of a cpu core"
+      description: "percentage of lowest usage of a CPU core"
       type: 'percent'
     high:
       title: "Highest CPU Core"
-      description: "percentage of highest usage of a cpu core"
+      description: "percentage of highest usage of a CPU core"
       type: 'percent'
 
 # Run the Sensor
@@ -137,25 +140,19 @@ exports.run = (name, config, cb = ->) ->
   async.map [
     remote: config.remote
     cmd: 'sh'
-    args: ['-c', "cat /proc/cpuinfo | egrep '(model name|processor|cpu MHz)'"]
+    args: ['-c', "cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"]
 #    | sort | uniq | sed 's/.*: //'"]
     priority: 'immediately'
-    check:
-      noExitCode: true
   ,
     remote: config.remote
     cmd: 'sh'
     args: ['-c', "grep cpu /proc/stat"]
     priority: 'immediately'
-    check:
-      noExitCode: true
   ,
     remote: config.remote
     cmd: 'sh'
     args: ['-c', "sleep 3 && grep cpu /proc/stat"]
     priority: 'immediately'
-    check:
-      noExitCode: true
   ], (setup, cb) ->
     Exec.run setup, cb
   , (err, proc) ->
@@ -172,7 +169,6 @@ exports.run = (name, config, cb = ->) ->
         match =  line.match(/^(\w+(?: \w+)*).*:\s+(.*)/)
         switch match[1]
           when 'processor' then val.cpus++
-          when 'model name' then val.cpu = match[2]
           when 'cpu MHz' then val.speed += Number match[2]
       val.speed /= val.cpus
       # cpu load
@@ -204,29 +200,50 @@ exports.run = (name, config, cb = ->) ->
       sensor.result work
       cb err, work.result
 
-# Run the Sensor
+# Run additional analysis
 # -------------------------------------------------
 exports.analysis = (name, config, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
-  report = analysis = """
-    The top #{config.analysis.procNum} cpu consuming processes are listed below.
-    Maybe one of them is the cause.
-
-    |  PID  |  %CPU |  %MEM | COMMAND                                            |
+  if config.analysis.minCpu
+    min = Math.floor config.analysis.minCpu * 100
+    report = "The top CPU consuming processes above #{min}% are:\n\n"
+  else
+    report = "The top #{config.analysis.numProc} CPU consuming processes are:\n\n"
+  report += """
+    | COUNT |  %CPU |  %MEM | COMMAND                                            |
     | ----: | ----: | ----: | -------------------------------------------------- |\n"""
   Exec.run
     cmd: 'sh'
     args: [
       '-c'
-      "ps axu | awk '{print $2, $3, $4, $11}' | sort -k2 -nr | head -#{config.analysis.procNum}"
+      "ps axu | awk 'NR>1 {print $2, $3, $4, $11}'"
     ]
     priority: 'immediately'
   , (err, proc) ->
     return cb err if err
+    procs = {}
     for line in proc.stdout().split /\n/
       continue unless line
       col = line.split /\s/, 4
-      report += "| #{string.lpad col[0], 5} | #{string.lpad col[1], 5}
-        | #{string.lpad col[2], 5} | #{string.rpad col[3], 50} |\n"
+      procs[col[3]] ?= [ 0, 0, 0 ]
+      procs[col[3]][0]++
+      procs[col[3]][1] += parseFloat col[1]
+      procs[col[3]][2] += parseFloat col[2]
+    keys = Object.keys(procs).sort (a, b) ->
+      procs[b][1] - procs[a][1]
+    found = false
+    num = 0
+    for proc in keys
+      num++
+      value = procs[proc]
+      continue if min and value[1] < min
+      continue if config.analysis.numProc and num > config.analysis.numProc
+      found = true
+      value[1] = if value[1] > 100 then Math.floor value[1] else Math.round(value[1] * 10) / 10
+      value[2] = if value[2] > 100 then Math.floor value[2] else Math.round(value[2] * 10) / 10
+      report += "| #{string.lpad value[0], 5} | #{string.lpad value[1].toString() + '%', 5}
+        | #{string.lpad value[2].toString() + '%', 5} | #{string.rpad proc, 50} |\n"
+    if min and not found
+      return cb null, "No high cpu consuming processes over #{min}% found!"
     cb null, report

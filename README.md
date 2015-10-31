@@ -220,6 +220,105 @@ And the analysis will get you a markdown document.
 System Sensors
 -------------------------------------------------
 
+### CPU
+
+Checking the CPU utilization of all cores together. With the configuration values:
+
+- remote - the remote server, there to run the sensor
+- warn - the javascript code to check for warn status (default: 'active >= 100%')
+- fail - the javascript code to check for fail status
+- analysis - the configuration for the analysis if it is run
+  - minCpu - show processes with this CPU usage or above (default: 10%)
+  - numProc - number of top processes to list
+
+The resulting report part may look like:
+
+``` markdown
+CPU (test)
+-----------------------------------------------------------------------------
+
+Check the current activity in average percent of all cores.
+
+Last check results from Sat Oct 31 2015 22:01:26 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| CPU Cores               |                                                2 |
+| CPU Speed               |                                         1000 MHz |
+| User Time               |                                           0.11 % |
+| Nice User Time          |                                           0.83 % |
+| System Time             |                                           0.05 % |
+| Idle Time               |                                              0 % |
+| Activity                |                                              1 % |
+| I/O Wait Time           |                                              0 % |
+| Hardware Interrupt Time |                                              0 % |
+| Software Interrupt Time |                                              0 % |
+| Lowest CPU Core         |                                              1 % |
+| Highest CPU Core        |                                              1 % |
+
+A high CPU usage means that the server may not start another task immediately.
+If the load is also very high the system is overloaded, check if any application
+goes evil.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Warn if            |                                      Activity >= 100% |
+
+The top CPU consuming processes above 10% are:
+
+| COUNT |  %CPU |  %MEM | COMMAND                                            |
+| ----: | ----: | ----: | -------------------------------------------------- |
+|     3 |  142% | 19.1% | /opt/sublime_text/sublime_text                     |
+|     1 | 48.6% |  2.9% | /usr/bin/nodejs                                    |
+|    11 | 26.1% | 25.2% | /opt/google/chrome/chrome                          |
+```
+
+### Load
+
+Check the system load in the last time ranges. With the configuration values:
+
+- warn - the javascript code to check for warn status
+- fail - the javascript code to check for fail status
+- analysis - the configuration for the analysis if it is run
+  - minCpu - show processes with this CPU usage or above (default: 10%)
+  - numProc - number of top processes to list
+
+The resulting report part may look like:
+
+``` markdown
+Load (test)
+-----------------------------------------------------------------------------
+
+Check the local processor activity over the last minute to 15 minutes.
+
+Last check results from Sat Oct 31 2015 21:50:07 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Num Cores               |                                                2 |
+| 1min Load               |                                           2.86 % |
+| 5min Load               |                                           2.79 % |
+| 15min Load              |                                           2.83 % |
+
+A very high system load makes the system irresponsible or really slow. Mostly
+this is CPU-bound load, load caused by out of memory issues or I/O-bound load
+problems.
+
+The top CPU consuming processes above 10% are:
+
+| COUNT |  %CPU |  %MEM | COMMAND                                            |
+| ----: | ----: | ----: | -------------------------------------------------- |
+|     3 |   89% | 19.1% | /opt/sublime_text/sublime_text                     |
+|     1 | 67.2% |  2.7% | /usr/bin/nodejs                                    |
+|    11 | 26.7% | 27.1% | /opt/google/chrome/chrome                          |
+```
+
+### Memory
+
+cat /proc/meminfo
+
 ### Diskfree
 
 This sensor will check the disk usage on a specific block device. The configuration
@@ -234,24 +333,119 @@ allows:
   - dirs - the list of directories to monitor their volume
   - timeout - the time the analysis may take before stopping
 
-### CPU
+The resulting report part may look like:
 
-Checking the CPU utilization of all cores together. With the configuration values:
+``` markdown
+Diskfree (test)
+-----------------------------------------------------------------------------
 
-- remote - the remote server, there to run the sensor
-- warn - the javascript code to check for warn status (default: 'active >= 100%')
-- fail - the javascript code to check for fail status
-- analysis - the configuration for the analysis if it is run
-  - procNum - number of top processes to list
+Test the free diskspace of one share.
+
+Last check results from Sat Oct 31 2015 22:09:19 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Share                   |                                        /dev/sda1 |
+| Type                    |                                             ext4 |
+| Available               |                                          216 GiB |
+| Used                    |                                           28 GiB |
+| % Used                  |                                           0.13 % |
+| Free                    |                                          188 GiB |
+| % Free                  |                                           0.87 % |
+| Mountpoint              |                                                / |
+
+If a share is full it will make I/O problems in the system or applications in
+case of the root partition it may also neither be possible to log errors. Maybe
+some old files like temp or logs can be removed or compressed.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Share or Mount     |                                                     / |
+| Measurement Time   |                                                   5 s |
+| Fail if            |                                             Free is 0 |
+
+Maybe some files in one of the following directories may be deleted or moved:
+
+| PATH                                |  FILES   |    SIZE    |   OLDEST    |
+| ----------------------------------- | -------: | ---------: | :---------- |
+| /tmp                                |      14* |   4.37 MB* | 2015-10-30* |
+| /var/log                            |     322* |   8.83 MB* | 2014-05-30* |
+
+__(*)__
+: The rows marked with a '*' are only assumptions, because not all
+files were readable. All the values are minimum values, the real values may
+be higher.
+```
+
+### IO
+
+### Net
+
+### Time
+
+### Users
 
 
+Network Sensors
+-------------------------------------------------
 
-cores same as cpu but for single cores
+### Ping
 
-cat /proc/loadavg
+### Socket
 
-vmstat
+### Http
 
+### Ftp
+
+### SFtp
+
+
+Application Sensors
+-------------------------------------------------
+
+### PID
+
+cat /proc/PID/cmdline
+cat /proc/PID/status
+
+### Log
+
+### PostgreSQL
+
+### Database
+
+### Apache
+
+### Tomcat
+
+
+Static Info Sensors
+-------------------------------------------------
+
+### Hardware
+
+cat /proc/cpuinfo
+lscpu
+cat /proc/diskstats
+
+### Software
+
+cat /proc/version
+
+### Network
+
+/proc/sys/kernel/hostname
+/proc/sys/kernel/domainname
+
+### Daemons
+
+### ApacheSites
+
+### TomcatApps
+
+### Upgrade
 
 
 Storage
@@ -340,10 +534,6 @@ Roadmap
 
 - release exec with timeout
 - add postgres db support
-
-- generate controller report
-- convert old sensors
-- controller daemon
 - db checks
 - store results => db
 - store reports
@@ -353,6 +543,9 @@ Roadmap
 - disabled controller
 - add example reports for each sensor to doc
 
+- generate controller report
+- convert old sensors
+- controller daemon
 - add over time report
 - -v verbose show/send always report
 - -m send to other email instead of controller contacts

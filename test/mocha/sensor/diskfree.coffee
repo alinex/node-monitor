@@ -7,6 +7,8 @@ diskfree = require '../../../src/sensor/diskfree'
 
 describe "Diskfree", ->
 
+  store = null
+
   describe "run", ->
 
     it "should has correct validator rules", (cb) ->
@@ -20,6 +22,7 @@ describe "Diskfree", ->
       test.run diskfree,
         share: '/'
       , (err, res) ->
+        store = res
         expect(res.values.total).to.be.above 0
         expect(res.values.used).to.be.above 0
         expect(res.values.free).to.be.above 0
@@ -44,11 +47,12 @@ describe "Diskfree", ->
         analysis:
           dirs: '/tmp, /var/log'
       , (err, report) ->
+        store.analysis = report
         console.log report
         cb()
 
     it "should make the report", (cb) ->
-      test.report cpu,
+      test.report diskfree,
         share: '/'
         analysis:
           dirs: '/tmp, /var/log'

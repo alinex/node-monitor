@@ -10,7 +10,6 @@
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:diskfree')
-os = require 'os'
 math = require 'mathjs'
 # include alinex modules
 async = require 'alinex-async'
@@ -175,7 +174,7 @@ exports.analysis = (name, config, cb = ->) ->
 
     | PATH                                |  FILES   |    SIZE    |   OLDEST    |
     | ----------------------------------- | -------: | ---------: | :---------- |\n"""
-  async.mapLimit config.analysis.dirs, os.cpus().length, (dir, cb) ->
+  async.mapLimit config.analysis.dirs, 4, (dir, cb) ->
     Exec.run
       cmd: 'sh'
       args: [

@@ -131,14 +131,17 @@ exports.report = (work) ->
       val = formatValue work.result.values[name], set
     report += "| #{string.rpad set.title, 23} | #{string.lpad val.toString(), 48} |\n"
   report += "\n#{work.sensor.meta.hint}\n"
-  report += """\nThis has been checked with the following setup:
-
-  |       CONFIG       |  VALUE                                                |
-  | ------------------ | ----------------------------------------------------: |\n
-  """
+  found = false
   for name, set of work.sensor.schema.keys
     continue if name is 'analysis'
     continue unless work.config[name]?
+    unless found
+      found = true
+      report += """\nThis has been checked with the following setup:
+
+      |       CONFIG       |  VALUE                                                |
+      | ------------------ | ----------------------------------------------------: |\n
+      """
     val = formatValue work.config[name], set
     if name in ['fail', 'warn']
       # replace values
