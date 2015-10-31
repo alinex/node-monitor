@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/.travis.yml", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/travis.yml", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -53,10 +53,11 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node_js</span>
 <span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span>
-   <span class="p-Indicator">-</span> <span class="s">&quot;0.11&quot;</span>
    <span class="p-Indicator">-</span> <span class="s">&quot;0.10&quot;</span>
+   <span class="p-Indicator">-</span> <span class="s">&quot;0.12&quot;</span>
+   <span class="p-Indicator">-</span> <span class="s">&quot;4.2&quot;</span>
 <span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
-   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=v3Z17MGbBBtEfe6sA6xNbWkG0OYxNtDyx node_modules/.bin/alinex-make -c test --coverage --coveralls</span>
+   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=v3Z17MGbBBtEfe6sA6xNbWkG0OYxNtDyx node_modules/.bin/builder -c test --coverage --coveralls</span>
 </pre></div>
         </td>
       </tr>

@@ -1,1 +1,0 @@
-var tree={"files":[".travis.yml","Changelog.md","README.md"],"dirs":{"src":{"files":["check.coffee","controller.coffee","index.coffee","install.coffee"],"dirs":{"doc":{"files":["glossar.md"]},"man":{"files":["monitor.1.md"]}}},"var":{"dirs":{"example":{"dirs":{"config":{"files":["provider:host:ping.yml"]}}},"src":{"dirs":{"config":{"files":["monitor.yml"]}}}}}}};
