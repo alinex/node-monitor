@@ -229,8 +229,10 @@ allows:
 - share - the disk share's path or mount point to check
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status (default: 'free is 0')
+- timeout - the time the whole test may take before stopping
 - analysis - the configuration for the analysis if it is run
   - dirs - the list of directories to monitor their volume
+  - timeout - the time the analysis may take before stopping
 
 ### CPU
 
@@ -339,7 +341,6 @@ Roadmap
 - release exec with timeout
 - add postgres db support
 
-- add timeouts for analysis in diskfree
 - generate controller report
 - convert old sensors
 - controller daemon

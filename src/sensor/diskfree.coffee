@@ -40,22 +40,14 @@ exports.schema =
       title: "Share or Mount"
       description: "the disk share's path or mount point to check"
       type: 'string'
-#    timeout:
-#      title: "Measurement Time"
-#      description: "the time in milliseconds the whole test may take before
-#        stopping and failing it"
-#      type: 'interval'
-#      unit: 'ms'
-#      min: 500
-#      default: 5000
-#    analysisTimeout:
-#      title: "Analysis Time"
-#      description: "the time in milliseconds the analysis test may take before
-#        stopping and failing it"
-#      type: 'interval'
-#      unit: 'ms'
-#      min: 500
-#      default: 5000
+    timeout:
+      title: "Measurement Time"
+      description: "the time in milliseconds the whole test may take before
+        stopping and failing it"
+      type: 'interval'
+      unit: 'ms'
+      min: 500
+      default: 5000
     warn: sensor.schema.warn
     fail: object.extend {}, sensor.schema.fail,
       default: 'free is 0'
@@ -74,6 +66,14 @@ exports.schema =
             title: "Directory"
             description: "the list of directories to check for waste of space"
             type: 'string'
+        timeout:
+          title: "Analysis Time"
+          description: "the time in milliseconds the analysis test may take before
+            stopping and failing it"
+          type: 'interval'
+          unit: 'ms'
+          min: 500
+          default: 5000
 
 # General information
 # -------------------------------------------------
@@ -142,6 +142,7 @@ exports.run = (name, config, cb = ->) ->
     cmd: 'df'
     args: ['-kT', config.share]
     priority: 'immediately'
+    timeout: config.timeout
     check:
       noExitCode: true
   , (err, proc) ->
@@ -182,6 +183,7 @@ exports.analysis = (name, config, cb = ->) ->
         "find #{dir} -type f -exec ls -ltr --time-style=+%Y-%m-%d {} +
         | awk '{n++;b+=$5;if(d==\"\"){d=$6};if(d>$6){d=$6}} END{print n,b,d}'"
       ]
+      timeout: config.analysis.timeout
     , (err, proc) ->
       return cb err if err
       exact = if proc.stderr() then '*' else ' '
