@@ -233,7 +233,7 @@ Checking the CPU utilization of all cores together. With the configuration value
 
 The resulting report part may look like:
 
-``` markdown
+``` text
 CPU (test)
 -----------------------------------------------------------------------------
 
@@ -287,7 +287,7 @@ Check the system load in the last time ranges. With the configuration values:
 
 The resulting report part may look like:
 
-``` markdown
+``` text
 Load (test)
 -----------------------------------------------------------------------------
 
@@ -335,7 +335,7 @@ allows:
 
 The resulting report part may look like:
 
-``` markdown
+``` text
 Diskfree (test)
 -----------------------------------------------------------------------------
 
