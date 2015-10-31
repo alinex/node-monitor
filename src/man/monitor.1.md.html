@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>monitor.1.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/man/monitor1.md", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#monitor">monitor</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#show%20controllers">Show controllers</a>
+      </div>
+      <div class="heading h3">
+        <a href="#run%20specific%20controller">Run specific controller</a>
+      </div>
+      <div class="heading h2">
+        <a href="#display%20information">Display information</a>
+      </div>
+      <div class="heading h3">
+        <a href="#status">Status</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="docs markdown">
+<div class="pilwrap" id="monitor">
+  <h1>
+    <a href="#monitor" name="monitor" class="pilcrow">&#182;</a>
+    monitor
+  </h1>
+</div>
+
+
+<p>This application will make server management easy and fast. It will check the
+whole IT landscape from the host to the application. While most monitoring
+tools has it's focus on the server here the focus lies more on the application
+side.</p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>After the monitor and it's controllers are fully configured it may be run by
+only calling:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span>
+
+<span class="nx">Run</span> <span class="nx">sensors</span> <span class="nx">once</span><span class="p">...</span>
+
+<span class="nx">Tue</span> <span class="nx">Oct</span> <span class="mi">14</span> <span class="mi">2014</span> <span class="mi">08</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">21</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span> <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">memory</span> <span class="o">-</span> <span class="nx">ok</span>
+<span class="nx">Tue</span> <span class="nx">Oct</span> <span class="mi">14</span> <span class="mi">2014</span> <span class="mi">08</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">21</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span> <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span> <span class="o">-</span> <span class="nx">ok</span>
+<span class="nx">Tue</span> <span class="nx">Oct</span> <span class="mi">14</span> <span class="mi">2014</span> <span class="mi">08</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">21</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span> <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">diskfree</span> <span class="o">-</span> <span class="nx">ok</span>
+
+<span class="nx">Done</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+</code></pre></div>
+
+
+
+<p>This will start the monitor on the command line and check all controllers. For each
+controller a line is printed with it's status.
+If a controller got a problem it will give a detailed report on the console.</p>
+
+<p>Global pptions:</p>
+
+
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">C</span><span class="p">,</span> <span class="o">--</span><span class="nx">nocolors</span>  <span class="nx">turn</span> <span class="nx">of</span> <span class="nx">color</span> <span class="nx">output</span>
+<span class="o">-</span><span class="nx">v</span><span class="p">,</span> <span class="o">--</span><span class="nx">verbose</span>   <span class="nx">run</span> <span class="k">in</span> <span class="nx">verbose</span> <span class="nx">mode</span>
+<span class="o">-</span><span class="nx">h</span><span class="p">,</span> <span class="o">--</span><span class="nx">help</span>      <span class="nx">Show</span> <span class="nx">help</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="show%20controllers">
+  <h3>
+    <a href="#show%20controllers" name="show%20controllers" class="pilcrow">&#182;</a>
+    Show controllers
+  </h3>
+</div>
+
+
+<p>Use the <code>-l</code> or <code>--list</code> option to list all possible configured controllers or
+<code>-t</code>, <code>--tree</code>, <code>-r</code>, <code>--reverse</code> to get the same as tree view. Additionally
+<code>-v</code> may be used to get some descriptive information.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">l</span>
+
+<span class="nx">List</span> <span class="nx">of</span> <span class="nx">controllers</span>
+
+<span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span> <span class="o">-</span> <span class="nx">onepoint</span> <span class="nx">server</span>
+<span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">cpu</span> <span class="o">-</span> <span class="nx">CPU</span> <span class="nx">activity</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+<span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">diskfree</span> <span class="o">-</span> <span class="nx">Free</span> <span class="nx">diskspace</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+<span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">memory</span> <span class="o">-</span> <span class="nx">Free</span> <span class="nx">memory</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+<span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">upgrade</span> <span class="o">-</span> <span class="nx">Security</span> <span class="nx">upgrades</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+<span class="o">-</span> <span class="nx">plusserver</span><span class="o">:</span><span class="nx">vz23761</span><span class="o">:</span><span class="nx">ping</span> <span class="o">-</span> <span class="nx">Local</span> <span class="nx">ping</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">vz23761</span>
+
+<span class="nx">Done</span><span class="p">.</span>
+
+<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">t</span>
+
+<span class="nx">Tree</span> <span class="nx">view</span> <span class="nx">of</span> <span class="nx">controllers</span> <span class="nx">showing</span> <span class="nx">what</span> <span class="nx">is</span> <span class="nx">checked</span>
+
+<span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span> <span class="o">-</span> <span class="nx">onepoint</span> <span class="nx">server</span>
+  <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">cpu</span> <span class="o">-</span> <span class="nx">CPU</span> <span class="nx">activity</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+  <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">memory</span> <span class="o">-</span> <span class="nx">Free</span> <span class="nx">memory</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+  <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">diskfree</span> <span class="o">-</span> <span class="nx">Free</span> <span class="nx">diskspace</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+  <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">upgrade</span> <span class="o">-</span> <span class="nx">Security</span> <span class="nx">upgrades</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+<span class="o">-</span> <span class="nx">plusserver</span><span class="o">:</span><span class="nx">vz23761</span><span class="o">:</span><span class="nx">ping</span> <span class="o">-</span> <span class="nx">Local</span> <span class="nx">ping</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">vz23761</span>
+
+<span class="nx">Done</span><span class="p">.</span>
+
+<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">r</span>
+
+<span class="nx">Reverse</span> <span class="nx">tree</span> <span class="nx">of</span> <span class="nx">controllers</span> <span class="nx">showing</span> <span class="nx">area</span> <span class="nx">of</span> <span class="nx">damage</span>
+
+<span class="o">-</span> <span class="nx">host</span><span class="o">:</span><span class="nx">ekz</span><span class="o">:</span><span class="nx">onepoint</span><span class="o">:</span><span class="nx">cpu</span> <span class="o">-</span> <span class="nx">CPU</span> <span class="nx">activity</span> <span class="nx">on</span> <span class="nx">server</span> <span class="nx">onepoint</span>
+  <span class="o">-</span> <span class="nx">host</span><span class="o">:</span><span class="nx">ekz</span><span class="o">:</span><span class="nx">onepoint</span> <span class="o">-</span> <span class="nx">onepoint</span> <span class="nx">server</span>
+    <span class="o">-</span> <span class="nx">service</span><span class="o">:</span><span class="nx">manage</span><span class="o">:</span><span class="nx">apache</span> <span class="o">-</span> <span class="nx">apache</span> <span class="k">for</span> <span class="nx">manage</span> <span class="nx">tools</span>
+      <span class="o">-</span> <span class="nx">service</span><span class="o">:</span><span class="nx">manage</span> <span class="o">-</span> <span class="nx">manage</span> <span class="nx">tools</span>
+      <span class="o">-</span> <span class="nx">service</span><span class="o">:</span><span class="nx">manage</span><span class="o">:</span><span class="nx">https</span> <span class="o">-</span> <span class="nx">access</span> <span class="k">for</span> <span class="nx">manage</span> <span class="nx">tools</span>
+        <span class="o">-</span> <span class="nx">service</span><span class="o">:</span><span class="nx">manage</span> <span class="o">-</span> <span class="nx">manage</span> <span class="nx">tools</span>
+
+<span class="nx">Done</span><span class="p">.</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="run%20specific%20controller">
+  <h3>
+    <a href="#run%20specific%20controller" name="run%20specific%20controller" class="pilcrow">&#182;</a>
+    Run specific controller
+  </h3>
+</div>
+
+
+<p>It's also possible to only run specific controller if they are given as additional
+parameters like:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">cpu</span>
+
+<span class="nx">Run</span> <span class="nx">sensors</span> <span class="nx">once</span><span class="p">...</span>
+
+<span class="nx">Tue</span> <span class="nx">Oct</span> <span class="mi">14</span> <span class="mi">2014</span> <span class="mi">08</span><span class="o">:</span><span class="mi">20</span><span class="o">:</span><span class="mi">21</span> <span class="nx">GMT</span><span class="o">+</span><span class="mi">0200</span> <span class="p">(</span><span class="nx">CEST</span><span class="p">)</span> <span class="o">-</span> <span class="nx">ekz</span><span class="o">:</span><span class="nx">onepointvm</span><span class="o">:</span><span class="nx">cpu</span> <span class="o">-</span> <span class="nx">ok</span>
+
+<span class="nx">Done</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+</code></pre></div>
+
+
+
+<p>Keep in mind that dependend controllers will run, too.</p>
+
+
+<div class="pilwrap" id="display%20information">
+  <h2>
+    <a href="#display%20information" name="display%20information" class="pilcrow">&#182;</a>
+    Display information
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="status">
+  <h3>
+    <a href="#status" name="status" class="pilcrow">&#182;</a>
+    Status
+  </h3>
+</div>
+
+
+<p>The monitor and controllers use the following status:</p>
+
+<ul>
+<li><strong>running</strong> if the sensor is already analyzing, you have to wait</li>
+<li><strong>disabled</strong> if this controller is currently not checked - this will be used
+like ok for further processing</li>
+<li><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</li>
+<li><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
+it - exit code 1</li>
+<li><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</li>
+</ul>
+
+
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+<p>As described above it may be accessed at <code>/etc/alinex-monitor/config</code> but it's
+real path is in the application's directory <code>var/local/config</code>.</p></div>
+  </div>
+</body>
+</html>

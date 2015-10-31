@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>configSchema.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/configSchemacoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#configuration%20schema">Configuration Schema</a>
+      </div>
+      <div class="heading h2">
+        <a href="#contacts">Contacts</a>
+      </div>
+      <div class="heading h2">
+        <a href="#email%20templates">Email Templates</a>
+      </div>
+      <div class="heading h2">
+        <a href="#rule%20definition">Rule Definition</a>
+      </div>
+      <div class="heading h2">
+        <a href="#controller">Controller</a>
+      </div>
+      <div class="heading h3">
+        <a href="#defining%20the%20checks%20first">Defining the checks first</a>
+      </div>
+      <div class="heading h3">
+        <a href="#controller%20containing%20checks">Controller containing Checks</a>
+      </div>
+      <div class="heading h2">
+        <a href="#complete%20schema%20definition">Complete Schema Definition</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration%20schema">
+  <h1>
+    <a href="#configuration%20schema" name="configuration%20schema" class="pilcrow">&#182;</a>
+    Configuration Schema
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="contacts">
+  <h2>
+    <a href="#contacts" name="contacts" class="pilcrow">&#182;</a>
+    Contacts
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">contact =</span>
+  <span class="nv">title: </span><span class="s">&quot;Contacts&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the possible contacts to be referred from controller for email alerts&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">entries: </span><span class="p">[</span>
+    <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+    <span class="o">or:</span> <span class="p">[</span>
+      <span class="nv">title: </span><span class="s">&quot;Contact Group&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the list of references in the group specifies the individual</span>
+<span class="s">        contacts&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+      <span class="nv">toArray: </span><span class="kc">true</span>
+      <span class="nv">minLength: </span><span class="mi">1</span>
+      <span class="nv">entries:</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="p">,</span>
+      <span class="nv">title: </span><span class="s">&quot;Contact Details&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name and email address for a specific contact&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">name:</span>
+          <span class="nv">title: </span><span class="s">&quot;Name&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the full name of the contact&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">position:</span>
+          <span class="nv">title: </span><span class="s">&quot;Position&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the position within the organization (informal)&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">company:</span>
+          <span class="nv">title: </span><span class="s">&quot;Company&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the company name this person belongs to&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">email:</span>
+          <span class="nv">title: </span><span class="s">&quot;Email&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the email address to send alerts&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">phone:</span>
+          <span class="nv">title: </span><span class="s">&quot;Phone&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the phone number used for direct contact&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="email%20templates">
+  <h2>
+    <a href="#email%20templates" name="email%20templates" class="pilcrow">&#182;</a>
+    Email Templates
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">email =</span>
+  <span class="nv">title: </span><span class="s">&quot;Email Template&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;a single template used for emails&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">base:</span>
+      <span class="nv">title: </span><span class="s">&quot;Base Template&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the template used as base for this&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/email&gt;&gt;&gt;&#39;</span>
+    <span class="nv">from:</span>
+      <span class="nv">title: </span><span class="s">&quot;From&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the address emails are send from&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;monitor&#39;</span>
+    <span class="nv">to:</span>
+      <span class="nv">title: </span><span class="s">&quot;To&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the address emails are send to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">cc:</span>
+      <span class="nv">title: </span><span class="s">&quot;Cc&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the carbon copy addresses&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">bcc:</span>
+      <span class="nv">title: </span><span class="s">&quot;Bcc&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the blind carbon copy addresses&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">subject:</span>
+      <span class="nv">title: </span><span class="s">&quot;Subject&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the subject line of the generated email&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+    <span class="nv">body:</span>
+      <span class="nv">title: </span><span class="s">&quot;Content&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the body content of the generated email&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="rule%20definition">
+  <h2>
+    <a href="#rule%20definition" name="rule%20definition" class="pilcrow">&#182;</a>
+    Rule Definition
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">rule =</span>
+  <span class="nv">title: </span><span class="s">&quot;Rules&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the list of all possible rules to be referenced from controller&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">entries: </span><span class="p">[</span>
+    <span class="nv">title: </span><span class="s">&quot;Rule&quot;</span>
+    <span class="nv">description: </span><span class="s">&quot;a rule to run after the controller is done&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">keys:</span>
+      <span class="nv">status:</span>
+        <span class="nv">title: </span><span class="s">&quot;Status&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the status on which to act&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">list: </span><span class="p">[</span><span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;warn&#39;</span><span class="p">,</span> <span class="s">&#39;fail&#39;</span><span class="p">]</span>
+      <span class="nv">attempt:</span>
+        <span class="nv">title: </span><span class="s">&quot;Number of Checks&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the minimal number of checks to wait before executing this rule&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+        <span class="nv">min: </span><span class="mi">1</span>
+      <span class="nv">latency:</span>
+        <span class="nv">title: </span><span class="s">&quot;Latency&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the time (in seconds) to wait before executing this rule&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+        <span class="nv">min: </span><span class="mi">0</span>
+      <span class="nv">dependskip:</span>
+        <span class="nv">title: </span><span class="s">&quot;Dependent Skip&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the flag indicating if this rule should be skipped if</span>
+<span class="s">          dependent controllers failed&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+        <span class="nv">default: </span><span class="kc">false</span>
+      <span class="nv">email: </span><span class="nx">email</span>
+      <span class="nv">redo:</span>
+        <span class="nv">title: </span><span class="s">&quot;Redo Action&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the time (in seconds) after which the action will be executed again&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+        <span class="nv">min: </span><span class="mi">0</span>
+  <span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="controller">
+  <h2>
+    <a href="#controller" name="controller" class="pilcrow">&#182;</a>
+    Controller
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="defining%20the%20checks%20first">
+  <h3>
+    <a href="#defining%20the%20checks%20first" name="defining%20the%20checks%20first" class="pilcrow">&#182;</a>
+    Defining the checks first
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">check =</span>
+  <span class="nv">title: </span><span class="s">&quot;Checks&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the list of checks which have to be run&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+  <span class="nv">default: </span><span class="p">[]</span>
+  <span class="nv">entries:</span>
+    <span class="nv">title: </span><span class="s">&quot;Check&quot;</span>
+    <span class="nv">description: </span><span class="s">&quot;the type and configuration for a check run&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">keys:</span>
+      <span class="nv">sensor:</span>
+        <span class="nv">title: </span><span class="s">&quot;Sensor Class&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the  class name of a sensor to run&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">lowerCase: </span><span class="kc">true</span>
+      <span class="nv">name:</span>
+        <span class="nv">title: </span><span class="s">&quot;Check Name&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the configuration for a sensor run&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">config:</span>
+        <span class="nv">title: </span><span class="s">&quot;Sensor Configuration&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the configuration for a sensor run&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">weight:</span>
+        <span class="nv">title: </span><span class="s">&quot;Weight&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the special weight for the combination of sensors&quot;</span>
+        <span class="nv">optional: </span><span class="kc">true</span>
+        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+        <span class="o">or:</span> <span class="p">[</span>
+          <span class="nv">title: </span><span class="s">&quot;Up/Down&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the info to rate the status more or less important</span>
+<span class="s">            in the calculation&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;up&#39;</span><span class="p">,</span> <span class="s">&#39;down&#39;</span><span class="p">]</span>
+        <span class="p">,</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>wenn combine = 'average' ->
+if:
+  cmd: 'eq'
+  op1: '&lt;&lt;<combine>>>'
+  op2: 'average'</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nv">title: </span><span class="s">&quot;Priority&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the priority for the &#39;average&#39; combination method&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">0</span>
+        <span class="p">]</span>
+      <span class="nv">hint:</span>
+        <span class="nv">title: </span><span class="s">&quot;Hint&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a specific description for this sensor that describes</span>
+<span class="s">          what may be done if this check failed and other things which are</span>
+<span class="s">          helpful to know&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="controller%20containing%20checks">
+  <h3>
+    <a href="#controller%20containing%20checks" name="controller%20containing%20checks" class="pilcrow">&#182;</a>
+    Controller containing Checks
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">controller =</span>
+  <span class="nv">title: </span><span class="s">&quot;Controller List&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the list of controllers to check&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">entries: </span><span class="p">[</span>
+    <span class="nv">title: </span><span class="s">&quot;Controller&quot;</span>
+    <span class="nv">description: </span><span class="s">&quot;a single controller checking one part of the system&quot;</span>
+    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+    <span class="nv">allowedKeys: </span><span class="kc">true</span>
+    <span class="nv">keys:</span>
+      <span class="nv">name:</span>
+        <span class="nv">title: </span><span class="s">&quot;Name&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the short title of the controller to be used in display&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">description:</span>
+        <span class="nv">title: </span><span class="s">&quot;Description&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a short abstract of what this controller will check&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">disabled:</span>
+        <span class="nv">title: </span><span class="s">&quot;Disabled&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a flag to temporarily disable this check&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+        <span class="nv">default: </span><span class="kc">false</span>
+      <span class="nv">validity:</span>
+        <span class="nv">title: </span><span class="s">&quot;Result Validity&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the time (in seconds) the result will be valid and should not be rechecked&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+        <span class="nv">min: </span><span class="mi">0</span>
+        <span class="nv">default: </span><span class="mi">60</span>
+      <span class="nv">interval:</span>
+        <span class="nv">title: </span><span class="s">&quot;Check Interval&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the default time (in seconds) to rerun a check&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+        <span class="nv">min: </span><span class="mi">0</span>
+        <span class="nv">default: </span><span class="mi">300</span>
+      <span class="nv">check: </span><span class="nx">check</span>
+      <span class="nv">combine:</span>
+        <span class="nv">title: </span><span class="s">&quot;Combine Method&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the calculation of the combined status&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">,</span> <span class="s">&#39;max&#39;</span><span class="p">,</span> <span class="s">&#39;average&#39;</span><span class="p">]</span>
+        <span class="nv">default: </span><span class="s">&#39;max&#39;</span>
+      <span class="nv">rule:</span>
+        <span class="nv">title: </span><span class="s">&quot;Rules&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the list of rules (references) to be used&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+        <span class="nv">toArray: </span><span class="kc">true</span>
+        <span class="nv">entries:</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/rule&gt;&gt;&gt;&#39;</span>
+      <span class="nv">info:</span>
+        <span class="nv">title: </span><span class="s">&quot;Info&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a general information about this part of the system&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+      <span class="nv">hint:</span>
+        <span class="nv">title: </span><span class="s">&quot;Hint&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a specific description for this controller that describes</span>
+<span class="s">          what may be done if this check failed and other things which are helpful to know&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+      <span class="nv">contact:</span>
+        <span class="nv">title: </span><span class="s">&quot;Contact&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the list of contacts (references) responsible for this system or part&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+        <span class="nv">toArray: </span><span class="kc">true</span>
+        <span class="nv">entries:</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/contact&gt;&gt;&gt;&#39;</span>
+      <span class="nv">ref:</span>
+        <span class="nv">title: </span><span class="s">&quot;References&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the list of URL references which may help getting informed</span>
+<span class="s">          as title - URL pairs&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">entries: </span><span class="p">[</span>
+          <span class="nv">title: </span><span class="s">&quot;Access URL&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the URL to access this reference&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="p">]</span>
+  <span class="p">]</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="complete%20schema%20definition">
+  <h2>
+    <a href="#complete%20schema%20definition" name="complete%20schema%20definition" class="pilcrow">&#182;</a>
+    Complete Schema Definition
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">module.exports =</span>
+  <span class="nv">title: </span><span class="s">&quot;Monitor Setup&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the configuration for the monitor system&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">contact: </span><span class="nx">contact</span>
+    <span class="nv">email:</span>
+      <span class="nv">title: </span><span class="s">&quot;Email Templates&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the possible templates used for sending emails&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">entries: </span><span class="p">[</span> <span class="nx">email</span> <span class="p">]</span>
+    <span class="nv">rule: </span><span class="nx">rule</span>
+    <span class="nv">controller: </span><span class="nx">controller</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

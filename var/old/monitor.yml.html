@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>monitor.yml</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/var/old/monitoryml", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#monitoring%20configuration">Monitoring configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#runtime%20configuration">Runtime configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#default%20activities">Default activities</a>
+      </div>
+      <div class="heading h2">
+        <a href="#contacts">Contacts</a>
+      </div>
+      <div class="heading h2">
+        <a href="#email%20template">Email template</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="monitoring%20configuration">
+  <h1>
+    <a href="#monitoring%20configuration" name="monitoring%20configuration" class="pilcrow">&#182;</a>
+    Monitoring configuration
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="runtime%20configuration">
+  <h2>
+    <a href="#runtime%20configuration" name="runtime%20configuration" class="pilcrow">&#182;</a>
+    Runtime configuration
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>Define the server hostname of the machine, which should run all controllers
+not specific for a special machine. Keep it empty to make the current machine
+the master. controllers which have an <code>runat</code> setting will only run on the
+defined hostname.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>This defines a list of alias names which should run on the defined hostname.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">alias</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="default%20activities">
+  <h2>
+    <a href="#default%20activities" name="default%20activities" class="pilcrow">&#182;</a>
+    Default activities
+  </h2>
+</div>
+
+
+<p>They will be used if no other rule defined in controller.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">rules</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="contacts">
+  <h2>
+    <a href="#contacts" name="contacts" class="pilcrow">&#182;</a>
+    Contacts
+  </h2>
+</div>
+
+
+<p>With this list you have the possibility to define alias names for contacts
+which contains the details or a list of other alias names to use as a group.
+After defining it here in a central place you may everywhere use the short
+alias names of persons and groups.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">contacts</span><span class="p-Indicator">:</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="email%20template">
+  <h2>
+    <a href="#email%20template" name="email%20template" class="pilcrow">&#182;</a>
+    Email template
+  </h2>
+</div>
+
+
+<p>This list contains some templates used for emails. You may overwrite it in the
+controllers action config if you want.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Some variables (starting with $-sign) are possible here.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">$config =&gt; $status</span>
+    <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+      <span class="no">&lt;h1&gt;$name&lt;/h1&gt;</span>
+      <span class="no">&lt;p&gt;$description&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;&lt;b&gt;This test had status $status at $date!&lt;/b&gt;&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;$hint&lt;/p&gt;</span>
+
+  <span class="l-Scalar-Plain">fail</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Failed $config</span>
+    <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+      <span class="no">&lt;h1&gt;$name&lt;/h1&gt;</span>
+      <span class="no">&lt;p&gt;$description&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;&lt;b&gt;This test failed at $date!&lt;/b&gt;&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;$hint&lt;/p&gt;</span>
+
+  <span class="l-Scalar-Plain">warn</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Warning for $config</span>
+    <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+      <span class="no">&lt;h1&gt;$name&lt;/h1&gt;</span>
+      <span class="no">&lt;p&gt;$description&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;&lt;b&gt;This test has warn state since $date!&lt;/b&gt;&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;$hint&lt;/p&gt;</span>
+
+  <span class="l-Scalar-Plain">ok</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">OK for $config</span>
+    <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+      <span class="no">&lt;h1&gt;$name&lt;/h1&gt;</span>
+      <span class="no">&lt;p&gt;$description&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;&lt;b&gt;This test succeeds again since $date!&lt;/b&gt;&lt;/p&gt;</span>
+      <span class="no">&lt;p&gt;$hint&lt;/p&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
