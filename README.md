@@ -429,14 +429,61 @@ files were readable. All the values are minimum values, the real values may
 be higher.
 ```
 
-### IO
+### DiskIO
+
+This sensor will check the disk io traffic:
+
+- remote - the remote server, there to run the sensor
+- device - the disk device name
+- warn - the javascript code to check for warn status
+- fail - the javascript code to check for fail status (default: 'free is 0')
+
+The resulting report part may look like:
+
+``` text
+Disk IO (test)
+-----------------------------------------------------------------------------
+
+Check the disk io traffic.
+
+Last check results from Sun Nov 01 2015 22:31:33 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Read/s                  |                                                0 |
+| Write/s                 |                                                0 |
+
+If there are any problems here check the device for hardware or network
+problems.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Device name        |                                                   sda |
+```
 
 ### Net
 
+/proc/net/dev
+http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html
+
+netstat
+
 ### Time
+
+-> old
 
 ### Users
 
+w -hu
+who
+http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-linux-system/
+
+ps aux
+last -Fi
+/var/log/auth.log | grep alex
+# use snoopy for all commands # https://github.com/a2o/snoopy
 
 Network Sensors
 -------------------------------------------------
