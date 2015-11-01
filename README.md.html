@@ -75,7 +75,7 @@
         <a href="#diskfree">Diskfree</a>
       </div>
       <div class="heading h3">
-        <a href="#io">IO</a>
+        <a href="#diskio">DiskIO</a>
       </div>
       <div class="heading h3">
         <a href="#net">Net</a>
@@ -85,6 +85,9 @@
       </div>
       <div class="heading h3">
         <a href="#users">Users</a>
+      </div>
+      <div class="heading h1">
+        <a href="#use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy">use snoopy for all commands # https://github.com/a2o/snoopy</a>
       </div>
       <div class="heading h2">
         <a href="#network%20sensors">Network Sensors</a>
@@ -560,6 +563,7 @@ The top CPU consuming processes above 10% are:
 <p>Check the system load in the last time ranges. With the configuration values:</p>
 
 <ul>
+<li>remote - the remote server, there to run the sensor</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
 <li>analysis - the configuration for the analysis if it is run
@@ -608,7 +612,60 @@ The top CPU consuming processes above 10% are:
 </div>
 
 
-<p>cat /proc/meminfo</p>
+<p>Check the memory usage on the system</p>
+
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>warn - the javascript code to check for warn status</li>
+<li>fail - the javascript code to check for fail status</li>
+<li>analysis - the configuration for the analysis if it is run
+<ul><li>minMem - show processes with this memory usage or above (default: 10%)</li>
+<li>numProc - number of top processes to list</li></ul></li>
+</ul>
+
+<p>The resulting report part may look like:</p>
+
+
+<div class="highlight"><pre><code>Memory (test)
+-----------------------------------------------------------------------------
+
+Check the free and used memory.
+
+Last check results from Sun Nov 01 2015 17:51:46 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Total                   |                                          1.85 GB |
+| Used                    |                                          1.52 GB |
+| Free                    |                                          310 MiB |
+| Shared                  |                                           23 MiB |
+| Buffers                 |                                          220 MiB |
+| Cached                  |                                          400 MiB |
+| Swap Total              |                                          1.88 GB |
+| Swap Used               |                                          197 MiB |
+| Swap Free               |                                          1.67 GB |
+| Actual Free             |                                         0.975 GB |
+| Percent Free            |                                           0.53 % |
+| Swap Percent Free       |                                           0.89 % |
+
+Check which process consumes how much memory, maybe some processes have a memory
+ leak.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Warn if            |                                             Free &lt; 1% |
+
+The top memory consuming processes above 10% are:
+
+| COUNT |  %CPU |  %MEM | COMMAND                                            |
+| ----: | ----: | ----: | -------------------------------------------------- |
+|     2 | 21.3% |  4.2% | /usr/bin/python2.7                                 |
+|     1 |   84% |  2.7% | /usr/bin/nodejs                                    |
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="diskfree">
@@ -682,12 +739,48 @@ be higher.
 
 
 
-<div class="pilwrap" id="io">
+<div class="pilwrap" id="diskio">
   <h3>
-    <a href="#io" name="io" class="pilcrow">&#182;</a>
-    IO
+    <a href="#diskio" name="diskio" class="pilcrow">&#182;</a>
+    DiskIO
   </h3>
 </div>
+
+
+<p>This sensor will check the disk io traffic:</p>
+
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>device - the disk device name</li>
+<li>warn - the javascript code to check for warn status</li>
+<li>fail - the javascript code to check for fail status (default: 'free is 0')</li>
+</ul>
+
+<p>The resulting report part may look like:</p>
+
+
+<div class="highlight"><pre><code>Disk IO (test)
+-----------------------------------------------------------------------------
+
+Check the disk io traffic.
+
+Last check results from Sun Nov 01 2015 22:31:33 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Read/s                  |                                                0 |
+| Write/s                 |                                                0 |
+
+If there are any problems here check the device for hardware or network
+problems.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Device name        |                                                   sda |
+</code></pre></div>
+
 
 
 
@@ -699,6 +792,11 @@ be higher.
 </div>
 
 
+<p>/proc/net/dev
+<a href='http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html'>http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html</a></p>
+
+<p>netstat</p>
+
 
 <div class="pilwrap" id="time">
   <h3>
@@ -708,12 +806,31 @@ be higher.
 </div>
 
 
+<p>-> old</p>
+
 
 <div class="pilwrap" id="users">
   <h3>
     <a href="#users" name="users" class="pilcrow">&#182;</a>
     Users
   </h3>
+</div>
+
+
+<p>w -hu
+who
+<a href='http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-linux-system/'>http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-linux-system/</a></p>
+
+<p>last -Fi # login history
+ps aux # aktuelle Befehle je user
+/var/log/auth.log | grep alex # letzte sudo befehle</p>
+
+
+<div class="pilwrap" id="use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy">
+  <h1>
+    <a href="#use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy" name="use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy" class="pilcrow">&#182;</a>
+    use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://github.com/a2o/snoopy</a>
+  </h1>
 </div>
 
 

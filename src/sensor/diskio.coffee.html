@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>load.coffee</title>
+  <title>diskio.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/loadcoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/diskiocoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -33,7 +33,7 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#load%20check">Load check</a>
+        <a href="#check%20disk%20io">Check Disk IO</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
@@ -51,7 +51,7 @@
         <a href="#run%20the%20sensor">Run the Sensor</a>
       </div>
       <div class="heading h2">
-        <a href="#run%20the%20sensor">Run the Sensor</a>
+        <a href="#run%20additional%20analysis">Run additional analysis</a>
       </div>
     </div>
   </div>
@@ -61,10 +61,10 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="load%20check">
+<div class="pilwrap" id="check%20disk%20io">
   <h1>
-    <a href="#load%20check" name="load%20check" class="pilcrow">&#182;</a>
-    Load check
+    <a href="#check%20disk%20io" name="check%20disk%20io" class="pilcrow">&#182;</a>
+    Check Disk IO
   </h1>
 </div>
 
@@ -111,7 +111,7 @@ But the analysis part currently only works on linux.</p>
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:load&#39;</span><span class="p">)</span>
+<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:diskio&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 
 </pre></div>
@@ -141,7 +141,6 @@ But the analysis part currently only works on linux.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
-<span class="nv">cpu = </span><span class="nx">require</span> <span class="s">&#39;./cpu&#39;</span>
 
 
 </pre></div>
@@ -165,39 +164,21 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;System load check&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the system load in the last time&quot;</span>
+  <span class="nv">title: </span><span class="s">&quot;Disk IO Test&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the configuration for the disk input/output check&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
   <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">default:</span>
-    <span class="nv">warn: </span><span class="s">&quot;short &gt; 500%&quot;</span>
-    <span class="nv">analysis:</span>
-      <span class="nv">minCpu: </span><span class="mf">0.1</span>
   <span class="nv">keys:</span>
     <span class="nv">remote:</span>
       <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the remote server on this to run the command&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">warn: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span><span class="p">,</span>
-      <span class="nv">default: </span><span class="s">&#39;short &gt; 500%&#39;</span>
+    <span class="nv">device:</span>
+      <span class="nv">title: </span><span class="s">&quot;Device name&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the disk&#39;s device name like sda, ...&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">warn: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span>
     <span class="nv">fail: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span>
-    <span class="nv">analysis:</span>
-      <span class="nv">title: </span><span class="s">&quot;Analysis Run&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the configuration for the analysis if it is run&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">allowedKeys: </span><span class="kc">true</span>
-      <span class="nv">keys:</span>
-        <span class="nv">minCpu:</span>
-          <span class="nv">title: </span><span class="s">&quot;Minimum %CPU&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the minimum CPU usage to include&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-          <span class="nv">min: </span><span class="mi">0</span>
-          <span class="nv">default: </span><span class="mf">0.1</span>
-        <span class="nv">numProc:</span>
-          <span class="nv">title: </span><span class="s">&quot;Top X&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the number of top CPU heavy processes for analysis&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
 
 
 </pre></div>
@@ -217,12 +198,11 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;Load&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Check the local processor activity over the last minute to 15 minutes.&quot;</span>
+  <span class="nv">title: </span><span class="s">&#39;Disk IO&#39;</span>
+  <span class="nv">description: </span><span class="s">&quot;Check the disk io traffic.&quot;</span>
   <span class="nv">category: </span><span class="s">&#39;sys&#39;</span>
-  <span class="nv">hint: </span><span class="s">&quot;A very high system load makes the system irresponsible or really slow.</span>
-<span class="s">  Mostly this is CPU-bound load, load caused by out of memory issues or I/O-bound</span>
-<span class="s">  load problems. &quot;</span>
+  <span class="nv">hint: </span><span class="s">&quot;If there are any problems here check the device for hardware or</span>
+<span class="s">  network problems.&quot;</span>
 
 
 </pre></div>
@@ -243,22 +223,14 @@ You may use any of these in your warn/fail expressions.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">values:</span>
-    <span class="nv">cpus:</span>
-      <span class="nv">title: </span><span class="s">&quot;Num Cores&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;number of cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-    <span class="nv">short:</span>
-      <span class="nv">title: </span><span class="s">&quot;1min Load&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;average value of one minute processor load (normalized)&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">medium:</span>
-      <span class="nv">title: </span><span class="s">&quot;5min Load&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;average value of 5 minute processor load (normalized)&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">long:</span>
-      <span class="nv">title: </span><span class="s">&quot;15min Load&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;average value of 15 minute processor load (normalized)&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">read:</span>
+      <span class="nv">title: </span><span class="s">&quot;Read/s&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the amount of operations to read from the device per second&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
+    <span class="nv">write:</span>
+      <span class="nv">title: </span><span class="s">&quot;Write/s&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the amount of operations to written to the device per second&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
 
 
 </pre></div>
@@ -281,6 +253,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="nv">name: </span><span class="nx">name</span>
     <span class="nv">config: </span><span class="nx">config</span>
     <span class="nv">result: </span><span class="p">{}</span>
+  <span class="nv">timerange = </span><span class="mi">3</span>
   <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
 
 </pre></div>
@@ -297,12 +270,12 @@ You may use any of these in your warn/fail expressions.</p>
   <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep processor /proc/cpuinfo | wc -l&quot;</span><span class="p">]</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s"> /proc/diskstats&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">,</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;cat&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;/proc/loadavg&#39;</span><span class="p">]</span>
+    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">timerange</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s"> /proc/diskstats&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
@@ -317,7 +290,7 @@ You may use any of these in your warn/fail expressions.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
-<p>analyses results</p>
+<p>analyse results</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="k">if</span> <span class="nx">err</span>
@@ -333,14 +306,13 @@ You may use any of these in your warn/fail expressions.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
-<p>cpu info values</p>
+<p>calculate diffs</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">val.cpus = </span><span class="nb">Number</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">()</span>
-      <span class="nv">load = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s/</span>
-      <span class="nv">val.short = </span><span class="nb">Number</span> <span class="nx">load</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="nv">val.medium = </span><span class="nb">Number</span> <span class="nx">load</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="nv">val.long = </span><span class="nb">Number</span> <span class="nx">load</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+      <span class="nv">l1 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
+      <span class="nv">l2 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
+      <span class="nv">val.read = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">timerange</span>
+      <span class="nv">val.write = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">timerange</span>
       <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
       <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
 
@@ -350,16 +322,17 @@ You may use any of these in your warn/fail expressions.</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20the%20sensor">
+<div class="pilwrap" id="run%20additional%20analysis">
   <h2>
-    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
-    Run the Sensor
+    <a href="#run%20additional%20analysis" name="run%20additional%20analysis" class="pilcrow">&#182;</a>
+    Run additional analysis
   </h2>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.analysis = </span><span class="nx">cpu</span><span class="p">.</span><span class="nx">analysis</span>
+<span class="nv">exports.analysis = </span><span class="nf">(name, config, cb = -&gt;) -&gt;</span>
+  <span class="nx">cb</span><span class="p">()</span>
 </pre></div>
         </td>
       </tr>
