@@ -169,6 +169,8 @@ formatValue = (value, config) ->
       unit = long[config.unit] ? config.unit
       interval = math.unit value, unit
       interval.format 3
+    when 'float'
+      (Math.round(value * 100) / 100).toString()
     else
       val = value
       val += " #{config.unit}" if val and config.unit

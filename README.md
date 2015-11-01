@@ -446,12 +446,18 @@ Disk IO (test)
 
 Check the disk io traffic.
 
-Last check results from Sun Nov 01 2015 22:31:33 GMT+0100 (CET) are:
+Last check results from Sun Nov 01 2015 23:11:31 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Read/s                  |                                                0 |
-| Write/s                 |                                                0 |
+| Read operations/s       |                                                0 |
+| Write operation/s       |                                             0.67 |
+| Read/s                  |                                              0 B |
+| Write/s                 |                                            15 kB |
+| Total Read              |                                          8.51 GB |
+| Total Write             |                                          6.13 GB |
+| Read/s                  |                                             0 ms |
+| Write/s                 |                                          6.67 ms |
 
 If there are any problems here check the device for hardware or network
 problems.
