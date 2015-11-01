@@ -32,6 +32,7 @@ exports.schema =
   type: 'object'
   allowedKeys: true
   default:
+    warn: "short > 500%"
     analysis:
       minCpu: 0.1
   keys:
@@ -39,7 +40,8 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on this to run the command"
       type: 'string'
-    warn: sensor.schema.warn
+    warn: object.extend {}, sensor.schema.warn,
+      default: 'short > 500%'
     fail: sensor.schema.fail
     analysis:
       title: "Analysis Run"

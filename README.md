@@ -279,6 +279,7 @@ The top CPU consuming processes above 10% are:
 
 Check the system load in the last time ranges. With the configuration values:
 
+- remote - the remote server, there to run the sensor
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status
 - analysis - the configuration for the analysis if it is run
@@ -317,7 +318,56 @@ The top CPU consuming processes above 10% are:
 
 ### Memory
 
-cat /proc/meminfo
+Check the memory usage on the system
+
+- remote - the remote server, there to run the sensor
+- warn - the javascript code to check for warn status
+- fail - the javascript code to check for fail status
+- analysis - the configuration for the analysis if it is run
+  - minMem - show processes with this memory usage or above (default: 10%)
+  - numProc - number of top processes to list
+
+The resulting report part may look like:
+
+``` text
+Memory (test)
+-----------------------------------------------------------------------------
+
+Check the free and used memory.
+
+Last check results from Sun Nov 01 2015 17:51:46 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Total                   |                                          1.85 GB |
+| Used                    |                                          1.52 GB |
+| Free                    |                                          310 MiB |
+| Shared                  |                                           23 MiB |
+| Buffers                 |                                          220 MiB |
+| Cached                  |                                          400 MiB |
+| Swap Total              |                                          1.88 GB |
+| Swap Used               |                                          197 MiB |
+| Swap Free               |                                          1.67 GB |
+| Actual Free             |                                         0.975 GB |
+| Percent Free            |                                           0.53 % |
+| Swap Percent Free       |                                           0.89 % |
+
+Check which process consumes how much memory, maybe some processes have a memory
+ leak.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Warn if            |                                             Free < 1% |
+
+The top memory consuming processes above 10% are:
+
+| COUNT |  %CPU |  %MEM | COMMAND                                            |
+| ----: | ----: | ----: | -------------------------------------------------- |
+|     2 | 21.3% |  4.2% | /usr/bin/python2.7                                 |
+|     1 |   84% |  2.7% | /usr/bin/nodejs                                    |
+```
 
 ### Diskfree
 
