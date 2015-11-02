@@ -438,7 +438,7 @@ This sensor will check the disk io traffic:
 - device - the disk device name
 - time - measurement time in seconds
 - warn - the javascript code to check for warn status
-- fail - the javascript code to check for fail status (default: 'free is 0')
+- fail - the javascript code to check for fail status
 
 The resulting report part may look like:
 
@@ -478,8 +478,8 @@ This sensor will check the network traffic on a specified interface:
 - remote - the remote server, there to run the sensor
 - interface - the interface to analyze
 - time - measurement time in seconds
-- warn - the javascript code to check for warn status
-- fail - the javascript code to check for fail status (default: 'free is 0')
+- warn - the javascript code to check for warn status (default: 'errors > 50%')
+- fail - the javascript code to check for fail status (default: 'errors > 99%')
 
 The resulting report part may look like:
 
@@ -553,7 +553,43 @@ Active internet connections:
 
 ### Time
 
--> old
+This sensor will check the network traffic on a specified interface:
+
+- remote - the remote server, there to run the sensor
+- host - the name of an NTP server to call (default: pool.ntp.org)
+- port - the port to use for NTP calls (default: 123)
+- timeout - the time in milliseconds to retrieve time
+- warn - the javascript code to check for warn status (default: 'diff > 10000')
+- fail - the javascript code to check for fail status
+
+The resulting report part may look like:
+
+``` text
+Time Check (test)
+-----------------------------------------------------------------------------
+
+Check the system time against the Internet.
+
+Last check results from Mon Nov 02 2015 20:59:55 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Local Time              |          Mon Nov 02 2015 21:00:00 GMT+0100 (CET) |
+| Remote Time             |          Mon Nov 02 2015 20:59:59 GMT+0100 (CET) |
+| Difference              |                                           259 ms |
+
+If the time is not correct it may influence some processes which goes over
+multiple hosts. Therefore install and configure `ntpd` on the machine.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| NTP Hostname       |                                          pool.ntp.org |
+| NTP Port           |                                                   123 |
+| Timeout            |                                                  10 s |
+| Warn if            |                                    Difference > 10000 |
+```
 
 ### Users
 

@@ -148,7 +148,6 @@ exports.run = (name, config, cb = ->) ->
     remote: config.remote
     cmd: 'sh'
     args: ['-c', "cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"]
-#    | sort | uniq | sed 's/.*: //'"]
     priority: 'immediately'
   ,
     remote: config.remote

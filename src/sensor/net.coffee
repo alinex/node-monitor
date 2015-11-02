@@ -31,6 +31,7 @@ exports.schema =
   type: 'object'
   default:
     warn: 'errors > 50%'
+    fail: 'errors > 99%'
   allowedKeys: true
   keys:
     remote:
@@ -51,7 +52,8 @@ exports.schema =
       min: 1
     warn: object.extend {}, sensor.schema.warn,
       default: 'errors > 50%'
-    fail: sensor.schema.fail
+    fail: object.extend {}, sensor.schema.fail,
+      default: 'errors > 99%'
 
 # General information
 # -------------------------------------------------
