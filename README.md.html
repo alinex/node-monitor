@@ -86,9 +86,6 @@
       <div class="heading h3">
         <a href="#users">Users</a>
       </div>
-      <div class="heading h1">
-        <a href="#use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy">use snoopy for all commands # https://github.com/a2o/snoopy</a>
-      </div>
       <div class="heading h2">
         <a href="#network%20sensors">Network Sensors</a>
       </div>
@@ -564,6 +561,7 @@ The top CPU consuming processes above 10% are:
 
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
+<li>time - measurement time in seconds</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
 <li>analysis - the configuration for the analysis if it is run
@@ -752,8 +750,9 @@ be higher.
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>device - the disk device name</li>
+<li>time - measurement time in seconds</li>
 <li>warn - the javascript code to check for warn status</li>
-<li>fail - the javascript code to check for fail status (default: 'free is 0')</li>
+<li>fail - the javascript code to check for fail status</li>
 </ul>
 
 <p>The resulting report part may look like:</p>
@@ -764,12 +763,18 @@ be higher.
 
 Check the disk io traffic.
 
-Last check results from Sun Nov 01 2015 22:31:33 GMT+0100 (CET) are:
+Last check results from Sun Nov 01 2015 23:11:31 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Read/s                  |                                                0 |
-| Write/s                 |                                                0 |
+| Read operations/s       |                                                0 |
+| Write operation/s       |                                             0.67 |
+| Read/s                  |                                              0 B |
+| Write/s                 |                                            15 kB |
+| Total Read              |                                          8.51 GB |
+| Total Write             |                                          6.13 GB |
+| Read/s                  |                                             0 ms |
+| Write/s                 |                                          6.67 ms |
 
 If there are any problems here check the device for hardware or network
 problems.
@@ -792,10 +797,87 @@ This has been checked with the following setup:
 </div>
 
 
-<p>/proc/net/dev
-<a href='http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html'>http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html</a></p>
+<p>This sensor will check the network traffic on a specified interface:</p>
 
-<p>netstat</p>
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>interface - the interface to analyze</li>
+<li>time - measurement time in seconds</li>
+<li>warn - the javascript code to check for warn status (default: 'errors > 50%')</li>
+<li>fail - the javascript code to check for fail status (default: 'errors > 99%')</li>
+</ul>
+
+<p>The resulting report part may look like:</p>
+
+
+<div class="highlight"><pre><code>Network Traffic (test)
+-----------------------------------------------------------------------------
+
+Check the network traffic.
+
+Last check results from Mon Nov 02 2015 20:20:58 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Received Transfer       |                                             46 B |
+| Received Packets        |                                                1 |
+| Received Errors         |                                              0 % |
+| Received Drops          |                                              0 % |
+| Received FIFO Errors    |                                              0 % |
+| Transmit Transfer       |                                             66 B |
+| Transmit Packets        |                                                1 |
+| Transmit Errors         |                                              0 % |
+| Transmit Drops          |                                              0 % |
+| Transmit FIFO Errors    |                                              0 % |
+| Total Transfer          |                                            112 B |
+| Total Packets           |                                                2 |
+| Total Errors            |                                              0 % |
+| Total Drops             |                                              0 % |
+| Total FIFO Errors       |                                              0 % |
+| Total Frame Errors      |                                              0 % |
+| Interface State         |                                               UP |
+| Mac Address             |                                00:21:63:da:d5:da |
+| IP Address              |                                     192.168.1.18 |
+| IPv6 Address            |                         fe80::221:63ff:feda:d5da |
+
+If you see a high volume it may be overloaded or a attack is running.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Interface Name     |                                                 wlan0 |
+| Measurement Time   |                                                  10 s |
+| Warn if            |                                    Total Errors &gt; 50% |
+
+Listening servers:
+
+| PROTO | LOCAL IP             | PORT  |
+| :---- | :------------------- | :---- |
+| tcp   | 127.0.0.1            | 3306  |
+| tcp   | 0.0.0.0              | 139   |
+| tcp   | 127.0.0.1            | 5939  |
+| tcp   | 127.0.1.1            | 53    |
+| tcp   | 0.0.0.0              | 22    |
+| tcp   | 127.0.0.1            | 631   |
+| tcp   | 0.0.0.0              | 445   |
+| tcp6  | ::                   | 139   |
+| tcp6  | ::                   | 22    |
+| tcp6  | ::1                  | 631   |
+| tcp6  | ::                   | 445   |
+
+Active internet connections:
+
+| PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
+| :---- | :------------------- | ----: | -----: | :------------- |
+| tcp   | 198.252.206.25       | 80    |   3955 | chrome         |
+| tcp   | 173.194.113.0        | 443   |   3955 | chrome         |
+| tcp   | 209.20.75.76         | 80    |  12249 | plugin_host    |
+| tcp   | 64.233.167.188       | 443   |   3955 | chrome         |
+| tcp   | 173.194.113.2        | 443   |   3955 | chrome         |
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="time">
@@ -806,7 +888,47 @@ This has been checked with the following setup:
 </div>
 
 
-<p>-> old</p>
+<p>This sensor will check the network traffic on a specified interface:</p>
+
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>host - the name of an NTP server to call (default: pool.ntp.org)</li>
+<li>port - the port to use for NTP calls (default: 123)</li>
+<li>timeout - the time in milliseconds to retrieve time</li>
+<li>warn - the javascript code to check for warn status (default: 'diff > 10000')</li>
+<li>fail - the javascript code to check for fail status</li>
+</ul>
+
+<p>The resulting report part may look like:</p>
+
+
+<div class="highlight"><pre><code>Time Check (test)
+-----------------------------------------------------------------------------
+
+Check the system time against the Internet.
+
+Last check results from Mon Nov 02 2015 20:59:55 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Local Time              |          Mon Nov 02 2015 21:00:00 GMT+0100 (CET) |
+| Remote Time             |          Mon Nov 02 2015 20:59:59 GMT+0100 (CET) |
+| Difference              |                                           259 ms |
+
+If the time is not correct it may influence some processes which goes over
+multiple hosts. Therefore install and configure `ntpd` on the machine.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| NTP Hostname       |                                          pool.ntp.org |
+| NTP Port           |                                                   123 |
+| Timeout            |                                                  10 s |
+| Warn if            |                                    Difference &gt; 10000 |
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="users">
@@ -823,16 +945,8 @@ who
 
 <p>last -Fi # login history
 ps aux # aktuelle Befehle je user
-/var/log/auth.log | grep alex # letzte sudo befehle</p>
-
-
-<div class="pilwrap" id="use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy">
-  <h1>
-    <a href="#use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy" name="use%20snoopy%20for%20all%20commands%20%23%20https%3A%2F%2Fgithub.com%2Fa2o%2Fsnoopy" class="pilcrow">&#182;</a>
-    use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://github.com/a2o/snoopy</a>
-  </h1>
-</div>
-
+/var/log/auth.log | grep alex # letzte sudo befehle
+use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://github.com/a2o/snoopy</a></p>
 
 
 <div class="pilwrap" id="network%20sensors">
@@ -1148,7 +1262,6 @@ can be visualized using a data analyzation tool like dbVisualizer.</p>
 
 
 <ul>
-<li>release exec with timeout</li>
 <li>add postgres db support</li>
 <li>db checks</li>
 <li>store results => db</li>

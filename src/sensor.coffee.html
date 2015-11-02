@@ -458,6 +458,8 @@ individual rules.</p>
       <span class="nv">unit = </span><span class="nx">long</span><span class="p">[</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="p">]</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>
       <span class="nv">interval = </span><span class="nx">math</span><span class="p">.</span><span class="nx">unit</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">unit</span>
       <span class="nx">interval</span><span class="p">.</span><span class="nx">format</span> <span class="mi">3</span>
+    <span class="k">when</span> <span class="s">&#39;float&#39;</span>
+      <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span>
     <span class="k">else</span>
       <span class="nv">val = </span><span class="nx">value</span>
       <span class="nx">val</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">and</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>

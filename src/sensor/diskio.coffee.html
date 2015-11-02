@@ -177,6 +177,13 @@ compatible schema definition:</p>
       <span class="nv">title: </span><span class="s">&quot;Device name&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the disk&#39;s device name like sda, ...&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">time:</span>
+      <span class="nv">title: </span><span class="s">&quot;Measurement Time&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the time for the measurement&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+      <span class="nv">default: </span><span class="mi">10</span>
+      <span class="nv">min: </span><span class="mi">1</span>
     <span class="nv">warn: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span>
     <span class="nv">fail: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span>
 
@@ -224,13 +231,43 @@ You may use any of these in your warn/fail expressions.</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">values:</span>
     <span class="nv">read:</span>
-      <span class="nv">title: </span><span class="s">&quot;Read/s&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Read operations/s&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the amount of operations to read from the device per second&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
     <span class="nv">write:</span>
-      <span class="nv">title: </span><span class="s">&quot;Write/s&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Write operation/s&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the amount of operations to written to the device per second&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
+    <span class="nv">readSize:</span>
+      <span class="nv">title: </span><span class="s">&quot;Read/s&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the amount of data read from the device per second&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">writeSize:</span>
+      <span class="nv">title: </span><span class="s">&quot;Write/s&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the amount of data written to the device per second&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">readTotal:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Read&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the total amount of read data&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">writeTotal:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Write&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the total amount of written data&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">readTime:</span>
+      <span class="nv">title: </span><span class="s">&quot;Read/s&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the amount of data read from the device per second&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+    <span class="nv">writeTime:</span>
+      <span class="nv">title: </span><span class="s">&quot;Write/s&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the amount of data written to the device per second&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
 
 
 </pre></div>
@@ -253,7 +290,6 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="nv">name: </span><span class="nx">name</span>
     <span class="nv">config: </span><span class="nx">config</span>
     <span class="nv">result: </span><span class="p">{}</span>
-  <span class="nv">timerange = </span><span class="mi">3</span>
   <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
 
 </pre></div>
@@ -275,7 +311,7 @@ You may use any of these in your warn/fail expressions.</p>
   <span class="p">,</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">timerange</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s"> /proc/diskstats&quot;</span><span class="p">]</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s"> /proc/diskstats&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
@@ -309,10 +345,16 @@ You may use any of these in your warn/fail expressions.</p>
 <p>calculate diffs</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">l1 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
-      <span class="nv">l2 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
-      <span class="nv">val.read = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">timerange</span>
-      <span class="nv">val.write = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">timerange</span>
+      <span class="nv">l1 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
+      <span class="nv">l2 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
+      <span class="nv">val.read = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">config</span><span class="p">.</span><span class="nx">time</span>
+      <span class="nv">val.write = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">config</span><span class="p">.</span><span class="nx">time</span>
+      <span class="nv">val.readSize = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">config</span><span class="p">.</span><span class="nx">time</span> <span class="o">*</span> <span class="mi">512</span>
+      <span class="nv">val.writeSize = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">config</span><span class="p">.</span><span class="nx">time</span> <span class="o">*</span> <span class="mi">512</span>
+      <span class="nv">val.readTotal = </span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">*</span> <span class="mi">512</span>
+      <span class="nv">val.writeTotal = </span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">*</span> <span class="mi">512</span>
+      <span class="nv">val.readTime = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">config</span><span class="p">.</span><span class="nx">time</span>
+      <span class="nv">val.writeTime = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">10</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">config</span><span class="p">.</span><span class="nx">time</span>
       <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
       <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
 

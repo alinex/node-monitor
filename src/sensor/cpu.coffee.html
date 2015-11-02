@@ -177,6 +177,13 @@ compatible schema definition:</p>
       <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the remote server on this to run the command&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">time:</span>
+      <span class="nv">title: </span><span class="s">&quot;Measurement Time&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the time for the measurement&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+      <span class="nv">default: </span><span class="mi">10</span>
+      <span class="nv">min: </span><span class="mi">1</span>
     <span class="nv">warn: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span><span class="p">,</span>
       <span class="nv">default: </span><span class="s">&#39;active &gt;= 100%&#39;</span>
     <span class="nv">fail: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span>
@@ -331,18 +338,6 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
     <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;cat /proc/cpuinfo | egrep &#39;(processor|cpu MHz)&#39;&quot;</span><span class="p">]</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
-</div>
-<p style="font-family:monospace;white-space:pre">| sort | uniq | sed 's/.*: //'"]</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">,</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
@@ -352,7 +347,7 @@ You may use any of these in your warn/fail expressions.</p>
   <span class="p">,</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep 3 &amp;&amp; grep cpu /proc/stat&quot;</span><span class="p">]</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep cpu /proc/stat&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
@@ -365,7 +360,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>analyse results</p>
         </td>
@@ -381,7 +376,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>cpu info values</p>
         </td>
@@ -401,7 +396,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>cpu load</p>
         </td>
@@ -422,18 +417,19 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>get percentage</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">val.user = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-      <span class="nv">val.nice = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-      <span class="nv">val.system = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-      <span class="nv">val.idle = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-      <span class="nv">val.wait = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">5</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-      <span class="nv">val.hwint = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">6</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">6</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-      <span class="nv">val.swint = </span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">7</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+      <span class="nv">percent = </span><span class="nf">(col) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+      <span class="nv">val.user = </span><span class="nx">percent</span> <span class="mi">1</span>
+      <span class="nv">val.nice = </span><span class="nx">percent</span> <span class="mi">2</span>
+      <span class="nv">val.system = </span><span class="nx">percent</span> <span class="mi">3</span>
+      <span class="nv">val.idle = </span><span class="nx">percent</span> <span class="mi">4</span>
+      <span class="nv">val.wait = </span><span class="nx">percent</span> <span class="mi">5</span>
+      <span class="nv">val.hwint = </span><span class="nx">percent</span> <span class="mi">6</span>
+      <span class="nv">val.swint = </span><span class="nx">percent</span> <span class="mi">7</span>
       <span class="nv">val.active = </span><span class="mf">1.0</span> <span class="o">-</span> <span class="nx">val</span><span class="p">.</span><span class="nx">idle</span>
 
 </pre></div>
@@ -442,7 +438,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>get min/max cpus</p>
         </td>
@@ -480,7 +476,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>get additional information</p>
         </td>
@@ -494,6 +490,7 @@ You may use any of these in your warn/fail expressions.</p>
 <span class="s">    | COUNT |  %CPU |  %MEM | COMMAND                                            |</span>
 <span class="s">    | ----: | ----: | ----: | -------------------------------------------------- |\n&quot;&quot;&quot;</span>
   <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
     <span class="nv">args: </span><span class="p">[</span>
       <span class="s">&#39;-c&#39;</span>

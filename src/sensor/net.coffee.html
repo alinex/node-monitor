@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>net.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/netcoffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#network%20analyzation">Network analyzation</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#schema%20definition">Schema Definition</a>
+      </div>
+      <div class="heading h2">
+        <a href="#general%20information">General information</a>
+      </div>
+      <div class="heading h3">
+        <a href="#result%20values">Result values</a>
+      </div>
+      <div class="heading h2">
+        <a href="#run%20the%20sensor">Run the Sensor</a>
+      </div>
+      <div class="heading h2">
+        <a href="#run%20additional%20analysis">Run additional analysis</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="network%20analyzation">
+  <h1>
+    <a href="#network%20analyzation" name="network%20analyzation" class="pilcrow">&#182;</a>
+    Network analyzation
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Find the description of the possible configuration values and the returned
+values in the code below.
+But the analysis part currently only works on linux.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:net&#39;</span><span class="p">)</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>include classes and helpers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="schema%20definition">
+  <h2>
+    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
+    Schema Definition
+  </h2>
+</div>
+
+
+<p>This is used as configuration specification and to add the default values for
+specific setting.</p>
+
+<p>It's a n<a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
+compatible schema definition:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.schema =</span>
+  <span class="nv">title: </span><span class="s">&quot;Network Traffic Test&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the network traffic over a specified interface&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">default:</span>
+    <span class="nv">warn: </span><span class="s">&#39;errors &gt; 50%&#39;</span>
+    <span class="nv">fail: </span><span class="s">&#39;errors &gt; 99%&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">remote:</span>
+      <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the remote server on this to run the command&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">interface:</span>
+      <span class="nv">title: </span><span class="s">&quot;Interface Name&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name of the interface to analyze&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;eth0&#39;</span>
+    <span class="nv">time:</span>
+      <span class="nv">title: </span><span class="s">&quot;Measurement Time&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the time for the measurement&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
+      <span class="nv">default: </span><span class="mi">10</span>
+      <span class="nv">min: </span><span class="mi">1</span>
+    <span class="nv">warn: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span><span class="p">,</span>
+      <span class="nv">default: </span><span class="s">&#39;errors &gt; 50%&#39;</span>
+    <span class="nv">fail: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span><span class="p">,</span>
+      <span class="nv">default: </span><span class="s">&#39;errors &gt; 99%&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="general%20information">
+  <h2>
+    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
+    General information
+  </h2>
+</div>
+
+
+<p>This information may be used later for display and explanation.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.meta =</span>
+  <span class="nv">title: </span><span class="s">&#39;Network Traffic&#39;</span>
+  <span class="nv">description: </span><span class="s">&quot;Check the network traffic.&quot;</span>
+  <span class="nv">category: </span><span class="s">&#39;sys&#39;</span>
+  <span class="nv">hint: </span><span class="s">&quot;If you see a high volume it may be overloaded or a attack is</span>
+<span class="s">  running.&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="result%20values">
+  <h3>
+    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
+    Result values
+  </h3>
+</div>
+
+
+<p>This are possible values which may be given if the check runs normally.
+You may use any of these in your warn/fail expressions.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">values:</span>
+    <span class="nv">receivedBytes:</span>
+      <span class="nv">title: </span><span class="s">&quot;Received Transfer&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of received bytes of data transmitted or received</span>
+<span class="s">      by the interface&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">receivedPackets:</span>
+      <span class="nv">title: </span><span class="s">&quot;Received Packets&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of received packets of data transmitted or received</span>
+<span class="s">      by the interface&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+    <span class="nv">receivedErrors:</span>
+      <span class="nv">title: </span><span class="s">&quot;Received Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage received of transmit or receive errors detected</span>
+<span class="s">      by the device driver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">receivedDrop:</span>
+      <span class="nv">title: </span><span class="s">&quot;Received Drops&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage received of packets dropped by the device driver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">receivedFifo:</span>
+      <span class="nv">title: </span><span class="s">&quot;Received FIFO Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage received of FIFO buffer errors&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">transmitBytes:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmit Transfer&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of transmitted bytes of data transmitted or received</span>
+<span class="s">      by the interface&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">transmitPackets:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmit Packets&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of transmitted packets of data transmitted or received</span>
+<span class="s">      by the interface&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+    <span class="nv">transmitErrors:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmit Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage transmitted of transmit or receive errors detected</span>
+<span class="s">      by the device driver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">transmitDrop:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmit Drops&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage transmitted of packets dropped by the device driver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">transmitFifo:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmit FIFO Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage transmitted of FIFO buffer errors&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">bytes:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Transfer&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of bytes of data transmitted or received by the interface&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
+    <span class="nv">packets:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Packets&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of packets of data transmitted or received by the interface&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+    <span class="nv">errors:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage of transmit or receive errors detected by the device driver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">drop:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Drops&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage of packets dropped by the device driver&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">fifo:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total FIFO Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage of FIFO buffer errors&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">frame:</span>
+      <span class="nv">title: </span><span class="s">&quot;Total Frame Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage of packet framing errors&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">state:</span>
+      <span class="nv">title: </span><span class="s">&quot;Interface State&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the state of the interface this may be UP, DOWN or UNKNOWN&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">mac:</span>
+      <span class="nv">title: </span><span class="s">&quot;Mac Address&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the mac address of the network card&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">ipv4:</span>
+      <span class="nv">title: </span><span class="s">&quot;IP Address&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the configured ip address&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">ipv6:</span>
+      <span class="nv">title: </span><span class="s">&quot;IPv6 Address&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the configured ip version 6 address&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20the%20sensor">
+  <h2>
+    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
+    Run the Sensor
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.run = </span><span class="nf">(name, config, cb = -&gt;) -&gt;</span>
+  <span class="nv">work =</span>
+    <span class="nv">sensor: </span><span class="k">this</span>
+    <span class="nv">name: </span><span class="nx">name</span>
+    <span class="nv">config: </span><span class="nx">config</span>
+    <span class="nv">result: </span><span class="p">{}</span>
+  <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>run check</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
+    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s"> /proc/net/dev&quot;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s"> /proc/net/dev&quot;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;ip&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;addr&#39;</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">interface</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+    <span class="nx">sensor</span><span class="p">.</span><span class="nx">end</span> <span class="nx">work</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>analyse results</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">err</span>
+      <span class="nv">work.err = </span><span class="nx">err</span>
+    <span class="k">else</span>
+      <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>calculate and store the results</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">l1 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+      <span class="nv">l2 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+      <span class="nv">diff = </span><span class="nf">(col) -&gt;</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span>
+      <span class="nv">percent = </span><span class="nf">(col) -&gt;</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="k">unless</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
+        <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
+      <span class="nv">val.receivedBytes = </span><span class="nx">diff</span> <span class="mi">1</span>
+      <span class="nv">val.receivedPackets = </span><span class="nx">diff</span> <span class="mi">2</span>
+      <span class="nv">val.receivedErrors = </span><span class="nx">percent</span> <span class="mi">3</span>
+      <span class="nv">val.receivedDrop = </span><span class="nx">percent</span> <span class="mi">4</span>
+      <span class="nv">val.receivedFifo = </span><span class="nx">percent</span> <span class="mi">5</span>
+      <span class="nv">val.receivedFrame = </span><span class="nx">percent</span> <span class="mi">6</span>
+      <span class="nv">val.transmitBytes = </span><span class="nx">diff</span> <span class="mi">9</span>
+      <span class="nv">val.transmitPackets = </span><span class="nx">diff</span> <span class="mi">10</span>
+      <span class="nv">val.transmitErrors = </span><span class="nx">percent</span> <span class="mi">11</span>
+      <span class="nv">val.transmitDrop = </span><span class="nx">percent</span> <span class="mi">12</span>
+      <span class="nv">val.transmitFifo = </span><span class="nx">percent</span> <span class="mi">13</span>
+      <span class="nv">val.transmitFrame = </span><span class="nx">percent</span> <span class="mi">14</span>
+      <span class="nv">val.bytes = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedBytes</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitBytes</span>
+      <span class="nv">val.packets = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
+      <span class="nv">val.errors = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedErrors</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitErrors</span>
+      <span class="nv">val.drop = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedDrop</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitDrop</span>
+      <span class="nv">val.fifo = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedFifo</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitFifo</span>
+      <span class="nv">val.frame = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedFrame</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitFrame</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>get additional interface settings</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">lines = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n\s*/</span>
+      <span class="nv">match = </span><span class="sr">/state ([A-Z]+)/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="nv">val.state = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="nv">match = </span><span class="sr">/(([0-9a-f]{2}:){5}[0-9a-f]{2})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="nv">val.mac = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">..]</span>
+          <span class="k">if</span> <span class="nv">match = </span><span class="sr">/^inet ((\d{1,3}.){3}\d{1,3})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">line</span>
+            <span class="nv">val.ipv4 = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+          <span class="k">else</span> <span class="k">if</span> <span class="nv">match = </span><span class="sr">/^inet6 (([0-9a-f]{0,4}:){5}[0-9a-f]{0,4})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">line</span>
+            <span class="nv">val.ipv6 = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
+      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20additional%20analysis">
+  <h2>
+    <a href="#run%20additional%20analysis" name="run%20additional%20analysis" class="pilcrow">&#182;</a>
+    Run additional analysis
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.analysis = </span><span class="nf">(name, config, cb = -&gt;) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>get additional information</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;netstat&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-plnta&#39;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>0 Protocol
+1 Recv-Q
+2 Send-Q
+3 Local Address, Port
+4 Foreign Address, Port
+5 State
+6 PID, Program name</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">server = </span><span class="s">&#39;&#39;</span>
+    <span class="nv">conn = </span><span class="s">&#39;&#39;</span>
+    <span class="nv">head = </span><span class="kc">true</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+      <span class="k">continue</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">isnt</span> <span class="s">&#39;Proto&#39;</span> <span class="o">and</span> <span class="nx">head</span>
+      <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;Proto&#39;</span>
+        <span class="nv">head = </span><span class="kc">false</span>
+        <span class="k">continue</span>
+      <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;LISTEN&#39;</span>
+        <span class="nv">split = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">lastIndexOf</span> <span class="s">&#39;:&#39;</span>
+        <span class="nv">ip = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">substring</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">split</span>
+        <span class="nv">port = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">substring</span> <span class="nx">split</span><span class="o">+</span><span class="mi">1</span>
+        <span class="nx">server</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">ip</span><span class="p">,</span> <span class="mi">20</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">port</span><span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+      <span class="k">else</span>
+        <span class="nv">split = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">lastIndexOf</span> <span class="s">&#39;:&#39;</span>
+        <span class="nv">ip = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">substring</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">split</span>
+        <span class="nv">port = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">substring</span> <span class="nx">split</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">continue</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">or</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;-&#39;</span>
+        <span class="p">[</span><span class="nx">pid</span><span class="p">,</span> <span class="nx">cmd</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">6</span><span class="p">].</span><span class="nx">split</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="mi">2</span>
+        <span class="nx">conn</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">ip</span><span class="p">,</span> <span class="mi">20</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">port</span><span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">pid</span><span class="p">,</span> <span class="mi">6</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">cmd</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="p">),</span> <span class="mi">14</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+    <span class="nv">report = </span><span class="s">&#39;&#39;</span>
+    <span class="k">if</span> <span class="nx">server</span>
+      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        Listening servers:</span>
+
+<span class="s">        | PROTO | LOCAL IP             | PORT  |</span>
+<span class="s">        | :---- | :------------------- | :---- |</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>{server}\n"""</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    if conn</span>
+<span class="s">      report += &quot;&quot;&quot;</span>
+        <span class="nx">Active</span> <span class="nx">internet</span> <span class="nv">connections:</span>
+
+        <span class="o">|</span> <span class="nx">PROTO</span> <span class="o">|</span> <span class="nx">FOREIGN</span> <span class="nx">IP</span>           <span class="o">|</span> <span class="nx">PORT</span>  <span class="o">|</span>   <span class="nx">PID</span>  <span class="o">|</span>     <span class="nx">PROGRAM</span>    <span class="o">|</span>
+        <span class="o">|</span> <span class="o">:----</span> <span class="o">|</span> <span class="o">:-------------------</span> <span class="o">|</span> <span class="o">----:</span> <span class="o">|</span> <span class="o">-----:</span> <span class="o">|</span> <span class="o">:-------------</span> <span class="o">|</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>{conn}\n"""</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
