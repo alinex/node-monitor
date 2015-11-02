@@ -240,8 +240,8 @@ exports.analysis = (name, config, cb = ->) ->
   # get additional information
   Exec.run
     remote: config.remote
-    cmd: 'netstat'
-    args: ['-plnta']
+    cmd: 'sh'
+    args: ['-c', 'netstat -plnta | sed 1,2d | sort -k 4,5']
     priority: 'immediately'
   , (err, proc) ->
     return cb err if err
