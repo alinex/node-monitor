@@ -16,6 +16,8 @@ logo = require('./logo') 'Monitoring Application'
 monitor = require './index'
 #Controller = require './controller'
 
+process.title = 'Monitor'
+
 # Start argument parsing
 # -------------------------------------------------
 argv = yargs
