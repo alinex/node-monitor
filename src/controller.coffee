@@ -66,7 +66,7 @@ class Controller extends EventEmitter
       sensor.run "#{@name}:#{name}", check.config, (err, res) =>
         return cb err if err
         # status info
-        debugSensor "#{chalk.grey @name} Check #{name} => #{colorStatus res.status}"
+        debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}"
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
@@ -82,7 +82,7 @@ class Controller extends EventEmitter
       @checks.pop() if @checks.length > 5
       # calculate controller status
       @status = calcStatus @conf.combine, @conf.check, res
-      debug "#{chalk.grey @name} Controller => #{colorStatus @status}"
+      debug "#{chalk.grey @name} Controller => #{@colorStatus()}"
       @emit 'result', this
       cb()
 
@@ -95,6 +95,21 @@ class Controller extends EventEmitter
     # store  report
     # send email
 
+  # Helper to colorize output
+  # -------------------------------------------------
+  colorStatus: (text) ->
+    text = @status unless text?
+    switch @status
+      when 'ok'
+        chalk.green text
+      when 'warn'
+        chalk.yellow text
+      when 'fail'
+        chalk.red text
+      when 'disabled'
+        chalk.grey text
+      else
+        text
 
 
 # Export class
@@ -158,19 +173,3 @@ calcStatus = (combine, check, result) ->
   for name, val of values
     return name if status is val
   return 'ok'
-
-# Helper to colorize output
-# -------------------------------------------------
-colorStatus = (status, text) ->
-  text = status unless text?
-  switch status
-    when 'ok'
-      chalk.green text
-    when 'warn'
-      chalk.yellow text
-    when 'fail'
-      chalk.red text
-    when 'disabled'
-      chalk.grey text
-    else
-      text

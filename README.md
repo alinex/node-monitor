@@ -635,7 +635,6 @@ can be visualized using a data analyzation tool like dbVisualizer.
 Roadmap
 -------------------------------------------------
 
-- release exec with timeout
 - add postgres db support
 - db checks
 - store results => db
