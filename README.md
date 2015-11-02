@@ -489,7 +489,7 @@ http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-
 last -Fi # login history
 ps aux # aktuelle Befehle je user
 /var/log/auth.log | grep alex # letzte sudo befehle
-# use snoopy for all commands # https://github.com/a2o/snoopy
+use snoopy for all commands # https://github.com/a2o/snoopy
 
 Network Sensors
 -------------------------------------------------
