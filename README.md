@@ -280,6 +280,7 @@ The top CPU consuming processes above 10% are:
 Check the system load in the last time ranges. With the configuration values:
 
 - remote - the remote server, there to run the sensor
+- time - measurement time in seconds
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status
 - analysis - the configuration for the analysis if it is run
@@ -435,6 +436,7 @@ This sensor will check the disk io traffic:
 
 - remote - the remote server, there to run the sensor
 - device - the disk device name
+- time - measurement time in seconds
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status (default: 'free is 0')
 
@@ -471,10 +473,83 @@ This has been checked with the following setup:
 
 ### Net
 
-/proc/net/dev
-http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html
+This sensor will check the network traffic on a specified interface:
 
-netstat
+- remote - the remote server, there to run the sensor
+- interface - the interface to analyze
+- time - measurement time in seconds
+- warn - the javascript code to check for warn status
+- fail - the javascript code to check for fail status (default: 'free is 0')
+
+The resulting report part may look like:
+
+``` text
+Network Traffic (test)
+-----------------------------------------------------------------------------
+
+Check the network traffic.
+
+Last check results from Mon Nov 02 2015 20:20:58 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Received Transfer       |                                             46 B |
+| Received Packets        |                                                1 |
+| Received Errors         |                                              0 % |
+| Received Drops          |                                              0 % |
+| Received FIFO Errors    |                                              0 % |
+| Transmit Transfer       |                                             66 B |
+| Transmit Packets        |                                                1 |
+| Transmit Errors         |                                              0 % |
+| Transmit Drops          |                                              0 % |
+| Transmit FIFO Errors    |                                              0 % |
+| Total Transfer          |                                            112 B |
+| Total Packets           |                                                2 |
+| Total Errors            |                                              0 % |
+| Total Drops             |                                              0 % |
+| Total FIFO Errors       |                                              0 % |
+| Total Frame Errors      |                                              0 % |
+| Interface State         |                                               UP |
+| Mac Address             |                                00:21:63:da:d5:da |
+| IP Address              |                                     192.168.1.18 |
+| IPv6 Address            |                         fe80::221:63ff:feda:d5da |
+
+If you see a high volume it may be overloaded or a attack is running.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Interface Name     |                                                 wlan0 |
+| Measurement Time   |                                                  10 s |
+| Warn if            |                                    Total Errors > 50% |
+
+Listening servers:
+
+| PROTO | LOCAL IP             | PORT  |
+| :---- | :------------------- | :---- |
+| tcp   | 127.0.0.1            | 3306  |
+| tcp   | 0.0.0.0              | 139   |
+| tcp   | 127.0.0.1            | 5939  |
+| tcp   | 127.0.1.1            | 53    |
+| tcp   | 0.0.0.0              | 22    |
+| tcp   | 127.0.0.1            | 631   |
+| tcp   | 0.0.0.0              | 445   |
+| tcp6  | ::                   | 139   |
+| tcp6  | ::                   | 22    |
+| tcp6  | ::1                  | 631   |
+| tcp6  | ::                   | 445   |
+
+Active internet connections:
+
+| PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
+| :---- | :------------------- | ----: | -----: | :------------- |
+| tcp   | 198.252.206.25       | 80    |   3955 | chrome         |
+| tcp   | 173.194.113.0        | 443   |   3955 | chrome         |
+| tcp   | 209.20.75.76         | 80    |  12249 | plugin_host    |
+| tcp   | 64.233.167.188       | 443   |   3955 | chrome         |
+| tcp   | 173.194.113.2        | 443   |   3955 | chrome         |
+```
 
 ### Time
 

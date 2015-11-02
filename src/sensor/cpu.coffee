@@ -39,6 +39,13 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on this to run the command"
       type: 'string'
+    time:
+      title: "Measurement Time"
+      description: "the time for the measurement"
+      type: 'interval'
+      unit: 's'
+      default: 10
+      min: 1
     warn: object.extend {}, sensor.schema.warn,
       default: 'active >= 100%'
     fail: sensor.schema.fail
@@ -151,7 +158,7 @@ exports.run = (name, config, cb = ->) ->
   ,
     remote: config.remote
     cmd: 'sh'
-    args: ['-c', "sleep 3 && grep cpu /proc/stat"]
+    args: ['-c', "sleep #{config.time} && grep cpu /proc/stat"]
     priority: 'immediately'
   ], (setup, cb) ->
     Exec.run setup, cb
@@ -182,13 +189,14 @@ exports.run = (name, config, cb = ->) ->
         l1[num][0] += c for c in l1[num][1..]
         l2[num][0] += c for c in l2[num][1..]
       # get percentage
-      val.user = (l2[0][1] - l1[0][1]) / (l2[0][0] - l1[0][0])
-      val.nice = (l2[0][2] - l1[0][2]) / (l2[0][0] - l1[0][0])
-      val.system = (l2[0][3] - l1[0][3]) / (l2[0][0] - l1[0][0])
-      val.idle = (l2[0][4] - l1[0][4]) / (l2[0][0] - l1[0][0])
-      val.wait = (l2[0][5] - l1[0][5]) / (l2[0][0] - l1[0][0])
-      val.hwint = (l2[0][6] - l1[0][6]) / (l2[0][0] - l1[0][0])
-      val.swint = (l2[0][7] - l1[0][7]) / (l2[0][0] - l1[0][0])
+      percent = (col) -> (l2[0][col] - l1[0][col]) / (l2[0][0] - l1[0][0])
+      val.user = percent 1
+      val.nice = percent 2
+      val.system = percent 3
+      val.idle = percent 4
+      val.wait = percent 5
+      val.hwint = percent 6
+      val.swint = percent 7
       val.active = 1.0 - val.idle
       # get min/max cpus
       val.low = 1.0
@@ -214,6 +222,7 @@ exports.analysis = (name, config, cb = ->) ->
     | COUNT |  %CPU |  %MEM | COMMAND                                            |
     | ----: | ----: | ----: | -------------------------------------------------- |\n"""
   Exec.run
+    remote: config.remote
     cmd: 'sh'
     args: [
       '-c'

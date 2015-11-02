@@ -191,6 +191,7 @@ exports.analysis = (name, config, cb = ->) ->
     | COUNT |  %CPU |  %MEM | COMMAND                                            |
     | ----: | ----: | ----: | -------------------------------------------------- |\n"""
   Exec.run
+    remote: config.remote
     cmd: 'sh'
     args: [
       '-c'

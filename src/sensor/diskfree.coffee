@@ -72,7 +72,7 @@ exports.schema =
           type: 'interval'
           unit: 'ms'
           min: 500
-          default: 5000
+          default: 60000
 
 # General information
 # -------------------------------------------------
@@ -176,6 +176,7 @@ exports.analysis = (name, config, cb = ->) ->
     | ----------------------------------- | -------: | ---------: | :---------- |\n"""
   async.mapLimit config.analysis.dirs, 4, (dir, cb) ->
     Exec.run
+      remote: config.remote
       cmd: 'sh'
       args: [
         '-c'

@@ -39,6 +39,13 @@ exports.schema =
       title: "Device name"
       description: "the disk's device name like sda, ..."
       type: 'string'
+    time:
+      title: "Measurement Time"
+      description: "the time for the measurement"
+      type: 'interval'
+      unit: 's'
+      default: 10
+      min: 1
     warn: sensor.schema.warn
     fail: sensor.schema.fail
 
@@ -104,7 +111,6 @@ exports.run = (name, config, cb = ->) ->
     name: name
     config: config
     result: {}
-  timerange = 3
   sensor.start work
   # run check
   async.map [
@@ -115,7 +121,7 @@ exports.run = (name, config, cb = ->) ->
   ,
     remote: config.remote
     cmd: 'sh'
-    args: ['-c', "sleep #{timerange} && grep #{config.device} /proc/diskstats"]
+    args: ['-c', "sleep #{config.time} && grep #{config.device} /proc/diskstats"]
     priority: 'immediately'
   ], (setup, cb) ->
     Exec.run setup, cb
@@ -129,14 +135,14 @@ exports.run = (name, config, cb = ->) ->
       # calculate diffs
       l1 = proc[0].stdout().trim().split(/\s+/)
       l2 = proc[1].stdout().trim().split(/\s+/)
-      val.read = (Number(l2[3]) - Number(l1[3])) / timerange
-      val.write = (Number(l2[7]) - Number(l1[7])) / timerange
-      val.readSize = (Number(l2[5]) - Number(l1[5])) / timerange * 512
-      val.writeSize = (Number(l2[9]) - Number(l1[9])) / timerange * 512
+      val.read = (Number(l2[3]) - Number(l1[3])) / config.time
+      val.write = (Number(l2[7]) - Number(l1[7])) / config.time
+      val.readSize = (Number(l2[5]) - Number(l1[5])) / config.time * 512
+      val.writeSize = (Number(l2[9]) - Number(l1[9])) / config.time * 512
       val.readTotal = Number(l2[5]) * 512
       val.writeTotal = Number(l2[9]) * 512
-      val.readTime = (Number(l2[6]) - Number(l1[6])) / timerange
-      val.writeTime = (Number(l2[10]) - Number(l1[10])) / timerange
+      val.readTime = (Number(l2[6]) - Number(l1[6])) / config.time
+      val.writeTime = (Number(l2[10]) - Number(l1[10])) / config.time
       sensor.result work
       cb err, work.result
 
