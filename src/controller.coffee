@@ -20,7 +20,7 @@ validator = require 'alinex-validator'
 class Controller extends EventEmitter
 
   # ### Create instance
-  constructor: (@name, @conf) ->
+  constructor: (@S, @conf) ->
 
   # ### Initialize
   init: (cb) ->
@@ -59,18 +59,19 @@ class Controller extends EventEmitter
   run: (cb) ->
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
-      name = "#{check.sensor}:#{check.name}"
       debug "#{chalk.grey @name} Running check #{name}..."
       sensor = require "./sensor/#{check.sensor}"
+      name = "#{check.sensor}:#{sensor.name check.config}"
       # run sensor
-      sensor.run "#{@name}:#{name}", check.config, (err, res) =>
+      console.log check.config
+      sensor.run check.config, (err, res) =>
         return cb err if err
         # status info
         debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}"
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
-        sensor.analysis "#{@name}:#{name}", check.config, (err, report) ->
+        sensor.analysis check.config, (err, report) ->
           return cb err if err
           res.analysis = report
           cb null, res

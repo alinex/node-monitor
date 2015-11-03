@@ -160,12 +160,15 @@ exports.meta =
       description: "the configured ip version 6 address"
       type: 'string'
 
+# Get content specific name
+# -------------------------------------------------
+exports.name = (config) -> config.interface
+
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (name, config, cb = ->) ->
+exports.run = (config, cb = ->) ->
   work =
     sensor: this
-    name: name
     config: config
     result: {}
   sensor.start work
@@ -236,7 +239,7 @@ exports.run = (name, config, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (name, config, cb = ->) ->
+exports.analysis = (config, cb = ->) ->
   # get additional information
   Exec.run
     remote: config.remote

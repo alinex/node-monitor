@@ -34,7 +34,7 @@ exports.schema =
 # Start a new Run
 # -------------------------------------------------
 exports.start = (work) ->
-  work.sensor.debug "#{chalk.grey work.name} start check"
+  work.sensor.debug "#{chalk.grey work.sensor.name work.config} start check"
   work.result.date = [new Date()]
   work.result.status = 'running'
   work.result.values = {}
@@ -42,16 +42,17 @@ exports.start = (work) ->
 # End a Run
 # -------------------------------------------------
 exports.end = (work) ->
-  work.sensor.debug "#{chalk.grey work.name} ended check"
+  work.sensor.debug "#{chalk.grey work.sensor.name work.config} ended check"
   work.result.date[1] = new Date()
 
 # Analysis
 # -------------------------------------------------
 exports.result = (work) ->
   result work
-  work.sensor.debug "#{chalk.grey work.name} result status: #{work.result.status}"
+  work.sensor.debug "#{chalk.grey work.sensor.name work.config} result status:
+  #{work.result.status}"
   for n, v of work.result.values
-    work.sensor.debug "#{chalk.grey work.name} result #{n}: #{v}"
+    work.sensor.debug "#{chalk.grey work.sensor.name work.config} result #{n}: #{v}"
 
 result = (work) ->
   if work.err
@@ -62,7 +63,7 @@ result = (work) ->
   for status in ['fail', 'warn']
     continue unless work.config[status]
     rule = work.config[status]
-    work.sensor.debug chalk.grey "#{work.name} check #{status} rule: #{rule}"
+    work.sensor.debug chalk.grey "#{work.sensor.name work.config} check #{status} rule: #{rule}"
     # replace data values
     for name, value of work.result.values
       if Array.isArray value
@@ -103,18 +104,19 @@ result = (work) ->
     for name, value of {and: '&&', or: '||', is: '==', isnt: '!=', not: '!'}
       re = new RegExp "\\b#{name}\\b", 'g'
       rule = rule.replace re, value
-    work.sensor.debug chalk.grey "#{work.name} optimized: #{rule}"
+    work.sensor.debug chalk.grey "#{work.sensor.name work.config} optimized: #{rule}"
     # run the code in sandbox
     sandbox = {}
     vm.runInNewContext "result = #{rule}", sandbox, {filename: 'monitor-sensor-rule.vm'}
-    work.sensor.debug chalk.grey "#{work.name} rule result: #{status} = #{sandbox.result}"
+    work.sensor.debug chalk.grey "#{work.sensor.name work.config} rule result:
+    #{status} = #{sandbox.result}"
     if sandbox.result
       return work.result.status = status
   work.result.status = 'ok'
 
 exports.report = (work) ->
   meta = work.sensor.meta
-  report = """\n#{meta.title} (#{work.name})
+  report = """\n#{meta.title} (#{work.sensor.name work.config})
   -----------------------------------------------------------------------------\n
   """
   report += """\n#{meta.description}

@@ -21,12 +21,10 @@ interval: 5m
 # fully work.
 check:
   - sensor: diskfree
-    name: /
     config:
       remote: dvb-develop
       share: /
   - sensor: diskfree
-    name: /run
     config:
       remote: dvb-develop
       share: /run

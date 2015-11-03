@@ -28,7 +28,7 @@ describe.only "Time", ->
 
     it "should give warn on active", (cb) ->
       test.run time,
-        warn: 'diff < 1000'
+        warn: 'diff < 100000'
       , (err, res) ->
         expect(res.values.local).to.be.above 0
         expect(res.status).to.be.equal 'warn'

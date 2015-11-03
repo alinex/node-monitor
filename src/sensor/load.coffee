@@ -94,12 +94,15 @@ exports.meta =
       description: "average value of 15 minute processor load (normalized)"
       type: 'percent'
 
+# Get content specific name
+# -------------------------------------------------
+exports.name = (config) -> ''
+
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (name, config, cb = ->) ->
+exports.run = (config, cb = ->) ->
   work =
     sensor: this
-    name: name
     config: config
     result: {}
   sensor.start work

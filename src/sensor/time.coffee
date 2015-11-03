@@ -88,12 +88,15 @@ exports.meta =
       type: 'interval'
       unit: 'ms'
 
+# Get content specific name
+# -------------------------------------------------
+exports.name = (config) -> ''
+
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (name, config, cb = ->) ->
+exports.run = (config, cb = ->) ->
   work =
     sensor: this
-    name: name
     config: config
     result: {}
   sensor.start work
@@ -121,5 +124,5 @@ exports.run = (name, config, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (name, config, cb = ->) ->
+exports.analysis = (config, cb = ->) ->
   cb()

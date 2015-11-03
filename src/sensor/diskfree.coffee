@@ -126,12 +126,15 @@ exports.meta =
       description: "the path this share is mounted to"
       type: 'string'
 
+# Get content specific name
+# -------------------------------------------------
+exports.name = (config) -> config.share
+
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (name, config, cb = ->) ->
+exports.run = (config, cb = ->) ->
   work =
     sensor: this
-    name: name
     config: config
     result: {}
   sensor.start work
@@ -166,7 +169,7 @@ exports.run = (name, config, cb = ->) ->
 
 # Run the Sensor
 # -------------------------------------------------
-exports.analysis = (name, config, cb = ->) ->
+exports.analysis = (config, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
   report = analysis = """

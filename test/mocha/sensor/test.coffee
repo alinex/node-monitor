@@ -26,7 +26,7 @@ exports.validator = (sensor, values, cb) ->
 
 exports.run = (sensor, config, cb) ->
   @validator sensor, config, (err, conf) ->
-    sensor.run 'test', conf, (err, res) ->
+    sensor.run conf, (err, res) ->
       expect(err, 'error').to.not.exist
       expect(res, 'result').to.exist
       expect(res.message).to.not.exist
