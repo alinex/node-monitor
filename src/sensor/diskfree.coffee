@@ -172,7 +172,7 @@ exports.run = (config, cb = ->) ->
 exports.analysis = (config, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
-  report = analysis = """
+  report = """
     Maybe some files in one of the following directories may be deleted or moved:
 
     | PATH                                |  FILES   |    SIZE    |   OLDEST    |

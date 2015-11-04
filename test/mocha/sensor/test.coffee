@@ -34,7 +34,7 @@ exports.run = (sensor, config, cb) ->
 
 exports.analysis = (sensor, config, cb) ->
   @validator sensor, config, (err, conf) ->
-    sensor.analysis 'test', conf, (err, res) ->
+    sensor.analysis conf, (err, res) ->
       expect(err, 'error').to.not.exist
       expect(res, 'analysis').to.exist
       cb null, res

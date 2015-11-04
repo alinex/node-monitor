@@ -63,7 +63,6 @@ class Controller extends EventEmitter
       sensor = require "./sensor/#{check.sensor}"
       name = "#{check.sensor}:#{sensor.name check.config}"
       # run sensor
-      console.log check.config
       sensor.run check.config, (err, res) =>
         return cb err if err
         # status info

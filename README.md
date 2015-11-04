@@ -111,12 +111,10 @@ interval: 5m
 # fully work.
 check:
   - sensor: diskfree
-    name: /
     config:
       remote: my-develop
       share: /
   - sensor: diskfree
-    name: /run
     config:
       remote: my-develop
       share: /run
@@ -312,9 +310,9 @@ The top CPU consuming processes above 10% are:
 
 | COUNT |  %CPU |  %MEM | COMMAND                                            |
 | ----: | ----: | ----: | -------------------------------------------------- |
-|     3 |   89% | 19.1% | /opt/sublime_text/sublime_text                     |
-|     1 | 67.2% |  2.7% | /usr/bin/nodejs                                    |
-|    11 | 26.7% | 27.1% | /opt/google/chrome/chrome                          |
+|     3 |   45% | 19.1% | /opt/sublime_text/sublime_text                     |
+|     1 | 34.1% |  2.7% | /usr/bin/nodejs                                    |
+|    11 | 13.3% | 27.1% | /opt/google/chrome/chrome                          |
 ```
 
 ### Memory
@@ -366,8 +364,8 @@ The top memory consuming processes above 10% are:
 
 | COUNT |  %CPU |  %MEM | COMMAND                                            |
 | ----: | ----: | ----: | -------------------------------------------------- |
-|     2 | 21.3% |  4.2% | /usr/bin/python2.7                                 |
-|     1 |   84% |  2.7% | /usr/bin/nodejs                                    |
+|     2 | 10.8% |  4.2% | /usr/bin/python2.7                                 |
+|     1 |   42% |  2.7% | /usr/bin/nodejs                                    |
 ```
 
 ### Diskfree
@@ -400,9 +398,9 @@ Last check results from Sat Oct 31 2015 22:09:19 GMT+0100 (CET) are:
 | Type                    |                                             ext4 |
 | Available               |                                          216 GiB |
 | Used                    |                                           28 GiB |
-| % Used                  |                                           0.13 % |
+| % Used                  |                                             13 % |
 | Free                    |                                          188 GiB |
-| % Free                  |                                           0.87 % |
+| % Free                  |                                             87 % |
 | Mountpoint              |                                                / |
 
 If a share is full it will make I/O problems in the system or applications in
@@ -593,14 +591,65 @@ This has been checked with the following setup:
 
 ### Users
 
-w -hu
-who
-http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-linux-system/
+This sensor will analyse processes started from a specific user:
 
-last -Fi # login history
-ps aux # aktuelle Befehle je user
-/var/log/auth.log | grep alex # letzte sudo befehle
-use snoopy for all commands # https://github.com/a2o/snoopy
+- remote - the remote server, there to run the sensor
+- user - the user name to analyze
+- warn - the javascript code to check for warn status (default: 'diff > 10000')
+- fail - the javascript code to check for fail status
+- analysis - the configuration for the analysis if it is run
+  - minCpu - show processes with this CPU usage or above (default: 10%)
+  - minMem - show processes with this memory usage or above (default: 10%)
+  - numProc - number of top processes to list
+
+The resulting report part may look like:
+
+``` text
+Active User (alex)
+-----------------------------------------------------------------------------
+
+Check what an active user do.
+
+Last check results from Wed Nov 04 2015 19:19:45 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Processes               |                                               69 |
+| % CPU                   |                                             84 % |
+| % Memory                |                                             59 % |
+| Physical Memory         |                                         21.6 MiB |
+| Virtual Memory          |                                          1.13 MB |
+
+This check will give an overview of the activities of an (logged in) user. If
+you look at the processes you may find out that some other warnings like high
+load are user made and you may contact this person directly.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Username to check  |                                                  alex |
+
+The top CPU consuming processes above 1% CPU above 1% MEM (max. 5 processes)
+are:
+
+|  PID  | %CPU | %MEM |   VSZ   |   RSS  |  TIME |           COMMAND         |
+| ----- | ---- | ---- | ------- | ------ | ----- | ------------------------- |
+| 30362 | 74.7 |  2.8 |  101212 |  51212 |  0:10 | /usr/bin/nodejs           |
+| 30343 |  7.0 |  1.3 |   74424 |  23956 |  0:01 | builder                   |
+| 19859 |  1.4 | 20.4 | 1416588 | 368036 | 22:15 |
+/opt/sublime_text/sublime_text |
+
+The active logins are:
+
+|   TERM    |    LOGIN     |         IP         |
+| --------- | ------------ | ------------------ |
+| tty8      | Oct 30 16:45 |                  0 |
+| pts/3     | Oct 30 16:46 |                  0 |
+| pts/4     | Oct 30 21:32 |                  0 |
+| pts/5     | Oct 31 19:28 |                  0 |
+```
+
 
 Network Sensors
 -------------------------------------------------
@@ -650,8 +699,8 @@ cat /proc/version
 
 ### Network
 
-/proc/sys/kernel/hostname
 /proc/sys/kernel/domainname
+/proc/sys/kernel/hostname
 
 ### Daemons
 

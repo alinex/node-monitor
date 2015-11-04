@@ -217,13 +217,14 @@ exports.analysis = (config, cb = ->) ->
   # get additional information
   if config.analysis.minCpu
     min = Math.floor config.analysis.minCpu * 100
-    report = "The top CPU consuming processes above #{min}% are:\n\n"
-  else
-    report = "The top #{config.analysis.numProc} CPU consuming processes are:\n\n"
+  criteria = if min then " above #{min}%" else ''
+  criteria += if config.analysis.numProc
+  then " (max. #{config.analysis.numProc})" else ''
+  report = "The top CPU consuming processes#{criteria} are:\n\n"
   report += """
     | COUNT |  %CPU |  %MEM | COMMAND                                            |
     | ----: | ----: | ----: | -------------------------------------------------- |\n"""
-  Exec.run
+  async.map [
     remote: config.remote
     cmd: 'sh'
     args: [
@@ -231,11 +232,19 @@ exports.analysis = (config, cb = ->) ->
       "ps axu | awk 'NR>1 {print $2, $3, $4, $11}'"
     ]
     priority: 'immediately'
+  ,
+    remote: config.remote
+    cmd: 'sh'
+    args: ['-c', "grep processor /proc/cpuinfo | wc -l"]
+    priority: 'immediately'
+  ], (setup, cb) ->
+    Exec.run setup, cb
   , (err, proc) ->
     return cb err if err
     procs = {}
-    for line in proc.stdout().split /\n/
+    for line in proc[0].stdout().split /\n/
       continue unless line
+      cpus = Number proc[1].stdout()
       col = line.split /\s/, 4
       procs[col[3]] ?= [ 0, 0, 0 ]
       procs[col[3]][0]++
@@ -246,10 +255,11 @@ exports.analysis = (config, cb = ->) ->
     found = false
     num = 0
     for proc in keys
-      num++
       value = procs[proc]
+      value[1] /= cpus
       continue if min and value[1] < min
-      continue if config.analysis.numProc and num > config.analysis.numProc
+      num++
+      break if config.analysis.numProc and num > config.analysis.numProc
       found = true
       value[1] = if value[1] > 100 then Math.floor value[1] else Math.round(value[1] * 10) / 10
       value[2] = if value[2] > 100 then Math.floor value[2] else Math.round(value[2] * 10) / 10

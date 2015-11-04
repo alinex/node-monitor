@@ -160,7 +160,7 @@ exports.report = (work) ->
 formatValue = (value, config) ->
   switch config.type
     when 'percent'
-      (Math.round(value * 100) / 100).toString() + ' %'
+      Math.round(value * 100).toString() + ' %'
     when 'byte'
       byte = math.unit value, 'B'
       byte.format 3
