@@ -29,7 +29,6 @@ exports.run = (sensor, config, cb) ->
     sensor.run conf, (err, res) ->
       expect(err, 'error').to.not.exist
       expect(res, 'result').to.exist
-      expect(res.message).to.not.exist
       cb null, res
 
 exports.analysis = (sensor, config, cb) ->

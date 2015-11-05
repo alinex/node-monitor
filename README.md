@@ -210,6 +210,7 @@ After running a sensor you get a result object containing:
 
 - date - array with start and end date of run
 - status - one of: 'ok', 'warn', 'fail' ('running')
+- message - optional, explaining the status
 - values - object containing specific values
 
 And the analysis will get you a markdown document.
@@ -655,6 +656,37 @@ Network Sensors
 -------------------------------------------------
 
 ### Ping
+
+``` text
+Ping (->192.168.2.25)
+-----------------------------------------------------------------------------
+
+Test the reachability of a host on a IP network and measure the round-trip time
+for the messages send.
+
+Last check results from Wed Nov 04 2015 22:52:38 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Avg. Response Time      |                                          13.4 ms |
+| Min. Respons Time       |                                          13.4 ms |
+| Max. Response Time      |                                          13.4 ms |
+| Quality                 |                                            100 % |
+
+Check the network card configuration if local ping won't work or the network
+connection for external pings.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Number of Packets  |                                                     1 |
+| Wait Interval      |                                                   1 s |
+| Packetsize         |                                                  56 B |
+| Overall Timeout    |                                                   1 s |
+| Warn if            |                                        Quality < 100% |
+| Fail if            |                                          Quality is 0 |
+```
 
 ### Socket
 

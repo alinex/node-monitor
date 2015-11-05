@@ -50,14 +50,16 @@ exports.end = (work) ->
 exports.result = (work) ->
   result work
   work.sensor.debug "#{chalk.grey work.sensor.name work.config} result status:
-  #{work.result.status}"
+  #{work.result.status}#{if work.result.message then ' (' + work.result.message + ')' else ''}"
   for n, v of work.result.values
     work.sensor.debug "#{chalk.grey work.sensor.name work.config} result #{n}: #{v}"
 
 result = (work) ->
   if work.err
+    work.result.message = work.err.message
     return work.result.status = 'fail'
   unless Object.keys work.result
+    work.result.message = 'no data'
     return work.result.status = 'fail'
 #    meta = work.sensor.meta
   for status in ['fail', 'warn']
@@ -111,6 +113,7 @@ result = (work) ->
     work.sensor.debug chalk.grey "#{work.sensor.name work.config} rule result:
     #{status} = #{sandbox.result}"
     if sandbox.result
+      work.result.message = work.config[status]
       return work.result.status = status
   work.result.status = 'ok'
 
