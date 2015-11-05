@@ -99,7 +99,8 @@ exports.meta =
   round-trip time for the messages send."
   category: 'net'
   hint: "Check the network card configuration if local ping won't work or the
-  network connection for external pings. "
+  network connection for external pings. Problems can also be that the firewall
+  will block the ping port. "
 
   # ### Result values
   #

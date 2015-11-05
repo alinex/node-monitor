@@ -657,6 +657,19 @@ Network Sensors
 
 ### Ping
 
+This sensor will ping another host:
+
+- remote - the remote server, there to run the sensor
+- host - the server hostname or ip address to be called for ping
+- count - the number of ping packets to send, each after the other (default: 1)
+- interval - the time to wait between sending each packet (default: 1s)
+- size - the number of bytes to be send, keep in mind that 8 bytes for the ICMP header are added
+  (default: 24B)
+- timeout - the time in milliseconds the whole test may take before stopping and failing it
+  (default: 1s)
+- warn - the javascript code to check for warn status (default: 'quality < 100%')
+- fail - the javascript code to check for fail status (default: 'quality is 0')
+
 ``` text
 Ping (->192.168.2.25)
 -----------------------------------------------------------------------------
@@ -689,6 +702,39 @@ This has been checked with the following setup:
 ```
 
 ### Socket
+
+This sensor will ping another host:
+
+- remote - the remote server, there to run the sensor
+- host - the server hostname or ip address to be called for ping
+- port - the port number used to connect to
+- transport - the protocol used for internet transport layer (default:tcp)
+- warn - the javascript code to check for warn status (default: 'quality < 100%')
+- fail - the javascript code to check for fail status (default: 'quality is 0')
+
+``` text
+Socket (tcp localhost->193.99.144.80:80)
+-----------------------------------------------------------------------------
+
+Use TCP sockets to check for the availability of a service behind a given port.
+
+Last check results from Thu Nov 05 2015 21:42:12 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Response Time           |                                          3744 ms |
+
+On problems the service may not run or a network problem exists.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Hostname or IP     |                                         193.99.144.80 |
+| Port               |                                                    80 |
+| Transport Protocol |                                                   tcp |
+| Timeout            |                                                   2 s |
+```
 
 ### Http
 

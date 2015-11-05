@@ -56,10 +56,10 @@ exports.result = (work) ->
 
 result = (work) ->
   if work.err
-    work.result.message = work.err.message
+    work.result.message ?= work.err.message
     return work.result.status = 'fail'
   unless Object.keys work.result
-    work.result.message = 'no data'
+    work.result.message ?= 'no data'
     return work.result.status = 'fail'
 #    meta = work.sensor.meta
   for status in ['fail', 'warn']
@@ -173,7 +173,8 @@ formatValue = (value, config) ->
         m: 'minute'
       unit = long[config.unit] ? config.unit
       interval = math.unit value, unit
-      interval.format 3
+      interval = interval.to 'm' if interval.toNumber('s') > 120
+      interval.format()
     when 'float'
       (Math.round(value * 100) / 100).toString()
     else

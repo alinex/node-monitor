@@ -66,7 +66,9 @@ class Controller extends EventEmitter
       sensor.run check.config, (err, res) =>
         return cb err if err
         # status info
-        debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}"
+        debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
+          if res.message then ' (' + res.message + ')' else ''
+          }"
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
