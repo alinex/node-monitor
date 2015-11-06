@@ -590,7 +590,7 @@ This has been checked with the following setup:
 | Warn if            |                                    Difference > 10000 |
 ```
 
-### Users
+### User
 
 This sensor will analyse processes started from a specific user:
 
@@ -741,6 +741,11 @@ This has been checked with the following setup:
 ### Ftp
 
 ### SFtp
+
+### Certificate
+
+- validTime
+- keySize
 
 
 Application Sensors

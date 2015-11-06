@@ -10,7 +10,6 @@
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:user')
-math = require 'mathjs'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
@@ -153,7 +152,6 @@ exports.run = (config, cb = ->) ->
 # Run the Sensor
 # -------------------------------------------------
 exports.analysis = (config, cb = ->) ->
-  console.log config
   return cb() unless config.analysis?
   # get additional information
   async.map [

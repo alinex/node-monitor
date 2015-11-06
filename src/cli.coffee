@@ -102,6 +102,7 @@ monitor.init (err) ->
   else
     monitor.on 'result', (ctrl) ->
       console.log chalk.grey "Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
+    console.log "Analyzing systems..."
     monitor.onetime
       verbose: argv.verbose
     ,(err, results) ->

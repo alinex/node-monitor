@@ -8,6 +8,7 @@
 debug = require('debug')('monitor:controller')
 debugSensor = require('debug')('monitor:sensor')
 chalk = require 'chalk'
+util = require 'util'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
 async = require 'alinex-async'
@@ -70,9 +71,11 @@ class Controller extends EventEmitter
           if res.message then ' (' + res.message + ')' else ''
           }"
         if @mode?.verbose
-          console.log chalk.grey "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}#{
-            if res.message then ' (' + res.message + ')' else ''
-            }"
+          msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}"
+          msg += " (#{res.message})" if res.message
+          if @mode.verbose > 1
+            msg += '\n' + util.inspect res.values
+          console.log chalk.grey msg
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
