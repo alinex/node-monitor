@@ -36,8 +36,8 @@ argv = yargs
 .describe('C', 'turn of color output')
 .boolean('C')
 .alias('v', 'verbose')
-.describe('v', 'run in verbose mode')
-.boolean('v')
+.describe('v', 'run in verbose mode (multiple makes more verbose)')
+.count('verbose')
 .alias('l', 'list')
 .describe('l', 'list the configured groups and services')
 .boolean('l')
@@ -66,7 +66,6 @@ argv = yargs
 .argv
 # implement some global switches
 chalk.enabled = false if argv.nocolors
-
 
 # Commands
 # -------------------------------------------------
@@ -102,7 +101,9 @@ monitor.init (err) ->
     monitor.on 'done', (ctrl) ->
   else
     monitor.on 'result', (ctrl) ->
-      console.log "Controller #{ctrl.name} #{chalk.grey '=>'} #{ctrl.colorStatus()}"
-    monitor.onetime (err, results) ->
+      console.log chalk.grey "Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
+    monitor.onetime
+      verbose: argv.verbose
+    ,(err, results) ->
       fail err
       console.log "Finished.\n"

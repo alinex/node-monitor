@@ -20,7 +20,7 @@ validator = require 'alinex-validator'
 class Controller extends EventEmitter
 
   # ### Create instance
-  constructor: (@S, @conf) ->
+  constructor: (@name, @conf, @mode) ->
 
   # ### Initialize
   init: (cb) ->
@@ -38,7 +38,7 @@ class Controller extends EventEmitter
         return cb err if err
         @conf.check[num].config = result
         cb()
-    , (err) ->
+    , (err) =>
       debug "#{chalk.grey @name} Initialized controller"
       cb err
 
@@ -69,6 +69,10 @@ class Controller extends EventEmitter
         debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
           if res.message then ' (' + res.message + ')' else ''
           }"
+        if @mode?.verbose
+          console.log chalk.grey "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}#{
+            if res.message then ' (' + res.message + ')' else ''
+            }"
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
@@ -99,9 +103,10 @@ class Controller extends EventEmitter
 
   # Helper to colorize output
   # -------------------------------------------------
-  colorStatus: (text) ->
-    text = @status unless text?
-    switch @status
+  colorStatus: (status, text) ->
+    status ?= @status
+    text ?= status
+    switch status
       when 'ok'
         chalk.green text
       when 'warn'
