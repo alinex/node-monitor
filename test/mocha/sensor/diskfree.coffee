@@ -19,7 +19,7 @@ describe "Diskfree", ->
 
     it "should return success", (cb) ->
       @timeout 10000
-      test.run diskfree,
+      test.ok diskfree,
         share: '/'
       , (err, res) ->
         store = res
@@ -29,14 +29,13 @@ describe "Diskfree", ->
         cb()
 
     it "should work with binary values", (cb) ->
-      test.run diskfree,
+      test.ok diskfree,
         share: '/'
         warn: 'free < 1GB'
       , (err, res) ->
         expect(res.values.total).to.be.above 0
         expect(res.values.used).to.be.above 0
         expect(res.values.free).to.be.above 0
-        expect(res.status).to.be.equal 'ok'
         cb()
 
   describe "reporting", ->
@@ -46,7 +45,7 @@ describe "Diskfree", ->
         share: '/'
         analysis:
           dirs: '/tmp, /var/log'
-      , (err, report) ->
+      , store, (err, report) ->
         store.analysis = report
         console.log report
         cb()

@@ -105,6 +105,6 @@ monitor.init (err) ->
     console.log "Analyzing systems..."
     monitor.onetime
       verbose: argv.verbose
-    ,(err, results) ->
+    , (err, results) ->
       fail err
       console.log "Finished.\n"

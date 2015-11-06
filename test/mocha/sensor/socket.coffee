@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 test = require './test'
 socket = require '../../../src/sensor/socket'
 
-describe.only "Socket", ->
+describe "Socket", ->
   @timeout 10000
 
   store = null
@@ -19,7 +19,7 @@ describe.only "Socket", ->
       test.meta socket, cb
 
     it "should return success", (cb) ->
-      test.run socket,
+      test.ok socket,
         host: '193.99.144.80'
         port: 80
       , (err, res) ->
@@ -28,7 +28,7 @@ describe.only "Socket", ->
         cb()
 
     it "should succeed with domain name", (cb) ->
-      test.run socket,
+      test.ok socket,
         host: 'heise.de'
         port: 80
       , (err, res) ->
@@ -37,19 +37,17 @@ describe.only "Socket", ->
   describe "check", ->
 
     it "should fail to connect to wrong port", (cb) ->
-      test.run socket,
+      test.fail socket,
         host: '193.99.144.80'
         port: 1298
       , (err, res) ->
-        expect(res.status).to.be.equal 'fail'
         cb()
 
     it "should fail to connect to wrong host", (cb) ->
-      test.run socket,
+      test.fail socket,
         host: 'unknownsubdomain.nonexisting.host'
         port: 80
       , (err, res) ->
-        expect(res.status).to.be.equal 'fail'
         cb()
 
   describe "reporting", ->

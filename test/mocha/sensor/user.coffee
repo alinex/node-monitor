@@ -19,7 +19,7 @@ describe "User", ->
 
     it "should return success", (cb) ->
       @timeout 10000
-      test.run user,
+      test.ok user,
         user: 'alex'
       , (err, res) ->
         store = res
@@ -32,7 +32,7 @@ describe "User", ->
         user: 'alex'
         analysis:
           numProc: 5
-      , (err, report) ->
+      , store, (err, report) ->
         store.analysis = report
         console.log report
         cb()

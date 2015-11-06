@@ -24,16 +24,35 @@ exports.validator = (sensor, values, cb) ->
     expect(err, 'error').to.not.exist
     cb err, conf
 
-exports.run = (sensor, config, cb) ->
+exports.ok = (sensor, config, cb) ->
   @validator sensor, config, (err, conf) ->
     sensor.run conf, (err, res) ->
       expect(err, 'error').to.not.exist
+      expect(res.message, 'message').to.not.exist
+      expect(res.status).to.equal 'ok'
       expect(res, 'result').to.exist
+      expect(res.date, 'date').to.exist
       cb null, res
 
-exports.analysis = (sensor, config, cb) ->
+exports.warn = (sensor, config, cb) ->
   @validator sensor, config, (err, conf) ->
-    sensor.analysis conf, (err, res) ->
+    sensor.run conf, (err, res) ->
+      expect(err, 'error').to.not.exist
+      expect(res.message, 'message').to.exist
+      expect(res.status).to.equal 'fail'
+      cb null, res
+
+exports.fail = (sensor, config, cb) ->
+  @validator sensor, config, (err, conf) ->
+    sensor.run conf, (err, res) ->
+      expect(err, 'error').to.not.exist
+      expect(res.message, 'message').to.exist
+      expect(res.status).to.equal 'fail'
+      cb null, res
+
+exports.analysis = (sensor, config, result, cb) ->
+  @validator sensor, config, (err, conf) ->
+    sensor.analysis conf, result, (err, res) ->
       expect(err, 'error').to.not.exist
       expect(res, 'analysis').to.exist
       cb null, res

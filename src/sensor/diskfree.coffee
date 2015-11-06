@@ -169,7 +169,7 @@ exports.run = (config, cb = ->) ->
 
 # Run the Sensor
 # -------------------------------------------------
-exports.analysis = (config, cb = ->) ->
+exports.analysis = (config, res, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
   report = """

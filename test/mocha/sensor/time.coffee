@@ -19,7 +19,7 @@ describe "Time", ->
       test.meta time, cb
 
     it "should return success", (cb) ->
-      test.run time, {}, (err, res) ->
+      test.ok time, {}, (err, res) ->
         store = res
         expect(res.values.local).to.be.above 0
         cb()
@@ -27,11 +27,10 @@ describe "Time", ->
   describe "check", ->
 
     it "should give warn on active", (cb) ->
-      test.run time,
+      test.warn time,
         warn: 'diff < 100000'
       , (err, res) ->
         expect(res.values.local).to.be.above 0
-        expect(res.status).to.be.equal 'warn'
         cb()
 
   describe "reporting", ->

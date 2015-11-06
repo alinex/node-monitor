@@ -19,7 +19,7 @@ describe "DiskIO", ->
       test.meta diskio, cb
 
     it "should return success", (cb) ->
-      test.run diskio,
+      test.ok diskio,
         device: 'sda'
       , (err, res) ->
         store = res
@@ -29,12 +29,11 @@ describe "DiskIO", ->
   describe "check", ->
 
     it "should give warn on active", (cb) ->
-      test.run diskio,
+      test.warn diskio,
         device: 'sda'
         warn: 'read >= 0'
-      , (err, res) ->
+      , store, (err, report) ->
         expect(res.values.read).to.exist
-        expect(res.status).to.be.equal 'warn'
         cb()
 
   describe "reporting", ->

@@ -738,6 +738,83 @@ This has been checked with the following setup:
 
 ### Http
 
+This sensor will ping another host:
+
+- remote - the remote server, there to run the sensor
+- url - the URL to request
+- timeout - the timeout in milliseconds till the process is stopped
+  and be considered as failed
+- username - the name used for basic authentication
+- password - the password used for basic authentication
+- match - the substring or regular expression which have to match
+- warn - the javascript code to check for warn status
+- fail - the javascript code to check for fail status
+  (default: 'statusCode < 200 or statusCode >= 400')
+- analysis
+  - bodyLength - the maximum body display length in analysis report
+    (default: 256)
+
+``` text
+HTTP Request (->http://heise.de)
+-----------------------------------------------------------------------------
+
+Connect to an HTTP or HTTPS server and check the response.
+
+Last check results from Fri Nov 06 2015 22:20:54 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Response Time           |                                           288 ms |
+| Status Code             |                                              200 |
+| Status Message          |                                               OK |
+| Server                  |                                            nginx |
+| Content Type            |                         text/html; charset=utf-8 |
+| Content Length          |                                          167 KiB |
+| Body Match              |                                            false |
+
+If the server didn't respond it also may be a network problem.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| URL                |                                       http://heise.de |
+| Timeout            |                                                  10 s |
+| Fail if            |               Status Code < 200 or Status Code >= 400 |
+
+See the following details of the check which may give you a hint there the
+problem is.
+
+__GET http://heise.de__
+
+    referer: http://www.heise.de/
+
+Response:
+
+    server: nginx
+    content-type: text/html; charset=utf-8
+    x-cobbler: octo06.heise.de
+    x-clacks-overhead: GNU Terry Pratchett
+    last-modified: Fri, 06 Nov 2015 21:20:54 GMT
+    expires: Fri, 06 Nov 2015 21:21:26 GMT
+    cache-control: public, max-age=32
+    transfer-encoding: chunked
+    date: Fri, 06 Nov 2015 21:20:55 GMT
+    age: 1
+    connection: keep-alive
+    vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
+
+Content:
+
+    <!DOCTYPE html>
+        <html lang="de">
+
+        <head>
+            <title>heise online - IT-News, Nachrichten und Hintergründe
+            </title>
+                <meta name="description" content="News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware un...
+```
+
 ### Ftp
 
 ### SFtp
@@ -765,6 +842,14 @@ cat /proc/PID/status
 ### Apache
 
 ### Tomcat
+
+
+Simulation Sensors
+-------------------------------------------------
+
+### Web Session
+
+### Streaming
 
 
 Static Info Sensors

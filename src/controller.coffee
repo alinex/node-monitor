@@ -79,7 +79,7 @@ class Controller extends EventEmitter
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
         # run analysis
-        sensor.analysis check.config, (err, report) ->
+        sensor.analysis check.config, res, (err, report) ->
           return cb err if err
           res.analysis = report
           cb null, res

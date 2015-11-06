@@ -239,7 +239,7 @@ exports.run = (config, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (config, cb = ->) ->
+exports.analysis = (config, res, cb = ->) ->
   # get additional information
   Exec.run
     remote: config.remote

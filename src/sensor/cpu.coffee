@@ -212,7 +212,7 @@ exports.run = (config, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (config, cb = ->) ->
+exports.analysis = (config, res, cb = ->) ->
   return cb() unless config.analysis?
   # get additional information
   if config.analysis.minCpu

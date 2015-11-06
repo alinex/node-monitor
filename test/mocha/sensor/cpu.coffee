@@ -19,7 +19,7 @@ describe "CPU", ->
       test.meta cpu, cb
 
     it "should return success", (cb) ->
-      test.run cpu, {}, (err, res) ->
+      test.ok cpu, {}, (err, res) ->
         store = res
         expect(res.values.active).to.be.above 0
         cb()
@@ -27,18 +27,17 @@ describe "CPU", ->
   describe "check", ->
 
     it "should give warn on active", (cb) ->
-      test.run cpu,
+      test.warn cpu,
         warn: 'active > 0.01%'
       , (err, res) ->
         expect(res.values.active).to.be.above 0
-        expect(res.status).to.be.equal 'warn'
         cb()
 
   describe "reporting", ->
 
     it "should get analysis data", (cb) ->
       @timeout 5000
-      test.analysis cpu, {}, (err, report) ->
+      test.analysis cpu, {}, store, (err, report) ->
         store.analysis = report
         console.log report
         cb()

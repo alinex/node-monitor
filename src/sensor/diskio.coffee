@@ -151,5 +151,5 @@ exports.run = (config, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (config, cb = ->) ->
+exports.analysis = (config, res, cb = ->) ->
   cb()

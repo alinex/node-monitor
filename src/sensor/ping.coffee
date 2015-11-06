@@ -133,7 +133,7 @@ exports.name = (config) -> "#{config.remote ? ''}->#{config.host}"
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
+exports.run = (config, res, cb = ->) ->
   work =
     sensor: this
     config: config

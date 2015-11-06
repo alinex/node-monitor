@@ -19,24 +19,23 @@ describe "Net", ->
       test.meta net, cb
 
     it "should return success", (cb) ->
-      test.run net, {}, (err, res) ->
+      test.ok net, {}, (err, res) ->
         store = res
         cb()
 
   describe "check", ->
 
     it "should give warn on bytes", (cb) ->
-      test.run net,
+      test.warn net,
         warn: 'bytes >= 0'
       , (err, res) ->
-        expect(res.status).to.be.equal 'warn'
         cb()
 
   describe "reporting", ->
 
     it "should get analysis data", (cb) ->
       @timeout 5000
-      test.analysis net, {}, (err, report) ->
+      test.analysis net, {}, store, (err, report) ->
         store.analysis = report
         console.log report
         cb()

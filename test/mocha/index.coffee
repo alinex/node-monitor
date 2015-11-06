@@ -3,8 +3,6 @@ expect = chai.expect
 
 validator = require 'alinex-validator'
 
-check = require '../../lib/check'
-
 describe "Base", ->
 
   describe "configuration", ->
