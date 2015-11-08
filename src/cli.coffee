@@ -50,6 +50,13 @@ argv = yargs
 .alias('d', 'daemon')
 .describe('d', 'run as a daemon')
 .boolean('d')
+# info mode
+.alias('i', 'info')
+.describe('i', 'info mode, analyze system')
+.boolean('i')
+.describe('ssh', 'info: ssh connection url')
+.describe('key', 'info: ssh private key to connect')
+.describe('pass', 'info: ss password to connect')
 # general help
 .help('h')
 .alias('h', 'help')
@@ -92,7 +99,9 @@ console.log "Initializing..."
 monitor.init (err) ->
   fail err
   conf = config.get 'monitor'
-  if argv.list
+  if argv.info
+    console.log 'Not implemented!'
+  else if argv.list
     list conf
   else if argv.tree or argv.reverse
     tree conf

@@ -44,6 +44,7 @@
     "alinex-async": "^0.2.3",
     "alinex-config": "^1.0.6",
     "alinex-exec": "^1.0.0",
+    "alinex-sshtunnel": "^1.0.0",
     "alinex-util": "^0.3.6",
     "chalk": "^1.1.1",
     "debug": "^2.2.0",
@@ -51,6 +52,8 @@
     "named-regexp": "^0.1.1",
     "ntp-client": "^0.5.3",
     "request": "^2.65.0",
+    "socks5-http-client": "^1.0.1",
+    "socks5-https-client": "^1.1.1",
     "yargs": "^3.27.0"
   },
   "devDependencies": {

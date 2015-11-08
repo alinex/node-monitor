@@ -13,6 +13,7 @@ http = require 'http'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
+config = require 'alinex-config'
 {object, string} = require 'alinex-util'
 # include classes and helpers
 sensor = require '../sensor'
@@ -130,61 +131,83 @@ exports.meta =
 
 # Get content specific name
 # -------------------------------------------------
-exports.name = (config) -> "->#{config.url}"
+exports.name = (conf) -> "->#{conf.url}"
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
+exports.run = (conf, cb = ->) ->
   work =
     sensor: this
-    config: config
+    config: conf
     result: {}
   # configure request
   option =
-    url: config.url
-  option.timeout = config.timeout if config.timeout?
-  if config.username? and config.password?
-    option.auth =
-      username: config.username
-      password: config.password
-  # start the request
-  sensor.start work
-  debug "request #{config.url}"
-  request option, (err, response, body) ->
-    # request finished
-    sensor.end work
-    # error checking
-    if err
-      work.err = err
-      debug chalk.red err.message
-#    console.log 111111111111111, response
-#    throw new Error 'xxx'
-    if response
-      work.result._analysis =
-        request:
-          headers: response.request?.headers
-        response:
-          headers: response.headers
-          body: response.body
-#    console.log 222222222222222222222222222, work.result.analysis
-    # get the values
-    val = work.result.values
-    val.responseTime = work.result.date[1] - work.result.date[0]
-    if response?
-      val.statusCode = response.statusCode
-      val.statusMessage = http.STATUS_CODES[response.statusCode]
-      val.server = response.headers.server
-      val.contentType = response.headers['content-type']
-      val.length = response.connection.bytesRead
-      val.match = sensor.match body, config.match
-    # evaluate to check status
-    sensor.result work
-    cb null, work.result
+    url: conf.url
+    headers:
+      'User-Agent': "Alinex Monitor through request.js"
+  option.timeout = conf.timeout if conf.timeout?
+  remote conf, option, ->
+    if conf.username? and conf.password?
+      option.auth =
+        username: conf.username
+        password: conf.password
+    # start the request
+    sensor.start work
+    debug "request #{conf.url}"
+    request option, (err, response, body) ->
+      # request finished
+      sensor.end work
+      # error checking
+      if err
+        work.err = err
+        debug chalk.red err.message
+  #    console.log 111111111111111, response
+  #    throw new Error 'xxx'
+      if response
+        work.result._analysis =
+          request:
+            headers: response.request?.headers
+          response:
+            headers: response.headers
+            body: response.body
+  #    console.log 222222222222222222222222222, work.result.analysis
+      # get the values
+      val = work.result.values
+      val.responseTime = work.result.date[1] - work.result.date[0]
+      if response?
+        val.statusCode = response.statusCode
+        val.statusMessage = http.STATUS_CODES[response.statusCode]
+        val.server = response.headers.server
+        val.contentType = response.headers['content-type']
+        val.length = response.connection.bytesRead
+        val.match = sensor.match body, conf.match
+      # evaluate to check status
+      sensor.result work
+      cb null, work.result
+
+remote = (conf, option, cb) ->
+  return cb() unless conf.remote
+  # open tunnel
+  sshtunnel = require 'alinex-sshtunnel'
+  sshtunnel
+    ssl: config.get "/exec/remote/server/#{conf.remote}"
+    tunnel:
+      localHost: '127.0.0.1'
+  , (err, tunnel) ->
+    # use tunnel
+    if string.starts url, 'https:'
+      option.agentClass = require 'socks5-https-client/lib/Agent'
+      option.strictSSL = true
+    else
+      option.agentClass = require 'socks5-http-client/lib/Agent'
+    option.agentOptions =
+      socksPort: '7000'
+    cb()
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
-  return cb() unless config.analysis
+exports.analysis = (conf, res, cb = ->) ->
+  return cb() unless conf.analysis
   request = res._analysis.request
   response = res._analysis.response
   # get additional information (top processes)
@@ -192,7 +215,7 @@ exports.analysis = (config, res, cb = ->) ->
   See the following details of the check which may give you a hint there the
   problem is.
 
-  __GET #{config.url}__\n
+  __GET #{conf.url}__\n
   """
   if request?.headers?
     report += '\n'
@@ -204,8 +227,8 @@ exports.analysis = (config, res, cb = ->) ->
       report += "    #{key}: #{value}\n"
   if response?.body?
     body = response.body
-    if body.length > config.analysis.bodyLength
-      body = body.substr(0, config.analysis.bodyLength) + '...'
+    if body.length > conf.analysis.bodyLength
+      body = body.substr(0, conf.analysis.bodyLength) + '...'
     body = body.replace /\n/g, '\n    '
     report += "\nContent:\n\n"
     report += '    ' + body.replace /\n/g, '\n    '

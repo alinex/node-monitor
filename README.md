@@ -754,6 +754,9 @@ This sensor will ping another host:
   - bodyLength - the maximum body display length in analysis report
     (default: 256)
 
+If a remote server reference is given this will be used for tunneling over ssh
+as proxy.
+
 ``` text
 HTTP Request (->http://heise.de)
 -----------------------------------------------------------------------------
@@ -817,31 +820,61 @@ Content:
 
 ### Ftp
 
+To be written...
+
+- responseTime
+
 ### SFtp
 
+To be written...
+
+- responseTime
+
 ### Certificate
+
+To be written...
 
 - validTime
 - keySize
 
 
-Application Sensors
+Daemon Sensors
 -------------------------------------------------
 
 ### PID
 
+To be written...
+
 cat /proc/PID/cmdline
 cat /proc/PID/status
 
-### Log
-
 ### PostgreSQL
 
-### Database
+To be written...
 
 ### Apache
 
+To be written...
+
 ### Tomcat
+
+To be written...
+
+### Wowza
+
+To be written...
+
+
+Data Sensors
+-------------------------------------------------
+
+### Log
+
+To be written...
+
+### Database
+
+To be written...
 
 
 Simulation Sensors
@@ -849,23 +882,37 @@ Simulation Sensors
 
 ### Web Session
 
+To be written...
+
 ### Streaming
 
+To be written...
 
-Static Info Sensors
+
+Info Analyzer Sensors
 -------------------------------------------------
+
+This sensors are not build to run continuously but to run once to gather information
+about a more unknown system.
 
 ### Hardware
 
+1. lshw -json
+2. dmidecode
+3. lscpu
+   lspci
+   lsusb
+
 cat /proc/cpuinfo
-lscpu
 cat /proc/diskstats
 
 ### Software
 
 cat /proc/version
+running daemons
 
-### Network
+
+### Network Settings
 
 /proc/sys/kernel/domainname
 /proc/sys/kernel/hostname
@@ -896,6 +943,34 @@ a database for long time analysis. This database may look like:
     I sensor (string)
     I name (string)
 
+
+
+    mon_sensor_cpu_all # delete after 3 days
+    F check_id
+      start (datetime)
+      end (datetime)
+      status (enum)
+      message (text)
+      xxx1 (value1 type)
+      xxx2
+
+    mon_sensor_cpu_hour # delete after 1 week
+    F check_id
+      date (string)
+      num (int)
+      status (float)
+      statusMin (enum)
+      statusMax (enum)
+      xxx (text)
+      xxxAvg (float)
+      xxxMin (float)
+      xxxMax (float)
+
+    mon_sensor_cpu_day # delete after 6 months
+    mon_sensor_cpu_week # delete after 5 years
+
+
+
     mon_value
     P value_id
     F check_id
@@ -918,6 +993,8 @@ a database for long time analysis. This database may look like:
     mon_value_day # delete after 6 months
     mon_value_week # delete after 5 years
 
+
+
     mon_value_report # delete after 6 months
     P value_report_id
     F value_id
@@ -936,6 +1013,9 @@ a database for long time analysis. This database may look like:
     F controller_id
     I date (datetime)
     - report (clob)
+
+
+
 ```
 
 To keep the data volume low old values will be removed.
@@ -974,10 +1054,8 @@ Roadmap
 - add example reports for each sensor to doc
 
 - generate controller report
-- convert old sensors
 - controller daemon
-- add over time report
-- -v verbose show/send always report
+- add over time report (from db store)
 - -m send to other email instead of controller contacts
 
 
