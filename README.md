@@ -21,7 +21,8 @@ Install
  ![Downloads](https://nodei.co/npm-dl/alinex-monitor.png?months=9&height=3)
 ](https://www.npmjs.com/package/alinex-monitor)
 
-Install the package globally using npm:
+Install the package globally using npm on a central server. From there all your
+machines may be checked:
 
 ``` sh
 sudo npm install -g alinex-monitor --production
@@ -32,6 +33,10 @@ After global installation you may directly call `monitor` from anywhere.
 ``` sh
 monitor --help
 ```
+
+Because this application works agentless, you don't have to do something special
+on your clients but often some simple changes can make the reports more powerful.
+If so you will get a hint in the report.
 
 Always have a look at the latest [changes](Changelog.md).
 
@@ -657,7 +662,9 @@ Network Sensors
 
 ### Ping
 
-This sensor will ping another host:
+Although simple, but important to check if a host is responding to ICMP ping
+packets. Thus, it is possible to measure the availability of a server, as well
+as the response time and packet loss:
 
 - remote - the remote server, there to run the sensor
 - host - the server hostname or ip address to be called for ping
@@ -830,6 +837,14 @@ To be written...
 
 - responseTime
 
+### SNMP
+
+To be written...
+
+Makes monitoring any network device like printer... possible.
+
+### IPMI
+
 ### Certificate
 
 To be written...
@@ -852,17 +867,41 @@ cat /proc/PID/status
 
 To be written...
 
+https://wiki.postgresql.org/wiki/Monitoring
+
 ### Apache
 
 To be written...
+
+mod_status:
+
+- The number of worker serving requests
+- The number of idle worker
+- A total number of accesses and byte count served (*)
+- The time the server was started/restarted and the time it has been running for
+  Averages giving the number of requests per second, the number of bytes served per second and the average number of bytes per request (*)
+
+analysis
+
+- The current hosts and requests being processed (*)
 
 ### Tomcat
 
 To be written...
 
+Maybe use JMX... https://www.npmjs.com/package/jmx
+
 ### Wowza
 
 To be written...
+
+Parsing stats page
+
+### VMWare
+
+To be written...
+
+http://searchitchannel.techtarget.com/feature/Monitoring-vSphere-performance-with-command-line-tools
 
 
 Data Sensors
@@ -872,9 +911,20 @@ Data Sensors
 
 To be written...
 
+- filter
+- timerange
+
+- num lines
+- filtered lines
+- comment
+
+- list of lines
+
 ### Database
 
 To be written...
+
+SELECT COUNT(*) AS NUM, LAST(date) AS comment FROM
 
 
 Simulation Sensors
@@ -883,6 +933,8 @@ Simulation Sensors
 ### Web Session
 
 To be written...
+
+http://casperjs.org/
 
 ### Streaming
 
