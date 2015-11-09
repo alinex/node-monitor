@@ -6,7 +6,7 @@ test = require './test'
 ping = require '../../../src/sensor/ping'
 
 describe "Ping", ->
-  @timeout 10000
+  @timeout 15000
 
   store = null
 
@@ -19,7 +19,7 @@ describe "Ping", ->
       test.meta ping, cb
 
     it "should return success", (cb) ->
-      test.run ping,
+      test.ok ping,
         host: '193.99.144.80'
       , (err, res) ->
         store = res
@@ -27,14 +27,14 @@ describe "Ping", ->
         cb()
 
     it "should succeed with domain name", (cb) ->
-      test.run ping,
+      test.ok ping,
         host: 'heise.de'
       , (err, res) ->
         cb()
 
     it "should send multiple packets", (cb) ->
       @timeout 15000
-      test.run ping,
+      test.ok ping,
         host: '193.99.144.80'
         count: 10
       , (err, res) ->
@@ -43,18 +43,16 @@ describe "Ping", ->
   describe "check", ->
 
     it "should give warn on active", (cb) ->
-      test.run ping,
+      test.warn ping,
         host: '193.99.144.80'
         warn: 'responseTime > 1'
       , (err, res) ->
-        expect(res.status).to.be.equal 'warn'
         cb()
 
     it "should return fail", (cb) ->
-      test.run ping,
+      test.fail ping,
         host: '137.168.111.222'
       , (err, res) ->
-        expect(res.status).to.be.equal 'fail'
         cb()
 
   describe "reporting", ->

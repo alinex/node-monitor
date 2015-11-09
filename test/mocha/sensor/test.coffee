@@ -39,7 +39,7 @@ exports.warn = (sensor, config, cb) ->
     sensor.run conf, (err, res) ->
       expect(err, 'error').to.not.exist
       expect(res.message, 'message').to.exist
-      expect(res.status).to.equal 'fail'
+      expect(res.status).to.equal 'warn'
       cb null, res
 
 exports.fail = (sensor, config, cb) ->

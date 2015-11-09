@@ -6,7 +6,7 @@ test = require './test'
 diskio = require '../../../src/sensor/diskio'
 
 describe "DiskIO", ->
-  @timeout 10000
+  @timeout 15000
 
   store = null
 
@@ -32,7 +32,7 @@ describe "DiskIO", ->
       test.warn diskio,
         device: 'sda'
         warn: 'read >= 0'
-      , store, (err, report) ->
+      , (err, res) ->
         expect(res.values.read).to.exist
         cb()
 

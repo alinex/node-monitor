@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 test = require './test'
 socket = require '../../../src/sensor/socket'
 
-describe "Socket", ->
+describe.only "Socket", ->
   @timeout 10000
 
   store = null
@@ -37,6 +37,7 @@ describe "Socket", ->
   describe "check", ->
 
     it "should fail to connect to wrong port", (cb) ->
+      @timeout 20000
       test.fail socket,
         host: '193.99.144.80'
         port: 1298

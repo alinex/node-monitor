@@ -6,7 +6,7 @@ test = require './test'
 cpu = require '../../../src/sensor/cpu'
 
 describe "CPU", ->
-  @timeout 10000
+  @timeout 15000
 
   store = null
 
