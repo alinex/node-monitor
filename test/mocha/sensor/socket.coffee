@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 test = require './test'
 socket = require '../../../src/sensor/socket'
 
-describe.only "Socket", ->
+describe "Socket", ->
   @timeout 10000
 
   store = null

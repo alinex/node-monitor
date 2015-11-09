@@ -100,6 +100,7 @@ exports.run = (config, cb = ->) ->
     cmd: 'bash'
     args: ['-c', "echo > /dev/#{config.transport}/#{config.host}/#{config.port}"]
     priority: 'immediately'
+    timeout: config.timeout
   , (err, proc) ->
     work.err = err
     sensor.end work
