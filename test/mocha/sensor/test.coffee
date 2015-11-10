@@ -61,7 +61,6 @@ exports.report = (sensor, config, result, cb) ->
   @validator sensor, config, (err, conf) ->
     base = require '../../../src/sensor'
     report = base.report
-      name: 'test'
       sensor: sensor
       config: conf
       result: result

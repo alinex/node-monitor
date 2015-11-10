@@ -15,6 +15,7 @@ async = require 'alinex-async'
 {string} = require 'alinex-util'
 validator = require 'alinex-validator'
 # include classes and helpers
+sensor = require './sensor'
 
 # Controller class
 # -------------------------------------------------
@@ -27,14 +28,14 @@ class Controller extends EventEmitter
   init: (cb) ->
     async.mapOf @conf.check, (check, num, cb) =>
       try
-        sensor = require "./sensor/#{check.sensor}"
+        sensorInstance = require "./sensor/#{check.sensor}"
       catch err
         debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
         return cb new Error "Check '#{check.sensor}' not supported"
       validator.check
         name: "#{@name}:#{num}"
         value: check.config
-        schema: sensor.schema
+        schema: sensorInstance.schema
       , (err, result) =>
         return cb err if err
         @conf.check[num].config = result
@@ -61,10 +62,10 @@ class Controller extends EventEmitter
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
       debug "#{chalk.grey @name} Running check #{name}..."
-      sensor = require "./sensor/#{check.sensor}"
-      name = "#{check.sensor}:#{sensor.name check.config}"
+      sensorInstance = require "./sensor/#{check.sensor}"
+      name = "#{check.sensor}:#{sensorInstance.name check.config}"
       # run sensor
-      sensor.run check.config, (err, res) =>
+      sensorInstance.run check.config, (err, res) =>
         return cb err if err
         # status info
         debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
@@ -78,20 +79,41 @@ class Controller extends EventEmitter
           console.log chalk.grey msg
         # check for status change -> analysis
         return cb null, res if res.status in ['disabled', @status]
+        res._sensor = sensorInstance
+        res._config = check.config
         # run analysis
-        sensor.analysis check.config, res, (err, report) ->
+        sensorInstance.analysis check.config, res, (err, report) ->
           return cb err if err
           res.analysis = report
           cb null, res
     , (err, res) =>
-      res = Object.keys(res).map (k) -> res[k] # convert to array
-#      console.log res
+      return cb err if err
+      res = Object.keys(res).map (k) -> # convert to array
+        delete res[k]._analysis
+        res[k]
       # store sensor results
-      @checks.unshift res
       @checks.pop() if @checks.length > 5
+      @checks.unshift res
       # calculate controller status
       @status = calcStatus @conf.combine, @conf.check, res
       debug "#{chalk.grey @name} Controller => #{@colorStatus()}"
+      # make report
+      report = """
+      Controller #{@name} (#{@conf.name})
+      =============================================================================
+      #{@conf.description}
+
+      > __STATUS: #{@status}__ at #{new Date()}
+      \n
+      """
+#      console.log res
+      for entry in res
+        report += sensor.report
+          sensor: entry._sensor
+          config: entry._config
+          result: entry
+
+      console.log report
       @emit 'result', this
       cb()
 
