@@ -61,6 +61,8 @@ class Monitor extends EventEmitter
 
   instantiate: (mode, cb) ->
     return cb() if @controller
+    f = " ffff"
+    f.
     debug "Instantiate controllers..."
     @controller = {}
     for name, def of @conf.controller

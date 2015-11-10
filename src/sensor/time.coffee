@@ -94,7 +94,7 @@ exports.name = (config) -> ''
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, res, cb = ->) ->
+exports.run = (config, cb = ->) ->
   work =
     sensor: this
     config: config
@@ -124,5 +124,5 @@ exports.run = (config, res, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (config, cb = ->) ->
+exports.analysis = (config, res, cb = ->) ->
   cb()
