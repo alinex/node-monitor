@@ -61,7 +61,12 @@ hint: |+
   Keep in mind that the machine is in the test net and you have to use a valid
   VPN connection for accessing.
 
-contact: operations
+contact:
+  operations: operations
+#  support:
+#  info:
+#  developer:
+#  management:
 
 ref:
   # system access

@@ -253,13 +253,17 @@ controller =
           what may be done if this check failed and other things which are helpful to know"
         type: 'handlebars'
       contact:
-        title: "Contact"
-        description: "the list of contacts (references) responsible for this system or part"
-        type: 'array'
-        toArray: true
-        entries:
-          type: 'string'
-          list: '<<<context:///monitor/contact>>>'
+        title: "Contact Types"
+        description: "the contacts categorized into groups"
+        type: 'object'
+        entries: [
+          title: "Contact List"
+          description: "the list of contacts for the group"
+          type: 'array'
+          toArray: true
+          entries:
+            type: 'string'
+            list: '<<<context:///monitor/contact>>>'
       ref:
         title: "References"
         description: "the list of URL references which may help getting informed
@@ -268,7 +272,10 @@ controller =
         entries: [
           title: "Access URL"
           description: "the URL to access this reference"
-          type: 'string'
+          type: 'array'
+          toArray: true
+          entries:
+            type: 'string'
         ]
   ]
 

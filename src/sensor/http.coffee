@@ -207,9 +207,10 @@ remote = (conf, option, cb) ->
 # Run additional analysis
 # -------------------------------------------------
 exports.analysis = (conf, res, cb = ->) ->
-  return cb() unless conf.analysis
   request = res._analysis.request
   response = res._analysis.response
+  delete res._analysis
+  return cb() unless conf.analysis
   # get additional information (top processes)
   report = """
   See the following details of the check which may give you a hint there the

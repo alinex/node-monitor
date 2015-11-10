@@ -13,6 +13,7 @@ EventEmitter = require('events').EventEmitter
 # include alinex modules
 async = require 'alinex-async'
 {string} = require 'alinex-util'
+config = require 'alinex-config'
 validator = require 'alinex-validator'
 # include classes and helpers
 sensor = require './sensor'
@@ -78,19 +79,21 @@ class Controller extends EventEmitter
             msg += '\n' + util.inspect res.values
           console.log chalk.grey msg
         # check for status change -> analysis
-        return cb null, res if res.status in ['disabled', @status]
+        return cb null, res if res.status in ['disabled', @checks[0]?[num].status]
         res._sensor = sensorInstance
         res._config = check.config
         # run analysis
         sensorInstance.analysis check.config, res, (err, report) ->
           return cb err if err
           res.analysis = report
-          cb null, res
-    , (err, res) =>
+          cb null,
+            sensor: sensorInstance
+            config: check.config
+            result: res
+    , (err, results) =>
       return cb err if err
-      res = Object.keys(res).map (k) -> # convert to array
-        delete res[k]._analysis
-        res[k]
+      res = Object.keys(results).map (k) -> # convert to array
+        res[k].result
       # store sensor results
       @checks.pop() if @checks.length > 5
       @checks.unshift res
@@ -101,28 +104,40 @@ class Controller extends EventEmitter
       report = """
       Controller #{@name} (#{@conf.name})
       =============================================================================
-      #{@conf.description}
-
-      > __STATUS: #{@status}__ at #{new Date()}
-      \n
+      #{@conf.description}\n
       """
+      report += "\n#{@conf.info}\n" if @conf.info
+      report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
+      report += "\n#{@conf.hint}\n" if @conf.hint and @status isnt 'ok'
+      if @conf.contact
+        report += "\nContact Persons:\n\n"
+        for group, glist of @conf.contact
+          report += "* __#{string.usFirst group}__\n"
+          for entry in glist
+            list = config.get "/monitor/contact/#{entry}"
+            list = [list] unless Array.isArray list
+            for contact in list
+              report += '  -'
+              report += " #{contact.name}" if contact.name
+              report += " <#{contact.email}>" if contact.email
+  #            report += "Tel. #{contact.phone}" if contact.phone
+              report += "\n"
+      if @conf.ref
+        report += "\nRead more under the following links:\n\n"
+        for name, list of @conf.ref
+          report += "- #{name}"
+          for value in list
+            name = value.replace(/^.*?\/\//, '').replace /\/.*$/, ''
+            report += " (#{name})[#{value}]"
+          report += '\n'
 #      console.log res
-      for entry in res
-        report += sensor.report
-          sensor: entry._sensor
-          config: entry._config
-          result: entry
-
+      report += sensor.report entry for entry in results
       console.log report
       @emit 'result', this
       cb()
 
-    # analysis on state change
-    # run analyzer
     # keep report
-
     # action
-    # create full report
     # store  report
     # send email
 
