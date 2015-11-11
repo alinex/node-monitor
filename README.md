@@ -10,6 +10,10 @@ whole IT landscape from the host to the application. While most monitoring
 tools has it's focus on the server here the focus lies more on the application
 side.
 
+- remote daemonless analysis
+- lots of sensors
+- alerting and reporting
+
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
 
@@ -156,7 +160,8 @@ hint: |+
   Keep in mind that the machine is in the test net and you have to use a valid
   VPN connection for accessing.
 
-contact: operations
+contact:
+  operations: alex
 
 ref:
   # system access
@@ -995,40 +1000,11 @@ a database for long time analysis. This database may look like:
     I sensor (string)
     I name (string)
 
-
-
-    mon_sensor_cpu_all # delete after 3 days
-    F check_id
-      start (datetime)
-      end (datetime)
-      status (enum)
-      message (text)
-      xxx1 (value1 type)
-      xxx2
-
-    mon_sensor_cpu_hour # delete after 1 week
-    F check_id
-      date (string)
-      num (int)
-      status (float)
-      statusMin (enum)
-      statusMax (enum)
-      xxx (text)
-      xxxAvg (float)
-      xxxMin (float)
-      xxxMax (float)
-
-    mon_sensor_cpu_day # delete after 6 months
-    mon_sensor_cpu_week # delete after 5 years
-
-
-
     mon_value
     P value_id
     F check_id
     - name (string) # of the value
-    - warn (float)
-    - fail (float)
+    - type (string)
     - unit (string)
 
     mon_value_minute # delete after 1 day
@@ -1039,13 +1015,12 @@ a database for long time analysis. This database may look like:
     - min (float)
     - avg (float)
     - max (float)
+    - last (string)
 
     mon_value_quarter # delete after 2 days
     mon_value_hour # delete after 1 week
     mon_value_day # delete after 6 months
     mon_value_week # delete after 5 years
-
-
 
     mon_value_report # delete after 6 months
     P value_report_id
@@ -1065,9 +1040,6 @@ a database for long time analysis. This database may look like:
     F controller_id
     I date (datetime)
     - report (clob)
-
-
-
 ```
 
 To keep the data volume low old values will be removed.
@@ -1089,13 +1061,15 @@ Additionally to the reports it is possible to visualize the stored data over tim
 to find patterns.
 
 To do this special views for each report data should be made on the database which
-can be visualized using a data analyzation tool like dbVisualizer.
+can be visualized using a data analyzation tool like dbVisualizer:
 
+``` sql
+CREATE VIEW mon_view_response AS SELECT(...);
+```
 
 Roadmap
 -------------------------------------------------
 
-- add postgres db support
 - db checks
 - store results => db
 - store reports
@@ -1105,7 +1079,6 @@ Roadmap
 - disabled controller
 - add example reports for each sensor to doc
 
-- generate controller report
 - controller daemon
 - add over time report (from db store)
 - -m send to other email instead of controller contacts
