@@ -264,6 +264,7 @@ controller =
           entries:
             type: 'string'
             list: '<<<context:///monitor/contact>>>'
+        ]
       ref:
         title: "References"
         description: "the list of URL references which may help getting informed
