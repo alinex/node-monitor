@@ -120,7 +120,9 @@ result = (work) ->
 
 exports.report = (work) ->
   meta = work.sensor.meta
-  report = """\n#{meta.title} (#{work.sensor.name work.config})
+  name = work.sensor.name work.config
+  name = "(#{name})" if name
+  report = """\n#{meta.title} #{name}
   -----------------------------------------------------------------------------\n
   """
   report += """\n#{meta.description}

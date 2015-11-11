@@ -43,6 +43,7 @@
   "dependencies": {
     "alinex-async": "^0.2.3",
     "alinex-config": "^1.0.6",
+    "alinex-database": "^0.1.0",
     "alinex-exec": "^1.0.0",
     "alinex-sshtunnel": "^1.0.0",
     "alinex-util": "^0.3.6",

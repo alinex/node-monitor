@@ -38,7 +38,7 @@ exports.schema =
   keys:
     remote:
       title: "Remote Server"
-      description: "the remote server on this to run the command"
+      description: "the remote server on which to run the command"
       type: 'string'
     warn: object.extend {}, sensor.schema.warn,
       default: 'short > 500%'

@@ -21,7 +21,7 @@
 # -------------------------------------------------
 
 # include base modules
-exports.debug = debug = require('debug')('monitor:sensor:ping')
+exports.debug = debug = require('debug')('monitor:sensor:database')
 chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
@@ -38,98 +38,67 @@ sensor = require '../sensor'
 # It's a n[alinex-validator](http://alinex.githhub.io/node-validator)
 # compatible schema definition:
 exports.schema =
-  title: "Ping test"
-  description: "the configuration to make a ping to another server"
+  title: "Database Query Test"
+  description: "the configuration for a database query check"
   type: 'object'
-  default:
-    warn: 'quality < 100%'
-    fail: 'quality is 0'
+#  default:
+#    warn: 'quality < 100%'
+#    fail: 'quality is 0'
   allowedKeys: true
   keys:
-    remote:
-      title: "Remote Server"
-      description: "the remote server on which to run the command"
+    database:
+      title: "Database"
+      description: "the reference to the database setting in config/database"
       type: 'string'
-    host:
-      title: "Hostname or IP"
-      description: "the server hostname or ip address to be called for ping"
+    query:
+      title: "Query"
+      description: "the query to run to retrieve the measurement result"
       type: 'string'
-    count:
-      title: "Number of Packets"
-      description: "the number of ping packets to send, each after the other"
-      type: 'integer'
-      default: 1
-      min: 1
-      max: 10000
-    interval:
-      title: "Wait Interval"
-      description: "the time to wait between sending each packet"
-      type: 'interval'
-      unit: 'ms'
-      default: 1000
-      min: 200
-    size:
-      title: "Packetsize"
-      description: "the number of bytes to be send, keep in mind that 8 bytes
-      for the ICMP header are added"
-      type: 'byte'
-      unit: 'B'
-      default: 56
-      min: 24
-      max: 65507
     timeout:
-      title: "Overall Timeout"
+      title: "Timeout"
       description: "the time in milliseconds the whole test may take before
         stopping and failing it"
       type: 'interval'
       unit: 'ms'
       default: 1000
       min: 500
-    warn: object.extend {}, sensor.schema.warn,
-      default: 'quality < 100%'
-    fail: object.extend {}, sensor.schema.fail,
-      default: 'quality is 0'
+    warn: sensor.schema.warn
+    fail: sensor.schema.fail
 
 # General information
 # -------------------------------------------------
 # This information may be used later for display and explanation.
 exports.meta =
-  title: 'Ping'
-  description: "Test the reachability of a host in an IP network and measure the
-  round-trip time for the messages send."
-  category: 'net'
-  hint: "Check the network card configuration if local ping won't work or the
-  network connection for external pings. Problems can also be that the firewall
-  will block the ping port. "
+  title: 'Database'
+  description: "Run a query on the database to chech a value like count of entries
+  in the database."
+  category: 'data'
+#  hint: "Check the network card configuration if local ping won't work or the
+#  network connection for external pings. Problems can also be that the firewall
+#  will block the ping port. "
 
   # ### Result values
   #
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
+    value:
+      title: 'Value'
+      description: "the concrete value for the query"
+      type: 'float'
+    comment:
+      title: 'Comment'
+      description: "additional information"
+      type: 'string'
     responseTime:
-      title: 'Avg. Response Time'
-      description: "average round-trip time of packets"
+      title: 'Response Time'
+      description: "time to retrieve the data"
       type: 'integer'
       unit: 'ms'
-    responseMin:
-      title: 'Min. Respons Time'
-      description: "minimum round-trip time of packets"
-      type: 'integer'
-      unit: 'ms'
-    responseMax:
-      title: 'Max. Response Time'
-      description: "maximum round-trip time of packets"
-      type: 'integer'
-      unit: 'ms'
-    quality:
-      title: 'Quality'
-      description: "quality of response (packets succeeded)"
-      type: 'percent'
 
 # Get content specific name
 # -------------------------------------------------
-exports.name = (config) -> "#{config.remote ? ''}->#{config.host}"
+exports.name = (config) -> "#{config.database}: #{string.shorten config.query, 30}"
 
 # Run the Sensor
 # -------------------------------------------------
@@ -140,6 +109,13 @@ exports.run = (config, cb = ->) ->
     result: {}
   sensor.start work
   # run check
+
+
+
+
+
+
+
   Exec.run
     remote: config.remote
     cmd: '/bin/ping'

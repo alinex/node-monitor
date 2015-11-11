@@ -24,6 +24,16 @@ class Controller extends EventEmitter
 
   # ### Create instance
   constructor: (@name, @conf, @mode) ->
+    # ### Data storage with last results
+    #
+    # Last status
+    @status = 'disabled'
+    # Check results containing:
+    #
+    # - date
+    # - status
+    # - values
+    @checks = []
 
   # ### Initialize
   init: (cb) ->
@@ -44,19 +54,6 @@ class Controller extends EventEmitter
     , (err) =>
       debug "#{chalk.grey @name} Initialized controller"
       cb err
-
-  # ### Data storage with last results
-  #
-  # Last status
-  status: 'disabled'
-  # Check results containing:
-  #
-  # - date
-  # - status
-  # - values
-  checks: []
-  # controller status
-  controller: []
 
   # ### Run once
   run: (cb) ->
@@ -79,21 +76,22 @@ class Controller extends EventEmitter
             msg += '\n' + util.inspect res.values
           console.log chalk.grey msg
         # check for status change -> analysis
-        return cb null, res if res.status in ['disabled', @checks[0]?[num].status]
-        res._sensor = sensorInstance
-        res._config = check.config
+        res =
+          sensor: sensorInstance
+          config: check.config
+          result: res
+        if res.result.status in ['disabled', @checks[0]?[num].status]
+          return cb null, res
         # run analysis
-        sensorInstance.analysis check.config, res, (err, report) ->
+        sensorInstance.analysis check.config, res.result, (err, report) ->
           return cb err if err
-          res.analysis = report
-          cb null,
-            sensor: sensorInstance
-            config: check.config
-            result: res
+          res.result.analysis = report
+          cb null, res
     , (err, results) =>
+#      console.log err, results
       return cb err if err
       res = Object.keys(results).map (k) -> # convert to array
-        res[k].result
+        results[k].result
       # store sensor results
       @checks.pop() if @checks.length > 5
       @checks.unshift res
@@ -101,40 +99,50 @@ class Controller extends EventEmitter
       @status = calcStatus @conf.combine, @conf.check, res
       debug "#{chalk.grey @name} Controller => #{@colorStatus()}"
       # make report
-      report = """
-      Controller #{@name} (#{@conf.name})
-      =============================================================================
-      #{@conf.description}\n
-      """
-      report += "\n#{@conf.info}\n" if @conf.info
-      report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
-      report += "\n#{@conf.hint}\n" if @conf.hint and @status isnt 'ok'
-      if @conf.contact
-        report += "\nContact Persons:\n\n"
-        for group, glist of @conf.contact
-          report += "* __#{string.usFirst group}__\n"
-          for entry in glist
-            list = config.get "/monitor/contact/#{entry}"
-            list = [list] unless Array.isArray list
-            for contact in list
-              report += '  -'
-              report += " #{contact.name}" if contact.name
-              report += " <#{contact.email}>" if contact.email
-  #            report += "Tel. #{contact.phone}" if contact.phone
-              report += "\n"
-      if @conf.ref
-        report += "\nRead more under the following links:\n\n"
-        for name, list of @conf.ref
-          report += "- #{name}"
-          for value in list
-            name = value.replace(/^.*?\/\//, '').replace /\/.*$/, ''
-            report += " (#{name})[#{value}]"
-          report += '\n'
-#      console.log res
-      report += sensor.report entry for entry in results
-      console.log report
+      report = @report results
+#      console.log report
       @emit 'result', this
       cb()
+
+  report: (results) ->
+    # make report
+    context =
+      name: @name
+      conf: @conf
+      sensor: results
+    report = """
+    Controller #{@name} (#{@conf.name})
+    =============================================================================
+    #{@conf.description}\n
+    """
+    report += "\n#{@conf.info context}" if @conf.info
+    report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
+    report += "\n#{@conf.hint context}" if @conf.hint and @status isnt 'ok'
+    if @conf.contact
+      report += "\nContact Persons:\n\n"
+      for group, glist of @conf.contact
+        report += "* __#{string.ucFirst group}__\n"
+        for entry in glist
+          list = config.get "/monitor/contact/#{entry}"
+          for contact in list
+            contact = config.get "/monitor/contact/#{contact}"
+            report += '  -'
+            report += " #{contact.name}" if contact.name
+            report += " <#{contact.email}>" if contact.email
+#            report += "Tel. #{contact.phone}" if contact.phone
+            report += "\n"
+    if @conf.ref
+      report += "\nFor further assistance check the following links:\n\n"
+      for name, list of @conf.ref
+        report += "- #{name} " + list.map (e) ->
+          name = e.replace(/^.*?\/\//, '').replace /(\/.*?)\/.*$/, '$1'
+          "(#{name})[#{e}]"
+        .join ', '
+        report += '\n'
+    report += "\nDetails of the individual sensor runs with their measurement
+    values and maynbe some extended analysis will follow:\n"
+    for num, entry of results
+      report += sensor.report entry
 
     # keep report
     # action
@@ -178,6 +186,7 @@ module.exports =  Controller
 # weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
 # level for one step before using in calculation.
 calcStatus = (combine, check, result) ->
+#  console.log combine, check, result
   # translate name to number
   values =
     'disabled': 0
