@@ -140,16 +140,6 @@ fully work.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="l-Scalar-Plain">check</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
-    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
-      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/run</span>
-    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
-      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/run</span>
 
 </pre></div>
         </td>
@@ -159,14 +149,62 @@ fully work.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
-<p>weight setting specific to value of the following 'combine' setting:
-With the <code>weight</code> settings on the different entries single group entries may
-be rated specific not like the others. Use a number in <code>average</code> to make the
-weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
-level for one step before using in calculation on all combine methods.
-weight: 2</p>
+<p>system checks:</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cpu</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">load</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">memory</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskio</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+      <span class="l-Scalar-Plain">device</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sda1</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">net</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">time</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">user</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
+      <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>network checks:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ping</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.200.106</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">socket</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.200.106</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span>
 
 
 </pre></div>
@@ -211,7 +249,23 @@ combined to calculate the overall status:</p>
   <span class="no">Keep in mind that the machine is in the test net and you have to use a valid</span>
   <span class="no">VPN connection for accessing.</span>
 
-<span class="l-Scalar-Plain">contact</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">operations</span>
+<span class="l-Scalar-Plain">contact</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">operations</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">operations</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>support:
+ info:
+ developer:
+ management:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 
 <span class="l-Scalar-Plain">ref</span><span class="p-Indicator">:</span>
 
@@ -221,7 +275,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>system access</p>
         </td>
@@ -237,7 +291,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>user/developer help</p>
         </td>
@@ -250,7 +304,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>issues:
 api:

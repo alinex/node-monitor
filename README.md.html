@@ -84,7 +84,7 @@
         <a href="#time">Time</a>
       </div>
       <div class="heading h3">
-        <a href="#users">Users</a>
+        <a href="#user">User</a>
       </div>
       <div class="heading h2">
         <a href="#network%20sensors">Network Sensors</a>
@@ -104,20 +104,23 @@
       <div class="heading h3">
         <a href="#sftp">SFtp</a>
       </div>
+      <div class="heading h3">
+        <a href="#snmp">SNMP</a>
+      </div>
+      <div class="heading h3">
+        <a href="#ipmi">IPMI</a>
+      </div>
+      <div class="heading h3">
+        <a href="#certificate">Certificate</a>
+      </div>
       <div class="heading h2">
-        <a href="#application%20sensors">Application Sensors</a>
+        <a href="#daemon%20sensors">Daemon Sensors</a>
       </div>
       <div class="heading h3">
         <a href="#pid">PID</a>
       </div>
       <div class="heading h3">
-        <a href="#log">Log</a>
-      </div>
-      <div class="heading h3">
         <a href="#postgresql">PostgreSQL</a>
-      </div>
-      <div class="heading h3">
-        <a href="#database">Database</a>
       </div>
       <div class="heading h3">
         <a href="#apache">Apache</a>
@@ -125,8 +128,32 @@
       <div class="heading h3">
         <a href="#tomcat">Tomcat</a>
       </div>
+      <div class="heading h3">
+        <a href="#wowza">Wowza</a>
+      </div>
+      <div class="heading h3">
+        <a href="#vmware">VMWare</a>
+      </div>
       <div class="heading h2">
-        <a href="#static%20info%20sensors">Static Info Sensors</a>
+        <a href="#data%20sensors">Data Sensors</a>
+      </div>
+      <div class="heading h3">
+        <a href="#log">Log</a>
+      </div>
+      <div class="heading h3">
+        <a href="#database">Database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#simulation%20sensors">Simulation Sensors</a>
+      </div>
+      <div class="heading h3">
+        <a href="#web%20session">Web Session</a>
+      </div>
+      <div class="heading h3">
+        <a href="#streaming">Streaming</a>
+      </div>
+      <div class="heading h2">
+        <a href="#info%20analyzer%20sensors">Info Analyzer Sensors</a>
       </div>
       <div class="heading h3">
         <a href="#hardware">Hardware</a>
@@ -135,7 +162,7 @@
         <a href="#software">Software</a>
       </div>
       <div class="heading h3">
-        <a href="#network">Network</a>
+        <a href="#network%20settings">Network Settings</a>
       </div>
       <div class="heading h3">
         <a href="#daemons">Daemons</a>
@@ -203,7 +230,8 @@ side.</p>
  <img src="https://nodei.co/npm-dl/alinex-monitor.png?months=9&amp;height=3" alt="Downloads" title="" />
 </a></p>
 
-<p>Install the package globally using npm:</p>
+<p>Install the package globally using npm on a central server. From there all your
+machines may be checked:</p>
 
 
 <div class="highlight"><pre><code>sudo npm install -g alinex-monitor --production
@@ -218,6 +246,10 @@ side.</p>
 </code></pre></div>
 
 
+
+<p>Because this application works agentless, you don't have to do something special
+on your clients but often some simple changes can make the reports more powerful.
+If so you will get a hint in the report.</p>
 
 <p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 
@@ -331,12 +363,10 @@ specific configuration files containing meta information.</p>
 <span class="c1"># fully work.</span>
 <span class="l-Scalar-Plain">check</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
     <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
       <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/run</span>
     <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
       <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/run</span>
@@ -468,6 +498,7 @@ configuration. The common keys are:</p>
 <ul>
 <li>date - array with start and end date of run</li>
 <li>status - one of: 'ok', 'warn', 'fail' ('running')</li>
+<li>message - optional, explaining the status</li>
 <li>values - object containing specific values</li>
 </ul>
 
@@ -594,9 +625,9 @@ The top CPU consuming processes above 10% are:
 
 | COUNT |  %CPU |  %MEM | COMMAND                                            |
 | ----: | ----: | ----: | -------------------------------------------------- |
-|     3 |   89% | 19.1% | /opt/sublime_text/sublime_text                     |
-|     1 | 67.2% |  2.7% | /usr/bin/nodejs                                    |
-|    11 | 26.7% | 27.1% | /opt/google/chrome/chrome                          |
+|     3 |   45% | 19.1% | /opt/sublime_text/sublime_text                     |
+|     1 | 34.1% |  2.7% | /usr/bin/nodejs                                    |
+|    11 | 13.3% | 27.1% | /opt/google/chrome/chrome                          |
 </code></pre></div>
 
 
@@ -659,8 +690,8 @@ The top memory consuming processes above 10% are:
 
 | COUNT |  %CPU |  %MEM | COMMAND                                            |
 | ----: | ----: | ----: | -------------------------------------------------- |
-|     2 | 21.3% |  4.2% | /usr/bin/python2.7                                 |
-|     1 |   84% |  2.7% | /usr/bin/nodejs                                    |
+|     2 | 10.8% |  4.2% | /usr/bin/python2.7                                 |
+|     1 |   42% |  2.7% | /usr/bin/nodejs                                    |
 </code></pre></div>
 
 
@@ -704,9 +735,9 @@ Last check results from Sat Oct 31 2015 22:09:19 GMT+0100 (CET) are:
 | Type                    |                                             ext4 |
 | Available               |                                          216 GiB |
 | Used                    |                                           28 GiB |
-| % Used                  |                                           0.13 % |
+| % Used                  |                                             13 % |
 | Free                    |                                          188 GiB |
-| % Free                  |                                           0.87 % |
+| % Free                  |                                             87 % |
 | Mountpoint              |                                                / |
 
 If a share is full it will make I/O problems in the system or applications in
@@ -854,27 +885,27 @@ Listening servers:
 
 | PROTO | LOCAL IP             | PORT  |
 | :---- | :------------------- | :---- |
-| tcp   | 127.0.0.1            | 3306  |
 | tcp   | 0.0.0.0              | 139   |
-| tcp   | 127.0.0.1            | 5939  |
-| tcp   | 127.0.1.1            | 53    |
 | tcp   | 0.0.0.0              | 22    |
-| tcp   | 127.0.0.1            | 631   |
 | tcp   | 0.0.0.0              | 445   |
+| tcp   | 127.0.0.1            | 3306  |
+| tcp   | 127.0.1.1            | 53    |
+| tcp   | 127.0.0.1            | 5939  |
+| tcp   | 127.0.0.1            | 631   |
 | tcp6  | ::                   | 139   |
 | tcp6  | ::                   | 22    |
-| tcp6  | ::1                  | 631   |
 | tcp6  | ::                   | 445   |
+| tcp6  | ::1                  | 631   |
 
 Active internet connections:
 
 | PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
 | :---- | :------------------- | ----: | -----: | :------------- |
-| tcp   | 198.252.206.25       | 80    |   3955 | chrome         |
 | tcp   | 173.194.113.0        | 443   |   3955 | chrome         |
+| tcp   | 173.194.113.2        | 443   |   3955 | chrome         |
+| tcp   | 198.252.206.25       | 80    |   3955 | chrome         |
 | tcp   | 209.20.75.76         | 80    |  12249 | plugin_host    |
 | tcp   | 64.233.167.188       | 443   |   3955 | chrome         |
-| tcp   | 173.194.113.2        | 443   |   3955 | chrome         |
 </code></pre></div>
 
 
@@ -931,22 +962,76 @@ This has been checked with the following setup:
 
 
 
-<div class="pilwrap" id="users">
+<div class="pilwrap" id="user">
   <h3>
-    <a href="#users" name="users" class="pilcrow">&#182;</a>
-    Users
+    <a href="#user" name="user" class="pilcrow">&#182;</a>
+    User
   </h3>
 </div>
 
 
-<p>w -hu
-who
-<a href='http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-linux-system/'>http://www.thegeekstuff.com/2009/03/4-ways-to-identify-who-is-logged-in-on-your-linux-system/</a></p>
+<p>This sensor will analyse processes started from a specific user:</p>
 
-<p>last -Fi # login history
-ps aux # aktuelle Befehle je user
-/var/log/auth.log | grep alex # letzte sudo befehle
-use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://github.com/a2o/snoopy</a></p>
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>user - the user name to analyze</li>
+<li>warn - the javascript code to check for warn status (default: 'diff > 10000')</li>
+<li>fail - the javascript code to check for fail status</li>
+<li>analysis - the configuration for the analysis if it is run
+<ul><li>minCpu - show processes with this CPU usage or above (default: 10%)</li>
+<li>minMem - show processes with this memory usage or above (default: 10%)</li>
+<li>numProc - number of top processes to list</li></ul></li>
+</ul>
+
+<p>The resulting report part may look like:</p>
+
+
+<div class="highlight"><pre><code>Active User (alex)
+-----------------------------------------------------------------------------
+
+Check what an active user do.
+
+Last check results from Wed Nov 04 2015 19:19:45 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Processes               |                                               69 |
+| % CPU                   |                                             84 % |
+| % Memory                |                                             59 % |
+| Physical Memory         |                                         21.6 MiB |
+| Virtual Memory          |                                          1.13 MB |
+
+This check will give an overview of the activities of an (logged in) user. If
+you look at the processes you may find out that some other warnings like high
+load are user made and you may contact this person directly.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Username to check  |                                                  alex |
+
+The top CPU consuming processes above 1% CPU above 1% MEM (max. 5 processes)
+are:
+
+|  PID  | %CPU | %MEM |   VSZ   |   RSS  |  TIME |           COMMAND         |
+| ----- | ---- | ---- | ------- | ------ | ----- | ------------------------- |
+| 30362 | 74.7 |  2.8 |  101212 |  51212 |  0:10 | /usr/bin/nodejs           |
+| 30343 |  7.0 |  1.3 |   74424 |  23956 |  0:01 | builder                   |
+| 19859 |  1.4 | 20.4 | 1416588 | 368036 | 22:15 |
+/opt/sublime_text/sublime_text |
+
+The active logins are:
+
+|   TERM    |    LOGIN     |         IP         |
+| --------- | ------------ | ------------------ |
+| tty8      | Oct 30 16:45 |                  0 |
+| pts/3     | Oct 30 16:46 |                  0 |
+| pts/4     | Oct 30 21:32 |                  0 |
+| pts/5     | Oct 31 19:28 |                  0 |
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="network%20sensors">
@@ -966,6 +1051,56 @@ use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://gi
 </div>
 
 
+<p>Although simple, but important to check if a host is responding to ICMP ping
+packets. Thus, it is possible to measure the availability of a server, as well
+as the response time and packet loss:</p>
+
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>host - the server hostname or ip address to be called for ping</li>
+<li>count - the number of ping packets to send, each after the other (default: 1)</li>
+<li>interval - the time to wait between sending each packet (default: 1s)</li>
+<li>size - the number of bytes to be send, keep in mind that 8 bytes for the ICMP header are added
+(default: 24B)</li>
+<li>timeout - the time in milliseconds the whole test may take before stopping and failing it
+(default: 1s)</li>
+<li>warn - the javascript code to check for warn status (default: 'quality &lt; 100%')</li>
+<li>fail - the javascript code to check for fail status (default: 'quality is 0')</li>
+</ul>
+
+
+<div class="highlight"><pre><code>Ping (-&gt;192.168.2.25)
+-----------------------------------------------------------------------------
+
+Test the reachability of a host on a IP network and measure the round-trip time
+for the messages send.
+
+Last check results from Wed Nov 04 2015 22:52:38 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Avg. Response Time      |                                          13.4 ms |
+| Min. Respons Time       |                                          13.4 ms |
+| Max. Response Time      |                                          13.4 ms |
+| Quality                 |                                            100 % |
+
+Check the network card configuration if local ping won&#39;t work or the network
+connection for external pings.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Number of Packets  |                                                     1 |
+| Wait Interval      |                                                   1 s |
+| Packetsize         |                                                  56 B |
+| Overall Timeout    |                                                   1 s |
+| Warn if            |                                        Quality &lt; 100% |
+| Fail if            |                                          Quality is 0 |
+</code></pre></div>
+
+
+
 
 <div class="pilwrap" id="socket">
   <h3>
@@ -973,6 +1108,43 @@ use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://gi
     Socket
   </h3>
 </div>
+
+
+<p>This sensor will ping another host:</p>
+
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>host - the server hostname or ip address to be called for ping</li>
+<li>port - the port number used to connect to</li>
+<li>transport - the protocol used for internet transport layer (default:tcp)</li>
+<li>warn - the javascript code to check for warn status (default: 'quality &lt; 100%')</li>
+<li>fail - the javascript code to check for fail status (default: 'quality is 0')</li>
+</ul>
+
+
+<div class="highlight"><pre><code>Socket (tcp localhost-&gt;193.99.144.80:80)
+-----------------------------------------------------------------------------
+
+Use TCP sockets to check for the availability of a service behind a given port.
+
+Last check results from Thu Nov 05 2015 21:42:12 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Response Time           |                                          3744 ms |
+
+On problems the service may not run or a network problem exists.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Hostname or IP     |                                         193.99.144.80 |
+| Port               |                                                    80 |
+| Transport Protocol |                                                   tcp |
+| Timeout            |                                                   2 s |
+</code></pre></div>
+
 
 
 
@@ -984,6 +1156,90 @@ use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://gi
 </div>
 
 
+<p>This sensor will ping another host:</p>
+
+<ul>
+<li>remote - the remote server, there to run the sensor</li>
+<li>url - the URL to request</li>
+<li>timeout - the timeout in milliseconds till the process is stopped
+and be considered as failed</li>
+<li>username - the name used for basic authentication</li>
+<li>password - the password used for basic authentication</li>
+<li>match - the substring or regular expression which have to match</li>
+<li>warn - the javascript code to check for warn status</li>
+<li>fail - the javascript code to check for fail status
+(default: 'statusCode &lt; 200 or statusCode >= 400')</li>
+<li>analysis
+<ul><li>bodyLength - the maximum body display length in analysis report
+(default: 256)</li></ul></li>
+</ul>
+
+<p>If a remote server reference is given this will be used for tunneling over ssh
+as proxy.</p>
+
+
+<div class="highlight"><pre><code>HTTP Request (-&gt;http://heise.de)
+-----------------------------------------------------------------------------
+
+Connect to an HTTP or HTTPS server and check the response.
+
+Last check results from Fri Nov 06 2015 22:20:54 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Response Time           |                                           288 ms |
+| Status Code             |                                              200 |
+| Status Message          |                                               OK |
+| Server                  |                                            nginx |
+| Content Type            |                         text/html; charset=utf-8 |
+| Content Length          |                                          167 KiB |
+| Body Match              |                                            false |
+
+If the server didn&#39;t respond it also may be a network problem.
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| URL                |                                       http://heise.de |
+| Timeout            |                                                  10 s |
+| Fail if            |               Status Code &lt; 200 or Status Code &gt;= 400 |
+
+See the following details of the check which may give you a hint there the
+problem is.
+
+__GET http://heise.de__
+
+    referer: http://www.heise.de/
+
+Response:
+
+    server: nginx
+    content-type: text/html; charset=utf-8
+    x-cobbler: octo06.heise.de
+    x-clacks-overhead: GNU Terry Pratchett
+    last-modified: Fri, 06 Nov 2015 21:20:54 GMT
+    expires: Fri, 06 Nov 2015 21:21:26 GMT
+    cache-control: public, max-age=32
+    transfer-encoding: chunked
+    date: Fri, 06 Nov 2015 21:20:55 GMT
+    age: 1
+    connection: keep-alive
+    vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
+
+Content:
+
+    &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;de&quot;&gt;
+
+        &lt;head&gt;
+            &lt;title&gt;heise online - IT-News, Nachrichten und Hintergründe
+            &lt;/title&gt;
+                &lt;meta name=&quot;description&quot; content=&quot;News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware un...
+</code></pre></div>
+
+
+
 
 <div class="pilwrap" id="ftp">
   <h3>
@@ -992,6 +1248,12 @@ use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://gi
   </h3>
 </div>
 
+
+<p>To be written...</p>
+
+<ul>
+<li>responseTime</li>
+</ul>
 
 
 <div class="pilwrap" id="sftp">
@@ -1002,11 +1264,55 @@ use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://gi
 </div>
 
 
+<p>To be written...</p>
 
-<div class="pilwrap" id="application%20sensors">
+<ul>
+<li>responseTime</li>
+</ul>
+
+
+<div class="pilwrap" id="snmp">
+  <h3>
+    <a href="#snmp" name="snmp" class="pilcrow">&#182;</a>
+    SNMP
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<p>Makes monitoring any network device like printer... possible.</p>
+
+
+<div class="pilwrap" id="ipmi">
+  <h3>
+    <a href="#ipmi" name="ipmi" class="pilcrow">&#182;</a>
+    IPMI
+  </h3>
+</div>
+
+
+
+<div class="pilwrap" id="certificate">
+  <h3>
+    <a href="#certificate" name="certificate" class="pilcrow">&#182;</a>
+    Certificate
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<ul>
+<li>validTime</li>
+<li>keySize</li>
+</ul>
+
+
+<div class="pilwrap" id="daemon%20sensors">
   <h2>
-    <a href="#application%20sensors" name="application%20sensors" class="pilcrow">&#182;</a>
-    Application Sensors
+    <a href="#daemon%20sensors" name="daemon%20sensors" class="pilcrow">&#182;</a>
+    Daemon Sensors
   </h2>
 </div>
 
@@ -1020,17 +1326,10 @@ use snoopy for all commands # <a href='https://github.com/a2o/snoopy'>https://gi
 </div>
 
 
+<p>To be written...</p>
+
 <p>cat /proc/PID/cmdline
 cat /proc/PID/status</p>
-
-
-<div class="pilwrap" id="log">
-  <h3>
-    <a href="#log" name="log" class="pilcrow">&#182;</a>
-    Log
-  </h3>
-</div>
-
 
 
 <div class="pilwrap" id="postgresql">
@@ -1041,14 +1340,9 @@ cat /proc/PID/status</p>
 </div>
 
 
+<p>To be written...</p>
 
-<div class="pilwrap" id="database">
-  <h3>
-    <a href="#database" name="database" class="pilcrow">&#182;</a>
-    Database
-  </h3>
-</div>
-
+<p><a href='https://wiki.postgresql.org/wiki/Monitoring'>https://wiki.postgresql.org/wiki/Monitoring</a></p>
 
 
 <div class="pilwrap" id="apache">
@@ -1059,6 +1353,24 @@ cat /proc/PID/status</p>
 </div>
 
 
+<p>To be written...</p>
+
+<p>mod_status:</p>
+
+<ul>
+<li>The number of worker serving requests</li>
+<li>The number of idle worker</li>
+<li>A total number of accesses and byte count served (*)</li>
+<li>The time the server was started/restarted and the time it has been running for
+Averages giving the number of requests per second, the number of bytes served per second and the average number of bytes per request (*)</li>
+</ul>
+
+<p>analysis</p>
+
+<ul>
+<li>The current hosts and requests being processed (*)</li>
+</ul>
+
 
 <div class="pilwrap" id="tomcat">
   <h3>
@@ -1068,14 +1380,122 @@ cat /proc/PID/status</p>
 </div>
 
 
+<p>To be written...</p>
 
-<div class="pilwrap" id="static%20info%20sensors">
+<p>Maybe use JMX... <a href='https://www.npmjs.com/package/jmx'>https://www.npmjs.com/package/jmx</a></p>
+
+
+<div class="pilwrap" id="wowza">
+  <h3>
+    <a href="#wowza" name="wowza" class="pilcrow">&#182;</a>
+    Wowza
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<p>Parsing stats page</p>
+
+
+<div class="pilwrap" id="vmware">
+  <h3>
+    <a href="#vmware" name="vmware" class="pilcrow">&#182;</a>
+    VMWare
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<p><a href='http://searchitchannel.techtarget.com/feature/Monitoring-vSphere-performance-with-command-line-tools'>http://searchitchannel.techtarget.com/feature/Monitoring-vSphere-performance-with-command-line-tools</a></p>
+
+
+<div class="pilwrap" id="data%20sensors">
   <h2>
-    <a href="#static%20info%20sensors" name="static%20info%20sensors" class="pilcrow">&#182;</a>
-    Static Info Sensors
+    <a href="#data%20sensors" name="data%20sensors" class="pilcrow">&#182;</a>
+    Data Sensors
   </h2>
 </div>
 
+
+
+<div class="pilwrap" id="log">
+  <h3>
+    <a href="#log" name="log" class="pilcrow">&#182;</a>
+    Log
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<ul>
+<li>filter</li>
+<li><p>timerange</p></li>
+<li><p>num lines</p></li>
+<li>filtered lines</li>
+<li><p>comment</p></li>
+<li><p>list of lines</p></li>
+</ul>
+
+
+<div class="pilwrap" id="database">
+  <h3>
+    <a href="#database" name="database" class="pilcrow">&#182;</a>
+    Database
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<p>SELECT COUNT(*) AS NUM, LAST(date) AS comment FROM</p>
+
+
+<div class="pilwrap" id="simulation%20sensors">
+  <h2>
+    <a href="#simulation%20sensors" name="simulation%20sensors" class="pilcrow">&#182;</a>
+    Simulation Sensors
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="web%20session">
+  <h3>
+    <a href="#web%20session" name="web%20session" class="pilcrow">&#182;</a>
+    Web Session
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+<p><a href='http://casperjs.org/'>http://casperjs.org/</a></p>
+
+
+<div class="pilwrap" id="streaming">
+  <h3>
+    <a href="#streaming" name="streaming" class="pilcrow">&#182;</a>
+    Streaming
+  </h3>
+</div>
+
+
+<p>To be written...</p>
+
+
+<div class="pilwrap" id="info%20analyzer%20sensors">
+  <h2>
+    <a href="#info%20analyzer%20sensors" name="info%20analyzer%20sensors" class="pilcrow">&#182;</a>
+    Info Analyzer Sensors
+  </h2>
+</div>
+
+
+<p>This sensors are not build to run continuously but to run once to gather information
+about a more unknown system.</p>
 
 
 <div class="pilwrap" id="hardware">
@@ -1086,8 +1506,15 @@ cat /proc/PID/status</p>
 </div>
 
 
+<ol>
+<li>lshw -json</li>
+<li>dmidecode</li>
+<li>lscpu
+lspci
+lsusb</li>
+</ol>
+
 <p>cat /proc/cpuinfo
-lscpu
 cat /proc/diskstats</p>
 
 
@@ -1099,19 +1526,20 @@ cat /proc/diskstats</p>
 </div>
 
 
-<p>cat /proc/version</p>
+<p>cat /proc/version
+running daemons</p>
 
 
-<div class="pilwrap" id="network">
+<div class="pilwrap" id="network%20settings">
   <h3>
-    <a href="#network" name="network" class="pilcrow">&#182;</a>
-    Network
+    <a href="#network%20settings" name="network%20settings" class="pilcrow">&#182;</a>
+    Network Settings
   </h3>
 </div>
 
 
-<p>/proc/sys/kernel/hostname
-/proc/sys/kernel/domainname</p>
+<p>/proc/sys/kernel/domainname
+/proc/sys/kernel/hostname</p>
 
 
 <div class="pilwrap" id="daemons">
@@ -1173,6 +1601,34 @@ a database for long time analysis. This database may look like:</p>
     I sensor (string)
     I name (string)
 
+
+
+    mon_sensor_cpu_all # delete after 3 days
+    F check_id
+      start (datetime)
+      end (datetime)
+      status (enum)
+      message (text)
+      xxx1 (value1 type)
+      xxx2
+
+    mon_sensor_cpu_hour # delete after 1 week
+    F check_id
+      date (string)
+      num (int)
+      status (float)
+      statusMin (enum)
+      statusMax (enum)
+      xxx (text)
+      xxxAvg (float)
+      xxxMin (float)
+      xxxMax (float)
+
+    mon_sensor_cpu_day # delete after 6 months
+    mon_sensor_cpu_week # delete after 5 years
+
+
+
     mon_value
     P value_id
     F check_id
@@ -1194,6 +1650,8 @@ a database for long time analysis. This database may look like:</p>
     mon_value_hour # delete after 1 week
     mon_value_day # delete after 6 months
     mon_value_week # delete after 5 years
+
+
 
     mon_value_report # delete after 6 months
     P value_report_id
@@ -1272,10 +1730,8 @@ can be visualized using a data analyzation tool like dbVisualizer.</p>
 <li>disabled controller</li>
 <li><p>add example reports for each sensor to doc</p></li>
 <li><p>generate controller report</p></li>
-<li>convert old sensors</li>
 <li>controller daemon</li>
-<li>add over time report</li>
-<li>-v verbose show/send always report</li>
+<li>add over time report (from db store)</li>
 <li>-m send to other email instead of controller contacts</li>
 </ul>
 

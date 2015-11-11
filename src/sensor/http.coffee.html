@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>http.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/httpcoffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#socket%20test%20class">Socket test class</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#schema%20definition">Schema Definition</a>
+      </div>
+      <div class="heading h2">
+        <a href="#general%20information">General information</a>
+      </div>
+      <div class="heading h3">
+        <a href="#result%20values">Result values</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get%20content%20specific%20name">Get content specific name</a>
+      </div>
+      <div class="heading h2">
+        <a href="#run%20the%20sensor">Run the Sensor</a>
+      </div>
+      <div class="heading h2">
+        <a href="#run%20additional%20analysis">Run additional analysis</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="socket%20test%20class">
+  <h1>
+    <a href="#socket%20test%20class" name="socket%20test%20class" class="pilcrow">&#182;</a>
+    Socket test class
+  </h1>
+</div>
+
+
+<p>This may be used to check the connection to different ports using TCP.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:http&#39;</span><span class="p">)</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
+<span class="nv">http = </span><span class="nx">require</span> <span class="s">&#39;http&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include classes and helpers</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="schema%20definition">
+  <h2>
+    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
+    Schema Definition
+  </h2>
+</div>
+
+
+<p>This is used as configuration specification and to add the default values for
+specific setting.</p>
+
+<p>It's a n<a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
+compatible schema definition:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.schema =</span>
+  <span class="nv">title: </span><span class="s">&quot;Webserver response check&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the configuration to make an HTTP or HTTPS connection&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">remote:</span>
+      <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the remote server on this to run the command&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">url:</span>
+      <span class="nv">title: </span><span class="s">&quot;URL&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the URL to request&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">timeout:</span>
+      <span class="nv">title: </span><span class="s">&quot;Timeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds till the process is stopped</span>
+<span class="s">        and be considered as failed&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+      <span class="nv">min: </span><span class="mi">500</span>
+      <span class="nv">default: </span><span class="mi">10000</span>
+    <span class="nv">username:</span>
+      <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the name used for basic authentication&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">password:</span>
+      <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the password used for basic authentication&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">match:</span>
+      <span class="nv">title: </span><span class="s">&quot;Match body&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the substring or regular expression which have to match&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;any&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+      <span class="nv">entries: </span><span class="p">[</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">minLength: </span><span class="mi">1</span>
+      <span class="p">,</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">instanceOf: </span><span class="nb">RegExp</span>
+      <span class="p">]</span>
+    <span class="nv">analysis:</span>
+      <span class="nv">title: </span><span class="s">&quot;Analysis Run&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the configuration for the analysis if it is run&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">bodyLength:</span>
+          <span class="nv">title: </span><span class="s">&quot;Analysis Length&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the maximum body display length in analysis report&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+          <span class="nv">default: </span><span class="mi">256</span>
+    <span class="nv">warn: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span>
+    <span class="nv">fail: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span><span class="p">,</span>
+      <span class="nv">default: </span><span class="s">&#39;statusCode &lt; 200 or statusCode &gt;= 400&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="general%20information">
+  <h2>
+    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
+    General information
+  </h2>
+</div>
+
+
+<p>This information may be used later for display and explanation.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.meta =</span>
+  <span class="nv">title: </span><span class="s">&#39;HTTP Request&#39;</span>
+  <span class="nv">description: </span><span class="s">&quot;Connect to an HTTP or HTTPS server and check the response.&quot;</span>
+  <span class="nv">category: </span><span class="s">&#39;net&#39;</span>
+  <span class="nv">hint: </span><span class="s">&quot;If the server didn&#39;t respond it also may be a network problem. &quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="result%20values">
+  <h3>
+    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
+    Result values
+  </h3>
+</div>
+
+
+<p>This are possible values which may be given if the check runs normally.
+You may use any of these in your warn/fail expressions.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">values:</span>
+    <span class="nv">responseTime:</span>
+      <span class="nv">title: </span><span class="s">&quot;Response Time&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;time till connection could be established&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+    <span class="nv">statusCode:</span>
+      <span class="nv">title: </span><span class="s">&quot;Status Code&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;http status code&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+    <span class="nv">statusMessage:</span>
+      <span class="nv">title: </span><span class="s">&quot;Status Message&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;http status message from server&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">server:</span>
+      <span class="nv">title: </span><span class="s">&quot;Server&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;application name of the server (if given)&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">contentType:</span>
+      <span class="nv">title: </span><span class="s">&quot;Content Type&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the content mimetype&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">length:</span>
+      <span class="nv">title: </span><span class="s">&quot;Content Length&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;size of the content&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+    <span class="nv">match:</span>
+      <span class="nv">title: </span><span class="s">&quot;Body Match&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;success of check for content with containing results&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20content%20specific%20name">
+  <h2>
+    <a href="#get%20content%20specific%20name" name="get%20content%20specific%20name" class="pilcrow">&#182;</a>
+    Get content specific name
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.name = </span><span class="nf">(conf) -&gt;</span> <span class="s">&quot;-&gt;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20the%20sensor">
+  <h2>
+    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
+    Run the Sensor
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.run = </span><span class="nf">(conf, cb = -&gt;) -&gt;</span>
+  <span class="nv">work =</span>
+    <span class="nv">sensor: </span><span class="k">this</span>
+    <span class="nv">config: </span><span class="nx">conf</span>
+    <span class="nv">result: </span><span class="p">{}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>configure request</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">option =</span>
+    <span class="nv">url: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">url</span>
+    <span class="nv">headers:</span>
+      <span class="s">&#39;User-Agent&#39;</span><span class="o">:</span> <span class="s">&quot;Alinex Monitor through request.js&quot;</span>
+  <span class="nv">option.timeout = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">timeout</span> <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">timeout</span><span class="o">?</span>
+  <span class="nx">remote</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">option</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">username</span><span class="o">?</span> <span class="o">and</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">password</span><span class="o">?</span>
+      <span class="nv">option.auth =</span>
+        <span class="nv">username: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">username</span>
+        <span class="nv">password: </span><span class="nx">conf</span><span class="p">.</span><span class="nx">password</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>start the request</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
+    <span class="nx">debug</span> <span class="s">&quot;request </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">request</span> <span class="nx">option</span><span class="p">,</span> <span class="nf">(err, response, body) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>request finished</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">sensor</span><span class="p">.</span><span class="nx">end</span> <span class="nx">work</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>error checking</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">if</span> <span class="nx">err</span>
+        <span class="nv">work.err = </span><span class="nx">err</span>
+        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>console.log 111111111111111, response
+   throw new Error 'xxx'</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">if</span> <span class="nx">response</span>
+        <span class="nv">work.result._analysis =</span>
+          <span class="nv">request:</span>
+            <span class="nv">headers: </span><span class="nx">response</span><span class="p">.</span><span class="nx">request</span><span class="o">?</span><span class="p">.</span><span class="nx">headers</span>
+          <span class="nv">response:</span>
+            <span class="nv">headers: </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span>
+            <span class="nv">body: </span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>console.log 222222222222222222222222222, work.result.analysis
+get the values</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
+      <span class="nv">val.responseTime = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">response</span><span class="o">?</span>
+        <span class="nv">val.statusCode = </span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
+        <span class="nv">val.statusMessage = </span><span class="nx">http</span><span class="p">.</span><span class="nx">STATUS_CODES</span><span class="p">[</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">]</span>
+        <span class="nv">val.server = </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">server</span>
+        <span class="nv">val.contentType = </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s">&#39;content-type&#39;</span><span class="p">]</span>
+        <span class="nv">val.length = </span><span class="nx">response</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">bytesRead</span>
+        <span class="nv">val.match = </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">match</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">match</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>evaluate to check status</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+
+<span class="nv">remote = </span><span class="nf">(conf, option, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">remote</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>open tunnel</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">sshtunnel = </span><span class="nx">require</span> <span class="s">&#39;alinex-sshtunnel&#39;</span>
+  <span class="nx">sshtunnel</span>
+    <span class="nv">ssl: </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/exec/remote/server/</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">remote</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">tunnel:</span>
+      <span class="nv">localHost: </span><span class="s">&#39;127.0.0.1&#39;</span>
+  <span class="p">,</span> <span class="nf">(err, tunnel) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>use tunnel</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">url</span><span class="p">,</span> <span class="s">&#39;https:&#39;</span>
+      <span class="nv">option.agentClass = </span><span class="nx">require</span> <span class="s">&#39;socks5-https-client/lib/Agent&#39;</span>
+      <span class="nv">option.strictSSL = </span><span class="kc">true</span>
+    <span class="k">else</span>
+      <span class="nv">option.agentClass = </span><span class="nx">require</span> <span class="s">&#39;socks5-http-client/lib/Agent&#39;</span>
+    <span class="nv">option.agentOptions =</span>
+      <span class="nv">socksPort: </span><span class="s">&#39;7000&#39;</span>
+    <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20additional%20analysis">
+  <h2>
+    <a href="#run%20additional%20analysis" name="run%20additional%20analysis" class="pilcrow">&#182;</a>
+    Run additional analysis
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.analysis = </span><span class="nf">(conf, res, cb = -&gt;) -&gt;</span>
+  <span class="nv">request = </span><span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span><span class="p">.</span><span class="nx">request</span>
+  <span class="nv">response = </span><span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span><span class="p">.</span><span class="nx">response</span>
+  <span class="k">delete</span> <span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">analysis</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>get additional information (top processes)</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">report = </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">  See the following details of the check which may give you a hint there the</span>
+<span class="s">  problem is.</span>
+
+<span class="s">  __GET </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">__\n</span>
+<span class="s">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="nx">request</span><span class="o">?</span><span class="p">.</span><span class="nx">headers</span><span class="o">?</span>
+    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&#39;\n&#39;</span>
+    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span>
+      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;    </span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">value</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\nResponse:\n\n&quot;</span>
+  <span class="k">if</span> <span class="nx">response</span><span class="o">?</span><span class="p">.</span><span class="nx">headers</span><span class="o">?</span>
+    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span>
+      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;    </span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">value</span><span class="si">}</span><span class="s">\n&quot;</span>
+  <span class="k">if</span> <span class="nx">response</span><span class="o">?</span><span class="p">.</span><span class="nx">body</span><span class="o">?</span>
+    <span class="nv">body = </span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span>
+    <span class="k">if</span> <span class="nx">body</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">bodyLength</span>
+      <span class="nv">body = </span><span class="nx">body</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">bodyLength</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;...&#39;</span>
+    <span class="nv">body = </span><span class="nx">body</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39;\n    &#39;</span>
+    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\nContent:\n\n&quot;</span>
+    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&#39;    &#39;</span> <span class="o">+</span> <span class="nx">body</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39;\n    &#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>report += string.wordwrap "    #{body}\n", 80, '\n    '</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

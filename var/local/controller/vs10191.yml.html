@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>dvb-develop.yml</title>
+  <title>vs10191.yml</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../../doc-style.css" />
   <script src="../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/example/controller/dvb-developyml", defaultSidebar = true;
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/local/controller/vs10191yml", defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
   <script src="../../../fileSearch.js"></script>
@@ -62,8 +62,8 @@
 
 <p>This is an example of a complete controller configuration.</p>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Development Center</span>
-<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Server containing miscellaneous tools to help in the development process.</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Batch VM</span>
+<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Server containing different batch jobs running as daemon or cron.</span>
 
 
 </pre></div>
@@ -140,14 +140,6 @@ fully work.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="l-Scalar-Plain">check</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
-      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb-develop</span>
-      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/run</span>
 
 </pre></div>
         </td>
@@ -157,12 +149,72 @@ fully work.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
-<p>weight setting specific to value of the following 'combine' setting:
-With the <code>weight</code> settings on the different entries single group entries may
-be rated specific not like the others. Use a number in <code>average</code> to make the
-weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
-level for one step before using in calculation on all combine methods.
-weight: 2</p>
+<p>system checks:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cpu</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">load</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">memory</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/local/divibib</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<ul>
+<li>sensor: diskio
+config:
+ remote: vs10191
+ device: sda1</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">net</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">time</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vs10191</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<ul>
+<li>sensor: user
+config:
+ remote: vs10191
+ user: root
+network checks:</li>
+<li>sensor: ping
+config:
+ host: 192.168.200.106</li>
+<li>sensor: socket
+config:
+ host: 192.168.200.106
+ port: 80</li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
@@ -218,7 +270,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>support:
  info:
@@ -235,7 +287,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>system access</p>
         </td>
@@ -251,7 +303,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>user/developer help</p>
         </td>
@@ -264,7 +316,7 @@ combined to calculate the overall status:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>issues:
 api:

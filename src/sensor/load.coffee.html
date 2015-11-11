@@ -48,6 +48,9 @@
         <a href="#result%20values">Result values</a>
       </div>
       <div class="heading h2">
+        <a href="#get%20content%20specific%20name">Get content specific name</a>
+      </div>
+      <div class="heading h2">
         <a href="#run%20the%20sensor">Run the Sensor</a>
       </div>
       <div class="heading h2">
@@ -266,6 +269,23 @@ You may use any of these in your warn/fail expressions.</p>
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="get%20content%20specific%20name">
+  <h2>
+    <a href="#get%20content%20specific%20name" name="get%20content%20specific%20name" class="pilcrow">&#182;</a>
+    Get content specific name
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.name = </span><span class="nf">(config) -&gt;</span> <span class="s">&#39;&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="run%20the%20sensor">
   <h2>
     <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
@@ -275,10 +295,9 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(name, config, cb = -&gt;) -&gt;</span>
+<span class="nv">exports.run = </span><span class="nf">(config, cb = -&gt;) -&gt;</span>
   <span class="nv">work =</span>
     <span class="nv">sensor: </span><span class="k">this</span>
-    <span class="nv">name: </span><span class="nx">name</span>
     <span class="nv">config: </span><span class="nx">config</span>
     <span class="nv">result: </span><span class="p">{}</span>
   <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
@@ -289,7 +308,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>run check</p>
         </td>
@@ -315,7 +334,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>analyses results</p>
         </td>
@@ -331,7 +350,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>cpu info values</p>
         </td>

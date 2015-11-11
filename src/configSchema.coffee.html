@@ -291,10 +291,6 @@
         <span class="nv">description: </span><span class="s">&quot;the  class name of a sensor to run&quot;</span>
         <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
         <span class="nv">lowerCase: </span><span class="kc">true</span>
-      <span class="nv">name:</span>
-        <span class="nv">title: </span><span class="s">&quot;Check Name&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the configuration for a sensor run&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
       <span class="nv">config:</span>
         <span class="nv">title: </span><span class="s">&quot;Sensor Configuration&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;the configuration for a sensor run&quot;</span>
@@ -418,13 +414,18 @@ if:
 <span class="s">          what may be done if this check failed and other things which are helpful to know&quot;</span>
         <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
       <span class="nv">contact:</span>
-        <span class="nv">title: </span><span class="s">&quot;Contact&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the list of contacts (references) responsible for this system or part&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-        <span class="nv">toArray: </span><span class="kc">true</span>
-        <span class="nv">entries:</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/contact&gt;&gt;&gt;&#39;</span>
+        <span class="nv">title: </span><span class="s">&quot;Contact Types&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the contacts categorized into groups&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+        <span class="nv">entries: </span><span class="p">[</span>
+          <span class="nv">title: </span><span class="s">&quot;Contact List&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the list of contacts for the group&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+          <span class="nv">toArray: </span><span class="kc">true</span>
+          <span class="nv">entries:</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+            <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/contact&gt;&gt;&gt;&#39;</span>
+        <span class="p">]</span>
       <span class="nv">ref:</span>
         <span class="nv">title: </span><span class="s">&quot;References&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;the list of URL references which may help getting informed</span>
@@ -433,7 +434,10 @@ if:
         <span class="nv">entries: </span><span class="p">[</span>
           <span class="nv">title: </span><span class="s">&quot;Access URL&quot;</span>
           <span class="nv">description: </span><span class="s">&quot;the URL to access this reference&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+          <span class="nv">toArray: </span><span class="kc">true</span>
+          <span class="nv">entries:</span>
+            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
         <span class="p">]</span>
   <span class="p">]</span>
 

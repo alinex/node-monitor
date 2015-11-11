@@ -261,12 +261,12 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-  <span class="nv">instantiate: </span><span class="nf">(cb) -&gt;</span>
+  <span class="nv">instantiate: </span><span class="nf">(mode, cb) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@controller</span>
     <span class="nx">debug</span> <span class="s">&quot;Instantiate controllers...&quot;</span>
     <span class="vi">@controller = </span><span class="p">{}</span>
     <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">controller</span>
-      <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Controller</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span>
+      <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Controller</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span><span class="p">,</span> <span class="nx">mode</span>
       <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) =&gt;</span> <span class="nx">@emit</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nx">ctrl</span>
 
 </pre></div>
@@ -300,8 +300,13 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-  <span class="nv">onetime: </span><span class="nf">(cb = -&gt;) -&gt;</span>
-    <span class="nx">@instantiate</span> <span class="nf">(err) =&gt;</span>
+  <span class="nv">onetime: </span><span class="nf">(mode, cb) -&gt;</span>
+    <span class="k">unless</span> <span class="nx">cb</span>
+      <span class="nv">cb = </span><span class="nx">mode</span>
+      <span class="nv">mode = </span><span class="kc">null</span>
+      <span class="k">unless</span> <span class="nx">cb</span>
+        <span class="nv">cb = </span><span class="nf">-&gt;</span>
+    <span class="nx">@instantiate</span> <span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">@controller</span><span class="p">,</span> <span class="nf">(ctrl, name, cb) -&gt;</span>
         <span class="nx">ctrl</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>

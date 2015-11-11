@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>time.coffee</title>
+  <title>socket.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/timecoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/socketcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -33,7 +33,7 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#time%20check">Time check</a>
+        <a href="#socket%20test%20class">Socket test class</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
@@ -64,30 +64,17 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="time%20check">
+<div class="pilwrap" id="socket%20test%20class">
   <h1>
-    <a href="#time%20check" name="time%20check" class="pilcrow">&#182;</a>
-    Time check
+    <a href="#socket%20test%20class" name="socket%20test%20class" class="pilcrow">&#182;</a>
+    Socket test class
   </h1>
 </div>
 
+
+<p>This may be used to check the connection to different ports using TCP.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
-</div>
-<p>Find the description of the possible configuration values and the returned
-values in the code below.
-But the analysis part currently only works on linux.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
         </td>
       </tr>
       <tr>
@@ -109,14 +96,13 @@ But the analysis part currently only works on linux.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:time&#39;</span><span class="p">)</span>
+<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:socket&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">ntp = </span><span class="nx">require</span> <span class="s">&#39;ntp-client&#39;</span>
 
 </pre></div>
         </td>
@@ -124,7 +110,7 @@ But the analysis part currently only works on linux.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>include alinex modules</p>
         </td>
@@ -139,7 +125,7 @@ But the analysis part currently only works on linux.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
 <p>include classes and helpers</p>
         </td>
@@ -168,11 +154,9 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;Time check configuration&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the configuration to check local time against ntp&quot;</span>
+  <span class="nv">title: </span><span class="s">&quot;Socket connection test&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the configuration to make TCP socket connections&quot;</span>
   <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">default:</span>
-    <span class="nv">warn: </span><span class="s">&#39;diff &gt; 10000&#39;</span>
   <span class="nv">allowedKeys: </span><span class="kc">true</span>
   <span class="nv">keys:</span>
     <span class="nv">remote:</span>
@@ -180,24 +164,31 @@ compatible schema definition:</p>
       <span class="nv">description: </span><span class="s">&quot;the remote server on this to run the command&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
     <span class="nv">host:</span>
-      <span class="nv">title: </span><span class="s">&quot;NTP Hostname&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the name of an NTP server to call&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Hostname or IP&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the server hostname or ip address to establish connection to&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;pool.ntp.org&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
     <span class="nv">port:</span>
-      <span class="nv">title: </span><span class="s">&quot;NTP Port&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the port to use for NTP calls&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Port&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the port number used to connect to&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-      <span class="nv">default: </span><span class="mi">123</span>
+      <span class="nv">min: </span><span class="mi">1</span>
+    <span class="nv">transport:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transport Protocol&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the protocol used for internet transport layer&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">toLower: </span><span class="kc">true</span>
+      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;tcp&#39;</span><span class="p">,</span> <span class="s">&#39;udp&#39;</span><span class="p">]</span>
+      <span class="nv">default: </span><span class="s">&#39;tcp&#39;</span>
     <span class="nv">timeout:</span>
       <span class="nv">title: </span><span class="s">&quot;Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time in milliseconds to retrieve time&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds till the process is stopped</span>
+<span class="s">        and be considered as failed&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
       <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">default: </span><span class="mi">10000</span>
       <span class="nv">min: </span><span class="mi">500</span>
-    <span class="nv">warn: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span><span class="p">,</span>
-      <span class="nv">default: </span><span class="s">&#39;diff &gt; 10000&#39;</span>
+      <span class="nv">default: </span><span class="mi">2000</span>
+    <span class="nv">warn: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span>
     <span class="nv">fail: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span>
 
 
@@ -218,11 +209,11 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;Time Check&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Check the system time against the Internet.&quot;</span>
-  <span class="nv">category: </span><span class="s">&#39;sys&#39;</span>
-  <span class="nv">hint: </span><span class="s">&quot;If the time is not correct it may influence some processes which goes</span>
-<span class="s">  over multiple hosts. Therefore install and configure `ntpd` on the machine.&quot;</span>
+  <span class="nv">title: </span><span class="s">&#39;Socket&#39;</span>
+  <span class="nv">description: </span><span class="s">&quot;Use TCP sockets to check for the availability of a service</span>
+<span class="s">  behind a given port.&quot;</span>
+  <span class="nv">category: </span><span class="s">&#39;net&#39;</span>
+  <span class="nv">hint: </span><span class="s">&quot;On problems the service may not run or a network problem exists. &quot;</span>
 
 
 </pre></div>
@@ -243,17 +234,9 @@ You may use any of these in your warn/fail expressions.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">values:</span>
-    <span class="nv">local:</span>
-      <span class="nv">title: </span><span class="s">&#39;Local Time&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time on the local host&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;date&#39;</span>
-    <span class="nv">remote:</span>
-      <span class="nv">title: </span><span class="s">&#39;Remote Time&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time on an internet time server&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;date&#39;</span>
-    <span class="nv">diff:</span>
-      <span class="nv">title: </span><span class="s">&#39;Difference&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;the difference between both times&quot;</span>
+    <span class="nv">responseTime:</span>
+      <span class="nv">title: </span><span class="s">&quot;Response Time&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;time in milliseconds till connection could be established&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
       <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
 
@@ -272,7 +255,19 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.name = </span><span class="nf">(config) -&gt;</span> <span class="s">&#39;&#39;</span>
+<span class="nv">exports.name = </span><span class="nf">(config) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">transport</span><span class="si">}</span><span class="s"></span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>{config.remote ? 'localhost'}->#{config.host}:#{config.port}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 
 
 </pre></div>
@@ -289,12 +284,12 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(config, cb = -&gt;) -&gt;</span>
-  <span class="nv">work =</span>
-    <span class="nv">sensor: </span><span class="k">this</span>
-    <span class="nv">config: </span><span class="nx">config</span>
-    <span class="nv">result: </span><span class="p">{}</span>
-  <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
+<span class="s">exports.run = (config, cb = -&gt;) -&gt;</span>
+<span class="s">  work =</span>
+<span class="s">    sensor: this</span>
+<span class="s">    config: config</span>
+<span class="s">    result: {}</span>
+<span class="s">  sensor.start work</span>
 
 </pre></div>
         </td>
@@ -307,37 +302,22 @@ You may use any of these in your warn/fail expressions.</p>
 <p>run check</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
-    <span class="nf">(cb) -&gt;</span>
-      <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-        <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
-        <span class="nv">cmd: </span><span class="s">&#39;date&#39;</span>
-        <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;--iso-8601=seconds&#39;</span><span class="p">]</span>
-        <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-      <span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span>
-      <span class="nv">ntp.ntpReplyTimeout = </span><span class="nx">config</span><span class="p">.</span><span class="nx">timeout</span>
-      <span class="nx">ntp</span><span class="p">.</span><span class="nx">getNetworkTime</span> <span class="nx">config</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">port</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">],</span> <span class="nf">(err, proc) -&gt;</span>
+<span class="s">  Exec.run</span>
+<span class="s">    remote: config.remote</span>
+<span class="s">    cmd: &#39;bash&#39;</span>
+<span class="s">    args: [&#39;-c&#39;, &quot;</span><span class="nx">echo</span> <span class="o">&gt;</span> <span class="sr">/dev/</span><span class="c1">#{config.transport}/#{config.host}/#{config.port}&quot;]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+    <span class="nv">timeout: </span><span class="nx">config</span><span class="p">.</span><span class="nx">timeout</span>
+  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+    <span class="nv">work.err = </span><span class="nx">err</span>
     <span class="nx">sensor</span><span class="p">.</span><span class="nx">end</span> <span class="nx">work</span>
-    <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
-</div>
-<p>check times</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">val.local = </span><span class="k">new</span> <span class="nb">Date</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
-    <span class="nv">val.remote = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nv">val.diff = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span> <span class="nx">val</span><span class="p">.</span><span class="nx">local</span> <span class="o">-</span> <span class="nx">val</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="nv">work.result.message = </span><span class="nx">proc</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/bash:\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
+    <span class="k">unless</span> <span class="nx">err</span>
+      <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
+      <span class="nv">val.responseTime = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
-    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
 
 
 </pre></div>

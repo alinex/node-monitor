@@ -53,6 +53,9 @@
       <div class="heading h3">
         <a href="#format%20a%20value%20for%20better%20human%20readable%20display">Format a value for better human readable display</a>
       </div>
+      <div class="heading h3">
+        <a href="#check%20expression%20against%20string">Check expression against string</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -100,6 +103,7 @@
 <span class="nv">vm = </span><span class="nx">require</span> <span class="s">&#39;vm&#39;</span>
 <span class="nv">math = </span><span class="nx">require</span> <span class="s">&#39;mathjs&#39;</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+<span class="nv">named = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;named-regexp&#39;</span><span class="p">).</span><span class="nx">named</span>
 
 </pre></div>
         </td>
@@ -173,7 +177,7 @@ individual rules.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.start = </span><span class="nf">(work) -&gt;</span>
-  <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> start check&quot;</span>
+  <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> start check&quot;</span>
   <span class="nv">work.result.date = </span><span class="p">[</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()]</span>
   <span class="nv">work.result.status = </span><span class="s">&#39;running&#39;</span>
   <span class="nv">work.result.values = </span><span class="p">{}</span>
@@ -194,7 +198,7 @@ individual rules.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.end = </span><span class="nf">(work) -&gt;</span>
-  <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> ended check&quot;</span>
+  <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> ended check&quot;</span>
   <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
 
 
@@ -214,15 +218,7 @@ individual rules.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.result = </span><span class="nf">(work) -&gt;</span>
   <span class="nx">result</span> <span class="nx">work</span>
-  <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> result status: </span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
-    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> result </span><span class="si">#{</span><span class="nx">n</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">v</span><span class="si">}</span><span class="s">&quot;</span>
-
-<span class="nv">result = </span><span class="nf">(work) -&gt;</span>
-  <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">err</span>
-    <span class="k">return</span> <span class="nv">work.result.status = </span><span class="s">&#39;fail&#39;</span>
-  <span class="k">unless</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
-    <span class="k">return</span> <span class="nv">work.result.status = </span><span class="s">&#39;fail&#39;</span>
+  <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> result status:</span>
 
 </pre></div>
         </td>
@@ -232,13 +228,19 @@ individual rules.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
-<p>meta = work.sensor.meta</p>
+<p>{work.result.status}#{if work.result.message then ' (' + work.result.message + ')' else ''}"</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">status</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;fail&#39;</span><span class="p">,</span> <span class="s">&#39;warn&#39;</span><span class="p">]</span>
-    <span class="k">continue</span> <span class="k">unless</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
-    <span class="nv">rule = </span><span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
-    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> check </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s"> rule: </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="s">  for n, v of work.result.values</span>
+<span class="s">    work.sensor.debug &quot;</span><span class="c1">#{chalk.grey work.sensor.name work.config} result #{n}: #{v}&quot;</span>
+
+<span class="nv">result = </span><span class="nf">(work) -&gt;</span>
+  <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">err</span>
+    <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">message</span> <span class="o">?=</span> <span class="nx">work</span><span class="p">.</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
+    <span class="k">return</span> <span class="nv">work.result.status = </span><span class="s">&#39;fail&#39;</span>
+  <span class="k">unless</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+    <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">message</span> <span class="o">?=</span> <span class="s">&#39;no data&#39;</span>
+    <span class="k">return</span> <span class="nv">work.result.status = </span><span class="s">&#39;fail&#39;</span>
 
 </pre></div>
         </td>
@@ -247,6 +249,22 @@ individual rules.</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>meta = work.sensor.meta</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">for</span> <span class="nx">status</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;fail&#39;</span><span class="p">,</span> <span class="s">&#39;warn&#39;</span><span class="p">]</span>
+    <span class="k">continue</span> <span class="k">unless</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
+    <span class="nv">rule = </span><span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
+    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> check </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s"> rule: </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>replace data values</p>
         </td>
@@ -279,7 +297,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>replace not existing data values</p>
         </td>
@@ -295,7 +313,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>replace percent values</p>
         </td>
@@ -309,7 +327,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>replace binary values</p>
         </td>
@@ -323,7 +341,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>replace interval values</p>
         </td>
@@ -337,7 +355,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>replace operators</p>
         </td>
@@ -345,7 +363,7 @@ individual rules.</p>
     <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="p">{</span><span class="o">and:</span> <span class="s">&#39;&amp;&amp;&#39;</span><span class="p">,</span> <span class="o">or:</span> <span class="s">&#39;||&#39;</span><span class="p">,</span> <span class="o">is:</span> <span class="s">&#39;==&#39;</span><span class="p">,</span> <span class="o">isnt:</span> <span class="s">&#39;!=&#39;</span><span class="p">,</span> <span class="o">not:</span> <span class="s">&#39;!&#39;</span><span class="p">}</span>
       <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
       <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nx">value</span>
-    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> optimized: </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> optimized: </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -353,21 +371,36 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>run the code in sandbox</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">sandbox = </span><span class="p">{}</span>
     <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;result = </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">sandbox</span><span class="p">,</span> <span class="p">{</span><span class="nv">filename: </span><span class="s">&#39;monitor-sensor-rule.vm&#39;</span><span class="p">}</span>
-    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> rule result: </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s"> = </span><span class="si">#{</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">result</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">if</span> <span class="nx">sandbox</span><span class="p">.</span><span class="nx">result</span>
-      <span class="k">return</span> <span class="nv">work.result.status = </span><span class="nx">status</span>
-  <span class="nv">work.result.status = </span><span class="s">&#39;ok&#39;</span>
+    <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> rule result:</span>
 
-<span class="nv">exports.report = </span><span class="nf">(work) -&gt;</span>
-  <span class="nv">meta = </span><span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">meta</span>
-  <span class="nv">report = </span><span class="s">&quot;&quot;&quot;\n</span><span class="si">#{</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="s"> (</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">)</span>
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>{status} = #{sandbox.result}"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    if sandbox.result</span>
+<span class="s">      work.result.message = work.config[status]</span>
+<span class="s">      return work.result.status = status</span>
+<span class="s">  work.result.status = &#39;ok&#39;</span>
+
+<span class="s">exports.report = (work) -&gt;</span>
+<span class="s">  meta = work.sensor.meta</span>
+<span class="s">  name = work.sensor.name work.config</span>
+<span class="s">  name = &quot;</span><span class="p">(</span><span class="c1">#{name})&quot; if name</span>
+  <span class="nv">report = </span><span class="s">&quot;&quot;&quot;\n</span><span class="si">#{</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"></span>
 <span class="s">  -----------------------------------------------------------------------------\n</span>
 <span class="s">  &quot;&quot;&quot;</span>
   <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;\n</span><span class="si">#{</span><span class="nx">meta</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="s"></span>
@@ -384,7 +417,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>table of values</p>
         </td>
@@ -415,7 +448,7 @@ individual rules.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>replace values</p>
         </td>
@@ -427,7 +460,7 @@ individual rules.</p>
     <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">set</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="mi">18</span><span class="si">}</span><span class="s"></span>
 <span class="s">    | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="mi">53</span><span class="si">}</span><span class="s"> |\n&quot;</span>
   <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">analysis</span><span class="si">}</span><span class="s">\n&quot;</span> <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">analysis</span>
-  <span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">report</span>
+  <span class="nx">report</span> <span class="c1">#  string.wordwrap report</span>
 
 
 </pre></div>
@@ -447,7 +480,7 @@ individual rules.</p>
 <span class="nv">formatValue = </span><span class="nf">(value, config) -&gt;</span>
   <span class="k">switch</span> <span class="nx">config</span><span class="p">.</span><span class="nx">type</span>
     <span class="k">when</span> <span class="s">&#39;percent&#39;</span>
-      <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39; %&#39;</span>
+      <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39; %&#39;</span>
     <span class="k">when</span> <span class="s">&#39;byte&#39;</span>
       <span class="nv">byte = </span><span class="nx">math</span><span class="p">.</span><span class="nx">unit</span> <span class="nx">value</span><span class="p">,</span> <span class="s">&#39;B&#39;</span>
       <span class="nx">byte</span><span class="p">.</span><span class="nx">format</span> <span class="mi">3</span>
@@ -457,13 +490,60 @@ individual rules.</p>
         <span class="nv">m: </span><span class="s">&#39;minute&#39;</span>
       <span class="nv">unit = </span><span class="nx">long</span><span class="p">[</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="p">]</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>
       <span class="nv">interval = </span><span class="nx">math</span><span class="p">.</span><span class="nx">unit</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">unit</span>
-      <span class="nx">interval</span><span class="p">.</span><span class="nx">format</span> <span class="mi">3</span>
+      <span class="nv">interval = </span><span class="nx">interval</span><span class="p">.</span><span class="nx">to</span> <span class="s">&#39;m&#39;</span> <span class="k">if</span> <span class="nx">interval</span><span class="p">.</span><span class="nx">toNumber</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">120</span>
+      <span class="nx">interval</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span>
     <span class="k">when</span> <span class="s">&#39;float&#39;</span>
       <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span>
     <span class="k">else</span>
       <span class="nv">val = </span><span class="nx">value</span>
       <span class="nx">val</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">and</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>
       <span class="nx">val</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20expression%20against%20string">
+  <h3>
+    <a href="#check%20expression%20against%20string" name="check%20expression%20against%20string" class="pilcrow">&#182;</a>
+    Check expression against string
+  </h3>
+</div>
+
+
+<p>It will will try to match the given expression once and return the matched
+groups or false if not matched. The groups are a array with the full match as
+first element or in case of named regexp an object with key 'match' containing
+the full match.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.match = </span><span class="nf">(text, re) -&gt;</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">re</span><span class="o">?</span>
+  <span class="k">unless</span> <span class="nx">re</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
+    <span class="k">return</span> <span class="k">if</span> <span class="nb">Boolean</span> <span class="o">~</span><span class="nx">text</span><span class="p">.</span><span class="nx">indexOf</span> <span class="nx">re</span> <span class="k">then</span> <span class="p">[</span><span class="nx">re</span><span class="p">]</span> <span class="k">else</span> <span class="kc">false</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>it's an regular expression</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">useNamed = </span><span class="o">~</span><span class="nx">re</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">indexOf</span> <span class="s">&#39;(:&lt;&#39;</span>
+  <span class="nv">re = </span><span class="nx">named</span> <span class="nx">re</span> <span class="k">if</span> <span class="nx">useNamed</span>
+  <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nv">match = </span><span class="nx">re</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">text</span>
+  <span class="k">if</span> <span class="nx">useNamed</span>
+    <span class="nv">matches = </span><span class="p">{}</span>
+    <span class="nx">matches</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">match</span><span class="p">.</span><span class="nx">capture</span> <span class="nx">name</span> <span class="k">for</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">match</span><span class="p">.</span><span class="nx">captures</span>
+  <span class="k">else</span>
+    <span class="nv">matches = </span><span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">match</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span>
+  <span class="k">return</span> <span class="nx">matches</span>
 </pre></div>
         </td>
       </tr>

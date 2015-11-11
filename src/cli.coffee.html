@@ -200,8 +200,8 @@
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;turn of color output&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;verbose&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;run in verbose mode&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;run in verbose mode (multiple makes more verbose)&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">count</span><span class="p">(</span><span class="s">&#39;verbose&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="s">&#39;list&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="s">&#39;list the configured groups and services&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
@@ -223,6 +223,24 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
+<p>info mode</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;info mode, analyze system&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;ssh&#39;</span><span class="p">,</span> <span class="s">&#39;info: ssh connection url&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;key&#39;</span><span class="p">,</span> <span class="s">&#39;info: ssh private key to connect&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="s">&#39;info: ss password to connect&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
 <p>general help</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -240,7 +258,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>{logo}
 {chalk.red.bold 'CLI Parameter Failure:'} #{chalk.red err}</p>
@@ -257,13 +275,12 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>implement some global switches</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">chalk.enabled = </span><span class="kc">false</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
-
 
 
 </pre></div>
@@ -316,7 +333,9 @@
 <span class="nx">monitor</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
   <span class="nx">fail</span> <span class="nx">err</span>
   <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;monitor&#39;</span>
-  <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">list</span>
+  <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">info</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Not implemented!&#39;</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">list</span>
     <span class="nx">list</span> <span class="nx">conf</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">tree</span> <span class="o">or</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">reverse</span>
     <span class="nx">tree</span> <span class="nx">conf</span>
@@ -325,8 +344,11 @@
     <span class="nx">monitor</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nf">(ctrl) -&gt;</span>
   <span class="k">else</span>
     <span class="nx">monitor</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Controller </span><span class="si">#{</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&#39;=&gt;&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">colorStatus</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">onetime</span> <span class="nf">(err, results) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">white</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">colorStatus</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Analyzing systems...&quot;</span>
+    <span class="nx">monitor</span><span class="p">.</span><span class="nx">onetime</span>
+      <span class="nv">verbose: </span><span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
       <span class="nx">fail</span> <span class="nx">err</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Finished.\n&quot;</span>
 </pre></div>
