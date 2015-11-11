@@ -99,48 +99,50 @@ class Controller extends EventEmitter
       @status = calcStatus @conf.combine, @conf.check, res
       debug "#{chalk.grey @name} Controller => #{@colorStatus()}"
       # make report
-      context =
-        name: @name
-        conf: @conf
-        sensor: results
-      report = """
-      Controller #{@name} (#{@conf.name})
-      =============================================================================
-      #{@conf.description}\n
-      """
-      report += "\n#{@conf.info context}" if @conf.info
-      report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
-      report += "\n#{@conf.hint context}" if @conf.hint and @status isnt 'ok'
-      if @conf.contact
-        report += "\nContact Persons:\n\n"
-        for group, glist of @conf.contact
-          report += "* __#{string.ucFirst group}__\n"
-          for entry in glist
-            list = config.get "/monitor/contact/#{entry}"
-            for contact in list
-              contact = config.get "/monitor/contact/#{contact}"
-              report += '  -'
-              report += " #{contact.name}" if contact.name
-              report += " <#{contact.email}>" if contact.email
-  #            report += "Tel. #{contact.phone}" if contact.phone
-              report += "\n"
-      if @conf.ref
-        report += "\nFor further assistance check the following links:\n\n"
-        for name, list of @conf.ref
-          report += "- #{name} " + list.map (e) ->
-            name = e.replace(/^.*?\/\//, '').replace /(\/.*?)\/.*$/, '$1'
-            "(#{name})[#{e}]"
-          .join ', '
-          report += '\n'
-#      console.log res
-      report += "\nDetails of the individual sensor runs with their measurement
-      values and maynbe some extended analysis will follow:\n"
-      for num, entry of results
-#        console.log entry
-        report += sensor.report entry
+      report = @report results
 #      console.log report
       @emit 'result', this
       cb()
+
+  report: (results) ->
+    # make report
+    context =
+      name: @name
+      conf: @conf
+      sensor: results
+    report = """
+    Controller #{@name} (#{@conf.name})
+    =============================================================================
+    #{@conf.description}\n
+    """
+    report += "\n#{@conf.info context}" if @conf.info
+    report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
+    report += "\n#{@conf.hint context}" if @conf.hint and @status isnt 'ok'
+    if @conf.contact
+      report += "\nContact Persons:\n\n"
+      for group, glist of @conf.contact
+        report += "* __#{string.ucFirst group}__\n"
+        for entry in glist
+          list = config.get "/monitor/contact/#{entry}"
+          for contact in list
+            contact = config.get "/monitor/contact/#{contact}"
+            report += '  -'
+            report += " #{contact.name}" if contact.name
+            report += " <#{contact.email}>" if contact.email
+#            report += "Tel. #{contact.phone}" if contact.phone
+            report += "\n"
+    if @conf.ref
+      report += "\nFor further assistance check the following links:\n\n"
+      for name, list of @conf.ref
+        report += "- #{name} " + list.map (e) ->
+          name = e.replace(/^.*?\/\//, '').replace /(\/.*?)\/.*$/, '$1'
+          "(#{name})[#{e}]"
+        .join ', '
+        report += '\n'
+    report += "\nDetails of the individual sensor runs with their measurement
+    values and maynbe some extended analysis will follow:\n"
+    for num, entry of results
+      report += sensor.report entry
 
     # keep report
     # action
