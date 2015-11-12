@@ -8,8 +8,6 @@ description: Server containing miscellaneous tools to help in the development pr
 # Monitor runtime configuration
 # -------------------------------------------------
 
-# It may be disabled temporarily, seen as ok without check
-disabled: false
 # Time (in seconds) in which the value is seen as valid and should not be rechecked.
 validity: 1m
 # Time (in seconds) to rerun the check.

@@ -835,12 +835,20 @@ Content:
 
 To be written...
 
+- put
+- read
+- move
+- delete
 - responseTime
 
 ### SFtp
 
 To be written...
 
+- put
+- read
+- move
+- delete
 - responseTime
 
 ### SNMP
@@ -875,6 +883,9 @@ To be written...
 
 https://wiki.postgresql.org/wiki/Monitoring
 
+analysis:
+- pid sensor
+
 ### Apache
 
 To be written...
@@ -887,9 +898,9 @@ mod_status:
 - The time the server was started/restarted and the time it has been running for
   Averages giving the number of requests per second, the number of bytes served per second and the average number of bytes per request (*)
 
-analysis
-
+analysis:
 - The current hosts and requests being processed (*)
+- pid sensor
 
 ### Tomcat
 
@@ -897,11 +908,17 @@ To be written...
 
 Maybe use JMX... https://www.npmjs.com/package/jmx
 
+analysis:
+- pid sensor
+
 ### Wowza
 
 To be written...
 
 Parsing stats page
+
+analysis:
+- pid sensor
 
 ### VMWare
 
@@ -1079,13 +1096,17 @@ CREATE VIEW mon_view_response AS SELECT(...);
 Roadmap
 -------------------------------------------------
 
-- db checks
+- add time results of fields within the warn or fail conditions
+
+- create db tables on startup
 - store results => db
-- store reports
+- store reports => db
+
+- evaluate rules
 - send emails on state change
+
 - add check type: serial: []
 - add check type: controller: ....
-- disabled controller
 - add example reports for each sensor to doc
 
 - controller daemon

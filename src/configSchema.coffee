@@ -209,11 +209,6 @@ controller =
         title: "Description"
         description: "a short abstract of what this controller will check"
         type: 'string'
-      disabled:
-        title: "Disabled"
-        description: "a flag to temporarily disable this check"
-        type: 'boolean'
-        default: false
       validity:
         title: "Result Validity"
         description: "the time (in seconds) the result will be valid and should not be rechecked"
