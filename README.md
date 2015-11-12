@@ -1103,15 +1103,17 @@ Roadmap
 - store reports => db
 
 - evaluate rules
+- markdown -> text (wordwrap)
+- markdown -> html
 - send emails on state change
 
 - add check type: serial: []
 - add check type: controller: ....
 - add example reports for each sensor to doc
 
-- controller daemon
-- add over time report (from db store)
+- controller with daemon
 - -m send to other email instead of controller contacts
+- information run
 
 
 License
