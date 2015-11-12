@@ -27,6 +27,7 @@ chalk = require 'chalk'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 {object, string} = require 'alinex-util'
+database = require 'alinex-database'
 # include classes and helpers
 sensor = require '../sensor'
 
@@ -60,7 +61,7 @@ exports.schema =
         stopping and failing it"
       type: 'interval'
       unit: 'ms'
-      default: 1000
+      default: 10000
       min: 500
     warn: sensor.schema.warn
     fail: sensor.schema.fail
@@ -82,6 +83,10 @@ exports.meta =
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
+    name:
+      title: 'Name'
+      description: "the name of the value retrieved"
+      type: 'string'
     value:
       title: 'Value'
       description: "the concrete value for the query"
@@ -109,44 +114,20 @@ exports.run = (config, cb = ->) ->
     result: {}
   sensor.start work
   # run check
-
-
-
-
-
-
-
-  Exec.run
-    remote: config.remote
-    cmd: '/bin/ping'
-    args: [
-      '-c', config.count
-      '-W', Math.ceil config.timeout/1000
-      '-i', config.interval/1000
-      '-s', config.size
-      config.host
-    ]
-    priority: 'immediately'
-  , (err, proc) ->
-    work.err = err
+  #database.instance config.database, (err, db) ->
+  #  return cb err if err
+  #  # get a new connection from the pool
+  database.record config.database, config.query, (err, record) ->
+    return cb err if err
+#    console.log record
     sensor.end work
     val = work.result.values
     # calculate values
-    num = 0
-    sum = 0
-    re = /time=(\d+.?\d*) ms/g
-    while match = re.exec proc.stdout()
-      time = parseFloat match[1]
-      num++
-      sum += time
-      if not val.responseMin? or time < val.responseMin
-        val.responseMin = time
-      if not val.responseMax? or time > val.responseMax
-        val.responseMax = time
-    val.responseTime = Math.round(sum/num*10)/10.0
-    match = /\s(\d+)% packet loss/.exec proc.stdout()
-    val.quality = 100-match?[1]
-    val.quality = val.quality/100 if val.quality
+    keys = Object.keys record
+    val.responseTime = work.result.date[1] - work.result.date[0]
+    val.value = record[keys[0]]
+    val.name = keys[0]
+    val.comment = record[keys[1]]
     sensor.result work
     cb null, work.result
 

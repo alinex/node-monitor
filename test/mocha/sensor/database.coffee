@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 test = require './test'
 database = require '../../../src/sensor/database'
 
-describe.only "database", ->
+describe "database", ->
   @timeout 10000
 
   store = null
@@ -19,23 +19,31 @@ describe.only "database", ->
       test.meta database, cb
 
     it "should return success", (cb) ->
-      test.ok database, {}, (err, res) ->
+      test.ok database,
+        database: 'test-postgresql'
+        query: "SELECT 100 as num, 'just a number' as comment"
+      , (err, res) ->
         store = res
-        expect(res.values.local).to.be.above 0
+        expect(res.values.value).to.be.above 0
         cb()
 
   describe "check", ->
 
-    it "should give warn on active", (cb) ->
+    it "should give warn", (cb) ->
       test.warn database,
-        warn: 'diff < 100000'
+        database: 'test-postgresql'
+        query: "SELECT 100 as num, 'just a number' as comment"
+        warn: 'value > 0'
       , (err, res) ->
-        expect(res.values.local).to.be.above 0
+        expect(res.values.value).to.be.above 0
         cb()
 
   describe "reporting", ->
 
     it "should make the report", (cb) ->
-      test.report database, {}, store, (err, report) ->
+      test.report database,
+        database: 'test-postgresql'
+        query: "SELECT 100 as num, 'just a number' as comment"
+      , store, (err, report) ->
         console.log report
         cb()

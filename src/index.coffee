@@ -13,6 +13,7 @@ EventEmitter = require('events').EventEmitter
 config = require 'alinex-config'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
+database = require 'alinex-database'
 # include classes and helpers
 schema = require './configSchema'
 Controller = require './controller'
@@ -25,7 +26,7 @@ class Monitor extends EventEmitter
 
   setup: (selection = null) ->
     # setup module configs first
-    async.each [Exec], (mod, cb) ->
+    async.each [Exec, database], (mod, cb) ->
       mod.setup cb
     , (err) ->
       return cb err if err

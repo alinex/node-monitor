@@ -1,0 +1,40 @@
+# Database setup
+# =================================================
+
+# MySQL Test database
+# -------------------------------------------------
+test-mysql:
+
+  server:
+    type: mysql
+    host: <<<env://MYSQL_HOST | localhost>>>
+    #port: <<<env://MYSQL_PORT | 3306>>>
+    database: <<<env://MYSQL_DATABASE | test>>>
+    user: <<<env://MYSQL_USER | test>>>
+    password: <<<env://MYSQL_PASSWORD | >>>
+    #charset: UTF8_GENERAL_CI
+    #timezone: local
+    #connectTimeout: 10s
+
+  pool:
+    limit: 2
+
+# PostgreSQL Test database
+# -------------------------------------------------
+test-postgresql:
+
+  server:
+    type: postgresql
+    host: <<<env://POSTGRESQL_HOST | localhost>>>
+    #port: <<<env://POSTGRESQL_PORT | 5432>>>
+    database: <<<env://POSTGRESQL_DATABASE | test>>>
+    user: <<<env://POSTGRESQL_USER | test>>>
+    password: <<<env://POSTGRESQL_PASSWORD | test>>>
+    #ssl
+    #charset: UTF8_GENERAL_CI
+    #timezone: local
+    #connectTimeout: 10s
+
+  pool:
+    limit: 2
+

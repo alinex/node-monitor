@@ -1,6 +1,9 @@
 chai = require 'chai'
 expect = chai.expect
 validator = require 'alinex-validator'
+index = require '../../../src/index'
+
+index.setup()
 
 exports.schema = (sensor, cb) ->
   for field in ['keys.warn', 'keys.fail']

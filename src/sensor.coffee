@@ -138,7 +138,7 @@ exports.report = (work) ->
     if work.result.values[name]?
       val = formatValue work.result.values[name], set
     report += "| #{string.rpad set.title, 23} | #{string.lpad val.toString(), 48} |\n"
-  report += "\n#{work.sensor.meta.hint}\n"
+  report += "\n#{work.sensor.meta.hint}\n" if work.sensor.meta.hint
   found = false
   for name, set of work.sensor.schema.keys
     continue if name is 'analysis'
