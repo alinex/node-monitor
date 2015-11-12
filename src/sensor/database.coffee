@@ -65,6 +65,24 @@ exports.schema =
       min: 500
     warn: sensor.schema.warn
     fail: sensor.schema.fail
+    analysis:
+      title: "Additional Analysis"
+      description: "the additional query to run if something went wrong"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        query:
+          title: "Query"
+          description: "the query to run to retrieve additional information"
+          type: 'string'
+        timeout:
+          title: "Timeout"
+          description: "the time in milliseconds the whole test may take before
+            stopping it"
+          type: 'interval'
+          unit: 'ms'
+          default: 20000
+          min: 500
 
 # General information
 # -------------------------------------------------
@@ -134,4 +152,14 @@ exports.run = (config, cb = ->) ->
 # Run additional analysis
 # -------------------------------------------------
 exports.analysis = (config, res, cb = ->) ->
-  cb()
+  return cb() unless config.analysis?
+  database.list config.database, config.analysis.query, (err, list) ->
+    return cb err if err
+    report = """
+    Maybe the following additional results may help:
+
+    | #{Object.keys(list[0]).join ' | '} |\n"""
+    for row in list
+      values = Object.keys(row).map (e) -> row[e]
+      report += "| #{values.join ' | '} |\n"
+    cb null, report

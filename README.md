@@ -10,7 +10,7 @@ whole IT landscape from the host to the application. While most monitoring
 tools has it's focus on the server here the focus lies more on the application
 side.
 
-- remote daemonless analysis
+- remote daemon-less analysis
 - lots of sensors
 - alerting and reporting
 
@@ -96,6 +96,7 @@ the system and may also depend on other controllers. Each controller is made by 
 specific configuration files containing meta information.
 
 See the following example for a full controller configuration:
+
 ``` yaml
 # Monitoring controller configuration
 # =================================================
@@ -927,9 +928,17 @@ To be written...
 
 ### Database
 
-To be written...
+This sensor will get some measurement values from the database:
 
-SELECT COUNT(*) AS NUM, LAST(date) AS comment FROM
+- database - alias name of the database to use
+- query - the query to run
+- timeout - maximum time to run the query (default: 10s)
+- analysis
+  - query - an additional query to run
+  - timeout - maximum time to run the query (default: 20s)
+
+``` text
+```
 
 
 Simulation Sensors
