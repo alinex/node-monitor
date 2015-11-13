@@ -101,18 +101,10 @@ exports.meta =
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
-    name:
-      title: 'Name'
-      description: "the name of the value retrieved"
-      type: 'string'
-    value:
-      title: 'Value'
-      description: "the concrete value for the query"
-      type: 'float'
-    comment:
-      title: 'Comment'
-      description: "additional information"
-      type: 'string'
+    data:
+      title: 'Values'
+      description: "the concrete values from the query"
+      type: 'object'
     responseTime:
       title: 'Response Time'
       description: "time to retrieve the data"
@@ -141,11 +133,8 @@ exports.run = (config, cb = ->) ->
     sensor.end work
     val = work.result.values
     # calculate values
-    keys = Object.keys record
     val.responseTime = work.result.date[1] - work.result.date[0]
-    val.value = record[keys[0]]
-    val.name = keys[0]
-    val.comment = record[keys[1]]
+    val.data = record
     sensor.result work
     cb null, work.result
 

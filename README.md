@@ -770,6 +770,9 @@ This sensor will ping another host:
 If a remote server reference is given this will be used for tunneling over ssh
 as proxy.
 
+> Within the match parameter you may use named-captures in the form (:<name>regexp).
+> If you do so you will get a named object instead of an array as result.
+
 ``` text
 HTTP Request (->http://heise.de)
 -----------------------------------------------------------------------------
@@ -1033,7 +1036,7 @@ a database for long time analysis. This database may look like:
     mon_value
     P value_id
     F check_id
-    - name (string) # of the value
+    - name (string) # of the value e.g. responseTime, match.0, value.counter
     - type (string)
     - unit (string)
 

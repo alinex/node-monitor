@@ -137,7 +137,12 @@ exports.report = (work) ->
     val = ''
     if work.result.values[name]?
       val = formatValue work.result.values[name], set
-    report += "| #{string.rpad set.title, 23} | #{string.lpad val.toString(), 48} |\n"
+    if typeof val is 'object'
+      for n, v of val
+        report += "| #{string.rpad (set.title + ': ' + n), 23}
+        | #{string.lpad v.toString(), 48} |\n"
+    else
+      report += "| #{string.rpad set.title, 23} | #{string.lpad val.toString(), 48} |\n"
   if work.sensor.meta.hint
     report += "\n> #{string.wordwrap work.sensor.meta.hint, 76, '\n> '}\n"
   found = false

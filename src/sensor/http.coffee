@@ -126,7 +126,7 @@ exports.meta =
       type: 'byte'
     match:
       title: "Body Match"
-      description: "success of check for content with containing results"
+      description: "success of check for content with containing result strings"
       type: 'object'
 
 # Get content specific name
