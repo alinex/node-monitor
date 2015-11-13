@@ -293,3 +293,19 @@ module.exports =
       entries: [ email ]
     rule: rule
     controller: controller
+    storage:
+      title: "Storage"
+      description: "the storage to use for results"
+      type: 'object'
+      allowedKeys: true
+      mandatoryKeys: ['database']
+      keys:
+        database:
+          title: "Database"
+          description: "the alias name of the database to store to"
+          type: 'string'
+          list: '<<<context:///database>>>'
+        prefix:
+          title: "Table Prefix"
+          description: "a prefix to be put before each table name"
+          type: 'string'

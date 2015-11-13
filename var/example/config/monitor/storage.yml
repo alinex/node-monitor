@@ -1,0 +1,6 @@
+# Storage settings
+# =================================================
+# There to store the results of the monitoring.
+
+database: monitor
+prefix: mon_

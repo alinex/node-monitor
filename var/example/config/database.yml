@@ -1,6 +1,18 @@
 # Database setup
 # =================================================
 
+# Database for Monitor Results
+# -------------------------------------------------
+monitor:
+  server:
+    type: postgresql
+    host: localhost
+    database: monitor
+    user: monitor
+    password: mon2store
+  pool:
+    limit: 10
+
 # MySQL Test database
 # -------------------------------------------------
 test-mysql:
