@@ -112,12 +112,14 @@ class Controller extends EventEmitter
       sensor: results
     report = """
     Controller #{@name} (#{@conf.name})
-    =============================================================================
-    #{@conf.description}\n
+    ==============================================================================
+    #{string.wordwrap @conf.description, 78}\n
     """
-    report += "\n#{@conf.info context}" if @conf.info
+    if @conf.info
+      report += "\n#{string.wordwrap @conf.info(context), 78}"
     report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
-    report += "\n#{@conf.hint context}" if @conf.hint and @status isnt 'ok'
+    if @conf.hint and @status isnt 'ok'
+      report += "\n> #{string.wordwrap @conf.hint(context), 76, '\n> '}"
     if @conf.contact
       report += "\nContact Persons:\n\n"
       for group, glist of @conf.contact

@@ -957,6 +957,10 @@ This sensor will get some measurement values from the database:
 ``` text
 ```
 
+### REST
+
+To be written...
+
 
 Simulation Sensors
 -------------------------------------------------
@@ -1103,7 +1107,6 @@ Roadmap
 - store reports => db
 
 - evaluate rules
-- markdown -> text (wordwrap)
 - markdown -> html
 - send emails on state change
 

@@ -123,9 +123,9 @@ exports.report = (work) ->
   name = work.sensor.name work.config
   name = "(#{name})" if name
   report = """\n#{meta.title} #{name}
-  -----------------------------------------------------------------------------\n
+  ------------------------------------------------------------------------------\n
   """
-  report += """\n#{meta.description}
+  report += """\n#{string.wordwrap meta.description, 78}
 
   Last check results from #{work.result.date[0]} are:
 
@@ -138,7 +138,8 @@ exports.report = (work) ->
     if work.result.values[name]?
       val = formatValue work.result.values[name], set
     report += "| #{string.rpad set.title, 23} | #{string.lpad val.toString(), 48} |\n"
-  report += "\n#{work.sensor.meta.hint}\n" if work.sensor.meta.hint
+  if work.sensor.meta.hint
+    report += "\n> #{string.wordwrap work.sensor.meta.hint, 76, '\n> '}\n"
   found = false
   for name, set of work.sensor.schema.keys
     continue if name is 'analysis'
