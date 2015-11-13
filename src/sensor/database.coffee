@@ -147,8 +147,6 @@ exports.analysis = (config, res, cb = ->) ->
     report = """
     Maybe the following additional results may help:
 
-    | #{Object.keys(list[0]).join ' | '} |\n"""
-    for row in list
-      values = Object.keys(row).map (e) -> row[e]
-      report += "| #{values.join ' | '} |\n"
+    #{sensor.formatTable list}
+    """
     cb null, report

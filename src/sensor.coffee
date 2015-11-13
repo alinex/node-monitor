@@ -170,6 +170,16 @@ exports.report = (work) ->
 
 # ### Format a value for better human readable display
 formatValue = (value, config) ->
+  # format with autodetect
+  unless config
+    return switch
+      when typeof value is 'number'
+        parts = (Math.round(value * 100) / 100).toString().split '.'
+        parts[0] = parts[0].replace /\B(?=(\d{3})+(?!\d))/g, ","
+        parts.join '.'
+      else
+        value
+  # format using config setting
   switch config.type
     when 'percent'
       Math.round(value * 100).toString() + ' %'
@@ -185,11 +195,53 @@ formatValue = (value, config) ->
       interval = interval.to 'm' if interval.toNumber('s') > 120
       interval.format()
     when 'float'
-      (Math.round(value * 100) / 100).toString()
+      parts = (Math.round(value * 100) / 100).toString().split '.'
+      parts[0] = parts[0].replace /\B(?=(\d{3})+(?!\d))/g, ","
+      parts.join '.'
     else
       val = value
       val += " #{config.unit}" if val and config.unit
       val
+
+# ### Convert object to markdown table
+formatTable = (obj) ->
+  result = ''
+  unless Array.isArray obj
+    # single object
+    keys = Object.keys obj
+    # get length of heading
+    maxlen = []
+    for n in keys
+      maxlen[0] = n.length if maxlen[0] < n.length
+      maxlen[1] = obj[n].length if maxlen[1] < obj[n].length
+    # create table
+    result = "| #{string.rpad 'Name', maxlen[0]} | #{string.lpad 'Value', maxlen[1]} |\n"
+    result = "| #{string.repeat '-', maxlen[0]} | #{string.repeat '-', maxlen[1]} |\n"
+    for n, v in obj
+    result = "| #{string.rpad n, maxlen[0]} | #{string.lpad formatValue(v), maxlen[1]} |\n"
+  else if obj.length
+    # List of objects
+    keys = Object.keys obj[0]
+    # get length of heading
+    maxlen = {}
+    for n in keys
+      maxlen[n] = n.length
+    for e in obj
+      for n in keys
+        maxlen[n] = obj[e][n].length if maxlen[n] < obj[e][n].length
+    # create table
+    row = keys.map (n) ->
+      string.lpad n, maxlen[n]
+    result = "| #{row.join ' | '} |\n"
+    row = keys.map (n) ->
+      string.repeat '-', maxlen[n]
+    result = "| #{row.join ' | '} |\n"
+    for e in obj
+      row = keys.map (n) ->
+        string.lpad formatValue(e[n]), maxlen[n]
+      result = "| #{row.join ' | '} |\n"
+  # return result
+  result
 
 # ### Check expression against string
 #
