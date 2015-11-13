@@ -17,7 +17,7 @@ database = require 'alinex-database'
 # include classes and helpers
 schema = require './configSchema'
 Controller = require './controller'
-
+storage = require './storage'
 
 class Monitor extends EventEmitter
 
@@ -81,13 +81,16 @@ class Monitor extends EventEmitter
       mode = null
       unless cb
         cb = ->
-    @instantiate mode, (err) =>
-      return cb err if err
-      async.mapOf @controller, (ctrl, name, cb) ->
-        ctrl.run cb
-      , (err) ->
-        Exec.close()
-        cb err
+    async.parallel [
+      (cb) -> storage.init @conf, cb
+      (cb) -> @instantiate mode, (err) =>
+        return cb err if err
+        async.mapOf @controller, (ctrl, name, cb) ->
+          ctrl.run cb
+        , (err) ->
+          Exec.close()
+          cb err
+    ], cb
     this
 
   start: ->

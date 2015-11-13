@@ -309,3 +309,4 @@ module.exports =
           title: "Table Prefix"
           description: "a prefix to be put before each table name"
           type: 'string'
+          default: ''
