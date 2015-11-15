@@ -147,7 +147,7 @@ exports.init = (conf, cb) ->
         """
       ,
         """
-        CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail');
+        CREATE TYPE IF NOT EXISTS statusType AS ENUM ('ok', 'warn', 'fail');
         CREATE TABLE IF NOT EXISTS #{prefix}status (
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,

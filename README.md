@@ -1106,6 +1106,7 @@ Roadmap
 - add time results of fields within the warn or fail conditions
 
 - create db tables on startup
+- add controller, check to db
 - store results => db
 - store reports => db
 
