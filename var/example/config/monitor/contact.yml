@@ -5,26 +5,13 @@
 
 # Groups
 # -------------------------------------------------
-operations: [aschi, malbr, yzhao]
+operations: [aschi]
 
 # Staff
 # -------------------------------------------------
 aschi:
   name: Alexander Schilling
-  position: IT Operations
-  company: divibib GmbH
-  email: alexander.schilling@4readers.org
+  position: Developer
+  company: Alinex Project
+  email: info@alinex.de
   phone: 07129/922545
-
-malbr:
-  name: Michael Albrecht
-  position: IT Operations
-  company: divibib GmbH
-  email: michael.albrecht@divibib.com
-
-yzhao:
-  name: Yingli Zhao
-  position: IT Operations
-  company: divibib GmbH
-  email: yingli.zhao@divibib.com
-

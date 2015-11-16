@@ -82,15 +82,15 @@ class Monitor extends EventEmitter
       unless cb
         cb = ->
     async.parallel [
-      (cb) -> storage.init @conf, cb
-      (cb) -> @instantiate mode, (err) =>
-        return cb err if err
-        async.mapOf @controller, (ctrl, name, cb) ->
-          ctrl.run cb
-        , (err) ->
-          Exec.close()
-          cb err
-    ], cb
+      (cb) -> storage.init cb
+      (cb) => @instantiate mode, cb
+    ], (err) =>
+      return cb err if err
+      async.mapOf @controller, (ctrl, name, cb) ->
+        ctrl.run cb
+      , (err) ->
+        Exec.close()
+        cb err
     this
 
   start: ->

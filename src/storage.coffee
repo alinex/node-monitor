@@ -14,7 +14,8 @@ database = require 'alinex-database'
 # include classes and helpers
 
 
-exports.init = (conf, cb) ->
+exports.init = (cb) ->
+  conf = config.get '/monitor'
   debug "Initialize database store..."
   return cb() unless conf.storage?
   database.instance conf.storage.database, (err, db) ->
@@ -34,8 +35,7 @@ exports.init = (conf, cb) ->
         controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
         category VARCHAR(5) NOT NULL,
         sensor VARCHAR(10) NOT NULL,
-        name VARCHAR(80) NOT NULL,
-        INDEX (controller_id, sensor, name)
+        name VARCHAR(80) NOT NULL
       )
       """
     ,
@@ -43,8 +43,7 @@ exports.init = (conf, cb) ->
       CREATE TABLE IF NOT EXISTS #{prefix}value (
         value_id SERIAL PRIMARY KEY,
         check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-        name VARCHAR(80) NOT NULL,
-        INDEX (check_id, name)
+        name VARCHAR(80) NOT NULL
       )
       """
 #    - type (string)
@@ -58,10 +57,11 @@ exports.init = (conf, cb) ->
         report TEXT NOT NULL
       )
       """
-    ], (sql, cb) -> db.exec sql, cb
+    ], (sql, cb) ->
+      db.exec sql, cb
     , (err) ->
       return cb err if err
-      async.each [
+      async.eachSeries [
         """
         CREATE TABLE IF NOT EXISTS #{prefix}value_minute (
           value_minute_id SERIAL PRIMARY KEY,
@@ -71,8 +71,7 @@ exports.init = (conf, cb) ->
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL,
-          INDEX (value_id, timerange)
+          last VARCHAR(120) NOT NULL
         )
         """
       ,
@@ -85,8 +84,7 @@ exports.init = (conf, cb) ->
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL,
-          INDEX (value_id, timerange)
+          last VARCHAR(120) NOT NULL
         )
         """
       ,
@@ -99,8 +97,7 @@ exports.init = (conf, cb) ->
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL,
-          INDEX (value_id, timerange)
+          last VARCHAR(120) NOT NULL
         )
         """
       ,
@@ -113,8 +110,7 @@ exports.init = (conf, cb) ->
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL,
-          INDEX (value_id, timerange)
+          last VARCHAR(120) NOT NULL
         )
         """
       ,
@@ -127,8 +123,7 @@ exports.init = (conf, cb) ->
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL,
-          INDEX (value_id, timerange)
+          last VARCHAR(120) NOT NULL
         )
         """
       ,
@@ -141,13 +136,13 @@ exports.init = (conf, cb) ->
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL,
-          INDEX (value_id, timerange)
+          last VARCHAR(120) NOT NULL
         )
         """
       ,
+        "CREATE TYPE IF NOT EXISTS statusType AS ENUM ('ok', 'warn', 'fail');"
+      ,
         """
-        CREATE TYPE IF NOT EXISTS statusType AS ENUM ('ok', 'warn', 'fail');
         CREATE TABLE IF NOT EXISTS #{prefix}status (
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
@@ -163,5 +158,9 @@ exports.init = (conf, cb) ->
           report TEXT NOT NULL
         )
         """
-      ], (sql, cb) -> db.exec sql, cb
+#        INDEX (controller_id, sensor, name)
+#        INDEX (check_id, name)
+#          INDEX (value_id, timerange)
+      ], (sql, cb) ->
+        db.exec sql, cb
       , cb
