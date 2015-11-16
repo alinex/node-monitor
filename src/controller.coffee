@@ -80,6 +80,7 @@ class Controller extends EventEmitter
           sensor: sensorInstance
           config: check.config
           result: res
+          hint: check.hint
         if res.result.status in ['disabled', @checks[0]?[num].status]
           return cb null, res
         # run analysis
@@ -108,7 +109,7 @@ class Controller extends EventEmitter
     # make report
     context =
       name: @name
-      conf: @conf
+      config: @conf
       sensor: results
     report = """
     Controller #{@name} (#{@conf.name})
@@ -116,10 +117,10 @@ class Controller extends EventEmitter
     #{string.wordwrap @conf.description, 78}\n
     """
     if @conf.info
-      report += "\n#{string.wordwrap @conf.info(context), 78}"
+      report += "\n#{string.wordwrap @conf.info, 78}"
     report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
     if @conf.hint and @status isnt 'ok'
-      report += "\n> #{string.wordwrap @conf.hint(context), 76, '\n> '}"
+      report += "\n> #{string.wordwrap @conf.hint(context), 76, '\n> '}\n"
     if @conf.contact
       report += "\nContact Persons:\n\n"
       for group, glist of @conf.contact

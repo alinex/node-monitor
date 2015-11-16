@@ -113,21 +113,21 @@ exports.meta =
 
 # Get content specific name
 # -------------------------------------------------
-exports.name = (config) -> "#{config.database}: #{string.shorten config.query, 30}"
+exports.name = (conf) -> "#{conf.database}: #{string.shorten conf.query, 30}"
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
+exports.run = (conf, cb = ->) ->
   work =
     sensor: this
-    config: config
+    config: conf
     result: {}
   sensor.start work
   # run check
   #database.instance config.database, (err, db) ->
   #  return cb err if err
   #  # get a new connection from the pool
-  database.record config.database, config.query, (err, record) ->
+  database.record conf.database, conf.query, (err, record) ->
     return cb err if err
 #    console.log record
     sensor.end work
@@ -140,13 +140,13 @@ exports.run = (config, cb = ->) ->
 
 # Run additional analysis
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
-  return cb() unless config.analysis?
-  database.list config.database, config.analysis.query, (err, list) ->
+exports.analysis = (conf, res, cb = ->) ->
+  return cb() unless conf.analysis?
+  database.list conf.database, conf.analysis.query, (err, list) ->
     return cb err if err
     report = """
     Maybe the following additional results may help:
 
-    #{sensor.formatTable list}
+    #{sensor.formatTable list}\n
     """
     cb null, report

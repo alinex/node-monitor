@@ -13,6 +13,14 @@ side.
 - remote daemon-less analysis
 - lots of sensors
 - alerting and reporting
+- data store for time analysis
+
+The monitor will analyze your whole environment in deep by connecting to the different
+systems in parallel and check them deeply. If a problem occurs an additional analysis
+step may be made to get more information. The result values will be stored in the
+storage database and a detailed report will be created. Based on additional action
+rules the report may be send by email or a web request is made. Out of the stored
+values time reports may be created.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
@@ -107,12 +115,12 @@ description: Server containing miscellaneous tools to help in the development pr
 
 # Monitor runtime configuration
 # -------------------------------------------------
+# Within the validity the same values will be used without rechecking them and
+# after the interval an automatic new run will be started in daemon mode.
 
-# It may be disabled temporarily, seen as ok without check
-disabled: false
 # Time (in seconds) in which the value is seen as valid and should not be rechecked.
 validity: 1m
-# Time (in seconds) to rerun the check.
+# Time (in seconds) to rerun the check in daemon mode.
 interval: 5m
 
 # Sensors to run
@@ -121,19 +129,32 @@ interval: 5m
 # fully work.
 check:
   - sensor: diskfree
+
+    # ### Specific setup
     config:
       remote: my-develop
       share: /
-  - sensor: diskfree
-    config:
-      remote: my-develop
-      share: /run
-    # weight setting specific to value of the following 'combine' setting:
+      # Additional analysis to run if check is warn or failure
+      analysis:
+        dirs: '/tmp, /var/log'
+
+    # ### Weight setting
+    # Specific to value of the following 'combine' setting.
     # With the `weight` settings on the different entries single group entries may
     # be rated specific not like the others. Use a number in `average` to make the
     # weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
     # level for one step before using in calculation on all combine methods.
-    #weight: 2
+    #weight: down
+
+    # ### Hint
+    # Specific hint as handlebars text which may include the current results. Use
+    # the following variables:
+    #
+    #     name: Name of the sensor
+    #     meta: Meta Information of the sensor
+    #     config: Sensor configuration
+    #     results: Results
+    #hint: |+
 
 # ### Combine values
 # For multiple dependencies this value defines how the individual sensors are
@@ -144,16 +165,32 @@ check:
 # - average - the average status (arithmetic round) is used
 combine: max
 
+# Rules to process
+# -------------------------------------------------
+# The following rules will be processed after the controller is run. They will
+# decide which actions to run and how to do it.
+#
+# The following list references the active rules for this controller:
 rule:
   - fail
   - warn
   - ok
 
+# Information Text
+# -------------------------------------------------
+# This is a general and unspecific information text for that controller.
 info: |+
   This system is used for software development, building and deployment. An
   outage will have direct effects to the developers so that they can't submit,
   test and deploy their code.
 
+# ### Specific Hint
+# In contrast to the `info` the `hint` will be more specific to the concrete
+# results. Within this handlebar text you may use some specific variables:
+#
+#     name: controller name
+#     config: this config
+#     sensor: sensor results
 hint: |+
   All necessary parts are on the same machine, so that you only have to bring
   this machine to work. Backups of the data are made on my-backup.
@@ -161,6 +198,8 @@ hint: |+
   Keep in mind that the machine is in the test net and you have to use a valid
   VPN connection for accessing.
 
+# Additional Help
+# -------------------------------------------------
 contact:
   operations: alex
 
@@ -180,6 +219,20 @@ ref:
 
 The controller will call the sensors and collect the data. It may also generate
 reports or trigger specific actions.
+
+### Structure
+
+A controller may hold some sensor but not to much. You should only group corresponding
+sensors within it. Dependent parts may be put in another controller, one for each
+level of dependency.
+
+Each controller should have an unique and memorable name. A good structure of
+controllers may be:
+
+- one for each server: name it like your machine names i.e. `vs1626`, `ma77234`
+- one for each application part i.e. `web`, `web1`, `web2`, `web3`, `ftp`
+- one for each end user application i.e. `login`, `browse`, `buy`
+- one overall check i.e. `all`
 
 
 Sensor
@@ -202,8 +255,8 @@ The sensors contains:
 Each sensor has its own configuration settings like seen above in the controller
 configuration. The common keys are:
 
-- warn - the javascript code to check to set status to warn
-- fail - the javascript code to check to set status to fail
+- warn - the javascript code to check if status should be set to warn
+- fail - the javascript code to check if status should be set to fail
 - analysis - the configuration for the analysis if it is run
 
 ### Meta Data
@@ -1137,7 +1190,9 @@ Roadmap
 - store results => db
 - store reports => db
 
-- evaluate rules
+- evaluate rules before analysis
+- run analysis
+- execute rules
 - markdown -> html
 - send emails on state change
 

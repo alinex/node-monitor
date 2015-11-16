@@ -241,7 +241,7 @@ controller =
       info:
         title: "Info"
         description: "a general information about this part of the system"
-        type: 'handlebars'
+        type: 'string'
       hint:
         title: "Hint"
         description: "a specific description for this controller that describes

@@ -166,6 +166,13 @@ exports.report = (work) ->
     report += "| #{string.rpad set.title, 18}
     | #{string.lpad val.toString(), 53} |\n"
   report += "\n#{work.result.analysis}\n" if work.result.analysis
+  if work.hint
+    context =
+      name: work.sensor.name work.config
+      config: work.config
+      results: work.result
+      meta: work.meta
+    report += "\n> #{string.wordwrap conf.hint(context), 76, '\n> '}\n"
   report #  string.wordwrap report
 
 # ### Format a value for better human readable display
