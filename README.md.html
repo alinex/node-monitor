@@ -47,6 +47,9 @@
       <div class="heading h2">
         <a href="#controller">Controller</a>
       </div>
+      <div class="heading h3">
+        <a href="#structure">Structure</a>
+      </div>
       <div class="heading h2">
         <a href="#sensor">Sensor</a>
       </div>
@@ -143,6 +146,9 @@
       <div class="heading h3">
         <a href="#database">Database</a>
       </div>
+      <div class="heading h3">
+        <a href="#rest">REST</a>
+      </div>
       <div class="heading h2">
         <a href="#simulation%20sensors">Simulation Sensors</a>
       </div>
@@ -211,6 +217,13 @@
 whole IT landscape from the host to the application. While most monitoring
 tools has it's focus on the server here the focus lies more on the application
 side.</p>
+
+<ul>
+<li>remote daemon-less analysis</li>
+<li>lots of sensors</li>
+<li>alerting and reporting</li>
+<li>data store for time analysis</li>
+</ul>
 
 <blockquote>
   <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
@@ -349,12 +362,12 @@ specific configuration files containing meta information.</p>
 
 <span class="c1"># Monitor runtime configuration</span>
 <span class="c1"># -------------------------------------------------</span>
+<span class="c1"># Within the validity the same values will be used without rechecking them and</span>
+<span class="c1"># after the interval an automatic new run will be started in daemon mode.</span>
 
-<span class="c1"># It may be disabled temporarily, seen as ok without check</span>
-<span class="l-Scalar-Plain">disabled</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
 <span class="c1"># Time (in seconds) in which the value is seen as valid and should not be rechecked.</span>
 <span class="l-Scalar-Plain">validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1m</span>
-<span class="c1"># Time (in seconds) to rerun the check.</span>
+<span class="c1"># Time (in seconds) to rerun the check in daemon mode.</span>
 <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5m</span>
 
 <span class="c1"># Sensors to run</span>
@@ -363,19 +376,32 @@ specific configuration files containing meta information.</p>
 <span class="c1"># fully work.</span>
 <span class="l-Scalar-Plain">check</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
+
+    <span class="c1"># ### Specific setup</span>
     <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
       <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
-    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
-      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/run</span>
-    <span class="c1"># weight setting specific to value of the following &#39;combine&#39; setting:</span>
+      <span class="c1"># Additional analysis to run if check is warn or failure</span>
+      <span class="l-Scalar-Plain">analysis</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">dirs</span><span class="p-Indicator">:</span> <span class="s">&#39;/tmp,</span><span class="nv"> </span><span class="s">/var/log&#39;</span>
+
+    <span class="c1"># ### Weight setting</span>
+    <span class="c1"># Specific to value of the following &#39;combine&#39; setting.</span>
     <span class="c1"># With the `weight` settings on the different entries single group entries may</span>
     <span class="c1"># be rated specific not like the others. Use a number in `average` to make the</span>
     <span class="c1"># weight higher (1 is normal). Also the weight &#39;up&#39; and &#39;down&#39; changes the error</span>
     <span class="c1"># level for one step before using in calculation on all combine methods.</span>
-    <span class="c1">#weight: 2</span>
+    <span class="c1">#weight: down</span>
+
+    <span class="c1"># ### Hint</span>
+    <span class="c1"># Specific hint as handlebars text which may include the current results. Use</span>
+    <span class="c1"># the following variables:</span>
+    <span class="c1">#</span>
+    <span class="c1">#     name: Name of the sensor</span>
+    <span class="c1">#     meta: Meta Information of the sensor</span>
+    <span class="c1">#     config: Sensor configuration</span>
+    <span class="c1">#     results: Results</span>
+    <span class="c1">#hint: |+</span>
 
 <span class="c1"># ### Combine values</span>
 <span class="c1"># For multiple dependencies this value defines how the individual sensors are</span>
@@ -386,16 +412,32 @@ specific configuration files containing meta information.</p>
 <span class="c1"># - average - the average status (arithmetic round) is used</span>
 <span class="l-Scalar-Plain">combine</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">max</span>
 
+<span class="c1"># Rules to process</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="c1"># The following rules will be processed after the controller is run. They will</span>
+<span class="c1"># decide which actions to run and how to do it.</span>
+<span class="c1">#</span>
+<span class="c1"># The following list references the active rules for this controller:</span>
 <span class="l-Scalar-Plain">rule</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">fail</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">warn</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ok</span>
 
+<span class="c1"># Information Text</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="c1"># This is a general and unspecific information text for that controller.</span>
 <span class="l-Scalar-Plain">info</span><span class="p-Indicator">:</span> <span class="p-Indicator">|+</span>
   <span class="no">This system is used for software development, building and deployment. An</span>
   <span class="no">outage will have direct effects to the developers so that they can&#39;t submit,</span>
   <span class="no">test and deploy their code.</span>
 
+<span class="c1"># ### Specific Hint</span>
+<span class="c1"># In contrast to the `info` the `hint` will be more specific to the concrete</span>
+<span class="c1"># results. Within this handlebar text you may use some specific variables:</span>
+<span class="c1">#</span>
+<span class="c1">#     name: controller name</span>
+<span class="c1">#     config: this config</span>
+<span class="c1">#     sensor: sensor results</span>
 <span class="l-Scalar-Plain">hint</span><span class="p-Indicator">:</span> <span class="p-Indicator">|+</span>
   <span class="no">All necessary parts are on the same machine, so that you only have to bring</span>
   <span class="no">this machine to work. Backups of the data are made on my-backup.</span>
@@ -403,7 +445,10 @@ specific configuration files containing meta information.</p>
   <span class="no">Keep in mind that the machine is in the test net and you have to use a valid</span>
   <span class="no">VPN connection for accessing.</span>
 
-<span class="l-Scalar-Plain">contact</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">operations</span>
+<span class="c1"># Additional Help</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="l-Scalar-Plain">contact</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">operations</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
 
 <span class="l-Scalar-Plain">ref</span><span class="p-Indicator">:</span>
   <span class="c1"># system access</span>
@@ -423,6 +468,29 @@ specific configuration files containing meta information.</p>
 
 <p>The controller will call the sensors and collect the data. It may also generate
 reports or trigger specific actions.</p>
+
+
+<div class="pilwrap" id="structure">
+  <h3>
+    <a href="#structure" name="structure" class="pilcrow">&#182;</a>
+    Structure
+  </h3>
+</div>
+
+
+<p>A controller may hold some sensor but not to much. You should only group corresponding
+sensors within it. Dependent parts may be put in another controller, one for each
+level of dependency.</p>
+
+<p>Each controller should have an unique and memorable name. A good structure of
+controllers may be:</p>
+
+<ul>
+<li>one for each server: name it like your machine names i.e. <code>vs1626</code>, <code>ma77234</code></li>
+<li>one for each application part i.e. <code>web</code>, <code>web1</code>, <code>web2</code>, <code>web3</code>, <code>ftp</code></li>
+<li>one for each end user application i.e. <code>login</code>, <code>browse</code>, <code>buy</code></li>
+<li>one overall check i.e. <code>all</code></li>
+</ul>
 
 
 <div class="pilwrap" id="sensor">
@@ -461,8 +529,8 @@ a <strong>check</strong>.</p>
 configuration. The common keys are:</p>
 
 <ul>
-<li>warn - the javascript code to check to set status to warn</li>
-<li>fail - the javascript code to check to set status to fail</li>
+<li>warn - the javascript code to check if status should be set to warn</li>
+<li>fail - the javascript code to check if status should be set to fail</li>
 <li>analysis - the configuration for the analysis if it is run</li>
 </ul>
 
@@ -1177,6 +1245,11 @@ and be considered as failed</li>
 <p>If a remote server reference is given this will be used for tunneling over ssh
 as proxy.</p>
 
+<blockquote>
+  <p>Within the match parameter you may use named-captures in the form (:<name>regexp).
+  If you do so you will get a named object instead of an array as result.</p>
+</blockquote>
+
 
 <div class="highlight"><pre><code>HTTP Request (-&gt;http://heise.de)
 -----------------------------------------------------------------------------
@@ -1252,6 +1325,10 @@ Content:
 <p>To be written...</p>
 
 <ul>
+<li>put</li>
+<li>read</li>
+<li>move</li>
+<li>delete</li>
 <li>responseTime</li>
 </ul>
 
@@ -1267,6 +1344,10 @@ Content:
 <p>To be written...</p>
 
 <ul>
+<li>put</li>
+<li>read</li>
+<li>move</li>
+<li>delete</li>
 <li>responseTime</li>
 </ul>
 
@@ -1344,6 +1425,9 @@ cat /proc/PID/status</p>
 
 <p><a href='https://wiki.postgresql.org/wiki/Monitoring'>https://wiki.postgresql.org/wiki/Monitoring</a></p>
 
+<p>analysis:
+- pid sensor</p>
+
 
 <div class="pilwrap" id="apache">
   <h3>
@@ -1365,11 +1449,9 @@ cat /proc/PID/status</p>
 Averages giving the number of requests per second, the number of bytes served per second and the average number of bytes per request (*)</li>
 </ul>
 
-<p>analysis</p>
-
-<ul>
-<li>The current hosts and requests being processed (*)</li>
-</ul>
+<p>analysis:
+- The current hosts and requests being processed (*)
+- pid sensor</p>
 
 
 <div class="pilwrap" id="tomcat">
@@ -1384,6 +1466,9 @@ Averages giving the number of requests per second, the number of bytes served pe
 
 <p>Maybe use JMX... <a href='https://www.npmjs.com/package/jmx'>https://www.npmjs.com/package/jmx</a></p>
 
+<p>analysis:
+- pid sensor</p>
+
 
 <div class="pilwrap" id="wowza">
   <h3>
@@ -1396,6 +1481,9 @@ Averages giving the number of requests per second, the number of bytes served pe
 <p>To be written...</p>
 
 <p>Parsing stats page</p>
+
+<p>analysis:
+- pid sensor</p>
 
 
 <div class="pilwrap" id="vmware">
@@ -1448,9 +1536,59 @@ Averages giving the number of requests per second, the number of bytes served pe
 </div>
 
 
-<p>To be written...</p>
+<p>This sensor will get some measurement values from the database:</p>
 
-<p>SELECT COUNT(*) AS NUM, LAST(date) AS comment FROM</p>
+<ul>
+<li>database - alias name of the database to use</li>
+<li>query - the query to run</li>
+<li>timeout - maximum time to run the query (default: 10s)</li>
+<li>analysis
+<ul><li>query - an additional query to run</li>
+<li>timeout - maximum time to run the query (default: 20s)</li></ul></li>
+</ul>
+
+
+<div class="highlight"><pre><code>Database (test-postgresql: SELECT...)
+------------------------------------------------------------------------------
+
+Run a query on the database to chech a value like count of entries in the
+database.
+
+Last check results from Mon Nov 16 2015 09:23:49 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Values: num             |                                              100 |
+| Values: comment         |                                    just a number |
+| Response Time           |                                          1075 ms |
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Database           |                                       test-postgresql |
+| Query              |         SELECT 100 as num, &#39;just a number&#39; as comment |
+| Timeout            |                                                  10 s |
+
+Maybe the following additional results may help:
+
+| Message |
+| ------: |
+|    done |
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="rest">
+  <h3>
+    <a href="#rest" name="rest" class="pilcrow">&#182;</a>
+    REST
+  </h3>
+</div>
+
+
+<p>To be written...</p>
 
 
 <div class="pilwrap" id="simulation%20sensors">
@@ -1601,40 +1739,11 @@ a database for long time analysis. This database may look like:</p>
     I sensor (string)
     I name (string)
 
-
-
-    mon_sensor_cpu_all # delete after 3 days
-    F check_id
-      start (datetime)
-      end (datetime)
-      status (enum)
-      message (text)
-      xxx1 (value1 type)
-      xxx2
-
-    mon_sensor_cpu_hour # delete after 1 week
-    F check_id
-      date (string)
-      num (int)
-      status (float)
-      statusMin (enum)
-      statusMax (enum)
-      xxx (text)
-      xxxAvg (float)
-      xxxMin (float)
-      xxxMax (float)
-
-    mon_sensor_cpu_day # delete after 6 months
-    mon_sensor_cpu_week # delete after 5 years
-
-
-
     mon_value
     P value_id
     F check_id
-    - name (string) # of the value
-    - warn (float)
-    - fail (float)
+    - name (string) # of the value e.g. responseTime, match.0, value.counter
+    - type (string)
     - unit (string)
 
     mon_value_minute # delete after 1 day
@@ -1645,13 +1754,12 @@ a database for long time analysis. This database may look like:</p>
     - min (float)
     - avg (float)
     - max (float)
+    - last (string)
 
     mon_value_quarter # delete after 2 days
     mon_value_hour # delete after 1 week
     mon_value_day # delete after 6 months
     mon_value_week # delete after 5 years
-
-
 
     mon_value_report # delete after 6 months
     P value_report_id
@@ -1708,7 +1816,13 @@ a database for long time analysis. This database may look like:</p>
 to find patterns.</p>
 
 <p>To do this special views for each report data should be made on the database which
-can be visualized using a data analyzation tool like dbVisualizer.</p>
+can be visualized using a data analyzation tool like dbVisualizer:</p>
+
+
+<div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="roadmap">
@@ -1720,19 +1834,20 @@ can be visualized using a data analyzation tool like dbVisualizer.</p>
 
 
 <ul>
-<li>add postgres db support</li>
-<li>db checks</li>
+<li><p>add time results of fields within the warn or fail conditions</p></li>
+<li><p>create db tables on startup</p></li>
+<li>add controller, check to db</li>
 <li>store results => db</li>
-<li>store reports</li>
-<li>send emails on state change</li>
-<li>add check type: serial: []</li>
+<li><p>store reports => db</p></li>
+<li><p>evaluate rules</p></li>
+<li>markdown -> html</li>
+<li><p>send emails on state change</p></li>
+<li><p>add check type: serial: []</p></li>
 <li>add check type: controller: ....</li>
-<li>disabled controller</li>
 <li><p>add example reports for each sensor to doc</p></li>
-<li><p>generate controller report</p></li>
-<li>controller daemon</li>
-<li>add over time report (from db store)</li>
+<li><p>controller with daemon</p></li>
 <li>-m send to other email instead of controller contacts</li>
+<li>information run</li>
 </ul>
 
 

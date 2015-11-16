@@ -54,6 +54,9 @@
         <a href="#format%20a%20value%20for%20better%20human%20readable%20display">Format a value for better human readable display</a>
       </div>
       <div class="heading h3">
+        <a href="#convert%20object%20to%20markdown%20table">Convert object to markdown table</a>
+      </div>
+      <div class="heading h3">
         <a href="#check%20expression%20against%20string">Check expression against string</a>
       </div>
     </div>
@@ -401,9 +404,9 @@ individual rules.</p>
 <span class="s">  name = work.sensor.name work.config</span>
 <span class="s">  name = &quot;</span><span class="p">(</span><span class="c1">#{name})&quot; if name</span>
   <span class="nv">report = </span><span class="s">&quot;&quot;&quot;\n</span><span class="si">#{</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"></span>
-<span class="s">  -----------------------------------------------------------------------------\n</span>
+<span class="s">  ------------------------------------------------------------------------------\n</span>
 <span class="s">  &quot;&quot;&quot;</span>
-  <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;\n</span><span class="si">#{</span><span class="nx">meta</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="s"></span>
+  <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;\n</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">meta</span><span class="p">.</span><span class="nx">description</span><span class="p">,</span> <span class="mi">78</span><span class="si">}</span><span class="s"></span>
 
 <span class="s">  Last check results from </span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> are:</span>
 
@@ -426,8 +429,14 @@ individual rules.</p>
     <span class="nv">val = </span><span class="s">&#39;&#39;</span>
     <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
       <span class="nv">val = </span><span class="nx">formatValue</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">name</span><span class="p">],</span> <span class="nx">set</span>
-    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">set</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="mi">23</span><span class="si">}</span><span class="s"> | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="mi">48</span><span class="si">}</span><span class="s"> |\n&quot;</span>
-  <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span><span class="si">}</span><span class="s">\n&quot;</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nx">val</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
+      <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">val</span>
+        <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">set</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s">&#39;: &#39;</span> <span class="o">+</span> <span class="nx">n</span><span class="p">),</span> <span class="mi">23</span><span class="si">}</span><span class="s"></span>
+<span class="s">        | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">v</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="mi">48</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+    <span class="k">else</span>
+      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">set</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="mi">23</span><span class="si">}</span><span class="s"> | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="mi">48</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+  <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span>
+    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n&gt; </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="s">&#39;\n&gt; &#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
   <span class="nv">found = </span><span class="kc">false</span>
   <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">set</span> <span class="k">of</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">keys</span>
     <span class="k">continue</span> <span class="k">if</span> <span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;analysis&#39;</span>
@@ -460,6 +469,13 @@ individual rules.</p>
     <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">set</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="mi">18</span><span class="si">}</span><span class="s"></span>
 <span class="s">    | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">val</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="mi">53</span><span class="si">}</span><span class="s"> |\n&quot;</span>
   <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">analysis</span><span class="si">}</span><span class="s">\n&quot;</span> <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">analysis</span>
+  <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">hint</span>
+    <span class="nv">context =</span>
+      <span class="nv">name: </span><span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span>
+      <span class="nv">config: </span><span class="nx">work</span><span class="p">.</span><span class="nx">config</span>
+      <span class="nv">results: </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+      <span class="nv">meta: </span><span class="nx">work</span><span class="p">.</span><span class="nx">meta</span>
+    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n&gt; </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span><span class="p">(</span><span class="nx">context</span><span class="p">),</span> <span class="mi">76</span><span class="p">,</span> <span class="s">&#39;\n&gt; &#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
   <span class="nx">report</span> <span class="c1">#  string.wordwrap report</span>
 
 
@@ -478,6 +494,38 @@ individual rules.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">formatValue = </span><span class="nf">(value, config) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>format with autodetect</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">unless</span> <span class="nx">config</span>
+    <span class="k">return</span> <span class="k">switch</span>
+      <span class="k">when</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;number&#39;</span>
+        <span class="nv">parts = </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">().</span><span class="nx">split</span> <span class="s">&#39;.&#39;</span>
+        <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/\B(?=(\d{3})+(?!\d))/g</span><span class="p">,</span> <span class="s">&quot;,&quot;</span>
+        <span class="nx">parts</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;.&#39;</span>
+      <span class="k">else</span>
+        <span class="nx">value</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>format using config setting</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
   <span class="k">switch</span> <span class="nx">config</span><span class="p">.</span><span class="nx">type</span>
     <span class="k">when</span> <span class="s">&#39;percent&#39;</span>
       <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39; %&#39;</span>
@@ -493,11 +541,144 @@ individual rules.</p>
       <span class="nv">interval = </span><span class="nx">interval</span><span class="p">.</span><span class="nx">to</span> <span class="s">&#39;m&#39;</span> <span class="k">if</span> <span class="nx">interval</span><span class="p">.</span><span class="nx">toNumber</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">120</span>
       <span class="nx">interval</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span>
     <span class="k">when</span> <span class="s">&#39;float&#39;</span>
-      <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span>
+      <span class="nv">parts = </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">().</span><span class="nx">split</span> <span class="s">&#39;.&#39;</span>
+      <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/\B(?=(\d{3})+(?!\d))/g</span><span class="p">,</span> <span class="s">&quot;,&quot;</span>
+      <span class="nx">parts</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;.&#39;</span>
     <span class="k">else</span>
       <span class="nv">val = </span><span class="nx">value</span>
       <span class="nx">val</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">val</span> <span class="o">and</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>
       <span class="nx">val</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="convert%20object%20to%20markdown%20table">
+  <h3>
+    <a href="#convert%20object%20to%20markdown%20table" name="convert%20object%20to%20markdown%20table" class="pilcrow">&#182;</a>
+    Convert object to markdown table
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.formatTable = formatTable = </span><span class="nf">(obj) -&gt;</span>
+  <span class="nv">result = </span><span class="s">&#39;&#39;</span>
+  <span class="k">unless</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">obj</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>single object</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">keys = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+</div>
+<p>get length of heading</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">maxlen = </span><span class="p">[]</span>
+    <span class="k">for</span> <span class="nx">n</span> <span class="k">in</span> <span class="nx">keys</span>
+      <span class="nx">maxlen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">length</span> <span class="k">if</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">length</span>
+      <span class="nx">maxlen</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">n</span><span class="p">].</span><span class="nx">length</span> <span class="k">if</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">n</span><span class="p">].</span><span class="nx">length</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+</div>
+<p>create table</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">result = </span><span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="s">&#39;Value&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+    <span class="nv">result = </span><span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+    <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">v</span> <span class="k">in</span> <span class="nx">obj</span>
+      <span class="nv">result = </span><span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">formatValue</span><span class="p">(</span><span class="nx">v</span><span class="p">),</span> <span class="nx">maxlen</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">length</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<p>List of objects</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">keys = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<p>get length of heading</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">maxlen = </span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">n</span> <span class="k">in</span> <span class="nx">keys</span>
+      <span class="nx">maxlen</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span> <span class="o">=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">length</span>
+    <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">obj</span>
+      <span class="k">for</span> <span class="nx">n</span> <span class="k">in</span> <span class="nx">keys</span>
+        <span class="nx">maxlen</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="nx">n</span><span class="p">].</span><span class="nx">length</span> <span class="k">if</span> <span class="nx">maxlen</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">e</span><span class="p">[</span><span class="nx">n</span><span class="p">].</span><span class="nx">length</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<p>create table</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">row = </span><span class="nx">keys</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(n) -&gt;</span>
+      <span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">string</span><span class="p">.</span><span class="nx">ucFirst</span><span class="p">(</span><span class="nx">n</span><span class="p">),</span> <span class="nx">maxlen</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
+    <span class="nv">result = </span><span class="s">&quot;| </span><span class="si">#{</span><span class="nx">row</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; | &#39;</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+    <span class="nv">row = </span><span class="nx">keys</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(n) -&gt;</span>
+      <span class="nx">string</span><span class="p">.</span><span class="nx">repeat</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="nx">maxlen</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="nx">result</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">row</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;: | &#39;</span><span class="si">}</span><span class="s">: |\n&quot;</span>
+    <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">obj</span>
+      <span class="nv">row = </span><span class="nx">keys</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(n) -&gt;</span>
+        <span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">formatValue</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="nx">n</span><span class="p">]),</span> <span class="nx">maxlen</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span>
+      <span class="nx">result</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">row</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; | &#39;</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+</div>
+<p>return result</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">result</span>
 
 
 </pre></div>
@@ -530,7 +711,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
 </div>
 <p>it's an regular expression</p>
         </td>

@@ -328,6 +328,7 @@
           <span class="nv">sensor: </span><span class="nx">sensorInstance</span>
           <span class="nv">config: </span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span>
           <span class="nv">result: </span><span class="nx">res</span>
+          <span class="nv">hint: </span><span class="nx">check</span><span class="p">.</span><span class="nx">hint</span>
         <span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;disabled&#39;</span><span class="p">,</span> <span class="nx">@checks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">status</span><span class="p">]</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">res</span>
 
@@ -441,11 +442,11 @@
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">context =</span>
       <span class="nv">name: </span><span class="nx">@name</span>
-      <span class="nv">conf: </span><span class="nx">@conf</span>
+      <span class="nv">config: </span><span class="nx">@conf</span>
       <span class="nv">sensor: </span><span class="nx">results</span>
     <span class="nv">report = </span><span class="s">&quot;&quot;&quot;</span>
 <span class="s">    Controller </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> (</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">)</span>
-<span class="s">    =============================================================================</span>
+<span class="s">    ==============================================================================</span>
 
 </pre></div>
         </td>
@@ -455,13 +456,15 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
-<p>{@conf.description}\n</p>
+<p>{string.wordwrap @conf.description, 78}\n</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">    &quot;&quot;&quot;</span>
-    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">info</span> <span class="nx">context</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">info</span>
+    <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">info</span>
+      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">info</span><span class="p">,</span> <span class="mi">78</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n&gt; __STATUS: </span><span class="si">#{</span><span class="nx">@status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span><span class="si">}</span><span class="s">\n&quot;</span>
-    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">hint</span> <span class="nx">context</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">hint</span> <span class="o">and</span> <span class="nx">@status</span> <span class="o">isnt</span> <span class="s">&#39;ok&#39;</span>
+    <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">hint</span> <span class="o">and</span> <span class="nx">@status</span> <span class="o">isnt</span> <span class="s">&#39;ok&#39;</span>
+      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\n&gt; </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">hint</span><span class="p">(</span><span class="nx">context</span><span class="p">),</span> <span class="mi">76</span><span class="p">,</span> <span class="s">&#39;\n&gt; &#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
     <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">contact</span>
       <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;\nContact Persons:\n\n&quot;</span>
       <span class="k">for</span> <span class="nx">group</span><span class="p">,</span> <span class="nx">glist</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">contact</span>

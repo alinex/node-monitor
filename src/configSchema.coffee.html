@@ -370,11 +370,6 @@ if:
         <span class="nv">title: </span><span class="s">&quot;Description&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;a short abstract of what this controller will check&quot;</span>
         <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">disabled:</span>
-        <span class="nv">title: </span><span class="s">&quot;Disabled&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a flag to temporarily disable this check&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
-        <span class="nv">default: </span><span class="kc">false</span>
       <span class="nv">validity:</span>
         <span class="nv">title: </span><span class="s">&quot;Result Validity&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;the time (in seconds) the result will be valid and should not be rechecked&quot;</span>
@@ -407,7 +402,7 @@ if:
       <span class="nv">info:</span>
         <span class="nv">title: </span><span class="s">&quot;Info&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;a general information about this part of the system&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
       <span class="nv">hint:</span>
         <span class="nv">title: </span><span class="s">&quot;Hint&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;a specific description for this controller that describes</span>
@@ -472,6 +467,23 @@ if:
       <span class="nv">entries: </span><span class="p">[</span> <span class="nx">email</span> <span class="p">]</span>
     <span class="nv">rule: </span><span class="nx">rule</span>
     <span class="nv">controller: </span><span class="nx">controller</span>
+    <span class="nv">storage:</span>
+      <span class="nv">title: </span><span class="s">&quot;Storage&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the storage to use for results&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;database&#39;</span><span class="p">]</span>
+      <span class="nv">keys:</span>
+        <span class="nv">database:</span>
+          <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the alias name of the database to store to&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///database&gt;&gt;&gt;&#39;</span>
+        <span class="nv">prefix:</span>
+          <span class="nv">title: </span><span class="s">&quot;Table Prefix&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;a prefix to be put before each table name&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">default: </span><span class="s">&#39;&#39;</span>
 </pre></div>
         </td>
       </tr>

@@ -112,6 +112,7 @@
 <span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
 
 </pre></div>
         </td>
@@ -126,7 +127,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">schema = </span><span class="nx">require</span> <span class="s">&#39;./configSchema&#39;</span>
 <span class="nv">Controller = </span><span class="nx">require</span> <span class="s">&#39;./controller&#39;</span>
-
+<span class="nv">storage = </span><span class="nx">require</span> <span class="s">&#39;./storage&#39;</span>
 
 <span class="k">class</span> <span class="nx">Monitor</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
 
@@ -159,7 +160,7 @@
 <p>setup module configs first</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="p">[</span><span class="nx">Exec</span><span class="p">],</span> <span class="nf">(mod, cb) -&gt;</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="p">[</span><span class="nx">Exec</span><span class="p">,</span> <span class="nx">database</span><span class="p">],</span> <span class="nf">(mod, cb) -&gt;</span>
       <span class="nx">mod</span><span class="p">.</span><span class="nx">setup</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -306,7 +307,10 @@
       <span class="nv">mode = </span><span class="kc">null</span>
       <span class="k">unless</span> <span class="nx">cb</span>
         <span class="nv">cb = </span><span class="nf">-&gt;</span>
-    <span class="nx">@instantiate</span> <span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+      <span class="nf">(cb) -&gt;</span> <span class="nx">storage</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
+      <span class="nf">(cb) =&gt;</span> <span class="nx">@instantiate</span> <span class="nx">mode</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="p">],</span> <span class="nf">(err) =&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">@controller</span><span class="p">,</span> <span class="nf">(ctrl, name, cb) -&gt;</span>
         <span class="nx">ctrl</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
