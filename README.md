@@ -958,6 +958,33 @@ This sensor will get some measurement values from the database:
   - timeout - maximum time to run the query (default: 20s)
 
 ``` text
+Database (test-postgresql: SELECT...)
+------------------------------------------------------------------------------
+
+Run a query on the database to chech a value like count of entries in the
+database.
+
+Last check results from Mon Nov 16 2015 09:23:49 GMT+0100 (CET) are:
+
+|          LABEL          |                     VALUE                        |
+| ----------------------- | -----------------------------------------------: |
+| Values: num             |                                              100 |
+| Values: comment         |                                    just a number |
+| Response Time           |                                          1075 ms |
+
+This has been checked with the following setup:
+
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Database           |                                       test-postgresql |
+| Query              |         SELECT 100 as num, 'just a number' as comment |
+| Timeout            |                                                  10 s |
+
+Maybe the following additional results may help:
+
+| Message |
+| ------: |
+|    done |
 ```
 
 ### REST

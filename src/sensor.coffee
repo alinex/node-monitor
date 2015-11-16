@@ -204,7 +204,7 @@ formatValue = (value, config) ->
       val
 
 # ### Convert object to markdown table
-formatTable = (obj) ->
+exports.formatTable = formatTable = (obj) ->
   result = ''
   unless Array.isArray obj
     # single object
@@ -218,7 +218,7 @@ formatTable = (obj) ->
     result = "| #{string.rpad 'Name', maxlen[0]} | #{string.lpad 'Value', maxlen[1]} |\n"
     result = "| #{string.repeat '-', maxlen[0]} | #{string.repeat '-', maxlen[1]} |\n"
     for n, v in obj
-    result = "| #{string.rpad n, maxlen[0]} | #{string.lpad formatValue(v), maxlen[1]} |\n"
+      result = "| #{string.rpad n, maxlen[0]} | #{string.lpad formatValue(v), maxlen[1]} |\n"
   else if obj.length
     # List of objects
     keys = Object.keys obj[0]
@@ -228,18 +228,18 @@ formatTable = (obj) ->
       maxlen[n] = n.length
     for e in obj
       for n in keys
-        maxlen[n] = obj[e][n].length if maxlen[n] < obj[e][n].length
+        maxlen[n] = e[n].length if maxlen[n] < e[n].length
     # create table
     row = keys.map (n) ->
-      string.lpad n, maxlen[n]
+      string.lpad string.ucFirst(n), maxlen[n]
     result = "| #{row.join ' | '} |\n"
     row = keys.map (n) ->
-      string.repeat '-', maxlen[n]
-    result = "| #{row.join ' | '} |\n"
+      string.repeat '-', maxlen[n] - 1
+    result += "| #{row.join ': | '}: |\n"
     for e in obj
       row = keys.map (n) ->
         string.lpad formatValue(e[n]), maxlen[n]
-      result = "| #{row.join ' | '} |\n"
+      result += "| #{row.join ' | '} |\n"
   # return result
   result
 
