@@ -44,8 +44,11 @@ contact =
           type: 'string'
         phone:
           title: "Phone"
-          description: "the phone number used for direct contact"
-          type: 'string'
+          description: "the phone numbers used for direct contact"
+          type: 'array'
+          toArray: true
+          entries:
+            type: 'string'
     ]
   ]
 

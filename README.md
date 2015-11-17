@@ -96,6 +96,168 @@ it - exit code 1
 
 __fail__ if the sensor failed and there is a problem - exit code 2
 
+### Setup
+
+To use the controller you have to setup the whole process using some configuration
+files. And maybe a storage database will be used.
+
+
+Configuration
+-------------------------------------------------
+This will describe the base setup. Also needed is the controller configuration which
+is described in the next section.
+Most parts of the configuration is the base setup which is used from within the
+controller and sensors.
+
+### Contacts
+
+The contacts are referenced from the controllers and are defined here in a central
+file under `/monitor/contacts`. Entries with array are groups and objects are
+address entries. Within the controller both may be used.
+
+``` yaml
+# Contacts for Monitoring
+# =================================================
+# This file holds a list of contacts to be used from within the rules and
+# specific controllers.
+
+# Groups
+# -------------------------------------------------
+operations: [aschi]
+
+# Staff
+# -------------------------------------------------
+aschi:
+  name: Alexander Schilling
+  position: Developer
+  company: Alinex Project
+  email: info@alinex.de
+  phone: 07129/922545
+```
+Multiple phone numbers as array are possible.
+
+The contact `monitor` is already defined and used as from address in emails. You
+may overwrite it by defining it yourself.
+
+### Email Templates
+
+This templates are used for sending emails out. A `default` template is already
+defined and only needs the 'to' address. But you may define more templates under
+`/monitor/email`:
+
+``` yaml
+# Email Report Configuration
+# =================================================
+
+# Default (extended)
+# -------------------------------------------------
+
+default:
+  # already defined, so only set the 'To' address here.
+  to: operations
+
+# Own Templates
+# -------------------------------------------------
+
+fail:
+  subject: >
+    Failed {{alias}}
+  body: >
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
+
+warn:
+  subject: >
+    Warning for {{alias}}
+  body: >
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
+
+ok:
+  subject: >
+    OK for {{alias}}
+  body: >
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
+```
+
+### Rules
+
+The rules specify what to do in specific situations under `/monitor/rule`:
+
+``` yaml
+# Rule Definition
+# =================================================
+
+# ### Set templates for default rules
+fail:
+  email:
+    base: fail
+warn:
+  email:
+    base: warn
+ok:
+  email:
+    base: ok
+
+# ### specific check
+specific:
+  # Only work on specific status.
+  status: fail
+  # Number of minimum attempts before informing.
+  attempt: 3
+  # Time (in seconds) to wait before informing.
+  latency: 60
+  # Only inform if dependent jobs not failed. This prevents of hundred of
+  # messages if a central system failed.
+  dependskip: true
+  # Type of actor to run with it's configuration
+  email:
+    base: fail # template to use defined under monitor/email
+    to: aschi # but send to myself
+  # Timeout (in seconds) without status change before informing again.
+  redo: 3h
+```
+
+### Storage
+
+If you want to store the measurement values, you need the following setup under
+`/monitor/storage`:
+
+``` yaml
+# Storage settings
+# =================================================
+# There to store the results of the monitoring.
+
+database: monitor
+prefix: mon_
+```
+
+The referenced database have to be a __postgresql__ database here and the data
+structure will be build on startup automatically. The concrete connection
+settings are defined in the `/database` configuration, see below.
+
+### Exec and Database
+
+Also you need the setup under `/exec` and `/database` like described in
+[Exec](http://alinex.github.io/node-exec) and [Database](http://alinex.github.io/node-database).
+This is used in the different sensors by references to the setup stored there.
+
 
 Controller
 -------------------------------------------------

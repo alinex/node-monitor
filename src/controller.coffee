@@ -132,7 +132,7 @@ class Controller extends EventEmitter
             report += '  -'
             report += " #{contact.name}" if contact.name
             report += " <#{contact.email}>" if contact.email
-#            report += "Tel. #{contact.phone}" if contact.phone
+#            report += "Phone: #{contact.phone.join ', '}" if contact.phone
             report += "\n"
     if @conf.ref
       report += "\nFor further assistance check the following links:\n\n"
