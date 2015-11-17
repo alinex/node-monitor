@@ -297,45 +297,40 @@ Checking the CPU utilization of all cores together. With the configuration value
 The resulting report part may look like:
 
 ``` text
-CPU (test)
------------------------------------------------------------------------------
+CPU
+------------------------------------------------------------------------------
 
 Check the current activity in average percent of all cores.
 
-Last check results from Sat Oct 31 2015 22:01:26 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:10:48 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| CPU Cores               |                                                2 |
-| CPU Speed               |                                         1000 MHz |
-| User Time               |                                           0.11 % |
-| Nice User Time          |                                           0.83 % |
-| System Time             |                                           0.05 % |
-| Idle Time               |                                              0 % |
-| Activity                |                                              1 % |
-| I/O Wait Time           |                                              0 % |
+| CPU Cores               |                                                8 |
+| CPU Speed               |                                     3379.812 MHz |
+| User Time               |                                              4 % |
+| Nice User Time          |                                              0 % |
+| System Time             |                                              1 % |
+| Idle Time               |                                             94 % |
+| Activity                |                                              6 % |
+| I/O Wait Time           |                                              1 % |
 | Hardware Interrupt Time |                                              0 % |
 | Software Interrupt Time |                                              0 % |
-| Lowest CPU Core         |                                              1 % |
-| Highest CPU Core        |                                              1 % |
+| Lowest CPU Core         |                                              2 % |
+| Highest CPU Core        |                                             10 % |
 
-A high CPU usage means that the server may not start another task immediately.
-If the load is also very high the system is overloaded, check if any application
-goes evil.
+> A high CPU usage means that the server may not start another task
+> immediately. If the load is also very high the system is overloaded, check
+> if any application goes evil.
 
 This has been checked with the following setup:
 
 |       CONFIG       |  VALUE                                                |
 | ------------------ | ----------------------------------------------------: |
+| Measurement Time   |                                                  10 s |
 | Warn if            |                                      Activity >= 100% |
 
-The top CPU consuming processes above 10% are:
-
-| COUNT |  %CPU |  %MEM | COMMAND                                            |
-| ----: | ----: | ----: | -------------------------------------------------- |
-|     3 |  142% | 19.1% | /opt/sublime_text/sublime_text                     |
-|     1 | 48.6% |  2.9% | /usr/bin/nodejs                                    |
-|    11 | 26.1% | 25.2% | /opt/google/chrome/chrome                          |
+No high cpu consuming processes over 10% found!
 ```
 
 ### Load
@@ -353,31 +348,31 @@ Check the system load in the last time ranges. With the configuration values:
 The resulting report part may look like:
 
 ``` text
-Load (test)
------------------------------------------------------------------------------
+Load
+------------------------------------------------------------------------------
 
 Check the local processor activity over the last minute to 15 minutes.
 
-Last check results from Sat Oct 31 2015 21:50:07 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:12:21 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Num Cores               |                                                2 |
-| 1min Load               |                                           2.86 % |
-| 5min Load               |                                           2.79 % |
-| 15min Load              |                                           2.83 % |
+| Num Cores               |                                                8 |
+| 1min Load               |                                             41 % |
+| 5min Load               |                                             29 % |
+| 15min Load              |                                             64 % |
 
-A very high system load makes the system irresponsible or really slow. Mostly
-this is CPU-bound load, load caused by out of memory issues or I/O-bound load
-problems.
+> A very high system load makes the system irresponsible or really slow.
+> Mostly this is CPU-bound load, load caused by out of memory issues or
+> I/O-bound load problems.
 
-The top CPU consuming processes above 10% are:
+This has been checked with the following setup:
 
-| COUNT |  %CPU |  %MEM | COMMAND                                            |
-| ----: | ----: | ----: | -------------------------------------------------- |
-|     3 |   45% | 19.1% | /opt/sublime_text/sublime_text                     |
-|     1 | 34.1% |  2.7% | /usr/bin/nodejs                                    |
-|    11 | 13.3% | 27.1% | /opt/google/chrome/chrome                          |
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Warn if            |                                      1min Load > 500% |
+
+No high cpu consuming processes over 10% found!
 ```
 
 ### Memory
@@ -394,30 +389,30 @@ Check the memory usage on the system
 The resulting report part may look like:
 
 ``` text
-Memory (test)
------------------------------------------------------------------------------
+Memory
+------------------------------------------------------------------------------
 
 Check the free and used memory.
 
-Last check results from Sun Nov 01 2015 17:51:46 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:13:04 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Total                   |                                          1.85 GB |
-| Used                    |                                          1.52 GB |
-| Free                    |                                          310 MiB |
-| Shared                  |                                           23 MiB |
-| Buffers                 |                                          220 MiB |
-| Cached                  |                                          400 MiB |
-| Swap Total              |                                          1.88 GB |
-| Swap Used               |                                          197 MiB |
-| Swap Free               |                                          1.67 GB |
-| Actual Free             |                                         0.975 GB |
-| Percent Free            |                                           0.53 % |
-| Swap Percent Free       |                                           0.89 % |
+| Total                   |                                          8.05 GB |
+| Used                    |                                          7.73 GB |
+| Free                    |                                          301 MiB |
+| Shared                  |                                         0.623 GB |
+| Buffers                 |                                          127 MiB |
+| Cached                  |                                          2.22 GB |
+| Swap Total              |                                          8.26 GB |
+| Swap Used               |                                          1.23 GB |
+| Swap Free               |                                          7.03 GB |
+| Actual Free             |                                          2.67 GB |
+| Percent Free            |                                             33 % |
+| Swap Percent Free       |                                             85 % |
 
-Check which process consumes how much memory, maybe some processes have a memory
- leak.
+> Check which process consumes how much memory, maybe some processes have a
+> memory leak.
 
 This has been checked with the following setup:
 
@@ -425,12 +420,7 @@ This has been checked with the following setup:
 | ------------------ | ----------------------------------------------------: |
 | Warn if            |                                             Free < 1% |
 
-The top memory consuming processes above 10% are:
-
-| COUNT |  %CPU |  %MEM | COMMAND                                            |
-| ----: | ----: | ----: | -------------------------------------------------- |
-|     2 | 10.8% |  4.2% | /usr/bin/python2.7                                 |
-|     1 |   42% |  2.7% | /usr/bin/nodejs                                    |
+No high memory consuming processes over 10% found!
 ```
 
 ### Diskfree
@@ -450,27 +440,27 @@ allows:
 The resulting report part may look like:
 
 ``` text
-Diskfree (test)
------------------------------------------------------------------------------
+Diskfree (/)
+------------------------------------------------------------------------------
 
 Test the free diskspace of one share.
 
-Last check results from Sat Oct 31 2015 22:09:19 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:13:28 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Share                   |                                        /dev/sda1 |
+| Share                   |                                        /dev/sda2 |
 | Type                    |                                             ext4 |
-| Available               |                                          216 GiB |
-| Used                    |                                           28 GiB |
-| % Used                  |                                             13 % |
-| Free                    |                                          188 GiB |
-| % Free                  |                                             87 % |
+| Available               |                                         0.926 TB |
+| Used                    |                                          383 GiB |
+| % Used                  |                                             44 % |
+| Free                    |                                          479 GiB |
+| % Free                  |                                             56 % |
 | Mountpoint              |                                                / |
 
-If a share is full it will make I/O problems in the system or applications in
-case of the root partition it may also neither be possible to log errors. Maybe
-some old files like temp or logs can be removed or compressed.
+> If a share is full it will make I/O problems in the system or applications
+> in case of the root partition it may also neither be possible to log errors.
+> Maybe some old files like temp or logs can be removed or compressed.
 
 This has been checked with the following setup:
 
@@ -484,8 +474,8 @@ Maybe some files in one of the following directories may be deleted or moved:
 
 | PATH                                |  FILES   |    SIZE    |   OLDEST    |
 | ----------------------------------- | -------: | ---------: | :---------- |
-| /tmp                                |      14* |   4.37 MB* | 2015-10-30* |
-| /var/log                            |     322* |   8.83 MB* | 2014-05-30* |
+| /tmp                                |     713* |  57.5 MiB* | 2014-10-16* |
+| /var/log                            |     441* |    26 MiB* | 2014-06-24* |
 
 __(*)__
 : The rows marked with a '*' are only assumptions, because not all
@@ -506,32 +496,33 @@ This sensor will check the disk io traffic:
 The resulting report part may look like:
 
 ``` text
-Disk IO (test)
------------------------------------------------------------------------------
+Disk IO (sda)
+------------------------------------------------------------------------------
 
 Check the disk io traffic.
 
-Last check results from Sun Nov 01 2015 23:11:31 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:14:19 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Read operations/s       |                                                0 |
-| Write operation/s       |                                             0.67 |
-| Read/s                  |                                              0 B |
-| Write/s                 |                                            15 kB |
-| Total Read              |                                          8.51 GB |
-| Total Write             |                                          6.13 GB |
-| Read/s                  |                                             0 ms |
-| Write/s                 |                                          6.67 ms |
+| Read operations/s       |                                              8.5 |
+| Write operation/s       |                                               19 |
+| Read/s                  |                                         0.925 MB |
+| Write/s                 |                                          223 KiB |
+| Total Read              |                                           22 GiB |
+| Total Write             |                                         91.9 GiB |
+| Read/s                  |                                          48.8 ms |
+| Write/s                 |                             1.2795999999999998 s |
 
-If there are any problems here check the device for hardware or network
-problems.
+> If there are any problems here check the device for hardware or network
+> problems.
 
 This has been checked with the following setup:
 
 |       CONFIG       |  VALUE                                                |
 | ------------------ | ----------------------------------------------------: |
 | Device name        |                                                   sda |
+| Measurement Time   |                                                  10 s |
 ```
 
 ### Net

@@ -49,13 +49,13 @@ exports.end = (work) ->
 # Analysis
 # -------------------------------------------------
 exports.result = (work) ->
-  result work
+  getResult work
   work.sensor.debug "#{chalk.grey work.sensor.name work.config} result status:
   #{work.result.status}#{if work.result.message then ' (' + work.result.message + ')' else ''}"
   for n, v of work.result.values
     work.sensor.debug "#{chalk.grey work.sensor.name work.config} result #{n}: #{v}"
 
-result = (work) ->
+getResult = (work) ->
   if work.err
     work.result.message ?= work.err.message
     return work.result.status = 'fail'
