@@ -1271,10 +1271,12 @@ Actor
 -------------------------------------------------
 The controller may do some actions:
 
-- inform on console/log (each analysation)
+- inform on console/log (each analyzation)
 - inform per email (on state change)
 - send web request (on state change)
 - try to repair (not implemented, yet)
+
+All these are triggered using the configuration rules described above.
 
 
 Roadmap
@@ -1282,7 +1284,6 @@ Roadmap
 
 - add time results of fields within the warn or fail conditions
 
-- create db tables on startup
 - add controller, check to db
 - store results => db
 - store reports => db
@@ -1290,7 +1291,15 @@ Roadmap
 - evaluate rules before analysis
 - run analysis
 - execute rules
-- markdown -> html
+- markdown ->
+  html https://markdown-it.github.io
+  https://www.npmjs.com/package/markdown-it-highlightjs
+  https://www.npmjs.com/package/markdown-it-lazy-headers
+  https://www.npmjs.com/package/markdown-it-table-of-contents
+  https://www.npmjs.com/package/markdown-it-checkbox
+  https://www.npmjs.com/package/markdown-it-deflist
+  https://www.npmjs.com/package/markdown-it-abbr
+  https://github.com/Welfenlab/dot-processor
 - send emails on state change
 
 - add check type: serial: []
@@ -1300,6 +1309,7 @@ Roadmap
 - controller with daemon
 - -m send to other email instead of controller contacts
 - information run
+
 
 
 License
