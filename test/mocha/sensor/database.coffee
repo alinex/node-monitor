@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 test = require './test'
 database = require '../../../src/sensor/database'
 
-describe.only "database", ->
+describe "database", ->
   @timeout 10000
 
   store = null
