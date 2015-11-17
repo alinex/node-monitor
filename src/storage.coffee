@@ -20,147 +20,113 @@ exports.init = (cb) ->
   return cb() unless conf.storage?
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
-    prefix = conf.storage.prefix
-    async.eachSeries [
-      """
-      CREATE TABLE IF NOT EXISTS #{prefix}controller (
-        controller_id SERIAL PRIMARY KEY,
-        name VARCHAR(32) UNIQUE NOT NULL
-      )
-      """
-    ,
-      """
-      CREATE TABLE IF NOT EXISTS #{prefix}check (
-        check_id SERIAL PRIMARY KEY,
-        controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-        category VARCHAR(5) NOT NULL,
-        sensor VARCHAR(10) NOT NULL,
-        name VARCHAR(80) NOT NULL
-      )
-      """
-    ,
-      """
-      CREATE TABLE IF NOT EXISTS #{prefix}value (
-        value_id SERIAL PRIMARY KEY,
-        check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-        name VARCHAR(80) NOT NULL
-      )
-      """
-#    - type (string)
-#    - unit (string)
-    ,
-      """
-      CREATE TABLE IF NOT EXISTS #{prefix}report (
-        report_id SERIAL PRIMARY KEY,
-        value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-        date TIMESTAMP WITH TIME ZONE,
-        report TEXT NOT NULL
-      )
-      """
-    ], (sql, cb) ->
-      db.exec sql, cb
-    , (err) ->
+    drop conf, db, (err) ->
       return cb err if err
-      async.eachSeries [
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}value_minute (
+      create conf, db, cb
+
+drop = (conf, db, cb) ->
+  async.eachSeries [
+    "DROP SCHEMA public CASCADE"
+    "CREATE SCHEMA public"
+  ], (sql, cb) ->
+    db.exec sql, cb
+  , cb
+
+create = (conf, db, cb) ->
+  # check if tables are installed
+  prefix = conf.storage.prefix
+  db.value "SELECT * FROM pg_tables WHERE schemaname='public'"
+  , (err, num) ->
+    return cb err if err or num
+    limit = config.get("/database/#{conf.storage.database}/pool/limit") ? 5
+    async.auto
+      controller: (cb) -> db.exec """
+        CREATE TABLE #{prefix}controller (
+          controller_id SERIAL PRIMARY KEY,
+          name VARCHAR(32) UNIQUE NOT NULL
+        )
+        """, cb
+      check: ['controller', (cb) -> db.exec """
+        CREATE TABLE #{prefix}check (
+          check_id SERIAL PRIMARY KEY,
+          controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+          category VARCHAR(5) NOT NULL,
+          sensor VARCHAR(10) NOT NULL,
+          name VARCHAR(80) NOT NULL
+        )
+        """, cb]
+      value: ['check', (cb) -> db.exec """
+        CREATE TABLE #{prefix}value (
+          value_id SERIAL PRIMARY KEY,
+          check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
+          name VARCHAR(80) NOT NULL
+        )
+        """, cb]
+      value_minute: ['value', (cb) -> db.exec """
+        CREATE TABLE #{prefix}value_minute (
           value_minute_id SERIAL PRIMARY KEY,
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          timerange VARCHAR(18) NOT NULL,
+          period TIMESTAMP WITH TIME ZONE NOT NULL,
           num INTEGER NOT NULL,
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
           last VARCHAR(120) NOT NULL
         )
-        """
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}value_minute (
-          value_minute_id SERIAL PRIMARY KEY,
+        """, cb]
+      value_hour: ['value', (cb) -> db.exec """
+        CREATE TABLE #{prefix}value_hour (
+          value_hour_id SERIAL PRIMARY KEY,
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          timerange VARCHAR(18) NOT NULL,
+          period TIMESTAMP WITH TIME ZONE NOT NULL,
           num INTEGER NOT NULL,
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
           last VARCHAR(120) NOT NULL
         )
-        """
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}value_quarter (
-          value_minute_id SERIAL PRIMARY KEY,
+        """, cb]
+      value_day: ['value', (cb) -> db.exec """
+        CREATE TABLE #{prefix}value_day (
+          value_day_id SERIAL PRIMARY KEY,
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          timerange VARCHAR(18) NOT NULL,
+          period DATE NOT NULL,
           num INTEGER NOT NULL,
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
           last VARCHAR(120) NOT NULL
         )
-        """
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}value_hour (
-          value_minute_id SERIAL PRIMARY KEY,
+        """, cb]
+      value_week: ['value', (cb) -> db.exec """
+        CREATE TABLE #{prefix}value_week (
+          value_week_id SERIAL PRIMARY KEY,
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          timerange VARCHAR(18) NOT NULL,
+          period DATE NOT NULL,
           num INTEGER NOT NULL,
           min NUMERIC NOT NULL,
           avg NUMERIC NOT NULL,
           max NUMERIC NOT NULL,
           last VARCHAR(120) NOT NULL
         )
-        """
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}value_day (
-          value_minute_id SERIAL PRIMARY KEY,
-          value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          timerange VARCHAR(18) NOT NULL,
-          num INTEGER NOT NULL,
-          min NUMERIC NOT NULL,
-          avg NUMERIC NOT NULL,
-          max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL
-        )
-        """
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}value_week (
-          value_minute_id SERIAL PRIMARY KEY,
-          value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          timerange VARCHAR(18) NOT NULL,
-          num INTEGER NOT NULL,
-          min NUMERIC NOT NULL,
-          avg NUMERIC NOT NULL,
-          max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL
-        )
-        """
-      ,
-        "CREATE TYPE IF NOT EXISTS statusType AS ENUM ('ok', 'warn', 'fail');"
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}status (
+        """, cb]
+      statusType: (cb) -> db.exec """
+        CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail')
+        """, cb
+      status: ['statusType', 'controller', 'check', (cb) -> db.exec """
+        CREATE TABLE #{prefix}status (
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
           change TIMESTAMP WITH TIME ZONE,
           status statusType NOT NULL
         )
-        """
-      ,
-        """
-        CREATE TABLE IF NOT EXISTS #{prefix}report (
+        """, cb]
+      report: ['controller', (cb) -> db.exec """
+        CREATE TABLE #{prefix}report (
+          report_id SERIAL PRIMARY KEY,
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
           date TIMESTAMP WITH TIME ZONE,
           report TEXT NOT NULL
         )
-        """
-#        INDEX (controller_id, sensor, name)
-#        INDEX (check_id, name)
-#          INDEX (value_id, timerange)
-      ], (sql, cb) ->
-        db.exec sql, cb
-      , cb
+        """, cb]
+    , cb

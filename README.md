@@ -1099,60 +1099,16 @@ running daemons
 Storage
 -------------------------------------------------
 The controllers will hold some information in memory but store all values also in
-a database for long time analysis. This database may look like:
+a database for long time analysis.
 
-``` text
-    mon_controller
-    P controller_id
-    U name (string)
+![Database Structure](doc/db-structure.png)
 
-    mon_check
-    P check_id
-    F controller_id
-    I category (string)
-    I sensor (string)
-    I name (string)
+This structure will hold all values but will not be easy to read. So therefore
+special views for each report may be created to show the concrete data for a
+diagram. This can be visualized using a data analyzation tool like dbVisualizer.
 
-    mon_value
-    P value_id
-    F check_id
-    - name (string) # of the value e.g. responseTime, match.0, value.counter
-    - type (string)
-    - unit (string)
-
-    mon_value_minute # delete after 1 day
-    P value_minute_id
-    F value_id
-    I timerange (datetime)
-    - num (int) # number of measurements
-    - min (float)
-    - avg (float)
-    - max (float)
-    - last (string)
-
-    mon_value_quarter # delete after 2 days
-    mon_value_hour # delete after 1 week
-    mon_value_day # delete after 6 months
-    mon_value_week # delete after 5 years
-
-    mon_value_report # delete after 6 months
-    P value_report_id
-    F value_id
-    I date (datetime)
-    - report (clob)
-
-    mon_status # delete after 1 year
-    P status_id
-    F controller_id
-    F check_id
-    I change (datetime)
-    - status (enum)
-
-    mon_report # delete after 5 years
-    P report_id
-    F controller_id
-    I date (datetime)
-    - report (clob)
+``` sql
+CREATE VIEW mon_view_response AS SELECT(...);
 ```
 
 To keep the data volume low old values will be removed.
@@ -1167,18 +1123,6 @@ The controller may do some actions:
 - send web request (on state change)
 - try to repair (not implemented, yet)
 
-
-Display Results
--------------------------------------------------
-Additionally to the reports it is possible to visualize the stored data over time
-to find patterns.
-
-To do this special views for each report data should be made on the database which
-can be visualized using a data analyzation tool like dbVisualizer:
-
-``` sql
-CREATE VIEW mon_view_response AS SELECT(...);
-```
 
 Roadmap
 -------------------------------------------------

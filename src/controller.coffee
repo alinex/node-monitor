@@ -59,9 +59,9 @@ class Controller extends EventEmitter
   run: (cb) ->
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
-      debug "#{chalk.grey @name} Running check #{name}..."
       sensorInstance = require "./sensor/#{check.sensor}"
       name = "#{check.sensor}:#{sensorInstance.name check.config}"
+      debug "#{chalk.grey @name} Running check #{name}..."
       # run sensor
       sensorInstance.run check.config, (err, res) =>
         return cb err if err
