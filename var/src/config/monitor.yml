@@ -37,7 +37,7 @@ rule:
     latency: 60
     dependskip: true
     email:
-      base: fail
+      base: default
     redo: 3h
 
   warn:
@@ -46,10 +46,10 @@ rule:
     latency: 60
     dependskip: true
     email:
-      base: warn
+      base: default
     redo: 3h
 
   ok:
     status: ok
     email:
-      base: ok
+      base: default

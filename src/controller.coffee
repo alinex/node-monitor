@@ -128,6 +128,7 @@ class Controller extends EventEmitter
       @emit 'result', this
       cb()
 
+  # ### Create a report
   report: (results) ->
     # make report
     context =

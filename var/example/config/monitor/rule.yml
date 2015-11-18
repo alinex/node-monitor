@@ -1,6 +1,19 @@
 # Rule Definition
 # =================================================
 
+# ### Set templates for default rules
+fail:
+  email:
+    base: fail
+
+warn:
+  email:
+    base: warn
+
+ok:
+  email:
+    base: ok
+
 # ### specific check
 specific:
   # Only work on specific status.

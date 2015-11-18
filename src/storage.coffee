@@ -13,8 +13,12 @@ async = require 'alinex-async'
 database = require 'alinex-database'
 # include classes and helpers
 
+# General data
+# -------------------------------------------------
 conf = null
 
+# Initialize database
+# -------------------------------------------------
 exports.init = (cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
@@ -25,7 +29,11 @@ exports.init = (cb) ->
       return cb err if err
       create conf, db, cb
 
+# Drop database
+# -------------------------------------------------
+# This should not be enabled in productive system.
 drop = (conf, db, cb) ->
+  return cb() # disable function
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
@@ -33,6 +41,8 @@ drop = (conf, db, cb) ->
     db.exec sql, cb
   , cb
 
+# Create database structure
+# -------------------------------------------------
 create = (conf, db, cb) ->
   # check if tables are installed
   prefix = conf.storage.prefix
@@ -150,6 +160,8 @@ create = (conf, db, cb) ->
         """, cb]
     , cb
 
+# Get or register controller
+# -------------------------------------------------
 exports.controller = (name, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
@@ -166,6 +178,8 @@ exports.controller = (name, cb) ->
         """, name, (err, num, id) ->
         cb err, id
 
+# Get or register check
+# -------------------------------------------------
 exports.check = (controller, sensor, name, category, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
@@ -184,6 +198,8 @@ exports.check = (controller, sensor, name, category, cb) ->
         """, [controller, sensor, name, category], (err, num, id) ->
         cb err, id
 
+# get or register value
+# -------------------------------------------------
 exports.value = (check, name, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
@@ -202,6 +218,8 @@ exports.value = (check, name, cb) ->
         """, [check, name], (err, num, id) ->
         cb err, id
 
+# Add results
+# -------------------------------------------------
 exports.results = (valueID, meta, date, value, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
