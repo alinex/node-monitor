@@ -36,6 +36,9 @@
         <a href="#version%20changes">Version changes</a>
       </div>
       <div class="heading h2">
+        <a href="#version%200.1.0%20(2015-11-18)">Version 0.1.0 (2015-11-18)</a>
+      </div>
+      <div class="heading h2">
         <a href="#version%200.0.2%20(2014-10-09)">Version 0.0.2 (2014-10-09)</a>
       </div>
       <div class="heading h2">
@@ -55,6 +58,142 @@
 
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
+
+
+<div class="pilwrap" id="version%200.1.0%20(2015-11-18)">
+  <h2>
+    <a href="#version%200.1.0%20(2015-11-18)" name="version%200.1.0%20(2015-11-18)" class="pilcrow">&#182;</a>
+    Version 0.1.0 (2015-11-18)
+  </h2>
+</div>
+
+
+<ul>
+<li>Small code fixes.</li>
+<li>Added service description to server port list in net sensor.</li>
+<li>Add markdown steps to roadmap.</li>
+<li>Complete the configuration description.</li>
+<li>Fixed sensor report call.</li>
+<li>Allow all checks to run.</li>
+<li>Completed database setup.</li>
+<li>Added sensor hint as general element for all checks.</li>
+<li>Made first sql storage statements runable.</li>
+<li>Finished analysis run in database sensor.</li>
+<li>Plan storage initialization.</li>
+<li>Add script for creating database tables.</li>
+<li>Added storage configuration.</li>
+<li>Made conversion from object to markdown table.</li>
+<li>Allow multi value store and run analysis for database.</li>
+<li>Add wordwrap in report creation.</li>
+<li>Updated roadmap.</li>
+<li>Remove disabled setting, this is done removing the config.</li>
+<li>Add analysis possibility to database sensor.</li>
+<li>Added database sensor.</li>
+<li>Merge branch 'master' of <a href='https://github.com/alinex/node-monitor'>https://github.com/alinex/node-monitor</a></li>
+<li>Updated documentation.</li>
+<li>Start creating a database sensor.</li>
+<li>Move report generation into separate method.</li>
+<li>Fix controller to not interfere and produce correct reports.</li>
+<li>Updated schema to be more descriptive in the reports.</li>
+<li>Start to implement controller report.</li>
+<li>Fix small bug in test code for time sensor causing callback to nether been called.</li>
+<li>Updated planing for more sensors.</li>
+<li>Add support for timeout.</li>
+<li>Some test fixes.</li>
+<li>Added untestet support for socks5 proxy.</li>
+<li>Added http sensor working from localhost.</li>
+<li>Onetime run working with all system sensors.</li>
+<li>Added verbose mode.</li>
+<li>Added socket check sensor.</li>
+<li>Added ping sensor and result.message on all.</li>
+<li>Added user sensor.</li>
+<li>Removed 'name' setting from sensor with autodetect function.</li>
+<li>Change sort order of Net sensor.</li>
+<li>Added time sensor to check time differences.</li>
+<li>Added network analyzer sensor.</li>
+<li>Set process title in ps.</li>
+<li>Fix documentation style.</li>
+<li>Made CLI Output nice.</li>
+<li>Extended diskio sensor values.</li>
+<li>Updated docs.</li>
+<li>Added diskio sensor.</li>
+<li>Added memory sensor.</li>
+<li>Fixed documentation.</li>
+<li>Added system load sensor.</li>
+<li>Add timeouts for analysis in diskfree.</li>
+<li>Cleanup old code.</li>
+<li>Fixed report for sensor to be complete.</li>
+<li>Added lowest and highest cpu core values in cpu sensor.</li>
+<li>Changed roadmap.</li>
+<li>Fixed Controller to run status calculation.</li>
+<li>Fixed cpu sensor to run properly.</li>
+<li>Added new cpu sensor.</li>
+<li>Added results management in controller.</li>
+<li>Dokument freedisk sensor.</li>
+<li>Simplified test cases.</li>
+<li>Added analysis support in diskfree sensor.</li>
+<li>Updated readme with more information and removed old contents.</li>
+<li>Update planing for data store.</li>
+<li>Merge branch 'master' of <a href='https://github.com/alinex/node-monitor'>https://github.com/alinex/node-monitor</a></li>
+<li>Update mindmap.</li>
+<li>Made first sensor run through index/controller.</li>
+<li>Make logo easier adjustable.</li>
+<li>Fixed remote connection errors.</li>
+<li>Finished call of sensors but with bug in Exec initialization.</li>
+<li>Made structure for controller to call sensor.</li>
+<li>Made first sensor running in new environment.</li>
+<li>Copied ping sensor from old submodule.</li>
+<li>Controller base class design.</li>
+<li>Allow events on monitor singleton instance.</li>
+<li>Move setup and initialization to module main file.</li>
+<li>Adding logo.</li>
+<li>Finished example config and scheme validation.</li>
+<li>Added more config Schema definitions.</li>
+<li>Updated example configuration files.</li>
+<li>Added contact schema.</li>
+<li>Fixed list view.</li>
+<li>Made bootstrap running.</li>
+<li>Create new config structure.</li>
+<li>Begin restructuring of codebase.</li>
+<li>Planing next version.</li>
+<li>Made badge links npm compatible in documentation.</li>
+<li>Make CLI argument parsing more strict.</li>
+<li>Extended configuration values.</li>
+<li>Changed install documentation.</li>
+<li>Integrated travis tracking.</li>
+<li>Documentation update.</li>
+<li>Fixed small bug which always run tree mode.</li>
+<li>Added possibility to show reverse tree.</li>
+<li>Fixed status calculation to also support disabled state.</li>
+<li>Log report details to stderr.</li>
+<li>Remove debugging output.</li>
+<li>Support alias names in monitor and controller configs.</li>
+<li>Optimized error handling and output.</li>
+<li>Fixed display of config errors.</li>
+<li>Fix indentation in tree view.</li>
+<li>Only display verbose message on direct errors.</li>
+<li>Moved config to /etc/monitor for global installation.</li>
+<li>Fixed bug in status calculation for controller.</li>
+<li>Fixed bug in display part of the tree.</li>
+<li>Fixed bug in hanging because running flag won't be resetted.</li>
+<li>Fixed to run compile only if NOT compiled.</li>
+<li>Run compile if not done on install.</li>
+<li>Extended documentation for main program.</li>
+<li>Only run install script if it exists.</li>
+<li>Changed naming for controller combination names.</li>
+<li>Added possibility to downgrade in 'or' rule.</li>
+<li>Added tree view.</li>
+<li>Finished list option to display list of controllers.</li>
+<li>Changed start sequence to integrate new commands.</li>
+<li>Create man page for comand line tool.</li>
+<li>Added welcome message on installation.</li>
+<li>Fixed package.json version notation.</li>
+<li>Added entries for man pages.</li>
+<li>Added standardized config creation on install.</li>
+<li>Updated installation documentation.</li>
+<li>Fixed bugs when some controllers are disabled.</li>
+<li>Install monitor as 'monitor'.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%200.0.2%20(2014-10-09)">

@@ -220,7 +220,7 @@ individual rules.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.result = </span><span class="nf">(work) -&gt;</span>
-  <span class="nx">result</span> <span class="nx">work</span>
+  <span class="nx">getResult</span> <span class="nx">work</span>
   <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">work</span><span class="p">.</span><span class="nx">sensor</span><span class="p">.</span><span class="nx">name</span> <span class="nx">work</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s"> result status:</span>
 
 </pre></div>
@@ -237,7 +237,7 @@ individual rules.</p>
 <span class="s">  for n, v of work.result.values</span>
 <span class="s">    work.sensor.debug &quot;</span><span class="c1">#{chalk.grey work.sensor.name work.config} result #{n}: #{v}&quot;</span>
 
-<span class="nv">result = </span><span class="nf">(work) -&gt;</span>
+<span class="nv">getResult = </span><span class="nf">(work) -&gt;</span>
   <span class="k">if</span> <span class="nx">work</span><span class="p">.</span><span class="nx">err</span>
     <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">message</span> <span class="o">?=</span> <span class="nx">work</span><span class="p">.</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
     <span class="k">return</span> <span class="nv">work.result.status = </span><span class="s">&#39;fail&#39;</span>

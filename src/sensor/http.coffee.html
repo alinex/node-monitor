@@ -504,8 +504,8 @@ get the values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.analysis = </span><span class="nf">(conf, res, cb = -&gt;) -&gt;</span>
-  <span class="nv">request = </span><span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span><span class="p">.</span><span class="nx">request</span>
-  <span class="nv">response = </span><span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span><span class="p">.</span><span class="nx">response</span>
+  <span class="nv">request = </span><span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span><span class="o">?</span><span class="p">.</span><span class="nx">request</span>
+  <span class="nv">response = </span><span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span><span class="o">?</span><span class="p">.</span><span class="nx">response</span>
   <span class="k">delete</span> <span class="nx">res</span><span class="p">.</span><span class="nx">_analysis</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">analysis</span>
 

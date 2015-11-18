@@ -118,32 +118,19 @@
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="p">[</span>
-      <span class="s">&quot;&quot;&quot;</span>
-<span class="s">      CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller (</span>
-<span class="s">        controller_id SERIAL PRIMARY KEY,</span>
-<span class="s">        name VARCHAR(32) UNIQUE NOT NULL</span>
-<span class="s">      )</span>
-<span class="s">      &quot;&quot;&quot;</span>
-    <span class="p">,</span>
-      <span class="s">&quot;&quot;&quot;</span>
-<span class="s">      CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check (</span>
-<span class="s">        check_id SERIAL PRIMARY KEY,</span>
-<span class="s">        controller_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller ON DELETE CASCADE,</span>
-<span class="s">        category VARCHAR(5) NOT NULL,</span>
-<span class="s">        sensor VARCHAR(10) NOT NULL,</span>
-<span class="s">        name VARCHAR(80) NOT NULL</span>
-<span class="s">      )</span>
-<span class="s">      &quot;&quot;&quot;</span>
-    <span class="p">,</span>
-      <span class="s">&quot;&quot;&quot;</span>
-<span class="s">      CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value (</span>
-<span class="s">        value_id SERIAL PRIMARY KEY,</span>
-<span class="s">        check_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check ON DELETE CASCADE,</span>
-<span class="s">        name VARCHAR(80) NOT NULL</span>
-<span class="s">      )</span>
-<span class="s">      &quot;&quot;&quot;</span>
+    <span class="nx">drop</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">db</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">create</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">db</span><span class="p">,</span> <span class="nx">cb</span>
+
+<span class="nv">drop = </span><span class="nf">(conf, db, cb) -&gt;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="p">[</span>
+    <span class="s">&quot;DROP SCHEMA public CASCADE&quot;</span>
+    <span class="s">&quot;CREATE SCHEMA public&quot;</span>
+  <span class="p">],</span> <span class="nf">(sql, cb) -&gt;</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+
+<span class="nv">create = </span><span class="nf">(conf, db, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -153,143 +140,105 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
-<ul>
-<li>type (string)</li>
-<li>unit (string)</li>
-</ul>
+<p>check if tables are installed</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="p">,</span>
-      <span class="s">&quot;&quot;&quot;</span>
-<span class="s">      CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">report (</span>
-<span class="s">        report_id SERIAL PRIMARY KEY,</span>
-<span class="s">        value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">        date TIMESTAMP WITH TIME ZONE,</span>
-<span class="s">        report TEXT NOT NULL</span>
-<span class="s">      )</span>
-<span class="s">      &quot;&quot;&quot;</span>
-    <span class="p">],</span> <span class="nf">(sql, cb) -&gt;</span>
-      <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="p">[</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_minute (</span>
+  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
+  <span class="nx">db</span><span class="p">.</span><span class="nx">value</span> <span class="s">&quot;SELECT * FROM pg_tables WHERE schemaname=&#39;public&#39;&quot;</span>
+  <span class="p">,</span> <span class="nf">(err, num) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="nx">num</span>
+    <span class="nv">limit = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&quot;/database/</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="si">}</span><span class="s">/pool/limit&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="mi">5</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">auto</span>
+      <span class="nv">controller: </span><span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller (</span>
+<span class="s">          controller_id SERIAL PRIMARY KEY,</span>
+<span class="s">          name VARCHAR(32) UNIQUE NOT NULL</span>
+<span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nv">check: </span><span class="p">[</span><span class="s">&#39;controller&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check (</span>
+<span class="s">          check_id SERIAL PRIMARY KEY,</span>
+<span class="s">          controller_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller ON DELETE CASCADE,</span>
+<span class="s">          category VARCHAR(5) NOT NULL,</span>
+<span class="s">          sensor VARCHAR(10) NOT NULL,</span>
+<span class="s">          name VARCHAR(80) NOT NULL</span>
+<span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">value: </span><span class="p">[</span><span class="s">&#39;check&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value (</span>
+<span class="s">          value_id SERIAL PRIMARY KEY,</span>
+<span class="s">          check_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check ON DELETE CASCADE,</span>
+<span class="s">          name VARCHAR(80) NOT NULL</span>
+<span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">value_minute: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_minute (</span>
 <span class="s">          value_minute_id SERIAL PRIMARY KEY,</span>
 <span class="s">          value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">          timerange VARCHAR(18) NOT NULL,</span>
+<span class="s">          period TIMESTAMP WITH TIME ZONE NOT NULL,</span>
 <span class="s">          num INTEGER NOT NULL,</span>
 <span class="s">          min NUMERIC NOT NULL,</span>
 <span class="s">          avg NUMERIC NOT NULL,</span>
 <span class="s">          max NUMERIC NOT NULL,</span>
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_minute (</span>
-<span class="s">          value_minute_id SERIAL PRIMARY KEY,</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">value_hour: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_hour (</span>
+<span class="s">          value_hour_id SERIAL PRIMARY KEY,</span>
 <span class="s">          value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">          timerange VARCHAR(18) NOT NULL,</span>
+<span class="s">          period TIMESTAMP WITH TIME ZONE NOT NULL,</span>
 <span class="s">          num INTEGER NOT NULL,</span>
 <span class="s">          min NUMERIC NOT NULL,</span>
 <span class="s">          avg NUMERIC NOT NULL,</span>
 <span class="s">          max NUMERIC NOT NULL,</span>
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_quarter (</span>
-<span class="s">          value_minute_id SERIAL PRIMARY KEY,</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">value_day: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_day (</span>
+<span class="s">          value_day_id SERIAL PRIMARY KEY,</span>
 <span class="s">          value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">          timerange VARCHAR(18) NOT NULL,</span>
+<span class="s">          period DATE NOT NULL,</span>
 <span class="s">          num INTEGER NOT NULL,</span>
 <span class="s">          min NUMERIC NOT NULL,</span>
 <span class="s">          avg NUMERIC NOT NULL,</span>
 <span class="s">          max NUMERIC NOT NULL,</span>
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_hour (</span>
-<span class="s">          value_minute_id SERIAL PRIMARY KEY,</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">value_week: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_week (</span>
+<span class="s">          value_week_id SERIAL PRIMARY KEY,</span>
 <span class="s">          value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">          timerange VARCHAR(18) NOT NULL,</span>
+<span class="s">          period DATE NOT NULL,</span>
 <span class="s">          num INTEGER NOT NULL,</span>
 <span class="s">          min NUMERIC NOT NULL,</span>
 <span class="s">          avg NUMERIC NOT NULL,</span>
 <span class="s">          max NUMERIC NOT NULL,</span>
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_day (</span>
-<span class="s">          value_minute_id SERIAL PRIMARY KEY,</span>
-<span class="s">          value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">          timerange VARCHAR(18) NOT NULL,</span>
-<span class="s">          num INTEGER NOT NULL,</span>
-<span class="s">          min NUMERIC NOT NULL,</span>
-<span class="s">          avg NUMERIC NOT NULL,</span>
-<span class="s">          max NUMERIC NOT NULL,</span>
-<span class="s">          last VARCHAR(120) NOT NULL</span>
-<span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_week (</span>
-<span class="s">          value_minute_id SERIAL PRIMARY KEY,</span>
-<span class="s">          value_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON DELETE CASCADE,</span>
-<span class="s">          timerange VARCHAR(18) NOT NULL,</span>
-<span class="s">          num INTEGER NOT NULL,</span>
-<span class="s">          min NUMERIC NOT NULL,</span>
-<span class="s">          avg NUMERIC NOT NULL,</span>
-<span class="s">          max NUMERIC NOT NULL,</span>
-<span class="s">          last VARCHAR(120) NOT NULL</span>
-<span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;CREATE TYPE IF NOT EXISTS statusType AS ENUM (&#39;ok&#39;, &#39;warn&#39;, &#39;fail&#39;);&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">status (</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">statusType: </span><span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TYPE statusType AS ENUM (&#39;ok&#39;, &#39;warn&#39;, &#39;fail&#39;)</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nv">status: </span><span class="p">[</span><span class="s">&#39;statusType&#39;</span><span class="p">,</span> <span class="s">&#39;controller&#39;</span><span class="p">,</span> <span class="s">&#39;check&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">status (</span>
 <span class="s">          controller_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller ON DELETE CASCADE,</span>
 <span class="s">          check_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check ON DELETE CASCADE,</span>
 <span class="s">          change TIMESTAMP WITH TIME ZONE,</span>
 <span class="s">          status statusType NOT NULL</span>
 <span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-      <span class="p">,</span>
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        CREATE TABLE IF NOT EXISTS </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">report (</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">report: </span><span class="p">[</span><span class="s">&#39;controller&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">report (</span>
+<span class="s">          report_id SERIAL PRIMARY KEY,</span>
 <span class="s">          controller_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller ON DELETE CASCADE,</span>
 <span class="s">          date TIMESTAMP WITH TIME ZONE,</span>
 <span class="s">          report TEXT NOT NULL</span>
 <span class="s">        )</span>
-<span class="s">        &quot;&quot;&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
-</div>
-
-<div class="highlight"><pre><code>   <span class="nx">INDEX</span> <span class="p">(</span><span class="nx">controller_id</span><span class="p">,</span> <span class="nx">sensor</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
-   <span class="nx">INDEX</span> <span class="p">(</span><span class="nx">check_id</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
-     <span class="nx">INDEX</span> <span class="p">(</span><span class="nx">value_id</span><span class="p">,</span> <span class="nx">timerange</span><span class="p">)</span>
-</code></pre></div>
-
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="p">],</span> <span class="nf">(sql, cb) -&gt;</span>
-        <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="p">,</span> <span class="nx">cb</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+    <span class="p">,</span> <span class="nx">cb</span>
 </pre></div>
         </td>
       </tr>

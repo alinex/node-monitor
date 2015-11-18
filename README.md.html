@@ -44,6 +44,27 @@
       <div class="heading h3">
         <a href="#status">Status</a>
       </div>
+      <div class="heading h3">
+        <a href="#setup">Setup</a>
+      </div>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h3">
+        <a href="#contacts">Contacts</a>
+      </div>
+      <div class="heading h3">
+        <a href="#email%20templates">Email Templates</a>
+      </div>
+      <div class="heading h3">
+        <a href="#rules">Rules</a>
+      </div>
+      <div class="heading h3">
+        <a href="#storage">Storage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#exec%20and%20database">Exec and Database</a>
+      </div>
       <div class="heading h2">
         <a href="#controller">Controller</a>
       </div>
@@ -189,9 +210,6 @@
         <a href="#actor">Actor</a>
       </div>
       <div class="heading h2">
-        <a href="#display%20results">Display Results</a>
-      </div>
-      <div class="heading h2">
         <a href="#roadmap">Roadmap</a>
       </div>
       <div class="heading h2">
@@ -224,6 +242,13 @@ side.</p>
 <li>alerting and reporting</li>
 <li>data store for time analysis</li>
 </ul>
+
+<p>The monitor will analyze your whole environment in deep by connecting to the different
+systems in parallel and check them deeply. If a problem occurs an additional analysis
+step may be made to get more information. The result values will be stored in the
+storage database and a detailed report will be created. Based on additional action
+rules the report may be send by email or a web request is made. Out of the stored
+values time reports may be created.</p>
 
 <blockquote>
   <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
@@ -336,6 +361,222 @@ like ok for further processing</p>
 it - exit code 1</p>
 
 <p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
+
+
+<div class="pilwrap" id="setup">
+  <h3>
+    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
+    Setup
+  </h3>
+</div>
+
+
+<p>To use the controller you have to setup the whole process using some configuration
+files. And maybe a storage database will be used.</p>
+
+
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+<p>This will describe the base setup. Also needed is the controller configuration which
+is described in the next section.
+Most parts of the configuration is the base setup which is used from within the
+controller and sensors.</p>
+
+
+<div class="pilwrap" id="contacts">
+  <h3>
+    <a href="#contacts" name="contacts" class="pilcrow">&#182;</a>
+    Contacts
+  </h3>
+</div>
+
+
+<p>The contacts are referenced from the controllers and are defined here in a central
+file under <code>/monitor/contacts</code>. Entries with array are groups and objects are
+address entries. Within the controller both may be used.</p>
+
+<pre><code language='yaml'># Contacts for Monitoring
+# =================================================
+# This file holds a list of contacts to be used from within the rules and
+# specific controllers.
+
+# Groups
+# -------------------------------------------------
+operations: [aschi]
+
+# Staff
+# -------------------------------------------------
+aschi:
+  name: Alexander Schilling
+  position: Developer
+  company: Alinex Project
+  email: <a href='mailto:info@alinex.de'>info@alinex.de</a>
+  phone: 07129/922545
+</code></pre>
+
+<p>Multiple phone numbers as array are possible.</p>
+
+<p>The contact <code>monitor</code> is already defined and used as from address in emails. You
+may overwrite it by defining it yourself.</p>
+
+
+<div class="pilwrap" id="email%20templates">
+  <h3>
+    <a href="#email%20templates" name="email%20templates" class="pilcrow">&#182;</a>
+    Email Templates
+  </h3>
+</div>
+
+
+<p>This templates are used for sending emails out. A <code>default</code> template is already
+defined and only needs the 'to' address. But you may define more templates under
+<code>/monitor/email</code>:</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># Email Report Configuration</span>
+<span class="c1"># =================================================</span>
+
+<span class="c1"># Default (extended)</span>
+<span class="c1"># -------------------------------------------------</span>
+
+<span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+  <span class="c1"># already defined, so only set the &#39;To&#39; address here.</span>
+  <span class="l-Scalar-Plain">to</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">operations</span>
+
+<span class="c1"># Own Templates</span>
+<span class="c1"># -------------------------------------------------</span>
+
+<span class="l-Scalar-Plain">fail</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">Failed {{alias}}</span>
+  <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">{{name}}\n</span>
+    <span class="no">==========================================================================\n</span>
+    <span class="no">{{description}}\n</span>
+    <span class="no">\n</span>
+    <span class="no">This test failed at {{date}}!\n</span>
+    <span class="no">\n</span>
+    <span class="no">{{hint}}\n</span>
+
+<span class="l-Scalar-Plain">warn</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">Warning for {{alias}}</span>
+  <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">{{name}}\n</span>
+    <span class="no">==========================================================================\n</span>
+    <span class="no">{{description}}\n</span>
+    <span class="no">\n</span>
+    <span class="no">This test failed at {{date}}!\n</span>
+    <span class="no">\n</span>
+    <span class="no">{{hint}}\n</span>
+
+<span class="l-Scalar-Plain">ok</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">OK for {{alias}}</span>
+  <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+    <span class="no">{{name}}\n</span>
+    <span class="no">==========================================================================\n</span>
+    <span class="no">{{description}}\n</span>
+    <span class="no">\n</span>
+    <span class="no">This test failed at {{date}}!\n</span>
+    <span class="no">\n</span>
+    <span class="no">{{hint}}\n</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="rules">
+  <h3>
+    <a href="#rules" name="rules" class="pilcrow">&#182;</a>
+    Rules
+  </h3>
+</div>
+
+
+<p>The rules specify what to do in specific situations under <code>/monitor/rule</code>:</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># Rule Definition</span>
+<span class="c1"># =================================================</span>
+
+<span class="c1"># ### Set templates for default rules</span>
+<span class="l-Scalar-Plain">fail</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
+<span class="l-Scalar-Plain">warn</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">warn</span>
+<span class="l-Scalar-Plain">ok</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ok</span>
+
+<span class="c1"># ### specific check</span>
+<span class="l-Scalar-Plain">specific</span><span class="p-Indicator">:</span>
+  <span class="c1"># Only work on specific status.</span>
+  <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
+  <span class="c1"># Number of minimum attempts before informing.</span>
+  <span class="l-Scalar-Plain">attempt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+  <span class="c1"># Time (in seconds) to wait before informing.</span>
+  <span class="l-Scalar-Plain">latency</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>
+  <span class="c1"># Only inform if dependent jobs not failed. This prevents of hundred of</span>
+  <span class="c1"># messages if a central system failed.</span>
+  <span class="l-Scalar-Plain">dependskip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+  <span class="c1"># Type of actor to run with it&#39;s configuration</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span> <span class="c1"># template to use defined under monitor/email</span>
+    <span class="l-Scalar-Plain">to</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">aschi</span> <span class="c1"># but send to myself</span>
+  <span class="c1"># Timeout (in seconds) without status change before informing again.</span>
+  <span class="l-Scalar-Plain">redo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3h</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="storage">
+  <h3>
+    <a href="#storage" name="storage" class="pilcrow">&#182;</a>
+    Storage
+  </h3>
+</div>
+
+
+<p>If you want to store the measurement values, you need the following setup under
+<code>/monitor/storage</code>:</p>
+
+
+<div class="highlight"><pre><code><span class="c1"># Storage settings</span>
+<span class="c1"># =================================================</span>
+<span class="c1"># There to store the results of the monitoring.</span>
+
+<span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">monitor</span>
+<span class="l-Scalar-Plain">prefix</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mon_</span>
+</code></pre></div>
+
+
+
+<p>The referenced database have to be a <strong>postgresql</strong> database here and the data
+structure will be build on startup automatically. The concrete connection
+settings are defined in the <code>/database</code> configuration, see below.</p>
+
+
+<div class="pilwrap" id="exec%20and%20database">
+  <h3>
+    <a href="#exec%20and%20database" name="exec%20and%20database" class="pilcrow">&#182;</a>
+    Exec and Database
+  </h3>
+</div>
+
+
+<p>Also you need the setup under <code>/exec</code> and <code>/database</code> like described in
+<a href="http://alinex.github.io/node-exec">Exec</a> and <a href="http://alinex.github.io/node-database">Database</a>.
+This is used in the different sensors by references to the setup stored there.</p>
 
 
 <div class="pilwrap" id="controller">
@@ -604,45 +845,40 @@ configuration. The common keys are:</p>
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>CPU (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>CPU
+------------------------------------------------------------------------------
 
 Check the current activity in average percent of all cores.
 
-Last check results from Sat Oct 31 2015 22:01:26 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:10:48 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| CPU Cores               |                                                2 |
-| CPU Speed               |                                         1000 MHz |
-| User Time               |                                           0.11 % |
-| Nice User Time          |                                           0.83 % |
-| System Time             |                                           0.05 % |
-| Idle Time               |                                              0 % |
-| Activity                |                                              1 % |
-| I/O Wait Time           |                                              0 % |
+| CPU Cores               |                                                8 |
+| CPU Speed               |                                     3379.812 MHz |
+| User Time               |                                              4 % |
+| Nice User Time          |                                              0 % |
+| System Time             |                                              1 % |
+| Idle Time               |                                             94 % |
+| Activity                |                                              6 % |
+| I/O Wait Time           |                                              1 % |
 | Hardware Interrupt Time |                                              0 % |
 | Software Interrupt Time |                                              0 % |
-| Lowest CPU Core         |                                              1 % |
-| Highest CPU Core        |                                              1 % |
+| Lowest CPU Core         |                                              2 % |
+| Highest CPU Core        |                                             10 % |
 
-A high CPU usage means that the server may not start another task immediately.
-If the load is also very high the system is overloaded, check if any application
-goes evil.
+&gt; A high CPU usage means that the server may not start another task
+&gt; immediately. If the load is also very high the system is overloaded, check
+&gt; if any application goes evil.
 
 This has been checked with the following setup:
 
 |       CONFIG       |  VALUE                                                |
 | ------------------ | ----------------------------------------------------: |
+| Measurement Time   |                                                  10 s |
 | Warn if            |                                      Activity &gt;= 100% |
 
-The top CPU consuming processes above 10% are:
-
-| COUNT |  %CPU |  %MEM | COMMAND                                            |
-| ----: | ----: | ----: | -------------------------------------------------- |
-|     3 |  142% | 19.1% | /opt/sublime_text/sublime_text                     |
-|     1 | 48.6% |  2.9% | /usr/bin/nodejs                                    |
-|    11 | 26.1% | 25.2% | /opt/google/chrome/chrome                          |
+No high cpu consuming processes over 10% found!
 </code></pre></div>
 
 
@@ -671,31 +907,31 @@ The top CPU consuming processes above 10% are:
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Load (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Load
+------------------------------------------------------------------------------
 
 Check the local processor activity over the last minute to 15 minutes.
 
-Last check results from Sat Oct 31 2015 21:50:07 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:12:21 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Num Cores               |                                                2 |
-| 1min Load               |                                           2.86 % |
-| 5min Load               |                                           2.79 % |
-| 15min Load              |                                           2.83 % |
+| Num Cores               |                                                8 |
+| 1min Load               |                                             41 % |
+| 5min Load               |                                             29 % |
+| 15min Load              |                                             64 % |
 
-A very high system load makes the system irresponsible or really slow. Mostly
-this is CPU-bound load, load caused by out of memory issues or I/O-bound load
-problems.
+&gt; A very high system load makes the system irresponsible or really slow.
+&gt; Mostly this is CPU-bound load, load caused by out of memory issues or
+&gt; I/O-bound load problems.
 
-The top CPU consuming processes above 10% are:
+This has been checked with the following setup:
 
-| COUNT |  %CPU |  %MEM | COMMAND                                            |
-| ----: | ----: | ----: | -------------------------------------------------- |
-|     3 |   45% | 19.1% | /opt/sublime_text/sublime_text                     |
-|     1 | 34.1% |  2.7% | /usr/bin/nodejs                                    |
-|    11 | 13.3% | 27.1% | /opt/google/chrome/chrome                          |
+|       CONFIG       |  VALUE                                                |
+| ------------------ | ----------------------------------------------------: |
+| Warn if            |                                      1min Load &gt; 500% |
+
+No high cpu consuming processes over 10% found!
 </code></pre></div>
 
 
@@ -723,30 +959,30 @@ The top CPU consuming processes above 10% are:
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Memory (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Memory
+------------------------------------------------------------------------------
 
 Check the free and used memory.
 
-Last check results from Sun Nov 01 2015 17:51:46 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:13:04 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Total                   |                                          1.85 GB |
-| Used                    |                                          1.52 GB |
-| Free                    |                                          310 MiB |
-| Shared                  |                                           23 MiB |
-| Buffers                 |                                          220 MiB |
-| Cached                  |                                          400 MiB |
-| Swap Total              |                                          1.88 GB |
-| Swap Used               |                                          197 MiB |
-| Swap Free               |                                          1.67 GB |
-| Actual Free             |                                         0.975 GB |
-| Percent Free            |                                           0.53 % |
-| Swap Percent Free       |                                           0.89 % |
+| Total                   |                                          8.05 GB |
+| Used                    |                                          7.73 GB |
+| Free                    |                                          301 MiB |
+| Shared                  |                                         0.623 GB |
+| Buffers                 |                                          127 MiB |
+| Cached                  |                                          2.22 GB |
+| Swap Total              |                                          8.26 GB |
+| Swap Used               |                                          1.23 GB |
+| Swap Free               |                                          7.03 GB |
+| Actual Free             |                                          2.67 GB |
+| Percent Free            |                                             33 % |
+| Swap Percent Free       |                                             85 % |
 
-Check which process consumes how much memory, maybe some processes have a memory
- leak.
+&gt; Check which process consumes how much memory, maybe some processes have a
+&gt; memory leak.
 
 This has been checked with the following setup:
 
@@ -754,12 +990,7 @@ This has been checked with the following setup:
 | ------------------ | ----------------------------------------------------: |
 | Warn if            |                                             Free &lt; 1% |
 
-The top memory consuming processes above 10% are:
-
-| COUNT |  %CPU |  %MEM | COMMAND                                            |
-| ----: | ----: | ----: | -------------------------------------------------- |
-|     2 | 10.8% |  4.2% | /usr/bin/python2.7                                 |
-|     1 |   42% |  2.7% | /usr/bin/nodejs                                    |
+No high memory consuming processes over 10% found!
 </code></pre></div>
 
 
@@ -790,27 +1021,27 @@ allows:</p>
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Diskfree (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Diskfree (/)
+------------------------------------------------------------------------------
 
 Test the free diskspace of one share.
 
-Last check results from Sat Oct 31 2015 22:09:19 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:13:28 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Share                   |                                        /dev/sda1 |
+| Share                   |                                        /dev/sda2 |
 | Type                    |                                             ext4 |
-| Available               |                                          216 GiB |
-| Used                    |                                           28 GiB |
-| % Used                  |                                             13 % |
-| Free                    |                                          188 GiB |
-| % Free                  |                                             87 % |
+| Available               |                                         0.926 TB |
+| Used                    |                                          383 GiB |
+| % Used                  |                                             44 % |
+| Free                    |                                          479 GiB |
+| % Free                  |                                             56 % |
 | Mountpoint              |                                                / |
 
-If a share is full it will make I/O problems in the system or applications in
-case of the root partition it may also neither be possible to log errors. Maybe
-some old files like temp or logs can be removed or compressed.
+&gt; If a share is full it will make I/O problems in the system or applications
+&gt; in case of the root partition it may also neither be possible to log errors.
+&gt; Maybe some old files like temp or logs can be removed or compressed.
 
 This has been checked with the following setup:
 
@@ -824,8 +1055,8 @@ Maybe some files in one of the following directories may be deleted or moved:
 
 | PATH                                |  FILES   |    SIZE    |   OLDEST    |
 | ----------------------------------- | -------: | ---------: | :---------- |
-| /tmp                                |      14* |   4.37 MB* | 2015-10-30* |
-| /var/log                            |     322* |   8.83 MB* | 2014-05-30* |
+| /tmp                                |     713* |  57.5 MiB* | 2014-10-16* |
+| /var/log                            |     441* |    26 MiB* | 2014-06-24* |
 
 __(*)__
 : The rows marked with a &#39;*&#39; are only assumptions, because not all
@@ -857,32 +1088,33 @@ be higher.
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Disk IO (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Disk IO (sda)
+------------------------------------------------------------------------------
 
 Check the disk io traffic.
 
-Last check results from Sun Nov 01 2015 23:11:31 GMT+0100 (CET) are:
+Last check results from Tue Nov 17 2015 16:14:19 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Read operations/s       |                                                0 |
-| Write operation/s       |                                             0.67 |
-| Read/s                  |                                              0 B |
-| Write/s                 |                                            15 kB |
-| Total Read              |                                          8.51 GB |
-| Total Write             |                                          6.13 GB |
-| Read/s                  |                                             0 ms |
-| Write/s                 |                                          6.67 ms |
+| Read operations/s       |                                              8.5 |
+| Write operation/s       |                                               19 |
+| Read/s                  |                                         0.925 MB |
+| Write/s                 |                                          223 KiB |
+| Total Read              |                                           22 GiB |
+| Total Write             |                                         91.9 GiB |
+| Read/s                  |                                          48.8 ms |
+| Write/s                 |                             1.2795999999999998 s |
 
-If there are any problems here check the device for hardware or network
-problems.
+&gt; If there are any problems here check the device for hardware or network
+&gt; problems.
 
 This has been checked with the following setup:
 
 |       CONFIG       |  VALUE                                                |
 | ------------------ | ----------------------------------------------------: |
 | Device name        |                                                   sda |
+| Measurement Time   |                                                  10 s |
 </code></pre></div>
 
 
@@ -909,71 +1141,84 @@ This has been checked with the following setup:
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Network Traffic (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Network Traffic (eth0)
+------------------------------------------------------------------------------
 
 Check the network traffic.
 
-Last check results from Mon Nov 02 2015 20:20:58 GMT+0100 (CET) are:
+Last check results from Wed Nov 18 2015 09:26:59 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Received Transfer       |                                             46 B |
-| Received Packets        |                                                1 |
+| Received Transfer       |                                          4.67 kB |
+| Received Packets        |                                               31 |
 | Received Errors         |                                              0 % |
 | Received Drops          |                                              0 % |
 | Received FIFO Errors    |                                              0 % |
-| Transmit Transfer       |                                             66 B |
-| Transmit Packets        |                                                1 |
+| Transmit Transfer       |                                          3.37 kB |
+| Transmit Packets        |                                               21 |
 | Transmit Errors         |                                              0 % |
 | Transmit Drops          |                                              0 % |
 | Transmit FIFO Errors    |                                              0 % |
-| Total Transfer          |                                            112 B |
-| Total Packets           |                                                2 |
+| Total Transfer          |                                          8.05 kB |
+| Total Packets           |                                               52 |
 | Total Errors            |                                              0 % |
 | Total Drops             |                                              0 % |
 | Total FIFO Errors       |                                              0 % |
 | Total Frame Errors      |                                              0 % |
 | Interface State         |                                               UP |
-| Mac Address             |                                00:21:63:da:d5:da |
-| IP Address              |                                     192.168.1.18 |
-| IPv6 Address            |                         fe80::221:63ff:feda:d5da |
+| Mac Address             |                                40:a8:f0:46:e5:76 |
+| IP Address              |                                    192.168.5.113 |
+| IPv6 Address            |                        fe80::42a8:f0ff:fe46:e576 |
 
-If you see a high volume it may be overloaded or a attack is running.
+&gt; If you see a high volume it may be overloaded or a attack is running.
 
 This has been checked with the following setup:
 
 |       CONFIG       |  VALUE                                                |
 | ------------------ | ----------------------------------------------------: |
-| Interface Name     |                                                 wlan0 |
+| Interface Name     |                                                  eth0 |
 | Measurement Time   |                                                  10 s |
 | Warn if            |                                    Total Errors &gt; 50% |
+| Fail if            |                                    Total Errors &gt; 99% |
 
 Listening servers:
 
-| PROTO | LOCAL IP             | PORT  |
-| :---- | :------------------- | :---- |
-| tcp   | 0.0.0.0              | 139   |
-| tcp   | 0.0.0.0              | 22    |
-| tcp   | 0.0.0.0              | 445   |
-| tcp   | 127.0.0.1            | 3306  |
-| tcp   | 127.0.1.1            | 53    |
-| tcp   | 127.0.0.1            | 5939  |
-| tcp   | 127.0.0.1            | 631   |
-| tcp6  | ::                   | 139   |
-| tcp6  | ::                   | 22    |
-| tcp6  | ::                   | 445   |
-| tcp6  | ::1                  | 631   |
+| PROTO | LOCAL IP             | PORT  | SERVICE                          |
+| :---- | :------------------- | :---- | :------------------------------- |
+| tcp   | 127.0.0.1            | 46793 |                                  |
+| tcp   | 127.0.0.1            | 3306  | mysql                            |
+| tcp   | 0.0.0.0              | 139   | NETBIOS session service          |
+| tcp   | 0.0.0.0              | 22700 |                                  |
+| tcp   | 0.0.0.0              | 80    | WorldWideWeb HTTP                |
+| tcp   | 127.0.0.1            | 5939  |                                  |
+| tcp   | 127.0.1.1            | 53    | Domain Name Server               |
+| tcp   | 0.0.0.0              | 22    | SSH Remote Login Protocol        |
+| tcp   | 127.0.0.1            | 631   | Internet Printing Protocol       |
+| tcp   | 127.0.0.1            | 5432  | PostgreSQL Database              |
+| tcp   | 0.0.0.0              | 25    | mail                             |
+| tcp   | 0.0.0.0              | 445   | Microsoft Naked CIFS             |
+| tcp6  | ::                   | 38219 |                                  |
+| tcp6  | ::                   | 139   | NETBIOS session service          |
+| tcp6  | 127.0.0.1            | 55596 |                                  |
+| tcp6  | 127.0.0.1            | 46413 |                                  |
+| tcp6  | 127.0.0.1            | 49394 |                                  |
+| tcp6  | ::                   | 22    | SSH Remote Login Protocol        |
+| tcp6  | ::1                  | 631   | Internet Printing Protocol       |
+| tcp6  | 127.0.0.1            | 51449 |                                  |
+| tcp6  | ::                   | 25    | mail                             |
+| tcp6  | ::                   | 445   | Microsoft Naked CIFS             |
 
 Active internet connections:
 
 | PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
 | :---- | :------------------- | ----: | -----: | :------------- |
-| tcp   | 173.194.113.0        | 443   |   3955 | chrome         |
-| tcp   | 173.194.113.2        | 443   |   3955 | chrome         |
-| tcp   | 198.252.206.25       | 80    |   3955 | chrome         |
-| tcp   | 209.20.75.76         | 80    |  12249 | plugin_host    |
-| tcp   | 64.233.167.188       | 443   |   3955 | chrome         |
+| tcp   | 74.125.133.188       | 5228  |   4061 | chrome         |
+| tcp   | 192.168.100.12       | 22    |   1097 | ssh            |
+| tcp   | 74.125.133.108       | 993   |   4072 | thunderbird    |
+| tcp   | 192.30.252.91        | 443   |   4061 | chrome         |
+| tcp   | 188.94.250.110       | 143   |   4072 | thunderbird    |
+| tcp   | 85.25.98.22          | 22    |  22368 | ssh            |
 </code></pre></div>
 
 
@@ -1716,69 +1961,25 @@ running daemons</p>
 
 
 
-<div class="pilwrap" id="storage">
+<div class="pilwrap" id="storage_1">
   <h2>
-    <a href="#storage" name="storage" class="pilcrow">&#182;</a>
+    <a href="#storage_1" name="storage_1" class="pilcrow">&#182;</a>
     Storage
   </h2>
 </div>
 
 
 <p>The controllers will hold some information in memory but store all values also in
-a database for long time analysis. This database may look like:</p>
+a database for long time analysis.</p>
+
+<p><img src="doc/db-structure.png" alt="Database Structure" title="" /></p>
+
+<p>This structure will hold all values but will not be easy to read. So therefore
+special views for each report may be created to show the concrete data for a
+diagram. This can be visualized using a data analyzation tool like dbVisualizer.</p>
 
 
-<div class="highlight"><pre><code>    mon_controller
-    P controller_id
-    U name (string)
-
-    mon_check
-    P check_id
-    F controller_id
-    I category (string)
-    I sensor (string)
-    I name (string)
-
-    mon_value
-    P value_id
-    F check_id
-    - name (string) # of the value e.g. responseTime, match.0, value.counter
-    - type (string)
-    - unit (string)
-
-    mon_value_minute # delete after 1 day
-    P value_minute_id
-    F value_id
-    I timerange (datetime)
-    - num (int) # number of measurements
-    - min (float)
-    - avg (float)
-    - max (float)
-    - last (string)
-
-    mon_value_quarter # delete after 2 days
-    mon_value_hour # delete after 1 week
-    mon_value_day # delete after 6 months
-    mon_value_week # delete after 5 years
-
-    mon_value_report # delete after 6 months
-    P value_report_id
-    F value_id
-    I date (datetime)
-    - report (clob)
-
-    mon_status # delete after 1 year
-    P status_id
-    F controller_id
-    F check_id
-    I change (datetime)
-    - status (enum)
-
-    mon_report # delete after 5 years
-    P report_id
-    F controller_id
-    I date (datetime)
-    - report (clob)
+<div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
 </code></pre></div>
 
 
@@ -1797,32 +1998,13 @@ a database for long time analysis. This database may look like:</p>
 <p>The controller may do some actions:</p>
 
 <ul>
-<li>inform on console/log (each analysation)</li>
+<li>inform on console/log (each analyzation)</li>
 <li>inform per email (on state change)</li>
 <li>send web request (on state change)</li>
 <li>try to repair (not implemented, yet)</li>
 </ul>
 
-
-<div class="pilwrap" id="display%20results">
-  <h2>
-    <a href="#display%20results" name="display%20results" class="pilcrow">&#182;</a>
-    Display Results
-  </h2>
-</div>
-
-
-<p>Additionally to the reports it is possible to visualize the stored data over time
-to find patterns.</p>
-
-<p>To do this special views for each report data should be made on the database which
-can be visualized using a data analyzation tool like dbVisualizer:</p>
-
-
-<div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
-</code></pre></div>
-
-
+<p>All these are triggered using the configuration rules described above.</p>
 
 
 <div class="pilwrap" id="roadmap">
@@ -1835,12 +2017,21 @@ can be visualized using a data analyzation tool like dbVisualizer:</p>
 
 <ul>
 <li><p>add time results of fields within the warn or fail conditions</p></li>
-<li><p>create db tables on startup</p></li>
-<li>add controller, check to db</li>
+<li><p>add controller, check to db</p></li>
 <li>store results => db</li>
 <li><p>store reports => db</p></li>
-<li><p>evaluate rules</p></li>
-<li>markdown -> html</li>
+<li><p>evaluate rules before analysis</p></li>
+<li>run analysis</li>
+<li>execute rules</li>
+<li>markdown ->
+html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
+<a href='https://www.npmjs.com/package/markdown-it-highlightjs'>https://www.npmjs.com/package/markdown-it-highlightjs</a>
+<a href='https://www.npmjs.com/package/markdown-it-lazy-headers'>https://www.npmjs.com/package/markdown-it-lazy-headers</a>
+<a href='https://www.npmjs.com/package/markdown-it-table-of-contents'>https://www.npmjs.com/package/markdown-it-table-of-contents</a>
+<a href='https://www.npmjs.com/package/markdown-it-checkbox'>https://www.npmjs.com/package/markdown-it-checkbox</a>
+<a href='https://www.npmjs.com/package/markdown-it-deflist'>https://www.npmjs.com/package/markdown-it-deflist</a>
+<a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a>
+<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li>
 <li><p>send emails on state change</p></li>
 <li><p>add check type: serial: []</p></li>
 <li>add check type: controller: ....</li>

@@ -504,11 +504,17 @@ You may use any of these in your warn/fail expressions.</p>
 <p>get additional information</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;netstat -plnta | sed 1,2d | sort -k 4,5&#39;</span><span class="p">]</span>
+    <span class="nv">cmd: </span><span class="s">&#39;netstat&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-plnta&#39;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">cmd: </span><span class="s">&#39;egrep&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;^#|^$&#39;</span><span class="p">,</span> <span class="s">&#39;/etc/services&#39;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
@@ -519,6 +525,22 @@ You may use any of these in your warn/fail expressions.</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>get protocol names</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">services = </span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">col = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+      <span class="nx">services</span><span class="p">[</span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">col</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">then</span> <span class="nx">col</span><span class="p">[</span><span class="mi">2</span><span class="p">..].</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^.*#\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nx">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>0 Protocol
 1 Recv-Q
@@ -532,7 +554,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="nv">server = </span><span class="s">&#39;&#39;</span>
     <span class="nv">conn = </span><span class="s">&#39;&#39;</span>
     <span class="nv">head = </span><span class="kc">true</span>
-    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
       <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
       <span class="k">continue</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">isnt</span> <span class="s">&#39;Proto&#39;</span> <span class="o">and</span> <span class="nx">head</span>
       <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;Proto&#39;</span>
@@ -544,7 +566,24 @@ You may use any of these in your warn/fail expressions.</p>
         <span class="nv">port = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">substring</span> <span class="nx">split</span><span class="o">+</span><span class="mi">1</span>
         <span class="nx">server</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
 <span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">ip</span><span class="p">,</span> <span class="mi">20</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">port</span><span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">port</span><span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
+<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">services</span><span class="p">[</span><span class="nx">port</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\d/</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)]</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="p">),</span> <span class="mi">32</span><span class="si">}</span><span class="s"> |\n&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+
+<div class="highlight"><pre><code>     <span class="o">|</span> <span class="err">#</span><span class="p">{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">port</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\d/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),</span> <span class="mi">32</span><span class="p">}</span> <span class="o">|</span><span class="err">\</span><span class="nx">n</span><span class="err">&quot;</span>
+</code></pre></div>
+
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
       <span class="k">else</span>
         <span class="nv">split = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">lastIndexOf</span> <span class="s">&#39;:&#39;</span>
         <span class="nv">ip = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">substring</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">split</span>
@@ -561,8 +600,8 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        Listening servers:</span>
 
-<span class="s">        | PROTO | LOCAL IP             | PORT  |</span>
-<span class="s">        | :---- | :------------------- | :---- |</span>
+<span class="s">        | PROTO | LOCAL IP             | PORT  | SERVICE                          |</span>
+<span class="s">        | :---- | :------------------- | ----: | :------------------------------- |</span>
 
 </pre></div>
         </td>
@@ -570,7 +609,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>{server}\n"""</p>
         </td>
@@ -588,7 +627,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>{conn}\n"""</p>
         </td>

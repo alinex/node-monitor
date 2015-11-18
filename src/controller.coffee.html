@@ -274,9 +274,9 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(check, num, cb) =&gt;</span>
-      <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> Running check </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">...&quot;</span>
       <span class="nv">sensorInstance = </span><span class="nx">require</span> <span class="s">&quot;./sensor/</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nv">name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">name</span> <span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> Running check </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">...&quot;</span>
 
 </pre></div>
         </td>
@@ -486,7 +486,7 @@
   <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 
-<div class="highlight"><pre><code>       <span class="nx">report</span> <span class="o">+=</span> <span class="s2">&quot;Tel. #{contact.phone}&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">phone</span>
+<div class="highlight"><pre><code>       <span class="nx">report</span> <span class="o">+=</span> <span class="s2">&quot;Phone: #{contact.phone.join &#39;, &#39;}&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">phone</span>
 </code></pre></div>
 
 
