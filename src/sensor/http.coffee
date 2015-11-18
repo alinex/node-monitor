@@ -207,8 +207,8 @@ remote = (conf, option, cb) ->
 # Run additional analysis
 # -------------------------------------------------
 exports.analysis = (conf, res, cb = ->) ->
-  request = res._analysis.request
-  response = res._analysis.response
+  request = res._analysis?.request
+  response = res._analysis?.response
   delete res._analysis
   return cb() unless conf.analysis
   # get additional information (top processes)

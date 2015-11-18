@@ -41,6 +41,7 @@ describe "Diskfree", ->
   describe "reporting", ->
 
     it "should make an analysis report", (cb) ->
+      @timeout 20000
       test.analysis diskfree,
         share: '/'
         analysis:
