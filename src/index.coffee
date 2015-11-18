@@ -81,7 +81,7 @@ class Monitor extends EventEmitter
       mode = null
       unless cb
         cb = ->
-    async.parallel [
+    async.series [
       (cb) -> storage.init cb
       (cb) => @instantiate mode, cb
     ], (err) =>

@@ -1267,7 +1267,7 @@ Storage
 The controllers will hold some information in memory but store all values also in
 a database for long time analysis.
 
-![Database Structure](doc/db-structure.png)
+![Database Structure](src/doc/db-structure.png)
 
 This structure will hold all values but will not be easy to read. So therefore
 special views for each report may be created to show the concrete data for a
@@ -1297,7 +1297,6 @@ Roadmap
 
 - add time results of fields within the warn or fail conditions
 
-- add controller, check to db
 - store results => db
 - store reports => db
 

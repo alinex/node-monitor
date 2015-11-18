@@ -13,11 +13,12 @@ async = require 'alinex-async'
 database = require 'alinex-database'
 # include classes and helpers
 
+conf = null
 
 exports.init = (cb) ->
-  conf = config.get '/monitor'
-  debug "Initialize database store..."
+  conf ?= config.get '/monitor'
   return cb() unless conf.storage?
+  debug "Initialize database store..."
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
     drop conf, db, (err) ->
@@ -50,10 +51,13 @@ create = (conf, db, cb) ->
         CREATE TABLE #{prefix}check (
           check_id SERIAL PRIMARY KEY,
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-          category VARCHAR(5) NOT NULL,
           sensor VARCHAR(10) NOT NULL,
-          name VARCHAR(80) NOT NULL
+          name VARCHAR(80) NOT NULL,
+          category VARCHAR(5) NOT NULL
         )
+        """, cb]
+      checkIndex: ['check', (cb) -> db.exec """
+        CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, sensor, name)
         """, cb]
       value: ['check', (cb) -> db.exec """
         CREATE TABLE #{prefix}value (
@@ -61,6 +65,9 @@ create = (conf, db, cb) ->
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
           name VARCHAR(80) NOT NULL
         )
+        """, cb]
+      valueIndex: ['value', (cb) -> db.exec """
+        CREATE UNIQUE INDEX idx_#{prefix}value ON #{prefix}value (check_id, name)
         """, cb]
       value_minute: ['value', (cb) -> db.exec """
         CREATE TABLE #{prefix}value_minute (
@@ -130,3 +137,55 @@ create = (conf, db, cb) ->
         )
         """, cb]
     , cb
+
+exports.controller = (name, cb) ->
+  conf ?= config.get '/monitor'
+  return cb() unless conf.storage?
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    return cb err if err
+    db.value """
+      SELECT controller_id FROM #{prefix}controller WHERE name=$1
+      """, name, (err, value) ->
+      return cb err, value if err or value
+      debug "register controller #{name}"
+      db.exec """
+        INSERT INTO #{prefix}controller (name) VALUES ($1) RETURNING controller_id
+        """, name, (err, num, id) ->
+        cb err, id
+
+exports.check = (controller, sensor, name, category, cb) ->
+  conf ?= config.get '/monitor'
+  return cb() unless conf.storage?
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    return cb err if err
+    db.value """
+      SELECT check_id FROM #{prefix}check WHERE controller_id=$1 AND sensor=$2 AND name=$3
+      """, [controller, sensor, name], (err, value) ->
+      return cb err, value if err or value
+      debug "register check #{sensor}:#{name} for controller_id #{controller}"
+      db.exec """
+        INSERT INTO #{prefix}check
+        (controller_id, sensor, name, category) VALUES ($1, $2, $3, $4)
+        RETURNING check_id
+        """, [controller, sensor, name, category], (err, num, id) ->
+        cb err, id
+
+exports.value = (check, name, cb) ->
+  conf ?= config.get '/monitor'
+  return cb() unless conf.storage?
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    return cb err if err
+    db.value """
+      SELECT value_id FROM #{prefix}value WHERE check_id=$1 AND name=$2
+      """, [check, name], (err, value) ->
+      return cb err, value if err or value
+      debug "register value #{name} for check_id #{check}"
+      db.exec """
+        INSERT INTO #{prefix}value
+        (check_id, name) VALUES ($1, $2)
+        RETURNING check_id
+        """, [check, name], (err, num, id) ->
+        cb err, id

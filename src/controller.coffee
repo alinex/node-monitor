@@ -17,6 +17,7 @@ config = require 'alinex-config'
 validator = require 'alinex-validator'
 # include classes and helpers
 sensor = require './sensor'
+storage = require './storage'
 
 # Controller class
 # -------------------------------------------------
@@ -37,23 +38,43 @@ class Controller extends EventEmitter
 
   # ### Initialize
   init: (cb) ->
-    async.mapOf @conf.check, (check, num, cb) =>
-      try
-        sensorInstance = require "./sensor/#{check.sensor}"
-      catch err
-        debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
-        return cb new Error "Check '#{check.sensor}' not supported"
-      validator.check
-        name: "#{@name}:#{num}"
-        value: check.config
-        schema: sensorInstance.schema
-      , (err, result) =>
-        return cb err if err
-        @conf.check[num].config = result
-        cb()
-    , (err) =>
+    async.parallel [
+      (cb) =>
+        storage.controller @name, (err, @databaseID) =>
+          return cb err if err
+          async.each @conf.check, (check, cb) =>
+            sensorInstance = require "./sensor/#{check.sensor}"
+            storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
+            , sensorInstance.meta.category, (err, checkID) =>
+              return cb err if err
+              check.databaseID = checkID
+              check.databaseValueID = {}
+              async.each Object.keys(sensorInstance.meta.values), (name, cb) =>
+                storage.value checkID, name, (err, valueID) =>
+                  return cb err if err
+                  check.databaseValueID[name] = valueID
+                  cb()
+              , cb
+          , cb
+      (cb) =>
+        async.mapOf @conf.check, (check, num, cb) =>
+          try
+            sensorInstance = require "./sensor/#{check.sensor}"
+          catch err
+            debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
+            return cb new Error "Check '#{check.sensor}' not supported"
+          validator.check
+            name: "#{@name}:#{num}"
+            value: check.config
+            schema: sensorInstance.schema
+          , (err, result) =>
+            return cb err if err
+            @conf.check[num].config = result
+            cb()
+        , cb
+    ], (err) =>
       debug "#{chalk.grey @name} Initialized controller"
-      cb err
+      cb()
 
   # ### Run once
   run: (cb) ->
