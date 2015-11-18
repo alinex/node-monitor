@@ -56,7 +56,7 @@ create = (conf, db, cb) ->
           category VARCHAR(5) NOT NULL
         )
         """, cb]
-      checkIndex: ['check', (cb) -> db.exec """
+      idx_check: ['check', (cb) -> db.exec """
         CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, sensor, name)
         """, cb]
       value: ['check', (cb) -> db.exec """
@@ -66,7 +66,7 @@ create = (conf, db, cb) ->
           name VARCHAR(80) NOT NULL
         )
         """, cb]
-      valueIndex: ['value', (cb) -> db.exec """
+      idx_value: ['value', (cb) -> db.exec """
         CREATE UNIQUE INDEX idx_#{prefix}value ON #{prefix}value (check_id, name)
         """, cb]
       value_minute: ['value', (cb) -> db.exec """
@@ -93,6 +93,9 @@ create = (conf, db, cb) ->
           last VARCHAR(120) NOT NULL
         )
         """, cb]
+      idx_value_hour: ['value_hour', (cb) -> db.exec """
+        CREATE UNIQUE INDEX idx_#{prefix}value_hour ON #{prefix}value_hour (value_id, period)
+        """, cb]
       value_day: ['value', (cb) -> db.exec """
         CREATE TABLE #{prefix}value_day (
           value_day_id SERIAL PRIMARY KEY,
@@ -105,6 +108,9 @@ create = (conf, db, cb) ->
           last VARCHAR(120) NOT NULL
         )
         """, cb]
+      idx_value_day: ['value_day', (cb) -> db.exec """
+        CREATE UNIQUE INDEX idx_#{prefix}value_day ON #{prefix}value_day (value_id, period)
+        """, cb]
       value_week: ['value', (cb) -> db.exec """
         CREATE TABLE #{prefix}value_week (
           value_week_id SERIAL PRIMARY KEY,
@@ -116,6 +122,9 @@ create = (conf, db, cb) ->
           max NUMERIC NOT NULL,
           last VARCHAR(120) NOT NULL
         )
+        """, cb]
+      idx_value_week: ['value_week', (cb) -> db.exec """
+        CREATE UNIQUE INDEX idx_#{prefix}value_week ON #{prefix}value_week (value_id, period)
         """, cb]
       statusType: (cb) -> db.exec """
         CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail')

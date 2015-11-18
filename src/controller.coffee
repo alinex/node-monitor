@@ -40,6 +40,7 @@ class Controller extends EventEmitter
   init: (cb) ->
     async.parallel [
       (cb) =>
+        # create base data in storage
         storage.controller @name, (err, @databaseID) =>
           return cb err if err
           async.each @conf.check, (check, cb) =>
@@ -57,6 +58,7 @@ class Controller extends EventEmitter
               , cb
           , cb
       (cb) =>
+        # Validate configuration
         async.mapOf @conf.check, (check, num, cb) =>
           try
             sensorInstance = require "./sensor/#{check.sensor}"
