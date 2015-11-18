@@ -4,6 +4,133 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.0 (2015-11-18)
+-------------------------------------------------
+- Small code fixes.
+- Added service description to server port list in net sensor.
+- Add markdown steps to roadmap.
+- Complete the configuration description.
+- Fixed sensor report call.
+- Allow all checks to run.
+- Completed database setup.
+- Added sensor hint as general element for all checks.
+- Made first sql storage statements runable.
+- Finished analysis run in database sensor.
+- Plan storage initialization.
+- Add script for creating database tables.
+- Added storage configuration.
+- Made conversion from object to markdown table.
+- Allow multi value store and run analysis for database.
+- Add wordwrap in report creation.
+- Updated roadmap.
+- Remove disabled setting, this is done removing the config.
+- Add analysis possibility to database sensor.
+- Added database sensor.
+- Merge branch 'master' of https://github.com/alinex/node-monitor
+- Updated documentation.
+- Start creating a database sensor.
+- Move report generation into separate method.
+- Fix controller to not interfere and produce correct reports.
+- Updated schema to be more descriptive in the reports.
+- Start to implement controller report.
+- Fix small bug in test code for time sensor causing callback to nether been called.
+- Updated planing for more sensors.
+- Add support for timeout.
+- Some test fixes.
+- Added untestet support for socks5 proxy.
+- Added http sensor working from localhost.
+- Onetime run working with all system sensors.
+- Added verbose mode.
+- Added socket check sensor.
+- Added ping sensor and result.message on all.
+- Added user sensor.
+- Removed 'name' setting from sensor with autodetect function.
+- Change sort order of Net sensor.
+- Added time sensor to check time differences.
+- Added network analyzer sensor.
+- Set process title in ps.
+- Fix documentation style.
+- Made CLI Output nice.
+- Extended diskio sensor values.
+- Updated docs.
+- Added diskio sensor.
+- Added memory sensor.
+- Fixed documentation.
+- Added system load sensor.
+- Add timeouts for analysis in diskfree.
+- Cleanup old code.
+- Fixed report for sensor to be complete.
+- Added lowest and highest cpu core values in cpu sensor.
+- Changed roadmap.
+- Fixed Controller to run status calculation.
+- Fixed cpu sensor to run properly.
+- Added new cpu sensor.
+- Added results management in controller.
+- Dokument freedisk sensor.
+- Simplified test cases.
+- Added analysis support in diskfree sensor.
+- Updated readme with more information and removed old contents.
+- Update planing for data store.
+- Merge branch 'master' of https://github.com/alinex/node-monitor
+- Update mindmap.
+- Made first sensor run through index/controller.
+- Make logo easier adjustable.
+- Fixed remote connection errors.
+- Finished call of sensors but with bug in Exec initialization.
+- Made structure for controller to call sensor.
+- Made first sensor running in new environment.
+- Copied ping sensor from old submodule.
+- Controller base class design.
+- Allow events on monitor singleton instance.
+- Move setup and initialization to module main file.
+- Adding logo.
+- Finished example config and scheme validation.
+- Added more config Schema definitions.
+- Updated example configuration files.
+- Added contact schema.
+- Fixed list view.
+- Made bootstrap running.
+- Create new config structure.
+- Begin restructuring of codebase.
+- Planing next version.
+- Made badge links npm compatible in documentation.
+- Make CLI argument parsing more strict.
+- Extended configuration values.
+- Changed install documentation.
+- Integrated travis tracking.
+- Documentation update.
+- Fixed small bug which always run tree mode.
+- Added possibility to show reverse tree.
+- Fixed status calculation to also support disabled state.
+- Log report details to stderr.
+- Remove debugging output.
+- Support alias names in monitor and controller configs.
+- Optimized error handling and output.
+- Fixed display of config errors.
+- Fix indentation in tree view.
+- Only display verbose message on direct errors.
+- Moved config to /etc/monitor for global installation.
+- Fixed bug in status calculation for controller.
+- Fixed bug in display part of the tree.
+- Fixed bug in hanging because running flag won't be resetted.
+- Fixed to run compile only if NOT compiled.
+- Run compile if not done on install.
+- Extended documentation for main program.
+- Only run install script if it exists.
+- Changed naming for controller combination names.
+- Added possibility to downgrade in 'or' rule.
+- Added tree view.
+- Finished list option to display list of controllers.
+- Changed start sequence to integrate new commands.
+- Create man page for comand line tool.
+- Added welcome message on installation.
+- Fixed package.json version notation.
+- Added entries for man pages.
+- Added standardized config creation on install.
+- Updated installation documentation.
+- Fixed bugs when some controllers are disabled.
+- Install monitor as 'monitor'.
+
 Version 0.0.2 (2014-10-09)
 -------------------------------------------------
 - Make monitor runable with start script.
