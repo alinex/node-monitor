@@ -700,71 +700,84 @@ This sensor will check the network traffic on a specified interface:
 The resulting report part may look like:
 
 ``` text
-Network Traffic (test)
------------------------------------------------------------------------------
+Network Traffic (eth0)
+------------------------------------------------------------------------------
 
 Check the network traffic.
 
-Last check results from Mon Nov 02 2015 20:20:58 GMT+0100 (CET) are:
+Last check results from Wed Nov 18 2015 09:26:59 GMT+0100 (CET) are:
 
 |          LABEL          |                     VALUE                        |
 | ----------------------- | -----------------------------------------------: |
-| Received Transfer       |                                             46 B |
-| Received Packets        |                                                1 |
+| Received Transfer       |                                          4.67 kB |
+| Received Packets        |                                               31 |
 | Received Errors         |                                              0 % |
 | Received Drops          |                                              0 % |
 | Received FIFO Errors    |                                              0 % |
-| Transmit Transfer       |                                             66 B |
-| Transmit Packets        |                                                1 |
+| Transmit Transfer       |                                          3.37 kB |
+| Transmit Packets        |                                               21 |
 | Transmit Errors         |                                              0 % |
 | Transmit Drops          |                                              0 % |
 | Transmit FIFO Errors    |                                              0 % |
-| Total Transfer          |                                            112 B |
-| Total Packets           |                                                2 |
+| Total Transfer          |                                          8.05 kB |
+| Total Packets           |                                               52 |
 | Total Errors            |                                              0 % |
 | Total Drops             |                                              0 % |
 | Total FIFO Errors       |                                              0 % |
 | Total Frame Errors      |                                              0 % |
 | Interface State         |                                               UP |
-| Mac Address             |                                00:21:63:da:d5:da |
-| IP Address              |                                     192.168.1.18 |
-| IPv6 Address            |                         fe80::221:63ff:feda:d5da |
+| Mac Address             |                                40:a8:f0:46:e5:76 |
+| IP Address              |                                    192.168.5.113 |
+| IPv6 Address            |                        fe80::42a8:f0ff:fe46:e576 |
 
-If you see a high volume it may be overloaded or a attack is running.
+> If you see a high volume it may be overloaded or a attack is running.
 
 This has been checked with the following setup:
 
 |       CONFIG       |  VALUE                                                |
 | ------------------ | ----------------------------------------------------: |
-| Interface Name     |                                                 wlan0 |
+| Interface Name     |                                                  eth0 |
 | Measurement Time   |                                                  10 s |
 | Warn if            |                                    Total Errors > 50% |
+| Fail if            |                                    Total Errors > 99% |
 
 Listening servers:
 
-| PROTO | LOCAL IP             | PORT  |
-| :---- | :------------------- | :---- |
-| tcp   | 0.0.0.0              | 139   |
-| tcp   | 0.0.0.0              | 22    |
-| tcp   | 0.0.0.0              | 445   |
-| tcp   | 127.0.0.1            | 3306  |
-| tcp   | 127.0.1.1            | 53    |
-| tcp   | 127.0.0.1            | 5939  |
-| tcp   | 127.0.0.1            | 631   |
-| tcp6  | ::                   | 139   |
-| tcp6  | ::                   | 22    |
-| tcp6  | ::                   | 445   |
-| tcp6  | ::1                  | 631   |
+| PROTO | LOCAL IP             | PORT  | SERVICE                          |
+| :---- | :------------------- | :---- | :------------------------------- |
+| tcp   | 127.0.0.1            | 46793 |                                  |
+| tcp   | 127.0.0.1            | 3306  | mysql                            |
+| tcp   | 0.0.0.0              | 139   | NETBIOS session service          |
+| tcp   | 0.0.0.0              | 22700 |                                  |
+| tcp   | 0.0.0.0              | 80    | WorldWideWeb HTTP                |
+| tcp   | 127.0.0.1            | 5939  |                                  |
+| tcp   | 127.0.1.1            | 53    | Domain Name Server               |
+| tcp   | 0.0.0.0              | 22    | SSH Remote Login Protocol        |
+| tcp   | 127.0.0.1            | 631   | Internet Printing Protocol       |
+| tcp   | 127.0.0.1            | 5432  | PostgreSQL Database              |
+| tcp   | 0.0.0.0              | 25    | mail                             |
+| tcp   | 0.0.0.0              | 445   | Microsoft Naked CIFS             |
+| tcp6  | ::                   | 38219 |                                  |
+| tcp6  | ::                   | 139   | NETBIOS session service          |
+| tcp6  | 127.0.0.1            | 55596 |                                  |
+| tcp6  | 127.0.0.1            | 46413 |                                  |
+| tcp6  | 127.0.0.1            | 49394 |                                  |
+| tcp6  | ::                   | 22    | SSH Remote Login Protocol        |
+| tcp6  | ::1                  | 631   | Internet Printing Protocol       |
+| tcp6  | 127.0.0.1            | 51449 |                                  |
+| tcp6  | ::                   | 25    | mail                             |
+| tcp6  | ::                   | 445   | Microsoft Naked CIFS             |
 
 Active internet connections:
 
 | PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
 | :---- | :------------------- | ----: | -----: | :------------- |
-| tcp   | 173.194.113.0        | 443   |   3955 | chrome         |
-| tcp   | 173.194.113.2        | 443   |   3955 | chrome         |
-| tcp   | 198.252.206.25       | 80    |   3955 | chrome         |
-| tcp   | 209.20.75.76         | 80    |  12249 | plugin_host    |
-| tcp   | 64.233.167.188       | 443   |   3955 | chrome         |
+| tcp   | 74.125.133.188       | 5228  |   4061 | chrome         |
+| tcp   | 192.168.100.12       | 22    |   1097 | ssh            |
+| tcp   | 74.125.133.108       | 993   |   4072 | thunderbird    |
+| tcp   | 192.30.252.91        | 443   |   4061 | chrome         |
+| tcp   | 188.94.250.110       | 143   |   4072 | thunderbird    |
+| tcp   | 85.25.98.22          | 22    |  22368 | ssh            |
 ```
 
 ### Time

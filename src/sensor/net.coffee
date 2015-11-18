@@ -241,13 +241,24 @@ exports.run = (config, cb = ->) ->
 # -------------------------------------------------
 exports.analysis = (config, res, cb = ->) ->
   # get additional information
-  Exec.run
+  async.map [
     remote: config.remote
-    cmd: 'sh'
-    args: ['-c', 'netstat -plnta | sed 1,2d | sort -k 4,5']
+    cmd: 'netstat'
+    args: ['-plnta']
     priority: 'immediately'
+  ,
+    cmd: 'egrep'
+    args: ['-v', '^#|^$', '/etc/services']
+    priority: 'immediately'
+  ], (setup, cb) ->
+    Exec.run setup, cb
   , (err, proc) ->
     return cb err if err
+    # get protocol names
+    services = {}
+    for line in proc[1].stdout().trim().split /\n/
+      col = line.split /\s+/
+      services[col[1]] = if col[2] then col[2..].join(' ').replace(/^.*#\s+/, '') else col[0]
     # 0 Protocol
     # 1 Recv-Q
     # 2 Send-Q
@@ -258,7 +269,7 @@ exports.analysis = (config, res, cb = ->) ->
     server = ''
     conn = ''
     head = true
-    for line in proc.stdout().trim().split /\n/
+    for line in proc[0].stdout().trim().split /\n/
       cols = line.split /\s+/
       continue if cols[0] isnt 'Proto' and head
       if cols[0] is 'Proto'
@@ -270,7 +281,9 @@ exports.analysis = (config, res, cb = ->) ->
         port = cols[3].substring split+1
         server += "| #{string.rpad cols[0] , 5}
           | #{string.rpad ip, 20}
-          | #{string.rpad port, 5} |\n"
+          | #{string.rpad port, 5}
+          | #{string.rpad (services[port + '/' + cols[0].replace(/\d/, '')] ? ''), 32} |\n"
+#          | #{string.rpad (port + '/' + cols[0].replace(/\d/, '')), 32} |\n"
       else
         split = cols[4].lastIndexOf ':'
         ip = cols[4].substring 0, split
@@ -287,8 +300,8 @@ exports.analysis = (config, res, cb = ->) ->
       report += """
         Listening servers:
 
-        | PROTO | LOCAL IP             | PORT  |
-        | :---- | :------------------- | :---- |
+        | PROTO | LOCAL IP             | PORT  | SERVICE                          |
+        | :---- | :------------------- | ----: | :------------------------------- |
         #{server}\n"""
     if conn
       report += """
