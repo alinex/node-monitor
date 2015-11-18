@@ -1299,6 +1299,7 @@ Roadmap
 
 - store results => db
 - store reports => db
+- make crosstable view
 
 - evaluate rules before analysis
 - run analysis

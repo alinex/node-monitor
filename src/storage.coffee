@@ -81,6 +81,9 @@ create = (conf, db, cb) ->
           last VARCHAR(120) NOT NULL
         )
         """, cb]
+      idx_value_minute: ['value_minute', (cb) -> db.exec """
+        CREATE UNIQUE INDEX idx_#{prefix}value_minute ON #{prefix}value_minute (value_id, period)
+        """, cb]
       value_hour: ['value', (cb) -> db.exec """
         CREATE TABLE #{prefix}value_hour (
           value_hour_id SERIAL PRIMARY KEY,
@@ -198,3 +201,30 @@ exports.value = (check, name, cb) ->
         RETURNING check_id
         """, [check, name], (err, num, id) ->
         cb err, id
+
+exports.results = (valueID, meta, date, value, cb) ->
+  conf ?= config.get '/monitor'
+  return cb() unless conf.storage?
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    return cb err if err
+    m = moment date
+    async.each ['minute', 'hour', 'day', 'week', 'month'], (interval, cb) -> # 'quarter', 'year'
+      period = m.startOf(interval)
+      db.value """
+        SELECT COUNT(*) FROM #{prefix}value_#{interval} WHERE value_id=$1 AND period=$2
+        """, [valueID, period], (err, value) ->
+        return cb err if err
+        # insert
+        unless value
+          debug "add value_id #{valueID} for #{interval} #{period}"
+          db.exec """
+            INSERT INTO #{prefix}value_#{interval}
+            (value_id, period, num) VALUES ($1, $2, 1)
+            RETURNING check_id
+            """, [valueID, period], (err, num, id) ->
+            cb err, id
+############################### add data
+        # update
+############################### create update statement
+    , cb
