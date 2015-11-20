@@ -53,6 +53,9 @@
       <div class="heading h3">
         <a href="#run%20once">Run once</a>
       </div>
+      <div class="heading h3">
+        <a href="#create%20a%20report">Create a report</a>
+      </div>
       <div class="heading h2">
         <a href="#helper%20to%20colorize%20output">Helper to colorize output</a>
       </div>
@@ -139,6 +142,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;./sensor&#39;</span>
+<span class="nv">storage = </span><span class="nx">require</span> <span class="s">&#39;./storage&#39;</span>
 
 
 </pre></div>
@@ -227,23 +231,67 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">init: </span><span class="nf">(cb) -&gt;</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(check, num, cb) =&gt;</span>
-      <span class="k">try</span>
-        <span class="nv">sensorInstance = </span><span class="nx">require</span> <span class="s">&quot;./sensor/</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">catch</span> <span class="nx">err</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Failed to load &#39;</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&#39; lib because of: </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Check &#39;</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&#39; not supported&quot;</span>
-      <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
-        <span class="nv">name: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nv">value: </span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span>
-        <span class="nv">schema: </span><span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">schema</span>
-      <span class="p">,</span> <span class="nf">(err, result) =&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">@conf</span><span class="p">.</span><span class="nx">check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nv">config = </span><span class="nx">result</span>
-        <span class="nx">cb</span><span class="p">()</span>
-    <span class="p">,</span> <span class="nf">(err) =&gt;</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+      <span class="nf">(cb) =&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>create base data in storage</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">storage</span><span class="p">.</span><span class="nx">controller</span> <span class="nx">@name</span><span class="p">,</span> <span class="nf">(err, @databaseID) =&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(check, cb) =&gt;</span>
+            <span class="nv">sensorInstance = </span><span class="nx">require</span> <span class="s">&quot;./sensor/</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="nx">storage</span><span class="p">.</span><span class="nx">check</span> <span class="nx">@databaseID</span><span class="p">,</span> <span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="p">,</span> <span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">name</span><span class="p">(</span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="p">)</span>
+            <span class="p">,</span> <span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span> <span class="nf">(err, checkID) =&gt;</span>
+              <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+              <span class="nv">check.databaseID = </span><span class="nx">checkID</span>
+              <span class="nv">check.databaseValueID = </span><span class="p">{}</span>
+              <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span><span class="p">),</span> <span class="nf">(name, cb) =&gt;</span>
+                <span class="nx">storage</span><span class="p">.</span><span class="nx">value</span> <span class="nx">checkID</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nf">(err, valueID) =&gt;</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+                  <span class="nx">check</span><span class="p">.</span><span class="nx">databaseValueID</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">valueID</span>
+                  <span class="nx">cb</span><span class="p">()</span>
+              <span class="p">,</span> <span class="nx">cb</span>
+          <span class="p">,</span> <span class="nx">cb</span>
+      <span class="nf">(cb) =&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>Validate configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(check, num, cb) =&gt;</span>
+          <span class="k">try</span>
+            <span class="nv">sensorInstance = </span><span class="nx">require</span> <span class="s">&quot;./sensor/</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="k">catch</span> <span class="nx">err</span>
+            <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Failed to load &#39;</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&#39; lib because of: </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Check &#39;</span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s">&#39; not supported&quot;</span>
+          <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
+            <span class="nv">name: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="nv">value: </span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span>
+            <span class="nv">schema: </span><span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">schema</span>
+          <span class="p">,</span> <span class="nf">(err, result) =&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+            <span class="nx">@conf</span><span class="p">.</span><span class="nx">check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nv">config = </span><span class="nx">result</span>
+            <span class="nx">cb</span><span class="p">()</span>
+        <span class="p">,</span> <span class="nx">cb</span>
+    <span class="p">],</span> <span class="nf">(err) =&gt;</span>
       <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> Initialized controller&quot;</span>
-      <span class="nx">cb</span> <span class="nx">err</span>
+      <span class="nx">cb</span><span class="p">()</span>
 
 
 </pre></div>
@@ -268,7 +316,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>for each sensor in parallel</p>
         </td>
@@ -284,7 +332,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>run sensor</p>
         </td>
@@ -298,7 +346,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>status info</p>
         </td>
@@ -319,7 +367,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>check for status change -> analysis</p>
         </td>
@@ -338,7 +386,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>run analysis</p>
         </td>
@@ -355,7 +403,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 
 <div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">results</span>
@@ -374,7 +422,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>store sensor results</p>
         </td>
@@ -388,7 +436,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>calculate controller status</p>
         </td>
@@ -402,7 +450,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>make report</p>
         </td>
@@ -415,7 +463,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 
 <div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span>
@@ -427,6 +475,21 @@
       <span class="nx">@emit</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="k">this</span>
       <span class="nx">cb</span><span class="p">()</span>
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20a%20report">
+  <h3>
+    <a href="#create%20a%20report" name="create%20a%20report" class="pilcrow">&#182;</a>
+    Create a report
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">report: </span><span class="nf">(results) -&gt;</span>
 
 </pre></div>
@@ -435,7 +498,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>make report</p>
         </td>
@@ -454,7 +517,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>{string.wordwrap @conf.description, 78}\n</p>
         </td>
@@ -483,7 +546,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
 
 <div class="highlight"><pre><code>       <span class="nx">report</span> <span class="o">+=</span> <span class="s2">&quot;Phone: #{contact.phone.join &#39;, &#39;}&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">phone</span>
@@ -513,7 +576,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>keep report
 action
@@ -607,7 +670,7 @@ level for one step before using in calculation.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
 <p>console.log combine, check, result
 translate name to number</p>
@@ -625,7 +688,7 @@ translate name to number</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>calculate values</p>
         </td>
@@ -668,7 +731,7 @@ translate name to number</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
 </div>
 <p>translate status number to name</p>
         </td>

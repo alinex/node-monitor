@@ -36,6 +36,9 @@
         <a href="#rule%20definition">Rule Definition</a>
       </div>
       <div class="heading h3">
+        <a href="#set%20templates%20for%20default%20rules">Set templates for default rules</a>
+      </div>
+      <div class="heading h3">
         <a href="#specific%20check">specific check</a>
       </div>
     </div>
@@ -59,6 +62,33 @@
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="set%20templates%20for%20default%20rules">
+  <h3>
+    <a href="#set%20templates%20for%20default%20rules" name="set%20templates%20for%20default%20rules" class="pilcrow">&#182;</a>
+    Set templates for default rules
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">fail</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
+
+<span class="l-Scalar-Plain">warn</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">warn</span>
+
+<span class="l-Scalar-Plain">ok</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ok</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="specific%20check">
   <h3>
     <a href="#specific%20check" name="specific%20check" class="pilcrow">&#182;</a>
@@ -76,7 +106,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>Only work on specific status.</p>
         </td>
@@ -89,7 +119,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
 <p>Number of minimum attempts before informing.</p>
         </td>
@@ -102,7 +132,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
 <p>Time (in seconds) to wait before informing.</p>
         </td>
@@ -115,7 +145,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
 <p>Only inform if dependent jobs not failed. This prevents of hundred of
 messages if a central system failed.</p>
@@ -129,7 +159,7 @@ messages if a central system failed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>Type of actor to run with it's configuration</p>
         </td>
@@ -143,7 +173,7 @@ messages if a central system failed.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>Timeout (in seconds) without status change before informing again.</p>
         </td>

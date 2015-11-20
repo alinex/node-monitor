@@ -42,7 +42,19 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h3">
-        <a href="#status">Status</a>
+        <a href="#check%20specific%20or%20all">Check specific or all</a>
+      </div>
+      <div class="heading h3">
+        <a href="#controller%20info">Controller info</a>
+      </div>
+      <div class="heading h3">
+        <a href="#run%20as%20a%20service">Run as a service</a>
+      </div>
+      <div class="heading h3">
+        <a href="#analysis%20run">Analysis run</a>
+      </div>
+      <div class="heading h3">
+        <a href="#interactive%20mode">Interactive Mode</a>
       </div>
       <div class="heading h3">
         <a href="#setup">Setup</a>
@@ -64,6 +76,9 @@
       </div>
       <div class="heading h3">
         <a href="#exec%20and%20database">Exec and Database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#status">Status</a>
       </div>
       <div class="heading h2">
         <a href="#controller">Controller</a>
@@ -180,7 +195,13 @@
         <a href="#streaming">Streaming</a>
       </div>
       <div class="heading h2">
-        <a href="#info%20analyzer%20sensors">Info Analyzer Sensors</a>
+        <a href="#storage">Storage</a>
+      </div>
+      <div class="heading h2">
+        <a href="#actor">Actor</a>
+      </div>
+      <div class="heading h2">
+        <a href="#analyzer">Analyzer</a>
       </div>
       <div class="heading h3">
         <a href="#hardware">Hardware</a>
@@ -203,11 +224,17 @@
       <div class="heading h3">
         <a href="#upgrade">Upgrade</a>
       </div>
-      <div class="heading h2">
-        <a href="#storage">Storage</a>
+      <div class="heading h3">
+        <a href="#database">Database</a>
       </div>
       <div class="heading h2">
-        <a href="#actor">Actor</a>
+        <a href="#plugin%20system">Plugin System</a>
+      </div>
+      <div class="heading h3">
+        <a href="#plugin%20structure">Plugin Structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#include%20and%20use">Include and Use</a>
       </div>
       <div class="heading h2">
         <a href="#roadmap">Roadmap</a>
@@ -241,6 +268,7 @@ side.</p>
 <li>lots of sensors</li>
 <li>alerting and reporting</li>
 <li>data store for time analysis</li>
+<li>interactive analyzing</li>
 </ul>
 
 <p>The monitor will analyze your whole environment in deep by connecting to the different
@@ -300,10 +328,13 @@ If so you will get a hint in the report.</p>
 </div>
 
 
-<p>After the monitor and it's controllers are fully configured it may be run by only calling:</p>
+<p>After the monitor and it's controllers are fully configured it may be run by
+only calling:</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span>
+
+<span class="nx">SHOW</span> <span class="nx">OUTPUT</span> <span class="err">##############################################################</span>
 </code></pre></div>
 
 
@@ -312,55 +343,150 @@ If so you will get a hint in the report.</p>
 controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.</p>
 
-<p>Alternatively you may give a controller name or pattern to select the controllers
-to run:</p>
+<p>Global options:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-</span><span class="nx">develop</span>     <span class="err">#</span> <span class="nx">run</span> <span class="nx">only</span> <span class="k">this</span> <span class="nx">controller</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-*</span>           <span class="err">#</span> <span class="nx">run</span> <span class="nx">all</span> <span class="nx">controller</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">name</span> <span class="nx">prefix</span>
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">C</span><span class="p">,</span> <span class="o">--</span><span class="nx">nocolors</span>  <span class="nx">turn</span> <span class="nx">of</span> <span class="nx">color</span> <span class="nx">output</span>
+<span class="o">-</span><span class="nx">v</span><span class="p">,</span> <span class="o">--</span><span class="nx">verbose</span>   <span class="nx">run</span> <span class="k">in</span> <span class="nx">verbose</span> <span class="nx">mode</span>
+<span class="o">-</span><span class="nx">h</span><span class="p">,</span> <span class="o">--</span><span class="nx">help</span>      <span class="nx">Show</span> <span class="nx">help</span>
+<span class="o">-</span><span class="nx">m</span><span class="p">,</span> <span class="o">--</span><span class="nx">mail</span> <span class="o">&lt;</span><span class="nx">email</span><span class="o">&gt;</span> <span class="nx">Email</span> <span class="nx">to</span> <span class="nx">send</span> <span class="nx">to</span> <span class="nx">instead</span> <span class="nx">of</span> <span class="nx">configured</span> <span class="nx">one</span>
 </code></pre></div>
 
+
+
+<p>The verbose mode works in multiple steps:</p>
+
+
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">v</span>    <span class="nx">show</span> <span class="nx">also</span> <span class="nx">the</span> <span class="nx">sensor</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
+<span class="o">-</span><span class="nx">vv</span>   <span class="nx">also</span> <span class="nx">display</span> <span class="nx">the</span> <span class="nx">result</span> <span class="nx">values</span>
+<span class="o">-</span><span class="nx">vvv</span>  <span class="nx">make</span> <span class="nx">and</span> <span class="nx">display</span><span class="o">/</span><span class="nx">send</span> <span class="nx">reports</span> <span class="nx">always</span>
+</code></pre></div>
+
+
+
+<p>The output may look like:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">v</span>
+
+<span class="nx">example</span> <span class="err">###############################</span>
+
+<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">vvv</span>
+
+<span class="nx">example</span> <span class="err">######################</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="check%20specific%20or%20all">
+  <h3>
+    <a href="#check%20specific%20or%20all" name="check%20specific%20or%20all" class="pilcrow">&#182;</a>
+    Check specific or all
+  </h3>
+</div>
+
+
+<p>As seen above you may use the monitor to run all or the specified controllers
+once:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-</span><span class="nx">develop</span>    <span class="err">#</span> <span class="nx">run</span> <span class="nx">only</span> <span class="k">this</span> <span class="nx">controller</span>
+<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-*</span>          <span class="err">#</span> <span class="nx">run</span> <span class="nx">controllers</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">name</span> <span class="nx">prefix</span>
+<span class="o">&gt;</span> <span class="nx">monitor</span>               <span class="err">#</span> <span class="nx">run</span> <span class="nx">all</span> <span class="nx">controllers</span>
+</code></pre></div>
+
+
+
+<p>Here you may give the following options:</p>
+
+<p>?????????????????????????????</p>
+
+
+<div class="pilwrap" id="controller%20info">
+  <h3>
+    <a href="#controller%20info" name="controller%20info" class="pilcrow">&#182;</a>
+    Controller info
+  </h3>
+</div>
+
+
+<p>The remaining options are used for informal use like:</p>
+
+
+<div class="highlight"><pre><code><span class="o">--</span><span class="nx">list</span> <span class="o">-</span> <span class="nx">get</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">all</span> <span class="nx">configured</span> <span class="nx">controllers</span>
+<span class="o">--</span><span class="nx">tree</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">the</span> <span class="nx">list</span> <span class="nx">as</span> <span class="nx">tree</span> <span class="p">(</span><span class="nx">controller</span> <span class="nx">needs</span> <span class="nx">controller</span><span class="p">)</span>
+<span class="o">--</span><span class="nx">reverse</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">a</span> <span class="nx">reverse</span> <span class="nx">tree</span> <span class="p">(</span><span class="nx">controller</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">by</span> <span class="nx">controller</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="run%20as%20a%20service">
+  <h3>
+    <a href="#run%20as%20a%20service" name="run%20as%20a%20service" class="pilcrow">&#182;</a>
+    Run as a service
+  </h3>
+</div>
 
 
 <p>To run the controller continuously use the <code>daemon</code> option and start it in the
 background.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">b</span> <span class="o">&gt;</span> <span class="err">/var/log/monitor.log 2&gt;&amp;1 &amp;</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">d</span> <span class="o">&gt;</span> <span class="err">/var/log/monitor.log 2&gt;&amp;1 &amp;</span>
 </code></pre></div>
 
 
 
-<p>The remaining options are used for informal use like:</p>
+<p>This will check all the controllers in the defined timerange, collect measurement
+values and send alerts. You may also specify some controllers to run instead of
+all.</p>
 
-<ul>
-<li><code>list</code> - get a list of all configured controllers</li>
-<li><code>tree</code> - show the list as tree (controller needs controller)</li>
-<li><code>reverse</code> - show a reverse tree (controller is needed by controller)</li>
-</ul>
+<p>Like seen above you may send the normal output to a log file but better configure
+a log destination through the config files (see below).</p>
 
 
-<div class="pilwrap" id="status">
+<div class="pilwrap" id="analysis%20run">
   <h3>
-    <a href="#status" name="status" class="pilcrow">&#182;</a>
-    Status
+    <a href="#analysis%20run" name="analysis%20run" class="pilcrow">&#182;</a>
+    Analysis run
   </h3>
 </div>
 
 
-<p>The monitor uses the following status:</p>
+<p>This is a method to make an individual not fix configured check. This may be done
+with the needed information as <code>data</code> element in JSON format on the command line
+or in an interactive mode (documented in the next section).</p>
 
-<p><strong>running</strong> if the sensor is already analyzing, you have to wait</p>
 
-<p><strong>disabled</strong> if this controller is currently not checked - this will be used
-like ok for further processing</p>
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">a</span> <span class="o">--</span><span class="nx">analyze</span> <span class="o">&lt;</span><span class="nx">analyzer</span><span class="o">&gt;</span>
+<span class="o">--</span><span class="nx">data</span> <span class="o">&lt;</span><span class="nx">json</span><span class="o">&gt;</span>
+</code></pre></div>
 
-<p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
 
-<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
-it - exit code 1</p>
 
-<p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
+<p>If you want to run multiple analyzers, make another call.</p>
+
+
+<div class="pilwrap" id="interactive%20mode">
+  <h3>
+    <a href="#interactive%20mode" name="interactive%20mode" class="pilcrow">&#182;</a>
+    Interactive Mode
+  </h3>
+</div>
+
+
+<p>That will do the same as above but all settings are asked if needed.</p>
+
+
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">i</span> <span class="o">--</span><span class="nx">interactive</span>
+</code></pre></div>
+
+
+
+<p>First you have to select an analyzer to use. All that follows depends on that
+analyzer.</p>
 
 
 <div class="pilwrap" id="setup">
@@ -577,6 +703,29 @@ settings are defined in the <code>/database</code> configuration, see below.</p>
 <p>Also you need the setup under <code>/exec</code> and <code>/database</code> like described in
 <a href="http://alinex.github.io/node-exec">Exec</a> and <a href="http://alinex.github.io/node-database">Database</a>.
 This is used in the different sensors by references to the setup stored there.</p>
+
+
+<div class="pilwrap" id="status">
+  <h2>
+    <a href="#status" name="status" class="pilcrow">&#182;</a>
+    Status
+  </h2>
+</div>
+
+
+<p>The monitor uses the following status:</p>
+
+<p><strong>running</strong> if the sensor is already analyzing, you have to wait</p>
+
+<p><strong>disabled</strong> if this controller is currently not checked - this will be used
+like ok for further processing</p>
+
+<p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
+
+<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
+it - exit code 1</p>
+
+<p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
 
 
 <div class="pilwrap" id="controller">
@@ -1869,16 +2018,66 @@ Maybe the following additional results may help:
 <p>To be written...</p>
 
 
-<div class="pilwrap" id="info%20analyzer%20sensors">
+<div class="pilwrap" id="storage_1">
   <h2>
-    <a href="#info%20analyzer%20sensors" name="info%20analyzer%20sensors" class="pilcrow">&#182;</a>
-    Info Analyzer Sensors
+    <a href="#storage_1" name="storage_1" class="pilcrow">&#182;</a>
+    Storage
   </h2>
 </div>
 
 
-<p>This sensors are not build to run continuously but to run once to gather information
-about a more unknown system.</p>
+<p>The controllers will hold some information in memory but store all values also in
+a database for long time analysis.</p>
+
+<p><img src="src/doc/db-structure.png" alt="Database Structure" title="" /></p>
+
+<p>This structure will hold all values but will not be easy to read. So therefore
+special views for each report may be created to show the concrete data for a
+diagram. This can be visualized using a data analyzation tool like dbVisualizer.</p>
+
+
+<div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
+</code></pre></div>
+
+
+
+<p>To keep the data volume low old values will be removed.</p>
+
+
+<div class="pilwrap" id="actor">
+  <h2>
+    <a href="#actor" name="actor" class="pilcrow">&#182;</a>
+    Actor
+  </h2>
+</div>
+
+
+<p>The controller may do some actions:</p>
+
+<ul>
+<li>inform on console/log (each analyzation)</li>
+<li>inform per email (on state change)</li>
+<li>send web request (on state change)</li>
+<li>try to repair (not implemented, yet)</li>
+</ul>
+
+<p>All these are triggered using the configuration rules described above.</p>
+
+
+<div class="pilwrap" id="analyzer">
+  <h2>
+    <a href="#analyzer" name="analyzer" class="pilcrow">&#182;</a>
+    Analyzer
+  </h2>
+</div>
+
+
+<p>The analyzers are not build to run continuously but to run from time to time
+interactively and gather information. They are a scriptable tool to gather
+information and analyze them.</p>
+
+<p>To run them use the interactive console or give all details to the cli as a json
+object.</p>
 
 
 <div class="pilwrap" id="hardware">
@@ -1961,50 +2160,60 @@ running daemons</p>
 
 
 
-<div class="pilwrap" id="storage_1">
+<div class="pilwrap" id="database_1">
+  <h3>
+    <a href="#database_1" name="database_1" class="pilcrow">&#182;</a>
+    Database
+  </h3>
+</div>
+
+
+
+<div class="pilwrap" id="plugin%20system">
   <h2>
-    <a href="#storage_1" name="storage_1" class="pilcrow">&#182;</a>
-    Storage
+    <a href="#plugin%20system" name="plugin%20system" class="pilcrow">&#182;</a>
+    Plugin System
   </h2>
 </div>
 
 
-<p>The controllers will hold some information in memory but store all values also in
-a database for long time analysis.</p>
-
-<p><img src="src/doc/db-structure.png" alt="Database Structure" title="" /></p>
-
-<p>This structure will hold all values but will not be easy to read. So therefore
-special views for each report may be created to show the concrete data for a
-diagram. This can be visualized using a data analyzation tool like dbVisualizer.</p>
+<p>To extend the monitor with your own sensors, analyzers and actors you have the
+possibility to create your own package with them.</p>
 
 
-<div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
+<div class="pilwrap" id="plugin%20structure">
+  <h3>
+    <a href="#plugin%20structure" name="plugin%20structure" class="pilcrow">&#182;</a>
+    Plugin Structure
+  </h3>
+</div>
+
+
+
+<div class="pilwrap" id="include%20and%20use">
+  <h3>
+    <a href="#include%20and%20use" name="include%20and%20use" class="pilcrow">&#182;</a>
+    Include and Use
+  </h3>
+</div>
+
+
+<p>To include your own plugins you have to install them using <code>npm</code> and then add
+them in the <code>/monitor/plugins</code> list of your configuration file.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">my</span><span class="o">-</span><span class="nx">plugin</span>
+
+<span class="p">...</span>
+<span class="nx">plugins</span><span class="o">:</span>
+  <span class="o">-</span> <span class="nx">my</span><span class="o">-</span><span class="nx">plugins</span>
+<span class="p">...</span>
 </code></pre></div>
 
 
 
-<p>To keep the data volume low old values will be removed.</p>
-
-
-<div class="pilwrap" id="actor">
-  <h2>
-    <a href="#actor" name="actor" class="pilcrow">&#182;</a>
-    Actor
-  </h2>
-</div>
-
-
-<p>The controller may do some actions:</p>
-
-<ul>
-<li>inform on console/log (each analyzation)</li>
-<li>inform per email (on state change)</li>
-<li>send web request (on state change)</li>
-<li>try to repair (not implemented, yet)</li>
-</ul>
-
-<p>All these are triggered using the configuration rules described above.</p>
+<p>After that you can use them in your controller or analyzation run as if they are
+internal ones by name.</p>
 
 
 <div class="pilwrap" id="roadmap">
@@ -2017,9 +2226,9 @@ diagram. This can be visualized using a data analyzation tool like dbVisualizer.
 
 <ul>
 <li><p>add time results of fields within the warn or fail conditions</p></li>
-<li><p>add controller, check to db</p></li>
-<li>store results => db</li>
-<li><p>store reports => db</p></li>
+<li><p>store results => db</p></li>
+<li>store reports => db</li>
+<li><p>make crosstable view</p></li>
 <li><p>evaluate rules before analysis</p></li>
 <li>run analysis</li>
 <li>execute rules</li>

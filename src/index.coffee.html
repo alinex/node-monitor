@@ -307,7 +307,7 @@
       <span class="nv">mode = </span><span class="kc">null</span>
       <span class="k">unless</span> <span class="nx">cb</span>
         <span class="nv">cb = </span><span class="nf">-&gt;</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
       <span class="nf">(cb) -&gt;</span> <span class="nx">storage</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
       <span class="nf">(cb) =&gt;</span> <span class="nx">@instantiate</span> <span class="nx">mode</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="p">],</span> <span class="nf">(err) =&gt;</span>

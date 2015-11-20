@@ -38,6 +38,36 @@
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
       </div>
+      <div class="heading h2">
+        <a href="#general%20data">General data</a>
+      </div>
+      <div class="heading h2">
+        <a href="#initialize%20database">Initialize database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#drop%20database">Drop database</a>
+      </div>
+      <div class="heading h2">
+        <a href="#create%20database%20structure">Create database structure</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get%20or%20register%20controller">Get or register controller</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get%20or%20register%20check">Get or register check</a>
+      </div>
+      <div class="heading h2">
+        <a href="#get%20or%20register%20value">get or register value</a>
+      </div>
+      <div class="heading h2">
+        <a href="#add%20results">Add results</a>
+      </div>
+      <div class="heading h6">
+        <a href="#%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20add%20data">######################## add data</a>
+      </div>
+      <div class="heading h6">
+        <a href="#%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20create%20update%20statement">######################## create update statement</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -112,17 +142,66 @@
         <td class="code highlight"><div class="highlight"><pre>
 
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="general%20data">
+  <h2>
+    <a href="#general%20data" name="general%20data" class="pilcrow">&#182;</a>
+    General data
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">conf = </span><span class="kc">null</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialize%20database">
+  <h2>
+    <a href="#initialize%20database" name="initialize%20database" class="pilcrow">&#182;</a>
+    Initialize database
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="nx">debug</span> <span class="s">&quot;Initialize database store...&quot;</span>
+  <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="nx">debug</span> <span class="s">&quot;Initialize database store...&quot;</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">drop</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">db</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">create</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">db</span><span class="p">,</span> <span class="nx">cb</span>
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="drop%20database">
+  <h2>
+    <a href="#drop%20database" name="drop%20database" class="pilcrow">&#182;</a>
+    Drop database
+  </h2>
+</div>
+
+
+<p>This should not be enabled in productive system.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">drop = </span><span class="nf">(conf, db, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="c1"># disable function</span>
   <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="p">[</span>
     <span class="s">&quot;DROP SCHEMA public CASCADE&quot;</span>
     <span class="s">&quot;CREATE SCHEMA public&quot;</span>
@@ -130,6 +209,21 @@
     <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">sql</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">,</span> <span class="nx">cb</span>
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20database%20structure">
+  <h2>
+    <a href="#create%20database%20structure" name="create%20database%20structure" class="pilcrow">&#182;</a>
+    Create database structure
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">create = </span><span class="nf">(conf, db, cb) -&gt;</span>
 
 </pre></div>
@@ -138,7 +232,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>check if tables are installed</p>
         </td>
@@ -159,10 +253,13 @@
 <span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check (</span>
 <span class="s">          check_id SERIAL PRIMARY KEY,</span>
 <span class="s">          controller_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller ON DELETE CASCADE,</span>
-<span class="s">          category VARCHAR(5) NOT NULL,</span>
 <span class="s">          sensor VARCHAR(10) NOT NULL,</span>
-<span class="s">          name VARCHAR(80) NOT NULL</span>
+<span class="s">          name VARCHAR(80) NOT NULL,</span>
+<span class="s">          category VARCHAR(5) NOT NULL</span>
 <span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">idx_check: </span><span class="p">[</span><span class="s">&#39;check&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE UNIQUE INDEX idx_</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check ON </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check (controller_id, sensor, name)</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
       <span class="nv">value: </span><span class="p">[</span><span class="s">&#39;check&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value (</span>
@@ -170,6 +267,9 @@
 <span class="s">          check_id INTEGER REFERENCES </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check ON DELETE CASCADE,</span>
 <span class="s">          name VARCHAR(80) NOT NULL</span>
 <span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">idx_value: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE UNIQUE INDEX idx_</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value ON </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value (check_id, name)</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
       <span class="nv">value_minute: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_minute (</span>
@@ -183,6 +283,9 @@
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">idx_value_minute: </span><span class="p">[</span><span class="s">&#39;value_minute&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE UNIQUE INDEX idx_</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_minute ON </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_minute (value_id, period)</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
       <span class="nv">value_hour: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_hour (</span>
 <span class="s">          value_hour_id SERIAL PRIMARY KEY,</span>
@@ -194,6 +297,9 @@
 <span class="s">          max NUMERIC NOT NULL,</span>
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">idx_value_hour: </span><span class="p">[</span><span class="s">&#39;value_hour&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE UNIQUE INDEX idx_</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_hour ON </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_hour (value_id, period)</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
       <span class="nv">value_day: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_day (</span>
@@ -207,6 +313,9 @@
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">idx_value_day: </span><span class="p">[</span><span class="s">&#39;value_day&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE UNIQUE INDEX idx_</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_day ON </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_day (value_id, period)</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
       <span class="nv">value_week: </span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        CREATE TABLE </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_week (</span>
 <span class="s">          value_week_id SERIAL PRIMARY KEY,</span>
@@ -218,6 +327,9 @@
 <span class="s">          max NUMERIC NOT NULL,</span>
 <span class="s">          last VARCHAR(120) NOT NULL</span>
 <span class="s">        )</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+      <span class="nv">idx_value_week: </span><span class="p">[</span><span class="s">&#39;value_week&#39;</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        CREATE UNIQUE INDEX idx_</span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_week ON </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_week (value_id, period)</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
       <span class="nv">statusType: </span><span class="nf">(cb) -&gt;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">        CREATE TYPE statusType AS ENUM (&#39;ok&#39;, &#39;warn&#39;, &#39;fail&#39;)</span>
@@ -238,6 +350,179 @@
 <span class="s">          report TEXT NOT NULL</span>
 <span class="s">        )</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
+    <span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20or%20register%20controller">
+  <h2>
+    <a href="#get%20or%20register%20controller" name="get%20or%20register%20controller" class="pilcrow">&#182;</a>
+    Get or register controller
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.controller = </span><span class="nf">(name, cb) -&gt;</span>
+  <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">value</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      SELECT controller_id FROM </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller WHERE name=$1</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nf">(err, value) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">value</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="nx">value</span>
+      <span class="nx">debug</span> <span class="s">&quot;register controller </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        INSERT INTO </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">controller (name) VALUES ($1) RETURNING controller_id</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nf">(err, num, id) -&gt;</span>
+        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">id</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20or%20register%20check">
+  <h2>
+    <a href="#get%20or%20register%20check" name="get%20or%20register%20check" class="pilcrow">&#182;</a>
+    Get or register check
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.check = </span><span class="nf">(controller, sensor, name, category, cb) -&gt;</span>
+  <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">value</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      SELECT check_id FROM </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check WHERE controller_id=$1 AND sensor=$2 AND name=$3</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">controller</span><span class="p">,</span> <span class="nx">sensor</span><span class="p">,</span> <span class="nx">name</span><span class="p">],</span> <span class="nf">(err, value) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">value</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="nx">value</span>
+      <span class="nx">debug</span> <span class="s">&quot;register check </span><span class="si">#{</span><span class="nx">sensor</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> for controller_id </span><span class="si">#{</span><span class="nx">controller</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        INSERT INTO </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">check</span>
+<span class="s">        (controller_id, sensor, name, category) VALUES ($1, $2, $3, $4)</span>
+<span class="s">        RETURNING check_id</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">controller</span><span class="p">,</span> <span class="nx">sensor</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">category</span><span class="p">],</span> <span class="nf">(err, num, id) -&gt;</span>
+        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">id</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20or%20register%20value">
+  <h2>
+    <a href="#get%20or%20register%20value" name="get%20or%20register%20value" class="pilcrow">&#182;</a>
+    get or register value
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.value = </span><span class="nf">(check, name, cb) -&gt;</span>
+  <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">value</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      SELECT value_id FROM </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value WHERE check_id=$1 AND name=$2</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">check</span><span class="p">,</span> <span class="nx">name</span><span class="p">],</span> <span class="nf">(err, value) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">value</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="nx">value</span>
+      <span class="nx">debug</span> <span class="s">&quot;register value </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s"> for check_id </span><span class="si">#{</span><span class="nx">check</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        INSERT INTO </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value</span>
+<span class="s">        (check_id, name) VALUES ($1, $2)</span>
+<span class="s">        RETURNING check_id</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">check</span><span class="p">,</span> <span class="nx">name</span><span class="p">],</span> <span class="nf">(err, num, id) -&gt;</span>
+        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">id</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="add%20results">
+  <h2>
+    <a href="#add%20results" name="add%20results" class="pilcrow">&#182;</a>
+    Add results
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.results = </span><span class="nf">(valueID, meta, date, value, cb) -&gt;</span>
+  <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">m = </span><span class="nx">moment</span> <span class="nx">date</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="p">[</span><span class="s">&#39;minute&#39;</span><span class="p">,</span> <span class="s">&#39;hour&#39;</span><span class="p">,</span> <span class="s">&#39;day&#39;</span><span class="p">,</span> <span class="s">&#39;week&#39;</span><span class="p">,</span> <span class="s">&#39;month&#39;</span><span class="p">],</span> <span class="nf">(interval, cb) -&gt;</span> <span class="c1"># &#39;quarter&#39;, &#39;year&#39;</span>
+      <span class="nv">period = </span><span class="nx">m</span><span class="p">.</span><span class="nx">startOf</span><span class="p">(</span><span class="nx">interval</span><span class="p">)</span>
+      <span class="nx">db</span><span class="p">.</span><span class="nx">value</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        SELECT COUNT(*) FROM </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_</span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s"> WHERE value_id=$1 AND period=$2</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">valueID</span><span class="p">,</span> <span class="nx">period</span><span class="p">],</span> <span class="nf">(err, value) -&gt;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>insert</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">unless</span> <span class="nx">value</span>
+          <span class="nx">debug</span> <span class="s">&quot;add value_id </span><span class="si">#{</span><span class="nx">valueID</span><span class="si">}</span><span class="s"> for </span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">period</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">            INSERT INTO </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">value_</span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s"></span>
+<span class="s">            (value_id, period, num) VALUES ($1, $2, 1)</span>
+<span class="s">            RETURNING check_id</span>
+<span class="s">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">valueID</span><span class="p">,</span> <span class="nx">period</span><span class="p">],</span> <span class="nf">(err, num, id) -&gt;</span>
+            <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">id</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20add%20data">
+  <h6>
+    <a href="#%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20add%20data" name="%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20add%20data" class="pilcrow">&#182;</a>
+    ######################## add data
+  </h6>
+</div>
+
+
+<p>update</p>
+
+
+<div class="pilwrap" id="%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20create%20update%20statement">
+  <h6>
+    <a href="#%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20create%20update%20statement" name="%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20create%20update%20statement" class="pilcrow">&#182;</a>
+    ######################## create update statement
+  </h6>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="p">,</span> <span class="nx">cb</span>
 </pre></div>
         </td>
