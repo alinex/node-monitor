@@ -63,22 +63,32 @@ This will start the monitor on the command line and check all controllers. For e
 controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.
 
+### Single check
+
 Alternatively you may give a controller name or pattern to select the controllers
 to run:
 
     > monitor my-develop     # run only this controller
     > monitor my-*           # run all controller with the given name prefix
 
+### Run as a service
+
 To run the controller continuously use the `daemon` option and start it in the
 background.
 
-    > monitor -b > /var/log/monitor.log 2>&1 &
+    > monitor -d > /var/log/monitor.log 2>&1 &
+
+### Analysis run
+
+### More options
 
 The remaining options are used for informal use like:
 
 - `list` - get a list of all configured controllers
 - `tree` - show the list as tree (controller needs controller)
 - `reverse` - show a reverse tree (controller is needed by controller)
+
+### Interactive Mode
 
 ### Status
 
@@ -1225,11 +1235,15 @@ http://casperjs.org/
 To be written...
 
 
-Info Analyzer Sensors
+Analyzer
 -------------------------------------------------
 
-This sensors are not build to run continuously but to run once to gather information
-about a more unknown system.
+The analyzers are not build to run continuously but to run from time to time
+interactively and gather information. They are a scriptable tool to gather
+information and analyze them.
+
+To run them use the interactive console or give all details to the cli as a json
+object.
 
 ### Hardware
 
@@ -1260,6 +1274,8 @@ running daemons
 ### TomcatApps
 
 ### Upgrade
+
+### Database
 
 
 Storage
