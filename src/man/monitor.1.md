@@ -25,7 +25,7 @@ This will start the monitor on the command line and check all controllers. For e
 controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.
 
-Global pptions:
+Global options:
 
     -C, --nocolors  turn of color output
     -v, --verbose   run in verbose mode

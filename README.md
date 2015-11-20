@@ -14,6 +14,7 @@ side.
 - lots of sensors
 - alerting and reporting
 - data store for time analysis
+- interactive analyzing
 
 The monitor will analyze your whole environment in deep by connecting to the different
 systems in parallel and check them deeply. If a problem occurs an additional analysis
@@ -55,21 +56,60 @@ Always have a look at the latest [changes](Changelog.md).
 
 Usage
 -------------------------------------------------
-After the monitor and it's controllers are fully configured it may be run by only calling:
+After the monitor and it's controllers are fully configured it may be run by
+only calling:
 
     > monitor
+
+    SHOW OUTPUT ##############################################################
 
 This will start the monitor on the command line and check all controllers. For each
 controller a line is printed with it's status.
 If a controller got a problem it will give a detailed report on the console.
 
-### Single check
+Global options:
 
-Alternatively you may give a controller name or pattern to select the controllers
-to run:
+    -C, --nocolors  turn of color output
+    -v, --verbose   run in verbose mode
+    -h, --help      Show help
+    -m, --mail <email> Email to send to instead of configured one
 
-    > monitor my-develop     # run only this controller
-    > monitor my-*           # run all controller with the given name prefix
+The verbose mode works in multiple steps:
+
+    -v    show also the sensor status on console
+    -vv   also display the result values
+    -vvv  make and display/send reports always
+
+The output may look like:
+
+    > monitor -v
+
+    example ###############################
+
+    > monitor -vvv
+
+    example ######################
+
+### Check specific or all
+
+As seen above you may use the monitor to run all or the specified controllers
+once:
+
+    > monitor my-develop    # run only this controller
+    > monitor my-*          # run controllers with the given name prefix
+    > monitor               # run all controllers
+
+Here you may give the following options:
+
+?????????????????????????????
+
+### Controller info
+
+The remaining options are used for informal use like:
+
+    --list - get a list of all configured controllers
+    --tree - show the list as tree (controller needs controller)
+    --reverse - show a reverse tree (controller is needed by controller)
 
 ### Run as a service
 
@@ -78,33 +118,32 @@ background.
 
     > monitor -d > /var/log/monitor.log 2>&1 &
 
+This will check all the controllers in the defined timerange, collect measurement
+values and send alerts. You may also specify some controllers to run instead of
+all.
+
+Like seen above you may send the normal output to a log file but better configure
+a log destination through the config files (see below).
+
 ### Analysis run
 
-### More options
+This is a method to make an individual not fix configured check. This may be done
+with the needed information as `data` element in JSON format on the command line
+or in an interactive mode (documented in the next section).
 
-The remaining options are used for informal use like:
+    -a --analyze <analyzer>
+    --data <json>
 
-- `list` - get a list of all configured controllers
-- `tree` - show the list as tree (controller needs controller)
-- `reverse` - show a reverse tree (controller is needed by controller)
+If you want to run multiple analyzers, make another call.
 
 ### Interactive Mode
 
-### Status
+That will do the same as above but all settings are asked if needed.
 
-The monitor uses the following status:
+    -i --interactive
 
-__running__ if the sensor is already analyzing, you have to wait
-
-__disabled__ if this controller is currently not checked - this will be used
-like ok for further processing
-
-__ok__ if everything is perfect, there nothing have to be done - exit code 0
-
-__warn__ if the sensor reached the warning level, know you have to keep an eye on
-it - exit code 1
-
-__fail__ if the sensor failed and there is a problem - exit code 2
+First you have to select an analyzer to use. All that follows depends on that
+analyzer.
 
 ### Setup
 
@@ -267,6 +306,24 @@ settings are defined in the `/database` configuration, see below.
 Also you need the setup under `/exec` and `/database` like described in
 [Exec](http://alinex.github.io/node-exec) and [Database](http://alinex.github.io/node-database).
 This is used in the different sensors by references to the setup stored there.
+
+
+Status
+-------------------------------------------------
+
+The monitor uses the following status:
+
+__running__ if the sensor is already analyzing, you have to wait
+
+__disabled__ if this controller is currently not checked - this will be used
+like ok for further processing
+
+__ok__ if everything is perfect, there nothing have to be done - exit code 0
+
+__warn__ if the sensor reached the warning level, know you have to keep an eye on
+it - exit code 1
+
+__fail__ if the sensor failed and there is a problem - exit code 2
 
 
 Controller
@@ -1235,6 +1292,36 @@ http://casperjs.org/
 To be written...
 
 
+Storage
+-------------------------------------------------
+The controllers will hold some information in memory but store all values also in
+a database for long time analysis.
+
+![Database Structure](src/doc/db-structure.png)
+
+This structure will hold all values but will not be easy to read. So therefore
+special views for each report may be created to show the concrete data for a
+diagram. This can be visualized using a data analyzation tool like dbVisualizer.
+
+``` sql
+CREATE VIEW mon_view_response AS SELECT(...);
+```
+
+To keep the data volume low old values will be removed.
+
+
+Actor
+-------------------------------------------------
+The controller may do some actions:
+
+- inform on console/log (each analyzation)
+- inform per email (on state change)
+- send web request (on state change)
+- try to repair (not implemented, yet)
+
+All these are triggered using the configuration rules described above.
+
+
 Analyzer
 -------------------------------------------------
 
@@ -1278,34 +1365,27 @@ running daemons
 ### Database
 
 
-Storage
+Plugin System
 -------------------------------------------------
-The controllers will hold some information in memory but store all values also in
-a database for long time analysis.
+To extend the monitor with your own sensors, analyzers and actors you have the
+possibility to create your own package with them.
 
-![Database Structure](src/doc/db-structure.png)
+### Plugin Structure
 
-This structure will hold all values but will not be easy to read. So therefore
-special views for each report may be created to show the concrete data for a
-diagram. This can be visualized using a data analyzation tool like dbVisualizer.
+### Include and Use
 
-``` sql
-CREATE VIEW mon_view_response AS SELECT(...);
-```
+To include your own plugins you have to install them using `npm` and then add
+them in the `/monitor/plugins` list of your configuration file.
 
-To keep the data volume low old values will be removed.
+    npm install my-plugin
 
+    ...
+    plugins:
+      - my-plugins
+    ...
 
-Actor
--------------------------------------------------
-The controller may do some actions:
-
-- inform on console/log (each analyzation)
-- inform per email (on state change)
-- send web request (on state change)
-- try to repair (not implemented, yet)
-
-All these are triggered using the configuration rules described above.
+After that you can use them in your controller or analyzation run as if they are
+internal ones by name.
 
 
 Roadmap
