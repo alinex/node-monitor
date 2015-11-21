@@ -80,18 +80,42 @@ chalk.enabled = false if argv.nocolors
 # Commands
 # -------------------------------------------------
 
-list = (conf) ->
-  for ctrl of conf.controller
-    console.log ctrl
-
-tree = (conf) ->
-  console.log "tree to be programmed..."
-
 fail = (err) ->
-  if err
+  return unless err
+  console.error chalk.red.bold "FAILED: #{err.message}"
+  console.error err.description if err.description
+  process.exit 1
+
+interactive = (conf) ->
+  console.log """
+    \nWelcome to the #{chalk.bold 'interactive monitor console'} in which you can get more
+    information about special tools, run individual tests and explore systems.
+
+    To get help call the command #{chalk.bold 'help'} and close with #{chalk.bold 'exit'}!
+  """
+  readline = require('readline').createInterface
+    input: process.stdin
+    output: process.stdout
+  async.forever (cb) ->
+    getCommand readline, cb
+  , (err) ->
+    readline.close()
+    return unless err
     console.error chalk.red.bold "FAILED: #{err.message}"
     console.error err.description if err.description
     process.exit 1
+
+getCommand = (readline, cb) ->
+  readline.question "\nmonitor> ", (command) ->
+    console.log ''
+    if command is 'exit'
+      console.log "Goodbye!\n"
+      readline.close()
+      process.exit 0
+    console.log 'GOT', command
+    cb()
+
+
 
 # Main routine
 # -------------------------------------------------
@@ -104,13 +128,11 @@ monitor.init (err) ->
   conf = config.get 'monitor'
   if argv.info
     console.log 'Not implemented!'
-  else if argv.list
-    list conf
-  else if argv.tree or argv.reverse
-    tree conf
   else if argv.daemon
     monitor.start()
     monitor.on 'done', (ctrl) ->
+  else if argv.interactive
+    interactive conf
   else
     monitor.on 'result', (ctrl) ->
       console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}

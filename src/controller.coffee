@@ -110,8 +110,9 @@ class Controller extends EventEmitter
           config: check.config
           result: res
           hint: check.hint
-        if res.result.status in ['disabled', @checks[0]?[num].status] and not
-          @mode?.verbose > 2
+        if res.result.status in [
+            'disabled', @checks[0]?[num].status
+          ] and not @mode?.verbose > 2
           return cb null, res
         # run analysis
         sensorInstance.analysis check.config, res.result, (err, report) ->
