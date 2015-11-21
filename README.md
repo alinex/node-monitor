@@ -72,9 +72,22 @@ Global options:
     -C, --nocolors  turn of color output
     -v, --verbose   run in verbose mode
     -h, --help      Show help
-    -m, --mail <email> Email to send to instead of configured one
 
-The verbose mode works in multiple steps:
+### Check controller once
+
+You may run the monitor to check the defined controllers once and get their
+status:
+
+    > monitor my-develop    # run only this controller
+    > monitor my-*          # run controllers with the given name prefix
+    > monitor               # run all controllers
+
+You may start a try run in which nothing is stored in the storage and no action
+is taken.
+
+    -t --try        do a try run
+
+The verbose mode works here in multiple steps:
 
     -v    show also the sensor status on console
     -vv   also display the result values
@@ -90,33 +103,12 @@ The output may look like:
 
     example ######################
 
-### Check specific or all
-
-As seen above you may use the monitor to run all or the specified controllers
-once:
-
-    > monitor my-develop    # run only this controller
-    > monitor my-*          # run controllers with the given name prefix
-    > monitor               # run all controllers
-
-Here you may give the following options:
-
-?????????????????????????????
-
-### Controller info
-
-The remaining options are used for informal use like:
-
-    --list - get a list of all configured controllers
-    --tree - show the list as tree (controller needs controller)
-    --reverse - show a reverse tree (controller is needed by controller)
-
 ### Run as a service
 
 To run the controller continuously use the `daemon` option and start it in the
 background.
 
-    > monitor -d > /var/log/monitor.log 2>&1 &
+    > monitor -d -C > /var/log/monitor.log 2>&1 &
 
 This will check all the controllers in the defined timerange, collect measurement
 values and send alerts. You may also specify some controllers to run instead of
@@ -131,8 +123,8 @@ This is a method to make an individual not fix configured check. This may be don
 with the needed information as `data` element in JSON format on the command line
 or in an interactive mode (documented in the next section).
 
-    -a --analyze <analyzer>
-    --data <json>
+    -e --explore <explorer>
+    -j --json <json>
 
 If you want to run multiple analyzers, make another call.
 
@@ -1322,11 +1314,10 @@ The controller may do some actions:
 All these are triggered using the configuration rules described above.
 
 
-Analyzer
+Explorer
 -------------------------------------------------
-
-The analyzers are not build to run continuously but to run from time to time
-interactively and gather information. They are a scriptable tool to gather
+The explorer modules are used for exploratory analyzation with the given data
+or by interactively requesting for answers. They are a scriptable tool to gather
 information and analyze them.
 
 To run them use the interactive console or give all details to the cli as a json
@@ -1386,6 +1377,39 @@ them in the `/monitor/plugins` list of your configuration file.
 
 After that you can use them in your controller or analyzation run as if they are
 internal ones by name.
+
+
+Interactive Console
+-------------------------------------------------
+You may start the interactive console by using the `-i` option. After that you
+will be greeted and may give the commands:
+
+    > monitor -i
+
+    ???????????????????????????????????????????????????????
+
+The following commands are possible here:
+
+    help - show a help page with all this commands
+    exit - this will close the interactive run or send Ctrl-C
+
+    Commands possible for controller, sensor, actor and explorer:
+
+    list <type> - list all possible elements of given type
+    show <type> <element> - show meta information for this element
+    run <type> <element> - run this element (maybe ask for decisions)
+
+    Examples:
+
+    list controller
+    show controller my_machine
+    run controller my_machine
+    show sensor cpu
+    run sensor cpu
+    run explorer database
+
+Everything the controller/sensor/actor/explorer need is asked within or before
+starting the process.
 
 
 Roadmap
