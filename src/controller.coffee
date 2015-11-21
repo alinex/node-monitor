@@ -82,7 +82,13 @@ class Controller extends EventEmitter
   run: (cb) ->
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
-      sensorInstance = require "./sensor/#{check.sensor}"
+      # load sensor
+      sensorInstance = load null, 'sensor', check.sensor
+      unless sensorInstance
+        for plugin in @conf.plugins
+          break if sensorInstance = load plugin, 'sensor', check.sensor
+      unless sensorInstance
+        return cb new Error "Could not find sensor #{check.sensor}"
       name = "#{check.sensor}:#{sensorInstance.name check.config}"
       debug "#{chalk.grey @name} Running check #{name}..."
       # run sensor
@@ -259,3 +265,10 @@ calcStatus = (combine, check, result) ->
   for name, val of values
     return name if status is val
   return 'ok'
+
+# ### Load element
+load = (plugin = '.', type, element) ->
+  try
+    return require "#{plugin}/#{type}/#{element}"
+  catch err
+    return

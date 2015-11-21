@@ -342,3 +342,12 @@ module.exports =
           title: "Compress"
           description: "a flag indicating rotated files should be compressed"
           type: 'boolean'
+    plugins:
+      title: "Enabled Plugins"
+      description: "the list of enabled plugins"
+      type: 'array'
+      toArray: true
+      entries:
+        title: "Plugin"
+        description: "the name of the already installed npm plugin module"
+        type: 'string'
