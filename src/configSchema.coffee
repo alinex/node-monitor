@@ -313,3 +313,32 @@ module.exports =
           description: "a prefix to be put before each table name"
           type: 'string'
           default: ''
+    log:
+      title: "File Logger"
+      description: "the setup for the file logger"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        filename:
+          title: "Filename"
+          description: "the filename within the log directory"
+          type: 'file'
+        datePattern:
+          title: "Rotation Pattern"
+          description: "the date pattern to be used for rotating files"
+          type: 'string'
+          minLength: 1
+        maxSize:
+          title: "max. Size"
+          description: "the maximum file size before file rotation"
+          type: 'byte'
+          min: 1
+        maxFiles:
+          title: "max. Files"
+          description: "the maximum number of files (older ones will be deleted on rotation)"
+          type: 'integer'
+          min: 1
+        compress:
+          title: "Compress"
+          description: "a flag indicating rotated files should be compressed"
+          type: 'boolean'
