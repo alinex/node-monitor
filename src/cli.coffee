@@ -77,14 +77,12 @@ argv = yargs
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 
-# Commands
-# -------------------------------------------------
 
-fail = (err) ->
-  return unless err
-  console.error chalk.red.bold "FAILED: #{err.message}"
-  console.error err.description if err.description
-  process.exit 1
+# Interactive Console
+# -------------------------------------------------
+commands =
+  help: "list a help page with possible commands"
+  exit: "close the console"
 
 interactive = (conf) ->
   console.log """
@@ -96,35 +94,52 @@ interactive = (conf) ->
   readline = require('readline').createInterface
     input: process.stdin
     output: process.stdout
+    completer: (line) ->
+      list = Object.keys commands
+      hits = list.filter (c) -> c.indexOf(line) == 0
+      [
+        if hits.length then hits else list
+        line
+      ]
+  readline.on 'SIGINT', -> exit new Error "Got SIGINT signal"
   async.forever (cb) ->
-    getCommand readline, cb
+    command readline, cb
   , (err) ->
     readline.close()
-    return unless err
-    console.error chalk.red.bold "FAILED: #{err.message}"
-    console.error err.description if err.description
-    process.exit 1
+    exit err
 
-getCommand = (readline, cb) ->
-  readline.question "\nmonitor> ", (command) ->
+command = (readline, cb) ->
+  console.log ''
+  readline.question 'monitor> ', (command) ->
     console.log ''
-    if command is 'exit'
-      console.log "Goodbye!\n"
-      readline.close()
-      process.exit 0
+    exit null if command is 'exit'
     console.log 'GOT', command
     cb()
 
+exit = (err) ->
+  # exit without error
+  process.exit 0 unless err
+  # exit with error
+  console.error chalk.red.bold "FAILED: #{err.message}"
+  console.error err.description if err.description
+  process.exit 1
 
 
 # Main routine
 # -------------------------------------------------
+process.on 'SIGINT', -> exit new Error "Got SIGINT signal"
+process.on 'SIGTERM', -> exit new Error "Got SIGTERM signal"
+process.on 'SIGHUP', -> exit new Error "Got SIGHUP signal"
+process.on 'SIGQUIT', -> exit new Error "Got SIGQUIT signal"
+process.on 'SIGABRT', -> exit new Error "Got SIGABRT signal"
+process.on 'exit', -> console.log "Goodbye\n"
+
 console.log logo
 monitor.setup argv._
 
 console.log "Initializing..."
 monitor.init (err) ->
-  fail err
+  exit err if err
   conf = config.get 'monitor'
   if argv.info
     console.log 'Not implemented!'

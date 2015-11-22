@@ -55,11 +55,12 @@ class Monitor extends EventEmitter
     config.init (err) =>
       return cb err if err
       @conf = config.get '/monitor'
-      for plugin in @conf.plugins
-        try
-          require plugin
-        catch err
-          cb new Error "Could not load plugin #{plugin}: #{err.message}"
+      if @conf.plugins?
+        for plugin in @conf.plugins
+          try
+            require plugin
+          catch err
+            cb new Error "Could not load plugin #{plugin}: #{err.message}"
       cb()
 
   # Controller Setup
