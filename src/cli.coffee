@@ -12,6 +12,7 @@ moment = require 'moment'
 # include alinex modules
 async = require 'alinex-async'
 config = require 'alinex-config'
+{string} = require 'alinex-util'
 # include classes and helpers
 logo = require('./logo') 'Monitoring Application'
 monitor = require './index'
@@ -81,8 +82,50 @@ chalk.enabled = false if argv.nocolors
 # Interactive Console
 # -------------------------------------------------
 commands =
-  help: "list a help page with possible commands"
-  exit: "close the console"
+  help:
+    description: "list a help page with possible commands"
+    run: (args, cb) ->
+      if args.length and args[0] in Object.keys commands
+        cmd = args[0]
+        console.log chalk.bold """
+        Help for #{cmd} command
+        ===========================================================================
+        """
+        console.log """
+        \nThis command #{commands[cmd].description}.
+        """
+
+        return cb()
+      console.log chalk.bold """
+      Help for interactive console
+      ===========================================================================
+      """
+      console.log """
+      \nWithin this interactive console you can use different commands with sub
+      arguments to run. See the list of possibilities below.
+      You can also use code completion to get a list of available commands.
+
+      To close this console use Ctrl-C or the #{chalk.bold 'exit'} command.
+
+      The following commands are possible:
+      """
+      for name, def of commands
+        console.log "- #{string.rpad name, 10} #{def.description}"
+      console.log """
+      \nTo get more information about a speciific command and its additional
+      arguments type #{chalk.bold 'help <command>'}.
+      """
+      cb()
+  exit:
+    description: "close the console"
+    run: ->
+      exit null
+  list:
+    description: "show the list of possible elements"
+  show:
+    description: "get more information about the element"
+  run:
+    description: "run the specified element"
 
 interactive = (conf) ->
   console.log """
@@ -95,6 +138,7 @@ interactive = (conf) ->
     input: process.stdin
     output: process.stdout
     completer: (line) ->
+      parts = line.split /\s+/
       list = Object.keys commands
       hits = list.filter (c) -> c.indexOf(line) == 0
       [
@@ -103,18 +147,23 @@ interactive = (conf) ->
       ]
   readline.on 'SIGINT', -> exit new Error "Got SIGINT signal"
   async.forever (cb) ->
-    command readline, cb
+    getCommand readline, cb
   , (err) ->
     readline.close()
     exit err
 
-command = (readline, cb) ->
+getCommand = (readline, cb) ->
   console.log ''
-  readline.question 'monitor> ', (command) ->
+  readline.question 'monitor> ', (line) ->
     console.log ''
-    exit null if command is 'exit'
-    console.log 'GOT', command
-    cb()
+    args = line.split /\s+/
+    command = args.shift()
+    if commands[command]?
+      commands[command].run args, cb
+    else
+      console.log chalk.red "Unknown command #{chalk.bold command} use
+      #{chalk.bold 'help'} for more information!"
+      cb()
 
 exit = (err) ->
   # exit without error
