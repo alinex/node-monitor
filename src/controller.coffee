@@ -104,27 +104,35 @@ class Controller extends EventEmitter
           if @mode.verbose > 1
             msg += '\n' + util.inspect res.values
           console.log chalk.grey msg
-        # check for status change -> analysis
         res =
           sensor: sensorInstance
           config: check.config
           result: res
           hint: check.hint
-        if res.result.status in [
-            'disabled', @checks[0]?[num].status
-          ] and not @mode?.verbose > 2
-          return cb null, res
-        # run analysis
-        sensorInstance.analysis check.config, res.result, (err, report) ->
+        # store results in storage
+        async.eachSeries Object.keys(res.result.values), (name, cb) ->
+          console.log 'STORE', name
+          storage.results check.databaseValueID[name]
+          , res.sensor.meta.values[name], res.result.date[1]
+          , res.result.values[name], cb
+        , (err) =>
           return cb err if err
-          res.result.analysis = report
-          cb null, res
+          # check for status change -> analysis
+          if res.result.status in [
+              'disabled', @checks[0]?[num].status
+            ] and not @mode?.verbose > 2
+            return cb null, res
+          # run analysis
+          sensorInstance.analysis check.config, res.result, (err, report) ->
+            return cb err if err
+            res.result.analysis = report
+            cb null, res
     , (err, results) =>
 #      console.log err, results
       return cb err if err
       res = Object.keys(results).map (k) -> # convert to array
         results[k].result
-      # store sensor results
+      # store all sensor results locally
       @checks.pop() if @checks.length > 5
       @checks.unshift res
       # calculate controller status

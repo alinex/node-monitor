@@ -7,6 +7,7 @@
 # include base modules
 debug = require('debug')('monitor:storage')
 chalk = require 'chalk'
+moment = require 'moment'
 # include alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
@@ -33,7 +34,7 @@ exports.init = (cb) ->
 # -------------------------------------------------
 # This should not be enabled in productive system.
 drop = (conf, db, cb) ->
-  return cb() # disable function
+#  return cb() # disable function
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
@@ -85,10 +86,11 @@ create = (conf, db, cb) ->
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
           period TIMESTAMP WITH TIME ZONE NOT NULL,
           num INTEGER NOT NULL,
-          min NUMERIC NOT NULL,
-          avg NUMERIC NOT NULL,
-          max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL
+          min NUMERIC,
+          avg NUMERIC,
+          max NUMERIC,
+          date TIMESTAMP WITH TIME ZONE,
+          text VARCHAR(120)
         )
         """, cb]
       idx_value_minute: ['value_minute', (cb) -> db.exec """
@@ -100,10 +102,11 @@ create = (conf, db, cb) ->
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
           period TIMESTAMP WITH TIME ZONE NOT NULL,
           num INTEGER NOT NULL,
-          min NUMERIC NOT NULL,
-          avg NUMERIC NOT NULL,
-          max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL
+          min NUMERIC,
+          avg NUMERIC,
+          max NUMERIC,
+          date TIMESTAMP WITH TIME ZONE,
+          text VARCHAR(120)
         )
         """, cb]
       idx_value_hour: ['value_hour', (cb) -> db.exec """
@@ -115,10 +118,11 @@ create = (conf, db, cb) ->
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
           period DATE NOT NULL,
           num INTEGER NOT NULL,
-          min NUMERIC NOT NULL,
-          avg NUMERIC NOT NULL,
-          max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL
+          min NUMERIC,
+          avg NUMERIC,
+          max NUMERIC,
+          date TIMESTAMP WITH TIME ZONE,
+          text VARCHAR(120)
         )
         """, cb]
       idx_value_day: ['value_day', (cb) -> db.exec """
@@ -130,10 +134,11 @@ create = (conf, db, cb) ->
           value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
           period DATE NOT NULL,
           num INTEGER NOT NULL,
-          min NUMERIC NOT NULL,
-          avg NUMERIC NOT NULL,
-          max NUMERIC NOT NULL,
-          last VARCHAR(120) NOT NULL
+          min NUMERIC,
+          avg NUMERIC,
+          max NUMERIC,
+          date TIMESTAMP WITH TIME ZONE,
+          text VARCHAR(120)
         )
         """, cb]
       idx_value_week: ['value_week', (cb) -> db.exec """
@@ -214,7 +219,7 @@ exports.value = (check, name, cb) ->
       db.exec """
         INSERT INTO #{prefix}value
         (check_id, name) VALUES ($1, $2)
-        RETURNING check_id
+        RETURNING value_id
         """, [check, name], (err, num, id) ->
         cb err, id
 
@@ -227,22 +232,41 @@ exports.results = (valueID, meta, date, value, cb) ->
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
     m = moment date
-    async.each ['minute', 'hour', 'day', 'week', 'month'], (interval, cb) -> # 'quarter', 'year'
-      period = m.startOf(interval)
+    async.eachSeries ['minute', 'hour', 'day', 'week'], (interval, cb) -> # , 'month', 'quarter', 'year'
+      period = m.startOf(interval).toDate()
       db.value """
-        SELECT COUNT(*) FROM #{prefix}value_#{interval} WHERE value_id=$1 AND period=$2
-        """, [valueID, period], (err, value) ->
+        SELECT COUNT(*)::int FROM #{prefix}value_#{interval} WHERE value_id=$1 AND period=$2
+        """, [valueID, period], (err, exists) ->
         return cb err if err
         # insert
-        unless value
-          debug "add value_id #{valueID} for #{interval} #{period}"
-          db.exec """
-            INSERT INTO #{prefix}value_#{interval}
-            (value_id, period, num) VALUES ($1, $2, 1)
-            RETURNING check_id
-            """, [valueID, period], (err, num, id) ->
-            cb err, id
-############################### add data
+        unless exists
+#          console.log 'INSERT', valueID, meta?.title
+          debug "add value_id #{valueID} for #{interval}"
+          switch meta.type
+            when 'integer', 'float', 'interval', 'byte', 'percent'
+              db.exec """
+                INSERT INTO #{prefix}value_#{interval}
+                (value_id, period, num, min, avg, max) VALUES ($1, $2, 1, $3, $3, $3)
+                """
+              , [valueID, period, value], (err, num, id) ->
+                cb err, id
+            when 'date'
+              db.exec """
+                INSERT INTO #{prefix}value_#{interval}
+                (value_id, period, num, date) VALUES ($1, $2, 1, $3)
+                """
+              , [valueID, period, value], (err, num, id) ->
+                cb err, id
+            else
+              db.exec """
+                INSERT INTO #{prefix}value_#{interval}
+                (value_id, period, num, text) VALUES ($1, $2, 1, $3)
+                """
+              , [valueID, period, value], (err, num, id) ->
+                cb err, id
+          return
         # update
+        console.log 'UPDATE', valueID, meta.title
+        cb()
 ############################### create update statement
     , cb

@@ -205,5 +205,5 @@ monitor.init (err) ->
     monitor.onetime
       verbose: argv.verbose
     , (err, results) ->
-      fail err
+      exit err if err
       console.log "Finished.\n"
