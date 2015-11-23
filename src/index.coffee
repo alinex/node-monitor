@@ -14,6 +14,7 @@ config = require 'alinex-config'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 database = require 'alinex-database'
+{string} = require 'alinex-util'
 # include classes and helpers
 schema = require './configSchema'
 Controller = require './controller'
@@ -107,6 +108,55 @@ class Monitor extends EventEmitter
     console.log 1111
     this
 
+  listController: ->
+    Object.keys config.get '/monitor/controller'
+
+  showController: (name, conf) ->
+    conf ?= config.get "/monitor/controller/#{name}"
+    context =
+      name: name
+      config: conf
+    info = chalk.bold """
+    #{name}: #{conf.name}
+    ===========================================================================\n
+    """
+    info += """
+    #{string.wordwrap conf.description, 78}\n
+    """
+    if conf.info
+      info += "\n#{string.wordwrap conf.info, 78}"
+    if conf.hint
+      info += "\n> #{string.wordwrap conf.hint(context), 76, '\n> '}\n"
+    # interval
+
+    # sensors
+
+    # actor rules
+
+    # contact
+    if conf.contact
+      info += "Contact Persons:\n\n"
+      for group, glist of conf.contact
+        info += "* __#{string.ucFirst group}__\n"
+        for entry in glist
+          list = config.get "/monitor/contact/#{entry}"
+          for contact in list
+            contact = config.get "/monitor/contact/#{contact}"
+            info += '  -'
+            info += " #{contact.name}" if contact.name
+            info += " <#{contact.email}>" if contact.email
+#            info += "Phone: #{contact.phone.join ', '}" if contact.phone
+            info += "\n"
+    # references
+    if conf.ref
+      info += "\nFor further assistance check the following links:\n"
+      for name, list of conf.ref
+        info += "\n- #{string.rpad name, 15} " + list.join ', '
+    info
+
+
+  listSensors: ->
+    []
 
 # Export Singleton
 # -------------------------------------------------

@@ -81,9 +81,15 @@ chalk.enabled = false if argv.nocolors
 
 # Interactive Console
 # -------------------------------------------------
+types = ['controller', 'sensor', 'actor', 'explorer']
 commands =
+  # ### Integrated help
   help:
     description: "list a help page with possible commands"
+    commands: ->
+      Object.keys commands
+      .filter (e) -> e isnt 'help'
+      .map (e) -> "help #{e}"
     run: (args, cb) ->
       if args.length and args[0] in Object.keys commands
         cmd = args[0]
@@ -92,9 +98,9 @@ commands =
         ===========================================================================
         """
         console.log """
-        \nThis command #{commands[cmd].description}.
+        \nThis command will #{commands[cmd].description}.
         """
-
+        console.log commands[cmd].help() if commands[cmd].help?
         return cb()
       console.log chalk.bold """
       Help for interactive console
@@ -116,14 +122,94 @@ commands =
       arguments type #{chalk.bold 'help <command>'}.
       """
       cb()
+
+  # ### exit console
   exit:
     description: "close the console"
     run: ->
       exit null
+
+  # ### list elements of type
   list:
     description: "show the list of possible elements"
+    help: ->
+      text = """
+      Usage: list <type>
+
+      The list command will display a list of elements for the specified `type`:\n
+      """
+      text += types.map((e) -> "  - #{e}").join '\n'
+    commands: (parts) ->
+      if parts.length is 1 or parts[1] not in types
+        types.map (e) -> "#{parts[0]} #{e}"
+      else
+        []
+    run: (args, cb) ->
+      unless args.length is 1
+        console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'list'}
+        use #{chalk.bold 'help list'} for more information!"
+        return cb()
+      switch args[0]
+        when 'controller'
+          conf = config.get '/monitor/controller'
+          console.log chalk.bold "Controllers:"
+          for el in monitor.listController()
+            console.log "  - #{el} #{chalk.gray conf[el].name}"
+        else
+          console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
+          #{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more
+          information!"
+      cb()
+
   show:
     description: "get more information about the element"
+    help: ->
+      text = """
+      Usage: show <type> <element>
+
+      The show command will display detailed information about the specified `type`:\n
+      """
+      text += types.map((e) -> "  - #{e}").join '\n'
+      text += """
+      \nUse code completion by typing #{chalk.bold 'TAB'} to get a list of possible
+      elements.
+      """
+    commands: (parts) ->
+      if parts.length is 1 or parts[1] not in types
+        types.map (e) -> "#{parts[0]} #{e}"
+      else if parts.length > 2 # only allow one element
+        []
+      else
+        num = 1
+        elements = switch parts[1]
+          when 'controller' then monitor.listController()
+          when 'sensor' then monitor.listSensors()
+          else []
+        num++ while parts[num+1] in elements
+        line = parts[0..num].join ' '
+        elements.map (e) -> "#{line} #{e}"
+    run: (args, cb) ->
+      unless args.length > 1
+        console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
+        use #{chalk.bold 'help show'} for more information!"
+        return cb()
+      switch args[0]
+        when 'controller'
+          conf = config.get "/monitor/controller/#{args[1]}"
+          unless conf
+            console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
+            Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
+            return cb()
+          console.log monitor.showController args[1], conf
+        when 'sensor'
+          monitor.listSensors()
+        else
+          console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
+          #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
+          information!"
+      cb()
+
+
   run:
     description: "run the specified element"
 
@@ -138,8 +224,10 @@ interactive = (conf) ->
     input: process.stdin
     output: process.stdout
     completer: (line) ->
-      parts = line.split /\s+/
+      parts = line.trim().split /\s+/
       list = Object.keys commands
+      if parts[0] in list and commands[parts[0]].commands
+        list = commands[parts[0]].commands parts
       hits = list.filter (c) -> c.indexOf(line) == 0
       [
         if hits.length then hits else list
