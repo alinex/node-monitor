@@ -1427,12 +1427,23 @@ starting the process.
 Roadmap
 -------------------------------------------------
 
+restructure db
+- create tables
+- add controller
+- add checks
+- add sensor results
+- with report
+- and status
+- support plugins
+- use monitor.getSensor name
+- add plugin sensors within listSensors()
+- controller with daemon
 - add time results of fields within the warn or fail conditions
+- send emails on state change
+- -m send to other email instead of controller contacts
 
-- store results => db
-- store reports => db
-- make crosstable view
-
+- ic: add checks in showController
+- ic: show Sensor
 - evaluate rules before analysis
 - run analysis
 - execute rules
@@ -1445,15 +1456,12 @@ Roadmap
   https://www.npmjs.com/package/markdown-it-deflist
   https://www.npmjs.com/package/markdown-it-abbr
   https://github.com/Welfenlab/dot-processor
-- send emails on state change
+- information run
 
 - add check type: serial: []
 - add check type: controller: ....
 - add example reports for each sensor to doc
 
-- controller with daemon
-- -m send to other email instead of controller contacts
-- information run
 
 
 

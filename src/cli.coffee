@@ -155,6 +155,13 @@ commands =
           console.log chalk.bold "Controllers:"
           for el in monitor.listController()
             console.log "  - #{el} #{chalk.gray conf[el].name}"
+        when 'sensor'
+          console.log chalk.bold "Sensors:"
+          return monitor.listSensors (err, list) ->
+            return cb err if err
+            for el in list
+              console.log "  - #{el}"
+            cb()
         else
           console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
           #{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more

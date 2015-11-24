@@ -13,6 +13,7 @@ config = require 'alinex-config'
 async = require 'alinex-async'
 database = require 'alinex-database'
 # include classes and helpers
+monitor = require './index'
 
 # General data
 # -------------------------------------------------
@@ -38,7 +39,6 @@ drop = (conf, db, cb) ->
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
-    "CREATE EXTENSION IF NOT EXISTS tablefunc;"
   ], (sql, cb) ->
     db.exec sql, cb
   , cb
@@ -50,10 +50,8 @@ create = (conf, db, cb) ->
   prefix = conf.storage.prefix
   db.value "SELECT * FROM pg_tables WHERE schemaname='public'"
   , (err, num) ->
-    console.log '-----', err, num
     return cb err if err or num
-    limit = config.get("/database/#{conf.storage.database}/pool/limit") ? 5
-    async.auto
+    queries =
       controller: (cb) -> db.exec """
         CREATE TABLE #{prefix}controller (
           controller_id SERIAL PRIMARY KEY,
@@ -64,96 +62,34 @@ create = (conf, db, cb) ->
         CREATE TABLE #{prefix}check (
           check_id SERIAL PRIMARY KEY,
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-          sensor VARCHAR(10) NOT NULL,
-          name VARCHAR(80) NOT NULL,
-          category VARCHAR(5) NOT NULL
+          num INTEGER NOT NULL,
+          type VARCHAR(16),
+          name VARCHAR(120) NOT NULL
         )
         """, cb]
       idx_check: ['check', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, sensor, name)
+        CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, type, name)
         """, cb]
-      value: ['check', (cb) -> db.exec """
-        CREATE TABLE #{prefix}value (
-          value_id SERIAL PRIMARY KEY,
-          check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-          name VARCHAR(80) NOT NULL,
-          type VARCHAR(10),
-          unit VARCHAR(8),
-          isNum BOOLEAN NOT NULL
-        )
-        """, cb]
-      idx_value: ['value', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}value ON #{prefix}value (check_id, name)
-        """, cb]
-      value_minute: ['value', (cb) -> db.exec """
-        CREATE TABLE #{prefix}value_minute (
-          value_minute_id SERIAL PRIMARY KEY,
-          value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          period TIMESTAMP WITH TIME ZONE NOT NULL,
-          num INTEGER NOT NULL,
-          min NUMERIC,
-          avg NUMERIC,
-          max NUMERIC,
-          text VARCHAR(120)
-        )
-        """, cb]
-      idx_value_minute: ['value_minute', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}value_minute ON #{prefix}value_minute (value_id, period)
-        """, cb]
-      value_hour: ['value', (cb) -> db.exec """
-        CREATE TABLE #{prefix}value_hour (
-          value_hour_id SERIAL PRIMARY KEY,
-          value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          period TIMESTAMP WITH TIME ZONE NOT NULL,
-          num INTEGER NOT NULL,
-          min NUMERIC,
-          avg NUMERIC,
-          max NUMERIC,
-          text VARCHAR(120)
-        )
-        """, cb]
-      idx_value_hour: ['value_hour', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}value_hour ON #{prefix}value_hour (value_id, period)
-        """, cb]
-      value_day: ['value', (cb) -> db.exec """
-        CREATE TABLE #{prefix}value_day (
-          value_day_id SERIAL PRIMARY KEY,
-          value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          period DATE NOT NULL,
-          num INTEGER NOT NULL,
-          min NUMERIC,
-          avg NUMERIC,
-          max NUMERIC,
-          text VARCHAR(120)
-        )
-        """, cb]
-      idx_value_day: ['value_day', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}value_day ON #{prefix}value_day (value_id, period)
-        """, cb]
-      value_week: ['value', (cb) -> db.exec """
-        CREATE TABLE #{prefix}value_week (
-          value_week_id SERIAL PRIMARY KEY,
-          value_id INTEGER REFERENCES #{prefix}value ON DELETE CASCADE,
-          period DATE NOT NULL,
-          num INTEGER NOT NULL,
-          min NUMERIC,
-          avg NUMERIC,
-          max NUMERIC,
-          text VARCHAR(120)
-        )
-        """, cb]
-      idx_value_week: ['value_week', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}value_week ON #{prefix}value_week (value_id, period)
-        """, cb]
+      intervalType: (cb) -> db.exec """
+        CREATE TYPE intervalType AS ENUM ('minute', 'hour', 'day', 'week', 'month')
+        """, cb
       statusType: (cb) -> db.exec """
         CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail')
         """, cb
-      status: ['statusType', 'controller', 'check', (cb) -> db.exec """
-        CREATE TABLE #{prefix}status (
-          controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+      status: ['statusType', 'check', (cb) -> db.exec """
+        CREATE TABLE #{prefix}status_sensor (
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
           change TIMESTAMP WITH TIME ZONE,
-          status statusType NOT NULL
+          status statusType NOT NULL,
+          comment VARCHAR(120)
+        )
+        """, cb]
+      status: ['statusType', 'controller', (cb) -> db.exec """
+        CREATE TABLE #{prefix}status_controller (
+          controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+          change TIMESTAMP WITH TIME ZONE,
+          status statusType NOT NULL,
+          comment VARCHAR(120)
         )
         """, cb]
       report: ['controller', (cb) -> db.exec """
@@ -164,7 +100,24 @@ create = (conf, db, cb) ->
           report TEXT NOT NULL
         )
         """, cb]
-    , cb
+        # get list of sensors
+    monitor.listSensors (err, list) ->
+      return cb err if err
+      for name in list
+        sensor = monitor.getSensor name
+        queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec """
+          CREATE TABLE #{prefix}sensor_#{name} (
+            check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
+            interval intervalType NOT NULL,
+            period TIMESTAMP WITH TIME ZONE,
+            val1 NUMERIC,
+            val1_min INTEGER,
+            val1_max INTEGER,
+            val2 VARCHAR(120)
+          )
+          """, cb]
+      # run all sql queries
+      async.auto queries, db.conf.pool?.limit ? 10, cb
 
 # Get or register controller
 # -------------------------------------------------

@@ -15,6 +15,7 @@ async = require 'alinex-async'
 Exec = require 'alinex-exec'
 database = require 'alinex-database'
 {string} = require 'alinex-util'
+fs = require 'alinex-fs'
 # include classes and helpers
 schema = require './configSchema'
 Controller = require './controller'
@@ -108,6 +109,8 @@ class Monitor extends EventEmitter
     console.log 1111
     this
 
+  # Controller Info
+  # -------------------------------------------------
   listController: ->
     Object.keys config.get '/monitor/controller'
 
@@ -154,9 +157,27 @@ class Monitor extends EventEmitter
         info += "\n- #{string.rpad name, 15} " + list.join ', '
     info
 
+  # Sensor Info
+  # -------------------------------------------------
+  allSensors = null
+  listSensors: (cb) ->
+    return cb null, allSensors if allSensors?
+    fs.find "#{__dirname}/sensor",
+      type: 'f'
+      maxdepth: 1
+    , (err, list) ->
+      allSensors = list.map (e) -> fspath.basename e, fspath.extname e
+      cb null, allSensors
 
-  listSensors: ->
-    []
+  getSensor: (name) ->
+    sensor = null
+    try
+      sensor = require "./sensor/#{check.sensor}"
+    return sensor if sensor?
+
+  showSensor: (name) ->
+    "xxxxx"
+
 
 # Export Singleton
 # -------------------------------------------------
