@@ -71,7 +71,7 @@ exports.meta =
   # You may use any of these in your warn/fail expressions.
   values:
     receivedBytes:
-      title: "Received Transfer"
+      title: "Receive Transfer"
       description: "the number of received bytes of data transmitted or received
       by the interface"
       type: 'byte'
@@ -82,7 +82,7 @@ exports.meta =
       by the interface"
       type: 'integer'
     receivedErrors:
-      title: "Received Errors"
+      title: "Receive Errors"
       description: "the percentage received of transmit or receive errors detected
       by the device driver"
       type: 'percent'
@@ -94,6 +94,10 @@ exports.meta =
       title: "Received FIFO Errors"
       description: "the percentage received of FIFO buffer errors"
       type: 'percent'
+    receivedFrames:
+      title: "Received Frame Errors"
+      description: "the percentage of receiving packet frame errors"
+      type: 'percent'
     transmitBytes:
       title: "Transmit Transfer"
       description: "the number of transmitted bytes of data transmitted or received
@@ -101,7 +105,7 @@ exports.meta =
       type: 'byte'
       unit: 'B'
     transmitPackets:
-      title: "Transmit Packets"
+      title: "Transmitted Packets"
       description: "the number of transmitted packets of data transmitted or received
       by the interface"
       type: 'integer'
@@ -111,12 +115,16 @@ exports.meta =
       by the device driver"
       type: 'percent'
     transmitDrop:
-      title: "Transmit Drops"
+      title: "Transmitted Drops"
       description: "the percentage transmitted of packets dropped by the device driver"
       type: 'percent'
     transmitFifo:
       title: "Transmit FIFO Errors"
       description: "the percentage transmitted of FIFO buffer errors"
+      type: 'percent'
+    transmitFrames:
+      title: "Transmitted Frames"
+      description: "the percentage of transmitting packet frame errors"
       type: 'percent'
     bytes:
       title: "Total Transfer"
@@ -139,7 +147,7 @@ exports.meta =
       title: "Total FIFO Errors"
       description: "the percentage of FIFO buffer errors"
       type: 'percent'
-    frame:
+    frames:
       title: "Total Frame Errors"
       description: "the percentage of packet framing errors"
       type: 'percent'
@@ -201,27 +209,26 @@ exports.run = (config, cb = ->) ->
       l1 = proc[0].stdout().trim().split /\s+/
       l2 = proc[1].stdout().trim().split /\s+/
       diff = (col) -> l2[col] - l1[col]
-      percent = (col) ->
-        return 0 unless val.packets
-        (l2[col] - l1[col]) / val.packets
+      percent = (col, max) -> (l2[col] - l1[col]) / max
       val.receivedBytes = diff 1
       val.receivedPackets = diff 2
-      val.receivedErrors = percent 3
-      val.receivedDrop = percent 4
-      val.receivedFifo = percent 5
-      val.receivedFrame = percent 6
+      val.receivedErrors = percent 3, val.receivedPackets
+      val.receivedDrop = percent 4, val.receivedPackets
+      val.receivedFifo = percent 5, val.receivedPackets
+      val.receivedFrames = percent 6, val.receivedPackets
       val.transmitBytes = diff 9
       val.transmitPackets = diff 10
-      val.transmitErrors = percent 11
-      val.transmitDrop = percent 12
-      val.transmitFifo = percent 13
-      val.transmitFrame = percent 14
+      val.transmitErrors = percent 11, val.transmitPackets
+      val.transmitDrop = percent 12, val.transmitPackets
+      val.transmitFifo = percent 13, val.transmitPackets
+      val.transmitFrames = percent 14, val.transmitPackets
       val.bytes = val.receivedBytes + val.transmitBytes
       val.packets = val.receivedPackets + val.transmitPackets
-      val.errors = val.receivedErrors + val.transmitErrors
-      val.drop = val.receivedDrop + val.transmitDrop
-      val.fifo = val.receivedFifo + val.transmitFifo
-      val.frame = val.receivedFrame + val.transmitFrame
+      percent = (col1, col2, max) -> (l2[col1] - l1[col1] + l2[col2] - l1[col2]) / max
+      val.errors = percent 3, 11, val.packets
+      val.drop = percent 4, 12, val.packets
+      val.fifo = percent 5, 13, val.packets
+      val.frames = percent 6, 14, val.packets
       # get additional interface settings
       lines = proc[2].stdout().split /\n\s*/
       match = /state ([A-Z]+)/.exec lines[0]
