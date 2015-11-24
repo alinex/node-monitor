@@ -51,7 +51,7 @@ class Controller extends EventEmitter
               check.databaseID = checkID
               check.databaseValueID = {}
               async.each Object.keys(sensorInstance.meta.values), (name, cb) =>
-                storage.value checkID, name, (err, valueID) =>
+                storage.value checkID, name, sensorInstance.meta.values[name], (err, valueID) =>
                   return cb err if err
                   check.databaseValueID[name] = valueID
                   cb()

@@ -1295,6 +1295,17 @@ This structure will hold all values but will not be easy to read. So therefore
 special views for each report may be created to show the concrete data for a
 diagram. This can be visualized using a data analyzation tool like dbVisualizer.
 
+First you have to install the postgresql-contrib package on the database server:
+``` bash
+sudo apt-get install -y postgresql-contrib
+```
+
+And now you may add the crosstab extension to the database as user postgres:
+``` bash
+psql monitor -c "CREATE EXTENSION tablefunc;"
+```
+
+After this is done the views may be created:
 ``` sql
 CREATE VIEW mon_view_response AS SELECT(...);
 ```
