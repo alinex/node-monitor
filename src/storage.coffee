@@ -12,6 +12,7 @@ moment = require 'moment'
 config = require 'alinex-config'
 async = require 'alinex-async'
 database = require 'alinex-database'
+{string} = require 'alinex-util'
 # include classes and helpers
 
 
@@ -35,7 +36,7 @@ exports.init = (cb) ->
 # -------------------------------------------------
 # This should not be enabled in productive system.
 drop = (conf, db, cb) ->
-#  return cb() # disable function
+  return cb() # disable function
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
@@ -62,13 +63,13 @@ create = (conf, db, cb) ->
         CREATE TABLE #{prefix}check (
           check_id SERIAL PRIMARY KEY,
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-          num INTEGER NOT NULL,
-          type VARCHAR(16),
-          name VARCHAR(120) NOT NULL
+          sensor VARCHAR(16) NOT NULL,
+          name VARCHAR(120),
+          category VARCHAR(8) NOT NULL
         )
         """, cb]
       idx_check: ['check', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, type, name)
+        CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, sensor, name)
         """, cb]
       intervalType: (cb) -> db.exec """
         CREATE TYPE intervalType AS ENUM ('minute', 'hour', 'day', 'week', 'month')
@@ -105,23 +106,22 @@ create = (conf, db, cb) ->
     monitor.listSensors (err, list) ->
       return cb err if err
       async.each list, (name, cb) ->
-        console.log '++++', name
         monitor.getSensor name, (err, sensor) ->
-          console.log '----', sensor.meta
           return cb err if err
           sql = """
             CREATE TABLE #{prefix}sensor_#{name} (
               check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
               interval intervalType NOT NULL,
-              period TIMESTAMP WITH TIME ZONE
+              period TIMESTAMP WITH TIME ZONE,
+              num INTEGER NOT NULL
             """
           for k, v of sensor.meta.values
             type = switch v.type
-              when 'integer', 'byte' then 'INTEGER'
+              when 'integer', 'byte' then 'BIGINT'
               when 'float', 'percent', 'interval' then 'FLOAT'
               when 'date' then 'TIMESTAMP WITH TIME ZONE'
               else 'VARCHAR(100)'
-            sql += ", \"#{k}\" #{type}"
+            sql += ", \"#{k.toLowerCase()}\" #{type}"
           sql += ")"
           queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
           cb()
@@ -169,65 +169,49 @@ exports.check = (controller, sensor, name, category, cb) ->
 
 valueTypes = ['integer', 'float', 'interval', 'byte', 'percent']
 
-# get or register value
-# -------------------------------------------------
-exports.value = (check, name, meta, cb) ->
-  conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
-  prefix = conf.storage.prefix
-  database.instance conf.storage.database, (err, db) ->
-    return cb err if err
-    db.value """
-      SELECT value_id FROM #{prefix}value WHERE check_id=$1 AND name=$2
-      """, [check, name], (err, value) ->
-      return cb err, value if err or value
-      debug "register value #{name} for check_id #{check}"
-      console.log '????', meta.type, meta.type in valueTypes
-      db.exec """
-        INSERT INTO #{prefix}value
-        (check_id, name, type, unit, isNum) VALUES ($1, $2, $3, $4, $5)
-        RETURNING value_id
-        """, [check, name, meta.type, meta.unit, meta.type in valueTypes], (err, num, id) ->
-        cb err, id
-
 # Add results
 # -------------------------------------------------
-exports.results = (valueID, meta, date, value, cb) ->
+exports.results = (checkID, sensor, meta, date, value, cb) ->
+  console.log '++++', checkID, sensor, meta, date, value
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
     m = moment date
-    async.eachSeries ['minute', 'hour', 'day', 'week'], (interval, cb) -> # , 'month', 'quarter', 'year'
+    async.eachSeries ['minute', 'hour', 'day', 'week', 'month'], (interval, cb) -> # 'quarter', 'year'
       period = m.startOf(interval).toDate()
       db.value """
-        SELECT COUNT(*)::int FROM #{prefix}value_#{interval} WHERE value_id=$1 AND period=$2
-        """, [valueID, period], (err, exists) ->
+        SELECT COUNT(*)::int FROM #{prefix}sensor_#{sensor}
+        WHERE check_id=$1 AND interval=$2 AND period=$3
+        """, [checkID, interval, period], (err, exists) ->
         return cb err if err
         # insert
         unless exists
-#          console.log 'INSERT', valueID, meta?.title
-          debug "add value_id #{valueID} for #{interval}"
-          if meta.type in valueTypes
-            db.exec """
-              INSERT INTO #{prefix}value_#{interval}
-              (value_id, period, num, min, avg, max) VALUES ($1, $2, 1, $3, $3, $3)
-              """
-            , [valueID, period, value], (err, num, id) ->
-              cb err, id
-          else
-            db.exec """
-              INSERT INTO #{prefix}value_#{interval}
-              (value_id, period, num, text) VALUES ($1, $2, 1, $3)
-              """
-            , [valueID, period, value.toString()], (err, num, id) ->
-              cb err, id
+          debug "add results to check #{checkID} (#{sensor}) for #{interval}"
+          db.exec """
+            INSERT INTO #{prefix}sensor_#{sensor}
+            (check_id, interval, period, num, "#{Object.keys(value).join('", "').toLowerCase()}")
+            VALUES (?, ?, ?, 1#{string.repeat ', ?', Object.keys(value).length})
+            """
+          , [checkID, interval, period].concat(Object.keys(value).map (k) -> value[k])
+          , (err, num, id) ->
+            cb err, id
           return
         # update
-        console.log 'UPDATE', interval, valueID, meta.title
-
-
-        cb()
-############################### create update statement
+        debug "update results to check #{checkID} (#{sensor}) for #{interval}"
+        set = "SET num = num+1, " + Object.keys(value).map (k) ->
+          if meta[k].type in valueTypes
+            "\"#{k}\" = (\"#{k}\" * num  + ?) / num+1"
+          else
+            "\"#{k}\" = ?"
+        .join ', '
+        db.exec """
+          UPDATE #{prefix}sensor_#{sensor}
+          #{set}
+          WHERE check_id=? AND interval=? AND period=?
+          """
+        , (Object.keys(value).map (k) -> value[k]).concat([checkID, interval, period])
+        , (err, num, id) ->
+          cb err, id
     , cb

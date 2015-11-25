@@ -16,7 +16,6 @@ async = require 'alinex-async'
 config = require 'alinex-config'
 validator = require 'alinex-validator'
 # include classes and helpers
-monitor = require './index'
 sensor = require './sensor'
 storage = require './storage'
 
@@ -45,19 +44,14 @@ class Controller extends EventEmitter
         storage.controller @name, (err, @databaseID) =>
           return cb err if err
           async.each @conf.check, (check, cb) =>
-            monitor.getSensor check.sensor, (err, sensorInstance) ->
+            monitor = require './index'
+            monitor.getSensor check.sensor, (err, sensorInstance) =>
               return cb err if err
               storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
               , sensorInstance.meta.category, (err, checkID) =>
                 return cb err if err
                 check.databaseID = checkID
-                check.databaseValueID = {}
-                async.each Object.keys(sensorInstance.meta.values), (name, cb) =>
-                  storage.value checkID, name, sensorInstance.meta.values[name], (err, valueID) =>
-                    return cb err if err
-                    check.databaseValueID[name] = valueID
-                    cb()
-                , cb
+                cb()
           , cb
       (cb) =>
         # Validate configuration
@@ -112,12 +106,8 @@ class Controller extends EventEmitter
           result: res
           hint: check.hint
         # store results in storage
-        async.eachSeries Object.keys(res.result.values), (name, cb) ->
-          console.log 'STORE', name
-          storage.results check.databaseValueID[name]
-          , res.sensor.meta.values[name], res.result.date[1]
-          , res.result.values[name], cb
-        , (err) =>
+        storage.results check.databaseID, check.sensor, sensorInstance.meta.values
+        , res.result.date[1], res.result.values, (err) =>
           return cb err if err
           # check for status change -> analysis
           if res.result.status in [

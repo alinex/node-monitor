@@ -110,17 +110,17 @@ exports.meta =
     responseTime:
       title: 'Avg. Response Time'
       description: "average round-trip time of packets"
-      type: 'integer'
+      type: 'float'
       unit: 'ms'
     responseMin:
       title: 'Min. Respons Time'
       description: "minimum round-trip time of packets"
-      type: 'integer'
+      type: 'float'
       unit: 'ms'
     responseMax:
       title: 'Max. Response Time'
       description: "maximum round-trip time of packets"
-      type: 'integer'
+      type: 'float'
       unit: 'ms'
     quality:
       title: 'Quality'

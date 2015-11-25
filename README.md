@@ -1450,11 +1450,10 @@ starting the process.
 Roadmap
 -------------------------------------------------
 
-- add controller
-- add checks
-- add sensor results
-- with report
-- and status
+- update results
+- save to db: report
+- save to db: status
+- save to db: controller status
 
 - use monitor.getSensor name
 - add plugin sensors within listSensors()
