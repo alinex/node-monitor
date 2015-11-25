@@ -16,6 +16,7 @@ async = require 'alinex-async'
 config = require 'alinex-config'
 validator = require 'alinex-validator'
 # include classes and helpers
+monitor = require './index'
 sensor = require './sensor'
 storage = require './storage'
 
@@ -44,18 +45,19 @@ class Controller extends EventEmitter
         storage.controller @name, (err, @databaseID) =>
           return cb err if err
           async.each @conf.check, (check, cb) =>
-            sensorInstance = require "./sensor/#{check.sensor}"
-            storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
-            , sensorInstance.meta.category, (err, checkID) =>
+            monitor.getSensor check.sensor, (err, sensorInstance) ->
               return cb err if err
-              check.databaseID = checkID
-              check.databaseValueID = {}
-              async.each Object.keys(sensorInstance.meta.values), (name, cb) =>
-                storage.value checkID, name, sensorInstance.meta.values[name], (err, valueID) =>
-                  return cb err if err
-                  check.databaseValueID[name] = valueID
-                  cb()
-              , cb
+              storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
+              , sensorInstance.meta.category, (err, checkID) =>
+                return cb err if err
+                check.databaseID = checkID
+                check.databaseValueID = {}
+                async.each Object.keys(sensorInstance.meta.values), (name, cb) =>
+                  storage.value checkID, name, sensorInstance.meta.values[name], (err, valueID) =>
+                    return cb err if err
+                    check.databaseValueID[name] = valueID
+                    cb()
+                , cb
           , cb
       (cb) =>
         # Validate configuration

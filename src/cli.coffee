@@ -297,7 +297,7 @@ monitor.init (err) ->
       console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
       Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
     console.log "Analyzing systems..."
-    monitor.onetime
+    monitor.runController
       verbose: argv.verbose
     , (err, results) ->
       exit err if err

@@ -21,6 +21,9 @@ schema = require './configSchema'
 Controller = require './controller'
 storage = require './storage'
 
+
+allSensors = null
+
 class Monitor extends EventEmitter
 
   # Setup
@@ -68,12 +71,12 @@ class Monitor extends EventEmitter
   # Controller Setup
   # -------------------------------------------------
 
-  instantiate: (mode, cb) ->
+  instantiate: (setup, cb) ->
     return cb() if @controller
     debug "Instantiate controllers..."
     @controller = {}
     for name, def of @conf.controller
-      @controller[name] = new Controller name, def, mode
+      @controller[name] = new Controller name, def, setup
       @controller[name].on 'result', (ctrl) => @emit 'result', ctrl
     # parallel instantiation
     async.each @controller, (ctrl, cb) ->
@@ -83,24 +86,6 @@ class Monitor extends EventEmitter
   # Run Controller
   # -------------------------------------------------
 
-  onetime: (mode, cb) ->
-    unless cb
-      cb = mode
-      mode = null
-      unless cb
-        cb = ->
-    async.series [
-      (cb) -> storage.init cb
-      (cb) => @instantiate mode, cb
-    ], (err) =>
-      return cb err if err
-      async.mapOf @controller, (ctrl, name, cb) ->
-        ctrl.run cb
-      , (err) ->
-        Exec.close()
-        cb err
-    this
-
   start: ->
     @instantiate() unless @controller
     this
@@ -109,7 +94,7 @@ class Monitor extends EventEmitter
     console.log 1111
     this
 
-  # Controller Info
+  # Controller
   # -------------------------------------------------
   listController: ->
     Object.keys config.get '/monitor/controller'
@@ -157,9 +142,26 @@ class Monitor extends EventEmitter
         info += "\n- #{string.rpad name, 15} " + list.join ', '
     info
 
+  runController: (setup, cb) ->
+    unless cb
+      cb = setup
+      setup = null
+      unless cb
+        cb = ->
+    async.series [
+      (cb) -> storage.init cb
+      (cb) => @instantiate setup, cb
+    ], (err) =>
+      return cb err if err
+      async.mapOf @controller, (ctrl, name, cb) ->
+        ctrl.run cb
+      , (err) ->
+        Exec.close()
+        cb err
+    this
+
   # Sensor Info
   # -------------------------------------------------
-  allSensors = null
   listSensors: (cb) ->
     return cb null, allSensors if allSensors?
     fs.find "#{__dirname}/sensor",
@@ -169,11 +171,19 @@ class Monitor extends EventEmitter
       allSensors = list.map (e) -> fspath.basename e, fspath.extname e
       cb null, allSensors
 
-  getSensor: (name) ->
+  getSensor: (name, cb) ->
     sensor = null
+    # try to load sensor from main
     try
-      sensor = require "./sensor/#{check.sensor}"
-    return sensor if sensor?
+      return cb null, require "./sensor/#{name}"
+    # try to load sensor from plugins
+    plugins = config.get "/monitor/plugins"
+    if plugins
+      for plugin in plugins
+        try
+          return cb null, require "#{plugin}/sensor/#{name}"
+    # sensor not found
+    cb new Error "Could not find sensor #{name}"
 
   showSensor: (name) ->
     "xxxxx"

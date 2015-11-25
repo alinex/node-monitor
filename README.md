@@ -1373,8 +1373,6 @@ Plugin System
 To extend the monitor with your own sensors, analyzers and actors you have the
 possibility to create your own package with them.
 
-### Plugin Structure
-
 ### Include and Use
 
 To include your own plugins you have to install them using `npm` and then add
@@ -1384,11 +1382,14 @@ them in the `/monitor/plugins` list of your configuration file.
 
     ...
     plugins:
-      - my-plugins
+      - my-plugin
     ...
 
 After that you can use them in your controller or analyzation run as if they are
 internal ones by name.
+
+### Plugin Structure
+
 
 
 Interactive Console
@@ -1397,21 +1398,43 @@ You may start the interactive console by using the `-i` option. After that you
 will be greeted and may give the commands:
 
     > monitor -i
+                             __   ____     __
+             ######  #####  |  | |    \   |  |   ########### #####       #####
+            ######## #####  |  | |     \  |  |  ############  #####     #####
+           ######### #####  |  | |  |\  \ |  |  #####          #####   #####
+          ########## #####  |  | |  | \  \|  |  #####           ##### #####
+         ##### ##### #####  |  | |  |__\     |  ############     #########
+        #####  ##### #####  |  | |     \\    |  ############     #########
+       #####   ##### #####  |__| |______\\___|  #####           ##### #####
+      #####    ##### #####                      #####          #####   #####
+     ##### ######### ########################## ############  #####     #####
+    ##### ##########  ########################   ########### #####       #####
+    ___________________________________________________________________________
 
-    ???????????????????????????????????????????????????????
+                    M O N I T O R I N G   A P P L I C A T I O N
+    ___________________________________________________________________________
+
+    Initializing...
+
+    Welcome to the interactive monitor console in which you can get more
+    information about special tools, run individual tests and explore systems.
+
+    To get help call the command help and close with exit!
+
+    monitor>
 
 The following commands are possible here:
 
     help - show a help page with all this commands
     exit - this will close the interactive run or send Ctrl-C
 
-    Commands possible for controller, sensor, actor and explorer:
+Commands possible for controller, sensor, actor and explorer:
 
     list <type> - list all possible elements of given type
     show <type> <element> - show meta information for this element
     run <type> <element> - run this element (maybe ask for decisions)
 
-    Examples:
+Examples:
 
     list controller
     show controller my_machine
@@ -1427,20 +1450,19 @@ starting the process.
 Roadmap
 -------------------------------------------------
 
-restructure db
-- create tables
 - add controller
 - add checks
 - add sensor results
 - with report
 - and status
-- support plugins
+
 - use monitor.getSensor name
 - add plugin sensors within listSensors()
 - controller with daemon
 - add time results of fields within the warn or fail conditions
 - send emails on state change
 - -m send to other email instead of controller contacts
+- get logo through plugins first
 
 - ic: add checks in showController
 - ic: show Sensor

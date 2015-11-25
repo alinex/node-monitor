@@ -45,6 +45,7 @@
     "alinex-config": "^1.0.6",
     "alinex-database": "^0.1.0",
     "alinex-exec": "^1.0.0",
+    "alinex-fs": "^0.2.1",
     "alinex-sshtunnel": "^1.0.0",
     "alinex-util": "^0.3.6",
     "chalk": "^1.1.1",

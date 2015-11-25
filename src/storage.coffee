@@ -13,7 +13,7 @@ config = require 'alinex-config'
 async = require 'alinex-async'
 database = require 'alinex-database'
 # include classes and helpers
-monitor = require './index'
+
 
 # General data
 # -------------------------------------------------
@@ -101,23 +101,33 @@ create = (conf, db, cb) ->
         )
         """, cb]
         # get list of sensors
+    monitor = require './index'
     monitor.listSensors (err, list) ->
       return cb err if err
-      for name in list
-        sensor = monitor.getSensor name
-        queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec """
-          CREATE TABLE #{prefix}sensor_#{name} (
-            check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-            interval intervalType NOT NULL,
-            period TIMESTAMP WITH TIME ZONE,
-            val1 NUMERIC,
-            val1_min INTEGER,
-            val1_max INTEGER,
-            val2 VARCHAR(120)
-          )
-          """, cb]
-      # run all sql queries
-      async.auto queries, db.conf.pool?.limit ? 10, cb
+      async.each list, (name, cb) ->
+        console.log '++++', name
+        monitor.getSensor name, (err, sensor) ->
+          console.log '----', sensor.meta
+          return cb err if err
+          sql = """
+            CREATE TABLE #{prefix}sensor_#{name} (
+              check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
+              interval intervalType NOT NULL,
+              period TIMESTAMP WITH TIME ZONE
+            """
+          for k, v of sensor.meta.values
+            type = switch v.type
+              when 'integer', 'byte' then 'INTEGER'
+              when 'float', 'percent', 'interval' then 'FLOAT'
+              when 'date' then 'TIMESTAMP WITH TIME ZONE'
+              else 'VARCHAR(100)'
+            sql += ", \"#{k}\" #{type}"
+          sql += ")"
+          queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
+          cb()
+      , (err) ->
+        # run all sql queries
+        async.auto queries, db.conf.pool?.limit ? 10, cb
 
 # Get or register controller
 # -------------------------------------------------
