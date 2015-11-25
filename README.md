@@ -1454,8 +1454,12 @@ internal ones by name.
 
 Each plugin need the following methods in the main module:
 
-- listSensors(cb)
+- listSensor()
 - getSensor(name, cb)
+- listActor()
+- getActor(name, cb)
+- listExplorer()
+- getExplorer(name, cb)
 
 This methods have to behave like the methods in the `index` module of the monitor
 package. The sensors returned need the same API as in the main package.
@@ -1476,6 +1480,8 @@ Roadmap
 - -m send to other email instead of controller contacts
 - get logo through plugins first
 
+- get list sensor with plugins in index.init()
+- make listSensor sync
 - ic: add checks in showController
 - ic: show Sensor
 - evaluate rules before analysis

@@ -153,8 +153,11 @@ commands =
         when 'controller'
           conf = config.get '/monitor/controller'
           console.log chalk.bold "Controllers:"
-          for el in monitor.listController()
-            console.log "  - #{el} #{chalk.gray conf[el].name}"
+          return monitor.listController (err, list) ->
+            return cb err if err
+            for el in list
+              console.log "  - #{el} #{chalk.gray conf[el].name}"
+            cb()
         when 'sensor'
           console.log chalk.bold "Sensors:"
           return monitor.listSensors (err, list) ->
@@ -166,7 +169,7 @@ commands =
           console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
           #{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more
           information!"
-      cb()
+          cb()
 
   show:
     description: "get more information about the element"
@@ -190,7 +193,7 @@ commands =
         num = 1
         elements = switch parts[1]
           when 'controller' then monitor.listController()
-          when 'sensor' then monitor.listSensors()
+          when 'sensor' then monitor.listSensor()
           else []
         num++ while parts[num+1] in elements
         line = parts[0..num].join ' '
@@ -207,14 +210,18 @@ commands =
             console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
             Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
             return cb()
-          console.log monitor.showController args[1], conf
+          monitor.showController args[1], (err, report) ->
+            return cb err if err
+            console.log report
+            cb()
         when 'sensor'
           monitor.listSensors()
+          cb()
         else
           console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
           #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
           information!"
-      cb()
+          cb()
 
 
   run:

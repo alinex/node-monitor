@@ -99,8 +99,8 @@ class Monitor extends EventEmitter
   listController: ->
     Object.keys config.get '/monitor/controller'
 
-  showController: (name, conf) ->
-    conf ?= config.get "/monitor/controller/#{name}"
+  showController: (name, cb) ->
+    conf = config.get "/monitor/controller/#{name}"
     context =
       name: name
       config: conf
@@ -114,16 +114,19 @@ class Monitor extends EventEmitter
     if conf.info
       info += "\n#{string.wordwrap conf.info, 78}"
     if conf.hint
-      info += "\n> #{string.wordwrap conf.hint(context), 76, '\n> '}\n"
+      info += "\n> #{string.wordwrap conf.hint(context).trim(), 76, '\n> '}\n"
     # interval
 
-    # sensors
+    # checks
+    info += "\nThe following checks will run:\n"
+    for check in conf.check
 
+      info += "- #{check.sensor} #{}\n"
     # actor rules
 
     # contact
     if conf.contact
-      info += "Contact Persons:\n\n"
+      info += "\nContact Persons:\n\n"
       for group, glist of conf.contact
         info += "* __#{string.ucFirst group}__\n"
         for entry in glist
@@ -140,7 +143,7 @@ class Monitor extends EventEmitter
       info += "\nFor further assistance check the following links:\n"
       for name, list of conf.ref
         info += "\n- #{string.rpad name, 15} " + list.join ', '
-    info
+    cb null, info
 
   runController: (setup, cb) ->
     unless cb
@@ -162,8 +165,8 @@ class Monitor extends EventEmitter
 
   # Sensor Info
   # -------------------------------------------------
-  listSensors: (cb) ->
-    return cb null, allSensors if allSensors?
+  listSensor: ->
+    return cacheSensors if cacheSensors?
     fs.find "#{__dirname}/sensor",
       type: 'f'
       maxdepth: 1
@@ -177,7 +180,7 @@ class Monitor extends EventEmitter
           lib = require plugin
         catch err
           return cb err
-        lib.listSensors cb
+        lib.listSensor cb
       , (err, results) ->
         allSensors = allSensors.concat.apply this, results
         cb null, allSensors
