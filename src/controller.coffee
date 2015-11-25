@@ -56,19 +56,19 @@ class Controller extends EventEmitter
       (cb) =>
         # Validate configuration
         async.mapOf @conf.check, (check, num, cb) =>
-          try
-            sensorInstance = require "./sensor/#{check.sensor}"
-          catch err
-            debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
-            return cb new Error "Check '#{check.sensor}' not supported"
-          validator.check
-            name: "#{@name}:#{num}"
-            value: check.config
-            schema: sensorInstance.schema
-          , (err, result) =>
-            return cb err if err
-            @conf.check[num].config = result
-            cb()
+          monitor = require './index'
+          monitor.getSensor check.sensor, (err, sensorInstance) =>
+            if err
+              debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
+              return cb new Error "Check '#{check.sensor}' not supported"
+            validator.check
+              name: "#{@name}:#{num}"
+              value: check.config
+              schema: sensorInstance.schema
+            , (err, result) =>
+              return cb err if err
+              @conf.check[num].config = result
+              cb()
         , cb
     ], (err) =>
       debug "#{chalk.grey @name} Initialized controller"
@@ -79,46 +79,44 @@ class Controller extends EventEmitter
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
       # load sensor
-      sensorInstance = load null, 'sensor', check.sensor
-      unless sensorInstance
-        for plugin in @conf.plugins
-          break if sensorInstance = load plugin, 'sensor', check.sensor
-      unless sensorInstance
-        return cb new Error "Could not find sensor #{check.sensor}"
-      name = "#{check.sensor}:#{sensorInstance.name check.config}"
-      debug "#{chalk.grey @name} Running check #{name}..."
-      # run sensor
-      sensorInstance.run check.config, (err, res) =>
-        return cb err if err
-        # status info
-        debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
-          if res.message then ' (' + res.message + ')' else ''
-          }"
-        if @mode?.verbose
-          msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}"
-          msg += " (#{res.message})" if res.message
-          if @mode.verbose > 1
-            msg += '\n' + util.inspect res.values
-          console.log chalk.grey msg
-        res =
-          sensor: sensorInstance
-          config: check.config
-          result: res
-          hint: check.hint
-        # store results in storage
-        storage.results check.databaseID, check.sensor, sensorInstance.meta.values
-        , res.result.date[1], res.result.values, (err) =>
+      monitor = require './index'
+      monitor.getSensor check.sensor, (err, sensorInstance) =>
+        if err
+          return cb new Error "Could not find sensor #{check.sensor}"
+        name = "#{check.sensor}:#{sensorInstance.name check.config}"
+        debug "#{chalk.grey @name} Running check #{name}..."
+        # run sensor
+        sensorInstance.run check.config, (err, res) =>
           return cb err if err
-          # check for status change -> analysis
-          if res.result.status in [
-              'disabled', @checks[0]?[num].status
-            ] and not @mode?.verbose > 2
-            return cb null, res
-          # run analysis
-          sensorInstance.analysis check.config, res.result, (err, report) ->
+          # status info
+          debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
+            if res.message then ' (' + res.message + ')' else ''
+            }"
+          if @mode?.verbose
+            msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}"
+            msg += " (#{res.message})" if res.message
+            if @mode.verbose > 1
+              msg += '\n' + util.inspect res.values
+            console.log chalk.grey msg
+          res =
+            sensor: sensorInstance
+            config: check.config
+            result: res
+            hint: check.hint
+          # store results in storage
+          storage.results check.databaseID, check.sensor, sensorInstance.meta.values
+          , res.result.date[1], res.result.values, (err) =>
             return cb err if err
-            res.result.analysis = report
-            cb null, res
+            # check for status change -> analysis
+            if res.result.status in [
+                'disabled', @checks[0]?[num].status
+              ] and not @mode?.verbose > 2
+              return cb null, res
+            # run analysis
+            sensorInstance.analysis check.config, res.result, (err, report) ->
+              return cb err if err
+              res.result.analysis = report
+              cb null, res
     , (err, results) =>
 #      console.log err, results
       return cb err if err
@@ -266,10 +264,3 @@ calcStatus = (combine, check, result) ->
   for name, val of values
     return name if status is val
   return 'ok'
-
-# ### Load element
-load = (plugin = '.', type, element) ->
-  try
-    return require "#{plugin}/#{type}/#{element}"
-  catch err
-    return

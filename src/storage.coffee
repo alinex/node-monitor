@@ -113,7 +113,7 @@ create = (conf, db, cb) ->
               check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
               interval intervalType NOT NULL,
               period TIMESTAMP WITH TIME ZONE,
-              num INTEGER NOT NULL
+              _c INTEGER NOT NULL
             """
           for k, v of sensor.meta.values
             type = switch v.type
@@ -179,7 +179,7 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
     m = moment date
-    async.eachSeries ['minute', 'hour', 'day', 'week', 'month'], (interval, cb) -> # 'quarter', 'year'
+    async.each ['minute', 'hour', 'day', 'week', 'month'], (interval, cb) -> # 'quarter', 'year'
       period = m.startOf(interval).toDate()
       db.value """
         SELECT COUNT(*)::int FROM #{prefix}sensor_#{sensor}
@@ -191,7 +191,7 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
           debug "add results to check #{checkID} (#{sensor}) for #{interval}"
           db.exec """
             INSERT INTO #{prefix}sensor_#{sensor}
-            (check_id, interval, period, num, "#{Object.keys(value).join('", "').toLowerCase()}")
+            (check_id, interval, period, _c, "#{Object.keys(value).join('", "').toLowerCase()}")
             VALUES (?, ?, ?, 1#{string.repeat ', ?', Object.keys(value).length})
             """
           , [checkID, interval, period].concat(Object.keys(value).map (k) -> value[k])
@@ -200,9 +200,9 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
           return
         # update
         debug "update results to check #{checkID} (#{sensor}) for #{interval}"
-        set = "SET num = num+1, " + Object.keys(value).map (k) ->
+        set = "SET _c = _c+1, " + Object.keys(value).map (k) ->
           if meta[k].type in valueTypes
-            "\"#{k}\" = (\"#{k}\" * num  + ?) / num+1"
+            "\"#{k}\" = (\"#{k}\" * _c  + ?) / _c+1"
           else
             "\"#{k}\" = ?"
         .join ', '

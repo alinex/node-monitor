@@ -117,30 +117,92 @@ all.
 Like seen above you may send the normal output to a log file but better configure
 a log destination through the config files (see below).
 
-### Analysis run
+### Additional commands
 
-This is a method to make an individual not fix configured check. This may be done
-with the needed information as `data` element in JSON format on the command line
-or in an interactive mode (documented in the next section).
-
-    -e --explore <explorer>
-    -j --json <json>
-
-If you want to run multiple analyzers, make another call.
-
-### Interactive Mode
-
-That will do the same as above but all settings are asked if needed.
-
-    -i --interactive
-
-First you have to select an analyzer to use. All that follows depends on that
-analyzer.
+You may run some other commands through the interactive console or directly by
+giving everything on the commandline call. See the next section for more details
+on this topic.
 
 ### Setup
 
 To use the controller you have to setup the whole process using some configuration
 files. And maybe a storage database will be used.
+
+
+Interactive Console
+-------------------------------------------------
+You may start the interactive console by using the `-i` option. After that you
+will be greeted and may give the commands:
+
+    > monitor -i # or --interactive
+                             __   ____     __
+             ######  #####  |  | |    \   |  |   ########### #####       #####
+            ######## #####  |  | |     \  |  |  ############  #####     #####
+           ######### #####  |  | |  |\  \ |  |  #####          #####   #####
+          ########## #####  |  | |  | \  \|  |  #####           ##### #####
+         ##### ##### #####  |  | |  |__\     |  ############     #########
+        #####  ##### #####  |  | |     \\    |  ############     #########
+       #####   ##### #####  |__| |______\\___|  #####           ##### #####
+      #####    ##### #####                      #####          #####   #####
+     ##### ######### ########################## ############  #####     #####
+    ##### ##########  ########################   ########### #####       #####
+    ___________________________________________________________________________
+
+                    M O N I T O R I N G   A P P L I C A T I O N
+    ___________________________________________________________________________
+
+    Initializing...
+
+    Welcome to the interactive monitor console in which you can get more
+    information about special tools, run individual tests and explore systems.
+
+    To get help call the command help and close with exit!
+
+    monitor>
+
+The following commands are possible here:
+
+    help - show a help page with all this commands
+    exit - this will close the interactive run or send Ctrl-C
+    cleanup - will remove old entries from the storage database
+
+Commands possible for controller, sensor, actor and explorer:
+
+    list <type> - list all possible elements of given type
+    show <type> <element> - show meta information for this element
+    run <type> <element> - run this element (maybe ask for decisions)
+
+Examples:
+
+    list controller
+    show controller my_machine
+    run controller my_machine
+    show sensor cpu
+    run sensor cpu
+    run explorer database
+
+Everything the controller/sensor/actor/explorer need is asked within or before
+starting the process.
+
+### Using Parameters
+
+If you want to run the same command as on the interactive console but call it
+directly you can send it as command using the options:
+
+    -c --command
+    -j --json
+
+As an example you may run the cleanup:
+
+    > monitor -c cleanup
+
+Or get the list of controllers:
+
+    > monitor -c 'list controller'
+
+If you run a command which needs optional parameters while running you have to
+give all of them on call as a json data object. Take the names from the interactive
+run displayed in front of the question.
 
 
 Configuration
@@ -1390,73 +1452,24 @@ internal ones by name.
 
 ### Plugin Structure
 
+Each plugin need the following methods in the main module:
 
+- listSensors(cb)
+- getSensor(name, cb)
 
-Interactive Console
--------------------------------------------------
-You may start the interactive console by using the `-i` option. After that you
-will be greeted and may give the commands:
+This methods have to behave like the methods in the `index` module of the monitor
+package. The sensors returned need the same API as in the main package.
 
-    > monitor -i
-                             __   ____     __
-             ######  #####  |  | |    \   |  |   ########### #####       #####
-            ######## #####  |  | |     \  |  |  ############  #####     #####
-           ######### #####  |  | |  |\  \ |  |  #####          #####   #####
-          ########## #####  |  | |  | \  \|  |  #####           ##### #####
-         ##### ##### #####  |  | |  |__\     |  ############     #########
-        #####  ##### #####  |  | |     \\    |  ############     #########
-       #####   ##### #####  |__| |______\\___|  #####           ##### #####
-      #####    ##### #####                      #####          #####   #####
-     ##### ######### ########################## ############  #####     #####
-    ##### ##########  ########################   ########### #####       #####
-    ___________________________________________________________________________
-
-                    M O N I T O R I N G   A P P L I C A T I O N
-    ___________________________________________________________________________
-
-    Initializing...
-
-    Welcome to the interactive monitor console in which you can get more
-    information about special tools, run individual tests and explore systems.
-
-    To get help call the command help and close with exit!
-
-    monitor>
-
-The following commands are possible here:
-
-    help - show a help page with all this commands
-    exit - this will close the interactive run or send Ctrl-C
-
-Commands possible for controller, sensor, actor and explorer:
-
-    list <type> - list all possible elements of given type
-    show <type> <element> - show meta information for this element
-    run <type> <element> - run this element (maybe ask for decisions)
-
-Examples:
-
-    list controller
-    show controller my_machine
-    run controller my_machine
-    show sensor cpu
-    run sensor cpu
-    run explorer database
-
-Everything the controller/sensor/actor/explorer need is asked within or before
-starting the process.
 
 
 Roadmap
 -------------------------------------------------
 
 - update results
-- save to db: report
 - save to db: status
 - save to db: controller status
+- save to db: report
 
-- use monitor.getSensor name
-- add plugin sensors within listSensors()
 - controller with daemon
 - add time results of fields within the warn or fail conditions
 - send emails on state change

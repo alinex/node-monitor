@@ -169,7 +169,18 @@ class Monitor extends EventEmitter
       maxdepth: 1
     , (err, list) ->
       allSensors = list.map (e) -> fspath.basename e, fspath.extname e
-      cb null, allSensors
+      # try to load sensor from plugins
+      plugins = config.get "/monitor/plugins"
+      return cb null, allSensors unless plugins
+      async.map plugins, (plugin, cb) ->
+        try
+          lib = require plugin
+        catch err
+          return cb err
+        lib.listSensors cb
+      , (err, results) ->
+        allSensors = allSensors.concat.apply this, results
+        cb null, allSensors
 
   getSensor: (name, cb) ->
     sensor = null
@@ -178,12 +189,20 @@ class Monitor extends EventEmitter
       return cb null, require "./sensor/#{name}"
     # try to load sensor from plugins
     plugins = config.get "/monitor/plugins"
-    if plugins
-      for plugin in plugins
-        try
-          return cb null, require "#{plugin}/sensor/#{name}"
-    # sensor not found
-    cb new Error "Could not find sensor #{name}"
+    return cb new Error "Could not find sensor #{name}" unless plugins
+    async.map plugins, (plugin, cb) ->
+      try
+        lib = require plugin
+      catch err
+        return cb err
+      lib.getSensor name, (err, sensor) ->
+        cb() if err
+        cb null, sensor
+    , (err, list) ->
+      for sensor in list
+        return cb null, sensor if sensor
+      # sensor not found
+      cb new Error "Could not find sensor #{name}" unless plugins
 
   showSensor: (name) ->
     "xxxxx"

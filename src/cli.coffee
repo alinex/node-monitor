@@ -49,10 +49,10 @@ argv = yargs
 .describe('d', 'run as a daemon')
 .boolean('d')
 # exploring with special data
-.alias('e', 'explore')
-.describe('e', 'explorer to run with given data')
+.alias('c', 'command')
+.describe('c', 'command to execute')
 .alias('j', 'json')
-.describe('j', 'json data for the explorer')
+.describe('j', 'json data for the command')
 # interactive mode
 .alias('i', 'interactive')
 .describe('i', 'interactive mode')
