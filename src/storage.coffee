@@ -79,7 +79,7 @@ create = (conf, db, cb) ->
       statusType: (cb) -> db.exec """
         CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail')
         """, cb
-      status: ['statusType', 'check', (cb) -> db.exec """
+      statusSensor: ['statusType', 'check', (cb) -> db.exec """
         CREATE TABLE #{prefix}status_sensor (
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
           change TIMESTAMP WITH TIME ZONE,
@@ -87,7 +87,7 @@ create = (conf, db, cb) ->
           comment VARCHAR(120)
         )
         """, cb]
-      status: ['statusType', 'controller', (cb) -> db.exec """
+      statusController: ['statusType', 'controller', (cb) -> db.exec """
         CREATE TABLE #{prefix}status_controller (
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
           change TIMESTAMP WITH TIME ZONE,

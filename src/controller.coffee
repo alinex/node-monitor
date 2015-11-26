@@ -54,7 +54,7 @@ class Controller extends EventEmitter
             monitor.getSensor check.sensor, (err, sensorInstance) =>
               return cb err if err
               storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
-              , sensorInstance.meta.category, (err, checkID) =>
+              , sensorInstance.meta.category, (err, checkID) ->
                 return cb err if err
                 check.databaseID = checkID
                 cb()
@@ -114,8 +114,8 @@ class Controller extends EventEmitter
             return cb err if err
             # check for status change -> analysis
             if res.result.status in [
-                'disabled', @checks[0]?[num].status
-              ] and not @mode?.verbose > 2
+              'disabled', @checks[0]?[num].status
+            ] and not @mode?.verbose > 2
               return cb null, res
             # run analysis
             sensorInstance.analysis check.config, res.result, (err, report) ->

@@ -236,7 +236,7 @@ interactive = (conf) ->
       list = Object.keys commands
       if parts[0] in list and commands[parts[0]].commands
         list = commands[parts[0]].commands parts
-      hits = list.filter (c) -> c.indexOf(line) == 0
+      hits = list.filter (c) -> c.indexOf(line) is 0
       [
         if hits.length then hits else list
         line
