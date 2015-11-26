@@ -38,7 +38,7 @@ exports.init = (cb) ->
 # -------------------------------------------------
 # This should not be enabled in productive system.
 drop = (conf, db, cb) ->
-#  return cb() # disable function
+  return cb() # disable function
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
@@ -172,15 +172,13 @@ valueTypes = ['integer', 'float', 'interval', 'byte', 'percent']
 # Add results
 # -------------------------------------------------
 exports.results = (checkID, sensor, meta, date, value, cb) ->
-  console.log '++++', checkID, sensor, meta, date, value
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
-    m = moment date
     async.each ['minute', 'hour', 'day', 'week', 'month'], (interval, cb) -> # 'quarter', 'year'
-      period = m.startOf(interval).toDate()
+      period = moment(date).startOf(interval).toDate()
       db.value """
         SELECT COUNT(*)::int FROM #{prefix}sensor_#{sensor}
         WHERE check_id=$1 AND interval=$2 AND period=$3
@@ -202,10 +200,11 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
         debug "update results to check #{checkID} (#{sensor}) for #{interval}"
         set = "SET _c = _c+1, " + Object.keys(value).map (k) ->
           if meta[k].type in valueTypes
-            "\"#{k}\" = (\"#{k}\" * _c  + ?) / _c+1"
+            "\"#{k}\" = (\"#{k}\" * _c  + ?) / (_c+1)"
           else
             "\"#{k}\" = ?"
         .join ', '
+        .toLowerCase()
         db.exec """
           UPDATE #{prefix}sensor_#{sensor}
           #{set}

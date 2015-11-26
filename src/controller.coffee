@@ -45,7 +45,6 @@ class Controller extends EventEmitter
   # ### Initialize
   init: (cb) ->
     monitor ?= require './index'
-    console.log '######', this
     async.parallel [
       (cb) =>
         # create base data in storage
