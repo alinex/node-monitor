@@ -153,23 +153,17 @@ commands =
         when 'controller'
           conf = config.get '/monitor/controller'
           console.log chalk.bold "Controllers:"
-          return monitor.listController (err, list) ->
-            return cb err if err
-            for el in list
-              console.log "  - #{el} #{chalk.gray conf[el].name}"
-            cb()
+          for el in monitor.listController()
+            console.log "  - #{el} #{chalk.gray conf[el].name}"
         when 'sensor'
           console.log chalk.bold "Sensors:"
-          return monitor.listSensors (err, list) ->
-            return cb err if err
-            for el in list
-              console.log "  - #{el}"
-            cb()
+          for el in monitor.listSensor()
+            console.log "  - #{el}"
         else
           console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
           #{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more
           information!"
-          cb()
+      cb()
 
   show:
     description: "get more information about the element"

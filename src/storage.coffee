@@ -15,14 +15,16 @@ database = require 'alinex-database'
 {string} = require 'alinex-util'
 # include classes and helpers
 
-
-# General data
+# Initialized Data
 # -------------------------------------------------
+# This will be set on init
+monitor = null  # require './index'
 conf = null
 
 # Initialize database
 # -------------------------------------------------
 exports.init = (cb) ->
+  monitor ?= require './index'
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?
   debug "Initialize database store..."
@@ -36,7 +38,7 @@ exports.init = (cb) ->
 # -------------------------------------------------
 # This should not be enabled in productive system.
 drop = (conf, db, cb) ->
-  return cb() # disable function
+#  return cb() # disable function
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
@@ -103,31 +105,29 @@ create = (conf, db, cb) ->
         """, cb]
         # get list of sensors
     monitor = require './index'
-    monitor.listSensors (err, list) ->
-      return cb err if err
-      async.each list, (name, cb) ->
-        monitor.getSensor name, (err, sensor) ->
-          return cb err if err
-          sql = """
-            CREATE TABLE #{prefix}sensor_#{name} (
-              check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-              interval intervalType NOT NULL,
-              period TIMESTAMP WITH TIME ZONE,
-              _c INTEGER NOT NULL
-            """
-          for k, v of sensor.meta.values
-            type = switch v.type
-              when 'integer', 'byte' then 'BIGINT'
-              when 'float', 'percent', 'interval' then 'FLOAT'
-              when 'date' then 'TIMESTAMP WITH TIME ZONE'
-              else 'VARCHAR(100)'
-            sql += ", \"#{k.toLowerCase()}\" #{type}"
-          sql += ")"
-          queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
-          cb()
-      , (err) ->
-        # run all sql queries
-        async.auto queries, db.conf.pool?.limit ? 10, cb
+    async.each monitor.listSensor(), (name, cb) ->
+      monitor.getSensor name, (err, sensor) ->
+        return cb err if err
+        sql = """
+          CREATE TABLE #{prefix}sensor_#{name} (
+            check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
+            interval intervalType NOT NULL,
+            period TIMESTAMP WITH TIME ZONE,
+            _c INTEGER NOT NULL
+          """
+        for k, v of sensor.meta.values
+          type = switch v.type
+            when 'integer', 'byte' then 'BIGINT'
+            when 'float', 'percent', 'interval' then 'FLOAT'
+            when 'date' then 'TIMESTAMP WITH TIME ZONE'
+            else 'VARCHAR(100)'
+          sql += ", \"#{k.toLowerCase()}\" #{type}"
+        sql += ")"
+        queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
+        cb()
+    , (err) ->
+      # run all sql queries
+      async.auto queries, db.conf.pool?.limit ? 10, cb
 
 # Get or register controller
 # -------------------------------------------------

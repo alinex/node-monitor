@@ -19,6 +19,12 @@ validator = require 'alinex-validator'
 sensor = require './sensor'
 storage = require './storage'
 
+# Initialized Data
+# -------------------------------------------------
+# This will be set on init
+monitor = null  # require './index'
+
+
 # Controller class
 # -------------------------------------------------
 class Controller extends EventEmitter
@@ -38,13 +44,14 @@ class Controller extends EventEmitter
 
   # ### Initialize
   init: (cb) ->
+    monitor ?= require './index'
+    console.log '######', this
     async.parallel [
       (cb) =>
         # create base data in storage
         storage.controller @name, (err, @databaseID) =>
           return cb err if err
           async.each @conf.check, (check, cb) =>
-            monitor = require './index'
             monitor.getSensor check.sensor, (err, sensorInstance) =>
               return cb err if err
               storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
@@ -56,7 +63,6 @@ class Controller extends EventEmitter
       (cb) =>
         # Validate configuration
         async.mapOf @conf.check, (check, num, cb) =>
-          monitor = require './index'
           monitor.getSensor check.sensor, (err, sensorInstance) =>
             if err
               debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"

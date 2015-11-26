@@ -21,8 +21,10 @@ schema = require './configSchema'
 Controller = require './controller'
 storage = require './storage'
 
-
-allSensors = null
+# Initialized Data
+# -------------------------------------------------
+# This will be set on init
+cache = {} # object of controller, sensors, ...
 
 class Monitor extends EventEmitter
 
@@ -57,25 +59,39 @@ class Monitor extends EventEmitter
 
   init: (cb) ->
     debug "Loading configuration..."
-    config.init (err) =>
-      return cb err if err
-      @conf = config.get '/monitor'
-      if @conf.plugins?
-        for plugin in @conf.plugins
-          try
-            require plugin
-          catch err
-            cb new Error "Could not load plugin #{plugin}: #{err.message}"
-      cb()
+    async.parallel [
+      (cb) -> config.init cb
+      (cb) => @initPlugins cb
+    ], cb
+
+  initPlugins: (cb) ->
+    # find sensor plugins
+    fs.find "#{__dirname}/sensor",
+      type: 'f'
+      maxdepth: 1
+    , (err, list) ->
+      cache.sensors = list.map (e) -> fspath.basename e, fspath.extname e
+      # try to load sensor from plugins
+      plugins = config.get "/monitor/plugins"
+      return cb() unless plugins
+      async.map plugins, (plugin, cb) ->
+        try
+          lib = require plugin
+        catch err
+          return cb new Error "Could not load plugin #{plugin}: #{err.message}"
+        lib.listSensor cb
+      , (err, results) ->
+        cache.sensors = cache.sensors.concat.apply this, results
+        cb()
 
   # Controller Setup
   # -------------------------------------------------
 
   instantiate: (setup, cb) ->
-    return cb() if @controller
+    return cb() if @controller?
     debug "Instantiate controllers..."
     @controller = {}
-    for name, def of @conf.controller
+    for name, def of config.get "/monitor/controller"
       @controller[name] = new Controller name, def, setup
       @controller[name].on 'result', (ctrl) => @emit 'result', ctrl
     # parallel instantiation
@@ -166,24 +182,7 @@ class Monitor extends EventEmitter
   # Sensor Info
   # -------------------------------------------------
   listSensor: ->
-    return cacheSensors if cacheSensors?
-    fs.find "#{__dirname}/sensor",
-      type: 'f'
-      maxdepth: 1
-    , (err, list) ->
-      allSensors = list.map (e) -> fspath.basename e, fspath.extname e
-      # try to load sensor from plugins
-      plugins = config.get "/monitor/plugins"
-      return cb null, allSensors unless plugins
-      async.map plugins, (plugin, cb) ->
-        try
-          lib = require plugin
-        catch err
-          return cb err
-        lib.listSensor cb
-      , (err, results) ->
-        allSensors = allSensors.concat.apply this, results
-        cb null, allSensors
+    return cache.sensors
 
   getSensor: (name, cb) ->
     sensor = null
