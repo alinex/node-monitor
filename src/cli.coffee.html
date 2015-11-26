@@ -42,7 +42,16 @@
         <a href="#start%20argument%20parsing">Start argument parsing</a>
       </div>
       <div class="heading h2">
-        <a href="#commands">Commands</a>
+        <a href="#interactive%20console">Interactive Console</a>
+      </div>
+      <div class="heading h3">
+        <a href="#integrated%20help">Integrated help</a>
+      </div>
+      <div class="heading h3">
+        <a href="#exit%20console">exit console</a>
+      </div>
+      <div class="heading h3">
+        <a href="#list%20elements%20of%20type">list elements of type</a>
       </div>
       <div class="heading h2">
         <a href="#main%20routine">Main routine</a>
@@ -90,10 +99,10 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">yargs = </span><span class="nx">require</span> <span class="s">&#39;yargs&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
 
 </pre></div>
         </td>
@@ -106,7 +115,9 @@
 <p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 
 </pre></div>
         </td>
@@ -180,10 +191,10 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0&#39;</span><span class="p">,</span> <span class="s">&#39;to simply check all services once&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -v&#39;</span><span class="p">,</span> <span class="s">&#39;to get more information of each check&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -l&#39;</span><span class="p">,</span> <span class="s">&#39;to list the possible groups and services&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 rz:web1:cpu&#39;</span><span class="p">,</span> <span class="s">&#39;to call a single service or group&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -d&#39;</span><span class="p">,</span> <span class="s">&#39;run contineously as a daemon&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 fileserv&#39;</span><span class="p">,</span> <span class="s">&#39;to call a single service or group&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -d -C &gt;/dev/null&#39;</span><span class="p">,</span> <span class="s">&#39;run continuously as a daemon&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -tvvv&#39;</span><span class="p">,</span> <span class="s">&#39;make a try run and show all details&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -i&#39;</span><span class="p">,</span> <span class="s">&#39;run in interactive mode&#39;</span><span class="p">)</span>
 
 </pre></div>
         </td>
@@ -202,15 +213,33 @@
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;verbose&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;run in verbose mode (multiple makes more verbose)&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">count</span><span class="p">(</span><span class="s">&#39;verbose&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="s">&#39;list&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="s">&#39;list the configured groups and services&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;tree&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;show the service list as tree&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>controller run</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;try&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;try run which prevent actors to run&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="s">&#39;reverse&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="s">&#39;show the tree in reverse order (used by)&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>daemon</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="s">&#39;daemon&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="s">&#39;run as a daemon&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
@@ -221,14 +250,31 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
-<p>info mode</p>
+<p>exploring with special data</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;info mode, analyze system&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command to execute&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;json&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;json data for the command&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>interactive mode</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;interactive&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;interactive mode&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">)</span>
+
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;ssh&#39;</span><span class="p">,</span> <span class="s">&#39;info: ssh connection url&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;key&#39;</span><span class="p">,</span> <span class="s">&#39;info: ssh private key to connect&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="s">&#39;info: ss password to connect&#39;</span><span class="p">)</span>
@@ -239,7 +285,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>general help</p>
         </td>
@@ -258,7 +304,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>{logo}
 {chalk.red.bold 'CLI Parameter Failure:'} #{chalk.red err}</p>
@@ -275,7 +321,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>implement some global switches</p>
         </td>
@@ -283,33 +329,306 @@
 <span class="nv">chalk.enabled = </span><span class="kc">false</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
 
 
+
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="commands">
+<div class="pilwrap" id="interactive%20console">
   <h2>
-    <a href="#commands" name="commands" class="pilcrow">&#182;</a>
-    Commands
+    <a href="#interactive%20console" name="interactive%20console" class="pilcrow">&#182;</a>
+    Interactive Console
   </h2>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">types = </span><span class="p">[</span><span class="s">&#39;controller&#39;</span><span class="p">,</span> <span class="s">&#39;sensor&#39;</span><span class="p">,</span> <span class="s">&#39;actor&#39;</span><span class="p">,</span> <span class="s">&#39;explorer&#39;</span><span class="p">]</span>
+<span class="nv">commands =</span>
 
-<span class="nv">list = </span><span class="nf">(conf) -&gt;</span>
-  <span class="k">for</span> <span class="nx">ctrl</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">controller</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">ctrl</span>
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="integrated%20help">
+  <h3>
+    <a href="#integrated%20help" name="integrated%20help" class="pilcrow">&#182;</a>
+    Integrated help
+  </h3>
+</div>
 
-<span class="nv">tree = </span><span class="nf">(conf) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;tree to be programmed...&quot;</span>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">help:</span>
+    <span class="nv">description: </span><span class="s">&quot;list a help page with possible commands&quot;</span>
+    <span class="nv">commands: </span><span class="nf">-&gt;</span>
+      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">commands</span>
+      <span class="p">.</span><span class="nx">filter</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span> <span class="o">isnt</span> <span class="s">&#39;help&#39;</span>
+      <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;help </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">run: </span><span class="nf">(args, cb) -&gt;</span>
+      <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">and</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">commands</span>
+        <span class="nv">cmd = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        Help for </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> command</span>
+<span class="s">        ===========================================================================</span>
+<span class="s">        &quot;&quot;&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">        \nThis command will </span><span class="si">#{</span><span class="nx">commands</span><span class="p">[</span><span class="nx">cmd</span><span class="p">].</span><span class="nx">description</span><span class="si">}</span><span class="s">.</span>
+<span class="s">        &quot;&quot;&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">cmd</span><span class="p">].</span><span class="nx">help</span><span class="p">()</span> <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">cmd</span><span class="p">].</span><span class="nx">help</span><span class="o">?</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      Help for interactive console</span>
+<span class="s">      ===========================================================================</span>
+<span class="s">      &quot;&quot;&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      \nWithin this interactive console you can use different commands with sub</span>
+<span class="s">      arguments to run. See the list of possibilities below.</span>
+<span class="s">      You can also use code completion to get a list of available commands.</span>
 
-<span class="nv">fail = </span><span class="nf">(err) -&gt;</span>
-  <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;FAILED: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
+<span class="s">      To close this console use Ctrl-C or the </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;exit&#39;</span><span class="si">}</span><span class="s"> command.</span>
+
+<span class="s">      The following commands are possible:</span>
+<span class="s">      &quot;&quot;&quot;</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span> <span class="k">of</span> <span class="nx">commands</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">name</span><span class="p">,</span> <span class="mi">10</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">def</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      \nTo get more information about a speciific command and its additional</span>
+<span class="s">      arguments type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help &lt;command&gt;&#39;</span><span class="si">}</span><span class="s">.</span>
+<span class="s">      &quot;&quot;&quot;</span>
+      <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="exit%20console">
+  <h3>
+    <a href="#exit%20console" name="exit%20console" class="pilcrow">&#182;</a>
+    exit console
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">exit:</span>
+    <span class="nv">description: </span><span class="s">&quot;close the console&quot;</span>
+    <span class="nv">run: </span><span class="nf">-&gt;</span>
+      <span class="nx">exit</span> <span class="kc">null</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="list%20elements%20of%20type">
+  <h3>
+    <a href="#list%20elements%20of%20type" name="list%20elements%20of%20type" class="pilcrow">&#182;</a>
+    list elements of type
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">list:</span>
+    <span class="nv">description: </span><span class="s">&quot;show the list of possible elements&quot;</span>
+    <span class="nv">help: </span><span class="nf">-&gt;</span>
+      <span class="nv">text = </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">      Usage: list &lt;type&gt;</span>
+
+<span class="s">      The list command will display a list of elements for the specified `type`:\n</span>
+<span class="s">      &quot;&quot;&quot;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="nx">types</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">).</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
+    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
+      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
+        <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">else</span>
+        <span class="p">[]</span>
+    <span class="nv">run: </span><span class="nf">(args, cb) -&gt;</span>
+      <span class="k">unless</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Wrong number of parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;list&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help list&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
+          <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor/controller&#39;</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Controllers:&quot;</span>
+          <span class="k">for</span> <span class="nx">el</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">el</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">gray</span> <span class="nx">conf</span><span class="p">[</span><span class="nx">el</span><span class="p">].</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Sensors:&quot;</span>
+          <span class="k">for</span> <span class="nx">el</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">el</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">else</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> not possible in</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">          information!&quot;</span>
+      <span class="nx">cb</span><span class="p">()</span>
+
+  <span class="nv">show:</span>
+    <span class="nv">description: </span><span class="s">&quot;get more information about the element&quot;</span>
+    <span class="nv">help: </span><span class="nf">-&gt;</span>
+      <span class="nv">text = </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">      Usage: show &lt;type&gt; &lt;element&gt;</span>
+
+<span class="s">      The show command will display detailed information about the specified `type`:\n</span>
+<span class="s">      &quot;&quot;&quot;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="nx">types</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">).</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      \nUse code completion by typing </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;TAB&#39;</span><span class="si">}</span><span class="s"> to get a list of possible</span>
+<span class="s">      elements.</span>
+<span class="s">      &quot;&quot;&quot;</span>
+    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
+      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
+        <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="c1"># only allow one element</span>
+        <span class="p">[]</span>
+      <span class="k">else</span>
+        <span class="nv">num = </span><span class="mi">1</span>
+        <span class="nv">elements = </span><span class="k">switch</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+          <span class="k">when</span> <span class="s">&#39;controller&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
+          <span class="k">when</span> <span class="s">&#39;sensor&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
+          <span class="k">else</span> <span class="p">[]</span>
+        <span class="nx">num</span><span class="o">++</span> <span class="k">while</span> <span class="nx">parts</span><span class="p">[</span><span class="nx">num</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">in</span> <span class="nx">elements</span>
+        <span class="nv">line = </span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">num</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
+        <span class="nx">elements</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">line</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">run: </span><span class="nf">(args, cb) -&gt;</span>
+      <span class="k">unless</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Too less parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;show&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help show&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
+          <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller/</span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+          <span class="k">unless</span> <span class="nx">conf</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> not defined.</span>
+<span class="s">            Maybe use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;list controller&#39;</span><span class="si">}</span><span class="s"> for a list of possible ones.&quot;</span>
+            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+          <span class="nx">monitor</span><span class="p">.</span><span class="nx">showController</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nf">(err, report) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span>
+            <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
+          <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensors</span><span class="p">()</span>
+          <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">else</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> not possible in</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">          information!&quot;</span>
+          <span class="nx">cb</span><span class="p">()</span>
+
+
+  <span class="nv">run:</span>
+    <span class="nv">description: </span><span class="s">&quot;run the specified element&quot;</span>
+
+<span class="nv">interactive = </span><span class="nf">(conf) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    \nWelcome to the </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;interactive monitor console&#39;</span><span class="si">}</span><span class="s"> in which you can get more</span>
+<span class="s">    information about special tools, run individual tests and explore systems.</span>
+
+<span class="s">    To get help call the command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help&#39;</span><span class="si">}</span><span class="s"> and close with </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;exit&#39;</span><span class="si">}</span><span class="s">!</span>
+<span class="s">  &quot;&quot;&quot;</span>
+  <span class="nv">readline = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;readline&#39;</span><span class="p">).</span><span class="nx">createInterface</span>
+    <span class="nv">input: </span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span>
+    <span class="nv">output: </span><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span>
+    <span class="nv">completer: </span><span class="nf">(line) -&gt;</span>
+      <span class="nv">parts = </span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+      <span class="nv">list = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">commands</span>
+      <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">in</span> <span class="nx">list</span> <span class="o">and</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="nx">commands</span>
+        <span class="nv">list = </span><span class="nx">commands</span><span class="p">[</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="nx">commands</span> <span class="nx">parts</span>
+      <span class="nv">hits = </span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(c) -&gt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="o">is</span> <span class="mi">0</span>
+      <span class="p">[</span>
+        <span class="k">if</span> <span class="nx">hits</span><span class="p">.</span><span class="nx">length</span> <span class="k">then</span> <span class="nx">hits</span> <span class="k">else</span> <span class="nx">list</span>
+        <span class="nx">line</span>
+      <span class="p">]</span>
+  <span class="nx">readline</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGINT signal&quot;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">forever</span> <span class="nf">(cb) -&gt;</span>
+    <span class="nx">getCommand</span> <span class="nx">readline</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="nx">readline</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+    <span class="nx">exit</span> <span class="nx">err</span>
+
+<span class="nv">getCommand = </span><span class="nf">(readline, cb) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
+  <span class="nx">readline</span><span class="p">.</span><span class="nx">question</span> <span class="s">&#39;monitor&gt; &#39;</span><span class="p">,</span> <span class="nf">(line) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
+    <span class="nv">args = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+    <span class="nv">command = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span><span class="o">?</span>
+      <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="k">else</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Unknown command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">command</span><span class="si">}</span><span class="s"> use</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>{chalk.bold 'help'} for more information!"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">      cb()</span>
+
+<span class="s">exit = (err) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>exit without error</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  process.exit 0 unless err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>exit with error</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  console.error chalk.red.bold &quot;</span><span class="nv">FAILED: </span><span class="c1">#{err.message}&quot;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
+
 
 
 </pre></div>
@@ -326,30 +645,36 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGINT signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGTERM&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGTERM signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGHUP&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGHUP signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGQUIT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGQUIT signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGABRT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGABRT signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Goodbye\n&quot;</span>
+
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">logo</span>
 <span class="nx">monitor</span><span class="p">.</span><span class="nx">setup</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Initializing...&quot;</span>
 <span class="nx">monitor</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
-  <span class="nx">fail</span> <span class="nx">err</span>
+  <span class="nx">exit</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
   <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;monitor&#39;</span>
   <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">info</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Not implemented!&#39;</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">list</span>
-    <span class="nx">list</span> <span class="nx">conf</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">tree</span> <span class="o">or</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">reverse</span>
-    <span class="nx">tree</span> <span class="nx">conf</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">daemon</span>
     <span class="nx">monitor</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
     <span class="nx">monitor</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nf">(ctrl) -&gt;</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">interactive</span>
+    <span class="nx">interactive</span> <span class="nx">conf</span>
   <span class="k">else</span>
     <span class="nx">monitor</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">white</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">colorStatus</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span><span class="p">(</span><span class="s">&quot;YYYY-MM-DD HH:mm:ss&quot;</span><span class="p">)</span><span class="si">}</span><span class="s"></span>
+<span class="s">      Controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">white</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">colorStatus</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Analyzing systems...&quot;</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">onetime</span>
+    <span class="nx">monitor</span><span class="p">.</span><span class="nx">runController</span>
       <span class="nv">verbose: </span><span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
-      <span class="nx">fail</span> <span class="nx">err</span>
+      <span class="nx">exit</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Finished.\n&quot;</span>
 </pre></div>
         </td>

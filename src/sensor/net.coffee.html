@@ -240,7 +240,7 @@ You may use any of these in your warn/fail expressions.</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">values:</span>
     <span class="nv">receivedBytes:</span>
-      <span class="nv">title: </span><span class="s">&quot;Received Transfer&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Receive Transfer&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the number of received bytes of data transmitted or received</span>
 <span class="s">      by the interface&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
@@ -251,7 +251,7 @@ You may use any of these in your warn/fail expressions.</p>
 <span class="s">      by the interface&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
     <span class="nv">receivedErrors:</span>
-      <span class="nv">title: </span><span class="s">&quot;Received Errors&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Receive Errors&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the percentage received of transmit or receive errors detected</span>
 <span class="s">      by the device driver&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
@@ -263,6 +263,10 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">title: </span><span class="s">&quot;Received FIFO Errors&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the percentage received of FIFO buffer errors&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">receivedFrames:</span>
+      <span class="nv">title: </span><span class="s">&quot;Received Frame Errors&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage of receiving packet frame errors&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
     <span class="nv">transmitBytes:</span>
       <span class="nv">title: </span><span class="s">&quot;Transmit Transfer&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the number of transmitted bytes of data transmitted or received</span>
@@ -270,7 +274,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
       <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
     <span class="nv">transmitPackets:</span>
-      <span class="nv">title: </span><span class="s">&quot;Transmit Packets&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmitted Packets&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the number of transmitted packets of data transmitted or received</span>
 <span class="s">      by the interface&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
@@ -280,12 +284,16 @@ You may use any of these in your warn/fail expressions.</p>
 <span class="s">      by the device driver&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
     <span class="nv">transmitDrop:</span>
-      <span class="nv">title: </span><span class="s">&quot;Transmit Drops&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmitted Drops&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the percentage transmitted of packets dropped by the device driver&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
     <span class="nv">transmitFifo:</span>
       <span class="nv">title: </span><span class="s">&quot;Transmit FIFO Errors&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the percentage transmitted of FIFO buffer errors&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+    <span class="nv">transmitFrames:</span>
+      <span class="nv">title: </span><span class="s">&quot;Transmitted Frames&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the percentage of transmitting packet frame errors&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
     <span class="nv">bytes:</span>
       <span class="nv">title: </span><span class="s">&quot;Total Transfer&quot;</span>
@@ -308,7 +316,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">title: </span><span class="s">&quot;Total FIFO Errors&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the percentage of FIFO buffer errors&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">frame:</span>
+    <span class="nv">frames:</span>
       <span class="nv">title: </span><span class="s">&quot;Total Frame Errors&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the percentage of packet framing errors&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
@@ -429,27 +437,26 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">l1 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
       <span class="nv">l2 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
       <span class="nv">diff = </span><span class="nf">(col) -&gt;</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span>
-      <span class="nv">percent = </span><span class="nf">(col) -&gt;</span>
-        <span class="k">return</span> <span class="mi">0</span> <span class="k">unless</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
-        <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
+      <span class="nv">percent = </span><span class="nf">(col, max) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="nx">max</span>
       <span class="nv">val.receivedBytes = </span><span class="nx">diff</span> <span class="mi">1</span>
       <span class="nv">val.receivedPackets = </span><span class="nx">diff</span> <span class="mi">2</span>
-      <span class="nv">val.receivedErrors = </span><span class="nx">percent</span> <span class="mi">3</span>
-      <span class="nv">val.receivedDrop = </span><span class="nx">percent</span> <span class="mi">4</span>
-      <span class="nv">val.receivedFifo = </span><span class="nx">percent</span> <span class="mi">5</span>
-      <span class="nv">val.receivedFrame = </span><span class="nx">percent</span> <span class="mi">6</span>
+      <span class="nv">val.receivedErrors = </span><span class="nx">percent</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
+      <span class="nv">val.receivedDrop = </span><span class="nx">percent</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
+      <span class="nv">val.receivedFifo = </span><span class="nx">percent</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
+      <span class="nv">val.receivedFrames = </span><span class="nx">percent</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
       <span class="nv">val.transmitBytes = </span><span class="nx">diff</span> <span class="mi">9</span>
       <span class="nv">val.transmitPackets = </span><span class="nx">diff</span> <span class="mi">10</span>
-      <span class="nv">val.transmitErrors = </span><span class="nx">percent</span> <span class="mi">11</span>
-      <span class="nv">val.transmitDrop = </span><span class="nx">percent</span> <span class="mi">12</span>
-      <span class="nv">val.transmitFifo = </span><span class="nx">percent</span> <span class="mi">13</span>
-      <span class="nv">val.transmitFrame = </span><span class="nx">percent</span> <span class="mi">14</span>
+      <span class="nv">val.transmitErrors = </span><span class="nx">percent</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
+      <span class="nv">val.transmitDrop = </span><span class="nx">percent</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
+      <span class="nv">val.transmitFifo = </span><span class="nx">percent</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
+      <span class="nv">val.transmitFrames = </span><span class="nx">percent</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
       <span class="nv">val.bytes = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedBytes</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitBytes</span>
       <span class="nv">val.packets = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
-      <span class="nv">val.errors = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedErrors</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitErrors</span>
-      <span class="nv">val.drop = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedDrop</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitDrop</span>
-      <span class="nv">val.fifo = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedFifo</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitFifo</span>
-      <span class="nv">val.frame = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedFrame</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitFrame</span>
+      <span class="nv">percent = </span><span class="nf">(col1, col2, max) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col2</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col2</span><span class="p">])</span> <span class="o">/</span> <span class="nx">max</span>
+      <span class="nv">val.errors = </span><span class="nx">percent</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
+      <span class="nv">val.drop = </span><span class="nx">percent</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
+      <span class="nv">val.fifo = </span><span class="nx">percent</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
+      <span class="nv">val.frames = </span><span class="nx">percent</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
 
 </pre></div>
         </td>

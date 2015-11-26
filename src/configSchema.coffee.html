@@ -487,6 +487,44 @@ if:
           <span class="nv">description: </span><span class="s">&quot;a prefix to be put before each table name&quot;</span>
           <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
           <span class="nv">default: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">log:</span>
+      <span class="nv">title: </span><span class="s">&quot;File Logger&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the setup for the file logger&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">filename:</span>
+          <span class="nv">title: </span><span class="s">&quot;Filename&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the filename within the log directory&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
+        <span class="nv">datePattern:</span>
+          <span class="nv">title: </span><span class="s">&quot;Rotation Pattern&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the date pattern to be used for rotating files&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">minLength: </span><span class="mi">1</span>
+        <span class="nv">maxSize:</span>
+          <span class="nv">title: </span><span class="s">&quot;max. Size&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the maximum file size before file rotation&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">maxFiles:</span>
+          <span class="nv">title: </span><span class="s">&quot;max. Files&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the maximum number of files (older ones will be deleted on rotation)&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">compress:</span>
+          <span class="nv">title: </span><span class="s">&quot;Compress&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;a flag indicating rotated files should be compressed&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+    <span class="nv">plugins:</span>
+      <span class="nv">title: </span><span class="s">&quot;Enabled Plugins&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the list of enabled plugins&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+      <span class="nv">toArray: </span><span class="kc">true</span>
+      <span class="nv">entries:</span>
+        <span class="nv">title: </span><span class="s">&quot;Plugin&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the name of the already installed npm plugin module&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
 </pre></div>
         </td>
       </tr>

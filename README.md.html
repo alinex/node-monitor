@@ -42,22 +42,22 @@
         <a href="#usage">Usage</a>
       </div>
       <div class="heading h3">
-        <a href="#check%20specific%20or%20all">Check specific or all</a>
-      </div>
-      <div class="heading h3">
-        <a href="#controller%20info">Controller info</a>
+        <a href="#check%20controller%20once">Check controller once</a>
       </div>
       <div class="heading h3">
         <a href="#run%20as%20a%20service">Run as a service</a>
       </div>
       <div class="heading h3">
-        <a href="#analysis%20run">Analysis run</a>
-      </div>
-      <div class="heading h3">
-        <a href="#interactive%20mode">Interactive Mode</a>
+        <a href="#additional%20commands">Additional commands</a>
       </div>
       <div class="heading h3">
         <a href="#setup">Setup</a>
+      </div>
+      <div class="heading h2">
+        <a href="#interactive%20console">Interactive Console</a>
+      </div>
+      <div class="heading h3">
+        <a href="#using%20parameters">Using Parameters</a>
       </div>
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
@@ -201,7 +201,7 @@
         <a href="#actor">Actor</a>
       </div>
       <div class="heading h2">
-        <a href="#analyzer">Analyzer</a>
+        <a href="#explorer">Explorer</a>
       </div>
       <div class="heading h3">
         <a href="#hardware">Hardware</a>
@@ -227,14 +227,17 @@
       <div class="heading h3">
         <a href="#database">Database</a>
       </div>
+      <div class="heading h3">
+        <a href="#cron%20schedule">Cron Schedule</a>
+      </div>
       <div class="heading h2">
         <a href="#plugin%20system">Plugin System</a>
       </div>
       <div class="heading h3">
-        <a href="#plugin%20structure">Plugin Structure</a>
+        <a href="#include%20and%20use">Include and Use</a>
       </div>
       <div class="heading h3">
-        <a href="#include%20and%20use">Include and Use</a>
+        <a href="#plugin%20structure">Plugin Structure</a>
       </div>
       <div class="heading h2">
         <a href="#roadmap">Roadmap</a>
@@ -349,12 +352,40 @@ If a controller got a problem it will give a detailed report on the console.</p>
 <div class="highlight"><pre><code><span class="o">-</span><span class="nx">C</span><span class="p">,</span> <span class="o">--</span><span class="nx">nocolors</span>  <span class="nx">turn</span> <span class="nx">of</span> <span class="nx">color</span> <span class="nx">output</span>
 <span class="o">-</span><span class="nx">v</span><span class="p">,</span> <span class="o">--</span><span class="nx">verbose</span>   <span class="nx">run</span> <span class="k">in</span> <span class="nx">verbose</span> <span class="nx">mode</span>
 <span class="o">-</span><span class="nx">h</span><span class="p">,</span> <span class="o">--</span><span class="nx">help</span>      <span class="nx">Show</span> <span class="nx">help</span>
-<span class="o">-</span><span class="nx">m</span><span class="p">,</span> <span class="o">--</span><span class="nx">mail</span> <span class="o">&lt;</span><span class="nx">email</span><span class="o">&gt;</span> <span class="nx">Email</span> <span class="nx">to</span> <span class="nx">send</span> <span class="nx">to</span> <span class="nx">instead</span> <span class="nx">of</span> <span class="nx">configured</span> <span class="nx">one</span>
 </code></pre></div>
 
 
 
-<p>The verbose mode works in multiple steps:</p>
+
+<div class="pilwrap" id="check%20controller%20once">
+  <h3>
+    <a href="#check%20controller%20once" name="check%20controller%20once" class="pilcrow">&#182;</a>
+    Check controller once
+  </h3>
+</div>
+
+
+<p>You may run the monitor to check the defined controllers once and get their
+status:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-</span><span class="nx">develop</span>    <span class="err">#</span> <span class="nx">run</span> <span class="nx">only</span> <span class="k">this</span> <span class="nx">controller</span>
+<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-*</span>          <span class="err">#</span> <span class="nx">run</span> <span class="nx">controllers</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">name</span> <span class="nx">prefix</span>
+<span class="o">&gt;</span> <span class="nx">monitor</span>               <span class="err">#</span> <span class="nx">run</span> <span class="nx">all</span> <span class="nx">controllers</span>
+</code></pre></div>
+
+
+
+<p>You may start a try run in which nothing is stored in the storage and no action
+is taken.</p>
+
+
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">t</span> <span class="o">--</span><span class="k">try</span>        <span class="k">do</span> <span class="nx">a</span> <span class="k">try</span> <span class="nx">run</span>
+</code></pre></div>
+
+
+
+<p>The verbose mode works here in multiple steps:</p>
 
 
 <div class="highlight"><pre><code><span class="o">-</span><span class="nx">v</span>    <span class="nx">show</span> <span class="nx">also</span> <span class="nx">the</span> <span class="nx">sensor</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
@@ -379,49 +410,6 @@ If a controller got a problem it will give a detailed report on the console.</p>
 
 
 
-<div class="pilwrap" id="check%20specific%20or%20all">
-  <h3>
-    <a href="#check%20specific%20or%20all" name="check%20specific%20or%20all" class="pilcrow">&#182;</a>
-    Check specific or all
-  </h3>
-</div>
-
-
-<p>As seen above you may use the monitor to run all or the specified controllers
-once:</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-</span><span class="nx">develop</span>    <span class="err">#</span> <span class="nx">run</span> <span class="nx">only</span> <span class="k">this</span> <span class="nx">controller</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-*</span>          <span class="err">#</span> <span class="nx">run</span> <span class="nx">controllers</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">name</span> <span class="nx">prefix</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span>               <span class="err">#</span> <span class="nx">run</span> <span class="nx">all</span> <span class="nx">controllers</span>
-</code></pre></div>
-
-
-
-<p>Here you may give the following options:</p>
-
-<p>?????????????????????????????</p>
-
-
-<div class="pilwrap" id="controller%20info">
-  <h3>
-    <a href="#controller%20info" name="controller%20info" class="pilcrow">&#182;</a>
-    Controller info
-  </h3>
-</div>
-
-
-<p>The remaining options are used for informal use like:</p>
-
-
-<div class="highlight"><pre><code><span class="o">--</span><span class="nx">list</span> <span class="o">-</span> <span class="nx">get</span> <span class="nx">a</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">all</span> <span class="nx">configured</span> <span class="nx">controllers</span>
-<span class="o">--</span><span class="nx">tree</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">the</span> <span class="nx">list</span> <span class="nx">as</span> <span class="nx">tree</span> <span class="p">(</span><span class="nx">controller</span> <span class="nx">needs</span> <span class="nx">controller</span><span class="p">)</span>
-<span class="o">--</span><span class="nx">reverse</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">a</span> <span class="nx">reverse</span> <span class="nx">tree</span> <span class="p">(</span><span class="nx">controller</span> <span class="nx">is</span> <span class="nx">needed</span> <span class="nx">by</span> <span class="nx">controller</span><span class="p">)</span>
-</code></pre></div>
-
-
-
-
 <div class="pilwrap" id="run%20as%20a%20service">
   <h3>
     <a href="#run%20as%20a%20service" name="run%20as%20a%20service" class="pilcrow">&#182;</a>
@@ -434,7 +422,7 @@ once:</p>
 background.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">d</span> <span class="o">&gt;</span> <span class="err">/var/log/monitor.log 2&gt;&amp;1 &amp;</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">d</span> <span class="o">-</span><span class="nx">C</span> <span class="o">&gt;</span> <span class="err">/var/log/monitor.log 2&gt;&amp;1 &amp;</span>
 </code></pre></div>
 
 
@@ -447,46 +435,17 @@ all.</p>
 a log destination through the config files (see below).</p>
 
 
-<div class="pilwrap" id="analysis%20run">
+<div class="pilwrap" id="additional%20commands">
   <h3>
-    <a href="#analysis%20run" name="analysis%20run" class="pilcrow">&#182;</a>
-    Analysis run
+    <a href="#additional%20commands" name="additional%20commands" class="pilcrow">&#182;</a>
+    Additional commands
   </h3>
 </div>
 
 
-<p>This is a method to make an individual not fix configured check. This may be done
-with the needed information as <code>data</code> element in JSON format on the command line
-or in an interactive mode (documented in the next section).</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">a</span> <span class="o">--</span><span class="nx">analyze</span> <span class="o">&lt;</span><span class="nx">analyzer</span><span class="o">&gt;</span>
-<span class="o">--</span><span class="nx">data</span> <span class="o">&lt;</span><span class="nx">json</span><span class="o">&gt;</span>
-</code></pre></div>
-
-
-
-<p>If you want to run multiple analyzers, make another call.</p>
-
-
-<div class="pilwrap" id="interactive%20mode">
-  <h3>
-    <a href="#interactive%20mode" name="interactive%20mode" class="pilcrow">&#182;</a>
-    Interactive Mode
-  </h3>
-</div>
-
-
-<p>That will do the same as above but all settings are asked if needed.</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">i</span> <span class="o">--</span><span class="nx">interactive</span>
-</code></pre></div>
-
-
-
-<p>First you have to select an analyzer to use. All that follows depends on that
-analyzer.</p>
+<p>You may run some other commands through the interactive console or directly by
+giving everything on the commandline call. See the next section for more details
+on this topic.</p>
 
 
 <div class="pilwrap" id="setup">
@@ -499,6 +458,123 @@ analyzer.</p>
 
 <p>To use the controller you have to setup the whole process using some configuration
 files. And maybe a storage database will be used.</p>
+
+
+<div class="pilwrap" id="interactive%20console">
+  <h2>
+    <a href="#interactive%20console" name="interactive%20console" class="pilcrow">&#182;</a>
+    Interactive Console
+  </h2>
+</div>
+
+
+<p>You may start the interactive console by using the <code>-i</code> option. After that you
+will be greeted and may give the commands:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">i</span> <span class="err">#</span> <span class="nx">or</span> <span class="o">--</span><span class="nx">interactive</span>
+                         <span class="nx">__</span>   <span class="nx">____</span>     <span class="nx">__</span>
+         <span class="err">######</span>  <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="err">\</span>   <span class="o">|</span>  <span class="o">|</span>   <span class="err">###########</span> <span class="err">#####</span>       <span class="err">#####</span>
+        <span class="err">########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">############</span>  <span class="err">#####</span>     <span class="err">#####</span>
+       <span class="err">#########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="err">\</span>  <span class="err">\</span> <span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>          <span class="err">#####</span>   <span class="err">#####</span>
+      <span class="err">##########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span> <span class="err">\</span>  <span class="err">\</span><span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>           <span class="err">#####</span> <span class="err">#####</span>
+     <span class="err">#####</span> <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="nx">__</span><span class="err">\</span>     <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
+    <span class="err">#####</span>  <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\\</span>    <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
+   <span class="err">#####</span>   <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span><span class="nx">__</span><span class="o">|</span> <span class="o">|</span><span class="nx">______</span><span class="err">\\</span><span class="nx">___</span><span class="o">|</span>  <span class="err">#####</span>           <span class="err">#####</span> <span class="err">#####</span>
+  <span class="err">#####</span>    <span class="err">#####</span> <span class="err">#####</span>                      <span class="err">#####</span>          <span class="err">#####</span>   <span class="err">#####</span>
+ <span class="err">#####</span> <span class="err">#########</span> <span class="err">##########################</span> <span class="err">############</span>  <span class="err">#####</span>     <span class="err">#####</span>
+<span class="err">#####</span> <span class="err">##########</span>  <span class="err">########################</span>   <span class="err">###########</span> <span class="err">#####</span>       <span class="err">#####</span>
+<span class="nx">___________________________________________________________________________</span>
+
+                <span class="nx">M</span> <span class="nx">O</span> <span class="nx">N</span> <span class="nx">I</span> <span class="nx">T</span> <span class="nx">O</span> <span class="nx">R</span> <span class="nx">I</span> <span class="nx">N</span> <span class="nx">G</span>   <span class="nx">A</span> <span class="nx">P</span> <span class="nx">P</span> <span class="nx">L</span> <span class="nx">I</span> <span class="nx">C</span> <span class="nx">A</span> <span class="nx">T</span> <span class="nx">I</span> <span class="nx">O</span> <span class="nx">N</span>
+<span class="nx">___________________________________________________________________________</span>
+
+<span class="nx">Initializing</span><span class="p">...</span>
+
+<span class="nx">Welcome</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">interactive</span> <span class="nx">monitor</span> <span class="nx">console</span> <span class="k">in</span> <span class="nx">which</span> <span class="nx">you</span> <span class="nx">can</span> <span class="nx">get</span> <span class="nx">more</span>
+<span class="nx">information</span> <span class="nx">about</span> <span class="nx">special</span> <span class="nx">tools</span><span class="p">,</span> <span class="nx">run</span> <span class="nx">individual</span> <span class="nx">tests</span> <span class="nx">and</span> <span class="nx">explore</span> <span class="nx">systems</span><span class="p">.</span>
+
+<span class="nx">To</span> <span class="nx">get</span> <span class="nx">help</span> <span class="nx">call</span> <span class="nx">the</span> <span class="nx">command</span> <span class="nx">help</span> <span class="nx">and</span> <span class="nx">close</span> <span class="kd">with</span> <span class="nx">exit</span><span class="o">!</span>
+
+<span class="nx">monitor</span><span class="o">&gt;</span>
+</code></pre></div>
+
+
+
+<p>The following commands are possible here:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">help</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">a</span> <span class="nx">help</span> <span class="nx">page</span> <span class="kd">with</span> <span class="nx">all</span> <span class="k">this</span> <span class="nx">commands</span>
+<span class="nx">exit</span> <span class="o">-</span> <span class="k">this</span> <span class="nx">will</span> <span class="nx">close</span> <span class="nx">the</span> <span class="nx">interactive</span> <span class="nx">run</span> <span class="nx">or</span> <span class="nx">send</span> <span class="nx">Ctrl</span><span class="o">-</span><span class="nx">C</span>
+<span class="nx">cleanup</span> <span class="o">-</span> <span class="nx">will</span> <span class="nx">remove</span> <span class="nx">old</span> <span class="nx">entries</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">storage</span> <span class="nx">database</span>
+</code></pre></div>
+
+
+
+<p>Commands possible for controller, sensor, actor and explorer:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">list</span> <span class="o">&lt;</span><span class="nx">type</span><span class="o">&gt;</span> <span class="o">-</span> <span class="nx">list</span> <span class="nx">all</span> <span class="nx">possible</span> <span class="nx">elements</span> <span class="nx">of</span> <span class="nx">given</span> <span class="nx">type</span>
+<span class="nx">show</span> <span class="o">&lt;</span><span class="nx">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">element</span><span class="o">&gt;</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">meta</span> <span class="nx">information</span> <span class="k">for</span> <span class="k">this</span> <span class="nx">element</span>
+<span class="nx">run</span> <span class="o">&lt;</span><span class="nx">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">element</span><span class="o">&gt;</span> <span class="o">-</span> <span class="nx">run</span> <span class="k">this</span> <span class="nx">element</span> <span class="p">(</span><span class="nx">maybe</span> <span class="nx">ask</span> <span class="k">for</span> <span class="nx">decisions</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+<p>Examples:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">list</span> <span class="nx">controller</span>
+<span class="nx">show</span> <span class="nx">controller</span> <span class="nx">my_machine</span>
+<span class="nx">run</span> <span class="nx">controller</span> <span class="nx">my_machine</span>
+<span class="nx">show</span> <span class="nx">sensor</span> <span class="nx">cpu</span>
+<span class="nx">run</span> <span class="nx">sensor</span> <span class="nx">cpu</span>
+<span class="nx">run</span> <span class="nx">explorer</span> <span class="nx">database</span>
+</code></pre></div>
+
+
+
+<p>Everything the controller/sensor/actor/explorer need is asked within or before
+starting the process.</p>
+
+
+<div class="pilwrap" id="using%20parameters">
+  <h3>
+    <a href="#using%20parameters" name="using%20parameters" class="pilcrow">&#182;</a>
+    Using Parameters
+  </h3>
+</div>
+
+
+<p>If you want to run the same command as on the interactive console but call it
+directly you can send it as command using the options:</p>
+
+
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">c</span> <span class="o">--</span><span class="nx">command</span>
+<span class="o">-</span><span class="nx">j</span> <span class="o">--</span><span class="nx">json</span>
+</code></pre></div>
+
+
+
+<p>As an example you may run the cleanup:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">cleanup</span>
+</code></pre></div>
+
+
+
+<p>Or get the list of controllers:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="s1">&#39;list controller&#39;</span>
+</code></pre></div>
+
+
+
+<p>If you run a command which needs optional parameters while running you have to
+give all of them on call as a json data object. Take the names from the interactive
+run displayed in front of the question.</p>
 
 
 <div class="pilwrap" id="configuration">
@@ -2035,6 +2111,24 @@ a database for long time analysis.</p>
 special views for each report may be created to show the concrete data for a
 diagram. This can be visualized using a data analyzation tool like dbVisualizer.</p>
 
+<p>First you have to install the postgresql-contrib package on the database server:</p>
+
+
+<div class="highlight"><pre><code>sudo apt-get install -y postgresql-contrib
+</code></pre></div>
+
+
+
+<p>And now you may add the crosstab extension to the database as user postgres:</p>
+
+
+<div class="highlight"><pre><code>psql monitor -c <span class="s2">&quot;CREATE EXTENSION tablefunc;&quot;</span>
+</code></pre></div>
+
+
+
+<p>After this is done the views may be created:</p>
+
 
 <div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
 </code></pre></div>
@@ -2064,16 +2158,16 @@ diagram. This can be visualized using a data analyzation tool like dbVisualizer.
 <p>All these are triggered using the configuration rules described above.</p>
 
 
-<div class="pilwrap" id="analyzer">
+<div class="pilwrap" id="explorer">
   <h2>
-    <a href="#analyzer" name="analyzer" class="pilcrow">&#182;</a>
-    Analyzer
+    <a href="#explorer" name="explorer" class="pilcrow">&#182;</a>
+    Explorer
   </h2>
 </div>
 
 
-<p>The analyzers are not build to run continuously but to run from time to time
-interactively and gather information. They are a scriptable tool to gather
+<p>The explorer modules are used for exploratory analyzation with the given data
+or by interactively requesting for answers. They are a scriptable tool to gather
 information and analyze them.</p>
 
 <p>To run them use the interactive console or give all details to the cli as a json
@@ -2169,6 +2263,15 @@ running daemons</p>
 
 
 
+<div class="pilwrap" id="cron%20schedule">
+  <h3>
+    <a href="#cron%20schedule" name="cron%20schedule" class="pilcrow">&#182;</a>
+    Cron Schedule
+  </h3>
+</div>
+
+
+
 <div class="pilwrap" id="plugin%20system">
   <h2>
     <a href="#plugin%20system" name="plugin%20system" class="pilcrow">&#182;</a>
@@ -2179,15 +2282,6 @@ running daemons</p>
 
 <p>To extend the monitor with your own sensors, analyzers and actors you have the
 possibility to create your own package with them.</p>
-
-
-<div class="pilwrap" id="plugin%20structure">
-  <h3>
-    <a href="#plugin%20structure" name="plugin%20structure" class="pilcrow">&#182;</a>
-    Plugin Structure
-  </h3>
-</div>
-
 
 
 <div class="pilwrap" id="include%20and%20use">
@@ -2206,7 +2300,7 @@ them in the <code>/monitor/plugins</code> list of your configuration file.</p>
 
 <span class="p">...</span>
 <span class="nx">plugins</span><span class="o">:</span>
-  <span class="o">-</span> <span class="nx">my</span><span class="o">-</span><span class="nx">plugins</span>
+  <span class="o">-</span> <span class="nx">my</span><span class="o">-</span><span class="nx">plugin</span>
 <span class="p">...</span>
 </code></pre></div>
 
@@ -2214,6 +2308,29 @@ them in the <code>/monitor/plugins</code> list of your configuration file.</p>
 
 <p>After that you can use them in your controller or analyzation run as if they are
 internal ones by name.</p>
+
+
+<div class="pilwrap" id="plugin%20structure">
+  <h3>
+    <a href="#plugin%20structure" name="plugin%20structure" class="pilcrow">&#182;</a>
+    Plugin Structure
+  </h3>
+</div>
+
+
+<p>Each plugin need the following methods in the main module:</p>
+
+<ul>
+<li>listSensor()</li>
+<li>getSensor(name, cb)</li>
+<li>listActor()</li>
+<li>getActor(name, cb)</li>
+<li>listExplorer()</li>
+<li>getExplorer(name, cb)</li>
+</ul>
+
+<p>This methods have to behave like the methods in the <code>index</code> module of the monitor
+package. The sensors returned need the same API as in the main package.</p>
 
 
 <div class="pilwrap" id="roadmap">
@@ -2225,11 +2342,20 @@ internal ones by name.</p>
 
 
 <ul>
-<li><p>add time results of fields within the warn or fail conditions</p></li>
-<li><p>store results => db</p></li>
-<li>store reports => db</li>
-<li><p>make crosstable view</p></li>
-<li><p>evaluate rules before analysis</p></li>
+<li>update results</li>
+<li>save to db: status</li>
+<li>save to db: controller status</li>
+<li><p>save to db: report</p></li>
+<li><p>controller with daemon</p></li>
+<li>add time results of fields within the warn or fail conditions</li>
+<li>send emails on state change</li>
+<li>-m send to other email instead of controller contacts</li>
+<li><p>get logo through plugins first</p></li>
+<li><p>get list sensor with plugins in index.init()</p></li>
+<li>make listSensor sync</li>
+<li>ic: add checks in showController</li>
+<li>ic: show Sensor</li>
+<li>evaluate rules before analysis</li>
 <li>run analysis</li>
 <li>execute rules</li>
 <li>markdown ->
@@ -2241,13 +2367,10 @@ html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
 <a href='https://www.npmjs.com/package/markdown-it-deflist'>https://www.npmjs.com/package/markdown-it-deflist</a>
 <a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a>
 <a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li>
-<li><p>send emails on state change</p></li>
+<li><p>information run</p></li>
 <li><p>add check type: serial: []</p></li>
 <li>add check type: controller: ....</li>
-<li><p>add example reports for each sensor to doc</p></li>
-<li><p>controller with daemon</p></li>
-<li>-m send to other email instead of controller contacts</li>
-<li>information run</li>
+<li>add example reports for each sensor to doc</li>
 </ul>
 
 
