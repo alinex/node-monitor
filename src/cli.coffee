@@ -79,7 +79,7 @@ argv = yargs
 chalk.enabled = false if argv.nocolors
 
 
-# Interactive Console
+# COmmands
 # -------------------------------------------------
 types = ['controller', 'sensor', 'actor', 'explorer']
 commands =
@@ -165,6 +165,7 @@ commands =
           information!"
       cb()
 
+  # ### Show element
   show:
     description: "get more information about the element"
     help: ->
@@ -217,10 +218,12 @@ commands =
           information!"
           cb()
 
-
+  # Run element
   run:
     description: "run the specified element"
 
+# Interactive Console
+# -------------------------------------------------
 interactive = (conf) ->
   console.log """
     \nWelcome to the #{chalk.bold 'interactive monitor console'} in which you can get more
@@ -236,7 +239,9 @@ interactive = (conf) ->
       list = Object.keys commands
       if parts[0] in list and commands[parts[0]].commands
         list = commands[parts[0]].commands parts
-      hits = list.filter (c) -> c.indexOf(line) is 0
+      hits = list.filter (c) ->
+        c.indexOf(line) is 0
+      .map (e) -> "#{e} "
       [
         if hits.length then hits else list
         line
@@ -261,6 +266,9 @@ getCommand = (readline, cb) ->
       #{chalk.bold 'help'} for more information!"
       cb()
 
+
+# Error management
+# -------------------------------------------------
 exit = (err) ->
   # exit without error
   process.exit 0 unless err
@@ -269,9 +277,6 @@ exit = (err) ->
   console.error err.description if err.description
   process.exit 1
 
-
-# Main routine
-# -------------------------------------------------
 process.on 'SIGINT', -> exit new Error "Got SIGINT signal"
 process.on 'SIGTERM', -> exit new Error "Got SIGTERM signal"
 process.on 'SIGHUP', -> exit new Error "Got SIGHUP signal"
@@ -279,6 +284,8 @@ process.on 'SIGQUIT', -> exit new Error "Got SIGQUIT signal"
 process.on 'SIGABRT', -> exit new Error "Got SIGABRT signal"
 process.on 'exit', -> console.log "Goodbye\n"
 
+# Main routine
+# -------------------------------------------------
 console.log logo
 monitor.setup argv._
 

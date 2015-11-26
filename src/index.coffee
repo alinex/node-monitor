@@ -9,6 +9,7 @@ debug = require('debug')('monitor')
 chalk = require 'chalk'
 fspath = require 'path'
 EventEmitter = require('events').EventEmitter
+math = require 'mathjs'
 # include alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
@@ -26,11 +27,14 @@ storage = require './storage'
 # This will be set on init
 cache = {} # object of controller, sensors, ...
 
+# Monitor class
+# -------------------------------------------------
+# This module is defined as a class exporting a singleton instance to have events
+# possible within it.
 class Monitor extends EventEmitter
 
   # Setup
   # -------------------------------------------------
-
   setup: (selection = null) ->
     # setup module configs first
     async.each [Exec, database], (mod, cb) ->
@@ -99,7 +103,7 @@ class Monitor extends EventEmitter
       ctrl.init cb
     , cb
 
-  # Run Controller
+  # Control daemon mode
   # -------------------------------------------------
 
   start: ->
@@ -131,35 +135,43 @@ class Monitor extends EventEmitter
       info += "\n#{string.wordwrap conf.info, 78}"
     if conf.hint
       info += "\n> #{string.wordwrap conf.hint(context).trim(), 76, '\n> '}\n"
-    # interval
-
     # checks
-    info += "\nThe following checks will run:\n"
-    for check in conf.check
+    interval = math.unit conf.interval, 'seconds'
+    interval = interval.to switch
+      when conf.interval >= 14400 then 'hours'
+      when conf.interval >= 300 then 'minutes'
+      else 'seconds'
+    info += "\nThe following checks will run every #{interval.format()}:\n\n"
+    async.map conf.check, (check, cb) =>
+      @getSensor check.sensor, (err, sensorInstance) ->
+        return cb err if err
+        cb null, "* #{check.sensor} #{sensorInstance.name check.config}\n"
+    , (err, results) ->
+      return cb err if err
+      info += results.join '\n'
 
-      info += "- #{check.sensor} #{}\n"
-    # actor rules
+      # actor rules
 
-    # contact
-    if conf.contact
-      info += "\nContact Persons:\n\n"
-      for group, glist of conf.contact
-        info += "* __#{string.ucFirst group}__\n"
-        for entry in glist
-          list = config.get "/monitor/contact/#{entry}"
-          for contact in list
-            contact = config.get "/monitor/contact/#{contact}"
-            info += '  -'
-            info += " #{contact.name}" if contact.name
-            info += " <#{contact.email}>" if contact.email
-#            info += "Phone: #{contact.phone.join ', '}" if contact.phone
-            info += "\n"
-    # references
-    if conf.ref
-      info += "\nFor further assistance check the following links:\n"
-      for name, list of conf.ref
-        info += "\n- #{string.rpad name, 15} " + list.join ', '
-    cb null, info
+      # contact
+      if conf.contact
+        info += "\nContact Persons:\n\n"
+        for group, glist of conf.contact
+          info += "* __#{string.ucFirst group}__\n"
+          for entry in glist
+            list = config.get "/monitor/contact/#{entry}"
+            for contact in list
+              contact = config.get "/monitor/contact/#{contact}"
+              info += '  -'
+              info += " #{contact.name}" if contact.name
+              info += " <#{contact.email}>" if contact.email
+  #            info += "Phone: #{contact.phone.join ', '}" if contact.phone
+              info += "\n"
+      # references
+      if conf.ref
+        info += "\nFor further assistance check the following links:\n"
+        for name, list of conf.ref
+          info += "\n- #{string.rpad name, 15} " + list.join ', '
+      cb null, info
 
   runController: (setup, cb) ->
     unless cb

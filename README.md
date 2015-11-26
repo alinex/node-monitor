@@ -1349,28 +1349,29 @@ To be written...
 Storage
 -------------------------------------------------
 The controllers will hold some information in memory but store all values also in
-a database for long time analysis.
+a database for long time analysis. This includes the following information:
+
+- sensor values in different intervals for specified timeframe
+- status changes in sensors and controller with date
+- action log
+- last explorer information per element config
+
+The database structure therefore looks like:
 
 ![Database Structure](src/doc/db-structure.png)
 
-This structure will hold all values but will not be easy to read. So therefore
-special views for each report may be created to show the concrete data for a
-diagram. This can be visualized using a data analyzation tool like dbVisualizer.
+To get easy to view report diagrams out of this you may use the dbVisualizer
+tool. First make a script to select the values you want to display:
 
-First you have to install the postgresql-contrib package on the database server:
-``` bash
-sudo apt-get install -y postgresql-contrib
-```
-
-And now you may add the crosstab extension to the database as user postgres:
-``` bash
-psql monitor -c "CREATE EXTENSION tablefunc;"
-```
-
-After this is done the views may be created:
 ``` sql
-CREATE VIEW mon_view_response AS SELECT(...);
+SELECT * FROM controller
+LEFT JOIN check USING (controller_id)
+RIGHT JOIN sensor_cpu USING (check_id)
+WHERE controller.name='my-develop' AND interval='hour'
+ORDER BY period
 ```
+
+In the result you may switch to graphical view and select the rows to display.
 
 To keep the data volume low old values will be removed.
 
@@ -1469,23 +1470,26 @@ package. The sensors returned need the same API as in the main package.
 Roadmap
 -------------------------------------------------
 
-- update results
 - save to db: status
 - save to db: controller status
-- save to db: report
 
 - controller with daemon
+- rerun controller on time
 - add time results of fields within the warn or fail conditions
+- create cleanup run
+- run cleanup once daily
+- create dvb-monitor-plugin
+- get logo through plugins
+- create explorer storage
+- create actor storage
 - send emails on state change
 - -m send to other email instead of controller contacts
-- get logo through plugins first
+- save to db: report
 
-- get list sensor with plugins in index.init()
-- make listSensor sync
-- ic: add checks in showController
 - ic: show Sensor
+- run commands directly
 - evaluate rules before analysis
-- run analysis
+- run explorer
 - execute rules
 - markdown ->
   html https://markdown-it.github.io
@@ -1496,11 +1500,10 @@ Roadmap
   https://www.npmjs.com/package/markdown-it-deflist
   https://www.npmjs.com/package/markdown-it-abbr
   https://github.com/Welfenlab/dot-processor
-- information run
 
+- update example reports for each sensor to doc
 - add check type: serial: []
 - add check type: controller: ....
-- add example reports for each sensor to doc
 
 
 
