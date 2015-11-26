@@ -4,6 +4,34 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.1 (2015-11-26)
+-------------------------------------------------
+- Smaller code optimization reported by lint.
+- Removed debug output.
+- Made new plugin structure completely runable.
+- Plan to change list... methods to sync for easyness.
+- Finalized plugin system.
+- Added new values to db.
+- Updated table structure to new model.
+- Added listSensors() method for interactive console.
+- Data storage with crosstab for testing.
+- Fix meta data and calculation in net sensor.
+- Enable list and show of controllers in interactive console.
+- Added storing of result values to storage database.
+- Added help to interactive console.
+- Added signal handling and command completion to interactive console.
+- Implemented base for interactive console.
+- Integrate sensors from plugins to be used.
+- Add support for third verbose level.
+- Added log schema and date to cli output.
+- Plan new interactive mode.
+- Update documentation for usage, analyzer...
+- Plan new analyzers.
+- Added and optimized documentation.
+- Create new method for storing values to storage.
+- Add indexes to database tables.
+- Add storing of base data on demand.
+
 Version 0.1.0 (2015-11-18)
 -------------------------------------------------
 - Small code fixes.
