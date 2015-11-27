@@ -63,13 +63,15 @@ class Monitor extends EventEmitter
 
   init: (cb) ->
     debug "Loading configuration..."
-    async.parallel [
+    async.series [
       (cb) -> config.init cb
       (cb) => @initPlugins cb
     ], cb
 
   initPlugins: (cb) ->
     # find sensor plugins
+    debug "Loading plugins..."
+    debug "load base plugin into system"
     fs.find "#{__dirname}/sensor",
       type: 'f'
       maxdepth: 1
@@ -78,15 +80,21 @@ class Monitor extends EventEmitter
       # try to load sensor from plugins
       plugins = config.get "/monitor/plugins"
       return cb() unless plugins
-      async.map plugins, (plugin, cb) ->
+      async.each plugins, (plugin, cb) ->
+        debug "load #{plugin} into system"
         try
           lib = require plugin
         catch err
           return cb new Error "Could not load plugin #{plugin}: #{err.message}"
-        lib.listSensor cb
-      , (err, results) ->
-        cache.sensors = cache.sensors.concat.apply this, results
-        cb()
+        async.parallel [
+          # sensors
+          (cb) ->
+            return cb() unless lib.listSensor?
+            lib.listSensor (err, list) ->
+              return cb err if err
+              cache.sensors = cache.sensor.concat list
+        ], cb
+      , cb
 
   # Controller Setup
   # -------------------------------------------------

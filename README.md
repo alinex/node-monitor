@@ -1478,8 +1478,6 @@ Roadmap
 - add time results of fields within the warn or fail conditions
 - create cleanup run
 - run cleanup once daily
-- create dvb-monitor-plugin
-- get logo through plugins
 - create explorer storage
 - create actor storage
 - send emails on state change
