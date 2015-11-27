@@ -249,22 +249,27 @@ commands =
         line = parts[0..num].join ' '
         elements.map (e) -> "#{line} #{e}"
     run: (args, cb) ->
-      unless args.length > 1
+      if args.length is 0
         console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
         use #{chalk.bold 'help show'} for more information!"
         return cb()
       switch args[0]
         when 'controller'
-          conf = config.get "/monitor/controller/#{args[1]}"
-          unless conf
-            console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
-            Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
-            return cb()
+          if args[1]
+            conf = config.get "/monitor/controller/#{args[1]}"
+            unless conf
+              console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
+              Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
+              return cb()
           monitor.runController args[1], (err, report) ->
             return cb err if err
             console.log report
             cb()
         when 'sensor'
+          unless args.length > 1
+            console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
+            use #{chalk.bold 'help show'} for more information!"
+            return cb()
           monitor.listSensors()
           cb()
         else
@@ -349,18 +354,28 @@ monitor.init
 , (err) ->
   exit err if err
   conf = config.get 'monitor'
-  if argv.info
-    console.log 'Not implemented!'
+  if argv.command
+    args = argv.command.trim().split /\s+/
+    command = args.shift()
+    if commands[command]?
+      console.log ''
+      commands[command].run args, (err) ->
+        console.log ''
+        exit err
+    else
+      console.log chalk.red "Unknown command #{chalk.bold command} use
+      #{chalk.bold 'help'} for more information!"
+      exit()
+  else if argv.interactive
+    interactive conf
   else if argv.daemon
     monitor.start()
     monitor.on 'done', (ctrl) ->
-  else if argv.interactive
-    interactive conf
   else
     monitor.on 'result', (ctrl) ->
       console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
       Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
     console.log "Analyzing systems..."
-    monitor.runController (err, results) ->
+    monitor.runController null, (err, results) ->
       exit err if err
       console.log "Finished.\n"
