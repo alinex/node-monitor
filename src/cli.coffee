@@ -260,10 +260,7 @@ commands =
             console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
             Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
             return cb()
-          monitor.runController
-            verbose: argv.verbose
-            element: args[1]
-          , (err, report) ->
+          monitor.runController args[1], (err, report) ->
             return cb err if err
             console.log report
             cb()

@@ -184,7 +184,7 @@ class Monitor extends EventEmitter
       cb null, info
 
   runController: (name, cb) ->
-    list = if name then {name: @getController[name]} else @controller
+    list = if name then {name: @controller[name]} else @controller
     async.mapOf list, (ctrl, name, cb) ->
       ctrl.run cb
     , (err) ->
