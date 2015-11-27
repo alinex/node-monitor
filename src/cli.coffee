@@ -13,6 +13,8 @@ moment = require 'moment'
 async = require 'alinex-async'
 config = require 'alinex-config'
 {string} = require 'alinex-util'
+Exec = require 'alinex-exec'
+database = require 'alinex-database'
 # include classes and helpers
 logo = require('./logo') 'Monitoring Application'
 monitor = require './index'
@@ -225,7 +227,7 @@ commands =
       text = """
       Usage: run <type> <element>
 
-      The run command will start a specified or all controller:\n
+      The run command will start a specified element:\n
       """
       text += types.map((e) -> "  - #{e}").join '\n'
       text += """
@@ -246,6 +248,33 @@ commands =
         num++ while parts[num+1] in elements
         line = parts[0..num].join ' '
         elements.map (e) -> "#{line} #{e}"
+    run: (args, cb) ->
+      unless args.length > 1
+        console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
+        use #{chalk.bold 'help show'} for more information!"
+        return cb()
+      switch args[0]
+        when 'controller'
+          conf = config.get "/monitor/controller/#{args[1]}"
+          unless conf
+            console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
+            Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
+            return cb()
+          monitor.runController
+            verbose: argv.verbose
+            element: args[1]
+          , (err, report) ->
+            return cb err if err
+            console.log report
+            cb()
+        when 'sensor'
+          monitor.listSensors()
+          cb()
+        else
+          console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
+          #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
+          information!"
+          cb()
 
 # Interactive Console
 # -------------------------------------------------
@@ -282,7 +311,7 @@ getCommand = (readline, cb) ->
   console.log ''
   readline.question 'monitor> ', (line) ->
     console.log ''
-    args = line..trim().split /\s+/
+    args = line.trim().split /\s+/
     command = args.shift()
     if commands[command]?
       commands[command].run args, cb
@@ -307,7 +336,10 @@ process.on 'SIGTERM', -> exit new Error "Got SIGTERM signal"
 process.on 'SIGHUP', -> exit new Error "Got SIGHUP signal"
 process.on 'SIGQUIT', -> exit new Error "Got SIGQUIT signal"
 process.on 'SIGABRT', -> exit new Error "Got SIGABRT signal"
-process.on 'exit', -> console.log "Goodbye\n"
+process.on 'exit', ->
+  console.log "Goodbye\n"
+  Exec.close()
+  database.close()
 
 # Main routine
 # -------------------------------------------------
@@ -315,7 +347,9 @@ console.log logo
 monitor.setup argv._
 
 console.log "Initializing..."
-monitor.init (err) ->
+monitor.init
+  verbose: argv.verbose
+, (err) ->
   exit err if err
   conf = config.get 'monitor'
   if argv.info
@@ -330,8 +364,6 @@ monitor.init (err) ->
       console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
       Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
     console.log "Analyzing systems..."
-    monitor.runController
-      verbose: argv.verbose
-    , (err, results) ->
+    monitor.runController (err, results) ->
       exit err if err
       console.log "Finished.\n"

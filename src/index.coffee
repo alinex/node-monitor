@@ -61,11 +61,13 @@ class Monitor extends EventEmitter
           folder: 'controller'
           path: 'monitor/controller'
 
-  init: (cb) ->
+  init: (setup, cb) ->
     debug "Loading configuration..."
     async.series [
       (cb) -> config.init cb
       (cb) => @initPlugins cb
+      (cb) -> storage.init cb
+      (cb) => @initController setup, cb
     ], cb
 
   initPlugins: (cb) ->
@@ -96,11 +98,7 @@ class Monitor extends EventEmitter
         ], cb
       , cb
 
-  # Controller Setup
-  # -------------------------------------------------
-
-  instantiate: (setup, cb) ->
-    return cb() if @controller?
+  initController: (setup, cb) ->
     debug "Instantiate controllers..."
     @controller = {}
     for name, def of config.get "/monitor/controller"
@@ -110,6 +108,7 @@ class Monitor extends EventEmitter
     async.each @controller, (ctrl, cb) ->
       ctrl.init cb
     , cb
+
 
   # Control daemon mode
   # -------------------------------------------------
@@ -125,10 +124,13 @@ class Monitor extends EventEmitter
   # Controller
   # -------------------------------------------------
   listController: ->
-    Object.keys config.get '/monitor/controller'
+    Object.keys @controller
+
+  getController: (name, cb) ->
+    cb null, @controller[name]
 
   showController: (name, cb) ->
-    conf = config.get "/monitor/controller/#{name}"
+    conf = @controller[name].conf
     context =
       name: name
       config: conf
@@ -181,23 +183,13 @@ class Monitor extends EventEmitter
           info += "\n- #{string.rpad name, 15} " + list.join ', '
       cb null, info
 
-  runController: (setup, cb) ->
-    unless cb
-      cb = setup
-      setup = null
-      unless cb
-        cb = ->
-    async.series [
-      (cb) -> storage.init cb
-      (cb) => @instantiate setup, cb
-    ], (err) =>
-      return cb err if err
-      async.mapOf @controller, (ctrl, name, cb) ->
-        ctrl.run cb
-      , (err) ->
-        Exec.close()
-        cb err
-    this
+  runController: (name, cb) ->
+    list = if name then {name: @getController[name]} else @controller
+    async.mapOf list, (ctrl, name, cb) ->
+      ctrl.run cb
+    , (err) ->
+      cb err
+
 
   # Sensor Info
   # -------------------------------------------------

@@ -1484,8 +1484,10 @@ Roadmap
 - -m send to other email instead of controller contacts
 - save to db: report
 
-- ic: show Sensor
+- process stdout.rows then pause
+- run sensor
 - run commands directly
+- ic: show Sensor
 - evaluate rules before analysis
 - run explorer
 - execute rules

@@ -7,9 +7,10 @@ monitor:
   server:
     type: postgresql
     host: localhost
+    port: 5432
     database: monitor
     user: monitor
-    password: mon2store
+    password: monitor
   pool:
     limit: 10
 
