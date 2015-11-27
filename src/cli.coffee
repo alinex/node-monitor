@@ -221,6 +221,31 @@ commands =
   # Run element
   run:
     description: "run the specified element"
+    help: ->
+      text = """
+      Usage: run <type> <element>
+
+      The run command will start a specified or all controller:\n
+      """
+      text += types.map((e) -> "  - #{e}").join '\n'
+      text += """
+      \nUse code completion by typing #{chalk.bold 'TAB'} to get a list of possible
+      elements.
+      """
+    commands: (parts) ->
+      if parts.length is 1 or parts[1] not in types
+        types.map (e) -> "#{parts[0]} #{e}"
+      else if parts.length > 2 # only allow one element
+        []
+      else
+        num = 1
+        elements = switch parts[1]
+          when 'controller' then monitor.listController()
+          when 'sensor' then monitor.listSensor()
+          else []
+        num++ while parts[num+1] in elements
+        line = parts[0..num].join ' '
+        elements.map (e) -> "#{line} #{e}"
 
 # Interactive Console
 # -------------------------------------------------
@@ -257,7 +282,7 @@ getCommand = (readline, cb) ->
   console.log ''
   readline.question 'monitor> ', (line) ->
     console.log ''
-    args = line.split /\s+/
+    args = line..trim().split /\s+/
     command = args.shift()
     if commands[command]?
       commands[command].run args, cb
