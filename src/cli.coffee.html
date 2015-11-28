@@ -42,7 +42,7 @@
         <a href="#start%20argument%20parsing">Start argument parsing</a>
       </div>
       <div class="heading h2">
-        <a href="#interactive%20console">Interactive Console</a>
+        <a href="#commands">COmmands</a>
       </div>
       <div class="heading h3">
         <a href="#integrated%20help">Integrated help</a>
@@ -52,6 +52,15 @@
       </div>
       <div class="heading h3">
         <a href="#list%20elements%20of%20type">list elements of type</a>
+      </div>
+      <div class="heading h3">
+        <a href="#show%20element">Show element</a>
+      </div>
+      <div class="heading h2">
+        <a href="#interactive%20console">Interactive Console</a>
+      </div>
+      <div class="heading h2">
+        <a href="#error%20management">Error management</a>
       </div>
       <div class="heading h2">
         <a href="#main%20routine">Main routine</a>
@@ -118,6 +127,8 @@
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 <span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
 
 </pre></div>
         </td>
@@ -257,6 +268,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command to execute&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">array</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;json&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;json data for the command&#39;</span><span class="p">)</span>
 
@@ -335,10 +347,10 @@
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="interactive%20console">
+<div class="pilwrap" id="commands">
   <h2>
-    <a href="#interactive%20console" name="interactive%20console" class="pilcrow">&#182;</a>
-    Interactive Console
+    <a href="#commands" name="commands" class="pilcrow">&#182;</a>
+    COmmands
   </h2>
 </div>
 
@@ -481,6 +493,21 @@
 <span class="s">          information!&quot;</span>
       <span class="nx">cb</span><span class="p">()</span>
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="show%20element">
+  <h3>
+    <a href="#show%20element" name="show%20element" class="pilcrow">&#182;</a>
+    Show element
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">show:</span>
     <span class="nv">description: </span><span class="s">&quot;get more information about the element&quot;</span>
     <span class="nv">help: </span><span class="nf">-&gt;</span>
@@ -491,7 +518,7 @@
 <span class="s">      &quot;&quot;&quot;</span>
       <span class="nx">text</span> <span class="o">+=</span> <span class="nx">types</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">).</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
       <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">      \nUse code completion by typing </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;TAB&#39;</span><span class="si">}</span><span class="s"> to get a list of possible</span>
+<span class="s">      \n\nUse code completion by typing </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;TAB&#39;</span><span class="si">}</span><span class="s"> to get a list of possible</span>
 <span class="s">      elements.</span>
 <span class="s">      &quot;&quot;&quot;</span>
     <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
@@ -536,7 +563,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more</p>
         </td>
@@ -545,9 +572,100 @@
           <span class="nx">cb</span><span class="p">()</span>
 
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+</div>
+<p>Run element</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">run:</span>
     <span class="nv">description: </span><span class="s">&quot;run the specified element&quot;</span>
+    <span class="nv">help: </span><span class="nf">-&gt;</span>
+      <span class="nv">text = </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">      Usage: run &lt;type&gt; &lt;element&gt;</span>
 
+<span class="s">      The run command will start a specified element:\n</span>
+<span class="s">      &quot;&quot;&quot;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="nx">types</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">).</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      \nUse code completion by typing </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;TAB&#39;</span><span class="si">}</span><span class="s"> to get a list of possible</span>
+<span class="s">      elements.</span>
+<span class="s">      &quot;&quot;&quot;</span>
+    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
+      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
+        <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="c1"># only allow one element</span>
+        <span class="p">[]</span>
+      <span class="k">else</span>
+        <span class="nv">num = </span><span class="mi">1</span>
+        <span class="nv">elements = </span><span class="k">switch</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+          <span class="k">when</span> <span class="s">&#39;controller&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
+          <span class="k">when</span> <span class="s">&#39;sensor&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
+          <span class="k">else</span> <span class="p">[]</span>
+        <span class="nx">num</span><span class="o">++</span> <span class="k">while</span> <span class="nx">parts</span><span class="p">[</span><span class="nx">num</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">in</span> <span class="nx">elements</span>
+        <span class="nv">line = </span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">num</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
+        <span class="nx">elements</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">line</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">run: </span><span class="nf">(args, cb) -&gt;</span>
+      <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Too less parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;show&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help show&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
+          <span class="k">if</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller/</span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+            <span class="k">unless</span> <span class="nx">conf</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> not defined.</span>
+<span class="s">              Maybe use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;list controller&#39;</span><span class="si">}</span><span class="s"> for a list of possible ones.&quot;</span>
+              <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+          <span class="nx">monitor</span><span class="p">.</span><span class="nx">runController</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nf">(err, report) -&gt;</span>
+            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span>
+            <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
+          <span class="k">unless</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Too less parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;show&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">            use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help show&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
+            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+          <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensors</span><span class="p">()</span>
+          <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">else</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> not possible in</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">          information!&quot;</span>
+          <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="interactive%20console">
+  <h2>
+    <a href="#interactive%20console" name="interactive%20console" class="pilcrow">&#182;</a>
+    Interactive Console
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">interactive = </span><span class="nf">(conf) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">    \nWelcome to the </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;interactive monitor console&#39;</span><span class="si">}</span><span class="s"> in which you can get more</span>
@@ -563,7 +681,9 @@
       <span class="nv">list = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">commands</span>
       <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">in</span> <span class="nx">list</span> <span class="o">and</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="nx">commands</span>
         <span class="nv">list = </span><span class="nx">commands</span><span class="p">[</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="nx">commands</span> <span class="nx">parts</span>
-      <span class="nv">hits = </span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(c) -&gt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="o">is</span> <span class="mi">0</span>
+      <span class="nv">hits = </span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(c) -&gt;</span>
+        <span class="nx">c</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="o">is</span> <span class="mi">0</span>
+      <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s"> &quot;</span>
       <span class="p">[</span>
         <span class="k">if</span> <span class="nx">hits</span><span class="p">.</span><span class="nx">length</span> <span class="k">then</span> <span class="nx">hits</span> <span class="k">else</span> <span class="nx">list</span>
         <span class="nx">line</span>
@@ -579,7 +699,7 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
   <span class="nx">readline</span><span class="p">.</span><span class="nx">question</span> <span class="s">&#39;monitor&gt; &#39;</span><span class="p">,</span> <span class="nf">(line) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-    <span class="nv">args = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+    <span class="nv">args = </span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
     <span class="nv">command = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
     <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span><span class="o">?</span>
       <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">cb</span>
@@ -592,13 +712,29 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>{chalk.bold 'help'} for more information!"</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">      cb()</span>
 
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="error%20management">
+  <h2>
+    <a href="#error%20management" name="error%20management" class="pilcrow">&#182;</a>
+    Error management
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="s">exit = (err) -&gt;</span>
 
 </pre></div>
@@ -607,7 +743,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>exit without error</p>
         </td>
@@ -620,7 +756,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
 <p>exit with error</p>
         </td>
@@ -629,6 +765,15 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
   <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
 
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGINT signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGTERM&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGTERM signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGHUP&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGHUP signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGQUIT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGQUIT signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGABRT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGABRT signal&quot;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Goodbye\n&quot;</span>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
 
 
 </pre></div>
@@ -645,35 +790,50 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGINT signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGTERM&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGTERM signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGHUP&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGHUP signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGQUIT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGQUIT signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGABRT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGABRT signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Goodbye\n&quot;</span>
-
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">logo</span>
 <span class="nx">monitor</span><span class="p">.</span><span class="nx">setup</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Initializing...&quot;</span>
-<span class="nx">monitor</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
+<span class="nx">monitor</span><span class="p">.</span><span class="nx">init</span>
+  <span class="nv">verbose: </span><span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span>
+<span class="p">,</span> <span class="nf">(err) -&gt;</span>
   <span class="nx">exit</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
   <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;monitor&#39;</span>
-  <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">info</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Not implemented!&#39;</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">daemon</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nf">(ctrl) -&gt;</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">interactive</span>
-    <span class="nx">interactive</span> <span class="nx">conf</span>
-  <span class="k">else</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span><span class="p">(</span><span class="s">&quot;YYYY-MM-DD HH:mm:ss&quot;</span><span class="p">)</span><span class="si">}</span><span class="s"></span>
-<span class="s">      Controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">white</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">colorStatus</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">command</span>
+    <span class="nv">args = </span><span class="nx">argv</span><span class="p">.</span><span class="nx">command</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>
+    <span class="nv">args = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span> <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
+    <span class="nv">command = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span><span class="o">?</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
+      <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
+        <span class="nx">exit</span> <span class="nx">err</span>
+    <span class="k">else</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Unknown command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">command</span><span class="si">}</span><span class="s"> use</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+</div>
+<p>{chalk.bold 'help'} for more information!"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">      exit()</span>
+<span class="s">  else if argv.interactive</span>
+<span class="s">    interactive conf</span>
+<span class="s">  else if argv.daemon</span>
+<span class="s">    monitor.start()</span>
+<span class="s">    monitor.on &#39;done&#39;, (ctrl) -&gt;</span>
+<span class="s">  else</span>
+<span class="s">    monitor.on &#39;result&#39;, (ctrl) -&gt;</span>
+<span class="s">      console.log chalk.grey &quot;</span><span class="c1">#{moment().format(&quot;YYYY-MM-DD HH:mm:ss&quot;)}</span>
+      <span class="nx">Controller</span> <span class="c1">#{chalk.white ctrl.name} =&gt; #{ctrl.colorStatus()}&quot;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Analyzing systems...&quot;</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">runController</span>
-      <span class="nv">verbose: </span><span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
+    <span class="nx">monitor</span><span class="p">.</span><span class="nx">runController</span> <span class="kc">null</span><span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
       <span class="nx">exit</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Finished.\n&quot;</span>
 </pre></div>

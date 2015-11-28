@@ -239,6 +239,15 @@
       <div class="heading h3">
         <a href="#plugin%20structure">Plugin Structure</a>
       </div>
+      <div class="heading h3">
+        <a href="#sensor%20structure">Sensor Structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#actor%20structure">Actor Structure</a>
+      </div>
+      <div class="heading h3">
+        <a href="#explorer%20structure">Explorer Structure</a>
+      </div>
       <div class="heading h2">
         <a href="#roadmap">Roadmap</a>
       </div>
@@ -263,15 +272,15 @@
 
 <p>This application will make server management easy and fast. It will check the
 whole IT landscape from the host to the application. While most monitoring
-tools has it's focus on the server here the focus lies more on the application
-side.</p>
+tools has it's focus on the server here the focus lies on the application
+side, too.</p>
 
 <ul>
 <li>remote daemon-less analysis</li>
 <li>lots of sensors</li>
 <li>alerting and reporting</li>
 <li>data store for time analysis</li>
-<li>interactive analyzing</li>
+<li>interactive analyzing and exploring</li>
 </ul>
 
 <p>The monitor will analyze your whole environment in deep by connecting to the different
@@ -2103,37 +2112,33 @@ Maybe the following additional results may help:
 
 
 <p>The controllers will hold some information in memory but store all values also in
-a database for long time analysis.</p>
+a database for long time analysis. This includes the following information:</p>
+
+<ul>
+<li>sensor values in different intervals for specified timeframe</li>
+<li>status changes in sensors and controller with date</li>
+<li>action log</li>
+<li>last explorer information per element config</li>
+</ul>
+
+<p>The database structure therefore looks like:</p>
 
 <p><img src="src/doc/db-structure.png" alt="Database Structure" title="" /></p>
 
-<p>This structure will hold all values but will not be easy to read. So therefore
-special views for each report may be created to show the concrete data for a
-diagram. This can be visualized using a data analyzation tool like dbVisualizer.</p>
-
-<p>First you have to install the postgresql-contrib package on the database server:</p>
+<p>To get easy to view report diagrams out of this you may use the dbVisualizer
+tool. First make a script to select the values you want to display:</p>
 
 
-<div class="highlight"><pre><code>sudo apt-get install -y postgresql-contrib
+<div class="highlight"><pre><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">controller</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="k">check</span> <span class="k">USING</span> <span class="p">(</span><span class="n">controller_id</span><span class="p">)</span>
+<span class="k">RIGHT</span> <span class="k">JOIN</span> <span class="n">sensor_cpu</span> <span class="k">USING</span> <span class="p">(</span><span class="n">check_id</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="n">controller</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my-develop&#39;</span> <span class="k">AND</span> <span class="nb">interval</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">period</span>
 </code></pre></div>
 
 
 
-<p>And now you may add the crosstab extension to the database as user postgres:</p>
-
-
-<div class="highlight"><pre><code>psql monitor -c <span class="s2">&quot;CREATE EXTENSION tablefunc;&quot;</span>
-</code></pre></div>
-
-
-
-<p>After this is done the views may be created:</p>
-
-
-<div class="highlight"><pre><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">mon_view_response</span> <span class="k">AS</span> <span class="k">SELECT</span><span class="p">(...);</span>
-</code></pre></div>
-
-
+<p>In the result you may switch to graphical view and select the rows to display.</p>
 
 <p>To keep the data volume low old values will be removed.</p>
 
@@ -2318,19 +2323,89 @@ internal ones by name.</p>
 </div>
 
 
-<p>Each plugin need the following methods in the main module:</p>
+<p>Each plugin may have the following methods in the main module:</p>
 
 <ul>
-<li>listSensor()</li>
-<li>getSensor(name, cb)</li>
-<li>listActor()</li>
-<li>getActor(name, cb)</li>
-<li>listExplorer()</li>
-<li>getExplorer(name, cb)</li>
+<li>listSensor(cb) -> calling cb(err, map)</li>
+<li>listActor(cb) -> calling cb(err, map)</li>
+<li>listExplorer(cb) -> calling cb(err, map)</li>
 </ul>
 
-<p>This methods have to behave like the methods in the <code>index</code> module of the monitor
-package. The sensors returned need the same API as in the main package.</p>
+<p>This methods should return a map of elements with <code>name: require path</code> within the
+module like  <code>cpu: 'sensor/cpu'</code>.
+The elements returned need the same API as in the main package (see below).</p>
+
+
+<div class="pilwrap" id="sensor%20structure">
+  <h3>
+    <a href="#sensor%20structure" name="sensor%20structure" class="pilcrow">&#182;</a>
+    Sensor Structure
+  </h3>
+</div>
+
+
+<p>A sensor should be a module exporting the following objects:</p>
+
+<ul>
+<li>schema - an <a href="http://alinex.github.io/node-validator">alinex-validator</a> compatible
+definition to validate its check configuration</li>
+<li>meta - object containing meta data like:
+<ul><li>title</li>
+<li>description</li>
+<li>category - like 'sys', 'net', 'app'</li>
+<li>hint - handlebar template possible</li>
+<li>values - the values which the sensor will return</li>
+<li>title</li>
+<li>description</li>
+<li>type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
+'array', 'object'</li>
+<li>unit - optional unit of values if number type used</li></ul></li>
+<li>name(config) - a method returning a configuration based short name to identify</li>
+<li>run(config, cb) - will run this sensor with given configuration</li>
+<li>analysis(config, res, cb) - an additional analysis used mainly on problems which
+needs the configuration and the results from the normal run as parameters</li>
+</ul>
+
+
+<div class="pilwrap" id="actor%20structure">
+  <h3>
+    <a href="#actor%20structure" name="actor%20structure" class="pilcrow">&#182;</a>
+    Actor Structure
+  </h3>
+</div>
+
+
+
+<div class="pilwrap" id="explorer%20structure">
+  <h3>
+    <a href="#explorer%20structure" name="explorer%20structure" class="pilcrow">&#182;</a>
+    Explorer Structure
+  </h3>
+</div>
+
+
+<p>Like the sensor it needs a schema definition for all values needed in the process.
+In interactive mode the explorer it will ask for them then needed. Therefore the
+structure is nearly the same as for a sensor:</p>
+
+<ul>
+<li>schema - possible values needed as <a href="http://alinex.github.io/node-validator">alinex-validator</a>
+compatible definition</li>
+<li>meta - object containing meta data like:
+<ul><li>title</li>
+<li>description</li>
+<li>category - like 'sys', 'net', 'app'</li>
+<li>hint - handlebar template possible</li>
+<li>values - the values which the sensor will return</li>
+<li>title</li>
+<li>description</li>
+<li>type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
+'array', 'object'</li>
+<li>unit - optional unit of values if number type used</li></ul></li>
+<li>name(config) - a method returning a configuration based short name to identify</li>
+<li>run(config, cb) - will run this explorer with given configuration or interactively
+if no config given</li>
+</ul>
 
 
 <div class="pilwrap" id="roadmap">
@@ -2341,23 +2416,56 @@ package. The sensors returned need the same API as in the main package.</p>
 </div>
 
 
+<p>I will try to release a first stable version in December 2015. This will have:</p>
+
 <ul>
-<li>update results</li>
-<li>save to db: status</li>
-<li>save to db: controller status</li>
-<li><p>save to db: report</p></li>
-<li><p>controller with daemon</p></li>
-<li>add time results of fields within the warn or fail conditions</li>
+<li>a working cli syntax - done</li>
+<li>the interactive console - done</li>
+<li>possibility to run onetime analyzation - done</li>
+<li>database storage support - done</li>
+<li>daemon mode running controller on schedule</li>
+</ul>
+
+<p>The next version coming early in 2016 will have:</p>
+
+<ul>
+<li>fully working explorers</li>
+<li>alerting with mail actor</li>
+<li>tested in productive environment</li>
+</ul>
+
+<p>After that a lot of bugfixes, smaller improvements and more sensors, actors and
+explorers will follow regularly.</p>
+
+<p>My own always changing internal todo list:</p>
+
+<ul>
+<li>save to db
+<ul><li>status</li>
+<li>controller status</li>
+<li>don't store on try run</li></ul></li>
+<li>controller with daemon
+<ul><li>rerun controller on time</li>
+<li>support check.retry.warn setting</li>
+<li>support check.retry.error setting</li>
+<li>rerun problematic sensors</li>
+<li>stop retry on next controller run</li>
+<li>recalculate controller status on sensor status change</li>
+<li>run actors again if controller status changed</li></ul></li>
+<li><p>cleanup command</p>
+
+<ul><li>run cleanup once daily (check the current date)</li></ul></li>
+<li><p>create explorer storage</p>
+
+<ul><li>db structure</li>
+<li>fill with results</li></ul></li>
+<li><p>evaluate rules before analysis</p></li>
+<li><p>implement actor</p>
+
+<ul><li>execute rules</li>
 <li>send emails on state change</li>
 <li>-m send to other email instead of controller contacts</li>
-<li><p>get logo through plugins first</p></li>
-<li><p>get list sensor with plugins in index.init()</p></li>
-<li>make listSensor sync</li>
-<li>ic: add checks in showController</li>
-<li>ic: show Sensor</li>
-<li>evaluate rules before analysis</li>
-<li>run analysis</li>
-<li>execute rules</li>
+<li>create actor storage</li>
 <li>markdown ->
 html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
 <a href='https://www.npmjs.com/package/markdown-it-highlightjs'>https://www.npmjs.com/package/markdown-it-highlightjs</a>
@@ -2366,11 +2474,18 @@ html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
 <a href='https://www.npmjs.com/package/markdown-it-checkbox'>https://www.npmjs.com/package/markdown-it-checkbox</a>
 <a href='https://www.npmjs.com/package/markdown-it-deflist'>https://www.npmjs.com/package/markdown-it-deflist</a>
 <a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a>
-<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li>
-<li><p>information run</p></li>
-<li><p>add check type: serial: []</p></li>
+<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li></ul></li>
+<li><p>report</p>
+
+<ul><li>add time results of fields within the warn or fail conditions</li>
+<li>? save to db: report</li></ul></li>
+<li><p>ic: show Sensor</p></li>
+<li>run explorer</li>
+<li>reload command -> reinit config, controller and plugins</li>
+<li><p>? process stdout.rows then pause</p></li>
+<li><p>update example reports for each sensor to doc</p></li>
+<li>add check type: serial: []</li>
 <li>add check type: controller: ....</li>
-<li>add example reports for each sensor to doc</li>
 </ul>
 
 
