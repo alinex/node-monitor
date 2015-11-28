@@ -7,14 +7,14 @@ Package: alinex-monitor
 
 This application will make server management easy and fast. It will check the
 whole IT landscape from the host to the application. While most monitoring
-tools has it's focus on the server here the focus lies more on the application
-side.
+tools has it's focus on the server here the focus lies on the application
+side, too.
 
 - remote daemon-less analysis
 - lots of sensors
 - alerting and reporting
 - data store for time analysis
-- interactive analyzing
+- interactive analyzing and exploring
 
 The monitor will analyze your whole environment in deep by connecting to the different
 systems in parallel and check them deeply. If a problem occurs an additional analysis
@@ -1453,17 +1453,21 @@ internal ones by name.
 
 ### Plugin Structure
 
-Each plugin need the following methods in the main module:
+Each plugin may have the following methods in the main module:
 
-- listSensor()
-- getSensor(name, cb)
-- listActor()
-- getActor(name, cb)
-- listExplorer()
-- getExplorer(name, cb)
+- listSensor(cb) -> calling cb(err, map)
+- listActor(cb) -> calling cb(err, map)
+- listExplorer(cb) -> calling cb(err, map)
 
-This methods have to behave like the methods in the `index` module of the monitor
-package. The sensors returned need the same API as in the main package.
+This methods should return a map of elements with `name: require path` within the
+module like  `cpu: 'sensor/cpu'`.
+The elements returned need the same API as in the main package (see below).
+
+### Sensor Structure
+
+### Actor Structure
+
+### Explorer Structure
 
 
 
@@ -1483,12 +1487,12 @@ Roadmap
 - send emails on state change
 - -m send to other email instead of controller contacts
 - save to db: report
+- check each sensors result
 
 - process stdout.rows then pause
 - run sensor
-- run commands directly
 - ic: show Sensor
-- evaluate rules before analysis
+  - evaluate rules before analysis
 - run explorer
 - execute rules
 - markdown ->

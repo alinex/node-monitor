@@ -22,10 +22,6 @@ schema = require './configSchema'
 Controller = require './controller'
 storage = require './storage'
 
-# Initialized Data
-# -------------------------------------------------
-# This will be set on init
-cache = {} # object of controller, sensors, ...
 
 # Monitor class
 # -------------------------------------------------
@@ -78,7 +74,10 @@ class Monitor extends EventEmitter
       type: 'f'
       maxdepth: 1
     , (err, list) ->
-      cache.sensors = list.map (e) -> fspath.basename e, fspath.extname e
+      cache.sensor = {}
+      for e in list
+        name = fspath.basename e, fspath.extname e
+        cache.sensor[name] = "./sensor/#{name}"
       # try to load sensor from plugins
       plugins = config.get "/monitor/plugins"
       return cb() unless plugins
@@ -94,7 +93,8 @@ class Monitor extends EventEmitter
             return cb() unless lib.listSensor?
             lib.listSensor (err, list) ->
               return cb err if err
-              cache.sensors = cache.sensor.concat list
+              for name, path of list
+                cache.sensor[name] = "#{plugin}/#{path}"
         ], cb
       , cb
 
@@ -121,14 +121,24 @@ class Monitor extends EventEmitter
     console.log 1111
     this
 
-  # Controller
+
+  # List Elements
   # -------------------------------------------------
-  listController: ->
-    Object.keys @controller
+  listController: -> Object.keys @controller
+  listSensor: -> list 'sensor'
+  listActor: -> list 'actor'
+  listExplorer: -> list 'explorer'
 
-  getController: (name, cb) ->
-    cb null, @controller[name]
 
+  # Get specified Element
+  # -------------------------------------------------
+  getController: (name, cb) -> cb null, @controller[name]
+  getSensor: (name, cb) -> get 'sensor', name, cb
+  getActor: (name, cb) -> get 'actor', name, cb
+  getExplorer: (name, cb) -> get 'explorer', name, cb
+
+  # Show information about specified Element
+  # -------------------------------------------------
   showController: (name, cb) ->
     conf = @controller[name].conf
     context =
@@ -183,6 +193,12 @@ class Monitor extends EventEmitter
           info += "\n- #{string.rpad name, 15} " + list.join ', '
       cb null, info
 
+  showSensor: (name) ->
+    "xxxxx"
+
+
+  # Run specified Element
+  # -------------------------------------------------
   runController: (name, cb) ->
     list = if name then {name: @controller[name]} else @controller
     async.mapOf list, (ctrl, name, cb) ->
@@ -191,38 +207,28 @@ class Monitor extends EventEmitter
       cb err
 
 
-  # Sensor Info
-  # -------------------------------------------------
-  listSensor: ->
-    return cache.sensors
-
-  getSensor: (name, cb) ->
-    sensor = null
-    # try to load sensor from main
-    try
-      return cb null, require "./sensor/#{name}"
-    # try to load sensor from plugins
-    plugins = config.get "/monitor/plugins"
-    return cb new Error "Could not find sensor #{name}" unless plugins
-    async.map plugins, (plugin, cb) ->
-      try
-        lib = require plugin
-      catch err
-        return cb err
-      lib.getSensor name, (err, sensor) ->
-        cb() if err
-        cb null, sensor
-    , (err, list) ->
-      for sensor in list
-        return cb null, sensor if sensor
-      # sensor not found
-      cb new Error "Could not find sensor #{name}" unless plugins
-
-  showSensor: (name) ->
-    "xxxxx"
-
-
 # Export Singleton
 # -------------------------------------------------
 
 module.exports = new Monitor()
+
+
+# Element Management
+# -------------------------------------------------
+# This methods are used to work with the cached elements which are setup on
+# initialization phase by initPlugin().
+
+cache = {} # object of sensors, actors and explorers with require path
+
+# ### list elements
+list = (element) ->
+  Object.keys cache[element]
+
+# ### get specified element module
+get = (element, name, cb) ->
+  return cb new Error "Could not find #{element} #{name}" unless cache[element][name]?
+  # try to load sensor from plugins
+  try
+    cb null, require cache[element][name]
+  catch err
+    return cb err
