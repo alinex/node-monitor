@@ -53,6 +53,7 @@ argv = yargs
 # exploring with special data
 .alias('c', 'command')
 .describe('c', 'command to execute')
+.array('c')
 .alias('j', 'json')
 .describe('j', 'json data for the command')
 # interactive mode
@@ -178,7 +179,7 @@ commands =
       """
       text += types.map((e) -> "  - #{e}").join '\n'
       text += """
-      \nUse code completion by typing #{chalk.bold 'TAB'} to get a list of possible
+      \n\nUse code completion by typing #{chalk.bold 'TAB'} to get a list of possible
       elements.
       """
     commands: (parts) ->
@@ -355,7 +356,8 @@ monitor.init
   exit err if err
   conf = config.get 'monitor'
   if argv.command
-    args = argv.command.trim().split /\s+/
+    args = argv.command.slice()
+    args = args[0].trim().split /\s+/ if args.length is 1
     command = args.shift()
     if commands[command]?
       console.log ''

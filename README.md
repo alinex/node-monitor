@@ -134,31 +134,34 @@ Interactive Console
 You may start the interactive console by using the `-i` option. After that you
 will be greeted and may give the commands:
 
-    > monitor -i # or --interactive
-                             __   ____     __
-             ######  #####  |  | |    \   |  |   ########### #####       #####
-            ######## #####  |  | |     \  |  |  ############  #####     #####
-           ######### #####  |  | |  |\  \ |  |  #####          #####   #####
-          ########## #####  |  | |  | \  \|  |  #####           ##### #####
-         ##### ##### #####  |  | |  |__\     |  ############     #########
-        #####  ##### #####  |  | |     \\    |  ############     #########
-       #####   ##### #####  |__| |______\\___|  #####           ##### #####
-      #####    ##### #####                      #####          #####   #####
-     ##### ######### ########################## ############  #####     #####
-    ##### ##########  ########################   ########### #####       #####
-    ___________________________________________________________________________
+''' text
+> monitor -i # or --interactive
 
-                    M O N I T O R I N G   A P P L I C A T I O N
-    ___________________________________________________________________________
+                         __   ____     __
+         ######  #####  |  | |    \   |  |   ########### #####       #####
+        ######## #####  |  | |     \  |  |  ############  #####     #####
+       ######### #####  |  | |  |\  \ |  |  #####          #####   #####
+      ########## #####  |  | |  | \  \|  |  #####           ##### #####
+     ##### ##### #####  |  | |  |__\     |  ############     #########
+    #####  ##### #####  |  | |     \\    |  ############     #########
+   #####   ##### #####  |__| |______\\___|  #####           ##### #####
+  #####    ##### #####                      #####          #####   #####
+ ##### ######### ########################## ############  #####     #####
+##### ##########  ########################   ########### #####       #####
+___________________________________________________________________________
 
-    Initializing...
+                M O N I T O R I N G   A P P L I C A T I O N
+___________________________________________________________________________
 
-    Welcome to the interactive monitor console in which you can get more
-    information about special tools, run individual tests and explore systems.
+Initializing...
 
-    To get help call the command help and close with exit!
+Welcome to the interactive monitor console in which you can get more
+information about special tools, run individual tests and explore systems.
 
-    monitor>
+To get help call the command help and close with exit!
+
+monitor>
+```
 
 The following commands are possible here:
 
@@ -1394,8 +1397,16 @@ The explorer modules are used for exploratory analyzation with the given data
 or by interactively requesting for answers. They are a scriptable tool to gather
 information and analyze them.
 
+In contrast to the sensor it will retrieve also a lot of more static or seldom
+changing information and may take a lot more time to execute. It will also run with
+lower priority on the server. Multiple parallel analysis is also possible on some
+of the explorers leading to a comparison or overview report.
+
 To run them use the interactive console or give all details to the cli as a json
 object.
+
+If you want to have the report as email give `-m <address>` as parameter on the
+monitor startup.
 
 ### Hardware
 
@@ -1404,21 +1415,24 @@ object.
 3. lscpu
    lspci
    lsusb
+   cat /proc/cpuinfo
+   cat /proc/diskstats
 
-cat /proc/cpuinfo
-cat /proc/diskstats
+run by step only if before failed and add to result.hint
 
-### Software
+### OS
 
 cat /proc/version
-running daemons
+
+### Services
+
+running daemons (exclude system ones)
 
 ### Network Settings
 
 /proc/sys/kernel/domainname
 /proc/sys/kernel/hostname
-
-### Daemons
+? firewall
 
 ### ApacheSites
 
@@ -1430,6 +1444,14 @@ running daemons
 
 ### Cron Schedule
 
+config
+  date from-to (default today)
+  time from-to
+
+crontab -l
+sort by time
+split alternatives into multiple entries
+split from to into multiple entries
 
 Plugin System
 -------------------------------------------------
@@ -1465,51 +1487,140 @@ The elements returned need the same API as in the main package (see below).
 
 ### Sensor Structure
 
+A sensor should be a module exporting the following objects:
+
+- schema - an [alinex-validator](http://alinex.github.io/node-validator) compatible
+  definition to validate its check configuration
+- meta - object containing meta data like:
+  - title
+  - description
+  - category - like 'sys', 'net', 'app'
+  - hint - handlebar template possible
+  - values - the values which the sensor will return
+    - title
+    - description
+    - type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
+      'array', 'object'
+    - unit - optional unit of values if number type used
+- name(config) - a method returning a configuration based short name to identify
+- run(config, cb) - will run this sensor with given configuration
+- analysis(config, res, cb) - an additional analysis used mainly on problems which
+  needs the configuration and the results from the normal run as parameters
+
+
 ### Actor Structure
 
 ### Explorer Structure
 
+Like the sensor it needs a schema definition for all values needed in the process.
+In interactive mode the explorer it will ask for them then needed. Therefore the
+structure is nearly the same as for a sensor:
+
+- schema - possible values needed as [alinex-validator](http://alinex.github.io/node-validator)
+  compatible definition
+- meta - object containing meta data like:
+  - title
+  - description
+  - category - like 'sys', 'net', 'app'
+  - hint - handlebar template possible
+  - values - the values which the sensor will return
+    - title
+    - description
+    - type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
+      'array', 'object'
+    - unit - optional unit of values if number type used
+- name(config) - a method returning a configuration based short name to identify
+- run(config, cb) - will run this explorer with given configuration or interactively
+  if no config given
 
 
 Roadmap
 -------------------------------------------------
+I will try to release a first stable version in December 2015. This will have:
 
-- save to db: status
-- save to db: controller status
+- a working cli syntax - done
+- the interactive console - done
+- possibility to run onetime analyzation - done
+- database storage support - done
+- daemon mode running controller on schedule
 
+The next version coming early in 2016 will have:
+
+- fully working explorers
+- alerting with mail actor
+- tested in productive environment
+
+After that a lot of bugfixes, smaller improvements and more sensors, actors and
+explorers will follow regularly.
+
+My own always changing internal todo list:
+
+- save to db
+  - status
+  - controller status
+  - don't store on try run
 - controller with daemon
-- rerun controller on time
-- add time results of fields within the warn or fail conditions
-- create cleanup run
-- run cleanup once daily
-- create explorer storage
-- create actor storage
-- send emails on state change
-- -m send to other email instead of controller contacts
-- save to db: report
-- check each sensors result
+  - rerun controller on time
+  - support check.retry.warn setting
+  - support check.retry.error setting
+  - rerun problematic sensors
+  - stop retry on next controller run
+  - recalculate controller status on sensor status change
+  - run actors again if controller status changed
+- cleanup command
+  - run cleanup once daily (check the current date)
 
-- process stdout.rows then pause
-- run sensor
+- create explorer storage
+  - db structure
+  - fill with results
+
+- evaluate rules before analysis
+- implement actor
+  - execute rules
+  - send emails on state change
+  - -m send to other email instead of controller contacts
+  - create actor storage
+
+- report helper
+  - headings, paragraphs
+  - test
+  - auto toString()
+  - quote '> '
+  - code
+  - lists
+  - make tables from objects automatically
+  - add time results of fields within the warn or fail conditions
+  - ? save to db: report
+  - create sensor reports with this
+  - create controller reports
+  - create explorer reports
+  - toHtml() method
+    - markdown ->
+      html https://markdown-it.github.io
+      https://www.npmjs.com/package/markdown-it-highlightjs
+      https://www.npmjs.com/package/markdown-it-lazy-headers
+      https://www.npmjs.com/package/markdown-it-table-of-contents
+      https://www.npmjs.com/package/markdown-it-checkbox
+      https://www.npmjs.com/package/markdown-it-deflist
+      https://www.npmjs.com/package/markdown-it-abbr
+      https://github.com/Welfenlab/dot-processor
+  - toPdf() method
 - ic: show Sensor
-  - evaluate rules before analysis
+- check for multiple config initializations
 - run explorer
-- execute rules
-- markdown ->
-  html https://markdown-it.github.io
-  https://www.npmjs.com/package/markdown-it-highlightjs
-  https://www.npmjs.com/package/markdown-it-lazy-headers
-  https://www.npmjs.com/package/markdown-it-table-of-contents
-  https://www.npmjs.com/package/markdown-it-checkbox
-  https://www.npmjs.com/package/markdown-it-deflist
-  https://www.npmjs.com/package/markdown-it-abbr
-  https://github.com/Welfenlab/dot-processor
+  - result.hint = text i.e. "Install lshw to get more information."
+- reload command -> reinit config, controller and plugins
+- ? process stdout.rows then pause
 
 - update example reports for each sensor to doc
 - add check type: serial: []
 - add check type: controller: ....
 
-
+Mo report
+Di status store
+Mi daemon run
+Do
+Fr
 
 
 License

@@ -57,6 +57,10 @@ priority:
 # Define remote hosts or host pools to be used through ssh.
 remote:
   server:
+    localhost:
+      host: localhost
+      username: alex
+      privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
     # virtual name for server
     dvb-develop:
       host: 192.168.200.106
