@@ -1556,8 +1556,6 @@ explorers will follow regularly.
 My own always changing internal todo list:
 
 - save to db
-  - status
-  - controller status
   - don't store on try run
 - controller with daemon
   - rerun controller on time
@@ -1593,8 +1591,6 @@ My own always changing internal todo list:
 - add check type: serial: []
 - add check type: controller: ....
 
-Mo report
-Mi status store
 Do integrate report
 Fr daemon run
 

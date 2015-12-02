@@ -39,6 +39,7 @@ exports.start = (work) ->
   work.result.date = [new Date()]
   work.result.status = 'running'
   work.result.values = {}
+  work.result.changed = 0
 
 # End a Run
 # -------------------------------------------------

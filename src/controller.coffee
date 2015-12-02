@@ -93,34 +93,37 @@ class Controller extends EventEmitter
         # run sensor
         sensorInstance.run check.config, (err, res) =>
           return cb err if err
-          # status info
-          debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
-            if res.message then ' (' + res.message + ')' else ''
-            }"
-          if @mode?.verbose
-            msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}"
-            msg += " (#{res.message})" if res.message
-            if @mode.verbose > 1
-              msg += '\n' + util.inspect res.values
-            console.log chalk.grey msg
           res =
             sensor: sensorInstance
             config: check.config
             result: res
             hint: check.hint
-          # store results in storage
-          storage.results check.databaseID, check.sensor, sensorInstance.meta.values
-          , res.result.date[1], res.result.values, (err) =>
+          # check for status change and store it
+          storage.statusCheck check.databaseID, res.result.date[1]
+          , res.result.status, res.result.message, (err, changed) =>
             return cb err if err
-            # check for status change -> analysis
-            if res.result.status in [
-              'disabled', @checks[0]?[num].status
-            ] and not @mode?.verbose > 2
-              return cb null, res
-            # run analysis
-            sensorInstance.analysis check.config, res.result, (err, report) ->
+            changed ?= @checks.length and res.result.status isnt @checks[0][num].status
+            res.result.changed = changed
+            # status info
+            debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
+              if res.message then ' (' + res.message + ')' else ''
+              }#{if changed then ' CHANGED' else ''}"
+            if @mode?.verbose
+              msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}"
+              msg += " (#{res.message})" if res.message
+              msg += " CHANGED" if changed
+              if @mode.verbose > 1
+                msg += '\n' + util.inspect res.values
+              console.log chalk.grey msg
+            # store results in storage
+            storage.results check.databaseID, check.sensor, sensorInstance.meta.values
+            , res.result.date[1], res.result.values, (err) =>
               return cb err if err
-              res.result.analysis = report
+              # run analysis
+              if changed or @mode?.verbose > 2
+                sensorInstance.analysis check.config, res.result, (err, report) ->
+                  return cb err if err
+                  res.result.analysis = report
               cb null, res
     , (err, results) =>
 #      console.log err, results
@@ -131,15 +134,22 @@ class Controller extends EventEmitter
       @checks.pop() if @checks.length > 5
       @checks.unshift res
       # calculate controller status
-      @status = calcStatus @conf.combine, @conf.check, res
-      debug "#{chalk.grey @name} Controller => #{@colorStatus()}"
-      # make report
-      report = @report results
-      if @mode?.verbose > 2
-        console.error report
-#      console.log report
-      @emit 'result', this
-      cb()
+      status = calcStatus @conf.combine, @conf.check, res
+      # check for status change and store it
+      storage.statusController @databaseID, new Date(), status, (err, changed) =>
+        return cb err if err
+        changed ?= status isnt @status
+        @status = status
+        # info
+        debug "#{chalk.grey @name} Controller => #{@colorStatus()}
+        #{if changed then ' CHANGED' else ''}"
+        # make report
+        report = @report results
+        if @mode?.verbose > 2
+          console.error report
+  #      console.log report
+        @emit 'result', this
+        cb()
 
   # ### Create a report
   report: (results) ->

@@ -38,7 +38,7 @@ exports.init = (cb) ->
 # -------------------------------------------------
 # This should not be enabled in productive system.
 drop = (conf, db, cb) ->
-  return cb() # disable function
+#  return cb() # disable function
   async.eachSeries [
     "DROP SCHEMA public CASCADE"
     "CREATE SCHEMA public"
@@ -80,7 +80,7 @@ create = (conf, db, cb) ->
         CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail')
         """, cb
       statusSensor: ['statusType', 'check', (cb) -> db.exec """
-        CREATE TABLE #{prefix}status_sensor (
+        CREATE TABLE #{prefix}status_check (
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
           change TIMESTAMP WITH TIME ZONE,
           status statusType NOT NULL,
@@ -91,8 +91,7 @@ create = (conf, db, cb) ->
         CREATE TABLE #{prefix}status_controller (
           controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
           change TIMESTAMP WITH TIME ZONE,
-          status statusType NOT NULL,
-          comment VARCHAR(120)
+          status statusType NOT NULL
         )
         """, cb]
       report: ['controller', (cb) -> db.exec """
@@ -214,3 +213,48 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
         , (err, num, id) ->
           cb err, id
     , cb
+
+# Add status on change
+# -------------------------------------------------
+
+exports.statusCheck = (checkID, date, status, comment, cb) ->
+  conf ?= config.get '/monitor'
+  return cb() unless conf.storage?
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    return cb err if err
+    # check if same status is already set
+    db.value """
+      SELECT status FROM #{prefix}status_check
+      WHERE check_id=$1 ORDER BY change DESC
+      """, [checkID], (err, oldStatus) ->
+      return cb err if err
+      return cb() if status is oldStatus
+      # insert
+      db.exec """
+        INSERT INTO #{prefix}status_check
+        (check_id, change, status, comment) VALUES (?, ?, ?, ?)
+        """
+      , [checkID, date, status, comment]
+      , cb
+
+exports.statusController = (controllerID, date, status, cb) ->
+  conf ?= config.get '/monitor'
+  return cb() unless conf.storage?
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    return cb err if err
+    # check if same status is already set
+    db.value """
+      SELECT status FROM #{prefix}status_controller
+      WHERE controller_id=$1 ORDER BY change DESC
+      """, [controllerID], (err, oldStatus) ->
+      return cb err if err
+      return cb null, 0 if status is oldStatus
+      # insert
+      db.exec """
+        INSERT INTO #{prefix}status_controller
+        (controller_id, change, status) VALUES (?, ?, ?)
+        """
+      , [controllerID, date, status]
+      , cb
