@@ -79,6 +79,16 @@ class Controller extends EventEmitter
       debug "#{chalk.grey @name} Initialized controller"
       cb()
 
+  start: ->
+    console.log ">>>>> run #{@name}"
+    @timeout = setTimeout =>
+      @start()
+    , 2000
+
+
+  stop: ->
+    debug "#{chalk.grey @name} Stopped daemon mode"
+
   # ### Run once
   run: (cb) ->
     # for each sensor in parallel
@@ -105,15 +115,15 @@ class Controller extends EventEmitter
             changed ?= @checks.length and res.result.status isnt @checks[0][num].status
             res.result.changed = changed
             # status info
-            debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.status}#{
-              if res.message then ' (' + res.message + ')' else ''
+            debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.result.status}#{
+              if res.result.message then ' (' + res.result.message + ')' else ''
               }#{if changed then ' CHANGED' else ''}"
             if @mode?.verbose
-              msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.status}"
-              msg += " (#{res.message})" if res.message
+              msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.result.status}"
+              msg += " (#{res.result.message})" if res.result.message
               msg += " CHANGED" if changed
               if @mode.verbose > 1
-                msg += '\n' + util.inspect res.values
+                msg += '\n' + util.inspect res.result.values
               console.log chalk.grey msg
             # store results in storage
             storage.results check.databaseID, check.sensor, sensorInstance.meta.values

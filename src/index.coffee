@@ -115,10 +115,15 @@ class Monitor extends EventEmitter
 
   start: ->
     @instantiate() unless @controller
+    debug "start daemon"
+    for name, ctrl of @controller
+      ctrl.start()
     this
 
   stop: ->
-    console.log 1111
+    debug "stop daemon"
+
+
     this
 
 

@@ -332,7 +332,11 @@ exit = (err) ->
   # exit with error
   console.error chalk.red.bold "FAILED: #{err.message}"
   console.error err.description if err.description
-  process.exit 1
+  process.exit 1 unless argv.daemon
+  monitor.stop()
+  setTimeout ->
+    process.exit 1
+  , 2000
 
 process.on 'SIGINT', -> exit new Error "Got SIGINT signal"
 process.on 'SIGTERM', -> exit new Error "Got SIGTERM signal"
@@ -356,6 +360,7 @@ monitor.init
   exit err if err
   conf = config.get 'monitor'
   if argv.command
+    # direct command given to execute
     args = argv.command.slice()
     args = args[0].trim().split /\s+/ if args.length is 1
     command = args.shift()
@@ -369,15 +374,17 @@ monitor.init
       #{chalk.bold 'help'} for more information!"
       exit()
   else if argv.interactive
+    # interactive console
     interactive conf
   else if argv.daemon
+    # daemon start
     monitor.start()
-    monitor.on 'done', (ctrl) ->
   else
+    # run all once
+    console.log "Analyzing systems..."
     monitor.on 'result', (ctrl) ->
       console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
       Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
-    console.log "Analyzing systems..."
     monitor.runController null, (err, results) ->
       exit err if err
       console.log "Finished.\n"

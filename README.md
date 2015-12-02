@@ -1507,7 +1507,6 @@ A sensor should be a module exporting the following objects:
 - analysis(config, res, cb) - an additional analysis used mainly on problems which
   needs the configuration and the results from the normal run as parameters
 
-
 ### Actor Structure
 
 ### Explorer Structure
