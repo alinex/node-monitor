@@ -1581,30 +1581,7 @@ My own always changing internal todo list:
   - -m send to other email instead of controller contacts
   - create actor storage
 
-- report helper
-  - headings, paragraphs
-  - test
-  - auto toString()
-  - quote '> '
-  - code
-  - lists
-  - make tables from objects automatically
-  - add time results of fields within the warn or fail conditions
-  - ? save to db: report
-  - create sensor reports with this
-  - create controller reports
-  - create explorer reports
-  - toHtml() method
-    - markdown ->
-      html https://markdown-it.github.io
-      https://www.npmjs.com/package/markdown-it-highlightjs
-      https://www.npmjs.com/package/markdown-it-lazy-headers
-      https://www.npmjs.com/package/markdown-it-table-of-contents
-      https://www.npmjs.com/package/markdown-it-checkbox
-      https://www.npmjs.com/package/markdown-it-deflist
-      https://www.npmjs.com/package/markdown-it-abbr
-      https://github.com/Welfenlab/dot-processor
-  - toPdf() method
+- integrate report helper
 - ic: show Sensor
 - check for multiple config initializations
 - run explorer
@@ -1617,10 +1594,9 @@ My own always changing internal todo list:
 - add check type: controller: ....
 
 Mo report
-Di status store
-Mi daemon run
-Do
-Fr
+Mi status store
+Do integrate report
+Fr daemon run
 
 
 License

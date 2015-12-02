@@ -381,3 +381,4 @@ monitor.init
     monitor.runController null, (err, results) ->
       exit err if err
       console.log "Finished.\n"
+      exit()
