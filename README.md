@@ -1552,47 +1552,6 @@ The next version coming early in 2016 will have:
 After that a lot of bugfixes, smaller improvements and more sensors, actors and
 explorers will follow regularly.
 
-My own always changing internal todo list:
-
-- save to db
-  - don't store on try run
-- controller with daemon
-  - rerun controller on time
-  - support check.retry.warn setting
-  - support check.retry.error setting
-  - rerun problematic sensors
-  - stop retry on next controller run
-  - recalculate controller status on sensor status change
-  - run actors again if controller status changed
-- cleanup command
-  - run cleanup once daily (check the current date)
-
-- create explorer storage
-  - db structure
-  - fill with results
-
-- evaluate rules before analysis
-- implement actor
-  - execute rules
-  - send emails on state change
-  - -m send to other email instead of controller contacts
-  - create actor storage
-
-- integrate report helper
-- ic: show Sensor
-- check for multiple config initializations
-- run explorer
-  - result.hint = text i.e. "Install lshw to get more information."
-- reload command -> reinit config, controller and plugins
-- ? process stdout.rows then pause
-
-- update example reports for each sensor to doc
-- add check type: serial: []
-- add check type: controller: ....
-
-Do integrate report
-Fr daemon run
-
 
 License
 -------------------------------------------------

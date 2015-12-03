@@ -80,17 +80,17 @@ class Controller extends EventEmitter
       cb()
 
   start: ->
-    console.log ">>>>> run #{@name}"
+    @run()
     @timeout = setTimeout =>
       @start()
-    , 2000
+    , @conf.interval * 1000
 
 
   stop: ->
     debug "#{chalk.grey @name} Stopped daemon mode"
 
   # ### Run once
-  run: (cb) ->
+  run: (cb =  ->) ->
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
       # load sensor
