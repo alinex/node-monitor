@@ -5,7 +5,7 @@ validator = require 'alinex-validator'
 test = require './test'
 hardware = require '../../../src/explorer/hardware'
 
-describe "Hardware", ->
+describe.skip "Hardware", ->
   @timeout 120000
 
   store = null
@@ -18,7 +18,7 @@ describe "Hardware", ->
     it "should has meta data", (cb) ->
       test.meta hardware, cb
 
-    it.only "should return success", (cb) ->
+    it "should return success", (cb) ->
 #      test.run hardware,
 #        remote: 'localhost'
 #      , (err, res) ->
