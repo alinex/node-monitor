@@ -114,11 +114,16 @@ exports.run = (config, cb = ->) ->
       ntp.getNetworkTime config.host, config.port, cb
   ], (err, proc) ->
     sensor.end work
-    val = work.result.values
-    # check times
-    val.local = new Date proc[0].stdout().trim()
-    val.remote = proc[1]
-    val.diff = Math.abs val.local - val.remote
+    # check the results
+    if err
+      work.err = err
+    else
+      val = work.result.values
+      # check times
+      val.local = new Date proc[0].stdout().trim()
+      val.remote = proc[1]
+      val.diff = Math.abs val.local - val.remote
+    # return the results
     sensor.result work
     cb err, work.result
 

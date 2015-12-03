@@ -208,7 +208,7 @@ exports.run = (config, cb = ->) ->
         val.low = active if active < val.low
         val.high = active if active > val.high
       sensor.result work
-      cb err, work.result
+    cb err, work.result
 
 # Run additional analysis
 # -------------------------------------------------
