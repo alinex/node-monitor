@@ -199,7 +199,7 @@ formatValue = (value, config) ->
         d: 'day'
         m: 'minute'
       unit = long[config.unit] ? config.unit
-#      console.log value, unit, 'to', 'm', config #################################################################
+#      console.log value, unit, 'to', 'm', config ###############################################
       interval = math.unit value, unit
       interval = interval.to 'm' if interval.toNumber('s') > 120
       interval.format()

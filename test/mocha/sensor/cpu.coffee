@@ -1,11 +1,12 @@
 chai = require 'chai'
 expect = chai.expect
 validator = require 'alinex-validator'
+debug = require('debug')('test:report')
 
 test = require './test'
 cpu = require '../../../src/sensor/cpu'
 
-describe "CPU", ->
+describe.only "CPU", ->
   @timeout 15000
 
   store = null
@@ -35,14 +36,16 @@ describe "CPU", ->
 
   describe "reporting", ->
 
-    it "should get analysis data", (cb) ->
+    it "should get empty analysis data", (cb) ->
       @timeout 5000
-      test.analysis cpu, {}, store, (err, report) ->
+      test.analysis cpu,
+        analysis:
+          numProc: 5
+      , store, (err, report) ->
         store.analysis = report
-        console.log report
         cb()
 
     it "should make the report", (cb) ->
       test.report cpu, {}, store, (err, report) ->
-        console.log report
+        debug "complete report", report
         cb()

@@ -60,6 +60,13 @@ exports.analysis = (sensor, config, result, cb) ->
       expect(res, 'analysis').to.exist
       cb null, res
 
+exports.noanalysis = (sensor, config, result, cb) ->
+  @validator sensor, config, (err, conf) ->
+    sensor.analysis conf, result, (err, res) ->
+      expect(err, 'error').to.not.exist
+      expect(res, 'analysis').to.not.exist
+      cb null, res
+
 exports.report = (sensor, config, result, cb) ->
   @validator sensor, config, (err, conf) ->
     base = require '../../../src/sensor'

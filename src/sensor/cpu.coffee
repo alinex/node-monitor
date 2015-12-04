@@ -15,6 +15,7 @@ chalk = require 'chalk'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 {object, string} = require 'alinex-util'
+Report = require 'alinex-report'
 # include classes and helpers
 sensor = require '../sensor'
 
@@ -220,10 +221,6 @@ exports.analysis = (config, res, cb = ->) ->
   criteria = if min then " above #{min}%" else ''
   criteria += if config.analysis.numProc
   then " (max. #{config.analysis.numProc})" else ''
-  report = "The top CPU consuming processes#{criteria} are:\n\n"
-  report += """
-    | COUNT |  %CPU |  %MEM | COMMAND                                            |
-    | ----: | ----: | ----: | -------------------------------------------------- |\n"""
   async.map [
     remote: config.remote
     cmd: 'sh'
@@ -241,6 +238,35 @@ exports.analysis = (config, res, cb = ->) ->
     Exec.run setup, cb
   , (err, proc) ->
     return cb err if err
+    # create report
+    report = new Report()
+    report.p "The top CPU consuming processes#{criteria} are:"
+    # get data table
+    data = []
+
+
+    # add table
+    report.table data,
+      # columns
+      count:
+        title: 'COUNT'
+        align: 'right'
+      cpu:
+        title: '%CPU'
+        align: 'right'
+      mem:
+        title: '%MEM'
+        align: 'right'
+      cmd:
+        title: 'COMMAND'
+    , # sort
+      cpu: 'desc'
+    return cb null, report
+
+
+    report += """
+      | COUNT |  %CPU |  %MEM | COMMAND                                            |
+      | ----: | ----: | ----: | -------------------------------------------------- |\n"""
     procs = {}
     for line in proc[0].stdout().split /\n/
       continue unless line
