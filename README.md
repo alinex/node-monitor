@@ -208,6 +208,23 @@ give all of them on call as a json data object. Take the names from the interact
 run displayed in front of the question.
 
 
+Definitions
+-------------------------------------------------
+- __Monitor__ - is the main program
+- __Controller__ - is the configurable automatic monitoring element holding some checks
+- __Check__ - will run the sensor and hold it's contents
+- __Sensor__ - will analyze some metrics and collect it's values
+- __Status__ - the current state of the element (ok, warn, fail)
+- __Action__ - will run the actor and hold the protocol
+- __Actor__ - will do some active changes on a system
+- __Analysis__ - will start an explorative check
+- __Analyzer__ - collect explorative information from a system
+- __Storage__ - will hold the results and data in a persistence layer
+- __Console__ - command line interface
+- __Interactive Console__ - will interactively work
+- __Daemon__ - service mode in which the monitor runs the controller checks continuously
+
+
 Configuration
 -------------------------------------------------
 This will describe the base setup. Also needed is the controller configuration which
