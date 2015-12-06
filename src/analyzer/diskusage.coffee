@@ -50,6 +50,24 @@ exports.schema =
     warn: object.extend {}, sensor.schema.warn,
       default: 'active >= 100%'
     fail: sensor.schema.fail
+    analysis:
+      title: "Analysis Run"
+      description: "the configuration for the analysis if it is run"
+      type: 'object'
+      allowedKeys: true
+      keys:
+        minCpu:
+          title: "Minimum %CPU"
+          description: "the minimum CPU usage to include"
+          type: 'percent'
+          min: 0
+          default: 0.1
+        numProc:
+          title: "Top X"
+          description: "the number of top CPU heavy processes for analysis"
+          type: 'integer'
+          min: 1
+          default: 5
 
 # General information
 # -------------------------------------------------
@@ -219,3 +237,87 @@ exports.run = (config, cb = ->) ->
         val.high = active if active > val.high
       sensor.result work
     cb err, work.result
+
+# Run additional analysis
+# -------------------------------------------------
+exports.analysis = (config, res, cb = ->) ->
+  return cb() unless config.analysis?
+  # get additional information
+  if config.analysis.minCpu
+    min = Math.floor config.analysis.minCpu * 100
+  criteria = if min then " above #{min}%" else ''
+  criteria += if config.analysis.numProc
+  then " (max. #{config.analysis.numProc})" else ''
+  async.map [
+    remote: config.remote
+    cmd: 'sh'
+    args: [
+      '-c'
+      "ps axu | awk 'NR>1 {print $2, $3, $4, $11}'"
+    ]
+    priority: 'immediately'
+  ,
+    remote: config.remote
+    cmd: 'sh'
+    args: ['-c', "grep processor /proc/cpuinfo | wc -l"]
+    priority: 'immediately'
+  ], (setup, cb) ->
+    Exec.run setup, cb
+  , (err, proc) ->
+    return cb err if err
+    # create report
+    report = new Report()
+    report.p "The top CPU consuming processes#{criteria} are:"
+    # get data table
+    data = []
+
+
+    # add table
+    report.table data,
+      # columns
+      count:
+        title: 'COUNT'
+        align: 'right'
+      cpu:
+        title: '%CPU'
+        align: 'right'
+      mem:
+        title: '%MEM'
+        align: 'right'
+      cmd:
+        title: 'COMMAND'
+    , # sort
+      cpu: 'desc'
+    return cb null, report
+
+
+    report += """
+      | COUNT |  %CPU |  %MEM | COMMAND                                            |
+      | ----: | ----: | ----: | -------------------------------------------------- |\n"""
+    procs = {}
+    for line in proc[0].stdout().split /\n/
+      continue unless line
+      cpus = Number proc[1].stdout()
+      col = line.split /\s/, 4
+      procs[col[3]] ?= [ 0, 0, 0 ]
+      procs[col[3]][0]++
+      procs[col[3]][1] += parseFloat col[1]
+      procs[col[3]][2] += parseFloat col[2]
+    keys = Object.keys(procs).sort (a, b) ->
+      procs[b][1] - procs[a][1]
+    found = false
+    num = 0
+    for proc in keys
+      value = procs[proc]
+      value[1] /= cpus
+      continue if min and value[1] < min
+      num++
+      break if config.analysis.numProc and num > config.analysis.numProc
+      found = true
+      value[1] = if value[1] > 100 then Math.floor value[1] else Math.round(value[1] * 10) / 10
+      value[2] = if value[2] > 100 then Math.floor value[2] else Math.round(value[2] * 10) / 10
+      report += "| #{string.lpad value[0], 5} | #{string.lpad value[1].toString() + '%', 5}
+        | #{string.lpad value[2].toString() + '%', 5} | #{string.rpad proc, 50} |\n"
+    if min and not found
+      return cb null, "No high cpu consuming processes over #{min}% found!"
+    cb null, report

@@ -26,9 +26,11 @@ check:
     config:
       remote: dvb-develop
       share: /
-      # Additional analysis to run if check is warn or failure
-      analysis:
-        dirs: '/tmp, /var/log'
+    # Additional analysis to run if check is warn or failure
+#    analysis:
+#      analyzer: diskusage
+#      config:
+#        dirs: '/tmp, /var/log'
 
     # ### Weight setting
     # Specific to value of the following 'combine' setting.

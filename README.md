@@ -382,24 +382,6 @@ Also you need the setup under `/exec` and `/database` like described in
 This is used in the different sensors by references to the setup stored there.
 
 
-Status
--------------------------------------------------
-
-The monitor uses the following status:
-
-__running__ if the sensor is already analyzing, you have to wait
-
-__disabled__ if this controller is currently not checked - this will be used
-like ok for further processing
-
-__ok__ if everything is perfect, there nothing have to be done - exit code 0
-
-__warn__ if the sensor reached the warning level, know you have to keep an eye on
-it - exit code 1
-
-__fail__ if the sensor failed and there is a problem - exit code 2
-
-
 Controller
 -------------------------------------------------
 A controller is an individual part to be checked. It contains some sensors to check
@@ -437,9 +419,9 @@ check:
     config:
       remote: my-develop
       share: /
-      # Additional analysis to run if check is warn or failure
-      analysis:
-        dirs: '/tmp, /var/log'
+    # Additional analysis to run if check is warn or failure
+    analysis:
+      dirs: '/tmp, /var/log'
 
     # ### Weight setting
     # Specific to value of the following 'combine' setting.
@@ -536,6 +518,24 @@ controllers may be:
 - one for each application part i.e. `web`, `web1`, `web2`, `web3`, `ftp`
 - one for each end user application i.e. `login`, `browse`, `buy`
 - one overall check i.e. `all`
+
+
+Status
+-------------------------------------------------
+
+The monitor uses the following status:
+
+__running__ if the sensor is already analyzing, you have to wait
+
+__disabled__ if this controller is currently not checked - this will be used
+like ok for further processing
+
+__ok__ if everything is perfect, there nothing have to be done - exit code 0
+
+__warn__ if the sensor reached the warning level, know you have to keep an eye on
+it - exit code 1
+
+__fail__ if the sensor failed and there is a problem - exit code 2
 
 
 Sensor
@@ -1550,6 +1550,7 @@ structure is nearly the same as for a sensor:
   if no config given
 
 
+
 Roadmap
 -------------------------------------------------
 I will try to release a first stable version in December 2015. This will have:
@@ -1558,7 +1559,8 @@ I will try to release a first stable version in December 2015. This will have:
 - the interactive console - done
 - possibility to run onetime analyzation - done
 - database storage support - done
-- daemon mode running controller on schedule
+- daemon mode running controller on schedule - done
+- modular base design
 
 The next version coming early in 2016 will have:
 
@@ -1568,6 +1570,22 @@ The next version coming early in 2016 will have:
 
 After that a lot of bugfixes, smaller improvements and more sensors, actors and
 explorers will follow regularly.
+
+
+Next steps are:
+
+Mo
+- check class
+- run cpu sensor
+- report using new package
+- adding previous sensor results
+Di
+- run cpu sensor manually
+- run cpu sensor interactively
+Mi
+- convert more sensors
+
+- analysis through analyzer (later)
 
 
 License

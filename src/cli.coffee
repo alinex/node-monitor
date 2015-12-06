@@ -18,6 +18,7 @@ database = require 'alinex-database'
 # include classes and helpers
 logo = require('./logo') 'Monitoring Application'
 monitor = require './index'
+Report = require 'alinex-report'
 #Controller = require './controller'
 
 process.title = 'Monitor'
@@ -94,36 +95,27 @@ commands =
       .filter (e) -> e isnt 'help'
       .map (e) -> "help #{e}"
     run: (args, cb) ->
+      report = new Report
+        color: true
       if args.length and args[0] in Object.keys commands
         cmd = args[0]
-        console.log chalk.bold """
-        Help for #{cmd} command
-        ===========================================================================
-        """
-        console.log """
-        \nThis command will #{commands[cmd].description}.
-        """
-        console.log commands[cmd].help() if commands[cmd].help?
+        report.h1 "Help for #{cmd} command"
+        report.p "This command will #{commands[cmd].description}."
+        report.p commands[cmd].help() if commands[cmd].help?
+        console.log report.toString()
         return cb()
-      console.log chalk.bold """
-      Help for interactive console
-      ===========================================================================
-      """
-      console.log """
-      \nWithin this interactive console you can use different commands with sub
-      arguments to run. See the list of possibilities below.
-      You can also use code completion to get a list of available commands.
-
-      To close this console use Ctrl-C or the #{chalk.bold 'exit'} command.
-
-      The following commands are possible:
-      """
-      for name, def of commands
-        console.log "- #{string.rpad name, 10} #{def.description}"
-      console.log """
-      \nTo get more information about a speciific command and its additional
-      arguments type #{chalk.bold 'help <command>'}.
-      """
+      report.h1 "Help for interactive console"
+      report.p "Within this interactive console you can use different
+      commands with sub arguments to run. See the list of possibilities below.
+      You can also use code completion to get a list of available commands."
+      report.p "To close this console use Ctrl-C or the
+      #{Report.b 'exit'} command."
+      report.p "The following commands are possible:"
+      report.ul Object.keys(commands).map (name) ->
+        "#{string.rpad name, 10} #{commands[name].description}"
+      report.p "To get more information about a specific command and
+      its additional arguments type #{Report.b 'help <command>'}."
+      console.log report.toConsole()
       cb()
 
   # ### exit console

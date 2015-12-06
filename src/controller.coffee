@@ -16,7 +16,6 @@ async = require 'alinex-async'
 config = require 'alinex-config'
 validator = require 'alinex-validator'
 # include classes and helpers
-sensor = require './sensor'
 storage = require './storage'
 
 # Initialized Data
@@ -32,15 +31,10 @@ class Controller extends EventEmitter
   # ### Create instance
   constructor: (@name, @conf, @mode) ->
     # ### Data storage with last results
-    #
-    # Last status
-    @status = 'disabled'
-    # Check results containing:
-    #
-    # - date
-    # - status
-    # - values
-    @checks = []
+    @status = 'disabled' # Last status
+    @check = [] # Instances
+    @timeout = null # timer for next run
+
 
   # ### Initialize
   init: (cb) ->
@@ -50,29 +44,25 @@ class Controller extends EventEmitter
         # create base data in storage
         storage.controller @name, (err, @databaseID) =>
           return cb err if err
-          async.each @conf.check, (check, cb) =>
-            monitor.getSensor check.sensor, (err, sensorInstance) =>
-              return cb err if err
-              storage.check @databaseID, check.sensor, sensorInstance.name(check.config)
-              , sensorInstance.meta.category, (err, checkID) ->
-                return cb err if err
-                check.databaseID = checkID
-                cb()
+          async.each @conf.check, (setup, cb) =>
+            check = new Check setup
+            @check.push check
+            check.init cb
           , cb
       (cb) =>
         # Validate configuration
-        async.mapOf @conf.check, (check, num, cb) =>
-          monitor.getSensor check.sensor, (err, sensorInstance) =>
+        async.mapOf @conf.check, (setup, num, cb) =>
+          monitor.getSensor setup.sensor, (err, sensorInstance) =>
             if err
-              debug chalk.red "Failed to load '#{check.sensor}' lib because of: #{err}"
-              return cb new Error "Check '#{check.sensor}' not supported"
+              debug chalk.red "Failed to load '#{setup.sensor}' lib because of: #{err}"
+              return cb new Error "Check '#{setup.sensor}' not supported"
             validator.check
               name: "#{@name}:#{num}"
-              value: check.config
+              value: setup.config
               schema: sensorInstance.schema
             , (err, result) =>
               return cb err if err
-              @conf.check[num].config = result
+              @conf.setup[num].config = result
               cb()
         , cb
     ], (err) =>
@@ -91,6 +81,12 @@ class Controller extends EventEmitter
 
   # ### Run once
   run: (cb =  ->) ->
+    # for each sensor in parallel
+    async.mapOf @check, (check, num, cb) =>
+      check.run (err, res) =>
+        return cb err if err
+
+
     # for each sensor in parallel
     async.mapOf @conf.check, (check, num, cb) =>
       # load sensor
