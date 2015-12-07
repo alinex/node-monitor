@@ -255,7 +255,7 @@ exports.formatTable = formatTable = (obj) ->
 # ### Check expression against string
 #
 # It will will try to match the given expression once and return the matched
-# groups or false if not matched. The groups are a array with the full match as
+# groups or false if not matched. The groups are an array with the full match as
 # first element or in case of named regexp an object with key 'match' containing
 # the full match.
 exports.match = (text, re) ->

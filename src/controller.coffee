@@ -38,35 +38,16 @@ class Controller extends EventEmitter
   # ### Initialize
   init: (cb) ->
     monitor ?= require './index'
-    async.parallel [
-      (cb) =>
-        # create base data in storage
-        storage.controller @name, (err, @databaseID) =>
-          return cb err if err
-          async.each @conf.check, (setup, cb) =>
-            check = new Check setup
-            @check.push check
-            check.init cb
-          , cb
-      (cb) =>
-        # Validate configuration
-        async.mapOf @conf.check, (setup, num, cb) =>
-          monitor.getSensor setup.sensor, (err, sensor) =>
-            if err
-              debug chalk.red "Failed to load '#{setup.sensor}' lib because of: #{err}"
-              return cb new Error "Check '#{setup.sensor}' not supported"
-            validator.check
-              name: "#{@name}:#{num}"
-              value: setup.config
-              schema: sensor.schema
-            , (err, result) =>
-              return cb err if err
-              @conf.check[num].config = result
-              cb()
-        , cb
-    ], (err) =>
-      debug "#{chalk.grey @name} Initialized controller"
-      cb()
+    # create base data in storage
+    storage.controller @name, (err, @databaseID) =>
+      return cb err if err
+      async.each @conf.check, (setup, cb) =>
+        check = new Check setup
+        @check.push check
+        check.init cb
+      , (err) =>
+        debug "#{chalk.grey @name} Initialized controller"
+        cb()
 
   start: ->
     @run()

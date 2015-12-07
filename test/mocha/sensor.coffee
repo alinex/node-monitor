@@ -1,5 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
+debugReport = require('debug')('test:report')
+
 validator = require 'alinex-validator'
 index = require '../../src/index'
 Check = require '../../src/check'
@@ -32,57 +34,41 @@ exports.init = (setup, cb) ->
     expect(check.name, 'name initialized').to.exist
     cb err, check
 
-exports.run = (check, cb) ->
-  check.run (err) ->
-    expect(err, 'error').to.not.exist
-    expect(check.result, 'result').to.exist
-    cb()
-
 exports.ok = (check, cb) ->
   check.run (err, status) ->
-    expect(err, 'error').to.not.exist
-    expect(status 'status').to.equal 'ok'
+    expect(status, 'status').to.equal 'ok'
     expect(check.status, 'stored status').to.equal 'ok'
-    expect(check.values, 'values').to.exist
     expect(check.date, 'date').to.exist
+    expect(err, 'error').to.not.exist
+    expect(check.err, 'error').to.not.exist
+    expect(check.values, 'values').to.exist
     cb err, status
 
-exports.warn = (sensor, config, cb) ->
-  @validator sensor, config, (err, conf) ->
-    sensor.run conf, (err, res) ->
-      expect(err, 'error').to.not.exist
-      expect(res.message, 'message').to.exist
-      expect(res.status).to.equal 'warn'
-      cb null, res
+exports.warn = (check, cb) ->
+  check.run (err, status) ->
+    expect(status, 'status').to.equal 'warn'
+    expect(check.status, 'stored status').to.equal 'warn'
+    expect(check.date, 'date').to.exist
+    expect(err, 'error').to.exist
+    expect(check.err, 'error').to.exist
+    cb err, status
 
-exports.fail = (sensor, config, cb) ->
-  @validator sensor, config, (err, conf) ->
-    sensor.run conf, (err, res) ->
-      expect(err, 'error').to.not.exist
-      expect(res.message, 'message').to.exist
-      expect(res.status).to.equal 'fail'
-      cb null, res
+exports.fail = (check, cb) ->
+  check.run (err, status) ->
+    expect(status, 'status').to.equal 'fail'
+    expect(check.status, 'stored status').to.equal 'fail'
+    expect(check.date, 'date').to.exist
+    expect(err, 'error').to.exist
+    expect(check.err, 'error').to.exist
+    cb err, status
 
-exports.analysis = (sensor, config, result, cb) ->
-  @validator sensor, config, (err, conf) ->
-    sensor.analysis conf, result, (err, res) ->
-      expect(err, 'error').to.not.exist
-      expect(res, 'analysis').to.exist
-      cb null, res
+exports.values = (check, cb) ->
+  for name, val of check.values
+    expect(check.sensor.meta.values[name], "value #{name}").to.exist
+  cb()
 
-exports.noanalysis = (sensor, config, result, cb) ->
-  @validator sensor, config, (err, conf) ->
-    sensor.analysis conf, result, (err, res) ->
-      expect(err, 'error').to.not.exist
-      expect(res, 'analysis').to.not.exist
-      cb null, res
-
-exports.report = (sensor, config, result, cb) ->
-  @validator sensor, config, (err, conf) ->
-    base = require '../../../src/sensor'
-    report = base.report
-      sensor: sensor
-      config: conf
-      result: result
+exports.report = (check, cb) ->
+  check.report (err, report) ->
+    expect(err, 'error').to.not.exist
     expect(report, 'report').to.exist
-    cb null, report
+    cb()

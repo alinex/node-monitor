@@ -1,7 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
 validator = require 'alinex-validator'
-debugReport = require('debug')('test:report')
 
 test = require '../sensor'
 Check = require '../../../src/check'
@@ -10,7 +9,6 @@ sensor = require '../../../src/sensor/cpu'
 before (cb) -> test.setup cb
 
 describe.only "CPU", ->
-  @timeout 15000
 
   check = null
 
@@ -41,32 +39,23 @@ describe.only "CPU", ->
         cb()
 
     it "should return success", (cb) ->
+      @timeout 20000
       test.ok check, (err) ->
         expect(check.values.active).to.be.above 0
         cb()
 
-
-
-
     it "should give warn on active", (cb) ->
+      @timeout 20000
       test.warn cpu,
         warn: 'active > 0.01%'
       , (err, res) ->
         expect(res.values.active).to.be.above 0
         cb()
 
-  describe "reporting", ->
+  describe "result", ->
 
-    it "should get empty analysis data", (cb) ->
-      @timeout 5000
-      test.analysis cpu,
-        analysis:
-          numProc: 5
-      , store, (err, report) ->
-        store.analysis = report
-        cb()
+    it "should have values defined", (cb) ->
+      test.values check, cb
 
-    it "should make the report", (cb) ->
-      test.report cpu, {}, store, (err, report) ->
-        debugReport "complete report", report
-        cb()
+    it "should get report", (cb) ->
+      test.report check, cb

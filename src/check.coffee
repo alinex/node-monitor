@@ -11,7 +11,8 @@
 # - run() - run the sensor for the check
 # - calc() - check the results
 #
-# The sensor will use the check instance for storing it's data.
+# The sensor will use the check instance for storing it's data and is called in
+# the context of the check.
 
 
 # Node Modules
@@ -27,6 +28,7 @@ vm = require 'vm'
 async = require 'alinex-async'
 {string} = require 'alinex-util'
 validator = require 'alinex-validator'
+Report = require 'alinex-report'
 # include classes and helpers
 storage = require './storage'
 
@@ -50,14 +52,14 @@ class Check extends EventEmitter
     @name = null
     @databaseID = null
     @base = null
-
-    @history = []
-
+    # will be set on run
     @result = null
     @status = 'disabled'
     @err = null
     @date = []
     @values = {}
+    # last results
+    @history = []
     @changed = 0
 
   # ### Initialize check and sensor
@@ -92,21 +94,37 @@ class Check extends EventEmitter
     @date = [new Date()]
     @values = {}
     @changed = 0
+    # run the sensor
     @sensor.run.call this, (@err, res) =>
       @sensor.debug "#{chalk.grey @name} ended check"
       @date[1] = new Date()
-      return cb err, @setStatus() if @err
-      @sensor.calc.call this, res, (err) =>
-        cb null, @setStatus()
+      # calculate results
+      @sensor.calc.call this, res, (@err) =>
+        @setStatus()
+        # add to history
+        @history.unshift
+          status: @status
+          date: @date
+          values: @values
+          err: @err
+        @historc.pop() while @history.length > 5
+        return cb null, @status unless @databaseID
+        # store in database
+        storage.results @databaseID, @type, @sensor.meta.values
+        , @date[1], @values, (err) =>
+          return cb err if err
+          cb null, @status
 
+  # set status from rules
   setStatus: ->
     @calcStatus()
     @sensor.debug "#{chalk.grey @name} result status:
     #{@status}#{if @err then ' (' + @err.message + ')' else ''}"
-    for n, v of work.result.values
+    for n, v of @values
       @sensor.debug "#{chalk.grey @name} result #{n}: #{v}"
     @status
 
+  # calculate status
   calcStatus: ->
     return @status = 'fail' if @err
     # check for values
@@ -168,9 +186,65 @@ class Check extends EventEmitter
         return @status = status
     @status = 'ok'
 
+    # ### create text report
+    report: (cb) ->
+      last = @history[@history.length - 1]
+      report = new Report()
+      report.h2 "#{@sensor.meta.title} #{@name}"
+      report.p meta.description
+      report.p "Last check results from #{last.date[0]} are:"
+      # table with max. last 3 values
+      data = []
+      for key, conf of @sensor.meta.values
+        continue unless value = last.values[key]
+        row = [conf.title ? key, Report.b formatValue value, conf]
+        row.push formatValue e.values[key], conf for e in @history[1..2]
+        data.push row
+      col = ['LABEL', Report.b 'VALUE']
+      col.push 'PREVIOUS' for e in @history[1..2] if @history.length > 1
+      report.table data, col
+      if work.sensor.meta.hint
+        report.quote @sensor.meta.hint
+      cb null, report
 
 
 # Export class
 # -------------------------------------------------
 
 module.exports =  Check
+
+# ### Format a value for better human readable display
+formatValue = (value, config) ->
+  # format with autodetect
+  unless config
+    return switch
+      when typeof value is 'number'
+        parts = (Math.round(value * 100) / 100).toString().split '.'
+        parts[0] = parts[0].replace /\B(?=(\d{3})+(?!\d))/g, ","
+        parts.join '.'
+      else
+        value
+  # format using config setting
+  switch config.type
+    when 'percent'
+      Math.round(value * 100).toString() + ' %'
+    when 'byte'
+      byte = math.unit value, 'B'
+      byte.format 3
+    when 'interval'
+      long =
+        d: 'day'
+        m: 'minute'
+      unit = long[config.unit] ? config.unit
+#      console.log value, unit, 'to', 'm', config ###############################################
+      interval = math.unit value, unit
+      interval = interval.to 'm' if interval.toNumber('s') > 120
+      interval.format()
+    when 'float'
+      parts = (Math.round(value * 100) / 100).toString().split '.'
+      parts[0] = parts[0].replace /\B(?=(\d{3})+(?!\d))/g, ","
+      parts.join '.'
+    else
+      val = value
+      val += " #{config.unit}" if val and config.unit
+      val

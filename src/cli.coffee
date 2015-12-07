@@ -95,8 +95,7 @@ commands =
       .filter (e) -> e isnt 'help'
       .map (e) -> "help #{e}"
     run: (args, cb) ->
-      report = new Report
-        color: true
+      report = new Report()
       if args.length and args[0] in Object.keys commands
         cmd = args[0]
         report.h1 "Help for #{cmd} command"
