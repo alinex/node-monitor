@@ -3,7 +3,7 @@ expect = chai.expect
 validator = require 'alinex-validator'
 
 test = require './test'
-hardware = require '../../../src/explorer/hardware'
+hardware = require '../../../src/analyzer/hardware'
 
 describe.skip "Hardware", ->
   @timeout 120000

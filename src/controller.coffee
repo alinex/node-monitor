@@ -14,7 +14,6 @@ EventEmitter = require('events').EventEmitter
 async = require 'alinex-async'
 {string} = require 'alinex-util'
 config = require 'alinex-config'
-validator = require 'alinex-validator'
 # include classes and helpers
 storage = require './storage'
 
@@ -52,17 +51,17 @@ class Controller extends EventEmitter
       (cb) =>
         # Validate configuration
         async.mapOf @conf.check, (setup, num, cb) =>
-          monitor.getSensor setup.sensor, (err, sensorInstance) =>
+          monitor.getSensor setup.sensor, (err, sensor) =>
             if err
               debug chalk.red "Failed to load '#{setup.sensor}' lib because of: #{err}"
               return cb new Error "Check '#{setup.sensor}' not supported"
             validator.check
               name: "#{@name}:#{num}"
               value: setup.config
-              schema: sensorInstance.schema
+              schema: sensor.schema
             , (err, result) =>
               return cb err if err
-              @conf.setup[num].config = result
+              @conf.check[num].config = result
               cb()
         , cb
     ], (err) =>

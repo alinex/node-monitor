@@ -24,7 +24,7 @@ Report = require 'alinex-report'
 # This is used as configuration specification and to add the default values for
 # specific setting.
 #
-# It's a n[alinex-validator](http://alinex.githhub.io/node-validator)
+# It's an [alinex-validator](http://alinex.githhub.io/node-validator)
 # compatible schema definition:
 exports.schema =
   title: "CPU check configuration"
@@ -32,8 +32,6 @@ exports.schema =
   type: 'object'
   default:
     warn: 'active >= 100%'
-    analysis:
-      minCpu: 0.1
   allowedKeys: true
   keys:
     remote:
@@ -47,9 +45,17 @@ exports.schema =
       unit: 's'
       default: 10
       min: 1
-    warn: object.extend {}, sensor.schema.warn,
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
+      optional: true
       default: 'active >= 100%'
-    fail: sensor.schema.fail
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
 
 # General information
 # -------------------------------------------------
@@ -117,105 +123,148 @@ exports.meta =
       description: "percentage of highest usage of a CPU core"
       type: 'percent'
 
-# Get content specific name
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> ''
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = @conf.remote ? 'localhost'
+  cb()
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (check, cb) ->
+exports.run = (cb) ->
   # run check
   async.map [
-    remote: check.config.remote
+    remote: @conf.remote
     cmd: 'sh'
     args: ['-c', "cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"]
     priority: 'immediately'
   ,
-    remote: check.config.remote
+    remote: @conf.remote
     cmd: 'sh'
     args: ['-c', "grep cpu /proc/stat"]
     priority: 'immediately'
   ,
-    remote: check.config.remote
+    remote: @conf.remote
     cmd: 'sh'
-    args: ['-c', "sleep #{check.config.time} && grep cpu /proc/stat"]
+    args: ['-c', "sleep #{@conf.time} && grep cpu /proc/stat"]
     priority: 'immediately'
   ], (setup, cb) ->
     Exec.run setup, cb
   , cb
 
-exports.check = (check, res, cb) ->
+exports.calc = (res, cb) ->
+  # cpu info values
+  @values.cpus = 0
+  @values.speed = 0
+  for line in res[0].stdout().split /\n/
+    match =  line.match(/^(\w+(?: \w+)*).*:\s+(.*)/)
+    switch match[1]
+      when 'processor' then @values.cpus++
+      when 'cpu MHz' then @values.speed += Number match[2]
+  @values.speed /= @values.cpus
+  # cpu load
+  l1 = res[1].stdout().split(/\n/).map (line) ->
+    line.split(/\s+/).map (c) ->
+      if string.starts c, 'cpu' then 0 else Number c
+  l2 = res[2].stdout().split(/\n/).map  (line) ->
+    line.split(/\s+/).map (c) ->
+      if string.starts c, 'cpu' then 0 else Number c
+  for num in [0..l1.length-1]
+    l1[num][0] += c for c in l1[num][1..]
+    l2[num][0] += c for c in l2[num][1..]
+  # get percentage
+  percent = (col) -> (l2[0][col] - l1[0][col]) / (l2[0][0] - l1[0][0])
+  @values.user = percent 1
+  @values.nice = percent 2
+  @values.system = percent 3
+  @values.idle = percent 4
+  @values.wait = percent 5
+  @values.hwint = percent 6
+  @values.swint = percent 7
+  @values.active = 1.0 - @values.idle
+  # get min/max cpus
+  @values.low = 1.0
+  @values.high = 0.0
+  for num in [1..l1.length-1]
+    active = 1.0 - (l2[num][4] - l1[num][4]) / (l2[num][0] - l1[num][0])
+    @values.low = active if active < @values.low
+    @values.high = active if active > @values.high
+  cb()
 
 
-
-
-
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
-  # run check
-  async.map [
-    remote: config.remote
-    cmd: 'sh'
-    args: ['-c', "cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"]
-    priority: 'immediately'
-  ,
-    remote: config.remote
-    cmd: 'sh'
-    args: ['-c', "grep cpu /proc/stat"]
-    priority: 'immediately'
-  ,
-    remote: config.remote
-    cmd: 'sh'
-    args: ['-c', "sleep #{config.time} && grep cpu /proc/stat"]
-    priority: 'immediately'
-  ], (setup, cb) ->
-    Exec.run setup, cb
-  , (err, proc) ->
-    sensor.end work
-    # analyse results
-    if err
-      work.err = err
-    else
-      val = work.result.values
-      # cpu info values
-      val.cpus = 0
-      val.speed = 0
-      for line in proc[0].stdout().split /\n/
-        match =  line.match(/^(\w+(?: \w+)*).*:\s+(.*)/)
-        switch match[1]
-          when 'processor' then val.cpus++
-          when 'cpu MHz' then val.speed += Number match[2]
-      val.speed /= val.cpus
-      # cpu load
-      l1 = proc[1].stdout().split(/\n/).map (line) ->
-        line.split(/\s+/).map (c) ->
-          if string.starts c, 'cpu' then 0 else Number c
-      l2 = proc[2].stdout().split(/\n/).map  (line) ->
-        line.split(/\s+/).map (c) ->
-          if string.starts c, 'cpu' then 0 else Number c
-      for num in [0..l1.length-1]
-        l1[num][0] += c for c in l1[num][1..]
-        l2[num][0] += c for c in l2[num][1..]
-      # get percentage
-      percent = (col) -> (l2[0][col] - l1[0][col]) / (l2[0][0] - l1[0][0])
-      val.user = percent 1
-      val.nice = percent 2
-      val.system = percent 3
-      val.idle = percent 4
-      val.wait = percent 5
-      val.hwint = percent 6
-      val.swint = percent 7
-      val.active = 1.0 - val.idle
-      # get min/max cpus
-      val.low = 1.0
-      val.high = 0.0
-      for num in [1..l1.length-1]
-        active = 1.0 - (l2[num][4] - l1[num][4]) / (l2[num][0] - l1[num][0])
-        val.low = active if active < val.low
-        val.high = active if active > val.high
-      sensor.result work
-    cb err, work.result
+#
+#
+#
+#exports.rrrrun = (config, cb = ->) ->
+#  work =
+#    sensor: this
+#    config: config
+#    result: {}
+#  sensor.start work
+#  # run check
+#  async.map [
+#    remote: config.remote
+#    cmd: 'sh'
+#    args: ['-c', "cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"]
+#    priority: 'immediately'
+#  ,
+#    remote: config.remote
+#    cmd: 'sh'
+#    args: ['-c', "grep cpu /proc/stat"]
+#    priority: 'immediately'
+#  ,
+#    remote: config.remote
+#    cmd: 'sh'
+#    args: ['-c', "sleep #{config.time} && grep cpu /proc/stat"]
+#    priority: 'immediately'
+#  ], (setup, cb) ->
+#    Exec.run setup, cb
+#  , (err, proc) ->
+#    sensor.end work
+#    # analyse results
+#    if err
+#      work.err = err
+#    else
+#      val = work.result.values
+#      # cpu info values
+#      val.cpus = 0
+#      val.speed = 0
+#      for line in proc[0].stdout().split /\n/
+#        match =  line.match(/^(\w+(?: \w+)*).*:\s+(.*)/)
+#        switch match[1]
+#          when 'processor' then val.cpus++
+#          when 'cpu MHz' then val.speed += Number match[2]
+#      val.speed /= val.cpus
+#      # cpu load
+#      l1 = proc[1].stdout().split(/\n/).map (line) ->
+#        line.split(/\s+/).map (c) ->
+#          if string.starts c, 'cpu' then 0 else Number c
+#      l2 = proc[2].stdout().split(/\n/).map  (line) ->
+#        line.split(/\s+/).map (c) ->
+#          if string.starts c, 'cpu' then 0 else Number c
+#      for num in [0..l1.length-1]
+#        l1[num][0] += c for c in l1[num][1..]
+#        l2[num][0] += c for c in l2[num][1..]
+#      # get percentage
+#      percent = (col) -> (l2[0][col] - l1[0][col]) / (l2[0][0] - l1[0][0])
+#      val.user = percent 1
+#      val.nice = percent 2
+#      val.system = percent 3
+#      val.idle = percent 4
+#      val.wait = percent 5
+#      val.hwint = percent 6
+#      val.swint = percent 7
+#      val.active = 1.0 - val.idle
+#      # get min/max cpus
+#      val.low = 1.0
+#      val.high = 0.0
+#      for num in [1..l1.length-1]
+#        active = 1.0 - (l2[num][4] - l1[num][4]) / (l2[num][0] - l1[num][0])
+#        val.low = active if active < val.low
+#        val.high = active if active > val.high
+#      sensor.result work
+#    cb err, work.result

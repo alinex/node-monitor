@@ -142,6 +142,7 @@ class Monitor extends EventEmitter
   getActor: (name, cb) -> get 'actor', name, cb
   getExplorer: (name, cb) -> get 'explorer', name, cb
 
+
   # Show information about specified Element
   # -------------------------------------------------
   showController: (name, cb) ->

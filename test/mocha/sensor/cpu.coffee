@@ -1,31 +1,52 @@
 chai = require 'chai'
 expect = chai.expect
 validator = require 'alinex-validator'
-debug = require('debug')('test:report')
+debugReport = require('debug')('test:report')
 
-test = require './test'
-cpu = require '../../../src/sensor/cpu'
+test = require '../sensor'
+Check = require '../../../src/check'
+sensor = require '../../../src/sensor/cpu'
+
+before (cb) -> test.setup cb
 
 describe.only "CPU", ->
   @timeout 15000
 
-  store = null
+  check = null
+
+  describe "definition", ->
+
+    it "should has sensor instance loaded", (cb) ->
+      expect(sensor, 'sensor instance').to.exist
+      cb()
+
+    it "should has correct validator rules", (cb) ->
+      test.schema sensor, cb
+
+    it "should has meta data", (cb) ->
+      test.meta sensor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
 
   describe "run", ->
 
-    it "should has correct validator rules", (cb) ->
-      test.schema cpu, cb
-
-    it "should has meta data", (cb) ->
-      test.meta cpu, cb
-
-    it "should return success", (cb) ->
-      test.ok cpu, {}, (err, res) ->
-        store = res
-        expect(res.values.active).to.be.above 0
+    it "should create new check", (cb) ->
+      test.init
+        sensor: 'cpu'
+      , (err, instance) ->
+        check = instance
         cb()
 
-  describe "check", ->
+    it "should return success", (cb) ->
+      test.ok check, (err) ->
+        expect(check.values.active).to.be.above 0
+        cb()
+
+
+
 
     it "should give warn on active", (cb) ->
       test.warn cpu,
@@ -47,5 +68,5 @@ describe.only "CPU", ->
 
     it "should make the report", (cb) ->
       test.report cpu, {}, store, (err, report) ->
-        debug "complete report", report
+        debugReport "complete report", report
         cb()

@@ -1,9 +1,13 @@
 chai = require 'chai'
 expect = chai.expect
 validator = require 'alinex-validator'
-index = require '../../../src/index'
+index = require '../../src/index'
+Check = require '../../src/check'
 
-index.setup()
+exports.setup = (cb) ->
+  index.initPlugins cb
+
+# check some general things
 
 exports.schema = (sensor, cb) ->
   for field in ['keys.warn', 'keys.fail']
@@ -18,28 +22,30 @@ exports.meta = (sensor, cb) ->
       expect(val, "values.#{name}").to.have.property field
   cb()
 
-exports.validator = (sensor, values, cb) ->
-  validator.check
-    name: 'test'
-    value: values
-    schema: sensor.schema
-  , (err, conf) ->
+# check run
+
+exports.init = (setup, cb) ->
+  check = new Check setup
+  check.init.call check, (err) ->
     expect(err, 'error').to.not.exist
-    cb err, conf
+    expect(check.sensor, 'sensor instance').to.exist
+    expect(check.name, 'name initialized').to.exist
+    cb err, check
 
-exports.name = (sensor, cb) ->
+exports.run = (check, cb) ->
+  check.run (err) ->
+    expect(err, 'error').to.not.exist
+    expect(check.result, 'result').to.exist
+    cb()
 
-  cb()
-
-exports.ok = (sensor, config, cb) ->
-  @validator sensor, config, (err, conf) ->
-    sensor.run conf, (err, res) ->
-      expect(err, 'error').to.not.exist
-      expect(res.message, 'message').to.not.exist
-      expect(res.status).to.equal 'ok'
-      expect(res, 'result').to.exist
-      expect(res.date, 'date').to.exist
-      cb null, res
+exports.ok = (check, cb) ->
+  check.run (err, status) ->
+    expect(err, 'error').to.not.exist
+    expect(status 'status').to.equal 'ok'
+    expect(check.status, 'stored status').to.equal 'ok'
+    expect(check.values, 'values').to.exist
+    expect(check.date, 'date').to.exist
+    cb err, status
 
 exports.warn = (sensor, config, cb) ->
   @validator sensor, config, (err, conf) ->
