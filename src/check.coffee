@@ -24,6 +24,7 @@ chalk = require 'chalk'
 util = require 'util'
 EventEmitter = require('events').EventEmitter
 vm = require 'vm'
+math = require 'mathjs'
 # include alinex modules
 async = require 'alinex-async'
 {string} = require 'alinex-util'
@@ -37,7 +38,6 @@ storage = require './storage'
 # -------------------------------------------------
 # This will be set on init
 monitor = null  # require './index'
-
 
 # Controller class
 # -------------------------------------------------
@@ -107,13 +107,13 @@ class Check extends EventEmitter
           date: @date
           values: @values
           err: @err
-        @historc.pop() while @history.length > 5
-        return cb null, @status unless @databaseID
+        @history.pop() while @history.length > 5
+        return cb @err, @status unless @databaseID
         # store in database
         storage.results @databaseID, @type, @sensor.meta.values
         , @date[1], @values, (err) =>
           return cb err if err
-          cb null, @status
+          cb @err, @status
 
   # set status from rules
   setStatus: ->
@@ -186,26 +186,33 @@ class Check extends EventEmitter
         return @status = status
     @status = 'ok'
 
-    # ### create text report
-    report: (cb) ->
-      last = @history[@history.length - 1]
-      report = new Report()
-      report.h2 "#{@sensor.meta.title} #{@name}"
-      report.p meta.description
-      report.p "Last check results from #{last.date[0]} are:"
-      # table with max. last 3 values
-      data = []
-      for key, conf of @sensor.meta.values
-        continue unless value = last.values[key]
-        row = [conf.title ? key, Report.b formatValue value, conf]
-        row.push formatValue e.values[key], conf for e in @history[1..2]
-        data.push row
-      col = ['LABEL', Report.b 'VALUE']
-      col.push 'PREVIOUS' for e in @history[1..2] if @history.length > 1
-      report.table data, col
-      if work.sensor.meta.hint
-        report.quote @sensor.meta.hint
-      cb null, report
+  # ### create text report
+  report: (cb) ->
+    last = @history[@history.length - 1]
+    report = new Report()
+    report.h2 "#{@sensor.meta.title} #{@name}"
+    report.p @sensor.meta.description
+    report.p "Last check results from #{last.date[0]} are:"
+    # table with max. last 3 values
+    data = []
+    for key, conf of @sensor.meta.values
+      continue unless value = last.values[key]
+      row = [conf.title ? key]
+      row.push formatValue e.values[key], conf for e in @history[..2]
+      data.push row
+    col =
+      0:
+        title: 'LABEL'
+      1:
+        title: Report.b 'VALUE'
+        align: 'right'
+    if @history.length > 1
+      for e, num in @history[1..2]
+        col[num] = {title: 'PREVIOUS', align: 'right'}
+    report.table data, col
+    if @sensor.meta.hint
+      report.quote @sensor.meta.hint
+    cb null, report
 
 
 # Export class
@@ -227,7 +234,7 @@ formatValue = (value, config) ->
   # format using config setting
   switch config.type
     when 'percent'
-      Math.round(value * 100).toString() + ' %'
+      math.format(value*100, 2) + ' %'
     when 'byte'
       byte = math.unit value, 'B'
       byte.format 3
@@ -236,15 +243,15 @@ formatValue = (value, config) ->
         d: 'day'
         m: 'minute'
       unit = long[config.unit] ? config.unit
-#      console.log value, unit, 'to', 'm', config ###############################################
       interval = math.unit value, unit
       interval = interval.to 'm' if interval.toNumber('s') > 120
       interval.format()
-    when 'float'
-      parts = (Math.round(value * 100) / 100).toString().split '.'
-      parts[0] = parts[0].replace /\B(?=(\d{3})+(?!\d))/g, ","
-      parts.join '.'
+    when 'float', 'integer'
+      if config.unit?
+        math.unit(value, config.unit).format 3
+      else
+        math.format value, 3
     else
       val = value
-      val += " #{config.unit}" if val and config.unit
+      val += " #{config.unit}" if value and config.unit
       val

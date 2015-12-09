@@ -46,15 +46,18 @@ describe.only "CPU", ->
 
     it "should give warn on active", (cb) ->
       @timeout 20000
-      test.warn cpu,
-        warn: 'active > 0.01%'
-      , (err, res) ->
-        expect(res.values.active).to.be.above 0
-        cb()
+      test.init
+        sensor: 'cpu'
+        config:
+          warn: 'active > 0.01%'
+      , (err, instance) ->
+        test.warn instance, (err, res) ->
+          expect(instance.values.active).to.be.above 0
+          cb()
 
   describe "result", ->
 
-    it "should have values defined", (cb) ->
+    it "should have values defined in meta", (cb) ->
       test.values check, cb
 
     it "should get report", (cb) ->

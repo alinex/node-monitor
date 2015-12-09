@@ -62,9 +62,8 @@ class Controller extends EventEmitter
   # ### Run once
   run: (cb =  ->) ->
     # for each sensor in parallel
-    async.mapOf @check, (check, num, cb) =>
-      check.run (err, res) =>
-        return cb err if err
+    async.mapOf @check, (check, num, cb) ->
+      check.run cb
 
 
     # for each sensor in parallel
