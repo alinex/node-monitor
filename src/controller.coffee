@@ -14,6 +14,7 @@ EventEmitter = require('events').EventEmitter
 async = require 'alinex-async'
 {string} = require 'alinex-util'
 config = require 'alinex-config'
+Report = require 'alinex-report'
 # include classes and helpers
 storage = require './storage'
 Check = require './check'

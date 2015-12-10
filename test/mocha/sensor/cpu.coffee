@@ -8,7 +8,7 @@ sensor = require '../../../src/sensor/cpu'
 
 before (cb) -> test.setup cb
 
-describe.only "CPU", ->
+describe "CPU sensor", ->
 
   check = null
 

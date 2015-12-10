@@ -1,21 +1,14 @@
-# Ping test class
+# Database test
 # =================================================
-# This is a basic test to check if connection to a specific server is possible.
-# Keep in mind that some servers mare blocked through firewall settings.
+# This test will not check the availability and performance of a database server
+# but check the database contents.
+
+# Find the description of the possible configuration values and the returned
+# values in the code below.
 #
-# The warning level is based upon the round-trip time of packets which are
-# typically:
-#
-#     1 ms        100BaseT-Ethernet
-#     10 ms       WLAN 802.11b
-#     40 ms       DSL-6000 without fastpath
-#     < 50 ms     internet regional
-#     55 ms       DSL-2000 without fastpath
-#     100–150 ms  internet europe to usa
-#     200 ms      ISDN
-#     300 ms      internet europe to asia
-#     300-400 ms  UMTS
-#     700–1000 ms GPRS
+# This methods will be called in the context of the corresponding check()
+# instance.
+
 
 # Node Modules
 # -------------------------------------------------
@@ -28,8 +21,8 @@ async = require 'alinex-async'
 Exec = require 'alinex-exec'
 {object, string} = require 'alinex-util'
 database = require 'alinex-database'
-# include classes and helpers
-sensor = require '../sensor'
+Report = require 'alinex-report'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -63,26 +56,17 @@ exports.schema =
       unit: 'ms'
       default: 10000
       min: 500
-    warn: sensor.schema.warn
-    fail: sensor.schema.fail
-    analysis:
-      title: "Additional Analysis"
-      description: "the additional query to run if something went wrong"
-      type: 'object'
-      allowedKeys: true
-      keys:
-        query:
-          title: "Query"
-          description: "the query to run to retrieve additional information"
-          type: 'string'
-        timeout:
-          title: "Timeout"
-          description: "the time in milliseconds the whole test may take before
-            stopping it"
-          type: 'interval'
-          unit: 'ms'
-          default: 20000
-          min: 500
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
+      optional: true
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
+
 
 # General information
 # -------------------------------------------------
@@ -92,9 +76,7 @@ exports.meta =
   description: "Run a query on the database to chech a value like count of entries
   in the database."
   category: 'data'
-#  hint: "Check the network card configuration if local ping won't work or the
-#  network connection for external pings. Problems can also be that the firewall
-#  will block the ping port. "
+#  hint: "Check the ... "
 
   # ### Result values
   #
@@ -111,42 +93,30 @@ exports.meta =
       type: 'integer'
       unit: 'ms'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (conf) -> "#{conf.database}: #{string.shorten conf.query, 30}"
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = "#{@conf.database}: #{string.shorten @conf.query, 30}"
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (conf, cb = ->) ->
-  work =
-    sensor: this
-    config: conf
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
-  #database.instance config.database, (err, db) ->
-  #  return cb err if err
-  #  # get a new connection from the pool
-  database.record conf.database, conf.query, (err, record) ->
-    return cb err if err
-#    console.log record
-    sensor.end work
-    val = work.result.values
-    # calculate values
-    val.responseTime = work.result.date[1] - work.result.date[0]
-    val.data = record
-    sensor.result work
-    cb null, work.result
+  database.record @conf.database, @conf.query, cb
 
-# Run additional analysis
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (conf, res, cb = ->) ->
-  return cb() unless conf.analysis?
-  database.list conf.database, conf.analysis.query, (err, list) ->
-    return cb err if err
-    report = """
-    Maybe the following additional results may help:
-
-    #{sensor.formatTable list}\n
-    """
-    cb null, report
+exports.calc = (res, cb) ->
+  return cb() if @err
+  # calculate values
+  @values.responseTime = @date[1] - @date[0]
+  @values.data = res
+  cb()

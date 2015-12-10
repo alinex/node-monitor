@@ -4,6 +4,9 @@
 # Find the description of the possible configuration values and the returned
 # values in the code below.
 #
+# This methods will be called in the context of the corresponding check()
+# instance.
+#
 # The analysis part currently is based on debian linux.
 
 
@@ -18,7 +21,6 @@ async = require 'alinex-async'
 Exec = require 'alinex-exec'
 {object, string} = require 'alinex-util'
 Report = require 'alinex-report'
-# include classes and helpers
 
 
 # Schema Definition
@@ -161,6 +163,9 @@ exports.run = (cb) ->
     Exec.run setup, cb
   , cb
 
+
+# Get the results
+# -------------------------------------------------
 exports.calc = (res, cb) ->
   return cb() if @err
   # cpu info values

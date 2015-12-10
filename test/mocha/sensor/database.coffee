@@ -2,58 +2,68 @@ chai = require 'chai'
 expect = chai.expect
 validator = require 'alinex-validator'
 
-test = require './test'
-database = require '../../../src/sensor/database'
+test = require '../sensor'
+Check = require '../../../src/check'
+sensor = require '../../../src/sensor/database'
 
-describe "database", ->
-  @timeout 10000
+before (cb) -> test.setup cb
 
-  store = null
+describe.only "Database sensor", ->
+
+  check = null
+
+  describe "definition", ->
+
+    it "should has sensor instance loaded", (cb) ->
+      expect(sensor, 'sensor instance').to.exist
+      cb()
+
+    it "should has correct validator rules", (cb) ->
+      test.schema sensor, cb
+
+    it "should has meta data", (cb) ->
+      test.meta sensor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
 
   describe "run", ->
 
-    it "should has correct validator rules", (cb) ->
-      test.schema database, cb
-
-    it "should has meta data", (cb) ->
-      test.meta database, cb
+    it "should create new check", (cb) ->
+      test.init
+        sensor: 'database'
+        config:
+          database: 'test-postgresql'
+          query: "SELECT 100 as num, 'just a number' as comment"
+      , (err, instance) ->
+        check = instance
+        cb()
 
     it "should return success", (cb) ->
-      test.ok database,
-        database: 'test-postgresql'
-        query: "SELECT 100 as num, 'just a number' as comment"
-      , (err, res) ->
-        store = res
-        expect(res.values.data.num).to.be.above 0
+      @timeout 20000
+      test.ok check, (err) ->
+        expect(check.values.data.num).to.be.equal 100
         cb()
-
-  describe "check", ->
 
     it "should give warn", (cb) ->
-      test.warn database,
-        database: 'test-postgresql'
-        query: "SELECT 100 as num, 'just a number' as comment"
-        warn: 'data.num > 0'
-      , (err, res) ->
-        expect(res.values.data.num).to.be.above 0
-        cb()
+      @timeout 20000
+      test.init
+        sensor: 'database'
+        config:
+          database: 'test-postgresql'
+          query: "SELECT 100 as num, 'just a number' as comment"
+          warn: 'data.num > 0'
+      , (err, instance) ->
+        test.warn instance, (err, res) ->
+          expect(instance.values.data.num).to.be.above 0
+          cb()
 
-  describe "reporting", ->
+  describe "result", ->
 
-    it "should make an analysis report", (cb) ->
-      test.analysis database,
-        database: 'test-postgresql'
-        query: "SELECT 100 as num, 'just a number' as comment"
-        analysis:
-          query: "SELECT 'done' as message"
-      , store, (err, report) ->
-        store.analysis = report
-        cb()
+    it "should have values defined in meta", (cb) ->
+      test.values check, cb
 
-    it "should make the report", (cb) ->
-      test.report database,
-        database: 'test-postgresql'
-        query: "SELECT 100 as num, 'just a number' as comment"
-      , store, (err, report) ->
-        console.log report
-        cb()
+    it "should get report", (cb) ->
+      test.report check, cb

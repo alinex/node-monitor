@@ -209,7 +209,7 @@ class Check extends EventEmitter
       0:
         title: 'LABEL'
       1:
-        title: Report.b 'VALUE'
+        title: 'VALUE'
         align: 'right'
     if @history.length > 1
       for e, num in @history[1..2]
