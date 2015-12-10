@@ -34,6 +34,11 @@ Report = require 'alinex-report'
 storage = require './storage'
 
 
+# Configuration
+# -------------------------------------------------
+HISTORY_LENGTH = 5
+
+
 # Initialized Data
 # -------------------------------------------------
 # This will be set on init
@@ -52,7 +57,7 @@ class Check extends EventEmitter
     @name = null
     @databaseID = null
     @base = null
-    # will be set on run
+    # will be filled on run
     @result = null
     @status = 'disabled'
     @err = null
@@ -81,7 +86,7 @@ class Check extends EventEmitter
           return cb() unless @controller?
           # only add database entry if run below controller
           storage.check @controller.databaseID, @type, @name, @sensor.meta.category
-          , (err, checkID) ->
+          , (err, checkID) =>
             return cb err if err
             @databaseID = checkID
             cb()
@@ -107,7 +112,7 @@ class Check extends EventEmitter
           date: @date
           values: @values
           err: @err
-        @history.pop() while @history.length > 5
+        @history.pop() while @history.length > HISTORY_LENGTH
         return cb @err, @status unless @databaseID
         # store in database
         storage.results @databaseID, @type, @sensor.meta.values

@@ -16,6 +16,13 @@ async = require 'alinex-async'
 config = require 'alinex-config'
 # include classes and helpers
 storage = require './storage'
+Check = require './check'
+
+
+# Configuration
+# -------------------------------------------------
+HISTORY_LENGTH = 5
+
 
 # Initialized Data
 # -------------------------------------------------
@@ -29,20 +36,26 @@ class Controller extends EventEmitter
 
   # ### Create instance
   constructor: (@name, @conf, @mode) ->
-    # ### Data storage with last results
-    @status = 'disabled' # Last status
-    @check = [] # Instances
+    @check = [] # Instances added on initialization
     @timeout = null # timer for next run
+    # Data storage with last results
+    @status = 'disabled' # Last status
+    @date = null # last run
+    @err = null
+    # last results
+    @history = []
+    @changed = 0
 
 
   # ### Initialize
   init: (cb) ->
+    debug "#{chalk.grey @name} Initialize controller..."
     monitor ?= require './index'
     # create base data in storage
     storage.controller @name, (err, @databaseID) =>
       return cb err if err
       async.each @conf.check, (setup, cb) =>
-        check = new Check setup
+        check = new Check setup, this
         @check.push check
         check.init cb
       , (err) =>
@@ -62,82 +75,38 @@ class Controller extends EventEmitter
   # ### Run once
   run: (cb =  ->) ->
     # for each sensor in parallel
-    async.mapOf @check, (check, num, cb) ->
+    async.map @check, (check, cb) ->
       check.run cb
-
-
-    # for each sensor in parallel
-    async.mapOf @conf.check, (check, num, cb) =>
-      # load sensor
-      monitor = require './index'
-      monitor.getSensor check.sensor, (err, sensorInstance) =>
-        if err
-          return cb new Error "Could not find sensor #{check.sensor}"
-        name = "#{check.sensor}:#{sensorInstance.name check.config}"
-        debug "#{chalk.grey @name} Running check #{name}..."
-        # run sensor
-        sensorInstance.run check.config, (err, res) =>
-          return cb err if err
-          res =
-            sensor: sensorInstance
-            config: check.config
-            result: res
-            hint: check.hint
-          # check for status change and store it
-          storage.statusCheck check.databaseID, res.result.date[1]
-          , res.result.status, res.result.message, (err, changed) =>
-            return cb err if err
-            changed ?= @checks.length and res.result.status isnt @checks[0][num].status
-            res.result.changed = changed
-            # status info
-            debugSensor "#{chalk.grey @name} Check #{name} => #{@colorStatus res.result.status}#{
-              if res.result.message then ' (' + res.result.message + ')' else ''
-              }#{if changed then ' CHANGED' else ''}"
-            if @mode?.verbose
-              msg = "Check #{chalk.white @name + ' ' + name} => #{@colorStatus res.result.status}"
-              msg += " (#{res.result.message})" if res.result.message
-              msg += " CHANGED" if changed
-              if @mode.verbose > 1
-                msg += '\n' + util.inspect res.result.values
-              console.log chalk.grey msg
-            # store results in storage
-            storage.results check.databaseID, check.sensor, sensorInstance.meta.values
-            , res.result.date[1], res.result.values, (err) =>
-              return cb err if err
-              # run analysis
-              if changed or @mode?.verbose > 2
-                sensorInstance.analysis check.config, res.result, (err, report) ->
-                  return cb err if err
-                  res.result.analysis = report
-              cb null, res
-    , (err, results) =>
-#      console.log err, results
+    , (err, res) =>
       return cb err if err
-      res = Object.keys(results).map (k) -> # convert to array
-        results[k].result
-      # store all sensor results locally
-      @checks.pop() if @checks.length > 5
-      @checks.unshift res
+      @date = new Date()
       # calculate controller status
       status = calcStatus @conf.combine, @conf.check, res
       # check for status change and store it
       storage.statusController @databaseID, new Date(), status, (err, changed) =>
         return cb err if err
-        changed ?= status isnt @status
+        # store new values
+        @changed = changed ? status isnt @status
         @status = status
+        # add to history
+        @history.unshift
+          status: @status
+          date: @date
+          err: @err
+        @history.pop() while @history.length > HISTORY_LENGTH
         # info
         debug "#{chalk.grey @name} Controller => #{@colorStatus()}
         #{if changed then ' CHANGED' else ''}"
         # make report
-        report = @report results
+        report = @report()
         if @mode?.verbose > 2
-          console.error report
-  #      console.log report
+          console.error report.toConsole()
         @emit 'result', this
         cb()
 
   # ### Create a report
   report: (results) ->
+    return ''
     # make report
     context =
       name: @name
@@ -234,7 +203,7 @@ calcStatus = (combine, check, result) ->
       status = 0
       for num, setup of check
         continue if setup.weight is 0
-        val = values[result[num].status]
+        val = values[result[num]]
         val-- if setup.weight is 'down' and val > 0
         val++ if setup.weight is 'up' and val < 2
         status = val if val > status
@@ -243,7 +212,7 @@ calcStatus = (combine, check, result) ->
       num = 0
       for num, setup of check
         continue if setup.weight is 0
-        val = values[result[num].status]
+        val = values[result[num]]
         val-- if setup.weight is 'down' and val > 0
         val++ if setup.weight is 'up' and val < 2
         status = val if val < status
@@ -254,7 +223,7 @@ calcStatus = (combine, check, result) ->
       num = 0
       for num, setup of check
         continue if setup.weight is 0
-        val = values[result[num].status]
+        val = values[result[num]]
         val-- if setup.weight is 'down' and val > 0
         val++ if setup.weight is 'up' and val < 2
         status += val * setup.weight
