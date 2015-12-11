@@ -1,9 +1,10 @@
 chai = require 'chai'
 expect = chai.expect
-validator = require 'alinex-validator'
 
+validator = require 'alinex-validator'
 test = require '../sensor'
 Check = require '../../../src/check'
+
 sensor = require '../../../src/sensor/cpu'
 
 before (cb) -> test.setup cb

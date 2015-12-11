@@ -1,61 +1,72 @@
 chai = require 'chai'
 expect = chai.expect
+
 validator = require 'alinex-validator'
+test = require '../sensor'
+Check = require '../../../src/check'
 
-test = require './test'
-diskfree = require '../../../src/sensor/diskfree'
+sensor = require '../../../src/sensor/diskfree'
 
-describe "Diskfree", ->
+before (cb) -> test.setup cb
 
-  store = null
+describe.only "Diskfree sensor", ->
+
+  check = null
+
+  describe "definition", ->
+
+    it "should has sensor instance loaded", (cb) ->
+      expect(sensor, 'sensor instance').to.exist
+      cb()
+
+    it "should has correct validator rules", (cb) ->
+      test.schema sensor, cb
+
+    it "should has meta data", (cb) ->
+      test.meta sensor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
 
   describe "run", ->
 
-    it "should has correct validator rules", (cb) ->
-      test.schema diskfree, cb
-
-    it "should has meta data", (cb) ->
-      test.meta diskfree, cb
+    it "should create new check", (cb) ->
+      test.init
+        sensor: 'diskfree'
+        config:
+          share: '/'
+      , (err, instance) ->
+        check = instance
+        cb()
 
     it "should return success", (cb) ->
-      @timeout 10000
-      test.ok diskfree,
-        share: '/'
-      , (err, res) ->
-        store = res
-        expect(res.values.total).to.be.above 0
-        expect(res.values.used).to.be.above 0
-        expect(res.values.free).to.be.above 0
+      @timeout 20000
+      test.ok check, (err) ->
+        expect(check.values.total).to.be.above 0
+        expect(check.values.used).to.be.above 0
+        expect(check.values.free).to.be.above 0
         cb()
 
     it "should work with binary values", (cb) ->
-      test.ok diskfree,
-        share: '/'
-        warn: 'free < 1GB'
-      , (err, res) ->
-        expect(res.values.total).to.be.above 0
-        expect(res.values.used).to.be.above 0
-        expect(res.values.free).to.be.above 0
-        cb()
-
-  describe "reporting", ->
-
-    it "should make an analysis report", (cb) ->
       @timeout 20000
-      test.analysis diskfree,
-        share: '/'
-        analysis:
-          dirs: '/tmp, /var/log'
-      , store, (err, report) ->
-        store.analysis = report
-        console.log report
-        cb()
+      test.init
+        sensor: 'diskfree'
+        config:
+          share: '/'
+          warn: 'free < 1GB'
+      , (err, instance) ->
+        test.ok instance, (err, res) ->
+          expect(check.values.total).to.be.above 0
+          expect(check.values.used).to.be.above 0
+          expect(check.values.free).to.be.above 0
+          cb()
 
-    it "should make the report", (cb) ->
-      test.report diskfree,
-        share: '/'
-        analysis:
-          dirs: '/tmp, /var/log'
-      , store, (err, report) ->
-        console.log report
-        cb()
+  describe "result", ->
+
+    it "should have values defined in meta", (cb) ->
+      test.values check, cb
+
+    it "should get report", (cb) ->
+      test.report check, cb

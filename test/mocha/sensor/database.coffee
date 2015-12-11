@@ -1,14 +1,15 @@
 chai = require 'chai'
 expect = chai.expect
-validator = require 'alinex-validator'
 
+validator = require 'alinex-validator'
 test = require '../sensor'
 Check = require '../../../src/check'
+
 sensor = require '../../../src/sensor/database'
 
 before (cb) -> test.setup cb
 
-describe.only "Database sensor", ->
+describe "Database sensor", ->
 
   check = null
 

@@ -15,13 +15,9 @@
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:database')
-chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
-Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
 database = require 'alinex-database'
-Report = require 'alinex-report'
 
 
 # Schema Definition
