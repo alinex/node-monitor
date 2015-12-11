@@ -202,9 +202,15 @@ class Check extends EventEmitter
     data = []
     for key, conf of @sensor.meta.values
       continue unless value = last.values[key]
-      row = [conf.title ? key]
-      row.push formatValue e.values[key], conf for e in @history[..2]
-      data.push row
+      if typeof value is 'object' and not Array.isArray value
+        for k of value
+          row = ["#{conf.title ? key}.#{k}"]
+          row.push formatValue e.values[key][k], conf for e in @history[..2]
+          data.push row
+      else
+        row = [conf.title ? key]
+        row.push formatValue e.values[key], conf for e in @history[..2]
+        data.push row
     col =
       0:
         title: 'LABEL'
@@ -256,6 +262,21 @@ formatValue = (value, config) ->
         math.unit(value, config.unit).format 3
       else
         math.format value, 3
+    when 'array'
+      val = value[0..9].join ', '
+      val += '...' if value.length > 10
+      val
+    when 'object'
+      switch typeof value
+        when 'string', 'number'
+          value
+        else
+          if Array.isArray value
+            val = value[0..9].join ', '
+            val += '...' if value.length > 10
+            val
+          else
+            util.inspect(value).replace /\n/g, ' '
     else
       val = value
       val += " #{config.unit}" if value and config.unit

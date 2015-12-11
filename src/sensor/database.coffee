@@ -84,7 +84,7 @@ exports.meta =
   # You may use any of these in your warn/fail expressions.
   values:
     data:
-      title: 'Values'
+      title: 'Data'
       description: "the concrete values from the query"
       type: 'object'
     responseTime:
