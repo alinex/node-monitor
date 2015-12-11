@@ -3,20 +3,22 @@
 
 # Find the description of the possible configuration values and the returned
 # values in the code below.
-# But the analysis part currently only works on linux.
+#
+# This methods will be called in the context of the corresponding check()
+# instance.
+#
+# The analysis part currently is based on debian linux.
+
 
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:memory')
-chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -39,27 +41,17 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
-    warn: object.extend {}, sensor.schema.warn,
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
       default: 'free < 1%'
-    fail: sensor.schema.fail
-    analysis:
-      title: "Analysis Run"
-      description: "the configuration for the analysis if it is run"
-      type: 'object'
-      allowedKeys: true
-      keys:
-        minMem:
-          title: "Minimum %MEM"
-          description: "the minimum memory usage to include"
-          type: 'percent'
-          min: 0
-          default: 0.1
-        numProc:
-          title: "Top X"
-          description: "the number of top CPU heavy processes for analysis"
-          type: 'integer'
-          min: 1
-          default: 5
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
+
 
 # General information
 # -------------------------------------------------
@@ -135,96 +127,49 @@ exports.meta =
       description: "percentage of free swap memory"
       type: 'percent'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> ''
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = @conf.remote ? 'localhost'
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
   Exec.run
-    remote: config.remote
+    remote: @conf.remote
     cmd: 'cat'
     args: ['/proc/meminfo']
     priority: 'immediately'
-  , (err, proc) ->
-    sensor.end work
-    # analyse results
-    if err
-      work.err = err
-    else
-      val = work.result.values
-      # calculate results
-      for line in proc.stdout().split /\n/
-        col = line.split /\s+/
-        switch col[0]
-          when 'MemTotal:' then val.total = col[1] * 1024
-          when 'MemFree:' then val.free = col[1] * 1024
-          when 'MemShared:' then val.shared = col[1] * 1024
-          when 'Shmem:' then val.shared = col[1] * 1024
-          when 'Buffers:' then val.buffers = col[1] * 1024
-          when 'Cached:' then val.cached = col[1] * 1024
-          when 'SwapTotal:' then val.swapTotal = col[1] * 1024
-          when 'SwapFree:' then val.swapFree = col[1] * 1024
-      val.used = val.total - val.free
-      val.swapUsed = val.swapTotal - val.swapFree
-      val.actualFree = val.free + val.buffers + val.cached
-      val.percentFree = val.actualFree/val.total
-      val.swapPercentFree = val.swapFree/val.swapTotal
-      sensor.result work
-      cb err, work.result
+  , cb
 
-# Run additional analysis
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
-  return cb() unless config.analysis?
-  # get additional information
-  if config.analysis.minMem
-    min = Math.floor config.analysis.minMem * 100
-    report = "The top memory consuming processes above #{min}% are:\n\n"
-  else
-    report = "The top #{config.analysis.numProc} memory consuming processes are:\n\n"
-  report += """
-    | COUNT |  %CPU |  %MEM | COMMAND                                            |
-    | ----: | ----: | ----: | -------------------------------------------------- |\n"""
-  Exec.run
-    remote: config.remote
-    cmd: 'sh'
-    args: [
-      '-c'
-      "ps axu | awk 'NR>1 {print $2, $3, $4, $11}'"
-    ]
-    priority: 'immediately'
-  , (err, proc) ->
-    return cb err if err
-    procs = {}
-    for line in proc.stdout().split /\n/
-      continue unless line
-      col = line.split /\s/, 4
-      procs[col[3]] ?= [ 0, 0, 0 ]
-      procs[col[3]][0]++
-      procs[col[3]][1] += parseFloat col[1]
-      procs[col[3]][2] += parseFloat col[2]
-    keys = Object.keys(procs).sort (a, b) ->
-      procs[b][2] - procs[a][2]
-    found = false
-    num = 0
-    for proc in keys
-      num++
-      value = procs[proc]
-      continue if min and value[1] < min
-      continue if config.analysis.numProc and num > config.analysis.numProc
-      found = true
-      value[1] = if value[1] > 100 then Math.floor value[1] else Math.round(value[1] * 10) / 10
-      value[2] = if value[2] > 100 then Math.floor value[2] else Math.round(value[2] * 10) / 10
-      report += "| #{string.lpad value[0], 5} | #{string.lpad value[1].toString() + '%', 5}
-        | #{string.lpad value[2].toString() + '%', 5} | #{string.rpad proc, 50} |\n"
-    if min and not found
-      return cb null, "No high memory consuming processes over #{min}% found!"
-    cb null, report
+exports.calc = (res, cb) ->
+  return cb() if @err
+  # calculate results
+  for line in res.stdout().split /\n/
+    col = line.split /\s+/
+    switch col[0]
+      when 'MemTotal:' then @values.total = col[1] * 1024
+      when 'MemFree:' then @values.free = col[1] * 1024
+      when 'MemShared:' then @values.shared = col[1] * 1024
+      when 'Shmem:' then @values.shared = col[1] * 1024
+      when 'Buffers:' then @values.buffers = col[1] * 1024
+      when 'Cached:' then @values.cached = col[1] * 1024
+      when 'SwapTotal:' then @values.swapTotal = col[1] * 1024
+      when 'SwapFree:' then @values.swapFree = col[1] * 1024
+  @values.used = @values.total - @values.free
+  @values.swapUsed = @values.swapTotal - @values.swapFree
+  @values.actualFree = @values.free + @values.buffers + @values.cached
+  @values.percentFree = @values.actualFree/@values.total
+  @values.swapPercentFree = @values.swapFree/@values.swapTotal
+  cb()

@@ -1,48 +1,65 @@
 chai = require 'chai'
 expect = chai.expect
+
 validator = require 'alinex-validator'
+test = require '../sensor'
+Check = require '../../../src/check'
 
-test = require './test'
-memory = require '../../../src/sensor/memory'
+sensor = require '../../../src/sensor/memory'
 
-describe "Memory", ->
-  @timeout 10000
+before (cb) -> test.setup cb
 
-  store = null
+describe "Memory sensor", ->
+
+  check = null
+
+  describe "definition", ->
+
+    it "should has sensor instance loaded", (cb) ->
+      expect(sensor, 'sensor instance').to.exist
+      cb()
+
+    it "should has correct validator rules", (cb) ->
+      test.schema sensor, cb
+
+    it "should has meta data", (cb) ->
+      test.meta sensor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
 
   describe "run", ->
 
-    it "should has correct validator rules", (cb) ->
-      test.schema memory, cb
-
-    it "should has meta data", (cb) ->
-      test.meta memory, cb
+    it "should create new check", (cb) ->
+      test.init
+        sensor: 'memory'
+      , (err, instance) ->
+        check = instance
+        cb()
 
     it "should return success", (cb) ->
-      test.ok memory, {}, (err, res) ->
-        store = res
-        expect(res.values.used).to.be.above 0
+      @timeout 20000
+      test.ok check, (err) ->
+        expect(check.values.used).to.be.above 0
         cb()
 
-  describe "check", ->
+    it "should give warn", (cb) ->
+      @timeout 20000
+      test.init
+        sensor: 'memory'
+        config:
+          warn: 'used > 0.01%'
+      , (err, instance) ->
+        test.warn instance, (err, res) ->
+          expect(instance.values.used).to.be.above 0
+          cb()
 
-    it "should give warn on active", (cb) ->
-      test.warn memory,
-        warn: 'used > 0.01%'
-      , (err, res) ->
-        expect(res.values.used).to.be.above 0
-        cb()
+  describe "result", ->
 
-  describe "reporting", ->
+    it "should have values defined in meta", (cb) ->
+      test.values check, cb
 
-    it "should get analysis data", (cb) ->
-      @timeout 5000
-      test.analysis memory, {}, store, (err, report) ->
-        store.analysis = report
-        console.log report
-        cb()
-
-    it "should make the report", (cb) ->
-      test.report memory, {}, store, (err, report) ->
-        console.log report
-        cb()
+    it "should get report", (cb) ->
+      test.report check, cb
