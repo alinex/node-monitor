@@ -18,6 +18,7 @@ exports.debug = debug = require('debug')('monitor:sensor:database')
 # include alinex modules
 async = require 'alinex-async'
 database = require 'alinex-database'
+{string} = require 'alinex-util'
 
 
 # Schema Definition

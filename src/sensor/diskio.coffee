@@ -3,20 +3,22 @@
 
 # Find the description of the possible configuration values and the returned
 # values in the code below.
-# But the analysis part currently only works on linux.
+#
+# This methods will be called in the context of the corresponding check()
+# instance.
+#
+# The analysis part currently is based on debian linux.
+
 
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:diskio')
-chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -46,8 +48,16 @@ exports.schema =
       unit: 's'
       default: 10
       min: 1
-    warn: sensor.schema.warn
-    fail: sensor.schema.fail
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
+      optional: true
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
 
 # General information
 # -------------------------------------------------
@@ -93,63 +103,61 @@ exports.meta =
       type: 'byte'
       unit: 'B'
     readTime:
-      title: "Read/s"
+      title: "Read Time/s"
       description: "the amount of data read from the device per second"
       type: 'interval'
       unit: 'ms'
     writeTime:
-      title: "Write/s"
+      title: "Write Time/s"
       description: "the amount of data written to the device per second"
       type: 'interval'
       unit: 'ms'
 
-# Get content specific name
+
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> config.device
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = @conf.device
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
   async.map [
-    remote: config.remote
+    remote: @conf.remote
     cmd: 'sh'
-    args: ['-c', "grep #{config.device} /proc/diskstats"]
+    args: ['-c', "grep #{@conf.device} /proc/diskstats"]
     priority: 'immediately'
   ,
-    remote: config.remote
+    remote: @conf.remote
     cmd: 'sh'
-    args: ['-c', "sleep #{config.time} && grep #{config.device} /proc/diskstats"]
+    args: ['-c', "sleep #{@conf.time} && grep #{@conf.device} /proc/diskstats"]
     priority: 'immediately'
   ], (setup, cb) ->
     Exec.run setup, cb
-  , (err, proc) ->
-    sensor.end work
-    # analyse results
-    if err
-      work.err = err
-    else
-      val = work.result.values
-      # calculate diffs
-      l1 = proc[0].stdout().trim().split(/\s+/)
-      l2 = proc[1].stdout().trim().split(/\s+/)
-      val.read = (Number(l2[3]) - Number(l1[3])) / config.time
-      val.write = (Number(l2[7]) - Number(l1[7])) / config.time
-      val.readSize = (Number(l2[5]) - Number(l1[5])) / config.time * 512
-      val.writeSize = (Number(l2[9]) - Number(l1[9])) / config.time * 512
-      val.readTotal = Number(l2[5]) * 512
-      val.writeTotal = Number(l2[9]) * 512
-      val.readTime = (Number(l2[6]) - Number(l1[6])) / config.time
-      val.writeTime = (Number(l2[10]) - Number(l1[10])) / config.time
-      sensor.result work
-      cb err, work.result
+  , cb
 
-# Run additional analysis
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
+exports.calc = (res, cb) ->
+  return cb() if @err
+  # calculate diffs
+  l1 = res[0].stdout().trim().split(/\s+/)
+  l2 = res[1].stdout().trim().split(/\s+/)
+  @values.read = (Number(l2[3]) - Number(l1[3])) / @conf.time
+  @values.write = (Number(l2[7]) - Number(l1[7])) / @conf.time
+  @values.readSize = (Number(l2[5]) - Number(l1[5])) / @conf.time * 512
+  @values.writeSize = (Number(l2[9]) - Number(l1[9])) / @conf.time * 512
+  @values.readTotal = Number(l2[5]) * 512
+  @values.writeTotal = Number(l2[9]) * 512
+  @values.readTime = (Number(l2[6]) - Number(l1[6])) / @conf.time
+  @values.writeTime = (Number(l2[10]) - Number(l1[10])) / @conf.time
   cb()

@@ -1,46 +1,68 @@
 chai = require 'chai'
 expect = chai.expect
+
 validator = require 'alinex-validator'
+test = require '../sensor'
+Check = require '../../../src/check'
 
-test = require './test'
-diskio = require '../../../src/sensor/diskio'
+sensor = require '../../../src/sensor/diskio'
 
-describe "DiskIO", ->
-  @timeout 15000
+before (cb) -> test.setup cb
 
-  store = null
+describe.only "DiskIO sensor", ->
+
+  check = null
+
+  describe "definition", ->
+
+    it "should has sensor instance loaded", (cb) ->
+      expect(sensor, 'sensor instance').to.exist
+      cb()
+
+    it "should has correct validator rules", (cb) ->
+      test.schema sensor, cb
+
+    it "should has meta data", (cb) ->
+      test.meta sensor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
 
   describe "run", ->
 
-    it "should has correct validator rules", (cb) ->
-      test.schema diskio, cb
-
-    it "should has meta data", (cb) ->
-      test.meta diskio, cb
+    it "should create new check", (cb) ->
+      test.init
+        sensor: 'diskio'
+        config:
+          device: 'sda'
+      , (err, instance) ->
+        check = instance
+        cb()
 
     it "should return success", (cb) ->
-      test.ok diskio,
-        device: 'sda'
-      , (err, res) ->
-        store = res
-        expect(res.values.read).to.exist
+      @timeout 20000
+      test.ok check, (err) ->
+        expect(check.values.read).to.exist
         cb()
 
-  describe "check", ->
+    it "should give warn", (cb) ->
+      @timeout 20000
+      test.init
+        sensor: 'diskio'
+        config:
+          device: 'sda'
+          warn: 'read >= 0'
+      , (err, instance) ->
+        test.warn instance, (err, res) ->
+          expect(instance.values.read).to.be.above 0
+          cb()
 
-    it "should give warn on active", (cb) ->
-      test.warn diskio,
-        device: 'sda'
-        warn: 'read >= 0'
-      , (err, res) ->
-        expect(res.values.read).to.exist
-        cb()
+  describe "result", ->
 
-  describe "reporting", ->
+    it "should have values defined in meta", (cb) ->
+      test.values check, cb
 
-    it "should make the report", (cb) ->
-      test.report diskio,
-        device: 'sda'
-      , store, (err, report) ->
-        console.log report
-        cb()
+    it "should get report", (cb) ->
+      test.report check, cb
