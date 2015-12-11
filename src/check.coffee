@@ -25,6 +25,7 @@ util = require 'util'
 EventEmitter = require('events').EventEmitter
 vm = require 'vm'
 math = require 'mathjs'
+named = require('named-regexp').named
 # include alinex modules
 async = require 'alinex-async'
 {string} = require 'alinex-util'
@@ -95,16 +96,24 @@ class Check extends EventEmitter
   run: (cb) ->
     @sensor.debug "#{chalk.grey @name} start check"
     @status = 'running'
+    return @runNow null, cb unless @sensor.prerun?
+    # call prerun first
+    @sensor.prerun.call this, (@err, res) => @runNow res, cb
+
+
+  # ### Really run (after optional prerun call)
+  runNow: (opt, cb) ->
     @err = null
     @date = [new Date()]
     @values = {}
     @changed = 0
     # run the sensor
-    @sensor.run.call this, (@err, res) =>
+    fn = (@err, res) =>
       @sensor.debug "#{chalk.grey @name} ended check"
       @date[1] = new Date()
       # calculate results
-      @sensor.calc.call this, res, (@err) =>
+      @sensor.calc.call this, res, (err) =>
+        @err = err if not @err and err
         @setStatus()
         # add to history
         @history.unshift
@@ -119,6 +128,10 @@ class Check extends EventEmitter
         , @date[1], @values, (err) =>
           return cb err if err
           cb @err, @status
+    if opt?
+      @sensor.run.call this, opt, fn
+    else
+      @sensor.run.call this, fn
 
   # set status from rules
   setStatus: ->
@@ -225,6 +238,31 @@ class Check extends EventEmitter
       report.quote @sensor.meta.hint
     cb null, report
 
+  # Helper methods for sensor
+  # -------------------------------------------------
+
+  # ### Check expression against string
+  #
+  # It will will try to match the given expression once and return the matched
+  # groups or false if not matched. The groups are an array with the full match as
+  # first element or in case of named regexp an object with key 'match' containing
+  # the full match.
+  match: (text, re) ->
+    return false unless re?
+    unless re instanceof RegExp
+      return if Boolean ~text.indexOf re then [re] else false
+    # it's an regular expression
+    useNamed = ~re.toString().indexOf '(:<'
+    re = named re if useNamed
+    return false unless match = re.exec text
+    if useNamed
+      matches = {}
+      matches[name] = match.capture name for name of match.captures
+    else
+      matches = match[0..match.length]
+    return matches
+
+
 
 # Export class
 # -------------------------------------------------
@@ -256,7 +294,7 @@ formatValue = (value, config) ->
       unit = long[config.unit] ? config.unit
       interval = math.unit value, unit
       interval = interval.to 'm' if interval.toNumber('s') > 120
-      interval.format()
+      interval.format 2
     when 'float', 'integer'
       if config.unit?
         math.unit(value, config.unit).format 3

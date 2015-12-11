@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/diskio'
 
 before (cb) -> test.setup cb
 
-describe.only "DiskIO sensor", ->
+describe "DiskIO sensor", ->
 
   check = null
 

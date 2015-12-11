@@ -51,7 +51,7 @@ exports.warn = (check, cb) ->
     expect(check.date, 'date').to.exist
     expect(err, 'error').to.exist
     expect(check.err, 'error').to.exist
-    cb err, status
+    cb null, status
 
 exports.fail = (check, cb) ->
   check.run (err, status) ->
@@ -60,7 +60,7 @@ exports.fail = (check, cb) ->
     expect(check.date, 'date').to.exist
     expect(err, 'error').to.exist
     expect(check.err, 'error').to.exist
-    cb err, status
+    cb null, status
 
 exports.values = (check, cb) ->
   for name, val of check.values

@@ -1,22 +1,27 @@
-# Socket test class
+# Html request
 # =================================================
 # This may be used to check the connection to different ports using TCP.
+
+# Find the description of the possible configuration values and the returned
+# values in the code below.
+#
+# This methods will be called in the context of the corresponding check()
+# instance.
+
 
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:http')
-chalk = require 'chalk'
 request = require 'request'
 http = require 'http'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 config = require 'alinex-config'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+{string} = require 'alinex-util'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -69,21 +74,17 @@ exports.schema =
         type: 'object'
         instanceOf: RegExp
       ]
-    analysis:
-      title: "Analysis Run"
-      description: "the configuration for the analysis if it is run"
-      type: 'object'
-      allowedKeys: true
-      keys:
-        bodyLength:
-          title: "Analysis Length"
-          description: "the maximum body display length in analysis report"
-          type: 'integer'
-          min: 1
-          default: 256
-    warn: sensor.schema.warn
-    fail: object.extend {}, sensor.schema.fail,
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
+      optional: true
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
       default: 'statusCode < 200 or statusCode >= 400'
+
 
 # General information
 # -------------------------------------------------
@@ -129,61 +130,65 @@ exports.meta =
       description: "success of check for content with containing result strings"
       type: 'object'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (conf) -> "->#{conf.url}"
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = string.shorten @conf.url, 30
+  cb()
+
+
+# Preset this run
+# -------------------------------------------------
+exports.prerun = (cb) ->
+  # configure request
+  option =
+    url: @conf.url
+    headers:
+      'User-Agent': "Alinex Monitor through request.js"
+  option.timeout = @conf.timeout if @conf.timeout?
+  remote @conf, option, =>
+    if @conf.username? and @conf.password?
+      option.auth =
+        username: @conf.username
+        password: @conf.password
+    debug "request #{@conf.url}"
+    cb null, option
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (conf, cb = ->) ->
-  work =
-    sensor: this
-    config: conf
-    result: {}
-  # configure request
-  option =
-    url: conf.url
-    headers:
-      'User-Agent': "Alinex Monitor through request.js"
-  option.timeout = conf.timeout if conf.timeout?
-  remote conf, option, ->
-    if conf.username? and conf.password?
-      option.auth =
-        username: conf.username
-        password: conf.password
-    # start the request
-    sensor.start work
-    debug "request #{conf.url}"
-    request option, (err, response, body) ->
-      # request finished
-      sensor.end work
-      # error checking
-      if err
-        work.err = err
-        debug chalk.red err.message
-  #    console.log 111111111111111, response
-  #    throw new Error 'xxx'
-      if response
-        work.result._analysis =
-          request:
-            headers: response.request?.headers
-          response:
-            headers: response.headers
-            body: response.body
-  #    console.log 222222222222222222222222222, work.result.analysis
-      # get the values
-      val = work.result.values
-      val.responseTime = work.result.date[1] - work.result.date[0]
-      if response?
-        val.statusCode = response.statusCode
-        val.statusMessage = http.STATUS_CODES[response.statusCode]
-        val.server = response.headers.server
-        val.contentType = response.headers['content-type']
-        val.length = response.connection.bytesRead
-        val.match = sensor.match body, conf.match
-      # evaluate to check status
-      sensor.result work
-      cb null, work.result
+exports.run = (option, cb) ->
+  request option, (err, response, body) ->
+    cb err,
+      response: response
+      body: body
+
+
+# Get the results
+# -------------------------------------------------
+exports.calc = (res, cb) ->
+  return cb() if @err
+  @values.responseTime = @date[1] - @date[0]
+  return cb() unless res.response?
+  # get the values
+  @values.statusCode = res.response.statusCode
+  @values.statusMessage = http.STATUS_CODES[res.response.statusCode]
+  @values.server = res.response.headers.server
+  @values.contentType = res.response.headers['content-type']
+  @values.length = res.response.connection.bytesRead
+  @values.match = @match res.body, @conf.match
+  cb()
+
+
+# Helper methods
+# -------------------------------------------------
+
+# get remote tunnel
 
 remote = (conf, option, cb) ->
   return cb() unless conf.remote
@@ -203,35 +208,3 @@ remote = (conf, option, cb) ->
     option.agentOptions =
       socksPort: '7000'
     cb()
-
-# Run additional analysis
-# -------------------------------------------------
-exports.analysis = (conf, res, cb = ->) ->
-  request = res._analysis?.request
-  response = res._analysis?.response
-  delete res._analysis
-  return cb() unless conf.analysis
-  # get additional information (top processes)
-  report = """
-  See the following details of the check which may give you a hint there the
-  problem is.
-
-  __GET #{conf.url}__\n
-  """
-  if request?.headers?
-    report += '\n'
-    for key, value of request.headers
-      report += "    #{key}: #{value}\n"
-  report += "\nResponse:\n\n"
-  if response?.headers?
-    for key, value of response.headers
-      report += "    #{key}: #{value}\n"
-  if response?.body?
-    body = response.body
-    if body.length > conf.analysis.bodyLength
-      body = body.substr(0, conf.analysis.bodyLength) + '...'
-    body = body.replace /\n/g, '\n    '
-    report += "\nContent:\n\n"
-    report += '    ' + body.replace /\n/g, '\n    '
-#    report += string.wordwrap "    #{body}\n", 80, '\n    '
-  cb null, report

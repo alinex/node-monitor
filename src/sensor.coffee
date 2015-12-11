@@ -252,23 +252,3 @@ exports.formatTable = formatTable = (obj) ->
   # return result
   result
 
-# ### Check expression against string
-#
-# It will will try to match the given expression once and return the matched
-# groups or false if not matched. The groups are an array with the full match as
-# first element or in case of named regexp an object with key 'match' containing
-# the full match.
-exports.match = (text, re) ->
-  return false unless re?
-  unless re instanceof RegExp
-    return if Boolean ~text.indexOf re then [re] else false
-  # it's an regular expression
-  useNamed = ~re.toString().indexOf '(:<'
-  re = named re if useNamed
-  return false unless match = re.exec text
-  if useNamed
-    matches = {}
-    matches[name] = match.capture name for name of match.captures
-  else
-    matches = match[0..match.length]
-  return matches
