@@ -22,13 +22,10 @@
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:ping')
-chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -85,10 +82,17 @@ exports.schema =
       unit: 'ms'
       default: 1000
       min: 500
-    warn: object.extend {}, sensor.schema.warn,
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
       default: 'quality < 100%'
-    fail: object.extend {}, sensor.schema.fail,
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
       default: 'quality is 0'
+
 
 # General information
 # -------------------------------------------------
@@ -127,54 +131,54 @@ exports.meta =
       description: "quality of response (packets succeeded)"
       type: 'percent'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> "#{config.remote ? ''}->#{config.host}"
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = "#{@conf.remote ? 'localhost'}->#{@conf.host}"
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
   Exec.run
-    remote: config.remote
+    remote: @conf.remote
     cmd: '/bin/ping'
     args: [
-      '-c', config.count
-      '-W', Math.ceil config.timeout/1000
-      '-i', config.interval/1000
-      '-s', config.size
-      config.host
+      '-c', @conf.count
+      '-W', Math.ceil @conf.timeout/1000
+      '-i', @conf.interval/1000
+      '-s', @conf.size
+      @conf.host
     ]
     priority: 'immediately'
-  , (err, proc) ->
-    work.err = err
-    sensor.end work
-    val = work.result.values
-    # calculate values
-    num = 0
-    sum = 0
-    re = /time=(\d+.?\d*) ms/g
-    while match = re.exec proc.stdout()
-      time = parseFloat match[1]
-      num++
-      sum += time
-      if not val.responseMin? or time < val.responseMin
-        val.responseMin = time
-      if not val.responseMax? or time > val.responseMax
-        val.responseMax = time
-    val.responseTime = Math.round(sum/num*10)/10.0
-    match = /\s(\d+)% packet loss/.exec proc.stdout()
-    val.quality = 100-match?[1]
-    val.quality = val.quality/100 if val.quality
-    sensor.result work
-    cb null, work.result
+  , cb
 
-# Run additional analysis
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
+exports.calc = (res, cb) ->
+  return cb() if @err
+  # calculate values
+  num = 0
+  sum = 0
+  re = /time=(\d+.?\d*) ms/g
+  while match = re.exec res.stdout()
+    time = parseFloat match[1]
+    num++
+    sum += time
+    if not @values.responseMin? or time < @values.responseMin
+      @values.responseMin = time
+    if not @values.responseMax? or time > @values.responseMax
+      @values.responseMax = time
+  @values.responseTime = Math.round(sum/num*10)/10.0
+  match = /\s(\d+)% packet loss/.exec res.stdout()
+  @values.quality = 100-match?[1]
+  @values.quality = @values.quality/100 if @values.quality
   cb()

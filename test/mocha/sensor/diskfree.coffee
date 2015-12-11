@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/diskfree'
 
 before (cb) -> test.setup cb
 
-describe.only "Diskfree sensor", ->
+describe "Diskfree sensor", ->
 
   check = null
 
