@@ -122,7 +122,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = @conf.share
+  @name = "#{@conf.remote ? 'localhost'}:#{@conf.share}"
   cb()
 
 

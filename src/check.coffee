@@ -74,16 +74,16 @@ class Check extends EventEmitter
     monitor ?= require './index'
     monitor.getSensor @type, (err, @sensor) =>
       return cb err if err
-      @sensor.init.call this, (err) =>
+      # check config
+      validator.check
+        name: "#{@type}:#{@name}"
+        value: @conf
+        schema: @sensor.schema
+      , (err) =>
         return cb err if err
-        @sensor.debug "#{chalk.grey @name} Initialized"
-        # check config
-        validator.check
-          name: "#{@type}:#{@name}"
-          value: @conf
-          schema: @sensor.schema
-        , (err) =>
+        @sensor.init.call this, (err) =>
           return cb err if err
+          @sensor.debug "#{chalk.grey @name} Initialized"
           return cb() unless @controller?
           # only add database entry if run below controller
           storage.check @controller.databaseID, @type, @name, @sensor.meta.category

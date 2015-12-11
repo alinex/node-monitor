@@ -98,7 +98,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = "#{@conf.database}: #{string.shorten @conf.query, 30}"
+  @name = "#{@conf.database}:#{string.shorten @conf.query, 30}"
   cb()
 
 
