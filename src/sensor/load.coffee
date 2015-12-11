@@ -3,21 +3,22 @@
 
 # Find the description of the possible configuration values and the returned
 # values in the code below.
-# But the analysis part currently only works on linux.
+#
+# This methods will be called in the context of the corresponding check()
+# instance.
+#
+# The analysis part currently is based on debian linux.
+
 
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:load')
-chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
-cpu = require './cpu'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -40,26 +41,17 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
-    warn: object.extend {}, sensor.schema.warn,
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
       default: 'short > 500%'
-    fail: sensor.schema.fail
-    analysis:
-      title: "Analysis Run"
-      description: "the configuration for the analysis if it is run"
-      type: 'object'
-      allowedKeys: true
-      keys:
-        minCpu:
-          title: "Minimum %CPU"
-          description: "the minimum CPU usage to include"
-          type: 'percent'
-          min: 0
-          default: 0.1
-        numProc:
-          title: "Top X"
-          description: "the number of top CPU heavy processes for analysis"
-          type: 'integer'
-          min: 1
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
+
 
 # General information
 # -------------------------------------------------
@@ -77,10 +69,6 @@ exports.meta =
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
-    cpus:
-      title: "Num Cores"
-      description: "number of cpu cores"
-      type: 'integer'
     short:
       title: "1min Load"
       description: "average value of one minute processor load (normalized)"
@@ -94,47 +82,45 @@ exports.meta =
       description: "average value of 15 minute processor load (normalized)"
       type: 'percent'
 
-# Get content specific name
-# -------------------------------------------------
-exports.name = (config) -> ''
 
-# Run the Sensor
+# Initialize check
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
-  # run check
-  async.map [
-    remote: config.remote
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = @conf.remote ? 'localhost'
+  Exec.run
+    remote: @conf.remote
     cmd: 'sh'
     args: ['-c', "grep processor /proc/cpuinfo | wc -l"]
     priority: 'immediately'
-  ,
-    remote: config.remote
-    cmd: 'cat'
-    args: ['/proc/loadavg']
-    priority: 'immediately'
-  ], (setup, cb) ->
-    Exec.run setup, cb
-  , (err, proc) ->
-    sensor.end work
-    # analyses results
-    if err
-      work.err = err
-    else
-      val = work.result.values
-      # cpu info values
-      val.cpus = Number proc[0].stdout()
-      load = proc[1].stdout().split /\s/
-      val.short = Number load[0]
-      val.medium = Number load[1]
-      val.long = Number load[2]
-      sensor.result work
-      cb err, work.result
+  , (err, res) =>
+    return cb err if err
+    @base = Number res.stdout()
+    cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.analysis = cpu.analysis
+exports.run = (cb) ->
+  # run check
+  Exec.run
+    remote: @conf.remote
+    cmd: 'cat'
+    args: ['/proc/loadavg']
+    priority: 'immediately'
+  , cb
+
+
+# Get the results
+# -------------------------------------------------
+exports.calc = (res, cb) ->
+  return cb() if @err
+  # cpu info values
+  load = res.stdout().split /\s/
+  @values.short = Number(load[0]) / @base
+  @values.medium = Number(load[1]) / @base
+  @values.long = Number(load[2]) / @base
+  cb()

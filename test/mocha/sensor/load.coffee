@@ -1,48 +1,62 @@
 chai = require 'chai'
 expect = chai.expect
+
 validator = require 'alinex-validator'
+test = require '../sensor'
+Check = require '../../../src/check'
 
-test = require './test'
-load = require '../../../src/sensor/load'
+sensor = require '../../../src/sensor/load'
 
-describe "Load", ->
-  @timeout 10000
+before (cb) -> test.setup cb
 
-  store = null
+describe "Load sensor", ->
 
-  describe "run", ->
+  check = null
+
+  describe "definition", ->
+
+    it "should has sensor instance loaded", (cb) ->
+      expect(sensor, 'sensor instance').to.exist
+      cb()
 
     it "should has correct validator rules", (cb) ->
-      test.schema load, cb
+      test.schema sensor, cb
 
     it "should has meta data", (cb) ->
-      test.meta load, cb
+      test.meta sensor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
+
+  describe "run", ->
+    @timeout 20000
+
+    it "should create new check", (cb) ->
+      test.init
+        sensor: 'load'
+      , (err, instance) ->
+        check = instance
+        cb()
 
     it "should return success", (cb) ->
-      test.ok load, {}, (err, res) ->
-        store = res
-        expect(res.values.short).to.be.above 0
+      test.ok check, (err) ->
+        expect(check.values.short).to.be.above 0
         cb()
 
-  describe "check", ->
+    it "should give warn", (cb) ->
+      test.init
+        sensor: 'load'
+        config:
+          warn: 'short > 0.01'
+      , (err, instance) ->
+        test.warn instance, cb
 
-    it "should give warn on short load", (cb) ->
-      test.warn load,
-        warn: 'short > 0.01'
-      , (err, res) ->
-        expect(res.values.short).to.be.above 0
-        cb()
+  describe "result", ->
 
-  describe "reporting", ->
+    it "should have values defined in meta", (cb) ->
+      test.values check, cb
 
-    it "should get analysis data", (cb) ->
-      @timeout 5000
-      test.analysis load, {}, store, (err, report) ->
-        store.analysis = report
-        console.log report
-        cb()
-
-    it "should make the report", (cb) ->
-      test.report load, {}, store, (err, report) ->
-        console.log report
-        cb()
+    it "should get report", (cb) ->
+      test.report check, cb
