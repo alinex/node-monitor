@@ -17,7 +17,6 @@ exports.debug = debug = require('debug')('monitor:sensor:http')
 request = require 'request'
 http = require 'http'
 # include alinex modules
-async = require 'alinex-async'
 Exec = require 'alinex-exec'
 config = require 'alinex-config'
 {string} = require 'alinex-util'

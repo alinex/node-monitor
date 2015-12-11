@@ -2,18 +2,15 @@
 # =================================================
 # This may be used to check the connection to different ports using TCP.
 
+
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:socket')
-chalk = require 'chalk'
 # include alinex modules
-async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -57,8 +54,17 @@ exports.schema =
       unit: 'ms'
       min: 500
       default: 2000
-    warn: sensor.schema.warn
-    fail: sensor.schema.fail
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
+      optional: true
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
+
 
 # General information
 # -------------------------------------------------
@@ -81,38 +87,36 @@ exports.meta =
       type: 'interval'
       unit: 'ms'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> "#{config.transport}
-#{config.remote ? 'localhost'}->#{config.host}:#{config.port}"
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = "#{@conf.transport} #{@conf.remote ? 'localhost'}->#{@conf.host}:#{@conf.port}"
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
   Exec.run
-    remote: config.remote
+    remote: @conf.remote
     cmd: 'bash'
-    args: ['-c', "echo > /dev/#{config.transport}/#{config.host}/#{config.port}"]
+    args: ['-c', "echo > /dev/#{@conf.transport}/#{@conf.host}/#{@conf.port}"]
     priority: 'immediately'
-    timeout: config.timeout
-  , (err, proc) ->
-    work.err = err
-    sensor.end work
-    if proc.result.lines[0]?[1]
-      work.result.message = proc.result.lines[0][1].replace /bash:\s+/, ''
-    unless err
-      val = work.result.values
-      val.responseTime = work.result.date[1] - work.result.date[0]
-    sensor.result work
-    cb null, work.result
+    timeout: @conf.timeout
+  , cb
 
-# Run additional analysis
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
+exports.calc = (res, cb) ->
+  return cb() if @err
+  @values.responseTime = @date[1] - @date[0]
+  if res.result.lines[0]?[1]
+    @err = new Error res.result.lines[0][1].replace /bash:\s+/, ''
   cb()

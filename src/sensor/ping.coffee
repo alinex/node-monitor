@@ -23,7 +23,6 @@
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:ping')
 # include alinex modules
-async = require 'alinex-async'
 Exec = require 'alinex-exec'
 
 
