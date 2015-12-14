@@ -3,7 +3,12 @@
 
 # Find the description of the possible configuration values and the returned
 # values in the code below.
-# But the analysis part currently only works on linux.
+#
+# This methods will be called in the context of the corresponding check()
+# instance.
+#
+# The analysis part currently is based on debian linux.
+
 
 # Node Modules
 # -------------------------------------------------
@@ -13,9 +18,7 @@ exports.debug = debug = require('debug')('monitor:sensor:user')
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -39,32 +42,17 @@ exports.schema =
       title: "Username to check"
       description: "the local user name to check"
       type: 'string'
-    warn: sensor.schema.warn
-    fail: sensor.schema.fail
-    analysis:
-      title: "Analysis Run"
-      description: "the configuration for the analysis if it is run"
-      type: 'object'
-      allowedKeys: true
-      keys:
-        minCpu:
-          title: "Minimum %CPU"
-          description: "the minimum CPU usage to include"
-          type: 'percent'
-          min: 0
-          default: 0.01
-        minMem:
-          title: "Minimum %MEM"
-          description: "the minimum memory usage to include"
-          type: 'percent'
-          min: 0
-          default: 0.01
-        numProc:
-          title: "Top X"
-          description: "the number of top CPU heavy processes for analysis"
-          type: 'integer'
-          min: 1
-          default: 5
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
+      optional: true
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
+
 
 # General information
 # -------------------------------------------------
@@ -105,101 +93,48 @@ exports.meta =
       type: 'byte'
       unit: 'B'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> config.user
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = @conf.remote ? 'localhost'
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
   async.map [
-    remote: config.remote
+    remote: @conf.remote
     cmd: 'sh'
-    args: ['-c', "ps -U #{config.user} --no-headers -o pcpu,pmem,vsz,rss
+    args: ['-c', "ps -U #{@conf.user} --no-headers -o pcpu,pmem,vsz,rss
     | awk '{n++; pcpu+=$1; pmem+=$2; rss+=$3; vmem+=$4}
     END{print n\" \"pcpu\" \"pmem\" \"rss\" \"vmem}'"]
     priority: 'immediately'
   ,
-    remote: config.remote
+    remote: @conf.remote
     cmd: 'sh'
     args: ['-c', "grep processor /proc/cpuinfo | wc -l"]
     priority: 'immediately'
   ], (setup, cb) ->
     Exec.run setup, cb
-  , (err, proc) ->
-    sensor.end work
-    # analyse results
-    if err
-      work.err = err
-    else
-      val = work.result.values
-      cpus = Number proc[1].stdout()
-      col = proc[0].stdout().split /\s+/
-      val.num = Number col[0]
-      val.cpu = Number(col[1]) / 100 / cpus
-      val.memory = Number(col[2]) / 100
-      val.rss = Number col[3]
-      val.vss = Number col[4]
-    sensor.result work
-    cb err, work.result
+  , cb
 
-# Run the Sensor
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
-  return cb() unless config.analysis?
-  # get additional information
-  async.map [
-    remote: config.remote
-    cmd: 'who'
-    priority: 'immediately'
-  ,
-    remote: config.remote
-    cmd: 'sh'
-    args: ['-c', "ps aux --no-headers | egrep ^#{config.user} | sort -k3 -n -r"]
-    priority: 'immediately'
-  ], (setup, cb) ->
-    Exec.run setup, cb
-  , (err, proc) ->
-    return cb err if err
-    report = ''
-    if proc[1].stdout()?
-      if config.analysis.minCpu
-        minCpu = Math.floor config.analysis.minCpu * 100
-      if config.analysis.minCpu
-        minMem = Math.floor config.analysis.minMem * 100
-      criteria = if minCpu then " above #{minCpu}% CPU" else ''
-      criteria += if minMem then " above #{minMem}% MEM" else ''
-      criteria += if config.analysis.numProc
-      then " (max. #{config.analysis.numProc} processes)" else ''
-      report = "The top CPU consuming processes#{criteria} are:\n\n"
-      report += """
-        |  PID  | %CPU | %MEM |   VSZ   |   RSS  |  TIME |           COMMAND         |
-        | ----- | ---- | ---- | ------- | ------ | ----- | ------------------------- |\n"""#
-      num = 0
-      for line in proc[1].stdout().split /\n/
-        col = line.trim().split /\s+/
-        continue if minCpu and col[2] < minCpu
-        continue if minMem and col[3] < minMem
-        num++
-        break if config.analysis.numProc and num > config.analysis.numProc
-
-        report += "| #{string.lpad col[1], 5}
-        | #{string.lpad col[2], 4} | #{string.lpad col[3], 4} | #{string.lpad col[4], 7}
-        | #{string.lpad col[5], 6} | #{string.lpad col[9], 5} | #{string.rpad col[10], 25} |\n"
-    if proc[0].stdout()?
-      report += """
-        \nThe active logins are:
-
-        |   TERM    |    LOGIN     |         IP         |
-        | --------- | ------------ | ------------------ |\n"""#
-      for line in proc[0].stdout().split /\n/
-        col = line.trim().split /\s+/
-        report += "| #{string.rpad col[1], 9} | #{col[2]} #{col[3]} #{col[4]}
-        | #{string.lpad col[5].replace(/[():]/g, ''), 18} |\n"
-    cb null, report
+exports.calc = (res, cb) ->
+  return cb() if @err
+  cpus = Number res[1].stdout()
+  col = res[0].stdout().split /\s+/
+  @values.num = Number col[0]
+  @values.cpu = Number(col[1]) / 100 / cpus
+  @values.memory = Number(col[2]) / 100
+  @values.rss = Number col[3]
+  @values.vss = Number col[4]
+  cb()
