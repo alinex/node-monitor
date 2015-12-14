@@ -40,6 +40,10 @@ exports.schema =
       title: "Database"
       description: "the reference to the database setting in config/database"
       type: 'string'
+    name:
+      title: "Name of query"
+      description: "the descriptive name of a query, for reporting only"
+      type: 'string'
     query:
       title: "Query"
       description: "the query to run to retrieve the measurement result"
@@ -97,7 +101,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = "#{@conf.database}:#{string.shorten @conf.query, 30}"
+  @name = "#{@conf.database}:#{@conf.name ? string.shorten @conf.query, 30}"
   cb()
 
 
