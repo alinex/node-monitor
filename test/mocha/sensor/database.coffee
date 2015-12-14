@@ -57,7 +57,7 @@ describe "Database sensor", ->
           query: "SELECT 100 as num, 'just a number' as comment"
           warn: 'data.num > 0'
       , (err, instance) ->
-        test.warn instance, (err, res) ->
+        test.warn instance, (err) ->
           expect(instance.values.data.num).to.be.above 0
           cb()
 

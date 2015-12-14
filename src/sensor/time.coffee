@@ -3,21 +3,23 @@
 
 # Find the description of the possible configuration values and the returned
 # values in the code below.
-# But the analysis part currently only works on linux.
+#
+# This methods will be called in the context of the corresponding check()
+# instance.
+#
+# The analysis part currently is based on debian linux.
+
 
 # Node Modules
 # -------------------------------------------------
 
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:time')
-chalk = require 'chalk'
 ntp = require 'ntp-client'
 # include alinex modules
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
-{object, string} = require 'alinex-util'
-# include classes and helpers
-sensor = require '../sensor'
+
 
 # Schema Definition
 # -------------------------------------------------
@@ -55,9 +57,17 @@ exports.schema =
       unit: 'ms'
       default: 10000
       min: 500
-    warn: object.extend {}, sensor.schema.warn,
+    warn:
+      title: "Warn if"
+      description: "the javascript code to check to set status to warn"
+      type: 'string'
       default: 'diff > 10000'
-    fail: sensor.schema.fail
+    fail:
+      title: "Fail if"
+      description: "the javascript code to check to set status to fail"
+      type: 'string'
+      optional: true
+
 
 # General information
 # -------------------------------------------------
@@ -88,46 +98,42 @@ exports.meta =
       type: 'interval'
       unit: 'ms'
 
-# Get content specific name
+
+# Initialize check
 # -------------------------------------------------
-exports.name = (config) -> ''
+# This method is used for some precalculations or analyzations and should set:
+#
+# - check.name = <string> # mandatory
+# - check.base = <object> # optionally
+exports.init = (cb) ->
+  @name = @conf.remote ? 'localhost'
+  cb()
+
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (config, cb = ->) ->
-  work =
-    sensor: this
-    config: config
-    result: {}
-  sensor.start work
+exports.run = (cb) ->
   # run check
   async.parallel [
-    (cb) ->
+    (cb) =>
       Exec.run
-        remote: config.remote
+        remote: @conf.remote
         cmd: 'date'
         args: ['--iso-8601=seconds']
         priority: 'immediately'
       , cb
-    (cb) ->
-      ntp.ntpReplyTimeout = config.timeout
-      ntp.getNetworkTime config.host, config.port, cb
-  ], (err, proc) ->
-    sensor.end work
-    # check the results
-    if err
-      work.err = err
-    else
-      val = work.result.values
-      # check times
-      val.local = new Date proc[0].stdout().trim()
-      val.remote = proc[1]
-      val.diff = Math.abs val.local - val.remote
-    # return the results
-    sensor.result work
-    cb err, work.result
+    (cb) =>
+      ntp.ntpReplyTimeout = @conf.timeout
+      ntp.getNetworkTime @conf.host, @conf.port, cb
+  ], cb
 
-# Run additional analysis
+
+# Get the results
 # -------------------------------------------------
-exports.analysis = (config, res, cb = ->) ->
+exports.calc = (res, cb) ->
+  return cb() if @err
+  # check times
+  @values.local = new Date res[0].stdout().trim()
+  @values.remote = res[1]
+  @values.diff = Math.abs @values.local - @values.remote
   cb()
