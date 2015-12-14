@@ -1519,10 +1519,10 @@ A sensor should be a module exporting the following objects:
     - type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
       'array', 'object'
     - unit - optional unit of values if number type used
-- name(config) - a method returning a configuration based short name to identify
-- run(config, cb) - will run this sensor with given configuration
-- analysis(config, res, cb) - an additional analysis used mainly on problems which
-  needs the configuration and the results from the normal run as parameters
+- init(cb) - initialize the check once
+- prerun(cb) - method to be called before each run (optional)
+- run(cb) - runing the acquisition of data
+- calc(res, cb) - calculating the values from the result set
 
 ### Actor Structure
 
