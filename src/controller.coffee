@@ -10,6 +10,7 @@ debugSensor = require('debug')('monitor:sensor')
 chalk = require 'chalk'
 util = require 'util'
 EventEmitter = require('events').EventEmitter
+moment = require 'moment'
 # include alinex modules
 async = require 'alinex-async'
 {string} = require 'alinex-util'
@@ -76,8 +77,12 @@ class Controller extends EventEmitter
   # ### Run once
   run: (cb =  ->) ->
     # for each sensor in parallel
-    async.map @check, (check, cb) ->
-      check.run cb
+    async.map @check, (check, cb) =>
+      check.run (err, status) =>
+        if @mode?.verbose > 1
+          console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+          Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
+        cb err, status
     , (err, res) =>
       return cb err if err
       @date = new Date()
@@ -103,6 +108,9 @@ class Controller extends EventEmitter
         if @mode?.verbose > 2
           console.error report.toConsole()
         @emit 'result', this
+        if @mode?.verbose > 1
+          console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+          Controller #{chalk.white @name} => #{@colorStatus()}"
         cb()
 
   # ### Create a report

@@ -373,9 +373,6 @@ monitor.init
   else
     # run all once
     console.log "Analyzing systems..."
-    monitor.on 'result', (ctrl) ->
-      console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
-      Controller #{chalk.white ctrl.name} => #{ctrl.colorStatus()}"
     monitor.runController null, (err, results) ->
       exit err if err
       console.log "Finished.\n"
