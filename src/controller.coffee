@@ -108,7 +108,7 @@ class Controller extends EventEmitter
         if @mode?.verbose > 2
           console.error report.toConsole()
         @emit 'result', this
-        if @mode?.verbose > 1
+        if @mode?.verbose
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
           Controller #{chalk.white @name} => #{@colorStatus()}"
         cb()

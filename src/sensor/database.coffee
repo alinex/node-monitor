@@ -36,13 +36,13 @@ exports.schema =
 #    fail: 'quality is 0'
   allowedKeys: true
   keys:
+    name:
+      title: "Name of query"
+      description: "the descriptive name of this query, for reporting only"
+      type: 'string'
     database:
       title: "Database"
       description: "the reference to the database setting in config/database"
-      type: 'string'
-    name:
-      title: "Name of query"
-      description: "the descriptive name of a query, for reporting only"
       type: 'string'
     query:
       title: "Query"
