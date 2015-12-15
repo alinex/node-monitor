@@ -70,7 +70,6 @@ class Controller extends EventEmitter
       @start()
     , @conf.interval * 1000
 
-
   stop: ->
     debug "#{chalk.grey @name} Stopped daemon mode"
 
@@ -108,7 +107,7 @@ class Controller extends EventEmitter
         if @mode?.verbose > 2
           console.error report.toConsole()
         @emit 'result', this
-        if @mode?.verbose
+        if @mode?.verbose or @status isnt 'ok'
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
           Controller #{chalk.white @name} => #{@colorStatus()}"
         cb()

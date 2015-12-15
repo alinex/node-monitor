@@ -6,9 +6,10 @@ Package: alinex-monitor
 [![Dependency Status](https://gemnasium.com/alinex/node-monitor.png)](https://gemnasium.com/alinex/node-monitor)
 
 This application will make server management easy and fast. It will check the
-whole IT landscape from the host to the application. While most monitoring
-tools has it's focus on the server here the focus lies on the application
-side, too.
+whole IT landscape from the host to the application.
+
+While most monitoring tools has it's focus on the server here the focus lies on
+the application side, too.
 
 - remote daemon-less analysis
 - lots of sensors
@@ -61,11 +62,12 @@ only calling:
 
     > monitor
 
-    SHOW OUTPUT ##############################################################
+    Initializing...
+    Analyzing systems...
+    Finished.
 
-This will start the monitor on the command line and check all controllers. For each
-controller a line is printed with it's status.
-If a controller got a problem it will give a detailed report on the console.
+This will start the monitor on the command line and check all controllers. All
+of them which make some problems will be printed on the console.
 
 Global options:
 
@@ -89,19 +91,41 @@ is taken.
 
 The verbose mode works here in multiple steps:
 
-    -v    show also the sensor status on console
-    -vv   also display the result values
-    -vvv  make and display/send reports always
+    -v    show the controller status on console
+    -vv   show also the sensor status on console
+    -vvv  also display the result values
+
+If no verbose mode is set only warning and error state of controller will be reported
+on console.
 
 The output may look like:
 
     > monitor -v
 
-    example ###############################
+    Initializing...
+    Analyzing systems...
+    2015-12-15 12:55:32 Controller dvb-develop => ok
+    Finished.
 
     > monitor -vvv
 
-    example ######################
+    Initializing...
+    Analyzing systems...
+    2015-12-15 12:55:51 Check load:dvb-develop => ok
+    2015-12-15 12:55:51 Check http:->http://192.168.200.106/svn/ => ok
+    2015-12-15 12:55:51 Check memory:dvb-develop => ok
+    2015-12-15 12:55:51 Check diskfree:dvb-develop:/ => ok
+    2015-12-15 12:55:51 Check diskfree:dvb-develop:/var => ok
+    2015-12-15 12:55:52 Check ping:localhost->192.168.200.106 => ok
+    2015-12-15 12:55:52 Check socket:tcp localhost->192.168.200.106:80 => ok
+    2015-12-15 12:55:52 Check time:dvb-develop => ok
+    2015-12-15 12:55:52 Check user:dvb-develop => ok
+    2015-12-15 12:56:01 Check cpu:dvb-develop => ok
+    2015-12-15 12:56:01 Check diskio:dvb-develop:sda1 => ok
+    2015-12-15 12:56:02 Check net:dvb-develop:eth0 => ok
+    2015-12-15 12:56:02 Controller dvb-develop => ok
+    Finished.
+
 
 ### Run as a service
 
@@ -1526,6 +1550,8 @@ A sensor should be a module exporting the following objects:
 
 ### Actor Structure
 
+Coming soon...
+
 ### Explorer Structure
 
 Like the sensor it needs a schema definition for all values needed in the process.
@@ -1550,7 +1576,6 @@ structure is nearly the same as for a sensor:
   if no config given
 
 
-
 Roadmap
 -------------------------------------------------
 I will try to release a first stable version in December 2015. This will have:
@@ -1560,7 +1585,7 @@ I will try to release a first stable version in December 2015. This will have:
 - possibility to run onetime analyzation - done
 - database storage support - done
 - daemon mode running controller on schedule - done
-- modular base design
+- modular base design -done
 
 The next version coming early in 2016 will have:
 
@@ -1570,22 +1595,6 @@ The next version coming early in 2016 will have:
 
 After that a lot of bugfixes, smaller improvements and more sensors, actors and
 explorers will follow regularly.
-
-
-Next steps are:
-
-Mo
-- check class
-- run cpu sensor
-- report using new package
-- adding previous sensor results
-Di
-- run cpu sensor manually
-- run cpu sensor interactively
-Mi
-- convert more sensors
-
-- analysis through analyzer (later)
 
 
 License
