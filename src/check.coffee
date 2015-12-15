@@ -125,7 +125,7 @@ class Check extends EventEmitter
         return cb @err, @status unless @databaseID
         # store in database
         storage.results @databaseID, @type, @sensor.meta.values
-        , @date[1], @values, (err) =>
+        , @date[0], @values, (err) =>
           return cb err if err
           cb @err, @status
     if opt?
