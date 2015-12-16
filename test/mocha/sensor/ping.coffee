@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/ping'
 
 before (cb) -> test.setup cb
 
-describe.only "Ping sensor", ->
+describe "Ping sensor", ->
 
   check = null
 
