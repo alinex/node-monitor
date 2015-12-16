@@ -1603,12 +1603,12 @@ I will try to release a first stable version in December 2015. This will have:
 
 The next version coming early in 2016 will have:
 
-- fully working explorers
-- alerting with mail actor
 - tested in productive environment
+- alerting with mail actor
+- fully working explorers
 
 After that a lot of bugfixes, smaller improvements and more sensors, actors and
-explorers will follow regularly.
+explorers will follow.
 
 
 License
