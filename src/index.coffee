@@ -206,7 +206,10 @@ class Monitor extends EventEmitter
   # Run specified Element
   # -------------------------------------------------
   runController: (name, cb) ->
-    list = if name then {name: @controller[name]} else @controller
+    if name
+      list = {}
+      list[name] = @controller[name]
+    list ?= @controller
     async.mapOf list, (ctrl, name, cb) ->
       ctrl.run cb
     , (err) ->

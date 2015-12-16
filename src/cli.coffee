@@ -117,6 +117,19 @@ commands =
       console.log report.toConsole()
       cb()
 
+  # change verbose level
+  verbose:
+    description: "change the verbosity level between 0..9"
+    commands: ->
+      [0..9].map (e) -> "verbose #{e}"
+    run: (args, cb) ->
+      if args[0]
+        argv.verbose = Number args[0]
+        for name in monitor.listController()
+          monitor.controller[name].mode.verbose = argv.verbose
+      console.log chalk.grey "Verbosity set to level #{argv.verbose}"
+      cb()
+
   # ### exit console
   exit:
     description: "close the console"
@@ -253,9 +266,9 @@ commands =
               console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
               Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
               return cb()
-          monitor.runController args[1], (err, report) ->
+          monitor.runController args[1], (err) ->
             return cb err if err
-            console.log report
+            console.log chalk.grey "DONE"
             cb()
         when 'sensor'
           unless args.length > 1
