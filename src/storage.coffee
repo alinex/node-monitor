@@ -29,7 +29,7 @@ cleanupInterval =
   hour: 3600*1000 # every hour
   day: 24*3600*1000 # every day
   week: 7*24*3600*1000 # every week
-  month: 10*24*3600*1000 # every month
+  month: 24*24*3600*1000 # every 24 days (maximum for setTimeout)
 
 
 # Initialized Data
@@ -285,9 +285,7 @@ exports.statusController = (controllerID, date, status, cb) ->
 # See the configuration at the top of this file.
 
 cleanup = (interval) ->
-  setTimeout ->
-    cleanup interval
-  , cleanupInterval[interval]
+  setTimeout cleanup, cleanupInterval[interval], interval
   # run the cleanup
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
