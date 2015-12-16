@@ -4,6 +4,55 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.0 (2015-12-16)
+-------------------------------------------------
+- Allow all tests to run.
+- Add node v5 testing.
+- Add verbosity level setting to interactive console.
+- Skip check and init a new run if already running on next call.
+- Added support for deleting old entries from database.
+- Updated documentation (usage area).
+- Use start date in storage.
+- Add a name configuration option to http sensor, too.
+- Make verbose mode level 1 working again.
+- Added name property for database sensor.
+- Documentet new sensor API.
+- Rewrite of user sensor.
+- Rewrite of time sensor.
+- Code cleanup and rewrite of socket sensor.
+- Rewrite of ping sensor.
+- Rewritten net sensor and fixed config validation to run before init() call of sensor.
+- Rewrite of memory sensor.
+- Rewrite of load sensor.
+- Rewrite http sensor.
+- Rerwrite of diskio sensor.
+- Updated diskfree sensor.
+- Optimize display of object values from sensors.
+- Updated report component.
+- Transformed database sensor.
+- Made controller runable again but without reports.
+- Create report for cpu sensor.
+- Finish cpu sensor to work with new modular system.
+- cpu sensor rework
+- More changes to come to new class structure.
+- Add definitions of the major components.
+- Start integrating report module.
+- Remove explorer tests because not done, yet.
+- Fix time() to better work with errors.
+- Added daemon mode.
+- Made initial daemon mode.
+- Store controller and check status in db.
+- Fixed bug which prevent script to shut down after normal run.
+- Added new planing for report module.
+- Created explorer.
+- Optimized internal structure of plugin system.
+- Finished cli calls.
+- Allow 'run controller xxx' through interactive console.
+- Restructure initialization into central method.
+- Fixed interactive console to work with pending whitespaces.
+- Support plugin load and tested with empty one.
+- Add interval display to 'show controller'.
+
 Version 0.1.1 (2015-11-26)
 -------------------------------------------------
 - Smaller code optimization reported by lint.
