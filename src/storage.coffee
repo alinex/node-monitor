@@ -17,13 +17,6 @@ database = require 'alinex-database'
 
 # Configuration
 # -------------------------------------------------
-cleanupTime =
-  minute: 360 # 6 hours
-  hour: 96 # 4 days
-  day: 90 # 3 months
-  week: 104 # two years
-  month: 60 # 5 years
-
 cleanupInterval =
   minute: 1800*1000 # every half hour
   hour: 3600*1000 # every hour
@@ -44,7 +37,7 @@ conf = null
 exports.init = (cb) ->
   monitor ?= require './index'
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
+  return cb() unless conf.storage.database?
   debug "Initialize database store..."
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
@@ -289,7 +282,7 @@ cleanup = (interval) ->
   # run the cleanup
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
-    num = cleanupTime[interval]
+    num = conf.storage.cleanup[interval]
     debug "remove #{interval} entries older than #{num} #{interval}s"
     # for each sensor
     time = moment().subtract(num, interval).toDate()

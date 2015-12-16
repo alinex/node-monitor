@@ -278,6 +278,57 @@ controller =
         ]
   ]
 
+# ### Persistent storage definition
+
+storage =
+  title: "Storage"
+  description: "the storage to use for results"
+  type: 'object'
+  allowedKeys: true
+  mandatoryKeys: ['database']
+  keys:
+    database:
+      title: "Database"
+      description: "the alias name of the database to store to"
+      type: 'string'
+      list: '<<<context:///database>>>'
+    prefix:
+      title: "Table Prefix"
+      description: "a prefix to be put before each table name"
+      type: 'string'
+      default: ''
+    cleanup:
+      title: "Cleanup Sensor Data"
+      description: "the number of sensor data entries per each interval"
+      type: 'object'
+      mandatoryKeys: true
+      keys:
+        minute:
+          title: "Max. Time Entries"
+          description: "the number of sensor data time entries to keep, older will be removed"
+          type: 'integer'
+          min: 1
+        hour:
+          title: "Max. Time Entries"
+          description: "the number of sensor data time entries to keep, older will be removed"
+          type: 'integer'
+          min: 1
+        day:
+          title: "Max. Time Entries"
+          description: "the number of sensor data time entries to keep, older will be removed"
+          type: 'integer'
+          min: 1
+        week:
+          title: "Max. Time Entries"
+          description: "the number of sensor data time entries to keep, older will be removed"
+          type: 'integer'
+          min: 1
+        month:
+          title: "Max. Time Entries"
+          description: "the number of sensor data time entries to keep, older will be removed"
+          type: 'integer'
+          min: 1
+
 
 # Complete Schema Definition
 # -------------------------------------------------
@@ -296,23 +347,7 @@ module.exports =
       entries: [ email ]
     rule: rule
     controller: controller
-    storage:
-      title: "Storage"
-      description: "the storage to use for results"
-      type: 'object'
-      allowedKeys: true
-      mandatoryKeys: ['database']
-      keys:
-        database:
-          title: "Database"
-          description: "the alias name of the database to store to"
-          type: 'string'
-          list: '<<<context:///database>>>'
-        prefix:
-          title: "Table Prefix"
-          description: "a prefix to be put before each table name"
-          type: 'string'
-          default: ''
+    storage: storage
     log:
       title: "File Logger"
       description: "the setup for the file logger"
