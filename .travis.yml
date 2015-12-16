@@ -3,5 +3,6 @@ node_js:
    - "0.10"
    - "0.12"
    - "4.2"
+   - "5.2"
 after_success:
    - COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=v3Z17MGbBBtEfe6sA6xNbWkG0OYxNtDyx node_modules/.bin/builder -c test --coverage --coveralls

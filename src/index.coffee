@@ -168,6 +168,7 @@ class Monitor extends EventEmitter
       when conf.interval >= 300 then 'minutes'
       else 'seconds'
     info += "\nThe following checks will run every #{interval.format()}:\n\n"
+    console.log name, info
     async.map conf.check, (check, cb) =>
       @getSensor check.sensor, (err, sensorInstance) ->
         return cb err if err
