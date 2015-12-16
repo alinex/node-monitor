@@ -15,11 +15,29 @@ database = require 'alinex-database'
 {string} = require 'alinex-util'
 # include classes and helpers
 
+# Configuration
+# -------------------------------------------------
+cleanupTime =
+  minute: 360 # 6 hours
+  hour: 96 # 4 days
+  day: 90 # 3 months
+  week: 104 # two years
+  month: 60 # 5 years
+
+cleanupInterval =
+  minute: 1800*1000 # every half hour
+  hour: 3600*1000 # every hour
+  day: 24*3600*1000 # every day
+  week: 7*24*3600*1000 # every week
+  month: 30*24*3600*1000 # every month
+
+
 # Initialized Data
 # -------------------------------------------------
 # This will be set on init
 monitor = null  # require './index'
 conf = null
+
 
 # Initialize database
 # -------------------------------------------------
@@ -32,7 +50,9 @@ exports.init = (cb) ->
     return cb err if err
     drop conf, db, (err) ->
       return cb err if err
-      create conf, db, cb
+      create conf, db, (err) ->
+        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
+        cb err
 
 # Drop database
 # -------------------------------------------------
@@ -258,3 +278,28 @@ exports.statusController = (controllerID, date, status, cb) ->
         """
       , [controllerID, date, status]
       , cb
+
+# Cleanup old data
+# -------------------------------------------------
+# This is triggered by timeouts of itself, started on storage initialization.
+# See the configuration at the top of this file.
+
+cleanup = (interval) ->
+  setTimeout ->
+    cleanup interval
+  , cleanupInterval[interval]
+  # run the cleanup
+  prefix = conf.storage.prefix
+  database.instance conf.storage.database, (err, db) ->
+    num = cleanupTime[interval]
+    debug "remove #{interval} entries older than #{num} #{interval}s"
+    # for each sensor
+    time = moment().subtract(num, interval).toDate()
+    console.log time
+    async.each monitor.listSensor(), (sensor, cb) ->
+      db.exec "DELETE FROM #{prefix}sensor_#{sensor} WHERE interval=? AND period<?"
+      , [interval, time]
+      , cb
+    , (err) ->
+      console.error err
+
