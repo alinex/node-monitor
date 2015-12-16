@@ -393,11 +393,25 @@ If you want to store the measurement values, you need the following setup under
 
 database: monitor
 prefix: mon_
+
+# When to cleanup entries from storage
+# -------------------------------------------------
+# The values are the number of max. entries of given interval.
+storage:
+  cleanup:
+    minute: 360 # 6 hours
+    hour: 96    # 4 days
+    day: 90     # 3 months
+    week: 104   # two years
+    month: 60   # 5 years
 ```
 
 The referenced database have to be a __postgresql__ database here and the data
 structure will be build on startup automatically. The concrete connection
 settings are defined in the `/database` configuration, see below.
+
+The cleanup defines how much time units to keep before removing them. Keep in
+mind that your database will grow if you set high values here.
 
 ### Exec and Database
 
