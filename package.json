@@ -34,7 +34,7 @@
     "test": "node_modules/.bin/builder -c test",
     "start": "bin/monitor"
   },
-  "prefereGlobal": true,
+  "preferGlobal": true,
   "directories": {
     "bin": "./bin",
     "man": "./man",

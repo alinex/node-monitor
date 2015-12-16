@@ -286,11 +286,10 @@ cleanup = (interval) ->
     debug "remove #{interval} entries older than #{num} #{interval}s"
     # for each sensor
     time = moment().subtract(num, interval).toDate()
-    console.log time
     async.each monitor.listSensor(), (sensor, cb) ->
       db.exec "DELETE FROM #{prefix}sensor_#{sensor} WHERE interval=? AND period<?"
       , [interval, time]
       , cb
     , (err) ->
-      console.error err
+      console.error chalk.red.bold err if err
 
