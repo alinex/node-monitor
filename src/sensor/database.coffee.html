@@ -33,7 +33,7 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#ping%20test%20class">Ping test class</a>
+        <a href="#database%20test">Database test</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
@@ -48,13 +48,13 @@
         <a href="#result%20values">Result values</a>
       </div>
       <div class="heading h2">
-        <a href="#get%20content%20specific%20name">Get content specific name</a>
+        <a href="#initialize%20check">Initialize check</a>
       </div>
       <div class="heading h2">
         <a href="#run%20the%20sensor">Run the Sensor</a>
       </div>
       <div class="heading h2">
-        <a href="#run%20additional%20analysis">Run additional analysis</a>
+        <a href="#get%20the%20results">Get the results</a>
       </div>
     </div>
   </div>
@@ -64,36 +64,36 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="ping%20test%20class">
+<div class="pilwrap" id="database%20test">
   <h1>
-    <a href="#ping%20test%20class" name="ping%20test%20class" class="pilcrow">&#182;</a>
-    Ping test class
+    <a href="#database%20test" name="database%20test" class="pilcrow">&#182;</a>
+    Database test
   </h1>
 </div>
 
 
-<p>This is a basic test to check if connection to a specific server is possible.
-Keep in mind that some servers mare blocked through firewall settings.</p>
-
-<p>The warning level is based upon the round-trip time of packets which are
-typically:</p>
-
-
-<div class="highlight"><pre><code><span class="mi">1</span> <span class="nx">ms</span>        <span class="mi">100</span><span class="nx">BaseT</span><span class="o">-</span><span class="nx">Ethernet</span>
-<span class="mi">10</span> <span class="nx">ms</span>       <span class="nx">WLAN</span> <span class="mf">802.11</span><span class="nx">b</span>
-<span class="mi">40</span> <span class="nx">ms</span>       <span class="nx">DSL</span><span class="o">-</span><span class="mi">6000</span> <span class="nx">without</span> <span class="nx">fastpath</span>
-<span class="o">&lt;</span> <span class="mi">50</span> <span class="nx">ms</span>     <span class="nx">internet</span> <span class="nx">regional</span>
-<span class="mi">55</span> <span class="nx">ms</span>       <span class="nx">DSL</span><span class="o">-</span><span class="mi">2000</span> <span class="nx">without</span> <span class="nx">fastpath</span>
-<span class="mi">100</span><span class="err">–</span><span class="mi">150</span> <span class="nx">ms</span>  <span class="nx">internet</span> <span class="nx">europe</span> <span class="nx">to</span> <span class="nx">usa</span>
-<span class="mi">200</span> <span class="nx">ms</span>      <span class="nx">ISDN</span>
-<span class="mi">300</span> <span class="nx">ms</span>      <span class="nx">internet</span> <span class="nx">europe</span> <span class="nx">to</span> <span class="nx">asia</span>
-<span class="mi">300</span><span class="o">-</span><span class="mi">400</span> <span class="nx">ms</span>  <span class="nx">UMTS</span>
-<span class="mi">700</span><span class="err">–</span><span class="mi">1000</span> <span class="nx">ms</span> <span class="nx">GPRS</span>
-</code></pre></div>
-
-
+<p>This test will not check the availability and performance of a database server
+but check the database contents.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Find the description of the possible configuration values and the returned
+values in the code below.</p>
+
+<p>This methods will be called in the context of the corresponding check()
+instance.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
         </td>
       </tr>
       <tr>
@@ -115,29 +115,12 @@ typically:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:database&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
-</div>
-<p>include alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
 
 </pre></div>
         </td>
@@ -147,10 +130,12 @@ typically:</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
-<p>include classes and helpers</p>
+<p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
+<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
+<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
 
 
 </pre></div>
@@ -193,6 +178,10 @@ compatible schema definition:</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">allowedKeys: </span><span class="kc">true</span>
   <span class="nv">keys:</span>
+    <span class="nv">name:</span>
+      <span class="nv">title: </span><span class="s">&quot;Name of query&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the descriptive name of this query, for reporting only&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
     <span class="nv">database:</span>
       <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the reference to the database setting in config/database&quot;</span>
@@ -209,26 +198,17 @@ compatible schema definition:</p>
       <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
       <span class="nv">default: </span><span class="mi">10000</span>
       <span class="nv">min: </span><span class="mi">500</span>
-    <span class="nv">warn: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span>
-    <span class="nv">fail: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span>
-    <span class="nv">analysis:</span>
-      <span class="nv">title: </span><span class="s">&quot;Additional Analysis&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the additional query to run if something went wrong&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">allowedKeys: </span><span class="kc">true</span>
-      <span class="nv">keys:</span>
-        <span class="nv">query:</span>
-          <span class="nv">title: </span><span class="s">&quot;Query&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the query to run to retrieve additional information&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">timeout:</span>
-          <span class="nv">title: </span><span class="s">&quot;Timeout&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the time in milliseconds the whole test may take before</span>
-<span class="s">            stopping it&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-          <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-          <span class="nv">default: </span><span class="mi">20000</span>
-          <span class="nv">min: </span><span class="mi">500</span>
+    <span class="nv">warn:</span>
+      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">fail:</span>
+      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+
 
 
 </pre></div>
@@ -261,9 +241,7 @@ compatible schema definition:</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
-<p>hint: "Check the network card configuration if local ping won't work or the
- network connection for external pings. Problems can also be that the firewall
- will block the ping port. "</p>
+<p>hint: "Check the ... "</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
@@ -287,7 +265,7 @@ You may use any of these in your warn/fail expressions.</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">values:</span>
     <span class="nv">data:</span>
-      <span class="nv">title: </span><span class="s">&#39;Values&#39;</span>
+      <span class="nv">title: </span><span class="s">&#39;Data&#39;</span>
       <span class="nv">description: </span><span class="s">&quot;the concrete values from the query&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
     <span class="nv">responseTime:</span>
@@ -297,21 +275,32 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
 
 
+
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20content%20specific%20name">
+<div class="pilwrap" id="initialize%20check">
   <h2>
-    <a href="#get%20content%20specific%20name" name="get%20content%20specific%20name" class="pilcrow">&#182;</a>
-    Get content specific name
+    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
+    Initialize check
   </h2>
 </div>
 
+
+<p>This method is used for some precalculations or analyzations and should set:</p>
+
+<ul>
+<li>check.name = <string> # mandatory</li>
+<li>check.base = <object> # optionally</li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.name = </span><span class="nf">(conf) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">database</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">shorten</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="mi">30</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
+  <span class="vi">@name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">database</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">name</span> <span class="o">?</span> <span class="nx">string</span><span class="p">.</span><span class="nx">shorten</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="mi">30</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">cb</span><span class="p">()</span>
+
 
 
 </pre></div>
@@ -328,12 +317,7 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(conf, cb = -&gt;) -&gt;</span>
-  <span class="nv">work =</span>
-    <span class="nv">sensor: </span><span class="k">this</span>
-    <span class="nv">config: </span><span class="nx">conf</span>
-    <span class="nv">result: </span><span class="p">{}</span>
-  <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
+<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -343,28 +327,29 @@ You may use any of these in your warn/fail expressions.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
-<p>run check
-database.instance config.database, (err, db) ->
- return cb err if err
- # get a new connection from the pool</p>
+<p>run check</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">database</span><span class="p">.</span><span class="nx">record</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="nf">(err, record) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">record</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="nx">cb</span>
+
+
 
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+<div class="pilwrap" id="get%20the%20results">
+  <h2>
+    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
+    Get the results
+  </h2>
 </div>
-<p>console.log record</p>
+
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">sensor</span><span class="p">.</span><span class="nx">end</span> <span class="nx">work</span>
-    <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
+<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
 
 </pre></div>
         </td>
@@ -377,47 +362,9 @@ database.instance config.database, (err, db) ->
 <p>calculate values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">val.responseTime = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nv">val.data = </span><span class="nx">record</span>
-    <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20additional%20analysis">
-  <h2>
-    <a href="#run%20additional%20analysis" name="run%20additional%20analysis" class="pilcrow">&#182;</a>
-    Run additional analysis
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.analysis = </span><span class="nf">(conf, res, cb = -&gt;) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">analysis</span><span class="o">?</span>
-  <span class="nx">database</span><span class="p">.</span><span class="nx">list</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nv">report = </span><span class="s">&quot;&quot;&quot;</span>
-<span class="s">    Maybe the following additional results may help:</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
-</div>
-<p>{sensor.formatTable list}\n</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    &quot;&quot;&quot;</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
+  <span class="vi">@values.responseTime = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="vi">@values.data = </span><span class="nx">res</span>
+  <span class="nx">cb</span><span class="p">()</span>
 </pre></div>
         </td>
       </tr>

@@ -56,8 +56,14 @@
       <div class="heading h2">
         <a href="#interactive%20console">Interactive Console</a>
       </div>
+      <div class="heading h5">
+        <a href="#%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23">##########  ########################   ########### #####</a>
+      </div>
       <div class="heading h3">
         <a href="#using%20parameters">Using Parameters</a>
+      </div>
+      <div class="heading h2">
+        <a href="#definitions">Definitions</a>
       </div>
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
@@ -78,13 +84,13 @@
         <a href="#exec%20and%20database">Exec and Database</a>
       </div>
       <div class="heading h2">
-        <a href="#status">Status</a>
-      </div>
-      <div class="heading h2">
         <a href="#controller">Controller</a>
       </div>
       <div class="heading h3">
         <a href="#structure">Structure</a>
+      </div>
+      <div class="heading h2">
+        <a href="#status">Status</a>
       </div>
       <div class="heading h2">
         <a href="#sensor">Sensor</a>
@@ -207,13 +213,13 @@
         <a href="#hardware">Hardware</a>
       </div>
       <div class="heading h3">
-        <a href="#software">Software</a>
+        <a href="#os">OS</a>
+      </div>
+      <div class="heading h3">
+        <a href="#services">Services</a>
       </div>
       <div class="heading h3">
         <a href="#network%20settings">Network Settings</a>
-      </div>
-      <div class="heading h3">
-        <a href="#daemons">Daemons</a>
       </div>
       <div class="heading h3">
         <a href="#apachesites">ApacheSites</a>
@@ -271,9 +277,10 @@
 <a href="https://gemnasium.com/alinex/node-monitor"><img src="https://gemnasium.com/alinex/node-monitor.png" alt="Dependency Status" title="" /></a></p>
 
 <p>This application will make server management easy and fast. It will check the
-whole IT landscape from the host to the application. While most monitoring
-tools has it's focus on the server here the focus lies on the application
-side, too.</p>
+whole IT landscape from the host to the application.</p>
+
+<p>While most monitoring tools has it's focus on the server here the focus lies on
+the application side, too.</p>
 
 <ul>
 <li>remote daemon-less analysis</li>
@@ -346,14 +353,15 @@ only calling:</p>
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span>
 
-<span class="nx">SHOW</span> <span class="nx">OUTPUT</span> <span class="err">##############################################################</span>
+<span class="nx">Initializing</span><span class="p">...</span>
+<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
+<span class="nx">Finished</span><span class="p">.</span>
 </code></pre></div>
 
 
 
-<p>This will start the monitor on the command line and check all controllers. For each
-controller a line is printed with it's status.
-If a controller got a problem it will give a detailed report on the console.</p>
+<p>This will start the monitor on the command line and check all controllers. All
+of them which make some problems will be printed on the console.</p>
 
 <p>Global options:</p>
 
@@ -397,23 +405,44 @@ is taken.</p>
 <p>The verbose mode works here in multiple steps:</p>
 
 
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">v</span>    <span class="nx">show</span> <span class="nx">also</span> <span class="nx">the</span> <span class="nx">sensor</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
-<span class="o">-</span><span class="nx">vv</span>   <span class="nx">also</span> <span class="nx">display</span> <span class="nx">the</span> <span class="nx">result</span> <span class="nx">values</span>
-<span class="o">-</span><span class="nx">vvv</span>  <span class="nx">make</span> <span class="nx">and</span> <span class="nx">display</span><span class="o">/</span><span class="nx">send</span> <span class="nx">reports</span> <span class="nx">always</span>
+<div class="highlight"><pre><code><span class="o">-</span><span class="nx">v</span>    <span class="nx">show</span> <span class="nx">the</span> <span class="nx">controller</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
+<span class="o">-</span><span class="nx">vv</span>   <span class="nx">show</span> <span class="nx">also</span> <span class="nx">the</span> <span class="nx">sensor</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
+<span class="o">-</span><span class="nx">vvv</span>  <span class="nx">also</span> <span class="nx">display</span> <span class="nx">the</span> <span class="nx">result</span> <span class="nx">values</span>
 </code></pre></div>
 
 
+
+<p>If no verbose mode is set only warning and error state of controller will be reported
+on console.</p>
 
 <p>The output may look like:</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">v</span>
 
-<span class="nx">example</span> <span class="err">###############################</span>
+<span class="nx">Initializing</span><span class="p">...</span>
+<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">32</span> <span class="nx">Controller</span> <span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="nx">Finished</span><span class="p">.</span>
 
 <span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">vvv</span>
 
-<span class="nx">example</span> <span class="err">######################</span>
+<span class="nx">Initializing</span><span class="p">...</span>
+<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">load</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">http</span><span class="o">:-&gt;</span><span class="nx">http</span><span class="o">:</span><span class="c1">//192.168.200.106/svn/ =&gt; ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">memory</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">diskfree</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="err">/ =&gt; ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">diskfree</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="err">/var =&gt; ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">ping</span><span class="o">:</span><span class="nx">localhost</span><span class="o">-&gt;</span><span class="mf">192.168</span><span class="p">.</span><span class="mf">200.106</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">socket</span><span class="o">:</span><span class="nx">tcp</span> <span class="nx">localhost</span><span class="o">-&gt;</span><span class="mf">192.168</span><span class="p">.</span><span class="mf">200.106</span><span class="o">:</span><span class="mi">80</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">time</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">user</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">01</span> <span class="nx">Check</span> <span class="nx">cpu</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">01</span> <span class="nx">Check</span> <span class="nx">diskio</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="nx">sda1</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">02</span> <span class="nx">Check</span> <span class="nx">net</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="nx">eth0</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">02</span> <span class="nx">Controller</span> <span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
+<span class="nx">Finished</span><span class="p">.</span>
 </code></pre></div>
 
 
@@ -480,35 +509,56 @@ files. And maybe a storage database will be used.</p>
 <p>You may start the interactive console by using the <code>-i</code> option. After that you
 will be greeted and may give the commands:</p>
 
+<p>''' text</p>
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">i</span> <span class="err">#</span> <span class="nx">or</span> <span class="o">--</span><span class="nx">interactive</span>
-                         <span class="nx">__</span>   <span class="nx">____</span>     <span class="nx">__</span>
-         <span class="err">######</span>  <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="err">\</span>   <span class="o">|</span>  <span class="o">|</span>   <span class="err">###########</span> <span class="err">#####</span>       <span class="err">#####</span>
-        <span class="err">########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">############</span>  <span class="err">#####</span>     <span class="err">#####</span>
-       <span class="err">#########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="err">\</span>  <span class="err">\</span> <span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>          <span class="err">#####</span>   <span class="err">#####</span>
-      <span class="err">##########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span> <span class="err">\</span>  <span class="err">\</span><span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>           <span class="err">#####</span> <span class="err">#####</span>
-     <span class="err">#####</span> <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="nx">__</span><span class="err">\</span>     <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
-    <span class="err">#####</span>  <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\\</span>    <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
-   <span class="err">#####</span>   <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span><span class="nx">__</span><span class="o">|</span> <span class="o">|</span><span class="nx">______</span><span class="err">\\</span><span class="nx">___</span><span class="o">|</span>  <span class="err">#####</span>           <span class="err">#####</span> <span class="err">#####</span>
-  <span class="err">#####</span>    <span class="err">#####</span> <span class="err">#####</span>                      <span class="err">#####</span>          <span class="err">#####</span>   <span class="err">#####</span>
- <span class="err">#####</span> <span class="err">#########</span> <span class="err">##########################</span> <span class="err">############</span>  <span class="err">#####</span>     <span class="err">#####</span>
-<span class="err">#####</span> <span class="err">##########</span>  <span class="err">########################</span>   <span class="err">###########</span> <span class="err">#####</span>       <span class="err">#####</span>
-<span class="nx">___________________________________________________________________________</span>
+<blockquote>
+  <p>monitor -i # or --interactive</p>
+</blockquote>
 
-                <span class="nx">M</span> <span class="nx">O</span> <span class="nx">N</span> <span class="nx">I</span> <span class="nx">T</span> <span class="nx">O</span> <span class="nx">R</span> <span class="nx">I</span> <span class="nx">N</span> <span class="nx">G</span>   <span class="nx">A</span> <span class="nx">P</span> <span class="nx">P</span> <span class="nx">L</span> <span class="nx">I</span> <span class="nx">C</span> <span class="nx">A</span> <span class="nx">T</span> <span class="nx">I</span> <span class="nx">O</span> <span class="nx">N</span>
-<span class="nx">___________________________________________________________________________</span>
 
-<span class="nx">Initializing</span><span class="p">...</span>
-
-<span class="nx">Welcome</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">interactive</span> <span class="nx">monitor</span> <span class="nx">console</span> <span class="k">in</span> <span class="nx">which</span> <span class="nx">you</span> <span class="nx">can</span> <span class="nx">get</span> <span class="nx">more</span>
-<span class="nx">information</span> <span class="nx">about</span> <span class="nx">special</span> <span class="nx">tools</span><span class="p">,</span> <span class="nx">run</span> <span class="nx">individual</span> <span class="nx">tests</span> <span class="nx">and</span> <span class="nx">explore</span> <span class="nx">systems</span><span class="p">.</span>
-
-<span class="nx">To</span> <span class="nx">get</span> <span class="nx">help</span> <span class="nx">call</span> <span class="nx">the</span> <span class="nx">command</span> <span class="nx">help</span> <span class="nx">and</span> <span class="nx">close</span> <span class="kd">with</span> <span class="nx">exit</span><span class="o">!</span>
-
-<span class="nx">monitor</span><span class="o">&gt;</span>
+<div class="highlight"><pre><code>                     <span class="nx">__</span>   <span class="nx">____</span>     <span class="nx">__</span>
+     <span class="err">######</span>  <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="err">\</span>   <span class="o">|</span>  <span class="o">|</span>   <span class="err">###########</span> <span class="err">#####</span>       <span class="err">#####</span>
+    <span class="err">########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">############</span>  <span class="err">#####</span>     <span class="err">#####</span>
+   <span class="err">#########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="err">\</span>  <span class="err">\</span> <span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>          <span class="err">#####</span>   <span class="err">#####</span>
+  <span class="err">##########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span> <span class="err">\</span>  <span class="err">\</span><span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>           <span class="err">#####</span> <span class="err">#####</span>
+ <span class="err">#####</span> <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="nx">__</span><span class="err">\</span>     <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
+<span class="err">#####</span>  <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\\</span>    <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
 </code></pre></div>
 
 
+
+<p>#####   ##### #####  |<strong>| |<em>_</em><em></strong>\_</em>_|  #####           ##### #####
+  #####    ##### #####                      #####          #####   #####
+ ##### ######### ########################## ############  #####     #####</p>
+
+
+<div class="pilwrap" id="%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23">
+  <h5>
+    <a href="#%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23" name="%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23" class="pilcrow">&#182;</a>
+    ##########  ########################   ########### #####
+  </h5>
+</div>
+
+
+<hr />
+
+
+<div class="highlight"><pre><code>            <span class="nx">M</span> <span class="nx">O</span> <span class="nx">N</span> <span class="nx">I</span> <span class="nx">T</span> <span class="nx">O</span> <span class="nx">R</span> <span class="nx">I</span> <span class="nx">N</span> <span class="nx">G</span>   <span class="nx">A</span> <span class="nx">P</span> <span class="nx">P</span> <span class="nx">L</span> <span class="nx">I</span> <span class="nx">C</span> <span class="nx">A</span> <span class="nx">T</span> <span class="nx">I</span> <span class="nx">O</span> <span class="nx">N</span>
+</code></pre></div>
+
+
+
+<hr />
+
+<p>Initializing...</p>
+
+<p>Welcome to the interactive monitor console in which you can get more
+information about special tools, run individual tests and explore systems.</p>
+
+<p>To get help call the command help and close with exit!</p>
+
+<p>monitor>
+```</p>
 
 <p>The following commands are possible here:</p>
 
@@ -584,6 +634,31 @@ directly you can send it as command using the options:</p>
 <p>If you run a command which needs optional parameters while running you have to
 give all of them on call as a json data object. Take the names from the interactive
 run displayed in front of the question.</p>
+
+
+<div class="pilwrap" id="definitions">
+  <h2>
+    <a href="#definitions" name="definitions" class="pilcrow">&#182;</a>
+    Definitions
+  </h2>
+</div>
+
+
+<ul>
+<li><strong>Monitor</strong> - is the main program</li>
+<li><strong>Controller</strong> - is the configurable automatic monitoring element holding some checks</li>
+<li><strong>Check</strong> - will run the sensor and hold it's contents</li>
+<li><strong>Sensor</strong> - will analyze some metrics and collect it's values</li>
+<li><strong>Status</strong> - the current state of the element (ok, warn, fail)</li>
+<li><strong>Action</strong> - will run the actor and hold the protocol</li>
+<li><strong>Actor</strong> - will do some active changes on a system</li>
+<li><strong>Analysis</strong> - will start an explorative check</li>
+<li><strong>Analyzer</strong> - collect explorative information from a system</li>
+<li><strong>Storage</strong> - will hold the results and data in a persistence layer</li>
+<li><strong>Console</strong> - command line interface</li>
+<li><strong>Interactive Console</strong> - will interactively work</li>
+<li><strong>Daemon</strong> - service mode in which the monitor runs the controller checks continuously</li>
+</ul>
 
 
 <div class="pilwrap" id="configuration">
@@ -790,29 +865,6 @@ settings are defined in the <code>/database</code> configuration, see below.</p>
 This is used in the different sensors by references to the setup stored there.</p>
 
 
-<div class="pilwrap" id="status">
-  <h2>
-    <a href="#status" name="status" class="pilcrow">&#182;</a>
-    Status
-  </h2>
-</div>
-
-
-<p>The monitor uses the following status:</p>
-
-<p><strong>running</strong> if the sensor is already analyzing, you have to wait</p>
-
-<p><strong>disabled</strong> if this controller is currently not checked - this will be used
-like ok for further processing</p>
-
-<p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
-
-<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
-it - exit code 1</p>
-
-<p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
-
-
 <div class="pilwrap" id="controller">
   <h2>
     <a href="#controller" name="controller" class="pilcrow">&#182;</a>
@@ -856,9 +908,9 @@ specific configuration files containing meta information.</p>
     <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
       <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
-      <span class="c1"># Additional analysis to run if check is warn or failure</span>
-      <span class="l-Scalar-Plain">analysis</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">dirs</span><span class="p-Indicator">:</span> <span class="s">&#39;/tmp,</span><span class="nv"> </span><span class="s">/var/log&#39;</span>
+    <span class="c1"># Additional analysis to run if check is warn or failure</span>
+    <span class="l-Scalar-Plain">analysis</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">dirs</span><span class="p-Indicator">:</span> <span class="s">&#39;/tmp,</span><span class="nv"> </span><span class="s">/var/log&#39;</span>
 
     <span class="c1"># ### Weight setting</span>
     <span class="c1"># Specific to value of the following &#39;combine&#39; setting.</span>
@@ -966,6 +1018,29 @@ controllers may be:</p>
 <li>one for each end user application i.e. <code>login</code>, <code>browse</code>, <code>buy</code></li>
 <li>one overall check i.e. <code>all</code></li>
 </ul>
+
+
+<div class="pilwrap" id="status">
+  <h2>
+    <a href="#status" name="status" class="pilcrow">&#182;</a>
+    Status
+  </h2>
+</div>
+
+
+<p>The monitor uses the following status:</p>
+
+<p><strong>running</strong> if the sensor is already analyzing, you have to wait</p>
+
+<p><strong>disabled</strong> if this controller is currently not checked - this will be used
+like ok for further processing</p>
+
+<p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
+
+<p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
+it - exit code 1</p>
+
+<p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
 
 
 <div class="pilwrap" id="sensor">
@@ -2175,8 +2250,16 @@ tool. First make a script to select the values you want to display:</p>
 or by interactively requesting for answers. They are a scriptable tool to gather
 information and analyze them.</p>
 
+<p>In contrast to the sensor it will retrieve also a lot of more static or seldom
+changing information and may take a lot more time to execute. It will also run with
+lower priority on the server. Multiple parallel analysis is also possible on some
+of the explorers leading to a comparison or overview report.</p>
+
 <p>To run them use the interactive console or give all details to the cli as a json
 object.</p>
+
+<p>If you want to have the report as email give <code>-m &lt;address&gt;</code> as parameter on the
+monitor startup.</p>
 
 
 <div class="pilwrap" id="hardware">
@@ -2192,23 +2275,34 @@ object.</p>
 <li>dmidecode</li>
 <li>lscpu
 lspci
-lsusb</li>
+lsusb
+cat /proc/cpuinfo
+cat /proc/diskstats</li>
 </ol>
 
-<p>cat /proc/cpuinfo
-cat /proc/diskstats</p>
+<p>run by step only if before failed and add to result.hint</p>
 
 
-<div class="pilwrap" id="software">
+<div class="pilwrap" id="os">
   <h3>
-    <a href="#software" name="software" class="pilcrow">&#182;</a>
-    Software
+    <a href="#os" name="os" class="pilcrow">&#182;</a>
+    OS
   </h3>
 </div>
 
 
-<p>cat /proc/version
-running daemons</p>
+<p>cat /proc/version</p>
+
+
+<div class="pilwrap" id="services">
+  <h3>
+    <a href="#services" name="services" class="pilcrow">&#182;</a>
+    Services
+  </h3>
+</div>
+
+
+<p>running daemons (exclude system ones)</p>
 
 
 <div class="pilwrap" id="network%20settings">
@@ -2220,16 +2314,8 @@ running daemons</p>
 
 
 <p>/proc/sys/kernel/domainname
-/proc/sys/kernel/hostname</p>
-
-
-<div class="pilwrap" id="daemons">
-  <h3>
-    <a href="#daemons" name="daemons" class="pilcrow">&#182;</a>
-    Daemons
-  </h3>
-</div>
-
+/proc/sys/kernel/hostname
+? firewall</p>
 
 
 <div class="pilwrap" id="apachesites">
@@ -2275,6 +2361,15 @@ running daemons</p>
   </h3>
 </div>
 
+
+<p>config
+  date from-to (default today)
+  time from-to</p>
+
+<p>crontab -l
+sort by time
+split alternatives into multiple entries
+split from to into multiple entries</p>
 
 
 <div class="pilwrap" id="plugin%20system">
@@ -2360,10 +2455,10 @@ definition to validate its check configuration</li>
 <li>type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
 'array', 'object'</li>
 <li>unit - optional unit of values if number type used</li></ul></li>
-<li>name(config) - a method returning a configuration based short name to identify</li>
-<li>run(config, cb) - will run this sensor with given configuration</li>
-<li>analysis(config, res, cb) - an additional analysis used mainly on problems which
-needs the configuration and the results from the normal run as parameters</li>
+<li>init(cb) - initialize the check once</li>
+<li>prerun(cb) - method to be called before each run (optional)</li>
+<li>run(cb) - runing the acquisition of data</li>
+<li>calc(res, cb) - calculating the values from the result set</li>
 </ul>
 
 
@@ -2374,6 +2469,8 @@ needs the configuration and the results from the normal run as parameters</li>
   </h3>
 </div>
 
+
+<p>Coming soon...</p>
 
 
 <div class="pilwrap" id="explorer%20structure">
@@ -2423,7 +2520,8 @@ if no config given</li>
 <li>the interactive console - done</li>
 <li>possibility to run onetime analyzation - done</li>
 <li>database storage support - done</li>
-<li>daemon mode running controller on schedule</li>
+<li>daemon mode running controller on schedule - done</li>
+<li>modular base design -done</li>
 </ul>
 
 <p>The next version coming early in 2016 will have:</p>
@@ -2436,57 +2534,6 @@ if no config given</li>
 
 <p>After that a lot of bugfixes, smaller improvements and more sensors, actors and
 explorers will follow regularly.</p>
-
-<p>My own always changing internal todo list:</p>
-
-<ul>
-<li>save to db
-<ul><li>status</li>
-<li>controller status</li>
-<li>don't store on try run</li></ul></li>
-<li>controller with daemon
-<ul><li>rerun controller on time</li>
-<li>support check.retry.warn setting</li>
-<li>support check.retry.error setting</li>
-<li>rerun problematic sensors</li>
-<li>stop retry on next controller run</li>
-<li>recalculate controller status on sensor status change</li>
-<li>run actors again if controller status changed</li></ul></li>
-<li><p>cleanup command</p>
-
-<ul><li>run cleanup once daily (check the current date)</li></ul></li>
-<li><p>create explorer storage</p>
-
-<ul><li>db structure</li>
-<li>fill with results</li></ul></li>
-<li><p>evaluate rules before analysis</p></li>
-<li><p>implement actor</p>
-
-<ul><li>execute rules</li>
-<li>send emails on state change</li>
-<li>-m send to other email instead of controller contacts</li>
-<li>create actor storage</li>
-<li>markdown ->
-html <a href='https://markdown-it.github.io'>https://markdown-it.github.io</a>
-<a href='https://www.npmjs.com/package/markdown-it-highlightjs'>https://www.npmjs.com/package/markdown-it-highlightjs</a>
-<a href='https://www.npmjs.com/package/markdown-it-lazy-headers'>https://www.npmjs.com/package/markdown-it-lazy-headers</a>
-<a href='https://www.npmjs.com/package/markdown-it-table-of-contents'>https://www.npmjs.com/package/markdown-it-table-of-contents</a>
-<a href='https://www.npmjs.com/package/markdown-it-checkbox'>https://www.npmjs.com/package/markdown-it-checkbox</a>
-<a href='https://www.npmjs.com/package/markdown-it-deflist'>https://www.npmjs.com/package/markdown-it-deflist</a>
-<a href='https://www.npmjs.com/package/markdown-it-abbr'>https://www.npmjs.com/package/markdown-it-abbr</a>
-<a href='https://github.com/Welfenlab/dot-processor'>https://github.com/Welfenlab/dot-processor</a></li></ul></li>
-<li><p>report</p>
-
-<ul><li>add time results of fields within the warn or fail conditions</li>
-<li>? save to db: report</li></ul></li>
-<li><p>ic: show Sensor</p></li>
-<li>run explorer</li>
-<li>reload command -> reinit config, controller and plugins</li>
-<li><p>? process stdout.rows then pause</p></li>
-<li><p>update example reports for each sensor to doc</p></li>
-<li>add check type: serial: []</li>
-<li>add check type: controller: ....</li>
-</ul>
 
 
 <div class="pilwrap" id="license">

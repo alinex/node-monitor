@@ -396,10 +396,15 @@ possible within it.</p>
 
   <span class="nv">start: </span><span class="nf">-&gt;</span>
     <span class="nx">@instantiate</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@controller</span>
+    <span class="nx">debug</span> <span class="s">&quot;start daemon&quot;</span>
+    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">ctrl</span> <span class="k">of</span> <span class="nx">@controller</span>
+      <span class="nx">ctrl</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
     <span class="k">this</span>
 
   <span class="nv">stop: </span><span class="nf">-&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="mi">1111</span>
+    <span class="nx">debug</span> <span class="s">&quot;stop daemon&quot;</span>
+
+
     <span class="k">this</span>
 
 
@@ -443,6 +448,7 @@ possible within it.</p>
   <span class="nv">getSensor: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">get</span> <span class="s">&#39;sensor&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="nv">getActor: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">get</span> <span class="s">&#39;actor&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="nv">getExplorer: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">get</span> <span class="s">&#39;explorer&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span>
+
 
 
 </pre></div>
@@ -515,6 +521,7 @@ possible within it.</p>
       <span class="k">when</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span> <span class="o">&gt;=</span> <span class="mi">300</span> <span class="k">then</span> <span class="s">&#39;minutes&#39;</span>
       <span class="k">else</span> <span class="s">&#39;seconds&#39;</span>
     <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\nThe following checks will run every </span><span class="si">#{</span><span class="nx">interval</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span><span class="si">}</span><span class="s">:\n\n&quot;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">info</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(check, cb) =&gt;</span>
       <span class="nx">@getSensor</span> <span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="p">,</span> <span class="nf">(err, sensorInstance) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -614,7 +621,10 @@ possible within it.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">runController: </span><span class="nf">(name, cb) -&gt;</span>
-    <span class="nv">list = </span><span class="k">if</span> <span class="nx">name</span> <span class="k">then</span> <span class="p">{</span><span class="nv">name: </span><span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]}</span> <span class="k">else</span> <span class="nx">@controller</span>
+    <span class="k">if</span> <span class="nx">name</span>
+      <span class="nv">list = </span><span class="p">{}</span>
+      <span class="nx">list</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+    <span class="nx">list</span> <span class="o">?=</span> <span class="nx">@controller</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(ctrl, name, cb) -&gt;</span>
       <span class="nx">ctrl</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err) -&gt;</span>

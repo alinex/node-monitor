@@ -48,13 +48,13 @@
         <a href="#result%20values">Result values</a>
       </div>
       <div class="heading h2">
-        <a href="#get%20content%20specific%20name">Get content specific name</a>
+        <a href="#initialize%20check">Initialize check</a>
       </div>
       <div class="heading h2">
         <a href="#run%20the%20sensor">Run the Sensor</a>
       </div>
       <div class="heading h2">
-        <a href="#run%20additional%20analysis">Run additional analysis</a>
+        <a href="#get%20the%20results">Get the results</a>
       </div>
     </div>
   </div>
@@ -81,8 +81,12 @@
   <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
 </div>
 <p>Find the description of the possible configuration values and the returned
-values in the code below.
-But the analysis part currently only works on linux.</p>
+values in the code below.</p>
+
+<p>This methods will be called in the context of the corresponding check()
+instance.</p>
+
+<p>The analysis part currently is based on debian linux.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
@@ -115,7 +119,6 @@ But the analysis part currently only works on linux.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:net&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 
 </pre></div>
         </td>
@@ -130,20 +133,7 @@ But the analysis part currently only works on linux.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
-</div>
-<p>include classes and helpers</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
 
 
 </pre></div>
@@ -191,10 +181,17 @@ compatible schema definition:</p>
       <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
       <span class="nv">default: </span><span class="mi">10</span>
       <span class="nv">min: </span><span class="mi">1</span>
-    <span class="nv">warn: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span><span class="p">,</span>
+    <span class="nv">warn:</span>
+      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
       <span class="nv">default: </span><span class="s">&#39;errors &gt; 50%&#39;</span>
-    <span class="nv">fail: </span><span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span><span class="p">,</span>
+    <span class="nv">fail:</span>
+      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
       <span class="nv">default: </span><span class="s">&#39;errors &gt; 99%&#39;</span>
+
 
 
 </pre></div>
@@ -338,21 +335,32 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
 
 
+
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20content%20specific%20name">
+<div class="pilwrap" id="initialize%20check">
   <h2>
-    <a href="#get%20content%20specific%20name" name="get%20content%20specific%20name" class="pilcrow">&#182;</a>
-    Get content specific name
+    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
+    Initialize check
   </h2>
 </div>
 
+
+<p>This method is used for some precalculations or analyzations and should set:</p>
+
+<ul>
+<li>check.name = <string> # mandatory</li>
+<li>check.base = <object> # optionally</li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.name = </span><span class="nf">(config) -&gt;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">interface</span>
+<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
+  <span class="vi">@name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">cb</span><span class="p">()</span>
+
 
 
 </pre></div>
@@ -369,12 +377,7 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(config, cb = -&gt;) -&gt;</span>
-  <span class="nv">work =</span>
-    <span class="nv">sensor: </span><span class="k">this</span>
-    <span class="nv">config: </span><span class="nx">config</span>
-    <span class="nv">result: </span><span class="p">{}</span>
-  <span class="nx">sensor</span><span class="p">.</span><span class="nx">start</span> <span class="nx">work</span>
+<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -382,30 +385,48 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>run check</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
-    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s"> /proc/net/dev&quot;</span><span class="p">]</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s"> /proc/net/dev&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">,</span>
-    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s"> /proc/net/dev&quot;</span><span class="p">]</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">interface</span><span class="si">}</span><span class="s"> /proc/net/dev&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">,</span>
-    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;ip&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;addr&#39;</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">interface</span><span class="p">]</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;addr&#39;</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">interface</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
   <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-    <span class="nx">sensor</span><span class="p">.</span><span class="nx">end</span> <span class="nx">work</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20the%20results">
+  <h2>
+    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
+    Get the results
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
 
 </pre></div>
         </td>
@@ -415,13 +436,32 @@ You may use any of these in your warn/fail expressions.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
-<p>analyse results</p>
+<p>calculate and store the results</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">err</span>
-      <span class="nv">work.err = </span><span class="nx">err</span>
-    <span class="k">else</span>
-      <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
+  <span class="nv">l1 = </span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+  <span class="nv">l2 = </span><span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+  <span class="nv">diff = </span><span class="nf">(col) -&gt;</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span>
+  <span class="nv">percent = </span><span class="nf">(col, max) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="nx">max</span>
+  <span class="vi">@values.receivedBytes = </span><span class="nx">diff</span> <span class="mi">1</span>
+  <span class="vi">@values.receivedPackets = </span><span class="nx">diff</span> <span class="mi">2</span>
+  <span class="vi">@values.receivedErrors = </span><span class="nx">percent</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">receivedPackets</span>
+  <span class="vi">@values.receivedDrop = </span><span class="nx">percent</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">receivedPackets</span>
+  <span class="vi">@values.receivedFifo = </span><span class="nx">percent</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">receivedPackets</span>
+  <span class="vi">@values.receivedFrames = </span><span class="nx">percent</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">receivedPackets</span>
+  <span class="vi">@values.transmitBytes = </span><span class="nx">diff</span> <span class="mi">9</span>
+  <span class="vi">@values.transmitPackets = </span><span class="nx">diff</span> <span class="mi">10</span>
+  <span class="vi">@values.transmitErrors = </span><span class="nx">percent</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">transmitPackets</span>
+  <span class="vi">@values.transmitDrop = </span><span class="nx">percent</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">transmitPackets</span>
+  <span class="vi">@values.transmitFifo = </span><span class="nx">percent</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">transmitPackets</span>
+  <span class="vi">@values.transmitFrames = </span><span class="nx">percent</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">transmitPackets</span>
+  <span class="vi">@values.bytes = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">receivedBytes</span> <span class="o">+</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">transmitBytes</span>
+  <span class="vi">@values.packets = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">receivedPackets</span> <span class="o">+</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">transmitPackets</span>
+  <span class="nv">percent = </span><span class="nf">(col1, col2, max) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col2</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col2</span><span class="p">])</span> <span class="o">/</span> <span class="nx">max</span>
+  <span class="vi">@values.errors = </span><span class="nx">percent</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">packets</span>
+  <span class="vi">@values.drop = </span><span class="nx">percent</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">packets</span>
+  <span class="vi">@values.fifo = </span><span class="nx">percent</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">packets</span>
+  <span class="vi">@values.frames = </span><span class="nx">percent</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">packets</span>
 
 </pre></div>
         </td>
@@ -431,215 +471,21 @@ You may use any of these in your warn/fail expressions.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
-<p>calculate and store the results</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">l1 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-      <span class="nv">l2 = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-      <span class="nv">diff = </span><span class="nf">(col) -&gt;</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span>
-      <span class="nv">percent = </span><span class="nf">(col, max) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="nx">max</span>
-      <span class="nv">val.receivedBytes = </span><span class="nx">diff</span> <span class="mi">1</span>
-      <span class="nv">val.receivedPackets = </span><span class="nx">diff</span> <span class="mi">2</span>
-      <span class="nv">val.receivedErrors = </span><span class="nx">percent</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
-      <span class="nv">val.receivedDrop = </span><span class="nx">percent</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
-      <span class="nv">val.receivedFifo = </span><span class="nx">percent</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
-      <span class="nv">val.receivedFrames = </span><span class="nx">percent</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span>
-      <span class="nv">val.transmitBytes = </span><span class="nx">diff</span> <span class="mi">9</span>
-      <span class="nv">val.transmitPackets = </span><span class="nx">diff</span> <span class="mi">10</span>
-      <span class="nv">val.transmitErrors = </span><span class="nx">percent</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
-      <span class="nv">val.transmitDrop = </span><span class="nx">percent</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
-      <span class="nv">val.transmitFifo = </span><span class="nx">percent</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
-      <span class="nv">val.transmitFrames = </span><span class="nx">percent</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
-      <span class="nv">val.bytes = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedBytes</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitBytes</span>
-      <span class="nv">val.packets = </span><span class="nx">val</span><span class="p">.</span><span class="nx">receivedPackets</span> <span class="o">+</span> <span class="nx">val</span><span class="p">.</span><span class="nx">transmitPackets</span>
-      <span class="nv">percent = </span><span class="nf">(col1, col2, max) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">col1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col1</span><span class="p">]</span> <span class="o">+</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">col2</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">col2</span><span class="p">])</span> <span class="o">/</span> <span class="nx">max</span>
-      <span class="nv">val.errors = </span><span class="nx">percent</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
-      <span class="nv">val.drop = </span><span class="nx">percent</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
-      <span class="nv">val.fifo = </span><span class="nx">percent</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
-      <span class="nv">val.frames = </span><span class="nx">percent</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">val</span><span class="p">.</span><span class="nx">packets</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
-</div>
 <p>get additional interface settings</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">lines = </span><span class="nx">proc</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n\s*/</span>
-      <span class="nv">match = </span><span class="sr">/state ([A-Z]+)/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="nv">val.state = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="nv">match = </span><span class="sr">/(([0-9a-f]{2}:){5}[0-9a-f]{2})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="nv">val.mac = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">..]</span>
-          <span class="k">if</span> <span class="nv">match = </span><span class="sr">/^inet ((\d{1,3}.){3}\d{1,3})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">line</span>
-            <span class="nv">val.ipv4 = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-          <span class="k">else</span> <span class="k">if</span> <span class="nv">match = </span><span class="sr">/^inet6 (([0-9a-f]{0,4}:){5}[0-9a-f]{0,4})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">line</span>
-            <span class="nv">val.ipv6 = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20additional%20analysis">
-  <h2>
-    <a href="#run%20additional%20analysis" name="run%20additional%20analysis" class="pilcrow">&#182;</a>
-    Run additional analysis
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.analysis = </span><span class="nf">(config, res, cb = -&gt;) -&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
-</div>
-<p>get additional information</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
-    <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;netstat&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-plnta&#39;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">,</span>
-    <span class="nv">cmd: </span><span class="s">&#39;egrep&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;^#|^$&#39;</span><span class="p">,</span> <span class="s">&#39;/etc/services&#39;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
-</div>
-<p>get protocol names</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">services = </span><span class="p">{}</span>
-    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
-      <span class="nv">col = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-      <span class="nx">services</span><span class="p">[</span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">col</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">then</span> <span class="nx">col</span><span class="p">[</span><span class="mi">2</span><span class="p">..].</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^.*#\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nx">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
-</div>
-<p>0 Protocol
-1 Recv-Q
-2 Send-Q
-3 Local Address, Port
-4 Foreign Address, Port
-5 State
-6 PID, Program name</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">server = </span><span class="s">&#39;&#39;</span>
-    <span class="nv">conn = </span><span class="s">&#39;&#39;</span>
-    <span class="nv">head = </span><span class="kc">true</span>
-    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
-      <span class="nv">cols = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-      <span class="k">continue</span> <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">isnt</span> <span class="s">&#39;Proto&#39;</span> <span class="o">and</span> <span class="nx">head</span>
-      <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;Proto&#39;</span>
-        <span class="nv">head = </span><span class="kc">false</span>
-        <span class="k">continue</span>
-      <span class="k">if</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;LISTEN&#39;</span>
-        <span class="nv">split = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">lastIndexOf</span> <span class="s">&#39;:&#39;</span>
-        <span class="nv">ip = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">substring</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">split</span>
-        <span class="nv">port = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">substring</span> <span class="nx">split</span><span class="o">+</span><span class="mi">1</span>
-        <span class="nx">server</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">ip</span><span class="p">,</span> <span class="mi">20</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">port</span><span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">services</span><span class="p">[</span><span class="nx">port</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\d/</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)]</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="p">),</span> <span class="mi">32</span><span class="si">}</span><span class="s"> |\n&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
-</div>
-
-<div class="highlight"><pre><code>     <span class="o">|</span> <span class="err">#</span><span class="p">{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">port</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\d/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)),</span> <span class="mi">32</span><span class="p">}</span> <span class="o">|</span><span class="err">\</span><span class="nx">n</span><span class="err">&quot;</span>
-</code></pre></div>
-
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">else</span>
-        <span class="nv">split = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">lastIndexOf</span> <span class="s">&#39;:&#39;</span>
-        <span class="nv">ip = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">substring</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">split</span>
-        <span class="nv">port = </span><span class="nx">cols</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="nx">substring</span> <span class="nx">split</span><span class="o">+</span><span class="mi">1</span>
-        <span class="k">continue</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">or</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;-&#39;</span>
-        <span class="p">[</span><span class="nx">pid</span><span class="p">,</span> <span class="nx">cmd</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">6</span><span class="p">].</span><span class="nx">split</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="mi">2</span>
-        <span class="nx">conn</span> <span class="o">+=</span> <span class="s">&quot;| </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">ip</span><span class="p">,</span> <span class="mi">20</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">port</span><span class="p">,</span> <span class="mi">5</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">lpad</span> <span class="nx">pid</span><span class="p">,</span> <span class="mi">6</span><span class="si">}</span><span class="s"></span>
-<span class="s">          | </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="p">(</span><span class="nx">cmd</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="p">),</span> <span class="mi">14</span><span class="si">}</span><span class="s"> |\n&quot;</span>
-    <span class="nv">report = </span><span class="s">&#39;&#39;</span>
-    <span class="k">if</span> <span class="nx">server</span>
-      <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        Listening servers:</span>
-
-<span class="s">        | PROTO | LOCAL IP             | PORT  | SERVICE                          |</span>
-<span class="s">        | :---- | :------------------- | ----: | :------------------------------- |</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
-</div>
-<p>{server}\n"""</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    if conn</span>
-<span class="s">      report += &quot;&quot;&quot;</span>
-        <span class="nx">Active</span> <span class="nx">internet</span> <span class="nv">connections:</span>
-
-        <span class="o">|</span> <span class="nx">PROTO</span> <span class="o">|</span> <span class="nx">FOREIGN</span> <span class="nx">IP</span>           <span class="o">|</span> <span class="nx">PORT</span>  <span class="o">|</span>   <span class="nx">PID</span>  <span class="o">|</span>     <span class="nx">PROGRAM</span>    <span class="o">|</span>
-        <span class="o">|</span> <span class="o">:----</span> <span class="o">|</span> <span class="o">:-------------------</span> <span class="o">|</span> <span class="o">----:</span> <span class="o">|</span> <span class="o">-----:</span> <span class="o">|</span> <span class="o">:-------------</span> <span class="o">|</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
-</div>
-<p>{conn}\n"""</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
+  <span class="nv">lines = </span><span class="nx">res</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n\s*/</span>
+  <span class="nv">match = </span><span class="sr">/state ([A-Z]+)/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="vi">@values.state = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="nv">match = </span><span class="sr">/(([0-9a-f]{2}:){5}[0-9a-f]{2})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="vi">@values.mac = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">..]</span>
+      <span class="k">if</span> <span class="nv">match = </span><span class="sr">/^inet ((\d{1,3}.){3}\d{1,3})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">line</span>
+        <span class="vi">@values.ipv4 = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nv">match = </span><span class="sr">/^inet6 (([0-9a-f]{0,4}:){5}[0-9a-f]{0,4})/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">line</span>
+        <span class="vi">@values.ipv6 = </span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="nx">cb</span><span class="p">()</span>
 </pre></div>
         </td>
       </tr>

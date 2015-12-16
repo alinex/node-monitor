@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>.travis.yml</title>
+  <title>monitor.yml</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="doc-style.css" />
-  <script src="doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/travis.yml", defaultSidebar = true;
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-monitor/var/local/config/monitoryml", defaultSidebar = true;
   </script>
-  <script src="doc-script.js"></script>
-  <script src="fileSearch.js"></script>
-  <script src="goToLine.js"></script>
-  <link rel="stylesheet" href="fileSearch.css" />
-  <link rel="stylesheet" href="goToLine.css" />
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -32,6 +32,9 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+      <div class="heading h1">
+        <a href="#general%20monitor%20settings">General monitor settings</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -40,25 +43,28 @@
   <tbody>
       <tr>
         <td class="docs">
-          <h1>.travis.yml</h1>
+<div class="pilwrap" id="general%20monitor%20settings">
+  <h1>
+    <a href="#general%20monitor%20settings" name="general%20monitor%20settings" class="pilcrow">&#182;</a>
+    General monitor settings
+  </h1>
+</div>
+
+
+<p>This file holds a list of contacts to be used from within the rules and
+specific controllers.</p>
         </td>
-        <td class="code highlight"></td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
       </tr>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
 </div>
-
+<p>plugins: dvb-monitor-plugin</p>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node_js</span>
-<span class="l-Scalar-Plain">node_js</span><span class="p-Indicator">:</span>
-   <span class="p-Indicator">-</span> <span class="s">&quot;0.10&quot;</span>
-   <span class="p-Indicator">-</span> <span class="s">&quot;0.12&quot;</span>
-   <span class="p-Indicator">-</span> <span class="s">&quot;4.2&quot;</span>
-   <span class="p-Indicator">-</span> <span class="s">&quot;5.2&quot;</span>
-<span class="l-Scalar-Plain">after_success</span><span class="p-Indicator">:</span>
-   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=v3Z17MGbBBtEfe6sA6xNbWkG0OYxNtDyx node_modules/.bin/builder -c test --coverage --coveralls</span>
+        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>

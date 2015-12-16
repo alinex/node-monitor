@@ -48,13 +48,13 @@
         <a href="#result%20values">Result values</a>
       </div>
       <div class="heading h2">
-        <a href="#get%20content%20specific%20name">Get content specific name</a>
+        <a href="#initialize%20check">Initialize check</a>
       </div>
       <div class="heading h2">
         <a href="#run%20the%20sensor">Run the Sensor</a>
       </div>
       <div class="heading h2">
-        <a href="#run%20additional%20analysis">Run additional analysis</a>
+        <a href="#get%20the%20results">Get the results</a>
       </div>
     </div>
   </div>
@@ -102,7 +102,6 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:socket&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 
 </pre></div>
         </td>
@@ -115,22 +114,8 @@
 <p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
-</div>
-<p>include classes and helpers</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
 
 
 </pre></div>
@@ -188,8 +173,17 @@ compatible schema definition:</p>
       <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
       <span class="nv">min: </span><span class="mi">500</span>
       <span class="nv">default: </span><span class="mi">2000</span>
-    <span class="nv">warn: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">warn</span>
-    <span class="nv">fail: </span><span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">fail</span>
+    <span class="nv">warn:</span>
+      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">fail:</span>
+      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+
 
 
 </pre></div>
@@ -241,33 +235,32 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
 
 
+
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20content%20specific%20name">
+<div class="pilwrap" id="initialize%20check">
   <h2>
-    <a href="#get%20content%20specific%20name" name="get%20content%20specific%20name" class="pilcrow">&#182;</a>
-    Get content specific name
+    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
+    Initialize check
   </h2>
 </div>
 
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.name = </span><span class="nf">(config) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">transport</span><span class="si">}</span><span class="s"></span>
 
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
-</div>
-<p>{config.remote ? 'localhost'}->#{config.host}:#{config.port}"</p>
+<p>This method is used for some precalculations or analyzations and should set:</p>
+
+<ul>
+<li>check.name = <string> # mandatory</li>
+<li>check.base = <object> # optionally</li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
+  <span class="vi">@name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">transport</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">-&gt;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">cb</span><span class="p">()</span>
+
 
 
 </pre></div>
@@ -284,12 +277,7 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">exports.run = (config, cb = -&gt;) -&gt;</span>
-<span class="s">  work =</span>
-<span class="s">    sensor: this</span>
-<span class="s">    config: config</span>
-<span class="s">    result: {}</span>
-<span class="s">  sensor.start work</span>
+<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -297,27 +285,19 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>run check</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  Exec.run</span>
-<span class="s">    remote: config.remote</span>
-<span class="s">    cmd: &#39;bash&#39;</span>
-<span class="s">    args: [&#39;-c&#39;, &quot;</span><span class="nx">echo</span> <span class="o">&gt;</span> <span class="sr">/dev/</span><span class="c1">#{config.transport}/#{config.host}/#{config.port}&quot;]</span>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;bash&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;echo &gt; /dev/</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">transport</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-    <span class="nv">timeout: </span><span class="nx">config</span><span class="p">.</span><span class="nx">timeout</span>
-  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-    <span class="nv">work.err = </span><span class="nx">err</span>
-    <span class="nx">sensor</span><span class="p">.</span><span class="nx">end</span> <span class="nx">work</span>
-    <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="nv">work.result.message = </span><span class="nx">proc</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/bash:\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
-    <span class="k">unless</span> <span class="nx">err</span>
-      <span class="nv">val = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">values</span>
-      <span class="nv">val.responseTime = </span><span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+    <span class="nv">timeout: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">timeout</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+
 
 
 </pre></div>
@@ -325,16 +305,20 @@ You may use any of these in your warn/fail expressions.</p>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20additional%20analysis">
+<div class="pilwrap" id="get%20the%20results">
   <h2>
-    <a href="#run%20additional%20analysis" name="run%20additional%20analysis" class="pilcrow">&#182;</a>
-    Run additional analysis
+    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
+    Get the results
   </h2>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.analysis = </span><span class="nf">(config, res, cb = -&gt;) -&gt;</span>
+<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
+  <span class="vi">@values.responseTime = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="vi">@err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="nx">res</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/bash:\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
   <span class="nx">cb</span><span class="p">()</span>
 </pre></div>
         </td>

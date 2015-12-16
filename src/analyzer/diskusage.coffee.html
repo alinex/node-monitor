@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>hardware.coffee</title>
+  <title>diskusage.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/explorer/hardwarecoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/analyzer/diskusagecoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -131,6 +131,7 @@ But the analysis part currently only works on linux.</p>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 <span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
 </pre></div>
         </td>
@@ -143,7 +144,7 @@ But the analysis part currently only works on linux.</p>
 <p>include classes and helpers</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">sensor = </span><span class="nx">require</span> <span class="s">&#39;../sensor&#39;</span>
+
 
 
 </pre></div>
@@ -335,6 +336,44 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.run = </span><span class="nf">(check, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>run check</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
+    <span class="nv">remote: </span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;cat /proc/cpuinfo | egrep &#39;(processor|cpu MHz)&#39;&quot;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">remote: </span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep cpu /proc/stat&quot;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">remote: </span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
+    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep cpu /proc/stat&quot;</span><span class="p">]</span>
+    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+  <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+
+<span class="nv">exports.check = </span><span class="nf">(check, res, cb) -&gt;</span>
+
+
+
+
+
 <span class="nv">exports.run = </span><span class="nf">(config, cb = -&gt;) -&gt;</span>
   <span class="nv">work =</span>
     <span class="nv">sensor: </span><span class="k">this</span>
@@ -348,7 +387,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>run check</p>
         </td>
@@ -379,7 +418,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>analyse results</p>
         </td>
@@ -395,7 +434,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>cpu info values</p>
         </td>
@@ -415,7 +454,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>cpu load</p>
         </td>
@@ -436,7 +475,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>get percentage</p>
         </td>
@@ -457,7 +496,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>get min/max cpus</p>
         </td>
@@ -469,7 +508,7 @@ You may use any of these in your warn/fail expressions.</p>
         <span class="nv">val.low = </span><span class="nx">active</span> <span class="k">if</span> <span class="nx">active</span> <span class="o">&lt;</span> <span class="nx">val</span><span class="p">.</span><span class="nx">low</span>
         <span class="nv">val.high = </span><span class="nx">active</span> <span class="k">if</span> <span class="nx">active</span> <span class="o">&gt;</span> <span class="nx">val</span><span class="p">.</span><span class="nx">high</span>
       <span class="nx">sensor</span><span class="p">.</span><span class="nx">result</span> <span class="nx">work</span>
-      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
+    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">work</span><span class="p">.</span><span class="nx">result</span>
 
 
 </pre></div>
@@ -495,7 +534,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>get additional information</p>
         </td>
@@ -505,10 +544,6 @@ You may use any of these in your warn/fail expressions.</p>
   <span class="nv">criteria = </span><span class="k">if</span> <span class="nx">min</span> <span class="k">then</span> <span class="s">&quot; above </span><span class="si">#{</span><span class="nx">min</span><span class="si">}</span><span class="s">%&quot;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
   <span class="nx">criteria</span> <span class="o">+=</span> <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">numProc</span>
   <span class="k">then</span> <span class="s">&quot; (max. </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">numProc</span><span class="si">}</span><span class="s">)&quot;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
-  <span class="nv">report = </span><span class="s">&quot;The top CPU consuming processes</span><span class="si">#{</span><span class="nx">criteria</span><span class="si">}</span><span class="s"> are:\n\n&quot;</span>
-  <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    | COUNT |  %CPU |  %MEM | COMMAND                                            |</span>
-<span class="s">    | ----: | ----: | ----: | -------------------------------------------------- |\n&quot;&quot;&quot;</span>
   <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
     <span class="nv">remote: </span><span class="nx">config</span><span class="p">.</span><span class="nx">remote</span>
     <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
@@ -526,6 +561,79 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>create report</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The top CPU consuming processes</span><span class="si">#{</span><span class="nx">criteria</span><span class="si">}</span><span class="s"> are:&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>get data table</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">data = </span><span class="p">[]</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>add table</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">data</span><span class="p">,</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+</div>
+<p>columns</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">count:</span>
+        <span class="nv">title: </span><span class="s">&#39;COUNT&#39;</span>
+        <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
+      <span class="nv">cpu:</span>
+        <span class="nv">title: </span><span class="s">&#39;%CPU&#39;</span>
+        <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
+      <span class="nv">mem:</span>
+        <span class="nv">title: </span><span class="s">&#39;%MEM&#39;</span>
+        <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
+      <span class="nv">cmd:</span>
+        <span class="nv">title: </span><span class="s">&#39;COMMAND&#39;</span>
+    <span class="p">,</span> <span class="c1"># sort</span>
+      <span class="nv">cpu: </span><span class="s">&#39;desc&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
+
+
+    <span class="nx">report</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      | COUNT |  %CPU |  %MEM | COMMAND                                            |</span>
+<span class="s">      | ----: | ----: | ----: | -------------------------------------------------- |\n&quot;&quot;&quot;</span>
     <span class="nv">procs = </span><span class="p">{}</span>
     <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
       <span class="k">continue</span> <span class="k">unless</span> <span class="nx">line</span>
