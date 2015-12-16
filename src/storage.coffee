@@ -29,7 +29,7 @@ cleanupInterval =
   hour: 3600*1000 # every hour
   day: 24*3600*1000 # every day
   week: 7*24*3600*1000 # every week
-  month: 30*24*3600*1000 # every month
+  month: 10*24*3600*1000 # every month
 
 
 # Initialized Data
@@ -51,7 +51,7 @@ exports.init = (cb) ->
     drop conf, db, (err) ->
       return cb err if err
       create conf, db, (err) ->
-#        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
+        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
         cb err
 
 # Drop database
