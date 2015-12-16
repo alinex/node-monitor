@@ -65,14 +65,12 @@ class Controller extends EventEmitter
         cb()
 
   start: ->
-#    @stop()
     @run()
     @timeout = setTimeout =>
       @start()
     , @conf.interval * 1000
 
   stop: ->
-#    return unless @status is 'running'
     debug "#{chalk.grey @name} Stopped daemon mode"
 
 

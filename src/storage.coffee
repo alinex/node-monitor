@@ -51,7 +51,7 @@ exports.init = (cb) ->
     drop conf, db, (err) ->
       return cb err if err
       create conf, db, (err) ->
-        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
+#        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
         cb err
 
 # Drop database

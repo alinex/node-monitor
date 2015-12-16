@@ -94,6 +94,17 @@ class Check extends EventEmitter
 
   # ### Run one sensor check
   run: (cb) ->
+    # stop if already running
+    if @status is 'running'
+      @date[1] = new Date()
+      @err = new Error "Skipped test because it is called again while running."
+      @setStatus()
+      return cb @err, @status unless @databaseID
+      # store in database
+      return storage.results @databaseID, @type, @sensor.meta.values
+      , @date[0], @values, (err) =>
+        return cb err if err
+        cb @err, @status
     @sensor.debug "#{chalk.grey @name} start check"
     @status = 'running'
     return @runNow null, cb unless @sensor.prerun?
@@ -115,13 +126,6 @@ class Check extends EventEmitter
       @sensor.calc.call this, res, (err) =>
         @err = err if not @err and err
         @setStatus()
-        # add to history
-        @history.unshift
-          status: @status
-          date: @date
-          values: @values
-          err: @err
-        @history.pop() while @history.length > HISTORY_LENGTH
         return cb @err, @status unless @databaseID
         # store in database
         storage.results @databaseID, @type, @sensor.meta.values
@@ -129,9 +133,13 @@ class Check extends EventEmitter
           return cb err if err
           cb @err, @status
     if opt?
-      @sensor.run.call this, opt, fn
+      started = @date[0]
+      @sensor.run.call this, opt, (err, res) =>
+        fn err, res if started = @date[0]
     else
-      @sensor.run.call this, fn
+      started = @date[0]
+      @sensor.run.call this, (err, res) =>
+        fn err, res if started = @date[0]
 
   # set status from rules
   setStatus: ->
@@ -140,6 +148,14 @@ class Check extends EventEmitter
     #{@status}#{if @err then ' (' + @err.message + ')' else ''}"
     for n, v of @values
       @sensor.debug "#{chalk.grey @name} result #{n}: #{v}"
+    # add to history
+    @history.unshift
+      status: @status
+      date: @date
+      values: @values
+      err: @err
+    @history.pop() while @history.length > HISTORY_LENGTH
+    # return status
     @status
 
   # calculate status
