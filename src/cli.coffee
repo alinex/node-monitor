@@ -96,7 +96,7 @@ commands =
       .map (e) -> "help #{e}"
     run: (args, cb) ->
       report = new Report()
-      if args.length and args[0] in Object.keys commands
+      if args.length > 1 and args[1] in Object.keys commands
         cmd = args[0]
         report.h1 "Help for #{cmd} command"
         report.p "This command will #{commands[cmd].description}."
@@ -118,20 +118,50 @@ commands =
       cb()
 
   # change verbose level
-  verbose:
-    description: "change the verbosity level between 0..9"
-    commands: ->
-      [0..9].map (e) -> "verbose #{e}"
+  set:
+    description: "display or change generel or specific settings"
+    commands: (parts) ->
+      subcmd = ['try', 'verbose'] #, 'controller']
+      if parts.length is 1 or parts[1] not in subcmd
+        subcmd.map (e) -> "#{parts[0]} #{e}"
+      else if parts[1] is 'verbose'
+        if parts.length is 2 or Number(parts[2]) not in [0..9]
+          [0..9].map (e) -> "#{parts[0]} #{parts[1]} #{e}"
+        else
+          []
+      else if parts[1] is 'try'
+        if parts.length is 2 or Boolean(parts[2]) not in ['true', 'false']
+          ['true', 'false'].map (e) -> "#{parts[0]} #{parts[1]} #{e}"
+        else
+          []
+      else
+        []
     run: (args, cb) ->
-      monitor.mode.verbose = Number args[0] if args[0]?
-      console.log chalk.grey "Verbosity set to level #{monitor.mode.verbose}"
-      cb()
-
-  # ### exit console
-  exit:
-    description: "close the console"
-    run: ->
-      exit null
+      subcmd = ['try', 'verbose'] #, 'controller']
+      unless args.length is 3
+        console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'set'}
+        use #{chalk.bold 'help set'} for more information!"
+        return cb()
+      switch args[1]
+        when 'verbose'
+          num = Number args[2] if args[2]?
+          if isNaN num
+            console.log chalk.red "The value #{args[2]} is not a number."
+            cb()
+          monitor.mode.verbose = num
+          console.log chalk.grey "Verbosity set to level #{monitor.mode.verbose}"
+          cb()
+        when 'try'
+          num = Boolean args[2] if args[2]?
+          unless num
+            console.log chalk.red "The value #{args[2]} is not a number."
+            cb()
+          monitor.mode.try = num
+          console.log chalk.grey "Try mode is set to #{monitor.mode.try}"
+          cb()
+        else
+          console.log chalk.red "Unknown setting #{args[1]} in command."
+          cb()
 
   # ### list elements of type
   list:
@@ -149,11 +179,11 @@ commands =
       else
         []
     run: (args, cb) ->
-      unless args.length is 1
+      unless args.length is 2
         console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'list'}
         use #{chalk.bold 'help list'} for more information!"
         return cb()
-      switch args[0]
+      switch args[1]
         when 'controller'
           conf = config.get '/monitor/controller'
           console.log chalk.bold "Controllers:"
@@ -164,7 +194,7 @@ commands =
           for el in monitor.listSensor()
             console.log "  - #{el}"
         else
-          console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
+          console.log chalk.red "Given type #{chalk.bold args[1]} not possible in
           #{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more
           information!"
       cb()
@@ -198,18 +228,18 @@ commands =
         line = parts[0..num].join ' '
         elements.map (e) -> "#{line} #{e}"
     run: (args, cb) ->
-      unless args.length > 1
+      unless args.length > 2
         console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
         use #{chalk.bold 'help show'} for more information!"
         return cb()
-      switch args[0]
+      switch args[1]
         when 'controller'
-          conf = config.get "/monitor/controller/#{args[1]}"
+          conf = config.get "/monitor/controller/#{args[2]}"
           unless conf
-            console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
+            console.log chalk.red "Given controller #{chalk.bold args[2]} not defined.
             Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
             return cb()
-          monitor.showController args[1], (err, report) ->
+          monitor.showController args[2], (err, report) ->
             return cb err if err
             console.log report
             cb()
@@ -217,7 +247,7 @@ commands =
           monitor.listSensors()
           cb()
         else
-          console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
+          console.log chalk.red "Given type #{chalk.bold args[1]} not possible in
           #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
           information!"
           cb()
@@ -251,31 +281,31 @@ commands =
         line = parts[0..num].join ' '
         elements.map (e) -> "#{line} #{e}"
     run: (args, cb) ->
-      if args.length is 0
+      if args.length is 1
         console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
         use #{chalk.bold 'help show'} for more information!"
         return cb()
-      switch args[0]
+      switch args[1]
         when 'controller'
-          if args[1]
-            conf = config.get "/monitor/controller/#{args[1]}"
+          if args[2]
+            conf = config.get "/monitor/controller/#{args[2]}"
             unless conf
-              console.log chalk.red "Given controller #{chalk.bold args[1]} not defined.
+              console.log chalk.red "Given controller #{chalk.bold args[2]} not defined.
               Maybe use #{chalk.bold 'list controller'} for a list of possible ones."
               return cb()
-          monitor.runController args[1], (err) ->
+          monitor.runController args[2], (err) ->
             return cb err if err
             console.log chalk.grey "DONE"
             cb()
         when 'sensor'
-          unless args.length > 1
+          unless args.length > 2
             console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
             use #{chalk.bold 'help show'} for more information!"
             return cb()
           monitor.listSensors()
           cb()
         else
-          console.log chalk.red "Given type #{chalk.bold args[0]} not possible in
+          console.log chalk.red "Given type #{chalk.bold args[1]} not possible in
           #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
           information!"
           cb()
@@ -316,7 +346,7 @@ getCommand = (readline, cb) ->
   readline.question 'monitor> ', (line) ->
     console.log ''
     args = line.trim().split /\s+/
-    command = args.shift()
+    command = args[0]
     if commands[command]?
       commands[command].run args, cb
     else
