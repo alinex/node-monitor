@@ -123,11 +123,8 @@ commands =
     commands: ->
       [0..9].map (e) -> "verbose #{e}"
     run: (args, cb) ->
-      if args[0]
-        argv.verbose = Number args[0]
-        for name in monitor.listController()
-          monitor.controller[name].mode.verbose = argv.verbose
-      console.log chalk.grey "Verbosity set to level #{argv.verbose}"
+      monitor.mode.verbose = Number args[0] if args[0]?
+      console.log chalk.grey "Verbosity set to level #{monitor.mode.verbose}"
       cb()
 
   # ### exit console
@@ -360,6 +357,7 @@ monitor.setup argv._
 console.log "Initializing..."
 monitor.init
   verbose: argv.verbose
+  try: argv.try
 , (err) ->
   exit err if err
   conf = config.get 'monitor'

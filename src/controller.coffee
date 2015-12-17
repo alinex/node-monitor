@@ -30,14 +30,19 @@ HISTORY_LENGTH = 5
 # -------------------------------------------------
 # This will be set on init
 monitor = null  # require './index'
-
+mode = {}
 
 # Controller class
 # -------------------------------------------------
 class Controller extends EventEmitter
 
+  # ### General initialization
+  @init: (setup, cb) ->
+    mode = setup
+    cb()
+
   # ### Create instance
-  constructor: (@name, @conf, @mode) ->
+  constructor: (@name, @conf) ->
     @check = [] # Instances added on initialization
     @timeout = null # timer for next run
     # Data storage with last results
@@ -80,7 +85,7 @@ class Controller extends EventEmitter
     @status = 'running'
     async.map @check, (check, cb) =>
       check.run (err, status) =>
-        if @mode?.verbose > 1
+        if mode.verbose > 1
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
           Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
         cb err, status
@@ -106,10 +111,10 @@ class Controller extends EventEmitter
         #{if changed then ' CHANGED' else ''}"
         # make report
         report = @report()
-        if @mode?.verbose > 2
+        if mode.verbose > 2
           console.error report.toConsole()
         @emit 'result', this
-        if @mode?.verbose or @status isnt 'ok'
+        if mode.verbose or @status isnt 'ok'
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
           Controller #{chalk.white @name} => #{@colorStatus()}"
         cb()

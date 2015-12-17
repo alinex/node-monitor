@@ -30,14 +30,15 @@ cleanupInterval =
 # This will be set on init
 monitor = null  # require './index'
 conf = null
-
+mode = {}
 
 # Initialize database
 # -------------------------------------------------
-exports.init = (cb) ->
+exports.init = (setup, cb) ->
+  mode = setup
   monitor ?= require './index'
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage.database?
+  return cb() unless conf.storage?.database? and not mode.try
   debug "Initialize database store..."
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
@@ -145,7 +146,7 @@ create = (conf, db, cb) ->
 # -------------------------------------------------
 exports.controller = (name, cb) ->
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
+  return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
@@ -163,7 +164,7 @@ exports.controller = (name, cb) ->
 # -------------------------------------------------
 exports.check = (controller, sensor, name, category, cb) ->
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
+  return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
@@ -185,7 +186,7 @@ valueTypes = ['integer', 'float', 'interval', 'byte', 'percent']
 # -------------------------------------------------
 exports.results = (checkID, sensor, meta, date, value, cb) ->
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
+  return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
@@ -232,7 +233,7 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
 
 exports.statusCheck = (checkID, date, status, comment, cb) ->
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
+  return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err
@@ -253,7 +254,7 @@ exports.statusCheck = (checkID, date, status, comment, cb) ->
 
 exports.statusController = (controllerID, date, status, cb) ->
   conf ?= config.get '/monitor'
-  return cb() unless conf.storage?
+  return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
   database.instance conf.storage.database, (err, db) ->
     return cb err if err

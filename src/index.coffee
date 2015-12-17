@@ -1,5 +1,8 @@
-# Main class
+# Main controlling class
 # =================================================
+# This is the real main class which can be called using it's API. Other modules
+# like the cli may be used as bridges to this.
+
 
 # Node Modules
 # -------------------------------------------------
@@ -23,10 +26,25 @@ Controller = require './controller'
 storage = require './storage'
 
 
+# Initialized Data
+# -------------------------------------------------
+# This will be set on init
+
+# ### General Mode
+# This is a collection of base settings which may alter the runtime of the system
+# without changing anything in the general configuration. This values may also
+# be changed at any time.
+mode =
+  verbose: 0 # verbosity level
+  try: false # Is this a try run that won't change anything?
+
+
 # Monitor class
 # -------------------------------------------------
 # This module is defined as a class exporting a singleton instance to have events
 # possible within it.
+#
+# T
 class Monitor extends EventEmitter
 
   # Setup
@@ -57,13 +75,14 @@ class Monitor extends EventEmitter
           folder: 'controller'
           path: 'monitor/controller'
 
-  init: (setup, cb) ->
+  init: (@mode, cb) ->
+    mode = @mode
     debug "Loading configuration..."
     async.series [
       (cb) -> config.init cb
       (cb) => @initPlugins cb
-      (cb) -> storage.init cb
-      (cb) => @initController setup, cb
+      (cb) -> storage.init mode, cb
+      (cb) => @initController cb
     ], cb
 
   initPlugins: (cb) ->
@@ -98,16 +117,18 @@ class Monitor extends EventEmitter
         ], cb
       , cb
 
-  initController: (setup, cb) ->
+  initController: (cb) ->
     debug "Instantiate controllers..."
-    @controller = {}
-    for name, def of config.get "/monitor/controller"
-      @controller[name] = new Controller name, def, setup
-      @controller[name].on 'result', (ctrl) => @emit 'result', ctrl
-    # parallel instantiation
-    async.each @controller, (ctrl, cb) ->
-      ctrl.init cb
-    , cb
+    Controller.init mode, (err) =>
+      return cb err if err
+      @controller = {}
+      for name, def of config.get "/monitor/controller"
+        @controller[name] = new Controller name, def
+        @controller[name].on 'result', (ctrl) => @emit 'result', ctrl
+      # parallel instantiation
+      async.each @controller, (ctrl, cb) ->
+        ctrl.init cb
+      , cb
 
 
   # Control daemon mode
