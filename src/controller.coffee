@@ -70,6 +70,9 @@ class Controller extends EventEmitter
         cb()
 
   start: ->
+    if @conf.disabled
+      console.log chalk.grey "Controller #{@name} is disabled!"
+      return
     @run()
     @timeout = setTimeout =>
       @start()

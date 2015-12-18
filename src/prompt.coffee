@@ -1,4 +1,4 @@
-# Main class
+# Prompt (Interactive Console)
 # =================================================
 
 # Node Modules
@@ -14,11 +14,21 @@ config = require 'alinex-config'
 monitor = require './index'
 Report = require 'alinex-report'
 
+# Setup
+# -------------------------------------------------
+
+types = ['controller', 'sensor', 'actor', 'explorer']
 
 # Commands
 # -------------------------------------------------
-types = ['controller', 'sensor', 'actor', 'explorer']
+# Each key in the following object is a command with the following fields:
+#
+# - description - a short description line
+# - help - a specific help text (optional, markdown possible)
+# - commands(parts) - method to get a command completion array (optional)
+# - run(parts, cb) - do the task
 commands =
+
   # ### Integrated help
   help:
     description: "list a help page with possible commands"
@@ -29,12 +39,14 @@ commands =
     run: (args, cb) ->
       report = new Report()
       if args.length > 1 and args[1] in Object.keys commands
+        # specific help for one command
         cmd = args[0]
         report.h1 "Help for #{cmd} command"
         report.p "This command will #{commands[cmd].description}."
         report.p commands[cmd].help() if commands[cmd].help?
         console.log report.toString()
         return cb()
+      # General help page
       report.h1 "Help for interactive console"
       report.p "Within this interactive console you can use different
       commands with sub arguments to run. See the list of possibilities below.
@@ -52,6 +64,7 @@ commands =
   # ### exit console
   exit:
     description: "close the console"
+    help: "You may also type `Ctrl` + `C` to exit ungraceful."
     run: ->
       exit null
 
@@ -279,6 +292,10 @@ module.exports = (conf) ->
     readline.close()
     exit err
 
+# Helper methods
+# -------------------------------------------------
+
+# ### ask for the next command
 getCommand = (readline, cb) ->
   console.log ''
   readline.question 'monitor> ', (line) ->
@@ -292,8 +309,7 @@ getCommand = (readline, cb) ->
       #{chalk.bold 'help'} for more information!"
       cb()
 
-# Error management
-# -------------------------------------------------
+# ### Error management
 exit = (err) ->
   # exit without error
   process.exit 0 unless err

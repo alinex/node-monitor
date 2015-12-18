@@ -14,6 +14,8 @@ description: Server containing miscellaneous tools to help in the development pr
 validity: 1m
 # Time (in seconds) to rerun the check in daemon mode.
 interval: 5m
+# Disable controller for automatic run
+disabled: false
 
 # Sensors to run
 # -------------------------------------------------

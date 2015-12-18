@@ -226,6 +226,11 @@ controller =
         unit: 's'
         min: 0
         default: 300
+      disabled:
+        title: "Disabled"
+        description: "the controller is disabled for automatic run"
+        type: 'boolean'
+        default: false
       check: check
       combine:
         title: "Combine Method"
