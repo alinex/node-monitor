@@ -4,3 +4,12 @@
 
 #database: monitor
 prefix: mon_
+
+# Specific settings for cleanup
+# --------------------------------------------------
+#cleanup:
+#  minute: 360 # 6 hours
+#  hour: 96 # 4 days
+#  day: 90 # 3 months
+#  week: 104 # two years
+#  month: 60 # 5 years

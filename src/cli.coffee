@@ -85,23 +85,23 @@ chalk.enabled = false if argv.nocolors
 
 # Error management
 # -------------------------------------------------
-exit = (err) ->
+exit = (code = 0, err) ->
   # exit without error
-  process.exit 0 unless err
+  process.exit code unless err
   # exit with error
   console.error chalk.red.bold "FAILED: #{err.message}"
   console.error err.description if err.description
-  process.exit 1 unless argv.daemon
+  process.exit code unless argv.daemon
   monitor.stop()
   setTimeout ->
-    process.exit 1
+    process.exit code
   , 2000
 
-process.on 'SIGINT', -> exit new Error "Got SIGINT signal"
-process.on 'SIGTERM', -> exit new Error "Got SIGTERM signal"
-process.on 'SIGHUP', -> exit new Error "Got SIGHUP signal"
-process.on 'SIGQUIT', -> exit new Error "Got SIGQUIT signal"
-process.on 'SIGABRT', -> exit new Error "Got SIGABRT signal"
+process.on 'SIGINT', -> exit 130, new Error "Got SIGINT signal"
+process.on 'SIGTERM', -> exit 143, new Error "Got SIGTERM signal"
+process.on 'SIGHUP', -> exit 129, new Error "Got SIGHUP signal"
+process.on 'SIGQUIT', -> exit 131, new Error "Got SIGQUIT signal"
+process.on 'SIGABRT', -> exit 134, new Error "Got SIGABRT signal"
 process.on 'exit', ->
   console.log "Goodbye\n"
   Exec.close()
@@ -117,7 +117,7 @@ monitor.init
   verbose: argv.verbose
   try: argv.try
 , (err) ->
-  exit err if err
+  exit 1, err if err
   conf = config.get 'monitor'
   if argv.command
     # direct command given to execute
@@ -134,7 +134,8 @@ monitor.init
   else
     # run all once
     console.log "Analyzing systems..."
-    monitor.runController null, (err, results) ->
-      exit err if err
+    monitor.runController null, (err, status) ->
+      exit 1, err if err
       console.log "Finished.\n"
-      exit()
+      exit() if status is 'ok'
+      exit if status is 'fail' then 2 else 3

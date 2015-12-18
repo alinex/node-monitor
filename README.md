@@ -169,13 +169,8 @@ The exit codes are arranged alongside the UNIX default:
 |  129 | SIGHUP (Signal 1)                       |
 |  130 | SIGINT like through Ctrl + C (Signal 2) |
 |  131 | SIGQUIT (Signal 3)                      |
-|  132 | SIGILL (Signal 4)                       |
-|  133 | SIGTRAP (Signal 5)                      |
 |  134 | SIGABRT or SIGIOT (Signal 6)            |
-|  135 | SIGEMT (Signal 7)                       |
-|  136 | SIGFPE (Signal 8)                       |
-|  137 | SIGSEGV (Signal 9)                      |
-|  159 | Signal 31                               |
+|  143 | SIGTERM (Signal 15)                     |
 |  255 | Exit status out of range                |
 
 
@@ -229,6 +224,7 @@ Examples:
 
     list controller
     show controller my_machine
+    set verbose 3
     run controller my_machine
     show sensor cpu
     run sensor cpu

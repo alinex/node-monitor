@@ -66,7 +66,7 @@ commands =
     description: "close the console"
     help: "You may also type `Ctrl` + `C` to exit ungraceful."
     run: ->
-      exit null
+      exit()
 
   # change verbose level
   set:
@@ -285,12 +285,12 @@ exports.interactive = (conf) ->
         if hits.length then hits else list
         line
       ]
-  readline.on 'SIGINT', -> exit new Error "Got SIGINT signal"
+  readline.on 'SIGINT', -> exit 130, new Error "Got SIGINT signal"
   async.forever (cb) ->
     getCommand readline, cb
   , (err) ->
     readline.close()
-    exit err
+    exit 1, err
 
 # Direct command execution
 # -------------------------------------------------
@@ -302,7 +302,7 @@ exports.run = (args) ->
       console.log ''
       exit err if err
   else
-    exit new Error "Unknown command #{chalk.bold command} use
+    exit 1, new Error "Unknown command #{chalk.bold command} use
     #{chalk.bold 'help'} for more information!"
 
 # Helper methods
@@ -323,10 +323,10 @@ getCommand = (readline, cb) ->
       cb()
 
 # ### Error management
-exit = (err) ->
+exit = (code = 0, err) ->
   # exit without error
-  process.exit 0 unless err
+  process.exit code unless err
   # exit with error
   console.error chalk.red.bold "FAILED: #{err.message}"
   console.error err.description if err.description
-  process.exit 1
+  process.exit code

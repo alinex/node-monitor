@@ -186,6 +186,7 @@ class Monitor extends EventEmitter
       else 'seconds'
     report.p "The following checks will run every #{interval.format()}:"
     report.ul ctrl.check.map (e) -> "#{e.type} - #{e.name}"
+    report.p "Attention: This controller is #{Report.mark 'disabled'} at the moment."
 #    async.map conf.check, (check, cb) =>
 #      @getSensor check.sensor, (err, sensorInstance) ->
 #        return cb err if err
@@ -237,8 +238,11 @@ class Monitor extends EventEmitter
     list ?= @controller
     async.mapOf list, (ctrl, name, cb) ->
       ctrl.run cb
-    , (err) ->
-      cb err
+    , (err, results) ->
+      return cb err if err
+      status = 'ok'
+      status = s if s is 'fail' or status is 'ok' for s in results
+      cb null, status
 
 
 # Export Singleton

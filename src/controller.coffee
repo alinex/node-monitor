@@ -120,7 +120,7 @@ class Controller extends EventEmitter
         if mode.verbose or @status isnt 'ok'
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
           Controller #{chalk.white @name} => #{@colorStatus()}"
-        cb()
+        cb null, @status
 
   # ### Create a report
   report: (results) ->
