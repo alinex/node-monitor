@@ -187,17 +187,7 @@ class Monitor extends EventEmitter
     report.p "The following checks will run every #{interval.format()}:"
     report.ul ctrl.check.map (e) -> "#{e.type} - #{e.name}"
     report.p "Attention: This controller is #{Report.mark 'disabled'} at the moment."
-#    async.map conf.check, (check, cb) =>
-#      @getSensor check.sensor, (err, sensorInstance) ->
-#        return cb err if err
-#        cb null, "* #{check.sensor} #{sensorInstance.name}\n"
-#    , (err, results) ->
-#      return cb err if err
-###################################      info += results.join '\n'
-#      for add in results
-#        console.log add
-#        report.add add
-      # actor rules
+    # actor rules
 
     # contact
     if conf.contact
@@ -223,6 +213,9 @@ class Monitor extends EventEmitter
       for name, list of conf.ref
         ul.push "#{string.rpad name, 15} " + list.join ', '
       report.ul ul
+
+    # last reports
+
     cb null, report
 
   showSensor: (name) ->

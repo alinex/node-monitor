@@ -124,47 +124,48 @@ class Controller extends EventEmitter
 
   # ### Create a report
   report: (results) ->
-    return ''
     # make report
     context =
       name: @name
       config: @conf
       sensor: results
-    report = """
-    Controller #{@name} (#{@conf.name})
-    ==============================================================================
-    #{string.wordwrap @conf.description, 78}\n
-    """
-    if @conf.info
-      report += "\n#{string.wordwrap @conf.info, 78}"
-    report += "\n> __STATUS: #{@status}__ at #{new Date()}\n"
+    report = new Report()
+    report.h1 "Controller #{@name} (#{@conf.name})"
+    report.p @conf.description if @conf.description
+    report.p @conf.info if @conf.info
+    report.quote "__STATUS: #{@status}__ at #{new Date()}"
     if @conf.hint and @status isnt 'ok'
-      report += "\n> #{string.wordwrap @conf.hint(context), 76, '\n> '}\n"
-    if @conf.contact
-      report += "\nContact Persons:\n\n"
-      for group, glist of @conf.contact
-        report += "* __#{string.ucFirst group}__\n"
-        for entry in glist
-          list = config.get "/monitor/contact/#{entry}"
-          for contact in list
-            contact = config.get "/monitor/contact/#{contact}"
-            report += '  -'
-            report += " #{contact.name}" if contact.name
-            report += " <#{contact.email}>" if contact.email
-#            report += "Phone: #{contact.phone.join ', '}" if contact.phone
-            report += "\n"
-    if @conf.ref
-      report += "\nFor further assistance check the following links:\n\n"
-      for name, list of @conf.ref
-        report += "- #{name} " + list.map (e) ->
-          name = e.replace(/^.*?\/\//, '').replace /(\/.*?)\/.*$/, '$1'
-          "(#{name})[#{e}]"
-        .join ', '
-        report += '\n'
-    report += "\nDetails of the individual sensor runs with their measurement
-    values and maynbe some extended analysis will follow:\n"
+      report.quote @conf.hint context
+    # contact
+    if conf.contact
+      report.p Report.b "Contact Persons:"
+      formatContact = (name) ->
+        contact = config.get "/monitor/contact/#{name}"
+        if Array.isArray contact
+          return contact.map (e) -> formatContact(e)
+        text = ''
+        text += " #{contact.name}" if contact.name
+        text += " <#{contact.email}>" if contact.email
+        [text.trim()]
+      ul = []
+      for group, glist of conf.contact
+        ul.push "__#{string.ucFirst group}__"
+        for e in glist
+          ul = ul.concat formatContact e
+      report.ul ul
+    # references
+    if conf.ref
+      report.p Report.b "For further assistance check the following links:"
+      ul = []
+      for name, list of conf.ref
+        ul.push "#{string.rpad name, 15} " + list.join ', '
+      report.ul ul
+    report.p "Details of the individual sensor runs with their measurement
+    values and maynbe some extended analysis will follow:"
     for num, entry of results
-      report += sensor.report entry
+      report.add sensor.report entry
+    # return result
+    report
 
     # keep report
     # action
