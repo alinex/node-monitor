@@ -20,6 +20,7 @@ Exec = require 'alinex-exec'
 database = require 'alinex-database'
 {string} = require 'alinex-util'
 fs = require 'alinex-fs'
+Report = require 'alinex-report'
 # include classes and helpers
 schema = require './configSchema'
 Controller = require './controller'
@@ -167,59 +168,61 @@ class Monitor extends EventEmitter
   # Show information about specified Element
   # -------------------------------------------------
   showController: (name, cb) ->
-    conf = @controller[name].conf
+    ctrl = @controller[name]
+    conf = ctrl.conf
     context =
       name: name
       config: conf
-    info = chalk.bold """
-    #{name}: #{conf.name}
-    ===========================================================================\n
-    """
-    info += """
-    #{string.wordwrap conf.description, 78}\n
-    """
-    if conf.info
-      info += "\n#{string.wordwrap conf.info, 78}"
-    if conf.hint
-      info += "\n> #{string.wordwrap conf.hint(context).trim(), 76, '\n> '}\n"
+    report = new Report()
+    report.h1 "#{name}: #{conf.name}"
+    report.p conf.description
+    report.p conf.info if conf.info
+    report.quote conf.hint context if conf.hint
     # checks
     interval = math.unit conf.interval, 'seconds'
     interval = interval.to switch
       when conf.interval >= 14400 then 'hours'
       when conf.interval >= 300 then 'minutes'
       else 'seconds'
-    info += "\nThe following checks will run every #{interval.format()}:\n\n"
-    console.log name, info
-    async.map conf.check, (check, cb) =>
-      @getSensor check.sensor, (err, sensorInstance) ->
-        return cb err if err
-        cb null, "* #{check.sensor} #{sensorInstance.name check.config}\n"
-    , (err, results) ->
-      return cb err if err
-      info += results.join '\n'
-
+    report.p "The following checks will run every #{interval.format()}:"
+    report.ul ctrl.check.map (e) -> "#{e.type} - #{e.name}"
+#    async.map conf.check, (check, cb) =>
+#      @getSensor check.sensor, (err, sensorInstance) ->
+#        return cb err if err
+#        cb null, "* #{check.sensor} #{sensorInstance.name}\n"
+#    , (err, results) ->
+#      return cb err if err
+###################################      info += results.join '\n'
+#      for add in results
+#        console.log add
+#        report.add add
       # actor rules
 
-      # contact
-      if conf.contact
-        info += "\nContact Persons:\n\n"
-        for group, glist of conf.contact
-          info += "* __#{string.ucFirst group}__\n"
-          for entry in glist
-            list = config.get "/monitor/contact/#{entry}"
-            for contact in list
-              contact = config.get "/monitor/contact/#{contact}"
-              info += '  -'
-              info += " #{contact.name}" if contact.name
-              info += " <#{contact.email}>" if contact.email
-  #            info += "Phone: #{contact.phone.join ', '}" if contact.phone
-              info += "\n"
-      # references
-      if conf.ref
-        info += "\nFor further assistance check the following links:\n"
-        for name, list of conf.ref
-          info += "\n- #{string.rpad name, 15} " + list.join ', '
-      cb null, info
+    # contact
+    if conf.contact
+      report.p Report.b "Contact Persons:"
+      formatContact = (name) ->
+        contact = config.get "/monitor/contact/#{name}"
+        if Array.isArray contact
+          return contact.map (e) -> formatContact(e)
+        text = ''
+        text += " #{contact.name}" if contact.name
+        text += " <#{contact.email}>" if contact.email
+        [text.trim()]
+      ul = []
+      for group, glist of conf.contact
+        ul.push "__#{string.ucFirst group}__"
+        for e in glist
+          ul = ul.concat formatContact e
+      report.ul ul
+    # references
+    if conf.ref
+      report.p Report.b "For further assistance check the following links:"
+      ul = []
+      for name, list of conf.ref
+        ul.push "#{string.rpad name, 15} " + list.join ', '
+      report.ul ul
+    cb null, report
 
   showSensor: (name) ->
     "xxxxx"

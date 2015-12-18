@@ -192,7 +192,7 @@ commands =
             return cb()
           monitor.showController args[2], (err, report) ->
             return cb err if err
-            console.log report
+            console.log report.toConsole()
             cb()
         when 'sensor'
           monitor.listSensors()
