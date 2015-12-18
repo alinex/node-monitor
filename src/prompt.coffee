@@ -263,7 +263,7 @@ commands =
 
 # Interactive Console
 # -------------------------------------------------
-module.exports = (conf) ->
+exports.interactive = (conf) ->
   console.log """
     \nWelcome to the #{chalk.bold 'interactive monitor console'} in which you can get more
     information about special tools, run individual tests and explore systems.
@@ -291,6 +291,19 @@ module.exports = (conf) ->
   , (err) ->
     readline.close()
     exit err
+
+# Direct command execution
+# -------------------------------------------------
+exports.run = (args) ->
+  command = args[0]
+  if commands[command]?
+    console.log ''
+    commands[command].run args, (err) ->
+      console.log ''
+      exit err if err
+  else
+    exit new Error "Unknown command #{chalk.bold command} use
+    #{chalk.bold 'help'} for more information!"
 
 # Helper methods
 # -------------------------------------------------

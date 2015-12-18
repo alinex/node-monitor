@@ -123,19 +123,11 @@ monitor.init
     # direct command given to execute
     args = argv.command.slice()
     args = args[0].trim().split /\s+/ if args.length is 1
-    command = args.shift()
-    if commands[command]?
-      console.log ''
-      commands[command].run args, (err) ->
-        console.log ''
-        exit err
-    else
-      console.log chalk.red "Unknown command #{chalk.bold command} use
-      #{chalk.bold 'help'} for more information!"
-      exit()
+    require('./prompt').run args
+    exit()
   else if argv.interactive
     # interactive console
-    require('./prompt') conf
+    require('./prompt').interactive conf
   else if argv.daemon
     # daemon start
     monitor.start()
