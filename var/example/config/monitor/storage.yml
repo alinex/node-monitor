@@ -2,5 +2,5 @@
 # =================================================
 # There to store the results of the monitoring.
 
-database: monitor
+#database: monitor
 prefix: mon_

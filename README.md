@@ -144,13 +144,39 @@ a log destination through the config files (see below).
 ### Additional commands
 
 You may run some other commands through the interactive console or directly by
-giving everything on the commandline call. See the next section for more details
-on this topic.
+giving everything on the command line call.
+
+    > monitor -c list controller
+
+See the next section for the interactive console and their integrated help system
+for more details on the possible commands..
 
 ### Setup
 
 To use the controller you have to setup the whole process using some configuration
 files. And maybe a storage database will be used.
+
+### Exit Codes
+
+The exit codes are arranged alongside the UNIX default:
+
+| Code | Description                             |
+| ----:| --------------------------------------- |
+|    0 | OK - no error in controller             |
+|    1 | General error which should not occur.   |
+|    2 | Fail - controller run failed            |
+|    3 | Warn - warning in controller run        |
+|  129 | SIGHUP (Signal 1)                       |
+|  130 | SIGINT like through Ctrl + C (Signal 2) |
+|  131 | SIGQUIT (Signal 3)                      |
+|  132 | SIGILL (Signal 4)                       |
+|  133 | SIGTRAP (Signal 5)                      |
+|  134 | SIGABRT or SIGIOT (Signal 6)            |
+|  135 | SIGEMT (Signal 7)                       |
+|  136 | SIGFPE (Signal 8)                       |
+|  137 | SIGSEGV (Signal 9)                      |
+|  159 | Signal 31                               |
+|  255 | Exit status out of range                |
 
 
 Interactive Console
@@ -190,8 +216,8 @@ monitor>
 The following commands are possible here:
 
     help - show a help page with all this commands
+    set - change general or specific settings
     exit - this will close the interactive run or send Ctrl-C
-    cleanup - will remove old entries from the storage database
 
 Commands possible for controller, sensor, actor and explorer:
 

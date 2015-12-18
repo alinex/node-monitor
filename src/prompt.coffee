@@ -70,7 +70,7 @@ commands =
 
   # change verbose level
   set:
-    description: "display or change generel or specific settings"
+    description: "change general or specific settings"
     commands: (parts) ->
       subcmd = ['try', 'verbose'] #, 'controller']
       if parts.length is 1 or parts[1] not in subcmd

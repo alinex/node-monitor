@@ -297,6 +297,7 @@ storage =
       description: "the alias name of the database to store to"
       type: 'string'
       list: '<<<context:///database>>>'
+      optional: true
     prefix:
       title: "Table Prefix"
       description: "a prefix to be put before each table name"
