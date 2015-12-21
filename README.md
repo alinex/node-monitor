@@ -179,7 +179,7 @@ Interactive Console
 You may start the interactive console by using the `-i` option. After that you
 will be greeted and may give the commands:
 
-''' text
+``` text
 > monitor -i # or --interactive
 
                          __   ____     __

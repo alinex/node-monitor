@@ -220,13 +220,15 @@ commands =
     commands: (parts) ->
       if parts.length is 1 or parts[1] not in types
         types.map (e) -> "#{parts[0]} #{e}"
-      else if parts.length > 2 # only allow one element
+      else if parts.length > 3 # only allow one element
         []
       else
         num = 1
         elements = switch parts[1]
-          when 'controller' then monitor.listController()
-          when 'sensor' then monitor.listSensor()
+          when 'controller'
+            if parts[2] in monitor.listController() then  [] else monitor.listController()
+          when 'sensor'
+            if parts[2] in monitor.listSensor() then [] else monitor.listSensor()
           else []
         num++ while parts[num+1] in elements
         line = parts[0..num].join ' '
