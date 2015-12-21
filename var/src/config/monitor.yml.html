@@ -44,6 +44,9 @@
       <div class="heading h2">
         <a href="#rule%20definition">Rule Definition</a>
       </div>
+      <div class="heading h2">
+        <a href="#when%20to%20cleanup%20entries%20from%20storage">When to cleanup entries from storage</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -151,6 +154,31 @@ specific controllers.</p>
     <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ok</span>
     <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="when%20to%20cleanup%20entries%20from%20storage">
+  <h2>
+    <a href="#when%20to%20cleanup%20entries%20from%20storage" name="when%20to%20cleanup%20entries%20from%20storage" class="pilcrow">&#182;</a>
+    When to cleanup entries from storage
+  </h2>
+</div>
+
+
+<p>The values are the number of max. entries of given interval.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">storage</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cleanup</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">minute</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">360</span> <span class="c1"># 6 hours</span>
+    <span class="l-Scalar-Plain">hour</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">96</span> <span class="c1"># 4 days</span>
+    <span class="l-Scalar-Plain">day</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">90</span> <span class="c1"># 3 months</span>
+    <span class="l-Scalar-Plain">week</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">104</span> <span class="c1"># two years</span>
+    <span class="l-Scalar-Plain">month</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span> <span class="c1"># 5 years</span>
 </pre></div>
         </td>
       </tr>

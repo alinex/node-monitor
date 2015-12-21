@@ -33,10 +33,16 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#main%20class">Main class</a>
+        <a href="#main%20controlling%20class">Main controlling class</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#initialized%20data">Initialized Data</a>
+      </div>
+      <div class="heading h3">
+        <a href="#general%20mode">General Mode</a>
       </div>
       <div class="heading h2">
         <a href="#monitor%20class">Monitor class</a>
@@ -79,13 +85,16 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="main%20class">
+<div class="pilwrap" id="main%20controlling%20class">
   <h1>
-    <a href="#main%20class" name="main%20class" class="pilcrow">&#182;</a>
-    Main class
+    <a href="#main%20controlling%20class" name="main%20controlling%20class" class="pilcrow">&#182;</a>
+    Main controlling class
   </h1>
 </div>
 
+
+<p>This is the real main class which can be called using it's API. Other modules
+like the cli may be used as bridges to this.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
         </td>
@@ -137,6 +146,7 @@
 <span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
 <span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
 </pre></div>
         </td>
@@ -160,6 +170,48 @@
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="initialized%20data">
+  <h2>
+    <a href="#initialized%20data" name="initialized%20data" class="pilcrow">&#182;</a>
+    Initialized Data
+  </h2>
+</div>
+
+
+<p>This will be set on init</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="general%20mode">
+  <h3>
+    <a href="#general%20mode" name="general%20mode" class="pilcrow">&#182;</a>
+    General Mode
+  </h3>
+</div>
+
+
+<p>This is a collection of base settings which may alter the runtime of the system
+without changing anything in the general configuration. This values may also
+be changed at any time.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">mode =</span>
+  <span class="nv">verbose: </span><span class="mi">0</span> <span class="c1"># verbosity level</span>
+  <span class="k">try</span><span class="o">:</span> <span class="kc">false</span> <span class="c1"># Is this a try run that won&#39;t change anything?</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="monitor%20class">
   <h2>
     <a href="#monitor%20class" name="monitor%20class" class="pilcrow">&#182;</a>
@@ -170,6 +222,8 @@
 
 <p>This module is defined as a class exporting a singleton instance to have events
 possible within it.</p>
+
+<p>T</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="k">class</span> <span class="nx">Monitor</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
@@ -197,7 +251,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>setup module configs first</p>
         </td>
@@ -214,7 +268,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>add schema for module's configuration</p>
         </td>
@@ -227,7 +281,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>set module search path</p>
         </td>
@@ -241,7 +295,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>register selected controllers from /etc/monitor-controller</p>
         </td>
@@ -254,7 +308,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>specific controllers only</p>
         </td>
@@ -272,7 +326,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>read all controllers</p>
         </td>
@@ -281,13 +335,14 @@ possible within it.</p>
           <span class="nv">folder: </span><span class="s">&#39;controller&#39;</span>
           <span class="nv">path: </span><span class="s">&#39;monitor/controller&#39;</span>
 
-  <span class="nv">init: </span><span class="nf">(setup, cb) -&gt;</span>
+  <span class="nv">init: </span><span class="nf">(@mode, cb) -&gt;</span>
+    <span class="nv">mode = </span><span class="nx">@mode</span>
     <span class="nx">debug</span> <span class="s">&quot;Loading configuration...&quot;</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
       <span class="nf">(cb) -&gt;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
       <span class="nf">(cb) =&gt;</span> <span class="nx">@initPlugins</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">storage</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
-      <span class="nf">(cb) =&gt;</span> <span class="nx">@initController</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nf">(cb) -&gt;</span> <span class="nx">storage</span><span class="p">.</span><span class="nx">init</span> <span class="nx">mode</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nf">(cb) =&gt;</span> <span class="nx">@initController</span> <span class="nx">cb</span>
     <span class="p">],</span> <span class="nx">cb</span>
 
   <span class="nv">initPlugins: </span><span class="nf">(cb) -&gt;</span>
@@ -298,7 +353,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>find sensor plugins</p>
         </td>
@@ -320,7 +375,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>try to load sensor from plugins</p>
         </td>
@@ -341,7 +396,7 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>sensors</p>
         </td>
@@ -355,12 +410,14 @@ possible within it.</p>
         <span class="p">],</span> <span class="nx">cb</span>
       <span class="p">,</span> <span class="nx">cb</span>
 
-  <span class="nv">initController: </span><span class="nf">(setup, cb) -&gt;</span>
+  <span class="nv">initController: </span><span class="nf">(cb) -&gt;</span>
     <span class="nx">debug</span> <span class="s">&quot;Instantiate controllers...&quot;</span>
-    <span class="vi">@controller = </span><span class="p">{}</span>
-    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span> <span class="k">of</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller&quot;</span>
-      <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Controller</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span><span class="p">,</span> <span class="nx">setup</span>
-      <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) =&gt;</span> <span class="nx">@emit</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nx">ctrl</span>
+    <span class="nx">Controller</span><span class="p">.</span><span class="nx">init</span> <span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="vi">@controller = </span><span class="p">{}</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span> <span class="k">of</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller&quot;</span>
+        <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Controller</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span>
+        <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) =&gt;</span> <span class="nx">@emit</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nx">ctrl</span>
 
 </pre></div>
         </td>
@@ -368,14 +425,14 @@ possible within it.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>parallel instantiation</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">@controller</span><span class="p">,</span> <span class="nf">(ctrl, cb) -&gt;</span>
-      <span class="nx">ctrl</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nx">cb</span>
+      <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">@controller</span><span class="p">,</span> <span class="nf">(ctrl, cb) -&gt;</span>
+        <span class="nx">ctrl</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
+      <span class="p">,</span> <span class="nx">cb</span>
 
 
 
@@ -466,43 +523,16 @@ possible within it.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">showController: </span><span class="nf">(name, cb) -&gt;</span>
-    <span class="nv">conf = </span><span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">conf</span>
+    <span class="nv">ctrl = </span><span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+    <span class="nv">conf = </span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">conf</span>
     <span class="nv">context =</span>
       <span class="nv">name: </span><span class="nx">name</span>
       <span class="nv">config: </span><span class="nx">conf</span>
-    <span class="nv">info = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;&quot;&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
-</div>
-<p>{name}: #{conf.name}</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    ===========================================================================\n</span>
-<span class="s">    &quot;&quot;&quot;</span>
-    <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
-</div>
-<p>{string.wordwrap conf.description, 78}\n</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">info</span>
-      <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\n</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">info</span><span class="p">,</span> <span class="mi">78</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span>
-      <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\n&gt; </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">wordwrap</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span><span class="p">(</span><span class="nx">context</span><span class="p">).</span><span class="nx">trim</span><span class="p">(),</span> <span class="mi">76</span><span class="p">,</span> <span class="s">&#39;\n&gt; &#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
+    <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">description</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">info</span> <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">info</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span> <span class="nx">context</span> <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span>
 
 </pre></div>
         </td>
@@ -520,16 +550,9 @@ possible within it.</p>
       <span class="k">when</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span> <span class="o">&gt;=</span> <span class="mi">14400</span> <span class="k">then</span> <span class="s">&#39;hours&#39;</span>
       <span class="k">when</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span> <span class="o">&gt;=</span> <span class="mi">300</span> <span class="k">then</span> <span class="s">&#39;minutes&#39;</span>
       <span class="k">else</span> <span class="s">&#39;seconds&#39;</span>
-    <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\nThe following checks will run every </span><span class="si">#{</span><span class="nx">interval</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span><span class="si">}</span><span class="s">:\n\n&quot;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">info</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">check</span><span class="p">,</span> <span class="nf">(check, cb) =&gt;</span>
-      <span class="nx">@getSensor</span> <span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="p">,</span> <span class="nf">(err, sensorInstance) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&quot;* </span><span class="si">#{</span><span class="nx">check</span><span class="p">.</span><span class="nx">sensor</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">sensorInstance</span><span class="p">.</span><span class="nx">name</span> <span class="nx">check</span><span class="p">.</span><span class="nx">config</span><span class="si">}</span><span class="s">\n&quot;</span>
-    <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">info</span> <span class="o">+=</span> <span class="nx">results</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
-
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The following checks will run every </span><span class="si">#{</span><span class="nx">interval</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span><span class="si">}</span><span class="s">:&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">check</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Attention: This controller is </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">mark</span> <span class="s">&#39;disabled&#39;</span><span class="si">}</span><span class="s"> at the moment.&quot;</span>
 
 </pre></div>
         </td>
@@ -555,17 +578,22 @@ possible within it.</p>
 <p>contact</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
-        <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\nContact Persons:\n\n&quot;</span>
-        <span class="k">for</span> <span class="nx">group</span><span class="p">,</span> <span class="nx">glist</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
-          <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;* __</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">ucFirst</span> <span class="nx">group</span><span class="si">}</span><span class="s">__\n&quot;</span>
-          <span class="k">for</span> <span class="nx">entry</span> <span class="k">in</span> <span class="nx">glist</span>
-            <span class="nv">list = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/contact/</span><span class="si">#{</span><span class="nx">entry</span><span class="si">}</span><span class="s">&quot;</span>
-            <span class="k">for</span> <span class="nx">contact</span> <span class="k">in</span> <span class="nx">list</span>
-              <span class="nv">contact = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/contact/</span><span class="si">#{</span><span class="nx">contact</span><span class="si">}</span><span class="s">&quot;</span>
-              <span class="nx">info</span> <span class="o">+=</span> <span class="s">&#39;  -&#39;</span>
-              <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">name</span>
-              <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot; &lt;</span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">email</span><span class="si">}</span><span class="s">&gt;&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">email</span>
+    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Contact Persons:&quot;</span>
+      <span class="nv">formatContact = </span><span class="nf">(name) -&gt;</span>
+        <span class="nv">contact = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/contact/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">contact</span>
+          <span class="k">return</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">formatContact</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+        <span class="nv">text = </span><span class="s">&#39;&#39;</span>
+        <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">name</span>
+        <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; &lt;</span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">email</span><span class="si">}</span><span class="s">&gt;&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">email</span>
+        <span class="p">[</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()]</span>
+      <span class="nv">ul = </span><span class="p">[]</span>
+      <span class="k">for</span> <span class="nx">group</span><span class="p">,</span> <span class="nx">glist</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
+        <span class="nx">ul</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;__</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">ucFirst</span> <span class="nx">group</span><span class="si">}</span><span class="s">__&quot;</span>
+        <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">glist</span>
+          <span class="nv">ul = </span><span class="nx">ul</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">formatContact</span> <span class="nx">e</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ul</span>
 
 </pre></div>
         </td>
@@ -575,14 +603,16 @@ possible within it.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
-
-<div class="highlight"><pre><code>       <span class="nx">info</span> <span class="o">+=</span> <span class="s2">&quot;Phone: #{contact.phone.join &#39;, &#39;}&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">phone</span>
-</code></pre></div>
-
-
+<p>references</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-              <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\n&quot;</span>
+    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;For further assistance check the following links:&quot;</span>
+      <span class="nv">ul = </span><span class="p">[]</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
+        <span class="nx">ul</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">name</span><span class="p">,</span> <span class="mi">15</span><span class="si">}</span><span class="s"> &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ul</span>
+
 
 </pre></div>
         </td>
@@ -592,14 +622,11 @@ possible within it.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
-<p>references</p>
+<p>last reports</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
-        <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\nFor further assistance check the following links:\n&quot;</span>
-        <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
-          <span class="nx">info</span> <span class="o">+=</span> <span class="s">&quot;\n- </span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">name</span><span class="p">,</span> <span class="mi">15</span><span class="si">}</span><span class="s"> &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">info</span>
+
+    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
 
   <span class="nv">showSensor: </span><span class="nf">(name) -&gt;</span>
     <span class="s">&quot;xxxxx&quot;</span>
@@ -627,8 +654,12 @@ possible within it.</p>
     <span class="nx">list</span> <span class="o">?=</span> <span class="nx">@controller</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(ctrl, name, cb) -&gt;</span>
       <span class="nx">ctrl</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">cb</span> <span class="nx">err</span>
+    <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nv">status = </span><span class="s">&#39;ok&#39;</span>
+      <span class="k">for</span> <span class="nx">s</span> <span class="k">in</span> <span class="nx">results</span>
+        <span class="nv">status = </span><span class="nx">s</span> <span class="k">if</span> <span class="nx">s</span> <span class="o">is</span> <span class="s">&#39;fail&#39;</span> <span class="o">or</span> <span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;ok&#39;</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">status</span>
 
 
 

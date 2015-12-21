@@ -53,6 +53,9 @@
       <div class="heading h3">
         <a href="#controller%20containing%20checks">Controller containing Checks</a>
       </div>
+      <div class="heading h3">
+        <a href="#persistent%20storage%20definition">Persistent storage definition</a>
+      </div>
       <div class="heading h2">
         <a href="#complete%20schema%20definition">Complete Schema Definition</a>
       </div>
@@ -387,6 +390,11 @@ if:
         <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
         <span class="nv">min: </span><span class="mi">0</span>
         <span class="nv">default: </span><span class="mi">300</span>
+      <span class="nv">disabled:</span>
+        <span class="nv">title: </span><span class="s">&quot;Disabled&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the controller is disabled for automatic run&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+        <span class="nv">default: </span><span class="kc">false</span>
       <span class="nv">check: </span><span class="nx">check</span>
       <span class="nv">combine:</span>
         <span class="nv">title: </span><span class="s">&quot;Combine Method&quot;</span>
@@ -440,6 +448,72 @@ if:
   <span class="p">]</span>
 
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="persistent%20storage%20definition">
+  <h3>
+    <a href="#persistent%20storage%20definition" name="persistent%20storage%20definition" class="pilcrow">&#182;</a>
+    Persistent storage definition
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">storage =</span>
+  <span class="nv">title: </span><span class="s">&quot;Storage&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the storage to use for results&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;database&#39;</span><span class="p">]</span>
+  <span class="nv">keys:</span>
+    <span class="nv">database:</span>
+      <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the alias name of the database to store to&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///database&gt;&gt;&gt;&#39;</span>
+      <span class="nv">optional: </span><span class="kc">true</span>
+    <span class="nv">prefix:</span>
+      <span class="nv">title: </span><span class="s">&quot;Table Prefix&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;a prefix to be put before each table name&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">cleanup:</span>
+      <span class="nv">title: </span><span class="s">&quot;Cleanup Sensor Data&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the number of sensor data entries per each interval&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">minute:</span>
+          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">hour:</span>
+          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">day:</span>
+          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">week:</span>
+          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">month:</span>
+          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+          <span class="nv">min: </span><span class="mi">1</span>
+
+
 
 </pre></div>
         </td>
@@ -470,23 +544,7 @@ if:
       <span class="nv">entries: </span><span class="p">[</span> <span class="nx">email</span> <span class="p">]</span>
     <span class="nv">rule: </span><span class="nx">rule</span>
     <span class="nv">controller: </span><span class="nx">controller</span>
-    <span class="nv">storage:</span>
-      <span class="nv">title: </span><span class="s">&quot;Storage&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the storage to use for results&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">allowedKeys: </span><span class="kc">true</span>
-      <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;database&#39;</span><span class="p">]</span>
-      <span class="nv">keys:</span>
-        <span class="nv">database:</span>
-          <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the alias name of the database to store to&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///database&gt;&gt;&gt;&#39;</span>
-        <span class="nv">prefix:</span>
-          <span class="nv">title: </span><span class="s">&quot;Table Prefix&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;a prefix to be put before each table name&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">default: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">storage: </span><span class="nx">storage</span>
     <span class="nv">log:</span>
       <span class="nv">title: </span><span class="s">&quot;File Logger&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the setup for the file logger&quot;</span>

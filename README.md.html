@@ -53,6 +53,9 @@
       <div class="heading h3">
         <a href="#setup">Setup</a>
       </div>
+      <div class="heading h3">
+        <a href="#exit%20codes">Exit Codes</a>
+      </div>
       <div class="heading h2">
         <a href="#interactive%20console">Interactive Console</a>
       </div>
@@ -482,8 +485,16 @@ a log destination through the config files (see below).</p>
 
 
 <p>You may run some other commands through the interactive console or directly by
-giving everything on the commandline call. See the next section for more details
-on this topic.</p>
+giving everything on the command line call.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">list</span> <span class="nx">controller</span>
+</code></pre></div>
+
+
+
+<p>See the next section for the interactive console and their integrated help system
+for more details on the possible commands..</p>
 
 
 <div class="pilwrap" id="setup">
@@ -496,6 +507,30 @@ on this topic.</p>
 
 <p>To use the controller you have to setup the whole process using some configuration
 files. And maybe a storage database will be used.</p>
+
+
+<div class="pilwrap" id="exit%20codes">
+  <h3>
+    <a href="#exit%20codes" name="exit%20codes" class="pilcrow">&#182;</a>
+    Exit Codes
+  </h3>
+</div>
+
+
+<p>The exit codes are arranged alongside the UNIX default:</p>
+
+<p style="font-family:monospace;white-space:pre">| Code | Description                             |
+| ----:| --------------------------------------- |
+|    0 | OK - no error in controller             |
+|    1 | General error which should not occur.   |
+|    2 | Fail - controller run failed            |
+|    3 | Warn - warning in controller run        |
+|  129 | SIGHUP (Signal 1)                       |
+|  130 | SIGINT like through Ctrl + C (Signal 2) |
+|  131 | SIGQUIT (Signal 3)                      |
+|  134 | SIGABRT or SIGIOT (Signal 6)            |
+|  143 | SIGTERM (Signal 15)                     |
+|  255 | Exit status out of range                |</p>
 
 
 <div class="pilwrap" id="interactive%20console">
@@ -564,8 +599,8 @@ information about special tools, run individual tests and explore systems.</p>
 
 
 <div class="highlight"><pre><code><span class="nx">help</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">a</span> <span class="nx">help</span> <span class="nx">page</span> <span class="kd">with</span> <span class="nx">all</span> <span class="k">this</span> <span class="nx">commands</span>
+<span class="nx">set</span> <span class="o">-</span> <span class="nx">change</span> <span class="nx">general</span> <span class="nx">or</span> <span class="nx">specific</span> <span class="nx">settings</span>
 <span class="nx">exit</span> <span class="o">-</span> <span class="k">this</span> <span class="nx">will</span> <span class="nx">close</span> <span class="nx">the</span> <span class="nx">interactive</span> <span class="nx">run</span> <span class="nx">or</span> <span class="nx">send</span> <span class="nx">Ctrl</span><span class="o">-</span><span class="nx">C</span>
-<span class="nx">cleanup</span> <span class="o">-</span> <span class="nx">will</span> <span class="nx">remove</span> <span class="nx">old</span> <span class="nx">entries</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">storage</span> <span class="nx">database</span>
 </code></pre></div>
 
 
@@ -585,6 +620,7 @@ information about special tools, run individual tests and explore systems.</p>
 
 <div class="highlight"><pre><code><span class="nx">list</span> <span class="nx">controller</span>
 <span class="nx">show</span> <span class="nx">controller</span> <span class="nx">my_machine</span>
+<span class="nx">set</span> <span class="nx">verbose</span> <span class="mi">3</span>
 <span class="nx">run</span> <span class="nx">controller</span> <span class="nx">my_machine</span>
 <span class="nx">show</span> <span class="nx">sensor</span> <span class="nx">cpu</span>
 <span class="nx">run</span> <span class="nx">sensor</span> <span class="nx">cpu</span>
@@ -843,6 +879,17 @@ defined and only needs the 'to' address. But you may define more templates under
 
 <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">monitor</span>
 <span class="l-Scalar-Plain">prefix</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mon_</span>
+
+<span class="c1"># When to cleanup entries from storage</span>
+<span class="c1"># -------------------------------------------------</span>
+<span class="c1"># The values are the number of max. entries of given interval.</span>
+<span class="l-Scalar-Plain">storage</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cleanup</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">minute</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">360</span> <span class="c1"># 6 hours</span>
+    <span class="l-Scalar-Plain">hour</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">96</span>    <span class="c1"># 4 days</span>
+    <span class="l-Scalar-Plain">day</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">90</span>     <span class="c1"># 3 months</span>
+    <span class="l-Scalar-Plain">week</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">104</span>   <span class="c1"># two years</span>
+    <span class="l-Scalar-Plain">month</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>   <span class="c1"># 5 years</span>
 </code></pre></div>
 
 
@@ -850,6 +897,9 @@ defined and only needs the 'to' address. But you may define more templates under
 <p>The referenced database have to be a <strong>postgresql</strong> database here and the data
 structure will be build on startup automatically. The concrete connection
 settings are defined in the <code>/database</code> configuration, see below.</p>
+
+<p>The cleanup defines how much time units to keep before removing them. Keep in
+mind that your database will grow if you set high values here.</p>
 
 
 <div class="pilwrap" id="exec%20and%20database">
@@ -2527,13 +2577,13 @@ if no config given</li>
 <p>The next version coming early in 2016 will have:</p>
 
 <ul>
-<li>fully working explorers</li>
-<li>alerting with mail actor</li>
 <li>tested in productive environment</li>
+<li>alerting with mail actor</li>
+<li>fully working explorers</li>
 </ul>
 
 <p>After that a lot of bugfixes, smaller improvements and more sensors, actors and
-explorers will follow regularly.</p>
+explorers will follow.</p>
 
 
 <div class="pilwrap" id="license">

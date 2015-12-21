@@ -158,19 +158,12 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">cleanupTime =</span>
-  <span class="nv">minute: </span><span class="mi">360</span> <span class="c1"># 6 hours</span>
-  <span class="nv">hour: </span><span class="mi">96</span> <span class="c1"># 4 days</span>
-  <span class="nv">day: </span><span class="mi">90</span> <span class="c1"># 3 months</span>
-  <span class="nv">week: </span><span class="mi">104</span> <span class="c1"># two years</span>
-  <span class="nv">month: </span><span class="mi">60</span> <span class="c1"># 5 years</span>
-
 <span class="nv">cleanupInterval =</span>
   <span class="nv">minute: </span><span class="mi">1800</span><span class="o">*</span><span class="mi">1000</span> <span class="c1"># every half hour</span>
   <span class="nv">hour: </span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span> <span class="c1"># every hour</span>
   <span class="nv">day: </span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span> <span class="c1"># every day</span>
   <span class="nv">week: </span><span class="mi">7</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span> <span class="c1"># every week</span>
-  <span class="nv">month: </span><span class="mi">30</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span> <span class="c1"># every month</span>
+  <span class="nv">month: </span><span class="mi">24</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span> <span class="c1"># every 24 days (maximum for setTimeout)</span>
 
 
 
@@ -192,7 +185,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">monitor = </span><span class="kc">null</span>  <span class="c1"># require &#39;./index&#39;</span>
 <span class="nv">conf = </span><span class="kc">null</span>
-
+<span class="nv">mode = </span><span class="p">{}</span>
 
 
 </pre></div>
@@ -209,32 +202,18 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
+<span class="nv">exports.init = </span><span class="nf">(setup, cb) -&gt;</span>
+  <span class="nv">mode = </span><span class="nx">setup</span>
   <span class="nx">monitor</span> <span class="o">?=</span> <span class="nx">require</span> <span class="s">&#39;./index&#39;</span>
   <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">database</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">try</span>
   <span class="nx">debug</span> <span class="s">&quot;Initialize database store...&quot;</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">drop</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">db</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">create</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">db</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
-</div>
-
-<div class="highlight"><pre><code>   <span class="nx">cleanup</span> <span class="nx">interval</span> <span class="k">for</span> <span class="nx">interval</span> <span class="k">in</span> <span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">]</span>
-</code></pre></div>
-
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">cleanup</span> <span class="nx">interval</span> <span class="k">for</span> <span class="nx">interval</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;minute&#39;</span><span class="p">,</span> <span class="s">&#39;hour&#39;</span><span class="p">,</span> <span class="s">&#39;day&#39;</span><span class="p">,</span> <span class="s">&#39;week&#39;</span><span class="p">,</span> <span class="s">&#39;month&#39;</span><span class="p">]</span>
         <span class="nx">cb</span> <span class="nx">err</span>
 
 
@@ -286,7 +265,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>check if tables are installed</p>
         </td>
@@ -350,7 +329,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>get list of sensors</p>
         </td>
@@ -384,7 +363,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>run all sql queries</p>
         </td>
@@ -408,7 +387,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.controller = </span><span class="nf">(name, cb) -&gt;</span>
   <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">database</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">try</span>
   <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -439,7 +418,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.check = </span><span class="nf">(controller, sensor, name, category, cb) -&gt;</span>
   <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">database</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">try</span>
   <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -474,7 +453,7 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.results = </span><span class="nf">(checkID, sensor, meta, date, value, cb) -&gt;</span>
   <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">database</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">try</span>
   <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -492,7 +471,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>insert</p>
         </td>
@@ -515,7 +494,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>update</p>
         </td>
@@ -537,7 +516,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>{set}</p>
         </td>
@@ -567,7 +546,7 @@
 
 <span class="nv">exports.statusCheck = </span><span class="nf">(checkID, date, status, comment, cb) -&gt;</span>
   <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">database</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">try</span>
   <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -578,7 +557,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>check if same status is already set</p>
         </td>
@@ -596,7 +575,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>insert</p>
         </td>
@@ -610,7 +589,7 @@
 
 <span class="nv">exports.statusController = </span><span class="nf">(controllerID, date, status, cb) -&gt;</span>
   <span class="nx">conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="o">?</span><span class="p">.</span><span class="nx">database</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">try</span>
   <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
   <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -621,7 +600,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>check if same status is already set</p>
         </td>
@@ -639,7 +618,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>insert</p>
         </td>
@@ -671,9 +650,23 @@ See the configuration at the top of this file.</p>
         <td class="code highlight"><div class="highlight"><pre>
 
 <span class="nv">cleanup = </span><span class="nf">(interval) -&gt;</span>
-  <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
-    <span class="nx">cleanup</span> <span class="nx">interval</span>
-  <span class="p">,</span> <span class="nx">cleanupInterval</span><span class="p">[</span><span class="nx">interval</span><span class="p">]</span>
+  <span class="nx">setTimeout</span> <span class="nx">cleanup</span><span class="p">,</span> <span class="nx">cleanupInterval</span><span class="p">[</span><span class="nx">interval</span><span class="p">],</span> <span class="nx">interval</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>run the cleanup</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
+  <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
+    <span class="nv">num = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">cleanup</span><span class="p">[</span><span class="nx">interval</span><span class="p">]</span>
+    <span class="nx">debug</span> <span class="s">&quot;remove </span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s"> entries older than </span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s">s&quot;</span>
 
 </pre></div>
         </td>
@@ -683,33 +676,16 @@ See the configuration at the top of this file.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
-<p>run the cleanup</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">prefix = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">prefix</span>
-  <span class="nx">database</span><span class="p">.</span><span class="nx">instance</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nf">(err, db) -&gt;</span>
-    <span class="nv">num = </span><span class="nx">cleanupTime</span><span class="p">[</span><span class="nx">interval</span><span class="p">]</span>
-    <span class="nx">debug</span> <span class="s">&quot;remove </span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s"> entries older than </span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">interval</span><span class="si">}</span><span class="s">s&quot;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
-</div>
 <p>for each sensor</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">time = </span><span class="nx">moment</span><span class="p">().</span><span class="nx">subtract</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="nx">interval</span><span class="p">).</span><span class="nx">toDate</span><span class="p">()</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">time</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">(),</span> <span class="nf">(sensor, cb) -&gt;</span>
       <span class="nx">db</span><span class="p">.</span><span class="nx">exec</span> <span class="s">&quot;DELETE FROM </span><span class="si">#{</span><span class="nx">prefix</span><span class="si">}</span><span class="s">sensor_</span><span class="si">#{</span><span class="nx">sensor</span><span class="si">}</span><span class="s"> WHERE interval=? AND period&lt;?&quot;</span>
       <span class="p">,</span> <span class="p">[</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">time</span><span class="p">]</span>
       <span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 </pre></div>
         </td>
       </tr>
