@@ -72,7 +72,7 @@ class Monitor extends EventEmitter
             path: 'monitor/controller'
       else
         # read all controllers
-        config.register 'monitor-controller', fspath.dirname(__dirname),
+        config.register 'monitor', fspath.dirname(__dirname),
           folder: 'controller'
           path: 'monitor/controller'
 
