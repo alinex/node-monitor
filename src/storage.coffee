@@ -293,4 +293,3 @@ cleanup = (interval) ->
       , cb
     , (err) ->
       console.error chalk.red.bold err if err
-

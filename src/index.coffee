@@ -234,7 +234,8 @@ class Monitor extends EventEmitter
     , (err, results) ->
       return cb err if err
       status = 'ok'
-      status = s if s is 'fail' or status is 'ok' for s in results
+      for s in results
+        status = s if s is 'fail' or status is 'ok'
       cb null, status
 
 
