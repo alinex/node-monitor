@@ -4,6 +4,25 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.1 (2015-12-21)
+-------------------------------------------------
+- Lint warnings fixed in style.
+- Enable controller result report.
+- Enable standardized exit codes.
+- Fix to run without specified database.
+- Changed show controller to use report module.
+- Reenable direct command execution.
+- Allow disabling controller for daemon using config.
+- Extract interactive console into own file.
+- Alloy try mode setting in interactive console.
+- Add the --try option to work.
+- Updated documentation.
+- Document storage changes.
+- Removed debug output.
+- Move cleanup rules for storage into configuration.
+- Change cleanup timeouts to be more precise.
+- Change check interval for month to 10 days.
+
 Version 1.0.0 (2015-12-16)
 -------------------------------------------------
 - Allow all tests to run.
