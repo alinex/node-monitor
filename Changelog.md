@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.2 (2015-12-21)
+-------------------------------------------------
+- Fixed config path for controller search to use /etc/monitor/controller.
+
 Version 1.0.1 (2015-12-21)
 -------------------------------------------------
 - Lint warnings fixed in style.
