@@ -36,10 +36,6 @@ exports.schema =
 #    fail: 'quality is 0'
   allowedKeys: true
   keys:
-    name:
-      title: "Name of query"
-      description: "the descriptive name of this query, for reporting only"
-      type: 'string'
     database:
       title: "Database"
       description: "the reference to the database setting in config/database"
@@ -101,7 +97,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = "#{@conf.database}:#{@conf.name ? string.shorten @conf.query, 30}"
+  @name ?= "#{@conf.database}:#{string.shorten @conf.query, 30}"
   cb()
 
 

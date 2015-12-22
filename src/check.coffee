@@ -51,6 +51,8 @@ class Check extends EventEmitter
 
   # ### Create instance
   constructor: (setup, @controller) ->
+    @name = setup.name
+    @depend = setup.depend
     @type = setup.sensor
     @conf = setup.config ? {}
     # will be set after initialization

@@ -158,6 +158,21 @@ check =
         description: "the  class name of a sensor to run"
         type: 'string'
         lowerCase: true
+      name:
+        title: "Name"
+        description: "a specific name to refer to this check"
+        type: 'string'
+      depend:
+        title: "Dependent Check"
+        description: "a list of check names, which should run before this"
+        type: 'array'
+        toArray: true
+        optional: true
+        entries: [
+          name: "Dependency"
+          description: "the dependent check which have to complete before starting this"
+          type: 'string'
+        ]
       config:
         title: "Sensor Configuration"
         description: "the configuration for a sensor run"
@@ -232,6 +247,12 @@ controller =
         type: 'boolean'
         default: false
       check: check
+      parallel:
+        title: "Max. Parallel Checks"
+        description: "the maximum number of parallel running checks"
+        type: 'integer'
+        min: 1
+        default: 5
       combine:
         title: "Combine Method"
         description: "the calculation of the combined status"

@@ -35,10 +35,6 @@ exports.schema =
   type: 'object'
   allowedKeys: true
   keys:
-    name:
-      title: "Name of equest"
-      description: "the descriptive name of this request, for reporting only"
-      type: 'string'
     remote:
       title: "Remote Server"
       description: "the remote server on which to run the command"
@@ -141,7 +137,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = "#{@conf.name ? '->' + string.shorten @conf.url, 30}"
+  @name ?= "->#{string.shorten @conf.url, 30}"
   cb()
 
 

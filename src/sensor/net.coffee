@@ -184,7 +184,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = "#{@conf.remote ? 'localhost'}:#{@conf.interface}"
+  @name ?= "#{@conf.remote ? 'localhost'}:#{@conf.interface}"
   cb()
 
 

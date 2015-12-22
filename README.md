@@ -475,13 +475,17 @@ interval: 5m
 check:
   - sensor: diskfree
 
+    # ### Name and dependency
+    # The name is used for identifying and also to be referred in other checks as
+    # dependency meaning that a check only can run if all it's dependant checks are
+    # done and don't fail.
+    #name: mytest-3
+    #depend: mytest-1, mytest-2
+
     # ### Specific setup
     config:
       remote: my-develop
       share: /
-    # Additional analysis to run if check is warn or failure
-    analysis:
-      dirs: '/tmp, /var/log'
 
     # ### Weight setting
     # Specific to value of the following 'combine' setting.
@@ -500,6 +504,11 @@ check:
     #     config: Sensor configuration
     #     results: Results
     #hint: |+
+
+# ### Max Parallel checks
+# This goes from 1 = serial to n parallel checks running. It is wise not to use
+# too high values here to not make a high load on the server by the monitor itself.
+parallel: 5
 
 # ### Combine values
 # For multiple dependencies this value defines how the individual sensors are

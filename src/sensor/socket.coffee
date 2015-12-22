@@ -95,7 +95,7 @@ exports.meta =
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
-  @name = "#{@conf.transport} #{@conf.remote ? 'localhost'}->#{@conf.host}:#{@conf.port}"
+  @name ?= "#{@conf.transport} #{@conf.remote ? 'localhost'}->#{@conf.host}:#{@conf.port}"
   cb()
 
 

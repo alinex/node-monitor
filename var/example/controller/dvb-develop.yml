@@ -24,15 +24,17 @@ disabled: false
 check:
   - sensor: diskfree
 
+    # ### Name and dependency
+    # The name is used for identifying and also to be referred in other checks as
+    # dependency meaning that a check only can run if all it's dependant checks are
+    # done and don't fail.
+    #name: mytest-3
+    #depend: mytest-1, mytest-2
+
     # ### Specific setup
     config:
       remote: dvb-develop
       share: /
-    # Additional analysis to run if check is warn or failure
-#    analysis:
-#      analyzer: diskusage
-#      config:
-#        dirs: '/tmp, /var/log'
 
     # ### Weight setting
     # Specific to value of the following 'combine' setting.
