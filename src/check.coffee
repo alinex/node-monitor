@@ -143,11 +143,11 @@ class Check extends EventEmitter
 
   # set status from rules
   setStatus: ->
+    for n, v of @values
+      @sensor.debug "#{chalk.grey @name} result #{n}: #{v}"
     @calcStatus()
     @sensor.debug "#{chalk.grey @name} result status:
     #{@status}#{if @err then ' (' + @err.message + ')' else ''}"
-    for n, v of @values
-      @sensor.debug "#{chalk.grey @name} result #{n}: #{v}"
     # add to history
     @history.unshift
       status: @status
@@ -213,7 +213,7 @@ class Check extends EventEmitter
       @sensor.debug chalk.grey "#{@name} optimized: #{rule}"
       # run the code in sandbox
       sandbox = {}
-      vm.runInNewContext "result = #{rule}", sandbox, {filename: 'monitor-sensor-rule.vm'}
+      vm.runInNewContext "result = #{rule}", sandbox, {filename: "sensor-#{@type}:#{@name}.vm"}
       @sensor.debug chalk.grey "#{@name} rule result: #{status} = #{sandbox.result}"
       if sandbox.result
         @err = new Error @conf[status]

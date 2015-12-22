@@ -86,7 +86,9 @@ class Controller extends EventEmitter
   run: (cb = ->) ->
     # for each sensor in parallel
     @status = 'running'
-    async.map @check, (check, cb) =>
+#    # makes problems in live environment
+#    async.map @check, (check, cb) =>
+    async.mapLimit @check, 5, (check, cb) =>
       check.run (err, status) =>
         if mode.verbose > 1
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}

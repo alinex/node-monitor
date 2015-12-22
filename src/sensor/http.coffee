@@ -159,7 +159,6 @@ exports.prerun = (cb) ->
       option.auth =
         username: @conf.username
         password: @conf.password
-    debug "request #{@conf.url}"
     cb null, option
 
 

@@ -52,6 +52,11 @@ check:
     #     results: Results
     #hint: |+
 
+# ### Max Parallel checks
+# This goes from 1 = serial to n parallel checks running. It is wise not to use
+# too high values here to not make a high load on the server by the monitor itself.
+parallel: 5
+
 # ### Combine values
 # For multiple dependencies this value defines how the individual sensors are
 # combined to calculate the overall status:
