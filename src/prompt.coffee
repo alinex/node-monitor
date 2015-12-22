@@ -296,15 +296,12 @@ exports.interactive = (conf) ->
 
 # Direct command execution
 # -------------------------------------------------
-exports.run = (args) ->
+exports.run = (args, cb = ->) ->
   command = args[0]
   if commands[command]?
-    console.log ''
-    commands[command].run args, (err) ->
-      console.log ''
-      exit err if err
+    commands[command].run args, cb
   else
-    exit 1, new Error "Unknown command #{chalk.bold command} use
+    cb new Error "Unknown command #{chalk.bold command} use
     #{chalk.bold 'help'} for more information!"
 
 # Helper methods

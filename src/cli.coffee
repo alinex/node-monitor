@@ -123,8 +123,9 @@ monitor.init
     # direct command given to execute
     args = argv.command.slice()
     args = args[0].trim().split /\s+/ if args.length is 1
-    require('./prompt').run args
-    exit()
+    require('./prompt').run args, (err) ->
+      exit 1, err if err
+      exit()
   else if argv.interactive
     # interactive console
     require('./prompt').interactive conf

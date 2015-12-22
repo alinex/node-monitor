@@ -83,7 +83,7 @@ class Controller extends EventEmitter
 
 
   # ### Run once
-  run: (cb =  ->) ->
+  run: (cb = ->) ->
     # for each sensor in parallel
     @status = 'running'
     async.map @check, (check, cb) =>
