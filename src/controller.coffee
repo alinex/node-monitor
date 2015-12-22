@@ -88,7 +88,7 @@ class Controller extends EventEmitter
     @status = 'running'
 #    # makes problems in live environment
 #    async.map @check, (check, cb) =>
-    async.mapLimit @check, 5, (check, cb) =>
+    async.mapLimit @check, @conf.parallel, (check, cb) =>
       check.run (err, status) =>
         if mode.verbose > 1
           console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
