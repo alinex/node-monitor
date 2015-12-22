@@ -137,7 +137,7 @@ class Controller extends EventEmitter
     if @conf.hint and @status isnt 'ok'
       report.quote @conf.hint context
     # contact
-    if conf.contact
+    if @conf.contact
       report.p Report.b "Contact Persons:"
       formatContact = (name) ->
         contact = config.get "/monitor/contact/#{name}"
@@ -148,16 +148,16 @@ class Controller extends EventEmitter
         text += " <#{contact.email}>" if contact.email
         [text.trim()]
       ul = []
-      for group, glist of conf.contact
+      for group, glist of @conf.contact
         ul.push "__#{string.ucFirst group}__"
         for e in glist
           ul = ul.concat formatContact e
       report.ul ul
     # references
-    if conf.ref
+    if @conf.ref
       report.p Report.b "For further assistance check the following links:"
       ul = []
-      for name, list of conf.ref
+      for name, list of @conf.ref
         ul.push "#{string.rpad name, 15} " + list.join ', '
       report.ul ul
     report.p "Details of the individual sensor runs with their measurement
