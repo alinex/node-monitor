@@ -56,7 +56,7 @@ describe "DiskIO sensor", ->
           warn: 'read >= -1'
       , (err, instance) ->
         test.warn instance, (err, res) ->
-          expect(instance.values.read).to.be.above 0
+          expect(instance.values.read).to.be.above -1
           cb()
 
   describe "result", ->
