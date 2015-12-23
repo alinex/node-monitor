@@ -182,21 +182,21 @@ will be greeted and may give the commands:
 ``` text
 > monitor -i # or --interactive
 
-                         __   ____     __
-         ######  #####  |  | |    \   |  |   ########### #####       #####
-        ######## #####  |  | |     \  |  |  ############  #####     #####
-       ######### #####  |  | |  |\  \ |  |  #####          #####   #####
-      ########## #####  |  | |  | \  \|  |  #####           ##### #####
-     ##### ##### #####  |  | |  |__\     |  ############     #########
-    #####  ##### #####  |  | |     \\    |  ############     #########
-   #####   ##### #####  |__| |______\\___|  #####           ##### #####
-  #####    ##### #####                      #####          #####   #####
- ##### ######### ########################## ############  #####     #####
-##### ##########  ########################   ########### #####       #####
-___________________________________________________________________________
+                           __   ____     __
+           ######  #####  |  | |    \   |  |   ########### #####       #####
+          ######## #####  |  | |     \  |  |  ############  #####     #####
+         ######### #####  |  | |  |\  \ |  |  #####          #####   #####
+        ########## #####  |  | |  | \  \|  |  #####           ##### #####
+       ##### ##### #####  |  | |  |__\     |  ############     #########
+      #####  ##### #####  |  | |     \\    |  ############     #########
+     #####   ##### #####  |__| |______\\___|  #####           ##### #####
+    #####    ##### #####                      #####          #####   #####
+   ##### ######### ########################## ############  #####     #####
+  ##### ##########  ########################   ########### #####       #####
+  ___________________________________________________________________________
 
-                M O N I T O R I N G   A P P L I C A T I O N
-___________________________________________________________________________
+                  M O N I T O R I N G   A P P L I C A T I O N
+  ___________________________________________________________________________
 
 Initializing...
 
@@ -660,49 +660,48 @@ System Sensors
 Checking the CPU utilization of all cores together. With the configuration values:
 
 - remote - the remote server, there to run the sensor
+- time - measurement time in seconds
 - warn - the javascript code to check for warn status (default: 'active >= 100%')
 - fail - the javascript code to check for fail status
-- analysis - the configuration for the analysis if it is run
-  - minCpu - show processes with this CPU usage or above (default: 10%)
-  - numProc - number of top processes to list
 
 The resulting report part may look like:
 
 ``` text
-CPU
-------------------------------------------------------------------------------
+CPU localhost
+--------------------------------------------------------------------------------
 
 Check the current activity in average percent of all cores.
 
-Last check results from Tue Nov 17 2015 16:10:48 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:04:31 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| CPU Cores               |                                                8 |
-| CPU Speed               |                                     3379.812 MHz |
-| User Time               |                                              4 % |
-| Nice User Time          |                                              0 % |
-| System Time             |                                              1 % |
-| Idle Time               |                                             94 % |
-| Activity                |                                              6 % |
-| I/O Wait Time           |                                              1 % |
-| Hardware Interrupt Time |                                              0 % |
-| Software Interrupt Time |                                              0 % |
-| Lowest CPU Core         |                                              2 % |
-| Highest CPU Core        |                                             10 % |
+Last check results from Wed Dec 23 2015 16:04:31 GMT+0100 (CET) are:
 
-> A high CPU usage means that the server may not start another task
-> immediately. If the load is also very high the system is overloaded, check
-> if any application goes evil.
+| NAME   | LABEL            |    VALUE |
+|:------ |:---------------- | --------:|
+| cpus   | CPU Cores        |        8 |
+| speed  | CPU Speed        | 3.61 GHz |
+| user   | User Time        |    3.7 % |
+| system | System Time      |   0.68 % |
+| idle   | Idle Time        |     95 % |
+| active | Activity         |    5.1 % |
+| wait   | I/O Wait Time    |   0.71 % |
+| low    | Lowest CPU Core  |    1.9 % |
+| high   | Highest CPU Core |    8.2 % |
 
-This has been checked with the following setup:
+> A high CPU usage means that the server may not start another task immediately.
+> If the load is also very high the system is overloaded, check if any application
+> goes evil.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Measurement Time   |                                                  10 s |
-| Warn if            |                                      Activity >= 100% |
+### Configuration
 
-No high cpu consuming processes over 10% found!
+The cpu sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE          |
+|:--------------------- |:-------------- |
+| time                  | 10             |
+| warn                  | active >= 100% |
 ```
 
 ### Load
@@ -713,38 +712,38 @@ Check the system load in the last time ranges. With the configuration values:
 - time - measurement time in seconds
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status
-- analysis - the configuration for the analysis if it is run
-  - minCpu - show processes with this CPU usage or above (default: 10%)
-  - numProc - number of top processes to list
 
 The resulting report part may look like:
 
 ``` text
-Load
-------------------------------------------------------------------------------
+Load localhost
+--------------------------------------------------------------------------------
 
 Check the local processor activity over the last minute to 15 minutes.
 
-Last check results from Tue Nov 17 2015 16:12:21 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:11 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Num Cores               |                                                8 |
-| 1min Load               |                                             41 % |
-| 5min Load               |                                             29 % |
-| 15min Load              |                                             64 % |
+Last check results from Wed Dec 23 2015 16:14:11 GMT+0100 (CET) are:
 
-> A very high system load makes the system irresponsible or really slow.
-> Mostly this is CPU-bound load, load caused by out of memory issues or
-> I/O-bound load problems.
+| NAME   | LABEL      | VALUE |
+|:------ |:---------- | -----:|
+| short  | 1min Load  | 4.8 % |
+| medium | 5min Load  | 5.1 % |
+| long   | 15min Load | 8.4 % |
 
-This has been checked with the following setup:
+> A very high system load makes the system irresponsible or really slow. Mostly
+> this is CPU-bound load, load caused by out of memory issues or I/O-bound load
+> problems.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Warn if            |                                      1min Load > 500% |
+### Configuration
 
-No high cpu consuming processes over 10% found!
+The load sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE        |
+|:--------------------- |:------------ |
+| warn                  | short > 500% |
 ```
 
 ### Memory
@@ -754,45 +753,46 @@ Check the memory usage on the system
 - remote - the remote server, there to run the sensor
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status
-- analysis - the configuration for the analysis if it is run
-  - minMem - show processes with this memory usage or above (default: 10%)
-  - numProc - number of top processes to list
 
 The resulting report part may look like:
 
 ``` text
-Memory
-------------------------------------------------------------------------------
+Memory localhost
+--------------------------------------------------------------------------------
 
 Check the free and used memory.
 
-Last check results from Tue Nov 17 2015 16:13:04 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:11 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Total                   |                                          8.05 GB |
-| Used                    |                                          7.73 GB |
-| Free                    |                                          301 MiB |
-| Shared                  |                                         0.623 GB |
-| Buffers                 |                                          127 MiB |
-| Cached                  |                                          2.22 GB |
-| Swap Total              |                                          8.26 GB |
-| Swap Used               |                                          1.23 GB |
-| Swap Free               |                                          7.03 GB |
-| Actual Free             |                                          2.67 GB |
-| Percent Free            |                                             33 % |
-| Swap Percent Free       |                                             85 % |
+Last check results from Wed Dec 23 2015 16:14:11 GMT+0100 (CET) are:
+
+| NAME            | LABEL             |    VALUE |
+|:--------------- |:----------------- | --------:|
+| total           | Total             |  8.05 GB |
+| used            | Used              |  7.71 GB |
+| free            | Free              |  318 MiB |
+| shared          | Shared            | 0.899 GB |
+| buffers         | Buffers           |  300 MiB |
+| cached          | Cached            |  2.34 GB |
+| swapTotal       | Swap Total        |  8.26 GB |
+| swapUsed        | Swap Used         |  1.84 GB |
+| swapFree        | Swap Free         |  6.42 GB |
+| actualFree      | Actual Free       |  2.99 GB |
+| percentFree     | Percent Free      |     37 % |
+| swapPercentFree | Swap Percent Free |     78 % |
 
 > Check which process consumes how much memory, maybe some processes have a
 > memory leak.
 
-This has been checked with the following setup:
+### Configuration
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Warn if            |                                             Free < 1% |
+The memory sensor is configured with:
 
-No high memory consuming processes over 10% found!
+| CONFIGURATION SETTING | VALUE     |
+|:--------------------- |:--------- |
+| warn                  | free < 1% |
 ```
 
 ### Diskfree
@@ -805,54 +805,46 @@ allows:
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status (default: 'free is 0')
 - timeout - the time the whole test may take before stopping
-- analysis - the configuration for the analysis if it is run
-  - dirs - the list of directories to monitor their volume
-  - timeout - the time the analysis may take before stopping
 
 The resulting report part may look like:
 
 ``` text
-Diskfree (/)
-------------------------------------------------------------------------------
+Diskfree localhost:/
+--------------------------------------------------------------------------------
 
 Test the free diskspace of one share.
 
-Last check results from Tue Nov 17 2015 16:13:28 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:04:55 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Share                   |                                        /dev/sda2 |
-| Type                    |                                             ext4 |
-| Available               |                                         0.926 TB |
-| Used                    |                                          383 GiB |
-| % Used                  |                                             44 % |
-| Free                    |                                          479 GiB |
-| % Free                  |                                             56 % |
-| Mountpoint              |                                                / |
+Last check results from Wed Dec 23 2015 16:04:55 GMT+0100 (CET) are:
 
-> If a share is full it will make I/O problems in the system or applications
-> in case of the root partition it may also neither be possible to log errors.
-> Maybe some old files like temp or logs can be removed or compressed.
+| NAME        | LABEL      |                                                  VALUE |
+|:----------- |:---------- | ------------------------------------------------------:|
+| share       | Share      | /dev/disk/by-uuid/c9492a0b-b280-43de-9882-c845cbecdadf |
+| type        | Type       |                                                   ext4 |
+| mount       | Mountpoint |                                                      / |
+| total       | Available  |                                               0.926 TB |
+| used        | Used       |                                                383 GiB |
+| usedPercent | % Used     |                                                   44 % |
+| free        | Free       |                                                479 GiB |
+| freePercent | % Free     |                                                   56 % |
 
-This has been checked with the following setup:
+> If a share is full it will make I/O problems in the system or applications in
+> case of the root partition it may also neither be possible to log errors. Maybe
+> some old files like temp or logs can be removed or compressed.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Share or Mount     |                                                     / |
-| Measurement Time   |                                                   5 s |
-| Fail if            |                                             Free is 0 |
+### Configuration
 
-Maybe some files in one of the following directories may be deleted or moved:
+The diskfree sensor is configured with:
 
-| PATH                                |  FILES   |    SIZE    |   OLDEST    |
-| ----------------------------------- | -------: | ---------: | :---------- |
-| /tmp                                |     713* |  57.5 MiB* | 2014-10-16* |
-| /var/log                            |     441* |    26 MiB* | 2014-06-24* |
-
-__(*)__
-: The rows marked with a '*' are only assumptions, because not all
-files were readable. All the values are minimum values, the real values may
-be higher.
+| CONFIGURATION SETTING | VALUE             |
+|:--------------------- |:----------------- |
+| share                 | /                 |
+| timeout               | 5000              |
+| warn                  | freePercent < 10% |
+| fail                  | free is 0         |
 ```
 
 ### DiskIO
@@ -868,33 +860,36 @@ This sensor will check the disk io traffic:
 The resulting report part may look like:
 
 ``` text
-Disk IO (sda)
-------------------------------------------------------------------------------
+Disk IO localhost:sda
+--------------------------------------------------------------------------------
 
 Check the disk io traffic.
 
-Last check results from Tue Nov 17 2015 16:14:19 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:13:46 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Read operations/s       |                                              8.5 |
-| Write operation/s       |                                               19 |
-| Read/s                  |                                         0.925 MB |
-| Write/s                 |                                          223 KiB |
-| Total Read              |                                           22 GiB |
-| Total Write             |                                         91.9 GiB |
-| Read/s                  |                                          48.8 ms |
-| Write/s                 |                             1.2795999999999998 s |
+Last check results from Wed Dec 23 2015 16:13:46 GMT+0100 (CET) are:
+
+| NAME       | LABEL             |    VALUE |
+|:---------- |:----------------- | --------:|
+| write      | Write operation/s |     11.6 |
+| writeSize  | Write/s           |  482 KiB |
+| readTotal  | Total Read        | 57.4 GiB |
+| writeTotal | Total Write       |  207 GiB |
+| writeTime  | Write Time/s      |    43 ms |
 
 > If there are any problems here check the device for hardware or network
 > problems.
 
-This has been checked with the following setup:
+### Configuration
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Device name        |                                                   sda |
-| Measurement Time   |                                                  10 s |
+The diskio sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE |
+|:--------------------- |:----- |
+| device                | sda   |
+| time                  | 10    |
 ```
 
 ### Net
@@ -910,84 +905,42 @@ This sensor will check the network traffic on a specified interface:
 The resulting report part may look like:
 
 ``` text
-Network Traffic (eth0)
-------------------------------------------------------------------------------
+Network Traffic localhost:eth0
+--------------------------------------------------------------------------------
 
 Check the network traffic.
 
-Last check results from Wed Nov 18 2015 09:26:59 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:11 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Received Transfer       |                                          4.67 kB |
-| Received Packets        |                                               31 |
-| Received Errors         |                                              0 % |
-| Received Drops          |                                              0 % |
-| Received FIFO Errors    |                                              0 % |
-| Transmit Transfer       |                                          3.37 kB |
-| Transmit Packets        |                                               21 |
-| Transmit Errors         |                                              0 % |
-| Transmit Drops          |                                              0 % |
-| Transmit FIFO Errors    |                                              0 % |
-| Total Transfer          |                                          8.05 kB |
-| Total Packets           |                                               52 |
-| Total Errors            |                                              0 % |
-| Total Drops             |                                              0 % |
-| Total FIFO Errors       |                                              0 % |
-| Total Frame Errors      |                                              0 % |
-| Interface State         |                                               UP |
-| Mac Address             |                                40:a8:f0:46:e5:76 |
-| IP Address              |                                    192.168.5.113 |
-| IPv6 Address            |                        fe80::42a8:f0ff:fe46:e576 |
+Last check results from Wed Dec 23 2015 16:14:11 GMT+0100 (CET) are:
+
+| NAME            | LABEL               |                     VALUE |
+|:--------------- |:------------------- | -------------------------:|
+| receivedBytes   | Receive Transfer    |                    22 KiB |
+| receivedPackets | Received Packets    |                        68 |
+| transmitBytes   | Transmit Transfer   |                  16.5 KiB |
+| transmitPackets | Transmitted Packets |                        63 |
+| bytes           | Total Transfer      |                  38.5 KiB |
+| packets         | Total Packets       |                       131 |
+| state           | Interface State     |                        UP |
+| mac             | Mac Address         |         40:a8:f0:46:e5:76 |
+| ipv4            | IP Address          |             192.168.5.113 |
+| ipv6            | IPv6 Address        | fe80::42a8:f0ff:fe46:e576 |
 
 > If you see a high volume it may be overloaded or a attack is running.
 
-This has been checked with the following setup:
+### Configuration
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Interface Name     |                                                  eth0 |
-| Measurement Time   |                                                  10 s |
-| Warn if            |                                    Total Errors > 50% |
-| Fail if            |                                    Total Errors > 99% |
+The net sensor is configured with:
 
-Listening servers:
-
-| PROTO | LOCAL IP             | PORT  | SERVICE                          |
-| :---- | :------------------- | :---- | :------------------------------- |
-| tcp   | 127.0.0.1            | 46793 |                                  |
-| tcp   | 127.0.0.1            | 3306  | mysql                            |
-| tcp   | 0.0.0.0              | 139   | NETBIOS session service          |
-| tcp   | 0.0.0.0              | 22700 |                                  |
-| tcp   | 0.0.0.0              | 80    | WorldWideWeb HTTP                |
-| tcp   | 127.0.0.1            | 5939  |                                  |
-| tcp   | 127.0.1.1            | 53    | Domain Name Server               |
-| tcp   | 0.0.0.0              | 22    | SSH Remote Login Protocol        |
-| tcp   | 127.0.0.1            | 631   | Internet Printing Protocol       |
-| tcp   | 127.0.0.1            | 5432  | PostgreSQL Database              |
-| tcp   | 0.0.0.0              | 25    | mail                             |
-| tcp   | 0.0.0.0              | 445   | Microsoft Naked CIFS             |
-| tcp6  | ::                   | 38219 |                                  |
-| tcp6  | ::                   | 139   | NETBIOS session service          |
-| tcp6  | 127.0.0.1            | 55596 |                                  |
-| tcp6  | 127.0.0.1            | 46413 |                                  |
-| tcp6  | 127.0.0.1            | 49394 |                                  |
-| tcp6  | ::                   | 22    | SSH Remote Login Protocol        |
-| tcp6  | ::1                  | 631   | Internet Printing Protocol       |
-| tcp6  | 127.0.0.1            | 51449 |                                  |
-| tcp6  | ::                   | 25    | mail                             |
-| tcp6  | ::                   | 445   | Microsoft Naked CIFS             |
-
-Active internet connections:
-
-| PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
-| :---- | :------------------- | ----: | -----: | :------------- |
-| tcp   | 74.125.133.188       | 5228  |   4061 | chrome         |
-| tcp   | 192.168.100.12       | 22    |   1097 | ssh            |
-| tcp   | 74.125.133.108       | 993   |   4072 | thunderbird    |
-| tcp   | 192.30.252.91        | 443   |   4061 | chrome         |
-| tcp   | 188.94.250.110       | 143   |   4072 | thunderbird    |
-| tcp   | 85.25.98.22          | 22    |  22368 | ssh            |
+| CONFIGURATION SETTING | VALUE        |
+|:--------------------- |:------------ |
+| interface             | eth0         |
+| time                  | 10           |
+| warn                  | errors > 50% |
+| fail                  | errors > 99% |
 ```
 
 ### Time
@@ -1004,30 +957,34 @@ This sensor will check the network traffic on a specified interface:
 The resulting report part may look like:
 
 ``` text
-Time Check (test)
------------------------------------------------------------------------------
+Time Check localhost
+--------------------------------------------------------------------------------
 
 Check the system time against the Internet.
 
-Last check results from Mon Nov 02 2015 20:59:55 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:50 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Local Time              |          Mon Nov 02 2015 21:00:00 GMT+0100 (CET) |
-| Remote Time             |          Mon Nov 02 2015 20:59:59 GMT+0100 (CET) |
-| Difference              |                                           259 ms |
+Last check results from Wed Dec 23 2015 16:14:50 GMT+0100 (CET) are:
 
-If the time is not correct it may influence some processes which goes over
-multiple hosts. Therefore install and configure `ntpd` on the machine.
+| NAME | LABEL      |  VALUE |
+|:---- |:---------- | ------:|
+| diff | Difference | 0.62 s |
 
-This has been checked with the following setup:
+> If the time is not correct it may influence some processes which goes over
+> multiple hosts. Therefore install and configure `ntpd` on the machine.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| NTP Hostname       |                                          pool.ntp.org |
-| NTP Port           |                                                   123 |
-| Timeout            |                                                  10 s |
-| Warn if            |                                    Difference > 10000 |
+### Configuration
+
+The time sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE        |
+|:--------------------- |:------------ |
+| host                  | pool.ntp.org |
+| port                  | 123          |
+| timeout               | 10000        |
+| warn                  | diff > 10000 |
 ```
 
 ### User
@@ -1038,57 +995,40 @@ This sensor will analyse processes started from a specific user:
 - user - the user name to analyze
 - warn - the javascript code to check for warn status (default: 'diff > 10000')
 - fail - the javascript code to check for fail status
-- analysis - the configuration for the analysis if it is run
-  - minCpu - show processes with this CPU usage or above (default: 10%)
-  - minMem - show processes with this memory usage or above (default: 10%)
-  - numProc - number of top processes to list
 
 The resulting report part may look like:
 
 ``` text
-Active User (alex)
------------------------------------------------------------------------------
+Active User localhost
+--------------------------------------------------------------------------------
 
 Check what an active user do.
 
-Last check results from Wed Nov 04 2015 19:19:45 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:50 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Processes               |                                               69 |
-| % CPU                   |                                             84 % |
-| % Memory                |                                             59 % |
-| Physical Memory         |                                         21.6 MiB |
-| Virtual Memory          |                                          1.13 MB |
+Last check results from Wed Dec 23 2015 16:14:50 GMT+0100 (CET) are:
 
-This check will give an overview of the activities of an (logged in) user. If
-you look at the processes you may find out that some other warnings like high
-load are user made and you may contact this person directly.
+| NAME   | LABEL           |   VALUE |
+|:------ |:--------------- | -------:|
+| num    | Processes       |      96 |
+| cpu    | % CPU           |   3.9 % |
+| memory | % Memory        |    58 % |
+| rss    | Physical Memory | 118 MiB |
+| vss    | Virtual Memory  | 4.88 MB |
 
-This has been checked with the following setup:
+> This check will give an overview of the activities of an (logged in) user. If
+> you look at the processes you may find out that some other warnings like high
+> load are user made and you may contact this person directly.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Username to check  |                                                  alex |
+### Configuration
 
-The top CPU consuming processes above 1% CPU above 1% MEM (max. 5 processes)
-are:
+The user sensor is configured with:
 
-|  PID  | %CPU | %MEM |   VSZ   |   RSS  |  TIME |           COMMAND         |
-| ----- | ---- | ---- | ------- | ------ | ----- | ------------------------- |
-| 30362 | 74.7 |  2.8 |  101212 |  51212 |  0:10 | /usr/bin/nodejs           |
-| 30343 |  7.0 |  1.3 |   74424 |  23956 |  0:01 | builder                   |
-| 19859 |  1.4 | 20.4 | 1416588 | 368036 | 22:15 |
-/opt/sublime_text/sublime_text |
-
-The active logins are:
-
-|   TERM    |    LOGIN     |         IP         |
-| --------- | ------------ | ------------------ |
-| tty8      | Oct 30 16:45 |                  0 |
-| pts/3     | Oct 30 16:46 |                  0 |
-| pts/4     | Oct 30 21:32 |                  0 |
-| pts/5     | Oct 31 19:28 |                  0 |
+| CONFIGURATION SETTING | VALUE |
+|:--------------------- |:----- |
+| user                  | alex  |
 ```
 
 
@@ -1113,34 +1053,42 @@ as the response time and packet loss:
 - fail - the javascript code to check for fail status (default: 'quality is 0')
 
 ``` text
-Ping (->192.168.2.25)
------------------------------------------------------------------------------
+Ping localhost->193.99.144.80
+--------------------------------------------------------------------------------
 
-Test the reachability of a host on a IP network and measure the round-trip time
+Test the reachability of a host in an IP network and measure the round-trip time
 for the messages send.
 
-Last check results from Wed Nov 04 2015 22:52:38 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:32 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Avg. Response Time      |                                          13.4 ms |
-| Min. Respons Time       |                                          13.4 ms |
-| Max. Response Time      |                                          13.4 ms |
-| Quality                 |                                            100 % |
+Last check results from Wed Dec 23 2015 16:14:32 GMT+0100 (CET) are:
 
-Check the network card configuration if local ping won't work or the network
-connection for external pings.
+| NAME         | LABEL              |   VALUE |
+|:------------ |:------------------ | -------:|
+| responseTime | Avg. Response Time | 11.5 ms |
+| responseMin  | Min. Respons Time  | 11.5 ms |
+| responseMax  | Max. Response Time | 11.5 ms |
+| quality      | Quality            |   100 % |
 
-This has been checked with the following setup:
+> Check the network card configuration if local ping won't work or the network
+> connection for external pings. Problems can also be that the firewall will block
+> the ping port.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Number of Packets  |                                                     1 |
-| Wait Interval      |                                                   1 s |
-| Packetsize         |                                                  56 B |
-| Overall Timeout    |                                                   1 s |
-| Warn if            |                                        Quality < 100% |
-| Fail if            |                                          Quality is 0 |
+### Configuration
+
+The ping sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE          |
+|:--------------------- |:-------------- |
+| host                  | 193.99.144.80  |
+| count                 | 1              |
+| interval              | 1000           |
+| size                  | 56             |
+| timeout               | 1000           |
+| warn                  | quality < 100% |
+| fail                  | quality is 0   |
 ```
 
 ### Socket
@@ -1155,27 +1103,33 @@ This sensor will ping another host:
 - fail - the javascript code to check for fail status (default: 'quality is 0')
 
 ``` text
-Socket (tcp localhost->193.99.144.80:80)
------------------------------------------------------------------------------
+Socket tcp localhost->193.99.144.80:80
+--------------------------------------------------------------------------------
 
 Use TCP sockets to check for the availability of a service behind a given port.
 
-Last check results from Thu Nov 05 2015 21:42:12 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:45 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Response Time           |                                          3744 ms |
+Last check results from Wed Dec 23 2015 16:14:45 GMT+0100 (CET) are:
 
-On problems the service may not run or a network problem exists.
+| NAME         | LABEL         | VALUE |
+|:------------ |:------------- | -----:|
+| responseTime | Response Time |   1 s |
 
-This has been checked with the following setup:
+> On problems the service may not run or a network problem exists.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Hostname or IP     |                                         193.99.144.80 |
-| Port               |                                                    80 |
-| Transport Protocol |                                                   tcp |
-| Timeout            |                                                   2 s |
+### Configuration
+
+The socket sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE         |
+|:--------------------- |:------------- |
+| host                  | 193.99.144.80 |
+| port                  | 80            |
+| transport             | tcp           |
+| timeout               | 2000          |
 ```
 
 ### Http
@@ -1192,9 +1146,6 @@ This sensor will ping another host:
 - warn - the javascript code to check for warn status
 - fail - the javascript code to check for fail status
   (default: 'statusCode < 200 or statusCode >= 400')
-- analysis
-  - bodyLength - the maximum body display length in analysis report
-    (default: 256)
 
 If a remote server reference is given this will be used for tunneling over ssh
 as proxy.
@@ -1203,64 +1154,37 @@ as proxy.
 > If you do so you will get a named object instead of an array as result.
 
 ``` text
-HTTP Request (->http://heise.de)
------------------------------------------------------------------------------
+HTTP Request ->http://heise.de
+--------------------------------------------------------------------------------
 
 Connect to an HTTP or HTTPS server and check the response.
 
-Last check results from Fri Nov 06 2015 22:20:54 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:07 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Response Time           |                                           288 ms |
-| Status Code             |                                              200 |
-| Status Message          |                                               OK |
-| Server                  |                                            nginx |
-| Content Type            |                         text/html; charset=utf-8 |
-| Content Length          |                                          167 KiB |
-| Body Match              |                                            false |
+Last check results from Wed Dec 23 2015 16:14:07 GMT+0100 (CET) are:
 
-If the server didn't respond it also may be a network problem.
+| NAME          | LABEL          |                    VALUE |
+|:------------- |:-------------- | ------------------------:|
+| responseTime  | Response Time  |                   240 ms |
+| statusCode    | Status Code    |                      200 |
+| statusMessage | Status Message |                       OK |
+| server        | Server         |                    nginx |
+| contentType   | Content Type   | text/html; charset=utf-8 |
+| length        | Content Length |                  176 KiB |
 
-This has been checked with the following setup:
+> If the server didn't respond it also may be a network problem.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| URL                |                                       http://heise.de |
-| Timeout            |                                                  10 s |
-| Fail if            |               Status Code < 200 or Status Code >= 400 |
+### Configuration
 
-See the following details of the check which may give you a hint there the
-problem is.
+The http sensor is configured with:
 
-__GET http://heise.de__
-
-    referer: http://www.heise.de/
-
-Response:
-
-    server: nginx
-    content-type: text/html; charset=utf-8
-    x-cobbler: octo06.heise.de
-    x-clacks-overhead: GNU Terry Pratchett
-    last-modified: Fri, 06 Nov 2015 21:20:54 GMT
-    expires: Fri, 06 Nov 2015 21:21:26 GMT
-    cache-control: public, max-age=32
-    transfer-encoding: chunked
-    date: Fri, 06 Nov 2015 21:20:55 GMT
-    age: 1
-    connection: keep-alive
-    vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
-
-Content:
-
-    <!DOCTYPE html>
-        <html lang="de">
-
-        <head>
-            <title>heise online - IT-News, Nachrichten und Hintergründe
-            </title>
-                <meta name="description" content="News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware un...
+| CONFIGURATION SETTING | VALUE                                 |
+|:--------------------- |:------------------------------------- |
+| url                   | http://heise.de                       |
+| timeout               | 10000                                 |
+| fail                  | statusCode < 200 or statusCode >= 400 |
 ```
 
 ### Ftp
@@ -1382,38 +1306,35 @@ This sensor will get some measurement values from the database:
 - database - alias name of the database to use
 - query - the query to run
 - timeout - maximum time to run the query (default: 10s)
-- analysis
-  - query - an additional query to run
-  - timeout - maximum time to run the query (default: 20s)
 
 ``` text
-Database (test-postgresql: SELECT...)
-------------------------------------------------------------------------------
+Database test-postgresql:SELECT 100 as num, 'just a...
+--------------------------------------------------------------------------------
 
 Run a query on the database to chech a value like count of entries in the
 database.
 
-Last check results from Mon Nov 16 2015 09:23:49 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:04:54 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Values: num             |                                              100 |
-| Values: comment         |                                    just a number |
-| Response Time           |                                          1075 ms |
+Last check results from Wed Dec 23 2015 16:04:54 GMT+0100 (CET) are:
 
-This has been checked with the following setup:
+| NAME         | LABEL         |         VALUE |
+|:------------ |:------------- | -------------:|
+| data         | Data.num      |           100 |
+| data         | Data.comment  | just a number |
+| responseTime | Response Time |        1.23 s |
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Database           |                                       test-postgresql |
-| Query              |         SELECT 100 as num, 'just a number' as comment |
-| Timeout            |                                                  10 s |
+### Configuration
 
-Maybe the following additional results may help:
+The database sensor is configured with:
 
-| Message |
-| ------: |
-|    done |
+| CONFIGURATION SETTING | VALUE                                         |
+|:--------------------- |:--------------------------------------------- |
+| database              | test-postgresql                               |
+| query                 | SELECT 100 as num, 'just a number' as comment |
+| timeout               | 10000                                         |
 ```
 
 ### Database Stats
