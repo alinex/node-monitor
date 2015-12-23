@@ -137,15 +137,33 @@ class Controller extends EventEmitter
     report.h1 "Controller #{@name} (#{@conf.name})"
     report.p @conf.description if @conf.description
     report.p @conf.info if @conf.info
+    # status box
     boxtype =
       warn: 'warning'
       fail: 'alert'
     list = Report.ul @history.map (e) ->
       "__STATUS: #{e.status}__ at #{e.date}"
     report.box list, boxtype[@status] ? 'info'
+    # more info
     if @conf.hint and @status isnt 'ok'
       report.quote @conf.hint context
+    # overview of checks
+    report.h2 "Check Overview"
+    report.p "The following checks will run but max. #{@conf.parallel} checks in
+    parallel.:"
+    report.ul @check.map (e) ->
+      text = "#{e.type} #{e.name}"
+      text += " (weight #{e.weight})" if e.weight
+      text += " (depend on #{e.depend.join ', '})" if e.depend
+      text
+    combine =
+      max: "The most critical status type of the checks is used for the controller."
+      min: "The least critical status type of the checks is used for the controller."
+      average: "The average status type of the checks is used for the controller."
+    report.p combine[@conf.combine]
+    report.p "See the last results of all of this checks below!"
     # contact
+    report.h2 "More Information"
     if @conf.contact
       report.p Report.b "Contact Persons:"
       formatContact = (name) ->
@@ -173,7 +191,6 @@ class Controller extends EventEmitter
     report.p "Details of the individual sensor runs with their measurement
     values and maybe some extended analysis will follow."
     report.add check.report() for check in @check
-
     # return result
     report
 

@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/load'
 
 before (cb) -> test.setup cb
 
-describe "Load sensor", ->
+describe.only "Load sensor", ->
 
   check = null
 

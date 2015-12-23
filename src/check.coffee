@@ -52,10 +52,13 @@ class Check extends EventEmitter
   # ### Create instance
   constructor: (setup, @controller) ->
     @type = setup.sensor
+    @name = setup.name
+    @depend = setup.depend
     @conf = setup.config ? {}
+    @weight = setup.seight
+    @hint = setup.hint
     # will be set after initialization
     @sensor = null
-    @name = null
     @databaseID = null
     @base = null
     # will be filled on run
@@ -226,8 +229,15 @@ class Check extends EventEmitter
     report = new Report()
     report.h2 "#{@sensor.meta.title} #{@name}"
     report.p @sensor.meta.description
-    report.p "Last check results from #{last.date[0]} are:"
+    # status box
+    boxtype =
+      warn: 'warning'
+      fail: 'alert'
+    list = Report.ul @history.map (e) ->
+      "__STATUS: #{e.status}__ at #{e.date[0]}"
+    report.box list, boxtype[@status] ? 'info'
     # table with max. last 3 values
+    report.p "Last check results from #{last.date[0]} are:"
     data = []
     for key, conf of @sensor.meta.values
       continue unless value = last.values[key]
@@ -250,8 +260,15 @@ class Check extends EventEmitter
       for e, num in @history[1..2]
         col[num] = {title: 'PREVIOUS', align: 'right'}
     report.table data, col
+    # additional hints
     if @sensor.meta.hint
       report.quote @sensor.meta.hint
+    if @hint
+      report.quote @hint
+    # configuration
+    report.h3 'Configuration'
+    report.p "The #{@type} sensor is configured with:"
+    report.table @conf, ['CONFIGURATION SETTING', 'VALUE']
     return report
 
   # Helper methods for sensor
