@@ -53,7 +53,7 @@ describe "DiskIO sensor", ->
         sensor: 'diskio'
         config:
           device: 'sda'
-          warn: 'read >= 0'
+          warn: 'read >= -1'
       , (err, instance) ->
         test.warn instance, (err, res) ->
           expect(instance.values.read).to.be.above 0

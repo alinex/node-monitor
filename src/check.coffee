@@ -243,22 +243,25 @@ class Check extends EventEmitter
       continue unless value = last.values[key]
       if typeof value is 'object' and not Array.isArray value
         for k of value
-          row = ["#{conf.title ? key}.#{k}"]
+          row = [key, "#{conf.title ? key}.#{k}"]
           row.push formatValue e.values[key][k], conf for e in @history[..2]
           data.push row
       else
-        row = [conf.title ? key]
+        row = [key, conf.title ? key]
         row.push formatValue e.values[key], conf for e in @history[..2]
         data.push row
     col =
       0:
-        title: 'LABEL'
+        title: 'NAME'
       1:
+        title: 'LABEL'
+      2:
         title: 'VALUE'
         align: 'right'
     if @history.length > 1
-      for e, num in @history[1..2]
-        col[num] = {title: 'PREVIOUS', align: 'right'}
+      num = 2
+      for e in @history[1..2]
+        col[++num] = {title: 'PREVIOUS', align: 'right'}
     report.table data, col
     # additional hints
     if @sensor.meta.hint
