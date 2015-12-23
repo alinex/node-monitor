@@ -221,7 +221,7 @@ class Check extends EventEmitter
     @status = 'ok'
 
   # ### create text report
-  report: (cb) ->
+  report: ->
     last = @history[@history.length - 1]
     report = new Report()
     report.h2 "#{@sensor.meta.title} #{@name}"
@@ -252,7 +252,7 @@ class Check extends EventEmitter
     report.table data, col
     if @sensor.meta.hint
       report.quote @sensor.meta.hint
-    cb null, report
+    return report
 
   # Helper methods for sensor
   # -------------------------------------------------

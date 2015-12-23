@@ -58,6 +58,8 @@ class Controller extends EventEmitter
   init: (cb) ->
     debug "#{chalk.grey @name} Initialize controller..."
     monitor ?= require './index'
+    # create a work queue
+
     # create base data in storage
     storage.controller @name, (err, @databaseID) =>
       return cb err if err
@@ -105,6 +107,9 @@ class Controller extends EventEmitter
         # store new values
         @changed = changed ? status isnt @status
         @status = status
+        if mode.verbose or @status isnt 'ok'
+          console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+          Controller #{chalk.white @name} => #{@colorStatus()}"
         # add to history
         @history.unshift
           status: @status
@@ -117,25 +122,27 @@ class Controller extends EventEmitter
         # make report
         report = @report()
         if mode.verbose > 2
-          console.error report.toConsole()
+          console.error "\n#{report.toConsole()}\n"
         @emit 'result', this
-        if mode.verbose or @status isnt 'ok'
-          console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
-          Controller #{chalk.white @name} => #{@colorStatus()}"
         cb null, @status
 
   # ### Create a report
-  report: (results) ->
+  report: ->
     # make report
     context =
       name: @name
       config: @conf
-      sensor: results
     report = new Report()
+    report.toc()
     report.h1 "Controller #{@name} (#{@conf.name})"
     report.p @conf.description if @conf.description
     report.p @conf.info if @conf.info
-    report.quote "__STATUS: #{@status}__ at #{new Date()}"
+    boxtype =
+      warn: 'warning'
+      fail: 'alert'
+    list = Report.ul @history.map (e) ->
+      "__STATUS: #{e.status}__ at #{e.date}"
+    report.box list, boxtype[@status] ? 'info'
     if @conf.hint and @status isnt 'ok'
       report.quote @conf.hint context
     # contact
@@ -162,10 +169,11 @@ class Controller extends EventEmitter
       for name, list of @conf.ref
         ul.push "#{string.rpad name, 15} " + list.join ', '
       report.ul ul
+    # add check results
     report.p "Details of the individual sensor runs with their measurement
-    values and maynbe some extended analysis will follow:"
-    for num, entry of results
-      report.add sensor.report entry
+    values and maybe some extended analysis will follow."
+    report.add check.report() for check in @check
+
     # return result
     report
 
