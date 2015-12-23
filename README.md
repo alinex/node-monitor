@@ -1154,25 +1154,63 @@ as proxy.
 > If you do so you will get a named object instead of an array as result.
 
 ``` text
-HTTP Request ->http://heise.de
+ HTTP Request ->http://heise.de
 --------------------------------------------------------------------------------
 
 Connect to an HTTP or HTTPS server and check the response.
 
 ::: info
-- __STATUS: ok__ at Wed Dec 23 2015 16:14:07 GMT+0100 (CET)
+- __STATUS: ok__ at Wed Dec 23 2015 21:26:14 GMT+0100 (CET)
 :::
 
-Last check results from Wed Dec 23 2015 16:14:07 GMT+0100 (CET) are:
+Last check results from Wed Dec 23 2015 21:26:14 GMT+0100 (CET) are:
 
 | NAME          | LABEL          |                    VALUE |
 |:------------- |:-------------- | ------------------------:|
-| responseTime  | Response Time  |                   240 ms |
+| responseTime  | Response Time  |                   320 ms |
 | statusCode    | Status Code    |                      200 |
 | statusMessage | Status Message |                       OK |
 | server        | Server         |                    nginx |
 | contentType   | Content Type   | text/html; charset=utf-8 |
-| length        | Content Length |                  176 KiB |
+| length        | Content Length |                  177 KiB |
+
+__Request:__
+
+``` text
+GET http://heise.de
+
+User-Agent: Alinex Monitor through request.js
+```
+
+__Response:__
+
+``` text
+server: nginx
+content-type: text/html; charset=utf-8
+x-cobbler: octo09.heise.de
+x-clacks-overhead: GNU Terry Pratchett
+last-modified: Wed, 23 Dec 2015 20:26:07 GMT
+expires: Wed, 23 Dec 2015 20:26:39 GMT
+cache-control: public, max-age=32
+transfer-encoding: chunked
+date: Wed, 23 Dec 2015 20:26:15 GMT
+age: 8
+connection: keep-alive
+vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
+```
+
+__Body:__
+
+``` html
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <title>heise online - IT-News, Nachrichten und Hintergründe
+    </title>
+        <meta name="description" content="News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware und Software sowie Downloads bei Heise Medien.">
+            <meta name="keywords" content="heise online, c't, iX, Technology Review"...
+```
 
 > If the server didn't respond it also may be a network problem.
 
@@ -1516,7 +1554,8 @@ A sensor should be a module exporting the following objects:
 - init(cb) - initialize the check once
 - prerun(cb) - method to be called before each run (optional)
 - run(cb) - runing the acquisition of data
-- calc(res, cb) - calculating the values from the result set
+- calc(cb) - calculating the values from the result set
+- report - create an additional detail report from the results (optional)
 
 ### Actor Structure
 

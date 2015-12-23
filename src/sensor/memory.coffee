@@ -152,8 +152,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # calculate results
   for line in res.stdout().split /\n/
     col = line.split /\s+/

@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/http'
 
 before (cb) -> test.setup cb
 
-describe.only "HTTP sensor", ->
+describe "HTTP sensor", ->
 
   check = null
 

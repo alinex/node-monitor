@@ -128,8 +128,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   cpus = Number res[1].stdout()
   col = res[0].stdout().split /\s+/
   @values.num = Number col[0]

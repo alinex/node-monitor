@@ -125,9 +125,10 @@ class Check extends EventEmitter
     @changed = 0
     # run the sensor
     started = @date[0]
-    @sensor.run.call this, (err) =>
+    @sensor.run.call this, (err, res) =>
       return unless started = @date[0]
       @err = err if not @err and err
+      @result.data = res
       @sensor.debug "#{chalk.grey @name} ended check"
       @date[1] = new Date()
       # calculate results

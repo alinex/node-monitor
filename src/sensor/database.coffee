@@ -110,8 +110,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # calculate values
   @values.responseTime = @date[1] - @date[0]
   @values.data = res

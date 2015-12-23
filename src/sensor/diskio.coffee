@@ -147,8 +147,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # calculate diffs
   l1 = res[0].stdout().trim().split(/\s+/)
   l2 = res[1].stdout().trim().split(/\s+/)

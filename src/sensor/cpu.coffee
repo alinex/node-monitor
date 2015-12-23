@@ -164,8 +164,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # cpu info values
   @values.cpus = 0
   @values.speed = 0

@@ -114,8 +114,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   @values.responseTime = @date[1] - @date[0]
   if res.result.lines[0]?[1]
     @err = new Error res.result.lines[0][1].replace /bash:\s+/, ''

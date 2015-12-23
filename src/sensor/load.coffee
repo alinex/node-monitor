@@ -115,8 +115,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # cpu info values
   load = res.stdout().split /\s/
   @values.short = Number(load[0]) / @base

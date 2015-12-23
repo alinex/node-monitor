@@ -143,8 +143,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # cpu info values
   lines = res.stdout().split /\n/
   col = lines[1].split /\s+/

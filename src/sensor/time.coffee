@@ -130,8 +130,9 @@ exports.run = (cb) ->
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
+  res = @result.data
   # check times
   @values.local = new Date res[0].stdout().trim()
   @values.remote = res[1]
