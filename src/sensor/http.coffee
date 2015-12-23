@@ -16,11 +16,12 @@
 exports.debug = debug = require('debug')('monitor:sensor:http')
 request = require 'request'
 http = require 'http'
+util = require 'util'
 # include alinex modules
 Exec = require 'alinex-exec'
 config = require 'alinex-config'
 {string} = require 'alinex-util'
-
+Report = require 'alinex-report'
 
 # Schema Definition
 # -------------------------------------------------
@@ -155,33 +156,64 @@ exports.prerun = (cb) ->
       option.auth =
         username: @conf.username
         password: @conf.password
+    @result.request = option
     cb null, option
 
 
 # Run the Sensor
 # -------------------------------------------------
-exports.run = (option, cb) ->
-  request option, (err, response, body) ->
-    cb err,
-      response: response
-      body: body
+# The result object will have:
+#
+# - request - object (from prerun)
+# - response - object
+# - body - string
+exports.run = (cb) ->
+  request @result.request, (err, response, body) =>
+    @result.response = response
+    @result.body = body
+    cb err
 
 
 # Get the results
 # -------------------------------------------------
-exports.calc = (res, cb) ->
+exports.calc = (cb) ->
   return cb() if @err
   @values.responseTime = @date[1] - @date[0]
-  return cb() unless res.response?
+  return cb() unless @result.response?
   # get the values
-  @values.statusCode = res.response.statusCode
-  @values.statusMessage = http.STATUS_CODES[res.response.statusCode]
-  @values.server = res.response.headers.server
-  @values.contentType = res.response.headers['content-type']
-  @values.length = res.response.connection.bytesRead
-  @values.match = @match res.body, @conf.match
+  @values.statusCode = @result.response.statusCode
+  @values.statusMessage = http.STATUS_CODES[@result.response.statusCode]
+  @values.server = @result.response.headers.server
+  @values.contentType = @result.response.headers['content-type']
+  @values.length = @result.response.connection.bytesRead
+  @values.match = @match @result.body, @conf.match
   cb()
 
+
+# Get special report elements
+# -------------------------------------------------
+exports.report = ->
+  report = new Report()
+  if request = @result.request
+    report.p Report.b "Request:"
+    text = "#{request.method ? 'GET'} #{request.url}"
+    if request.headers
+      text += "\n\n" + Object.keys(request.headers).map (e) ->
+        "#{e}: #{request.headers[e]}"
+      .join '\n'
+    report.code text, 'text'
+  bodyType = 'text'
+  if headers = @result.response?.headers
+    report.p Report.b "Response:"
+    text = Object.keys(headers).map (e) ->
+      "#{e}: #{headers[e]}"
+    .join '\n'
+    report.code text, 'text'
+    bodyType = 'html' if ~headers['content-type'].indexOf 'text/html'
+  if @result.body?
+    report.p Report.b "Body:"
+    report.code string.shorten(@result.body, 400), bodyType
+  report
 
 # Helper methods
 # -------------------------------------------------

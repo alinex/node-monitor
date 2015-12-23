@@ -51,8 +51,6 @@ class Check extends EventEmitter
 
   # ### Create instance
   constructor: (setup, @controller) ->
-    @name = setup.name
-    @depend = setup.depend
     @type = setup.sensor
     @name = setup.name
     @depend = setup.depend
@@ -64,7 +62,7 @@ class Check extends EventEmitter
     @databaseID = null
     @base = null
     # will be filled on run
-    @result = null
+    @result = {}
     @status = 'disabled'
     @err = null
     @date = []
@@ -112,39 +110,36 @@ class Check extends EventEmitter
         cb @err, @status
     @sensor.debug "#{chalk.grey @name} start check"
     @status = 'running'
-    return @runNow null, cb unless @sensor.prerun?
+    return @runNow cb unless @sensor.prerun?
     # call prerun first
-    @sensor.prerun.call this, (@err, res) => @runNow res, cb
+    @sensor.prerun.call this, (@err) =>
+      return cb @err if @err
+      @runNow cb
 
 
   # ### Really run (after optional prerun call)
-  runNow: (opt, cb) ->
+  runNow: (cb) ->
     @err = null
     @date = [new Date()]
     @values = {}
     @changed = 0
     # run the sensor
-    fn = (@err, res) =>
+    started = @date[0]
+    @sensor.run.call this, (err) =>
+      return unless started = @date[0]
+      @err = err if not @err and err
       @sensor.debug "#{chalk.grey @name} ended check"
       @date[1] = new Date()
       # calculate results
-      @sensor.calc.call this, res, (err) =>
+      @sensor.calc.call this, (err) =>
         @err = err if not @err and err
         @setStatus()
         return cb @err, @status unless @databaseID
         # store in database
         storage.results @databaseID, @type, @sensor.meta.values
         , @date[0], @values, (err) =>
-          return cb err if err
+          @err = err if not @err and err
           cb @err, @status
-    if opt?
-      started = @date[0]
-      @sensor.run.call this, opt, (err, res) =>
-        fn err, res if started = @date[0]
-    else
-      started = @date[0]
-      @sensor.run.call this, (err, res) =>
-        fn err, res if started = @date[0]
 
   # set status from rules
   setStatus: ->
@@ -265,6 +260,9 @@ class Check extends EventEmitter
       for e in @history[1..2]
         col[++num] = {title: 'PREVIOUS', align: 'right'}
     report.table data, col
+    # special report details
+    if @sensor.report?
+      report.add @sensor.report.call this
     # additional hints
     if @sensor.meta.hint
       report.quote @sensor.meta.hint
