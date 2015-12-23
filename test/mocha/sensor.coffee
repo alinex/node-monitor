@@ -68,8 +68,7 @@ exports.values = (check, cb) ->
   cb()
 
 exports.report = (check, cb) ->
-  check.report (err, report) ->
-    debugReport report.toString()
-    expect(err, 'error').to.not.exist
-    expect(report, 'report').to.exist
-    cb()
+  report = check.report()
+  debugReport report.toString()
+  expect(report, 'report').to.exist
+  cb()
