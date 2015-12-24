@@ -1060,17 +1060,28 @@ Test the reachability of a host in an IP network and measure the round-trip time
 for the messages send.
 
 ::: info
-- __STATUS: ok__ at Wed Dec 23 2015 16:14:32 GMT+0100 (CET)
+- __STATUS: ok__ at Thu Dec 24 2015 08:59:40 GMT+0100 (CET)
 :::
 
-Last check results from Wed Dec 23 2015 16:14:32 GMT+0100 (CET) are:
+Last check results from Thu Dec 24 2015 08:59:40 GMT+0100 (CET) are:
 
 | NAME         | LABEL              |   VALUE |
 |:------------ |:------------------ | -------:|
-| responseTime | Avg. Response Time | 11.5 ms |
-| responseMin  | Min. Respons Time  | 11.5 ms |
-| responseMax  | Max. Response Time | 11.5 ms |
+| responseTime | Avg. Response Time | 15.3 ms |
+| responseMin  | Min. Respons Time  | 15.3 ms |
+| responseMax  | Max. Response Time | 15.3 ms |
 | quality      | Quality            |   100 % |
+
+__Result:__
+
+``` text
+PING 193.99.144.80 (193.99.144.80) 56(84) bytes of data.
+64 bytes from 193.99.144.80: icmp_seq=1 ttl=244 time=15.3 ms
+
+--- 193.99.144.80 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 15.354/15.354/15.354/0.000 ms
+```
 
 > Check the network card configuration if local ping won't work or the network
 > connection for external pings. Problems can also be that the firewall will block

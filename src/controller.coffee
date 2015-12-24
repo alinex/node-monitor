@@ -58,8 +58,6 @@ class Controller extends EventEmitter
   init: (cb) ->
     debug "#{chalk.grey @name} Initialize controller..."
     monitor ?= require './index'
-    # create a work queue
-
     # create base data in storage
     storage.controller @name, (err, @databaseID) =>
       return cb err if err
@@ -68,6 +66,37 @@ class Controller extends EventEmitter
         @check.push check
         check.init cb
       , (err) =>
+
+
+
+
+
+        # create a work queue
+        queue = {}
+        for num in [0..@check.length-1]
+          if @check[num].depend
+            args = @check[num].depend.slice()
+            args-push (check, cb) =>
+                check.run (err, status) =>
+                  if mode.verbose > 1
+                    console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+                    Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
+                  cb err, status
+            queue[@check[num].conf.name ? num] = args
+          else
+            queue[@check[num].conf.name ? num] = (check, cb) =>
+              check.run (err, status) =>
+                if mode.verbose > 1
+                  console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+                  Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
+                cb err, status
+#        console.log @name, queue
+
+
+
+
+
+
         debug "#{chalk.grey @name} Initialized controller"
         cb()
 
