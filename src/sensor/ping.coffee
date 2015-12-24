@@ -24,6 +24,7 @@
 exports.debug = debug = require('debug')('monitor:sensor:ping')
 # include alinex modules
 Exec = require 'alinex-exec'
+Report = require 'alinex-report'
 
 
 # Schema Definition
@@ -182,3 +183,13 @@ exports.calc = (cb) ->
   @values.quality = 100-match?[1]
   @values.quality = @values.quality/100 if @values.quality
   cb()
+
+
+# Get special report elements
+# -------------------------------------------------
+exports.report = ->
+  report = new Report()
+  if data = @result.data
+    report.p Report.b "Result:"
+    report.code data.stdout(), 'text'
+  report

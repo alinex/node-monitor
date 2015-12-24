@@ -215,6 +215,7 @@ exports.report = ->
     report.code string.shorten(@result.body, 400), bodyType
   report
 
+
 # Helper methods
 # -------------------------------------------------
 
