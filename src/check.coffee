@@ -65,15 +65,16 @@ class Check extends EventEmitter
     @weight = setup.seight
     @hint = setup.hint
     # will be set after initialization
+    @num = 0 # number of check in config
     @sensor = null
     @databaseID = null
     @base = null
     # will be filled on run
-    @result = {}
-    @status = 'disabled'
     @err = null
     @date = []
+    @result = {}
     @values = {}
+    @status = 'disabled'
     # last results
     @history = []
     @changed = 0
@@ -86,7 +87,7 @@ class Check extends EventEmitter
       return cb err if err
       # check config
       validator.check
-        name: "#{@type}:#{@name}"
+        name: "/controller/#{@controller.name}/check/#{@num}:#{@type}"
         value: @conf
         schema: @sensor.schema
       , (err) =>

@@ -47,6 +47,7 @@ class Controller extends EventEmitter
     @timeout = null # timer for next run
     # set on initialization
     @queue = {}
+    @alias = {} # name reference to check
     # Data storage with last results
     @status = 'disabled' # Last status
     @date = null # last run
@@ -68,6 +69,13 @@ class Controller extends EventEmitter
         @check.push check
         check.init cb
       , (err) =>
+        return cb err if err
+        # get named references
+        for num in [0..@check.length-1]
+          @check.num = num
+          @alias[num] = @check[num]
+          if @check[num].name
+            @alias[@check[num].name] = @check[num]
         # create a work queue
         @queue = {}
         for num in [0..@check.length-1]
