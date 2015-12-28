@@ -31,9 +31,6 @@ exports.schema =
   title: "Database Query Test"
   description: "the configuration for a database query check"
   type: 'object'
-#  default:
-#    warn: 'quality < 100%'
-#    fail: 'quality is 0'
   allowedKeys: true
   keys:
     database:
@@ -52,6 +49,40 @@ exports.schema =
       unit: 'ms'
       default: 10000
       min: 500
+    data:
+      title: "Data Mappings"
+      description: "the mapping for the result data to storage values"
+      type: 'object'
+      entries: [
+        title: "Data Mapping"
+        description: "the mapping for one result column to a storage value"
+        type: 'object'
+        mandatoryKeys: ['storage', 'type']
+        keys:
+          storage:
+            title: "Storage Field"
+            description: "the storage field to use"
+            type: 'string'
+            values: [1..8].map((e) -> "num-#{e}")
+            .concat [1..4].map((e) -> "text-#{e}")
+            .concat [1..4].map((e) -> "date-#{e}")
+          title:
+            title: "Title"
+            description: "the title to use in reports"
+            type: 'string'
+          description:
+            title: "Description"
+            description: "a short description"
+            type: 'string'
+          type:
+            title: "Type"
+            description: "the data type for formatting"
+            type: 'string'
+          unit:
+            title: "Unit"
+            description: "the unit of the stored value for numbers"
+            type: 'string'
+      ]
     warn:
       title: "Warn if"
       description: "the javascript code to check to set status to warn"
@@ -72,32 +103,43 @@ exports.meta =
   description: "Run a query on the database to chech a value like count of entries
   in the database."
   category: 'data'
-#  hint: "Check the ... "
 
   # ### Result values
   #
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
-    data:
-      title: 'Data'
-      description: "the concrete values from the query"
-      type: 'object'
     responseTime:
       title: 'Response Time'
       description: "time to retrieve the data"
       type: 'integer'
       unit: 'ms'
+for num in [1..8]
+  exports.meta.values["num-#{num}"] =
+    title: "num-#{num}"
+    description: "the numeric value ##{num}"
+    type: 'float'
+  continue if num > 4
+  exports.meta.values["text-#{num}"] =
+    title: "text-#{num}"
+    description: "the text value ##{num}"
+    type: 'float'
+  exports.meta.values["date-#{num}"] =
+    title: "date-#{num}"
+    description: "the date value ##{num}"
+    type: 'float'
 
 
 # Initialize check
 # -------------------------------------------------
-# This method is used for some precalculations or analyzations and should set:
+# This method is used for some pre calculations or analyzations and should set:
 #
 # - check.name = <string> # mandatory
 # - check.base = <object> # optionally
 exports.init = (cb) ->
   @name ?= "#{@conf.database}:#{string.shorten @conf.query, 30}"
+  for key, setup of @conf.data
+    @sensor.meta.values[key] = setup
   cb()
 
 

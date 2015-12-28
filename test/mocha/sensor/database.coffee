@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/database'
 
 before (cb) -> test.setup cb
 
-describe "Database sensor", ->
+describe.only "Database sensor", ->
 
   check = null
 
@@ -38,6 +38,12 @@ describe "Database sensor", ->
         config:
           database: 'test-postgresql'
           query: "SELECT 100 as num, 'just a number' as comment"
+          data:
+            num:
+              storage: 'num-1'
+              title: "Fix Number"
+              description: "a fixed number, for test only"
+              type: 'integer'
       , (err, instance) ->
         check = instance
         cb()
