@@ -87,7 +87,8 @@ class Check extends EventEmitter
       return cb err if err
       # check config
       validator.check
-        name: "/controller/#{@controller.name}/check/#{@num}:#{@type}"
+        name: if @controller then "/controller/#{@controller.name}/check/#{@num}:#{@type}"
+        else "/sensor:#{@type}"
         value: @conf
         schema: @sensor.schema
       , (err) =>

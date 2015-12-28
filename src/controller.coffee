@@ -79,7 +79,7 @@ class Controller extends EventEmitter
         # create a work queue
         @queue = {}
         for num in [0..@check.length-1]
-          check = @check[num];
+          check = @check[num]
           if @check[num].depend
             args = @check[num].depend.slice()
             args.push check.run.bind check
