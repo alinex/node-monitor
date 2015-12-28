@@ -26,6 +26,7 @@ EventEmitter = require('events').EventEmitter
 vm = require 'vm'
 math = require 'mathjs'
 named = require('named-regexp').named
+moment = require 'moment'
 # include alinex modules
 async = require 'alinex-async'
 {string} = require 'alinex-util'
@@ -44,10 +45,16 @@ HISTORY_LENGTH = 5
 # -------------------------------------------------
 # This will be set on init
 monitor = null  # require './index'
+mode = {}
 
 # Controller class
 # -------------------------------------------------
 class Check extends EventEmitter
+
+  # ### General initialization
+  @init: (setup, cb) ->
+    mode = setup
+    cb()
 
   # ### Create instance
   constructor: (setup, @controller) ->
@@ -149,6 +156,10 @@ class Check extends EventEmitter
     @calcStatus()
     @sensor.debug "#{chalk.grey @name} result status:
     #{@status}#{if @err then ' (' + @err.message + ')' else ''}"
+    # verbose output
+    if mode.verbose > 1
+      console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+      Check #{chalk.white @type+':'+@name} => #{@controller.colorStatus @status}"
     # add to history
     @history.unshift
       status: @status

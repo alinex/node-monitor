@@ -39,12 +39,14 @@ class Controller extends EventEmitter
   # ### General initialization
   @init: (setup, cb) ->
     mode = setup
-    cb()
+    Check.init setup, cb
 
   # ### Create instance
   constructor: (@name, @conf) ->
     @check = [] # Instances added on initialization
     @timeout = null # timer for next run
+    # set on initialization
+    @queue = {}
     # Data storage with last results
     @status = 'disabled' # Last status
     @date = null # last run
@@ -66,37 +68,16 @@ class Controller extends EventEmitter
         @check.push check
         check.init cb
       , (err) =>
-
-
-
-
-
         # create a work queue
-        queue = {}
+        @queue = {}
         for num in [0..@check.length-1]
+          check = @check[num];
           if @check[num].depend
             args = @check[num].depend.slice()
-            args-push (check, cb) =>
-                check.run (err, status) =>
-                  if mode.verbose > 1
-                    console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
-                    Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
-                  cb err, status
-            queue[@check[num].conf.name ? num] = args
+            args.push check.run.bind check
+            @queue[@check[num].conf.name ? num] = args
           else
-            queue[@check[num].conf.name ? num] = (check, cb) =>
-              check.run (err, status) =>
-                if mode.verbose > 1
-                  console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
-                  Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
-                cb err, status
-#        console.log @name, queue
-
-
-
-
-
-
+            @queue[check.conf.name ? num] =  check.run.bind check
         debug "#{chalk.grey @name} Initialized controller"
         cb()
 
@@ -119,13 +100,14 @@ class Controller extends EventEmitter
     @status = 'running'
 #    # makes problems in live environment
 #    async.map @check, (check, cb) =>
-    async.mapLimit @check, @conf.parallel, (check, cb) =>
-      check.run (err, status) =>
-        if mode.verbose > 1
-          console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
-          Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
-        cb err, status
-    , (err, res) =>
+#    async.mapLimit @check, @conf.parallel, (check, cb) =>
+#      check.run (err, status) =>
+#        if mode.verbose > 1
+#          console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+#          Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
+#        cb err, status
+#    , (err, res) =>
+    async.auto @queue, @conf.parallel, (err, res) =>
       return cb err if err
       @date = new Date()
       # calculate controller status
