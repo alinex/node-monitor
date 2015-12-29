@@ -2,6 +2,9 @@
 # =================================================
 # This test will not check the availability and performance of a database server
 # but check the database contents.
+#
+# This is a relative free sensor in which you can define your own sql but it needs
+# a bit more configuration like the mappings to set up.
 
 # Find the description of the possible configuration values and the returned
 # values in the code below.
@@ -49,7 +52,7 @@ exports.schema =
       unit: 'ms'
       default: 10000
       min: 500
-    data:
+    mapping:
       title: "Data Mappings"
       description: "the mapping for the result data to storage values"
       type: 'object'
@@ -63,9 +66,9 @@ exports.schema =
             title: "Storage Field"
             description: "the storage field to use"
             type: 'string'
-            values: [1..8].map((e) -> "num-#{e}")
-            .concat [1..4].map((e) -> "text-#{e}")
-            .concat [1..4].map((e) -> "date-#{e}")
+            values: [1..8].map((e) -> "num#{e}")
+            .concat [1..4].map((e) -> "text#{e}")
+            .concat [1..4].map((e) -> "date#{e}")
           title:
             title: "Title"
             description: "the title to use in reports"
@@ -115,16 +118,16 @@ exports.meta =
       type: 'integer'
       unit: 'ms'
 for num in [1..8]
-  exports.meta.values["num-#{num}"] =
+  exports.meta.values["num#{num}"] =
     title: "num-#{num}"
     description: "the numeric value ##{num}"
     type: 'float'
   continue if num > 4
-  exports.meta.values["text-#{num}"] =
+  exports.meta.values["text#{num}"] =
     title: "text-#{num}"
     description: "the text value ##{num}"
     type: 'float'
-  exports.meta.values["date-#{num}"] =
+  exports.meta.values["date#{num}"] =
     title: "date-#{num}"
     description: "the date value ##{num}"
     type: 'float'
@@ -138,9 +141,21 @@ for num in [1..8]
 # - check.base = <object> # optionally
 exports.init = (cb) ->
   @name ?= "#{@conf.database}:#{string.shorten @conf.query, 30}"
-  for key, setup of @conf.data
-    @sensor.meta.values[key] = setup
+  for k, v of @conf.mapping
+    re = new RegExp "\\b#{k}\\b", 'g'
+    if @conf.warn
+      @conf.warn = @conf.warn.replace re, v.storage
+    if @conf.fail
+      @conf.fail = @conf.warn.replace re, v.storage
   cb()
+
+
+# Access Mappings (for Report)
+# -------------------------------------------------
+exports.mapping = (name) ->
+  return @conf.mapping[name] if @conf.mapping[name]?
+  for k, v of @conf.mapping
+    return v if v.storage is name
 
 
 # Run the Sensor
@@ -157,5 +172,7 @@ exports.calc = (cb) ->
   res = @result.data
   # calculate values
   @values.responseTime = @date[1] - @date[0]
-  @values.data = res
+  # use mappings to store values
+  for k, v of @conf.mapping
+    @values[v.storage] = res[k] if res[k]
   cb()

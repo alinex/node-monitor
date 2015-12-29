@@ -154,7 +154,7 @@ class Check extends EventEmitter
   # set status from rules
   setStatus: ->
     for n, v of @values
-      @sensor.debug "#{chalk.grey @name} result #{n}: #{v}"
+      @sensor.debug "#{chalk.grey @name} result #{n}: #{util.inspect v}"
     @calcStatus()
     @sensor.debug "#{chalk.grey @name} result status:
     #{@status}#{if @err then ' (' + @err.message + ')' else ''}"
@@ -252,6 +252,11 @@ class Check extends EventEmitter
     data = []
     for key, conf of @sensor.meta.values
       continue unless value = last.values[key]
+      # support mappings from database sensor
+      if @sensor.mapping?
+        nconf =  @sensor.mapping.call this, key
+        conf = nconf if nconf
+      # add rows
       if typeof value is 'object' and not Array.isArray value
         for k of value
           row = [key, "#{conf.title ? key}.#{k}"]

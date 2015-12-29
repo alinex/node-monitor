@@ -35,6 +35,12 @@ check:
     config:
       remote: dvb-develop
       share: /
+#     # ### Specific mapping for database sensor
+#     mapping:
+#       num:
+#         title: "fixed Number"
+#         type: 'integer'
+#          storage: 'num-1'
 
     # ### Weight setting
     # Specific to value of the following 'combine' setting.

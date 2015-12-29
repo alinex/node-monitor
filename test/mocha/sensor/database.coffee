@@ -38,9 +38,9 @@ describe.only "Database sensor", ->
         config:
           database: 'test-postgresql'
           query: "SELECT 100 as num, 'just a number' as comment"
-          data:
+          mapping:
             num:
-              storage: 'num-1'
+              storage: 'num1'
               title: "Fix Number"
               description: "a fixed number, for test only"
               type: 'integer'
@@ -51,7 +51,7 @@ describe.only "Database sensor", ->
     it "should return success", (cb) ->
       @timeout 20000
       test.ok check, (err) ->
-        expect(check.values.data.num).to.be.equal 100
+        expect(check.values.num1).to.be.equal 100
         cb()
 
     it "should give warn", (cb) ->
@@ -61,10 +61,16 @@ describe.only "Database sensor", ->
         config:
           database: 'test-postgresql'
           query: "SELECT 100 as num, 'just a number' as comment"
-          warn: 'data.num > 0'
+          mapping:
+            num:
+              storage: 'num1'
+              title: "Fix Number"
+              description: "a fixed number, for test only"
+              type: 'integer'
+          warn: 'num > 0'
       , (err, instance) ->
         test.warn instance, (err) ->
-          expect(instance.values.data.num).to.be.above 0
+          expect(instance.values.num1).to.be.above 0
           cb()
 
   describe "result", ->

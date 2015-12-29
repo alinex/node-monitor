@@ -615,12 +615,14 @@ will analyze the system and get some measurement values back.
 Each use of a sensor in an controller with specific setup data is further called
 a __check__.
 
-The sensors contains:
+A check consists of the following setup:
 
-- schema - the definition for the configuration
-- meta - some meta informations used to make descriptive reports
-- run() - the method to really use this sensor returning a data object
-- analysis() - make an analysis run
+- sensor - the name of the sensor to use
+- name - an optional alias name for referencing (optional)
+- depend - other checks which should run before (optional)
+- config - the configuration to run it
+- weight - change setting belongs to the controllers combine setting (optional)
+- hint - a technical hint to find or resolve the problem (optional)
 
 ### Config
 
@@ -629,7 +631,6 @@ configuration. The common keys are:
 
 - warn - the javascript code to check if status should be set to warn
 - fail - the javascript code to check if status should be set to fail
-- analysis - the configuration for the analysis if it is run
 
 ### Meta Data
 
@@ -648,8 +649,6 @@ After running a sensor you get a result object containing:
 - status - one of: 'ok', 'warn', 'fail' ('running')
 - message - optional, explaining the status
 - values - object containing specific values
-
-And the analysis will get you a markdown document.
 
 
 System Sensors
@@ -1566,6 +1565,7 @@ A sensor should be a module exporting the following objects:
 - prerun(cb) - method to be called before each run (optional)
 - run(cb) - runing the acquisition of data
 - calc(cb) - calculating the values from the result set
+- mapping(name) - access a mapped field definition (database sensor only)
 - report - create an additional detail report from the results (optional)
 
 ### Actor Structure
