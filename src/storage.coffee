@@ -65,82 +65,100 @@ drop = (conf, db, cb) ->
 create = (conf, db, cb) ->
   # check if tables are installed
   prefix = conf.storage.prefix
-  db.value "SELECT * FROM pg_tables WHERE schemaname='public'"
-  , (err, num) ->
-    return cb err if err or num
-    queries =
-      controller: (cb) -> db.exec """
-        CREATE TABLE #{prefix}controller (
-          controller_id SERIAL PRIMARY KEY,
-          name VARCHAR(32) UNIQUE NOT NULL
-        )
-        """, cb
-      check: ['controller', (cb) -> db.exec """
-        CREATE TABLE #{prefix}check (
-          check_id SERIAL PRIMARY KEY,
-          controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-          sensor VARCHAR(16) NOT NULL,
-          name VARCHAR(120),
-          category VARCHAR(8) NOT NULL
-        )
-        """, cb]
-      idx_check: ['check', (cb) -> db.exec """
-        CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, sensor, name)
-        """, cb]
-      intervalType: (cb) -> db.exec """
-        CREATE TYPE intervalType AS ENUM ('minute', 'hour', 'day', 'week', 'month')
-        """, cb
-      statusType: (cb) -> db.exec """
-        CREATE TYPE statusType AS ENUM ('ok', 'warn', 'fail')
-        """, cb
-      statusSensor: ['statusType', 'check', (cb) -> db.exec """
-        CREATE TABLE #{prefix}status_check (
+  queries =
+    controller: (cb) -> db.exec """
+      CREATE TABLE IF NOT EXISTS #{prefix}controller (
+        controller_id SERIAL PRIMARY KEY,
+        name VARCHAR(32) UNIQUE NOT NULL
+      )
+      """, cb
+    check: ['controller', (cb) -> db.exec """
+      CREATE TABLE IF NOT EXISTS #{prefix}check (
+        check_id SERIAL PRIMARY KEY,
+        controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+        sensor VARCHAR(16) NOT NULL,
+        name VARCHAR(120),
+        category VARCHAR(8) NOT NULL
+      )
+      """, cb]
+    idx_check: ['check', (cb) -> db.exec """
+      DO $$
+      BEGIN
+        IF NOT EXISTS (
+            SELECT 1
+            FROM   pg_class c
+            JOIN   pg_namespace n ON n.oid = c.relnamespace
+            WHERE  c.relname = 'idx_#{prefix}check'
+            AND    n.nspname = 'public'
+            ) THEN
+            CREATE UNIQUE INDEX idx_#{prefix}check ON #{prefix}check (controller_id, sensor, name);
+        END IF;
+      END$$;
+      """, cb]
+    intervalType: (cb) -> db.exec """
+      DO $$
+      BEGIN
+          IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = '#{prefix}interval') THEN
+            CREATE TYPE #{prefix}interval AS ENUM ('minute', 'hour', 'day', 'week', 'month');
+          END IF;
+      END$$;
+      """, cb
+    statusType: (cb) -> db.exec """
+      DO $$
+      BEGIN
+          IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = '#{prefix}status') THEN
+            CREATE TYPE #{prefix}status AS ENUM ('ok', 'warn', 'fail');
+          END IF;
+      END$$;
+      """, cb
+    statusSensor: ['statusType', 'check', (cb) -> db.exec """
+      CREATE TABLE IF NOT EXISTS #{prefix}status_check (
+        check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
+        change TIMESTAMP WITH TIME ZONE,
+        status #{prefix}status NOT NULL,
+        comment VARCHAR(120)
+      )
+      """, cb]
+    statusController: ['statusType', 'controller', (cb) -> db.exec """
+      CREATE TABLE IF NOT EXISTS #{prefix}status_controller (
+        controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+        change TIMESTAMP WITH TIME ZONE,
+        status #{prefix}status NOT NULL
+      )
+      """, cb]
+    report: ['controller', (cb) -> db.exec """
+      CREATE TABLE IF NOT EXISTS #{prefix}report (
+        report_id SERIAL PRIMARY KEY,
+        controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+        date TIMESTAMP WITH TIME ZONE,
+        report TEXT NOT NULL
+      )
+      """, cb]
+  # get list of sensors
+  monitor = require './index'
+  async.each monitor.listSensor(), (name, cb) ->
+    monitor.getSensor name, (err, sensor) ->
+      return cb err if err
+      sql = """
+        CREATE TABLE IF NOT EXISTS #{prefix}sensor_#{name} (
           check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-          change TIMESTAMP WITH TIME ZONE,
-          status statusType NOT NULL,
-          comment VARCHAR(120)
-        )
-        """, cb]
-      statusController: ['statusType', 'controller', (cb) -> db.exec """
-        CREATE TABLE #{prefix}status_controller (
-          controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-          change TIMESTAMP WITH TIME ZONE,
-          status statusType NOT NULL
-        )
-        """, cb]
-      report: ['controller', (cb) -> db.exec """
-        CREATE TABLE #{prefix}report (
-          report_id SERIAL PRIMARY KEY,
-          controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
-          date TIMESTAMP WITH TIME ZONE,
-          report TEXT NOT NULL
-        )
-        """, cb]
-        # get list of sensors
-    monitor = require './index'
-    async.each monitor.listSensor(), (name, cb) ->
-      monitor.getSensor name, (err, sensor) ->
-        return cb err if err
-        sql = """
-          CREATE TABLE #{prefix}sensor_#{name} (
-            check_id INTEGER REFERENCES #{prefix}check ON DELETE CASCADE,
-            interval intervalType NOT NULL,
-            period TIMESTAMP WITH TIME ZONE,
-            _c INTEGER NOT NULL
-          """
-        for k, v of sensor.meta.values
-          type = switch v.type
-            when 'integer', 'byte' then 'BIGINT'
-            when 'float', 'percent', 'interval' then 'FLOAT'
-            when 'date' then 'TIMESTAMP WITH TIME ZONE'
-            else 'VARCHAR(100)'
-          sql += ", \"#{k.toLowerCase()}\" #{type}"
-        sql += ")"
-        queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
-        cb()
-    , (err) ->
-      # run all sql queries
-      async.auto queries, db.conf.pool?.limit ? 10, cb
+          interval #{prefix}interval NOT NULL,
+          period TIMESTAMP WITH TIME ZONE,
+          _c INTEGER NOT NULL
+        """
+      for k, v of sensor.meta.values
+        type = switch v.type
+          when 'integer', 'byte' then 'BIGINT'
+          when 'float', 'percent', 'interval' then 'FLOAT'
+          when 'date' then 'TIMESTAMP WITH TIME ZONE'
+          else 'VARCHAR(100)'
+        sql += ", \"#{k.toLowerCase()}\" #{type}"
+      sql += ")"
+      queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
+      cb()
+  , (err) ->
+    # run all sql queries
+    async.auto queries, db.conf.pool?.limit ? 10, cb
 
 # Get or register controller
 # -------------------------------------------------
