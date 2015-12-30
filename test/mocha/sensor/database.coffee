@@ -9,7 +9,7 @@ sensor = require '../../../src/sensor/database'
 
 before (cb) -> test.setup cb
 
-describe.only "Database sensor", ->
+describe "Database sensor", ->
 
   check = null
 
