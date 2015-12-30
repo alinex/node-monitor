@@ -4,6 +4,32 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.3 (2015-12-30)
+-------------------------------------------------
+- Allow all tests to run.
+- Fixed data mapping in database sensor to work.
+- Add ability to store multiple values in single fields.
+- Fixed small typos.
+- Add alias to access check from controller (maybe for check to get result from dependend ones).
+- Run controller checks by using the depend settings.
+- Initialize depend structure.
+- Add stdout to ping report.
+- Fixed all sensors to use new check structure with @result support.
+- Restructure sensor calls to allow report() method.
+- Merge branch 'master' of https://github.com/alinex/node-monitor
+- Updated all sensor report examples in docu.
+- Optimized report to show name and label.
+- Optimize reports and add more config settings.
+- Fix test to use new synchrone report method.
+- Add check reports to verbose controller output.
+- Center console logo to report output.
+- Use parallel setting from controller.
+- Allow named checks everywhere.
+- Run checks with limited parallelity.
+- Fixed call to controller through cli to not stop previously.
+- Fixed references to configuration in report creation.
+- Fixed command completion in prompt for run...
+
 Version 1.0.2 (2015-12-21)
 -------------------------------------------------
 - Fixed config path for controller search to use /etc/monitor/controller.
