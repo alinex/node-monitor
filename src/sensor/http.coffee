@@ -194,12 +194,12 @@ exports.calc = (cb) ->
 # -------------------------------------------------
 exports.report = ->
   report = new Report()
-  if request = @result.request
+  if req = @result.request
     report.p Report.b "Request:"
-    text = "#{request.method ? 'GET'} #{request.url}"
-    if request.headers
-      text += "\n\n" + Object.keys(request.headers).map (e) ->
-        "#{e}: #{request.headers[e]}"
+    text = "#{req.method ? 'GET'} #{req.url}"
+    if req.headers
+      text += "\n\n" + Object.keys(req.headers).map (e) ->
+        "#{e}: #{req.headers[e]}"
       .join '\n'
     report.code text, 'text'
   bodyType = 'text'
