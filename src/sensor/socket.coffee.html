@@ -258,7 +258,7 @@ You may use any of these in your warn/fail expressions.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="vi">@name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">transport</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">-&gt;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">@name</span> <span class="o">?=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">transport</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">-&gt;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -314,8 +314,9 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
+  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
   <span class="vi">@values.responseTime = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
   <span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="vi">@err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="nx">res</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/bash:\s+/</span><span class="p">,</span> <span class="s">&#39;&#39;</span>

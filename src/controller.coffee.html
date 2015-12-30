@@ -224,7 +224,7 @@
         <td class="code highlight"><div class="highlight"><pre>
   <span class="vi">@init: </span><span class="nf">(setup, cb) -&gt;</span>
     <span class="nv">mode = </span><span class="nx">setup</span>
-    <span class="nx">cb</span><span class="p">()</span>
+    <span class="nx">Check</span><span class="p">.</span><span class="nx">init</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -253,6 +253,20 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
+<p>set on initialization</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="vi">@queue = </span><span class="p">{}</span>
+    <span class="vi">@alias = </span><span class="p">{}</span> <span class="c1"># name reference to check</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
 <p>Data storage with last results</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -266,7 +280,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>last results</p>
         </td>
@@ -300,7 +314,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>create base data in storage</p>
         </td>
@@ -312,6 +326,45 @@
         <span class="nx">@check</span><span class="p">.</span><span class="nx">push</span> <span class="nx">check</span>
         <span class="nx">check</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
       <span class="p">,</span> <span class="nf">(err) =&gt;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+</div>
+<p>get named references</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">for</span> <span class="nx">num</span> <span class="k">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">@check</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+          <span class="vi">@check.num = </span><span class="nx">num</span>
+          <span class="nx">@alias</span><span class="p">[</span><span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">]</span>
+          <span class="k">if</span> <span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">name</span>
+            <span class="nx">@alias</span><span class="p">[</span><span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>create a work queue</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="vi">@queue = </span><span class="p">{}</span>
+        <span class="k">for</span> <span class="nx">num</span> <span class="k">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">@check</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+          <span class="nv">check = </span><span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">]</span>
+          <span class="k">if</span> <span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">depend</span>
+            <span class="nv">args = </span><span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">depend</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>
+            <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="nx">check</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">bind</span> <span class="nx">check</span>
+            <span class="nx">@queue</span><span class="p">[</span><span class="nx">@check</span><span class="p">[</span><span class="nx">num</span><span class="p">].</span><span class="nx">conf</span><span class="p">.</span><span class="nx">name</span> <span class="o">?</span> <span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="nx">args</span>
+          <span class="k">else</span>
+            <span class="nx">@queue</span><span class="p">[</span><span class="nx">check</span><span class="p">.</span><span class="nx">conf</span><span class="p">.</span><span class="nx">name</span> <span class="o">?</span> <span class="nx">num</span><span class="p">]</span> <span class="o">=</span>  <span class="nx">check</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">bind</span> <span class="nx">check</span>
         <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> Initialized controller&quot;</span>
         <span class="nx">cb</span><span class="p">()</span>
 
@@ -343,7 +396,7 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">run: </span><span class="nf">(cb =  -&gt;) -&gt;</span>
+  <span class="nv">run: </span><span class="nf">(cb = -&gt;) -&gt;</span>
 
 </pre></div>
         </td>
@@ -351,19 +404,33 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>for each sensor in parallel</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="vi">@status = </span><span class="s">&#39;running&#39;</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="nx">@check</span><span class="p">,</span> <span class="nf">(check, cb) =&gt;</span>
-      <span class="nx">check</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, status) =&gt;</span>
-        <span class="k">if</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">verbose</span> <span class="o">&gt;</span> <span class="mi">1</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span><span class="p">(</span><span class="s">&quot;YYYY-MM-DD HH:mm:ss&quot;</span><span class="p">)</span><span class="si">}</span><span class="s"></span>
-<span class="s">          Check </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">white</span> <span class="nx">check</span><span class="p">.</span><span class="nx">type</span><span class="o">+</span><span class="s">&#39;:&#39;</span><span class="o">+</span><span class="nx">check</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">@colorStatus</span> <span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">status</span>
-    <span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p># makes problems in live environment
+   async.map @check, (check, cb) =>
+   async.mapLimit @check, @conf.parallel, (check, cb) =>
+     check.run (err, status) =>
+       if mode.verbose > 1
+         console.log chalk.grey "#{moment().format("YYYY-MM-DD HH:mm:ss")}
+         Check #{chalk.white check.type+':'+check.name} => #{@colorStatus status}"
+       cb err, status
+   , (err, res) =></p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">auto</span> <span class="nx">@queue</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">parallel</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="vi">@date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
 
@@ -373,7 +440,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>calculate controller status</p>
         </td>
@@ -386,7 +453,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>check for status change and store it</p>
         </td>
@@ -400,13 +467,16 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>store new values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="vi">@changed = </span><span class="nx">changed</span> <span class="o">?</span> <span class="nx">status</span> <span class="o">isnt</span> <span class="nx">@status</span>
         <span class="vi">@status = </span><span class="nx">status</span>
+        <span class="k">if</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">verbose</span> <span class="o">or</span> <span class="nx">@status</span> <span class="o">isnt</span> <span class="s">&#39;ok&#39;</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span><span class="p">(</span><span class="s">&quot;YYYY-MM-DD HH:mm:ss&quot;</span><span class="p">)</span><span class="si">}</span><span class="s"></span>
+<span class="s">          Controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">white</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> =&gt; </span><span class="si">#{</span><span class="nx">@colorStatus</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -414,7 +484,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>add to history</p>
         </td>
@@ -431,7 +501,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>info</p>
         </td>
@@ -444,7 +514,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>{if changed then ' CHANGED' else ''}"
 make report</p>
@@ -452,11 +522,8 @@ make report</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">        report = @report()</span>
 <span class="s">        if mode.verbose &gt; 2</span>
-<span class="s">          console.error report.toConsole()</span>
-<span class="s">        @emit &#39;result&#39;, this</span>
-<span class="s">        if mode.verbose or @status isnt &#39;ok&#39;</span>
-<span class="s">          console.log chalk.grey &quot;</span><span class="c1">#{moment().format(&quot;YYYY-MM-DD HH:mm:ss&quot;)}</span>
-          <span class="nx">Controller</span> <span class="c1">#{chalk.white @name} =&gt; #{@colorStatus()}&quot;</span>
+<span class="s">          console.error &quot;</span><span class="err">\</span><span class="nx">n</span><span class="c1">#{report.toConsole()}\n&quot;</span>
+        <span class="nx">@emit</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="k">this</span>
         <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@status</span>
 
 
@@ -474,7 +541,7 @@ make report</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">report: </span><span class="nf">(results) -&gt;</span>
+  <span class="nv">report: </span><span class="nf">-&gt;</span>
 
 </pre></div>
         </td>
@@ -482,7 +549,7 @@ make report</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>make report</p>
         </td>
@@ -490,12 +557,41 @@ make report</p>
     <span class="nv">context =</span>
       <span class="nv">name: </span><span class="nx">@name</span>
       <span class="nv">config: </span><span class="nx">@conf</span>
-      <span class="nv">sensor: </span><span class="nx">results</span>
     <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">toc</span><span class="p">()</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&quot;Controller </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> (</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">)&quot;</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">description</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">info</span> <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">info</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="s">&quot;__STATUS: </span><span class="si">#{</span><span class="nx">@status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<p>status box</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">boxtype =</span>
+      <span class="nv">warn: </span><span class="s">&#39;warning&#39;</span>
+      <span class="nv">fail: </span><span class="s">&#39;alert&#39;</span>
+    <span class="nv">list = </span><span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+      <span class="s">&quot;__STATUS: </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">date</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">boxtype</span><span class="p">[</span><span class="nx">@status</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;info&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<p>more info</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">hint</span> <span class="o">and</span> <span class="nx">@status</span> <span class="o">isnt</span> <span class="s">&#39;ok&#39;</span>
       <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">hint</span> <span class="nx">context</span>
 
@@ -505,12 +601,39 @@ make report</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<p>overview of checks</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">h2</span> <span class="s">&quot;Check Overview&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The following checks will run but max. </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">parallel</span><span class="si">}</span><span class="s"> checks in</span>
+<span class="s">    parallel.:&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">@check</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+      <span class="nv">text = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; (weight </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">weight</span><span class="si">}</span><span class="s">)&quot;</span> <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">weight</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; (depend on </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">depend</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span><span class="si">}</span><span class="s">)&quot;</span> <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">depend</span>
+      <span class="nx">text</span>
+    <span class="nv">combine =</span>
+      <span class="nv">max: </span><span class="s">&quot;The most critical status type of the checks is used for the controller.&quot;</span>
+      <span class="nv">min: </span><span class="s">&quot;The least critical status type of the checks is used for the controller.&quot;</span>
+      <span class="nv">average: </span><span class="s">&quot;The average status type of the checks is used for the controller.&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">combine</span><span class="p">[</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">combine</span><span class="p">]</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;See the last results of all of this checks below!&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
 <p>contact</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">h2</span> <span class="s">&quot;More Information&quot;</span>
+    <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">contact</span>
       <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Contact Persons:&quot;</span>
       <span class="nv">formatContact = </span><span class="nf">(name) -&gt;</span>
         <span class="nv">contact = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/contact/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
@@ -521,7 +644,7 @@ make report</p>
         <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; &lt;</span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">email</span><span class="si">}</span><span class="s">&gt;&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">email</span>
         <span class="p">[</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()]</span>
       <span class="nv">ul = </span><span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">group</span><span class="p">,</span> <span class="nx">glist</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
+      <span class="k">for</span> <span class="nx">group</span><span class="p">,</span> <span class="nx">glist</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">contact</span>
         <span class="nx">ul</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;__</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">ucFirst</span> <span class="nx">group</span><span class="si">}</span><span class="s">__&quot;</span>
         <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">glist</span>
           <span class="nv">ul = </span><span class="nx">ul</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">formatContact</span> <span class="nx">e</span>
@@ -533,21 +656,17 @@ make report</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>references</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
+    <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">ref</span>
       <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;For further assistance check the following links:&quot;</span>
       <span class="nv">ul = </span><span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
+      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">ref</span>
         <span class="nx">ul</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">name</span><span class="p">,</span> <span class="mi">15</span><span class="si">}</span><span class="s"> &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
       <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ul</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Details of the individual sensor runs with their measurement</span>
-<span class="s">    values and maynbe some extended analysis will follow:&quot;</span>
-    <span class="k">for</span> <span class="nx">num</span><span class="p">,</span> <span class="nx">entry</span> <span class="k">of</span> <span class="nx">results</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">add</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">report</span> <span class="nx">entry</span>
 
 </pre></div>
         </td>
@@ -555,7 +674,22 @@ make report</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+</div>
+<p>add check results</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Details of the individual sensor runs with their measurement</span>
+<span class="s">    values and maybe some extended analysis will follow.&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">add</span> <span class="nx">check</span><span class="p">.</span><span class="nx">report</span><span class="p">()</span> <span class="k">for</span> <span class="nx">check</span> <span class="k">in</span> <span class="nx">@check</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
 </div>
 <p>return result</p>
         </td>
@@ -569,7 +703,7 @@ make report</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
 </div>
 <p>keep report
 action
@@ -663,7 +797,7 @@ level for one step before using in calculation.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
 </div>
 <p>console.log combine, check, result
 translate name to number</p>
@@ -681,7 +815,7 @@ translate name to number</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
 </div>
 <p>calculate values</p>
         </td>
@@ -724,7 +858,7 @@ translate name to number</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
 </div>
 <p>translate status number to name</p>
         </td>

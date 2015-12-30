@@ -56,6 +56,9 @@
       <div class="heading h2">
         <a href="#get%20the%20results">Get the results</a>
       </div>
+      <div class="heading h2">
+        <a href="#get%20special%20report%20elements">Get special report elements</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -134,6 +137,7 @@ typically:</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
 
 
@@ -306,7 +310,7 @@ You may use any of these in your warn/fail expressions.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="vi">@name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">-&gt;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">@name</span> <span class="o">?=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">-&gt;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -367,8 +371,9 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
+  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
 
 </pre></div>
         </td>
@@ -397,6 +402,29 @@ You may use any of these in your warn/fail expressions.</p>
   <span class="vi">@values.quality = </span><span class="mi">100</span><span class="o">-</span><span class="nx">match</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
   <span class="vi">@values.quality = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">quality</span><span class="o">/</span><span class="mi">100</span> <span class="k">if</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">quality</span>
   <span class="nx">cb</span><span class="p">()</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20special%20report%20elements">
+  <h2>
+    <a href="#get%20special%20report%20elements" name="get%20special%20report%20elements" class="pilcrow">&#182;</a>
+    Get special report elements
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.report = </span><span class="nf">-&gt;</span>
+  <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nv">data = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Result:&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">data</span><span class="p">.</span><span class="nx">stdout</span><span class="p">(),</span> <span class="s">&#39;text&#39;</span>
+  <span class="nx">report</span>
 </pre></div>
         </td>
       </tr>

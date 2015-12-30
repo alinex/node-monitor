@@ -59,9 +59,6 @@
       <div class="heading h2">
         <a href="#interactive%20console">Interactive Console</a>
       </div>
-      <div class="heading h5">
-        <a href="#%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23">##########  ########################   ########### #####</a>
-      </div>
       <div class="heading h3">
         <a href="#using%20parameters">Using Parameters</a>
       </div>
@@ -140,11 +137,23 @@
       <div class="heading h3">
         <a href="#ping">Ping</a>
       </div>
+      <div class="heading h2">
+        <a href="#ping%20localhost-%3E193.99.144.80">Ping localhost->193.99.144.80</a>
+      </div>
+      <div class="heading h3">
+        <a href="#configuration">Configuration</a>
+      </div>
       <div class="heading h3">
         <a href="#socket">Socket</a>
       </div>
       <div class="heading h3">
         <a href="#http">Http</a>
+      </div>
+      <div class="heading h2">
+        <a href="#%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de"> HTTP Request ->http://heise.de</a>
+      </div>
+      <div class="heading h3">
+        <a href="#configuration">Configuration</a>
       </div>
       <div class="heading h3">
         <a href="#ftp">Ftp</a>
@@ -190,6 +199,12 @@
       </div>
       <div class="heading h3">
         <a href="#database">Database</a>
+      </div>
+      <div class="heading h3">
+        <a href="#database%20stats">Database Stats</a>
+      </div>
+      <div class="heading h3">
+        <a href="#database%20queue">Database Queue</a>
       </div>
       <div class="heading h3">
         <a href="#rest">REST</a>
@@ -544,56 +559,36 @@ files. And maybe a storage database will be used.</p>
 <p>You may start the interactive console by using the <code>-i</code> option. After that you
 will be greeted and may give the commands:</p>
 
-<p>''' text</p>
 
-<blockquote>
-  <p>monitor -i # or --interactive</p>
-</blockquote>
+<div class="highlight"><pre><code>&gt; monitor -i # or --interactive
 
+                           __   ____     __
+           ######  #####  |  | |    \   |  |   ########### #####       #####
+          ######## #####  |  | |     \  |  |  ############  #####     #####
+         ######### #####  |  | |  |\  \ |  |  #####          #####   #####
+        ########## #####  |  | |  | \  \|  |  #####           ##### #####
+       ##### ##### #####  |  | |  |__\     |  ############     #########
+      #####  ##### #####  |  | |     \\    |  ############     #########
+     #####   ##### #####  |__| |______\\___|  #####           ##### #####
+    #####    ##### #####                      #####          #####   #####
+   ##### ######### ########################## ############  #####     #####
+  ##### ##########  ########################   ########### #####       #####
+  ___________________________________________________________________________
 
-<div class="highlight"><pre><code>                     <span class="nx">__</span>   <span class="nx">____</span>     <span class="nx">__</span>
-     <span class="err">######</span>  <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="err">\</span>   <span class="o">|</span>  <span class="o">|</span>   <span class="err">###########</span> <span class="err">#####</span>       <span class="err">#####</span>
-    <span class="err">########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">############</span>  <span class="err">#####</span>     <span class="err">#####</span>
-   <span class="err">#########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="err">\</span>  <span class="err">\</span> <span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>          <span class="err">#####</span>   <span class="err">#####</span>
-  <span class="err">##########</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span> <span class="err">\</span>  <span class="err">\</span><span class="o">|</span>  <span class="o">|</span>  <span class="err">#####</span>           <span class="err">#####</span> <span class="err">#####</span>
- <span class="err">#####</span> <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span><span class="nx">__</span><span class="err">\</span>     <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
-<span class="err">#####</span>  <span class="err">#####</span> <span class="err">#####</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>     <span class="err">\\</span>    <span class="o">|</span>  <span class="err">############</span>     <span class="err">#########</span>
+                  M O N I T O R I N G   A P P L I C A T I O N
+  ___________________________________________________________________________
+
+Initializing...
+
+Welcome to the interactive monitor console in which you can get more
+information about special tools, run individual tests and explore systems.
+
+To get help call the command help and close with exit!
+
+monitor&gt;
 </code></pre></div>
 
 
-
-<p>#####   ##### #####  |<strong>| |<em>_</em><em></strong>\_</em>_|  #####           ##### #####
-  #####    ##### #####                      #####          #####   #####
- ##### ######### ########################## ############  #####     #####</p>
-
-
-<div class="pilwrap" id="%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23">
-  <h5>
-    <a href="#%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23" name="%23%23%23%23%23%23%23%23%23%23%20%20%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%23%20%20%20%23%23%23%23%23%23%23%23%23%23%23%20%23%23%23%23%23" class="pilcrow">&#182;</a>
-    ##########  ########################   ########### #####
-  </h5>
-</div>
-
-
-<hr />
-
-
-<div class="highlight"><pre><code>            <span class="nx">M</span> <span class="nx">O</span> <span class="nx">N</span> <span class="nx">I</span> <span class="nx">T</span> <span class="nx">O</span> <span class="nx">R</span> <span class="nx">I</span> <span class="nx">N</span> <span class="nx">G</span>   <span class="nx">A</span> <span class="nx">P</span> <span class="nx">P</span> <span class="nx">L</span> <span class="nx">I</span> <span class="nx">C</span> <span class="nx">A</span> <span class="nx">T</span> <span class="nx">I</span> <span class="nx">O</span> <span class="nx">N</span>
-</code></pre></div>
-
-
-
-<hr />
-
-<p>Initializing...</p>
-
-<p>Welcome to the interactive monitor console in which you can get more
-information about special tools, run individual tests and explore systems.</p>
-
-<p>To get help call the command help and close with exit!</p>
-
-<p>monitor>
-```</p>
 
 <p>The following commands are possible here:</p>
 
@@ -954,13 +949,17 @@ specific configuration files containing meta information.</p>
 <span class="l-Scalar-Plain">check</span><span class="p-Indicator">:</span>
   <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
 
+    <span class="c1"># ### Name and dependency</span>
+    <span class="c1"># The name is used for identifying and also to be referred in other checks as</span>
+    <span class="c1"># dependency meaning that a check only can run if all it&#39;s dependant checks are</span>
+    <span class="c1"># done and don&#39;t fail.</span>
+    <span class="c1">#name: mytest-3</span>
+    <span class="c1">#depend: mytest-1, mytest-2</span>
+
     <span class="c1"># ### Specific setup</span>
     <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
       <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
-    <span class="c1"># Additional analysis to run if check is warn or failure</span>
-    <span class="l-Scalar-Plain">analysis</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">dirs</span><span class="p-Indicator">:</span> <span class="s">&#39;/tmp,</span><span class="nv"> </span><span class="s">/var/log&#39;</span>
 
     <span class="c1"># ### Weight setting</span>
     <span class="c1"># Specific to value of the following &#39;combine&#39; setting.</span>
@@ -979,6 +978,11 @@ specific configuration files containing meta information.</p>
     <span class="c1">#     config: Sensor configuration</span>
     <span class="c1">#     results: Results</span>
     <span class="c1">#hint: |+</span>
+
+<span class="c1"># ### Max Parallel checks</span>
+<span class="c1"># This goes from 1 = serial to n parallel checks running. It is wise not to use</span>
+<span class="c1"># too high values here to not make a high load on the server by the monitor itself.</span>
+<span class="l-Scalar-Plain">parallel</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
 
 <span class="c1"># ### Combine values</span>
 <span class="c1"># For multiple dependencies this value defines how the individual sensors are</span>
@@ -1107,13 +1111,15 @@ will analyze the system and get some measurement values back.</p>
 <p>Each use of a sensor in an controller with specific setup data is further called
 a <strong>check</strong>.</p>
 
-<p>The sensors contains:</p>
+<p>A check consists of the following setup:</p>
 
 <ul>
-<li>schema - the definition for the configuration</li>
-<li>meta - some meta informations used to make descriptive reports</li>
-<li>run() - the method to really use this sensor returning a data object</li>
-<li>analysis() - make an analysis run</li>
+<li>sensor - the name of the sensor to use</li>
+<li>name - an optional alias name for referencing (optional)</li>
+<li>depend - other checks which should run before (optional)</li>
+<li>config - the configuration to run it</li>
+<li>weight - change setting belongs to the controllers combine setting (optional)</li>
+<li>hint - a technical hint to find or resolve the problem (optional)</li>
 </ul>
 
 
@@ -1131,7 +1137,6 @@ configuration. The common keys are:</p>
 <ul>
 <li>warn - the javascript code to check if status should be set to warn</li>
 <li>fail - the javascript code to check if status should be set to fail</li>
-<li>analysis - the configuration for the analysis if it is run</li>
 </ul>
 
 
@@ -1170,8 +1175,6 @@ configuration. The common keys are:</p>
 <li>values - object containing specific values</li>
 </ul>
 
-<p>And the analysis will get you a markdown document.</p>
-
 
 <div class="pilwrap" id="system%20sensors">
   <h2>
@@ -1194,50 +1197,49 @@ configuration. The common keys are:</p>
 
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
+<li>time - measurement time in seconds</li>
 <li>warn - the javascript code to check for warn status (default: 'active >= 100%')</li>
 <li>fail - the javascript code to check for fail status</li>
-<li>analysis - the configuration for the analysis if it is run
-<ul><li>minCpu - show processes with this CPU usage or above (default: 10%)</li>
-<li>numProc - number of top processes to list</li></ul></li>
 </ul>
 
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>CPU
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>CPU localhost
+--------------------------------------------------------------------------------
 
 Check the current activity in average percent of all cores.
 
-Last check results from Tue Nov 17 2015 16:10:48 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:04:31 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| CPU Cores               |                                                8 |
-| CPU Speed               |                                     3379.812 MHz |
-| User Time               |                                              4 % |
-| Nice User Time          |                                              0 % |
-| System Time             |                                              1 % |
-| Idle Time               |                                             94 % |
-| Activity                |                                              6 % |
-| I/O Wait Time           |                                              1 % |
-| Hardware Interrupt Time |                                              0 % |
-| Software Interrupt Time |                                              0 % |
-| Lowest CPU Core         |                                              2 % |
-| Highest CPU Core        |                                             10 % |
+Last check results from Wed Dec 23 2015 16:04:31 GMT+0100 (CET) are:
 
-&gt; A high CPU usage means that the server may not start another task
-&gt; immediately. If the load is also very high the system is overloaded, check
-&gt; if any application goes evil.
+| NAME   | LABEL            |    VALUE |
+|:------ |:---------------- | --------:|
+| cpus   | CPU Cores        |        8 |
+| speed  | CPU Speed        | 3.61 GHz |
+| user   | User Time        |    3.7 % |
+| system | System Time      |   0.68 % |
+| idle   | Idle Time        |     95 % |
+| active | Activity         |    5.1 % |
+| wait   | I/O Wait Time    |   0.71 % |
+| low    | Lowest CPU Core  |    1.9 % |
+| high   | Highest CPU Core |    8.2 % |
 
-This has been checked with the following setup:
+&gt; A high CPU usage means that the server may not start another task immediately.
+&gt; If the load is also very high the system is overloaded, check if any application
+&gt; goes evil.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Measurement Time   |                                                  10 s |
-| Warn if            |                                      Activity &gt;= 100% |
+### Configuration
 
-No high cpu consuming processes over 10% found!
+The cpu sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE          |
+|:--------------------- |:-------------- |
+| time                  | 10             |
+| warn                  | active &gt;= 100% |
 </code></pre></div>
 
 
@@ -1258,39 +1260,39 @@ No high cpu consuming processes over 10% found!
 <li>time - measurement time in seconds</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
-<li>analysis - the configuration for the analysis if it is run
-<ul><li>minCpu - show processes with this CPU usage or above (default: 10%)</li>
-<li>numProc - number of top processes to list</li></ul></li>
 </ul>
 
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Load
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Load localhost
+--------------------------------------------------------------------------------
 
 Check the local processor activity over the last minute to 15 minutes.
 
-Last check results from Tue Nov 17 2015 16:12:21 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:11 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Num Cores               |                                                8 |
-| 1min Load               |                                             41 % |
-| 5min Load               |                                             29 % |
-| 15min Load              |                                             64 % |
+Last check results from Wed Dec 23 2015 16:14:11 GMT+0100 (CET) are:
 
-&gt; A very high system load makes the system irresponsible or really slow.
-&gt; Mostly this is CPU-bound load, load caused by out of memory issues or
-&gt; I/O-bound load problems.
+| NAME   | LABEL      | VALUE |
+|:------ |:---------- | -----:|
+| short  | 1min Load  | 4.8 % |
+| medium | 5min Load  | 5.1 % |
+| long   | 15min Load | 8.4 % |
 
-This has been checked with the following setup:
+&gt; A very high system load makes the system irresponsible or really slow. Mostly
+&gt; this is CPU-bound load, load caused by out of memory issues or I/O-bound load
+&gt; problems.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Warn if            |                                      1min Load &gt; 500% |
+### Configuration
 
-No high cpu consuming processes over 10% found!
+The load sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE        |
+|:--------------------- |:------------ |
+| warn                  | short &gt; 500% |
 </code></pre></div>
 
 
@@ -1310,46 +1312,47 @@ No high cpu consuming processes over 10% found!
 <li>remote - the remote server, there to run the sensor</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
-<li>analysis - the configuration for the analysis if it is run
-<ul><li>minMem - show processes with this memory usage or above (default: 10%)</li>
-<li>numProc - number of top processes to list</li></ul></li>
 </ul>
 
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Memory
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Memory localhost
+--------------------------------------------------------------------------------
 
 Check the free and used memory.
 
-Last check results from Tue Nov 17 2015 16:13:04 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:11 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Total                   |                                          8.05 GB |
-| Used                    |                                          7.73 GB |
-| Free                    |                                          301 MiB |
-| Shared                  |                                         0.623 GB |
-| Buffers                 |                                          127 MiB |
-| Cached                  |                                          2.22 GB |
-| Swap Total              |                                          8.26 GB |
-| Swap Used               |                                          1.23 GB |
-| Swap Free               |                                          7.03 GB |
-| Actual Free             |                                          2.67 GB |
-| Percent Free            |                                             33 % |
-| Swap Percent Free       |                                             85 % |
+Last check results from Wed Dec 23 2015 16:14:11 GMT+0100 (CET) are:
+
+| NAME            | LABEL             |    VALUE |
+|:--------------- |:----------------- | --------:|
+| total           | Total             |  8.05 GB |
+| used            | Used              |  7.71 GB |
+| free            | Free              |  318 MiB |
+| shared          | Shared            | 0.899 GB |
+| buffers         | Buffers           |  300 MiB |
+| cached          | Cached            |  2.34 GB |
+| swapTotal       | Swap Total        |  8.26 GB |
+| swapUsed        | Swap Used         |  1.84 GB |
+| swapFree        | Swap Free         |  6.42 GB |
+| actualFree      | Actual Free       |  2.99 GB |
+| percentFree     | Percent Free      |     37 % |
+| swapPercentFree | Swap Percent Free |     78 % |
 
 &gt; Check which process consumes how much memory, maybe some processes have a
 &gt; memory leak.
 
-This has been checked with the following setup:
+### Configuration
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Warn if            |                                             Free &lt; 1% |
+The memory sensor is configured with:
 
-No high memory consuming processes over 10% found!
+| CONFIGURATION SETTING | VALUE     |
+|:--------------------- |:--------- |
+| warn                  | free &lt; 1% |
 </code></pre></div>
 
 
@@ -1372,55 +1375,47 @@ allows:</p>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status (default: 'free is 0')</li>
 <li>timeout - the time the whole test may take before stopping</li>
-<li>analysis - the configuration for the analysis if it is run
-<ul><li>dirs - the list of directories to monitor their volume</li>
-<li>timeout - the time the analysis may take before stopping</li></ul></li>
 </ul>
 
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Diskfree (/)
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Diskfree localhost:/
+--------------------------------------------------------------------------------
 
 Test the free diskspace of one share.
 
-Last check results from Tue Nov 17 2015 16:13:28 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:04:55 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Share                   |                                        /dev/sda2 |
-| Type                    |                                             ext4 |
-| Available               |                                         0.926 TB |
-| Used                    |                                          383 GiB |
-| % Used                  |                                             44 % |
-| Free                    |                                          479 GiB |
-| % Free                  |                                             56 % |
-| Mountpoint              |                                                / |
+Last check results from Wed Dec 23 2015 16:04:55 GMT+0100 (CET) are:
 
-&gt; If a share is full it will make I/O problems in the system or applications
-&gt; in case of the root partition it may also neither be possible to log errors.
-&gt; Maybe some old files like temp or logs can be removed or compressed.
+| NAME        | LABEL      |                                                  VALUE |
+|:----------- |:---------- | ------------------------------------------------------:|
+| share       | Share      | /dev/disk/by-uuid/c9492a0b-b280-43de-9882-c845cbecdadf |
+| type        | Type       |                                                   ext4 |
+| mount       | Mountpoint |                                                      / |
+| total       | Available  |                                               0.926 TB |
+| used        | Used       |                                                383 GiB |
+| usedPercent | % Used     |                                                   44 % |
+| free        | Free       |                                                479 GiB |
+| freePercent | % Free     |                                                   56 % |
 
-This has been checked with the following setup:
+&gt; If a share is full it will make I/O problems in the system or applications in
+&gt; case of the root partition it may also neither be possible to log errors. Maybe
+&gt; some old files like temp or logs can be removed or compressed.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Share or Mount     |                                                     / |
-| Measurement Time   |                                                   5 s |
-| Fail if            |                                             Free is 0 |
+### Configuration
 
-Maybe some files in one of the following directories may be deleted or moved:
+The diskfree sensor is configured with:
 
-| PATH                                |  FILES   |    SIZE    |   OLDEST    |
-| ----------------------------------- | -------: | ---------: | :---------- |
-| /tmp                                |     713* |  57.5 MiB* | 2014-10-16* |
-| /var/log                            |     441* |    26 MiB* | 2014-06-24* |
-
-__(*)__
-: The rows marked with a &#39;*&#39; are only assumptions, because not all
-files were readable. All the values are minimum values, the real values may
-be higher.
+| CONFIGURATION SETTING | VALUE             |
+|:--------------------- |:----------------- |
+| share                 | /                 |
+| timeout               | 5000              |
+| warn                  | freePercent &lt; 10% |
+| fail                  | free is 0         |
 </code></pre></div>
 
 
@@ -1447,33 +1442,36 @@ be higher.
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Disk IO (sda)
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Disk IO localhost:sda
+--------------------------------------------------------------------------------
 
 Check the disk io traffic.
 
-Last check results from Tue Nov 17 2015 16:14:19 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:13:46 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Read operations/s       |                                              8.5 |
-| Write operation/s       |                                               19 |
-| Read/s                  |                                         0.925 MB |
-| Write/s                 |                                          223 KiB |
-| Total Read              |                                           22 GiB |
-| Total Write             |                                         91.9 GiB |
-| Read/s                  |                                          48.8 ms |
-| Write/s                 |                             1.2795999999999998 s |
+Last check results from Wed Dec 23 2015 16:13:46 GMT+0100 (CET) are:
+
+| NAME       | LABEL             |    VALUE |
+|:---------- |:----------------- | --------:|
+| write      | Write operation/s |     11.6 |
+| writeSize  | Write/s           |  482 KiB |
+| readTotal  | Total Read        | 57.4 GiB |
+| writeTotal | Total Write       |  207 GiB |
+| writeTime  | Write Time/s      |    43 ms |
 
 &gt; If there are any problems here check the device for hardware or network
 &gt; problems.
 
-This has been checked with the following setup:
+### Configuration
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Device name        |                                                   sda |
-| Measurement Time   |                                                  10 s |
+The diskio sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE |
+|:--------------------- |:----- |
+| device                | sda   |
+| time                  | 10    |
 </code></pre></div>
 
 
@@ -1500,84 +1498,42 @@ This has been checked with the following setup:
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Network Traffic (eth0)
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Network Traffic localhost:eth0
+--------------------------------------------------------------------------------
 
 Check the network traffic.
 
-Last check results from Wed Nov 18 2015 09:26:59 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:11 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Received Transfer       |                                          4.67 kB |
-| Received Packets        |                                               31 |
-| Received Errors         |                                              0 % |
-| Received Drops          |                                              0 % |
-| Received FIFO Errors    |                                              0 % |
-| Transmit Transfer       |                                          3.37 kB |
-| Transmit Packets        |                                               21 |
-| Transmit Errors         |                                              0 % |
-| Transmit Drops          |                                              0 % |
-| Transmit FIFO Errors    |                                              0 % |
-| Total Transfer          |                                          8.05 kB |
-| Total Packets           |                                               52 |
-| Total Errors            |                                              0 % |
-| Total Drops             |                                              0 % |
-| Total FIFO Errors       |                                              0 % |
-| Total Frame Errors      |                                              0 % |
-| Interface State         |                                               UP |
-| Mac Address             |                                40:a8:f0:46:e5:76 |
-| IP Address              |                                    192.168.5.113 |
-| IPv6 Address            |                        fe80::42a8:f0ff:fe46:e576 |
+Last check results from Wed Dec 23 2015 16:14:11 GMT+0100 (CET) are:
+
+| NAME            | LABEL               |                     VALUE |
+|:--------------- |:------------------- | -------------------------:|
+| receivedBytes   | Receive Transfer    |                    22 KiB |
+| receivedPackets | Received Packets    |                        68 |
+| transmitBytes   | Transmit Transfer   |                  16.5 KiB |
+| transmitPackets | Transmitted Packets |                        63 |
+| bytes           | Total Transfer      |                  38.5 KiB |
+| packets         | Total Packets       |                       131 |
+| state           | Interface State     |                        UP |
+| mac             | Mac Address         |         40:a8:f0:46:e5:76 |
+| ipv4            | IP Address          |             192.168.5.113 |
+| ipv6            | IPv6 Address        | fe80::42a8:f0ff:fe46:e576 |
 
 &gt; If you see a high volume it may be overloaded or a attack is running.
 
-This has been checked with the following setup:
+### Configuration
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Interface Name     |                                                  eth0 |
-| Measurement Time   |                                                  10 s |
-| Warn if            |                                    Total Errors &gt; 50% |
-| Fail if            |                                    Total Errors &gt; 99% |
+The net sensor is configured with:
 
-Listening servers:
-
-| PROTO | LOCAL IP             | PORT  | SERVICE                          |
-| :---- | :------------------- | :---- | :------------------------------- |
-| tcp   | 127.0.0.1            | 46793 |                                  |
-| tcp   | 127.0.0.1            | 3306  | mysql                            |
-| tcp   | 0.0.0.0              | 139   | NETBIOS session service          |
-| tcp   | 0.0.0.0              | 22700 |                                  |
-| tcp   | 0.0.0.0              | 80    | WorldWideWeb HTTP                |
-| tcp   | 127.0.0.1            | 5939  |                                  |
-| tcp   | 127.0.1.1            | 53    | Domain Name Server               |
-| tcp   | 0.0.0.0              | 22    | SSH Remote Login Protocol        |
-| tcp   | 127.0.0.1            | 631   | Internet Printing Protocol       |
-| tcp   | 127.0.0.1            | 5432  | PostgreSQL Database              |
-| tcp   | 0.0.0.0              | 25    | mail                             |
-| tcp   | 0.0.0.0              | 445   | Microsoft Naked CIFS             |
-| tcp6  | ::                   | 38219 |                                  |
-| tcp6  | ::                   | 139   | NETBIOS session service          |
-| tcp6  | 127.0.0.1            | 55596 |                                  |
-| tcp6  | 127.0.0.1            | 46413 |                                  |
-| tcp6  | 127.0.0.1            | 49394 |                                  |
-| tcp6  | ::                   | 22    | SSH Remote Login Protocol        |
-| tcp6  | ::1                  | 631   | Internet Printing Protocol       |
-| tcp6  | 127.0.0.1            | 51449 |                                  |
-| tcp6  | ::                   | 25    | mail                             |
-| tcp6  | ::                   | 445   | Microsoft Naked CIFS             |
-
-Active internet connections:
-
-| PROTO | FOREIGN IP           | PORT  |   PID  |     PROGRAM    |
-| :---- | :------------------- | ----: | -----: | :------------- |
-| tcp   | 74.125.133.188       | 5228  |   4061 | chrome         |
-| tcp   | 192.168.100.12       | 22    |   1097 | ssh            |
-| tcp   | 74.125.133.108       | 993   |   4072 | thunderbird    |
-| tcp   | 192.30.252.91        | 443   |   4061 | chrome         |
-| tcp   | 188.94.250.110       | 143   |   4072 | thunderbird    |
-| tcp   | 85.25.98.22          | 22    |  22368 | ssh            |
+| CONFIGURATION SETTING | VALUE        |
+|:--------------------- |:------------ |
+| interface             | eth0         |
+| time                  | 10           |
+| warn                  | errors &gt; 50% |
+| fail                  | errors &gt; 99% |
 </code></pre></div>
 
 
@@ -1605,30 +1561,34 @@ Active internet connections:
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Time Check (test)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Time Check localhost
+--------------------------------------------------------------------------------
 
 Check the system time against the Internet.
 
-Last check results from Mon Nov 02 2015 20:59:55 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:50 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Local Time              |          Mon Nov 02 2015 21:00:00 GMT+0100 (CET) |
-| Remote Time             |          Mon Nov 02 2015 20:59:59 GMT+0100 (CET) |
-| Difference              |                                           259 ms |
+Last check results from Wed Dec 23 2015 16:14:50 GMT+0100 (CET) are:
 
-If the time is not correct it may influence some processes which goes over
-multiple hosts. Therefore install and configure `ntpd` on the machine.
+| NAME | LABEL      |  VALUE |
+|:---- |:---------- | ------:|
+| diff | Difference | 0.62 s |
 
-This has been checked with the following setup:
+&gt; If the time is not correct it may influence some processes which goes over
+&gt; multiple hosts. Therefore install and configure `ntpd` on the machine.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| NTP Hostname       |                                          pool.ntp.org |
-| NTP Port           |                                                   123 |
-| Timeout            |                                                  10 s |
-| Warn if            |                                    Difference &gt; 10000 |
+### Configuration
+
+The time sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE        |
+|:--------------------- |:------------ |
+| host                  | pool.ntp.org |
+| port                  | 123          |
+| timeout               | 10000        |
+| warn                  | diff &gt; 10000 |
 </code></pre></div>
 
 
@@ -1649,58 +1609,41 @@ This has been checked with the following setup:
 <li>user - the user name to analyze</li>
 <li>warn - the javascript code to check for warn status (default: 'diff > 10000')</li>
 <li>fail - the javascript code to check for fail status</li>
-<li>analysis - the configuration for the analysis if it is run
-<ul><li>minCpu - show processes with this CPU usage or above (default: 10%)</li>
-<li>minMem - show processes with this memory usage or above (default: 10%)</li>
-<li>numProc - number of top processes to list</li></ul></li>
 </ul>
 
 <p>The resulting report part may look like:</p>
 
 
-<div class="highlight"><pre><code>Active User (alex)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Active User localhost
+--------------------------------------------------------------------------------
 
 Check what an active user do.
 
-Last check results from Wed Nov 04 2015 19:19:45 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:50 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Processes               |                                               69 |
-| % CPU                   |                                             84 % |
-| % Memory                |                                             59 % |
-| Physical Memory         |                                         21.6 MiB |
-| Virtual Memory          |                                          1.13 MB |
+Last check results from Wed Dec 23 2015 16:14:50 GMT+0100 (CET) are:
 
-This check will give an overview of the activities of an (logged in) user. If
-you look at the processes you may find out that some other warnings like high
-load are user made and you may contact this person directly.
+| NAME   | LABEL           |   VALUE |
+|:------ |:--------------- | -------:|
+| num    | Processes       |      96 |
+| cpu    | % CPU           |   3.9 % |
+| memory | % Memory        |    58 % |
+| rss    | Physical Memory | 118 MiB |
+| vss    | Virtual Memory  | 4.88 MB |
 
-This has been checked with the following setup:
+&gt; This check will give an overview of the activities of an (logged in) user. If
+&gt; you look at the processes you may find out that some other warnings like high
+&gt; load are user made and you may contact this person directly.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Username to check  |                                                  alex |
+### Configuration
 
-The top CPU consuming processes above 1% CPU above 1% MEM (max. 5 processes)
-are:
+The user sensor is configured with:
 
-|  PID  | %CPU | %MEM |   VSZ   |   RSS  |  TIME |           COMMAND         |
-| ----- | ---- | ---- | ------- | ------ | ----- | ------------------------- |
-| 30362 | 74.7 |  2.8 |  101212 |  51212 |  0:10 | /usr/bin/nodejs           |
-| 30343 |  7.0 |  1.3 |   74424 |  23956 |  0:01 | builder                   |
-| 19859 |  1.4 | 20.4 | 1416588 | 368036 | 22:15 |
-/opt/sublime_text/sublime_text |
-
-The active logins are:
-
-|   TERM    |    LOGIN     |         IP         |
-| --------- | ------------ | ------------------ |
-| tty8      | Oct 30 16:45 |                  0 |
-| pts/3     | Oct 30 16:46 |                  0 |
-| pts/4     | Oct 30 21:32 |                  0 |
-| pts/5     | Oct 31 19:28 |                  0 |
+| CONFIGURATION SETTING | VALUE |
+|:--------------------- |:----- |
+| user                  | alex  |
 </code></pre></div>
 
 
@@ -1740,38 +1683,73 @@ as the response time and packet loss:</p>
 <li>fail - the javascript code to check for fail status (default: 'quality is 0')</li>
 </ul>
 
+<p>``` text</p>
 
-<div class="highlight"><pre><code>Ping (-&gt;192.168.2.25)
------------------------------------------------------------------------------
 
-Test the reachability of a host on a IP network and measure the round-trip time
-for the messages send.
+<div class="pilwrap" id="ping%20localhost-%3E193.99.144.80">
+  <h2>
+    <a href="#ping%20localhost-%3E193.99.144.80" name="ping%20localhost-%3E193.99.144.80" class="pilcrow">&#182;</a>
+    Ping localhost->193.99.144.80
+  </h2>
+</div>
 
-Last check results from Wed Nov 04 2015 22:52:38 GMT+0100 (CET) are:
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Avg. Response Time      |                                          13.4 ms |
-| Min. Respons Time       |                                          13.4 ms |
-| Max. Response Time      |                                          13.4 ms |
-| Quality                 |                                            100 % |
+<p>Test the reachability of a host in an IP network and measure the round-trip time
+for the messages send.</p>
 
-Check the network card configuration if local ping won&#39;t work or the network
-connection for external pings.
+<p>::: info
+- <strong>STATUS: ok</strong> at Thu Dec 24 2015 08:59:40 GMT+0100 (CET)
+:::</p>
 
-This has been checked with the following setup:
+<p>Last check results from Thu Dec 24 2015 08:59:40 GMT+0100 (CET) are:</p>
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Number of Packets  |                                                     1 |
-| Wait Interval      |                                                   1 s |
-| Packetsize         |                                                  56 B |
-| Overall Timeout    |                                                   1 s |
-| Warn if            |                                        Quality &lt; 100% |
-| Fail if            |                                          Quality is 0 |
+<p style="font-family:monospace;white-space:pre">| NAME         | LABEL              |   VALUE |
+|:------------ |:------------------ | -------:|
+| responseTime | Avg. Response Time | 15.3 ms |
+| responseMin  | Min. Respons Time  | 15.3 ms |
+| responseMax  | Max. Response Time | 15.3 ms |
+| quality      | Quality            |   100 % |</p>
+
+<p><strong>Result:</strong></p>
+
+
+<div class="highlight"><pre><code>PING 193.99.144.80 (193.99.144.80) 56(84) bytes of data.
+64 bytes from 193.99.144.80: icmp_seq=1 ttl=244 time=15.3 ms
+
+--- 193.99.144.80 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 15.354/15.354/15.354/0.000 ms
 </code></pre></div>
 
 
+
+<blockquote>
+  <p>Check the network card configuration if local ping won't work or the network
+  connection for external pings. Problems can also be that the firewall will block
+  the ping port.</p>
+</blockquote>
+
+
+<div class="pilwrap" id="configuration_1">
+  <h3>
+    <a href="#configuration_1" name="configuration_1" class="pilcrow">&#182;</a>
+    Configuration
+  </h3>
+</div>
+
+
+<p>The ping sensor is configured with:</p>
+
+<p style="font-family:monospace;white-space:pre">| CONFIGURATION SETTING | VALUE          |
+|:--------------------- |:-------------- |
+| host                  | 193.99.144.80  |
+| count                 | 1              |
+| interval              | 1000           |
+| size                  | 56             |
+| timeout               | 1000           |
+| warn                  | quality &lt; 100% |
+| fail                  | quality is 0   |
+```</p>
 
 
 <div class="pilwrap" id="socket">
@@ -1794,27 +1772,33 @@ This has been checked with the following setup:
 </ul>
 
 
-<div class="highlight"><pre><code>Socket (tcp localhost-&gt;193.99.144.80:80)
------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Socket tcp localhost-&gt;193.99.144.80:80
+--------------------------------------------------------------------------------
 
 Use TCP sockets to check for the availability of a service behind a given port.
 
-Last check results from Thu Nov 05 2015 21:42:12 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:14:45 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Response Time           |                                          3744 ms |
+Last check results from Wed Dec 23 2015 16:14:45 GMT+0100 (CET) are:
 
-On problems the service may not run or a network problem exists.
+| NAME         | LABEL         | VALUE |
+|:------------ |:------------- | -----:|
+| responseTime | Response Time |   1 s |
 
-This has been checked with the following setup:
+&gt; On problems the service may not run or a network problem exists.
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Hostname or IP     |                                         193.99.144.80 |
-| Port               |                                                    80 |
-| Transport Protocol |                                                   tcp |
-| Timeout            |                                                   2 s |
+### Configuration
+
+The socket sensor is configured with:
+
+| CONFIGURATION SETTING | VALUE         |
+|:--------------------- |:------------- |
+| host                  | 193.99.144.80 |
+| port                  | 80            |
+| transport             | tcp           |
+| timeout               | 2000          |
 </code></pre></div>
 
 
@@ -1841,9 +1825,6 @@ and be considered as failed</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status
 (default: 'statusCode &lt; 200 or statusCode >= 400')</li>
-<li>analysis
-<ul><li>bodyLength - the maximum body display length in analysis report
-(default: 256)</li></ul></li>
 </ul>
 
 <p>If a remote server reference is given this will be used for tunneling over ssh
@@ -1854,68 +1835,99 @@ as proxy.</p>
   If you do so you will get a named object instead of an array as result.</p>
 </blockquote>
 
+<p>``` text</p>
 
-<div class="highlight"><pre><code>HTTP Request (-&gt;http://heise.de)
------------------------------------------------------------------------------
 
-Connect to an HTTP or HTTPS server and check the response.
+<div class="pilwrap" id="%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de">
+  <h2>
+    <a href="#%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de" name="%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de" class="pilcrow">&#182;</a>
+     HTTP Request -><a href='http://heise.de'>http://heise.de</a>
+  </h2>
+</div>
 
-Last check results from Fri Nov 06 2015 22:20:54 GMT+0100 (CET) are:
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Response Time           |                                           288 ms |
-| Status Code             |                                              200 |
-| Status Message          |                                               OK |
-| Server                  |                                            nginx |
-| Content Type            |                         text/html; charset=utf-8 |
-| Content Length          |                                          167 KiB |
-| Body Match              |                                            false |
+<p>Connect to an HTTP or HTTPS server and check the response.</p>
 
-If the server didn&#39;t respond it also may be a network problem.
+<p>::: info
+- <strong>STATUS: ok</strong> at Wed Dec 23 2015 21:26:14 GMT+0100 (CET)
+:::</p>
 
-This has been checked with the following setup:
+<p>Last check results from Wed Dec 23 2015 21:26:14 GMT+0100 (CET) are:</p>
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| URL                |                                       http://heise.de |
-| Timeout            |                                                  10 s |
-| Fail if            |               Status Code &lt; 200 or Status Code &gt;= 400 |
+<p style="font-family:monospace;white-space:pre">| NAME          | LABEL          |                    VALUE |
+|:------------- |:-------------- | ------------------------:|
+| responseTime  | Response Time  |                   320 ms |
+| statusCode    | Status Code    |                      200 |
+| statusMessage | Status Message |                       OK |
+| server        | Server         |                    nginx |
+| contentType   | Content Type   | text/html; charset=utf-8 |
+| length        | Content Length |                  177 KiB |</p>
 
-See the following details of the check which may give you a hint there the
-problem is.
+<p><strong>Request:</strong></p>
 
-__GET http://heise.de__
 
-    referer: http://www.heise.de/
+<div class="highlight"><pre><code>GET http://heise.de
 
-Response:
-
-    server: nginx
-    content-type: text/html; charset=utf-8
-    x-cobbler: octo06.heise.de
-    x-clacks-overhead: GNU Terry Pratchett
-    last-modified: Fri, 06 Nov 2015 21:20:54 GMT
-    expires: Fri, 06 Nov 2015 21:21:26 GMT
-    cache-control: public, max-age=32
-    transfer-encoding: chunked
-    date: Fri, 06 Nov 2015 21:20:55 GMT
-    age: 1
-    connection: keep-alive
-    vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
-
-Content:
-
-    &lt;!DOCTYPE html&gt;
-        &lt;html lang=&quot;de&quot;&gt;
-
-        &lt;head&gt;
-            &lt;title&gt;heise online - IT-News, Nachrichten und Hintergründe
-            &lt;/title&gt;
-                &lt;meta name=&quot;description&quot; content=&quot;News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware un...
+User-Agent: Alinex Monitor through request.js
 </code></pre></div>
 
 
+
+<p><strong>Response:</strong></p>
+
+
+<div class="highlight"><pre><code>server: nginx
+content-type: text/html; charset=utf-8
+x-cobbler: octo09.heise.de
+x-clacks-overhead: GNU Terry Pratchett
+last-modified: Wed, 23 Dec 2015 20:26:07 GMT
+expires: Wed, 23 Dec 2015 20:26:39 GMT
+cache-control: public, max-age=32
+transfer-encoding: chunked
+date: Wed, 23 Dec 2015 20:26:15 GMT
+age: 8
+connection: keep-alive
+vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
+</code></pre></div>
+
+
+
+<p><strong>Body:</strong></p>
+
+
+<div class="highlight"><pre><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;de&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>heise online - IT-News, Nachrichten und Hintergründe
+    <span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware und Software sowie Downloads bei Heise Medien.&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;keywords&quot;</span> <span class="na">content=</span><span class="s">&quot;heise online, c&#39;t, iX, Technology Review&quot;</span><span class="err">...</span>
+</code></pre></div>
+
+
+
+<blockquote>
+  <p>If the server didn't respond it also may be a network problem.</p>
+</blockquote>
+
+
+<div class="pilwrap" id="configuration_2">
+  <h3>
+    <a href="#configuration_2" name="configuration_2" class="pilcrow">&#182;</a>
+    Configuration
+  </h3>
+</div>
+
+
+<p>The http sensor is configured with:</p>
+
+<p style="font-family:monospace;white-space:pre">| CONFIGURATION SETTING | VALUE                                 |
+|:--------------------- |:------------------------------------- |
+| url                   | <a href='http://heise.de'>http://heise.de</a>                       |
+| timeout               | 10000                                 |
+| fail                  | statusCode &lt; 200 or statusCode >= 400 |
+```</p>
 
 
 <div class="pilwrap" id="ftp">
@@ -2146,41 +2158,56 @@ Averages giving the number of requests per second, the number of bytes served pe
 <li>database - alias name of the database to use</li>
 <li>query - the query to run</li>
 <li>timeout - maximum time to run the query (default: 10s)</li>
-<li>analysis
-<ul><li>query - an additional query to run</li>
-<li>timeout - maximum time to run the query (default: 20s)</li></ul></li>
 </ul>
 
 
-<div class="highlight"><pre><code>Database (test-postgresql: SELECT...)
-------------------------------------------------------------------------------
+<div class="highlight"><pre><code>Database test-postgresql:SELECT 100 as num, &#39;just a...
+--------------------------------------------------------------------------------
 
 Run a query on the database to chech a value like count of entries in the
 database.
 
-Last check results from Mon Nov 16 2015 09:23:49 GMT+0100 (CET) are:
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 16:04:54 GMT+0100 (CET)
+:::
 
-|          LABEL          |                     VALUE                        |
-| ----------------------- | -----------------------------------------------: |
-| Values: num             |                                              100 |
-| Values: comment         |                                    just a number |
-| Response Time           |                                          1075 ms |
+Last check results from Wed Dec 23 2015 16:04:54 GMT+0100 (CET) are:
 
-This has been checked with the following setup:
+| NAME         | LABEL         |         VALUE |
+|:------------ |:------------- | -------------:|
+| data         | Data.num      |           100 |
+| data         | Data.comment  | just a number |
+| responseTime | Response Time |        1.23 s |
 
-|       CONFIG       |  VALUE                                                |
-| ------------------ | ----------------------------------------------------: |
-| Database           |                                       test-postgresql |
-| Query              |         SELECT 100 as num, &#39;just a number&#39; as comment |
-| Timeout            |                                                  10 s |
+### Configuration
 
-Maybe the following additional results may help:
+The database sensor is configured with:
 
-| Message |
-| ------: |
-|    done |
+| CONFIGURATION SETTING | VALUE                                         |
+|:--------------------- |:--------------------------------------------- |
+| database              | test-postgresql                               |
+| query                 | SELECT 100 as num, &#39;just a number&#39; as comment |
+| timeout               | 10000                                         |
 </code></pre></div>
 
+
+
+
+<div class="pilwrap" id="database%20stats">
+  <h3>
+    <a href="#database%20stats" name="database%20stats" class="pilcrow">&#182;</a>
+    Database Stats
+  </h3>
+</div>
+
+
+
+<div class="pilwrap" id="database%20queue">
+  <h3>
+    <a href="#database%20queue" name="database%20queue" class="pilcrow">&#182;</a>
+    Database Queue
+  </h3>
+</div>
 
 
 
@@ -2508,7 +2535,9 @@ definition to validate its check configuration</li>
 <li>init(cb) - initialize the check once</li>
 <li>prerun(cb) - method to be called before each run (optional)</li>
 <li>run(cb) - runing the acquisition of data</li>
-<li>calc(res, cb) - calculating the values from the result set</li>
+<li>calc(cb) - calculating the values from the result set</li>
+<li>mapping(name) - access a mapped field definition (database sensor only)</li>
+<li>report - create an additional detail report from the results (optional)</li>
 </ul>
 
 

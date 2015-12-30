@@ -297,6 +297,21 @@
         <span class="nv">description: </span><span class="s">&quot;the  class name of a sensor to run&quot;</span>
         <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
         <span class="nv">lowerCase: </span><span class="kc">true</span>
+      <span class="nv">name:</span>
+        <span class="nv">title: </span><span class="s">&quot;Name&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a specific name to refer to this check&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">depend:</span>
+        <span class="nv">title: </span><span class="s">&quot;Dependent Check&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;a list of check names, which should run before this&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+        <span class="nv">toArray: </span><span class="kc">true</span>
+        <span class="nv">optional: </span><span class="kc">true</span>
+        <span class="nv">entries: </span><span class="p">[</span>
+          <span class="nv">name: </span><span class="s">&quot;Dependency&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the dependent check which have to complete before starting this&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="p">]</span>
       <span class="nv">config:</span>
         <span class="nv">title: </span><span class="s">&quot;Sensor Configuration&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;the configuration for a sensor run&quot;</span>
@@ -396,6 +411,12 @@ if:
         <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
         <span class="nv">default: </span><span class="kc">false</span>
       <span class="nv">check: </span><span class="nx">check</span>
+      <span class="nv">parallel:</span>
+        <span class="nv">title: </span><span class="s">&quot;Max. Parallel Checks&quot;</span>
+        <span class="nv">description: </span><span class="s">&quot;the maximum number of parallel running checks&quot;</span>
+        <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+        <span class="nv">min: </span><span class="mi">1</span>
+        <span class="nv">default: </span><span class="mi">5</span>
       <span class="nv">combine:</span>
         <span class="nv">title: </span><span class="s">&quot;Combine Method&quot;</span>
         <span class="nv">description: </span><span class="s">&quot;the calculation of the combined status&quot;</span>

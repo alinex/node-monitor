@@ -60,6 +60,9 @@
         <a href="#get%20the%20results">Get the results</a>
       </div>
       <div class="heading h2">
+        <a href="#get%20special%20report%20elements">Get special report elements</a>
+      </div>
+      <div class="heading h2">
         <a href="#helper%20methods">Helper methods</a>
       </div>
     </div>
@@ -128,6 +131,7 @@ instance.</p>
 <span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:http&#39;</span><span class="p">)</span>
 <span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
 <span class="nv">http = </span><span class="nx">require</span> <span class="s">&#39;http&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 
 </pre></div>
         </td>
@@ -143,7 +147,7 @@ instance.</p>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 <span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 <span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-
+<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
 
 </pre></div>
@@ -172,10 +176,6 @@ compatible schema definition:</p>
   <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
   <span class="nv">allowedKeys: </span><span class="kc">true</span>
   <span class="nv">keys:</span>
-    <span class="nv">name:</span>
-      <span class="nv">title: </span><span class="s">&quot;Name of equest&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the descriptive name of this request, for reporting only&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
     <span class="nv">remote:</span>
       <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
@@ -322,7 +322,7 @@ You may use any of these in your warn/fail expressions.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="vi">@name = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">name</span> <span class="o">?</span> <span class="s">&#39;-&gt;&#39;</span> <span class="o">+</span> <span class="nx">string</span><span class="p">.</span><span class="nx">shorten</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="mi">30</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">@name</span> <span class="o">?=</span> <span class="s">&quot;-&gt;</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">shorten</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="mi">30</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -364,7 +364,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="nv">option.auth =</span>
         <span class="nv">username: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">username</span>
         <span class="nv">password: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">password</span>
-    <span class="nx">debug</span> <span class="s">&quot;request </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="vi">@result.request = </span><span class="nx">option</span>
     <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">option</span>
 
 
@@ -381,13 +381,21 @@ You may use any of these in your warn/fail expressions.</p>
   </h2>
 </div>
 
+
+<p>The result object will have:</p>
+
+<ul>
+<li>request - object (from prerun)</li>
+<li>response - object</li>
+<li>body - string</li>
+</ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(option, cb) -&gt;</span>
-  <span class="nx">request</span> <span class="nx">option</span><span class="p">,</span> <span class="nf">(err, response, body) -&gt;</span>
-    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span>
-      <span class="nv">response: </span><span class="nx">response</span>
-      <span class="nv">body: </span><span class="nx">body</span>
+<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
+  <span class="nx">request</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">request</span><span class="p">,</span> <span class="nf">(err, response, body) =&gt;</span>
+    <span class="vi">@result.response = </span><span class="nx">response</span>
+    <span class="vi">@result.body = </span><span class="nx">body</span>
+    <span class="nx">cb</span> <span class="nx">err</span>
 
 
 
@@ -405,10 +413,10 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
   <span class="vi">@values.responseTime = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">res</span><span class="p">.</span><span class="nx">response</span><span class="o">?</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="o">?</span>
 
 </pre></div>
         </td>
@@ -421,13 +429,52 @@ You may use any of these in your warn/fail expressions.</p>
 <p>get the values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@values.statusCode = </span><span class="nx">res</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
-  <span class="vi">@values.statusMessage = </span><span class="nx">http</span><span class="p">.</span><span class="nx">STATUS_CODES</span><span class="p">[</span><span class="nx">res</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">]</span>
-  <span class="vi">@values.server = </span><span class="nx">res</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">server</span>
-  <span class="vi">@values.contentType = </span><span class="nx">res</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s">&#39;content-type&#39;</span><span class="p">]</span>
-  <span class="vi">@values.length = </span><span class="nx">res</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">bytesRead</span>
-  <span class="vi">@values.match = </span><span class="nx">@match</span> <span class="nx">res</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">match</span>
+  <span class="vi">@values.statusCode = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span>
+  <span class="vi">@values.statusMessage = </span><span class="nx">http</span><span class="p">.</span><span class="nx">STATUS_CODES</span><span class="p">[</span><span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">]</span>
+  <span class="vi">@values.server = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">server</span>
+  <span class="vi">@values.contentType = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s">&#39;content-type&#39;</span><span class="p">]</span>
+  <span class="vi">@values.length = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">bytesRead</span>
+  <span class="vi">@values.match = </span><span class="nx">@match</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">match</span>
   <span class="nx">cb</span><span class="p">()</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="get%20special%20report%20elements">
+  <h2>
+    <a href="#get%20special%20report%20elements" name="get%20special%20report%20elements" class="pilcrow">&#182;</a>
+    Get special report elements
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.report = </span><span class="nf">-&gt;</span>
+  <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nv">request = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">request</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Request:&quot;</span>
+    <span class="nv">text = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">?</span> <span class="s">&#39;GET&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="k">if</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n\n&quot;</span> <span class="o">+</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+        <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">text</span><span class="p">,</span> <span class="s">&#39;text&#39;</span>
+  <span class="nv">bodyType = </span><span class="s">&#39;text&#39;</span>
+  <span class="k">if</span> <span class="nv">headers = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">response</span><span class="o">?</span><span class="p">.</span><span class="nx">headers</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Response:&quot;</span>
+    <span class="nv">text = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">headers</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">headers</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">text</span><span class="p">,</span> <span class="s">&#39;text&#39;</span>
+    <span class="nv">bodyType = </span><span class="s">&#39;html&#39;</span> <span class="k">if</span> <span class="o">~</span><span class="nx">headers</span><span class="p">[</span><span class="s">&#39;content-type&#39;</span><span class="p">].</span><span class="nx">indexOf</span> <span class="s">&#39;text/html&#39;</span>
+  <span class="k">if</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">body</span><span class="o">?</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Body:&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">string</span><span class="p">.</span><span class="nx">shorten</span><span class="p">(</span><span class="nx">@result</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="nx">bodyType</span>
+  <span class="nx">report</span>
 
 
 
@@ -453,7 +500,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>get remote tunnel</p>
         </td>
@@ -468,7 +515,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>open tunnel</p>
         </td>
@@ -486,7 +533,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>use tunnel</p>
         </td>

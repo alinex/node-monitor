@@ -513,13 +513,15 @@
     <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
       <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
         <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="c1"># only allow one element</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="c1"># only allow one element</span>
         <span class="p">[]</span>
       <span class="k">else</span>
         <span class="nv">num = </span><span class="mi">1</span>
         <span class="nv">elements = </span><span class="k">switch</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-          <span class="k">when</span> <span class="s">&#39;controller&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
-          <span class="k">when</span> <span class="s">&#39;sensor&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
+          <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
+            <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span> <span class="k">then</span>  <span class="p">[]</span> <span class="k">else</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
+          <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
+            <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span> <span class="k">then</span> <span class="p">[]</span> <span class="k">else</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
           <span class="k">else</span> <span class="p">[]</span>
         <span class="nx">num</span><span class="o">++</span> <span class="k">while</span> <span class="nx">parts</span><span class="p">[</span><span class="nx">num</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">in</span> <span class="nx">elements</span>
         <span class="nv">line = </span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">num</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
@@ -624,15 +626,12 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(args) -&gt;</span>
+<span class="nv">exports.run = </span><span class="nf">(args, cb = -&gt;) -&gt;</span>
   <span class="nv">command = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
   <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span><span class="o">?</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-    <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-      <span class="nx">exit</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="k">else</span>
-    <span class="nx">exit</span> <span class="mi">1</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Unknown command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">command</span><span class="si">}</span><span class="s"> use</span>
+    <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Unknown command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">command</span><span class="si">}</span><span class="s"> use</span>
 
 </pre></div>
         </td>

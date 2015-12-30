@@ -308,7 +308,7 @@ You may use any of these in your warn/fail expressions.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="vi">@name = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span>
+  <span class="nx">@name</span> <span class="o">?=</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span>
   <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -363,8 +363,9 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(res, cb) -&gt;</span>
+<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
+  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
 
 </pre></div>
         </td>

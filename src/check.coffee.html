@@ -48,6 +48,9 @@
         <a href="#controller%20class">Controller class</a>
       </div>
       <div class="heading h3">
+        <a href="#general%20initialization">General initialization</a>
+      </div>
+      <div class="heading h3">
         <a href="#create%20instance">Create instance</a>
       </div>
       <div class="heading h3">
@@ -140,6 +143,7 @@ the context of the check.</p>
 <span class="nv">vm = </span><span class="nx">require</span> <span class="s">&#39;vm&#39;</span>
 <span class="nv">math = </span><span class="nx">require</span> <span class="s">&#39;mathjs&#39;</span>
 <span class="nv">named = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;named-regexp&#39;</span><span class="p">).</span><span class="nx">named</span>
+<span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
 
 </pre></div>
         </td>
@@ -207,6 +211,7 @@ the context of the check.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">monitor = </span><span class="kc">null</span>  <span class="c1"># require &#39;./index&#39;</span>
+<span class="nv">mode = </span><span class="p">{}</span>
 
 
 </pre></div>
@@ -231,6 +236,25 @@ the context of the check.</p>
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="general%20initialization">
+  <h3>
+    <a href="#general%20initialization" name="general%20initialization" class="pilcrow">&#182;</a>
+    General initialization
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="vi">@init: </span><span class="nf">(setup, cb) -&gt;</span>
+    <span class="nv">mode = </span><span class="nx">setup</span>
+    <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="create%20instance">
   <h3>
     <a href="#create%20instance" name="create%20instance" class="pilcrow">&#182;</a>
@@ -242,23 +266,11 @@ the context of the check.</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">constructor: </span><span class="nf">(setup, @controller) -&gt;</span>
     <span class="vi">@type = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">sensor</span>
+    <span class="vi">@name = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">name</span>
+    <span class="vi">@depend = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">depend</span>
     <span class="vi">@conf = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">config</span> <span class="o">?</span> <span class="p">{}</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
-</div>
-<p>will be set after initialization</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="vi">@sensor = </span><span class="kc">null</span>
-    <span class="vi">@name = </span><span class="kc">null</span>
-    <span class="vi">@databaseID = </span><span class="kc">null</span>
-    <span class="vi">@base = </span><span class="kc">null</span>
+    <span class="vi">@weight = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">seight</span>
+    <span class="vi">@hint = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">hint</span>
 
 </pre></div>
         </td>
@@ -268,14 +280,13 @@ the context of the check.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
-<p>will be filled on run</p>
+<p>will be set after initialization</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="vi">@result = </span><span class="kc">null</span>
-    <span class="vi">@status = </span><span class="s">&#39;disabled&#39;</span>
-    <span class="vi">@err = </span><span class="kc">null</span>
-    <span class="vi">@date = </span><span class="p">[]</span>
-    <span class="vi">@values = </span><span class="p">{}</span>
+    <span class="vi">@num = </span><span class="mi">0</span> <span class="c1"># number of check in config</span>
+    <span class="vi">@sensor = </span><span class="kc">null</span>
+    <span class="vi">@databaseID = </span><span class="kc">null</span>
+    <span class="vi">@base = </span><span class="kc">null</span>
 
 </pre></div>
         </td>
@@ -284,6 +295,23 @@ the context of the check.</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<p>will be filled on run</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="vi">@err = </span><span class="kc">null</span>
+    <span class="vi">@date = </span><span class="p">[]</span>
+    <span class="vi">@result = </span><span class="p">{}</span>
+    <span class="vi">@values = </span><span class="p">{}</span>
+    <span class="vi">@status = </span><span class="s">&#39;disabled&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>last results</p>
         </td>
@@ -318,13 +346,14 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>check config</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
-        <span class="nv">name: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nv">name: </span><span class="k">if</span> <span class="nx">@controller</span> <span class="k">then</span> <span class="s">&quot;/controller/</span><span class="si">#{</span><span class="nx">@controller</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">/check/</span><span class="si">#{</span><span class="nx">@num</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">else</span> <span class="s">&quot;/sensor:</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">&quot;</span>
         <span class="nv">value: </span><span class="nx">@conf</span>
         <span class="nv">schema: </span><span class="nx">@sensor</span><span class="p">.</span><span class="nx">schema</span>
       <span class="p">,</span> <span class="nf">(err) =&gt;</span>
@@ -340,7 +369,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>only add database entry if run below controller</p>
         </td>
@@ -374,7 +403,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>stop if already running</p>
         </td>
@@ -391,7 +420,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>store in database</p>
         </td>
@@ -402,7 +431,7 @@ the context of the check.</p>
         <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span>
     <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> start check&quot;</span>
     <span class="vi">@status = </span><span class="s">&#39;running&#39;</span>
-    <span class="k">return</span> <span class="nx">@runNow</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">unless</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">prerun</span><span class="o">?</span>
+    <span class="k">return</span> <span class="nx">@runNow</span> <span class="nx">cb</span> <span class="k">unless</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">prerun</span><span class="o">?</span>
 
 </pre></div>
         </td>
@@ -410,12 +439,14 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>call prerun first</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">prerun</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(@err, res) =&gt;</span> <span class="nx">@runNow</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">prerun</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(@err) =&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">@err</span> <span class="k">if</span> <span class="nx">@err</span>
+      <span class="nx">@runNow</span> <span class="nx">cb</span>
 
 
 
@@ -433,7 +464,7 @@ the context of the check.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">runNow: </span><span class="nf">(opt, cb) -&gt;</span>
+  <span class="nv">runNow: </span><span class="nf">(cb) -&gt;</span>
     <span class="vi">@err = </span><span class="kc">null</span>
     <span class="vi">@date = </span><span class="p">[</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()]</span>
     <span class="vi">@values = </span><span class="p">{}</span>
@@ -445,12 +476,16 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>run the sensor</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">fn = </span><span class="nf">(@err, res) =&gt;</span>
+    <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
+      <span class="k">return</span> <span class="k">unless</span> <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
+      <span class="vi">@result.data = </span><span class="nx">res</span>
       <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> ended check&quot;</span>
       <span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
 
@@ -460,12 +495,12 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>calculate results</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">calc</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
+      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">calc</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
         <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
         <span class="nx">@setStatus</span><span class="p">()</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span> <span class="k">unless</span> <span class="nx">@databaseID</span>
@@ -476,39 +511,16 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>store in database</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">storage</span><span class="p">.</span><span class="nx">results</span> <span class="nx">@databaseID</span><span class="p">,</span> <span class="nx">@type</span><span class="p">,</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
         <span class="p">,</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">@values</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
           <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span>
-    <span class="k">if</span> <span class="nx">opt</span><span class="o">?</span>
-      <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">opt</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
-        <span class="nx">fn</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">res</span> <span class="k">if</span> <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">else</span>
-      <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
-        <span class="nx">fn</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">res</span> <span class="k">if</span> <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
-</div>
-<p>set status from rules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">setStatus: </span><span class="nf">-&gt;</span>
-    <span class="nx">@calcStatus</span><span class="p">()</span>
-    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> result status:</span>
 
 </pre></div>
         </td>
@@ -518,11 +530,14 @@ the context of the check.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
-<p>{@status}#{if @err then ' (' + @err.message + ')' else ''}"</p>
+<p>set status from rules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    for n, v of @values</span>
-<span class="s">      @sensor.debug &quot;</span><span class="c1">#{chalk.grey @name} result #{n}: #{v}&quot;</span>
+  <span class="nv">setStatus: </span><span class="nf">-&gt;</span>
+    <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">@values</span>
+      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> result </span><span class="si">#{</span><span class="nx">n</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">v</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">@calcStatus</span><span class="p">()</span>
+    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> result status:</span>
 
 </pre></div>
         </td>
@@ -531,6 +546,22 @@ the context of the check.</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>{@status}#{if @err then ' (' + @err.message + ')' else ''}"
+verbose output</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">    if mode.verbose &gt; 1</span>
+<span class="s">      console.log chalk.grey &quot;</span><span class="c1">#{moment().format(&quot;YYYY-MM-DD HH:mm:ss&quot;)}</span>
+      <span class="nx">Check</span> <span class="c1">#{chalk.white @type+&#39;:&#39;+@name} =&gt; #{@controller.colorStatus @status}&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
 <p>add to history</p>
         </td>
@@ -548,7 +579,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>return status</p>
         </td>
@@ -562,7 +593,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>calculate status</p>
         </td>
@@ -576,7 +607,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>check for values</p>
         </td>
@@ -591,7 +622,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
 <p>calculate from values</p>
         </td>
@@ -607,7 +638,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
 <p>replace data values</p>
         </td>
@@ -640,7 +671,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>replace not existing data values</p>
         </td>
@@ -656,7 +687,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
 </div>
 <p>replace percent values</p>
         </td>
@@ -670,7 +701,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
 </div>
 <p>replace binary values</p>
         </td>
@@ -684,7 +715,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
 </div>
 <p>replace interval values</p>
         </td>
@@ -698,7 +729,7 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
 </div>
 <p>replace operators</p>
         </td>
@@ -714,13 +745,13 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
 </div>
 <p>run the code in sandbox</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nv">sandbox = </span><span class="p">{}</span>
-      <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;result = </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">sandbox</span><span class="p">,</span> <span class="p">{</span><span class="nv">filename: </span><span class="s">&#39;monitor-sensor-rule.vm&#39;</span><span class="p">}</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;result = </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">sandbox</span><span class="p">,</span> <span class="p">{</span><span class="nv">filename: </span><span class="s">&quot;sensor-</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">.vm&quot;</span><span class="p">}</span>
       <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> rule result: </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s"> = </span><span class="si">#{</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">result</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="k">if</span> <span class="nx">sandbox</span><span class="p">.</span><span class="nx">result</span>
         <span class="vi">@err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="nx">@conf</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
@@ -742,12 +773,11 @@ the context of the check.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">report: </span><span class="nf">(cb) -&gt;</span>
+  <span class="nv">report: </span><span class="nf">-&gt;</span>
     <span class="nv">last = </span><span class="nx">@history</span><span class="p">[</span><span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
     <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">h2</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">description</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Last check results from </span><span class="si">#{</span><span class="nx">last</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> are:&quot;</span>
 
 </pre></div>
         </td>
@@ -755,36 +785,128 @@ the context of the check.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+</div>
+<p>status box</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">boxtype =</span>
+      <span class="nv">warn: </span><span class="s">&#39;warning&#39;</span>
+      <span class="nv">fail: </span><span class="s">&#39;alert&#39;</span>
+    <span class="nv">list = </span><span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+      <span class="s">&quot;__STATUS: </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">boxtype</span><span class="p">[</span><span class="nx">@status</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;info&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
 </div>
 <p>table with max. last 3 values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Last check results from </span><span class="si">#{</span><span class="nx">last</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> are:&quot;</span>
     <span class="nv">data = </span><span class="p">[]</span>
     <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">of</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
       <span class="k">continue</span> <span class="k">unless</span> <span class="nv">value = </span><span class="nx">last</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+</div>
+<p>support mappings from database sensor</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="o">?</span>
+        <span class="nv">nconf = </span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">key</span>
+        <span class="nv">conf = </span><span class="nx">nconf</span> <span class="k">if</span> <span class="nx">nconf</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+</div>
+<p>add rows</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
       <span class="k">if</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">value</span>
         <span class="k">for</span> <span class="nx">k</span> <span class="k">of</span> <span class="nx">value</span>
-          <span class="nv">row = </span><span class="p">[</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span>
+          <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span>
           <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">][</span><span class="nx">k</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
           <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
       <span class="k">else</span>
-        <span class="nv">row = </span><span class="p">[</span><span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="p">]</span>
+        <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="p">]</span>
         <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
         <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
     <span class="nv">col =</span>
       <span class="mi">0</span><span class="o">:</span>
-        <span class="nv">title: </span><span class="s">&#39;LABEL&#39;</span>
+        <span class="nv">title: </span><span class="s">&#39;NAME&#39;</span>
       <span class="mi">1</span><span class="o">:</span>
+        <span class="nv">title: </span><span class="s">&#39;LABEL&#39;</span>
+      <span class="mi">2</span><span class="o">:</span>
         <span class="nv">title: </span><span class="s">&#39;VALUE&#39;</span>
         <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
     <span class="k">if</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
-      <span class="k">for</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">num</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">2</span><span class="p">]</span>
-        <span class="nx">col</span><span class="p">[</span><span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="s">&#39;PREVIOUS&#39;</span><span class="p">,</span> <span class="nv">align: </span><span class="s">&#39;right&#39;</span><span class="p">}</span>
+      <span class="nv">num = </span><span class="mi">2</span>
+      <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">2</span><span class="p">]</span>
+        <span class="nx">col</span><span class="p">[</span><span class="o">++</span><span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="s">&#39;PREVIOUS&#39;</span><span class="p">,</span> <span class="nv">align: </span><span class="s">&#39;right&#39;</span><span class="p">}</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">col</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+</div>
+<p>special report details</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">report</span><span class="o">?</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">add</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">report</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+</div>
+<p>additional hints</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span>
       <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
+    <span class="k">if</span> <span class="nx">@hint</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">@hint</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+</div>
+<p>configuration</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">h3</span> <span class="s">&#39;Configuration&#39;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The </span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s"> sensor is configured with:&quot;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">@conf</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;CONFIGURATION SETTING&#39;</span><span class="p">,</span> <span class="s">&#39;VALUE&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nx">report</span>
 
 
 </pre></div>
@@ -833,7 +955,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
 </div>
 <p>it's an regular expression</p>
         </td>
@@ -891,7 +1013,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+  <a class="pilcrow" href="#section-52" id="section-52">&#182;</a>
 </div>
 <p>format with autodetect</p>
         </td>
@@ -911,7 +1033,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
 </div>
 <p>format using config setting</p>
         </td>

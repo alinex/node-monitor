@@ -42,6 +42,9 @@
         <a href="#sensors%20to%20run">Sensors to run</a>
       </div>
       <div class="heading h3">
+        <a href="#name%20and%20dependency">Name and dependency</a>
+      </div>
+      <div class="heading h3">
         <a href="#specific%20setup">Specific setup</a>
       </div>
       <div class="heading h3">
@@ -49,6 +52,9 @@
       </div>
       <div class="heading h3">
         <a href="#hint">Hint</a>
+      </div>
+      <div class="heading h3">
+        <a href="#max%20parallel%20checks">Max Parallel checks</a>
       </div>
       <div class="heading h3">
         <a href="#combine%20values">Combine values</a>
@@ -172,6 +178,28 @@ fully work.</p>
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="name%20and%20dependency">
+  <h3>
+    <a href="#name%20and%20dependency" name="name%20and%20dependency" class="pilcrow">&#182;</a>
+    Name and dependency
+  </h3>
+</div>
+
+
+<p>The name is used for identifying and also to be referred in other checks as
+dependency meaning that a check only can run if all it's dependant checks are
+done and don't fail.
+name: mytest-3
+depend: mytest-1, mytest-2</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap" id="specific%20setup">
   <h3>
     <a href="#specific%20setup" name="specific%20setup" class="pilcrow">&#182;</a>
@@ -191,13 +219,18 @@ fully work.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
-<p>Additional analysis to run if check is warn or failure
-   analysis:
-     analyzer: diskusage
-     config:
-       dirs: '/tmp, /var/log'</p>
+
+<div class="highlight"><pre><code><span class="err">#</span> <span class="err">###</span> <span class="nx">Specific</span> <span class="nx">mapping</span> <span class="k">for</span> <span class="nx">database</span> <span class="nx">sensor</span>
+<span class="nx">mapping</span><span class="o">:</span>
+  <span class="nx">num</span><span class="o">:</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;fixed Number&quot;</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;integer&#39;</span>
+     <span class="nx">storage</span><span class="o">:</span> <span class="s1">&#39;num-1&#39;</span>
+</code></pre></div>
+
+
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
@@ -253,6 +286,26 @@ the following variables:</p>
 <p>hint: |+</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="max%20parallel%20checks">
+  <h3>
+    <a href="#max%20parallel%20checks" name="max%20parallel%20checks" class="pilcrow">&#182;</a>
+    Max Parallel checks
+  </h3>
+</div>
+
+
+<p>This goes from 1 = serial to n parallel checks running. It is wise not to use
+too high values here to not make a high load on the server by the monitor itself.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="l-Scalar-Plain">parallel</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
 
 
 </pre></div>
@@ -384,7 +437,7 @@ results. Within this handlebar text you may use some specific variables:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>support:
  info:
@@ -401,7 +454,7 @@ results. Within this handlebar text you may use some specific variables:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>system access</p>
         </td>
@@ -417,7 +470,7 @@ results. Within this handlebar text you may use some specific variables:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>user/developer help</p>
         </td>
@@ -430,7 +483,7 @@ results. Within this handlebar text you may use some specific variables:</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>issues:
 api:
