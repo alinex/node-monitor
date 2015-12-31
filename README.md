@@ -1073,7 +1073,6 @@ Last check results from Thu Dec 24 2015 08:59:40 GMT+0100 (CET) are:
 
 __Result:__
 
-``` text
 PING 193.99.144.80 (193.99.144.80) 56(84) bytes of data.
 64 bytes from 193.99.144.80: icmp_seq=1 ttl=244 time=15.3 ms
 

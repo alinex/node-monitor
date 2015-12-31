@@ -126,11 +126,11 @@ for num in [1..8]
   exports.meta.values["text#{num}"] =
     title: "text-#{num}"
     description: "the text value ##{num}"
-    type: 'float'
+    type: 'string'
   exports.meta.values["date#{num}"] =
     title: "date-#{num}"
     description: "the date value ##{num}"
-    type: 'float'
+    type: 'date'
 
 
 # Initialize check
