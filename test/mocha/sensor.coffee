@@ -49,7 +49,7 @@ exports.warn = (check, cb) ->
     expect(status, 'status').to.equal 'warn'
     expect(check.status, 'stored status').to.equal 'warn'
     expect(check.date, 'date').to.exist
-    expect(err, 'error').to.exist
+    expect(err, 'error').to.not.exist
     expect(check.err, 'error').to.exist
     cb null, status
 
@@ -58,7 +58,7 @@ exports.fail = (check, cb) ->
     expect(status, 'status').to.equal 'fail'
     expect(check.status, 'stored status').to.equal 'fail'
     expect(check.date, 'date').to.exist
-    expect(err, 'error').to.exist
+    expect(err, 'error').to.not.exist
     expect(check.err, 'error').to.exist
     cb null, status
 
