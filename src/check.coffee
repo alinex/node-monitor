@@ -144,12 +144,12 @@ class Check extends EventEmitter
       @sensor.calc.call this, (err) =>
         @err = err if not @err and err
         @setStatus()
-        return cb @err, @status unless @databaseID
+        return cb null, @status unless @databaseID
         # store in database
         storage.results @databaseID, @type, @sensor.meta.values
         , @date[0], @values, (err) =>
           @err = err if not @err and err
-          cb @err, @status
+          cb null, @status
 
   # set status from rules
   setStatus: ->

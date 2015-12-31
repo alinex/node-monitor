@@ -137,7 +137,7 @@ class Controller extends EventEmitter
         @history.pop() while @history.length > HISTORY_LENGTH
         # info
         debug "#{chalk.grey @name} Controller => #{@colorStatus()}
-        #{if changed then ' CHANGED' else ''}"
+        #{if changed then 'CHANGED' else ''}".trim()
         # make report
         report = @report()
         if mode.verbose > 2
