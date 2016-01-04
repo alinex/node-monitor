@@ -2,7 +2,7 @@
   "name": "alinex-monitor",
   "version": "1.0.3",
   "description": "Monitoring IT services over the network.",
-  "copyright": "Alexander Schilling 2015",
+  "copyright": "Alexander Schilling 2015-2016",
   "private": false,
   "keywords": [
     "monitor",
