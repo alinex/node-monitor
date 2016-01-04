@@ -40,11 +40,11 @@ commands =
       report = new Report()
       if args.length > 1 and args[1] in Object.keys commands
         # specific help for one command
-        cmd = args[0]
+        cmd = args[1]
         report.h1 "Help for #{cmd} command"
         report.p "This command will #{commands[cmd].description}."
-        report.p commands[cmd].help() if commands[cmd].help?
-        console.log report.toString()
+        report.add commands[cmd].help() if commands[cmd].help?
+        console.log report.toConsole()
         return cb()
       # General help page
       report.h1 "Help for interactive console"
@@ -64,13 +64,24 @@ commands =
   # ### exit console
   exit:
     description: "close the console"
-    help: "You may also type `Ctrl` + `C` to exit ungraceful."
+    help: ->
+      report = new Report()
+      report.p "You may also type `Ctrl` + `C` to exit ungraceful. But be patient
+      till the program exits. This may take some time to close opened connections."
     run: ->
       exit()
 
   # change verbose level
   set:
     description: "change general or specific settings"
+    help: ->
+      report = new Report()
+      report.box "Usage: __set <option> [<value>]", 'info'
+      report.p "The following parameters may be changed:"
+      report.ul [
+        "verbose - run in verbose mode (integer for verbose level 0..9)"
+        "try     - try run which prevent actors to run (boolean)"
+      ]
     commands: (parts) ->
       subcmd = ['try', 'verbose'] #, 'controller']
       if parts.length is 1 or parts[1] not in subcmd
@@ -81,7 +92,7 @@ commands =
         else
           []
       else if parts[1] is 'try'
-        if parts.length is 2 or Boolean(parts[2]) not in ['true', 'false']
+        if parts.length is 2 or parts[2] not in ['true', 'false']
           ['true', 'false'].map (e) -> "#{parts[0]} #{parts[1]} #{e}"
         else
           []
@@ -89,25 +100,30 @@ commands =
         []
     run: (args, cb) ->
       subcmd = ['try', 'verbose'] #, 'controller']
-      unless args.length is 3
+      unless 1 < args.length < 4
         console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'set'}
         use #{chalk.bold 'help set'} for more information!"
         return cb()
+      if args.length is 3
+        # set
+        switch args[1]
+          when 'verbose'
+            num = Number args[2] if args[2]?
+            if isNaN num
+              console.log chalk.red "The value #{args[2]} is not a number."
+              return cb()
+            monitor.mode.verbose = num
+          when 'try'
+            unless args[2] in ['true', 'false']
+              console.log chalk.red "The value #{args[2]} is not a number."
+              return cb()
+            monitor.mode.try = args[2] is 'true'
+      # output
       switch args[1]
         when 'verbose'
-          num = Number args[2] if args[2]?
-          if isNaN num
-            console.log chalk.red "The value #{args[2]} is not a number."
-            cb()
-          monitor.mode.verbose = num
           console.log chalk.grey "Verbosity set to level #{monitor.mode.verbose}"
           cb()
         when 'try'
-          num = Boolean args[2] if args[2]?
-          unless num
-            console.log chalk.red "The value #{args[2]} is not a number."
-            cb()
-          monitor.mode.try = num
           console.log chalk.grey "Try mode is set to #{monitor.mode.try}"
           cb()
         else
@@ -118,12 +134,10 @@ commands =
   list:
     description: "show the list of possible elements"
     help: ->
-      text = """
-      Usage: list <type>
-
-      The list command will display a list of elements for the specified `type`:\n
-      """
-      text += types.map((e) -> "  - #{e}").join '\n'
+      report = new Report()
+      report.box "Usage: #{Report.b 'list <type>'}", 'info'
+      report.p "The list command will display a list of elements for the specified `type`:"
+      report.ul types
     commands: (parts) ->
       if parts.length is 1 or parts[1] not in types
         types.map (e) -> "#{parts[0]} #{e}"
@@ -154,16 +168,12 @@ commands =
   show:
     description: "get more information about the element"
     help: ->
-      text = """
-      Usage: show <type> <element>
-
-      The show command will display detailed information about the specified `type`:\n
-      """
-      text += types.map((e) -> "  - #{e}").join '\n'
-      text += """
-      \n\nUse code completion by typing #{chalk.bold 'TAB'} to get a list of possible
-      elements.
-      """
+      report = new Report()
+      report.box "Usage: #{Report.b 'show <type> <element>'}", 'info'
+      report.p "The show command will display detailed information about the specified `type`:"
+      report.ul types
+      report.p "Use code completion by typing `TAB` to get a list of possible
+      elements."
     commands: (parts) ->
       if parts.length is 1 or parts[1] not in types
         types.map (e) -> "#{parts[0]} #{e}"
@@ -207,16 +217,12 @@ commands =
   run:
     description: "run the specified element"
     help: ->
-      text = """
-      Usage: run <type> <element>
-
-      The run command will start a specified element:\n
-      """
-      text += types.map((e) -> "  - #{e}").join '\n'
-      text += """
-      \nUse code completion by typing #{chalk.bold 'TAB'} to get a list of possible
-      elements.
-      """
+      report = new Report()
+      report.box "Usage: #{Report.b 'run <type> <element>'}", 'info'
+      report.p "The run command will start a specified element which type is one of:"
+      report.ul types
+      report.p "Use code completion by typing `TAB` to get a list of possible
+      elements."
     commands: (parts) ->
       if parts.length is 1 or parts[1] not in types
         types.map (e) -> "#{parts[0]} #{e}"
@@ -297,9 +303,12 @@ exports.interactive = (conf) ->
 # Direct command execution
 # -------------------------------------------------
 exports.run = (args, cb = ->) ->
+  console.log ''
   command = args[0]
   if commands[command]?
-    commands[command].run args, cb
+    commands[command].run args, (err) ->
+      console.log ''
+      cb err
   else
     cb new Error "Unknown command #{chalk.bold command} use
     #{chalk.bold 'help'} for more information!"
