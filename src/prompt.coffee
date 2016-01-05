@@ -36,7 +36,7 @@ commands =
       Object.keys commands
       .filter (e) -> e isnt 'help'
       .map (e) -> "help #{e}"
-    run: (args, cb) ->
+    run: (args, data, cb) ->
       report = new Report()
       if args.length > 1 and args[1] in Object.keys commands
         # specific help for one command
@@ -99,7 +99,7 @@ commands =
           []
       else
         []
-    run: (args, cb) ->
+    run: (args, data, cb) ->
       subcmd = ['try', 'verbose'] #, 'controller']
       unless 1 < args.length < 4
         console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'set'}
@@ -144,7 +144,7 @@ commands =
         types.map (e) -> "#{parts[0]} #{e}"
       else
         []
-    run: (args, cb) ->
+    run: (args, data, cb) ->
       unless args.length is 2
         console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'list'}
         use #{chalk.bold 'help list'} for more information!"
@@ -189,7 +189,7 @@ commands =
         num++ while parts[num+1] in elements
         line = parts[0..num].join ' '
         elements.map (e) -> "#{line} #{e}"
-    run: (args, cb) ->
+    run: (args, data, cb) ->
       unless args.length > 2
         console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
         use #{chalk.bold 'help show'} for more information!"
@@ -244,7 +244,7 @@ commands =
         num++ while parts[num+1] in elements
         line = parts[0..num].join ' '
         elements.map (e) -> "#{line} #{e}"
-    run: (args, cb) ->
+    run: (args, data, cb) ->
       if args.length is 1
         console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
         use #{chalk.bold 'help show'} for more information!"
@@ -268,6 +268,7 @@ commands =
             return cb()
           check = new Check
             sensor: args[2]
+            config: data
           check.init (err) ->
             return cb err if err
             check.run (err) ->
@@ -312,11 +313,11 @@ exports.interactive = (conf) ->
 
 # Direct command execution
 # -------------------------------------------------
-exports.run = (args, cb = ->) ->
+exports.run = (args, data = {}, cb = ->) ->
   console.log ''
   command = args[0]
   if commands[command]?
-    commands[command].run args, (err) ->
+    commands[command].run args, data, (err) ->
       console.log ''
       cb err
   else
@@ -334,7 +335,7 @@ getCommand = (readline, cb) ->
     args = line.trim().split /\s+/
     command = args[0]
     if commands[command]?
-      commands[command].run args, cb
+      commands[command].run args, null, cb
     else
       console.log chalk.red "Unknown command #{chalk.bold command} use
       #{chalk.bold 'help'} for more information!"
