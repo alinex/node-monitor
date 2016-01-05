@@ -246,7 +246,8 @@ class Check extends EventEmitter
       fail: 'alert'
     if @history.length
       list = Report.ul @history.map (e) ->
-        "__STATUS: #{e.status}__ at #{e.date[0]}"
+        "__STATUS: #{e.status}__ at #{moment(e.date[0]).format("YYYY-MM-DD HH:mm:ss")}
+        #{if e.err then chalk.bold.red e.err else ''}"
       report.box list, boxtype[@status] ? 'info'
     # table with max. last 3 values
     if @date.length

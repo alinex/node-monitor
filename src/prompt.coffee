@@ -266,8 +266,13 @@ commands =
             console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
             use #{chalk.bold 'help show'} for more information!"
             return cb()
-          monitor.listSensor()
-          cb()
+          check = new Check
+            sensor: args[2]
+          check.init (err) ->
+            return cb err if err
+            check.run (err) ->
+              console.log check.report().toConsole()
+              cb()
         else
           console.log chalk.red "Given type #{chalk.bold args[1]} not possible in
           #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
