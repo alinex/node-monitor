@@ -10,14 +10,14 @@ chalk = require 'chalk'
 async = require 'alinex-async'
 config = require 'alinex-config'
 {string} = require 'alinex-util'
+Report = require 'alinex-report'
 # include classes and helpers
 monitor = require './index'
-Report = require 'alinex-report'
-
+Check = require './check'
 # Setup
 # -------------------------------------------------
 
-types = ['controller', 'sensor', 'actor', 'explorer']
+types = ['controller', 'sensor', 'actor', 'analyzer']
 
 # Commands
 # -------------------------------------------------
@@ -82,6 +82,7 @@ commands =
         "verbose - run in verbose mode (integer for verbose level 0..9)"
         "try     - try run which prevent actors to run (boolean)"
       ]
+      report.p "The changes will take effect on the next command."
     commands: (parts) ->
       subcmd = ['try', 'verbose'] #, 'controller']
       if parts.length is 1 or parts[1] not in subcmd
@@ -205,8 +206,12 @@ commands =
             console.log report.toConsole()
             cb()
         when 'sensor'
-          monitor.listSensors()
-          cb()
+          check = new Check
+            sensor: args[2]
+          check.init (err) ->
+            return cb err if err
+            console.log check.report().toConsole()
+            cb()
         else
           console.log chalk.red "Given type #{chalk.bold args[1]} not possible in
           #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
@@ -261,7 +266,7 @@ commands =
             console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
             use #{chalk.bold 'help show'} for more information!"
             return cb()
-          monitor.listSensors()
+          monitor.listSensor()
           cb()
         else
           console.log chalk.red "Given type #{chalk.bold args[1]} not possible in

@@ -29,7 +29,7 @@ named = require('named-regexp').named
 moment = require 'moment'
 # include alinex modules
 async = require 'alinex-async'
-{string} = require 'alinex-util'
+{object, string} = require 'alinex-util'
 validator = require 'alinex-validator'
 Report = require 'alinex-report'
 # include classes and helpers
@@ -244,41 +244,43 @@ class Check extends EventEmitter
     boxtype =
       warn: 'warning'
       fail: 'alert'
-    list = Report.ul @history.map (e) ->
-      "__STATUS: #{e.status}__ at #{e.date[0]}"
-    report.box list, boxtype[@status] ? 'info'
+    if @history.length
+      list = Report.ul @history.map (e) ->
+        "__STATUS: #{e.status}__ at #{e.date[0]}"
+      report.box list, boxtype[@status] ? 'info'
     # table with max. last 3 values
-    report.p "Last check results from #{last.date[0]} are:"
-    data = []
-    for key, conf of @sensor.meta.values
-      continue unless value = last.values[key]
-      # support mappings from database sensor
-      if @sensor.mapping?
-        nconf =  @sensor.mapping.call this, key
-        conf = nconf if nconf
-      # add rows
-      if typeof value is 'object' and not Array.isArray value
-        for k of value
-          row = [key, "#{conf.title ? key}.#{k}"]
-          row.push formatValue e.values[key][k], conf for e in @history[..2]
+    if @date.length
+      report.p "Last check results from #{last.date[0]} are:"
+      data = []
+      for key, conf of @sensor.meta.values
+        continue unless value = last.values[key]
+        # support mappings from database sensor
+        if @sensor.mapping?
+          nconf =  @sensor.mapping.call this, key
+          conf = nconf if nconf
+        # add rows
+        if typeof value is 'object' and not Array.isArray value
+          for k of value
+            row = [key, "#{conf.title ? key}.#{k}"]
+            row.push formatValue e.values[key][k], conf for e in @history[..2]
+            data.push row
+        else
+          row = [key, conf.title ? key]
+          row.push formatValue e.values[key], conf for e in @history[..2]
           data.push row
-      else
-        row = [key, conf.title ? key]
-        row.push formatValue e.values[key], conf for e in @history[..2]
-        data.push row
-    col =
-      0:
-        title: 'NAME'
-      1:
-        title: 'LABEL'
-      2:
-        title: 'VALUE'
-        align: 'right'
-    if @history.length > 1
-      num = 2
-      for e in @history[1..2]
-        col[++num] = {title: 'PREVIOUS', align: 'right'}
-    report.table data, col
+      col =
+        0:
+          title: 'NAME'
+        1:
+          title: 'LABEL'
+        2:
+          title: 'VALUE'
+          align: 'right'
+      if @history.length > 1
+        num = 2
+        for e in @history[1..2]
+          col[++num] = {title: 'PREVIOUS', align: 'right'}
+      report.table data, col
     # special report details
     if @sensor.report?
       report.add @sensor.report.call this
@@ -290,7 +292,10 @@ class Check extends EventEmitter
     # configuration
     report.h3 'Configuration'
     report.p "The #{@type} sensor is configured with:"
-    report.table @conf, ['CONFIGURATION SETTING', 'VALUE']
+    c = {}
+    for key of @sensor.schema.keys
+      c[key] = @conf[key] ? '---'
+    report.table c, ['CONFIGURATION SETTING', 'VALUE']
     return report
 
   # Helper methods for sensor
