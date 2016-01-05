@@ -247,8 +247,7 @@ class Check extends EventEmitter
     if @history.length
       list = Report.ul @history.map (e) ->
         "__STATUS: #{e.status}__ at #{e.date[0]}
-        #{if e.err then '\n' + chalk.bold.red e.err else ''}"
-      console.log list
+        #{if e.err then '\\\n' + e.err else ''}"
       report.box list, boxtype[@status] ? 'info'
     # table with max. last 3 values
     if @date.length
