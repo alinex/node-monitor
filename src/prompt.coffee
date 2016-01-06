@@ -14,10 +14,14 @@ Report = require 'alinex-report'
 # include classes and helpers
 monitor = require './index'
 Check = require './check'
+
+
 # Setup
 # -------------------------------------------------
 
 types = ['controller', 'sensor', 'actor', 'analyzer']
+
+readline = null
 
 # Commands
 # -------------------------------------------------
@@ -266,19 +270,25 @@ commands =
             console.log chalk.red "Too less parameters for command #{chalk.bold 'show'}
             use #{chalk.bold 'help show'} for more information!"
             return cb()
-          check = new Check
-            sensor: args[2]
-            config: data
-          check.init (err) ->
+          # ask for data if not given
+          askForSensor args[2], data, (err, data) ->
             return cb err if err
-            check.run (err) ->
-              console.log check.report().toConsole()
-              cb()
+            # init check
+            check = new Check
+              sensor: args[2]
+              config: data
+            check.init (err) ->
+              return cb err if err
+              # and run it
+              check.run (err) ->
+                console.log check.report().toConsole()
+                cb()
         else
           console.log chalk.red "Given type #{chalk.bold args[1]} not possible in
           #{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more
           information!"
           cb()
+
 
 # Interactive Console
 # -------------------------------------------------
@@ -349,3 +359,41 @@ exit = (code = 0, err) ->
   console.error chalk.red.bold "FAILED: #{err.message}"
   console.error err.description if err.description
   process.exit code
+
+# ### Ask for missing data
+askForSensor = (type, data, cb) ->
+  return  cb() if data?
+  monitor.getSensor type, (err, sensor) ->
+    return cb err if err
+    askFor sensor.schema, data, cb
+
+# ### Ask user to give the data for the schema
+askFor = (schema, data = {}, cb) ->
+  validator = require 'alinex-validator'
+  console.log """Give the settings to run this (default is used if nothing given).
+  Type 'null' to clear default value."""
+  # for each key
+  async.eachSeries Object.keys(schema.keys), (key, cb) ->
+    def = schema.keys[key]
+    # ask for each one
+    base = data[key] ? def.default
+
+    readline.question "#{def.title}#{if base? then ' (' + base + ')' else ''}: ", (line) ->
+      # get result
+      line = switch
+        when line is 'null' then null
+        when line then line
+        else base
+      # validate
+      validator.check
+        name: 'userResponse'
+        value: line
+        schema: def
+      , (err, result) ->
+        console.log err if err
+        data[key] = result ? base
+        cb()
+
+  , (err) ->
+    console.log ''
+    cb err, data
