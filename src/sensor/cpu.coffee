@@ -40,6 +40,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
+      optional: true
     time:
       title: "Measurement Time"
       description: "the time for the measurement"

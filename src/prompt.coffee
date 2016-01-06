@@ -377,23 +377,26 @@ askFor = (schema, data = {}, cb) ->
     def = schema.keys[key]
     # ask for each one
     base = data[key] ? def.default
-
-    readline.question "#{def.title}#{if base? then ' (' + base + ')' else ''}: ", (line) ->
-      # get result
-      line = switch
-        when line is 'null' then null
-        when line then line
-        else base
-      # validate
-      validator.check
-        name: 'userResponse'
-        value: line
-        schema: def
-      , (err, result) ->
-        console.log err if err
-        data[key] = result ? base
-        cb()
-
+    async.retry 3, (cb) ->
+      readline.question "#{def.title}#{if base? then ' (' + base + ')' else ''}: ", (line) ->
+        # get result
+        line = switch
+          when line is 'null' then null
+          when line then line
+          else base
+        # validate
+        validator.check
+          name: 'userResponse'
+          value: line
+          schema: def
+        , (err, result) ->
+          if err
+            console.log chalk.magenta err.message
+            console.log err.description if err.description
+            return cb err
+          data[key] = result ? base
+          cb()
+    , cb
   , (err) ->
     console.log ''
     cb err, data

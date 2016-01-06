@@ -1612,7 +1612,7 @@ The next version coming early in 2016 will have:
 - alerting with mail actor
 - fully working explorers
 
-After that a lot of bugfixes, smaller improvements and more sensors, actors and
+After that a lot of bug fixes, smaller improvements and more sensors, actors and
 explorers will follow.
 
 
