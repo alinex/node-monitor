@@ -176,8 +176,9 @@ The exit codes are arranged alongside the UNIX default:
 
 Interactive Console
 -------------------------------------------------
-You may start the interactive console by using the `-i` option. After that you
-will be greeted and may give the commands:
+You may start the interactive console by using the `-i` option. Additionally you
+can use `--json` to set some presettings with default for the later interactive
+call. After that you will be greeted and may give the commands:
 
 ``` text
 > monitor -i # or --interactive
@@ -233,6 +234,10 @@ Examples:
 Everything the controller/sensor/actor/explorer need is asked within or before
 starting the process.
 
+> The interactive console uses a file based history so use the arrow keys to
+> step in history. Also auto completion is often available try hitting the
+> `TAB` key.
+
 ### Using Parameters
 
 If you want to run the same command as on the interactive console but call it
@@ -252,6 +257,10 @@ Or get the list of controllers:
 If you run a command which needs optional parameters while running you have to
 give all of them on call as a json data object. Take the names from the interactive
 run displayed in front of the question.
+
+    > monitor -c run sensor cpu -j '{"remote":"localhost"}'
+
+This will run the cpu sensor on localhost server.
 
 
 Definitions
