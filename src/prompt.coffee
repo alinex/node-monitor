@@ -6,6 +6,7 @@
 
 # include base modules
 chalk = require 'chalk'
+os = require 'os'
 # include alinex modules
 async = require 'alinex-async'
 config = require 'alinex-config'
@@ -21,7 +22,7 @@ Check = require './check'
 
 types = ['controller', 'sensor', 'actor', 'analyzer']
 
-readline = null
+interactive = false
 
 # Commands
 # -------------------------------------------------
@@ -299,24 +300,9 @@ exports.interactive = (conf) ->
 
     To get help call the command #{chalk.bold 'help'} and close with #{chalk.bold 'exit'}!
   """
-  readline = require('readline').createInterface
-    input: process.stdin
-    output: process.stdout
-    completer: (line) ->
-      parts = line.trim().split /\s+/
-      list = Object.keys commands
-      if parts[0] in list and commands[parts[0]].commands
-        list = commands[parts[0]].commands parts
-      hits = list.filter (c) ->
-        c.indexOf(line) is 0
-      .map (e) -> "#{e} "
-      [
-        if hits.length then hits else list
-        line
-      ]
-  readline.on 'SIGINT', -> exit 130, new Error "Got SIGINT signal"
+  interactive = true
   async.forever (cb) ->
-    getCommand readline, cb
+    getCommand cb
   , (err) ->
     readline.close()
     exit 1, err
@@ -338,18 +324,38 @@ exports.run = (args, data = {}, cb = ->) ->
 # -------------------------------------------------
 
 # ### ask for the next command
-getCommand = (readline, cb) ->
-  console.log ''
-  readline.question 'monitor> ', (line) ->
-    console.log ''
-    args = line.trim().split /\s+/
-    command = args[0]
-    if commands[command]?
-      commands[command].run args, null, cb
-    else
-      console.log chalk.red "Unknown command #{chalk.bold command} use
-      #{chalk.bold 'help'} for more information!"
-      cb()
+getCommand = (cb) ->
+  readline = require('readline-history').createInterface
+    input: process.stdin
+    output: process.stdout
+    completer: (line) ->
+      parts = line.trim().split /\s+/
+      list = Object.keys commands
+      if parts[0] in list and commands[parts[0]].commands
+        list = commands[parts[0]].commands parts
+      hits = list.filter (c) ->
+        c.indexOf(line) is 0
+      .map (e) -> "#{e} "
+      [
+        if hits.length then hits else list
+        line
+      ]
+    path: "#{os.tmpdir()}/#{process.title}-history"
+    maxLength: 1000
+    next: (readline) =>
+      readline.on 'SIGINT', -> exit 130, new Error "Got SIGINT signal"
+      console.log ''
+      readline.question 'monitor> ', (line) ->
+        readline.close()
+        console.log ''
+        args = line.trim().split /\s+/
+        command = args[0]
+        if commands[command]?
+          commands[command].run args, null, cb
+        else
+          console.log chalk.red "Unknown command #{chalk.bold command} use
+          #{chalk.bold 'help'} for more information!"
+          cb()
 
 # ### Error management
 exit = (code = 0, err) ->
@@ -372,6 +378,9 @@ askFor = (schema, data = {}, cb) ->
   validator = require 'alinex-validator'
   console.log """Give the settings to run this (default is used if nothing given).
   Type 'null' to clear default value."""
+  readline = require('readline').createInterface
+    input: process.stdin
+    output: process.stdout
   # for each key
   async.eachSeries Object.keys(schema.keys), (key, cb) ->
     def = schema.keys[key]
@@ -398,5 +407,6 @@ askFor = (schema, data = {}, cb) ->
           cb()
     , cb
   , (err) ->
+    readline.close()
     console.log ''
     cb err, data
