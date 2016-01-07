@@ -388,7 +388,7 @@ askFor = (schema, predef = {}, cb) ->
       input: process.stdin
       output: process.stdout
       completer: (line) ->
-        list = def.list ? []
+        list = def.values ? []
         hits = list.filter (c) ->
           c.indexOf(line) is 0
         [

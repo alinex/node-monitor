@@ -23,6 +23,7 @@
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:ping')
 # include alinex modules
+config = require 'alinex-config'
 Exec = require 'alinex-exec'
 Report = require 'alinex-report'
 
@@ -47,6 +48,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
+      values: Object.keys config.get '/exec/remote/server'
     host:
       title: "Hostname or IP"
       description: "the server hostname or ip address to be called for ping"

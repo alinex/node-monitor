@@ -19,6 +19,7 @@
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:database')
 # include alinex modules
+config = require 'alinex-config'
 database = require 'alinex-database'
 {string} = require 'alinex-util'
 
@@ -40,6 +41,7 @@ exports.schema =
       title: "Database"
       description: "the reference to the database setting in config/database"
       type: 'string'
+      values: Object.keys config.get '/database'
     query:
       title: "Query"
       description: "the query to run to retrieve the measurement result"

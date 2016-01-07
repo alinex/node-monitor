@@ -16,6 +16,7 @@
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:diskio')
 # include alinex modules
+config = require 'alinex-config'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 
@@ -37,6 +38,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
+      values: Object.keys config.get '/exec/remote/server'
     device:
       title: "Device name"
       description: "the disk's device name like sda, ..."

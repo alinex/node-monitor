@@ -17,6 +17,7 @@
 exports.debug = debug = require('debug')('monitor:sensor:time')
 ntp = require 'ntp-client'
 # include alinex modules
+config = require 'alinex-config'
 async = require 'alinex-async'
 Exec = require 'alinex-exec'
 
@@ -40,6 +41,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
+      values: Object.keys config.get '/exec/remote/server'
     host:
       title: "NTP Hostname"
       description: "the name of an NTP server to call"

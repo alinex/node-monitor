@@ -16,6 +16,7 @@
 # include base modules
 exports.debug = debug = require('debug')('monitor:sensor:diskfree')
 # include alinex modules
+config = require 'alinex-config'
 Exec = require 'alinex-exec'
 
 
@@ -36,6 +37,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
+      values: Object.keys config.get '/exec/remote/server'
     share:
       title: "Share or Mount"
       description: "the disk share's path or mount point to check"

@@ -40,6 +40,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
+      values: Object.keys config.get '/exec/remote/server'
     url:
       title: "URL"
       description: "the URL to request"
