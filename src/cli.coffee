@@ -79,6 +79,8 @@ argv = yargs
     """
   process.exit 1
 .argv
+# parse data
+argv.json = JSON.parse argv.json if argv.json
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 
@@ -123,12 +125,12 @@ monitor.init
     # direct command given to execute
     args = argv.command.slice()
     args = args[0].trim().split /\s+/ if args.length is 1
-    require('./prompt').run args, JSON.parse(argv.json), (err) ->
+    require('./prompt').run args, argv.json, (err) ->
       exit 1, err if err
       exit()
   else if argv.interactive
     # interactive console
-    require('./prompt').interactive conf
+    require('./prompt').interactive conf, argv.json
   else if argv.daemon
     # daemon start
     monitor.start()

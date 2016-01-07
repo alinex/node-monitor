@@ -293,7 +293,7 @@ commands =
 
 # Interactive Console
 # -------------------------------------------------
-exports.interactive = (conf) ->
+exports.interactive = (conf, data) ->
   console.log """
     \nWelcome to the #{chalk.bold 'interactive monitor console'} in which you can get more
     information about special tools, run individual tests and explore systems.
@@ -302,7 +302,7 @@ exports.interactive = (conf) ->
   """
   interactive = true
   async.forever (cb) ->
-    getCommand cb
+    getCommand data, cb
   , (err) ->
     readline.close()
     exit 1, err
@@ -324,8 +324,8 @@ exports.run = (args, data = {}, cb = ->) ->
 # -------------------------------------------------
 
 # ### ask for the next command
-getCommand = (cb) ->
-  readline = require('readline-history').createInterface
+getCommand = (data, cb) ->
+  require('readline-history').createInterface
     input: process.stdin
     output: process.stdout
     completer: (line) ->
@@ -351,7 +351,7 @@ getCommand = (cb) ->
         args = line.trim().split /\s+/
         command = args[0]
         if commands[command]?
-          commands[command].run args, null, cb
+          commands[command].run args, data, cb
         else
           console.log chalk.red "Unknown command #{chalk.bold command} use
           #{chalk.bold 'help'} for more information!"
@@ -368,21 +368,22 @@ exit = (code = 0, err) ->
 
 # ### Ask for missing data
 askForSensor = (type, data, cb) ->
-  return  cb() if data?
+  return  cb() unless interactive
   monitor.getSensor type, (err, sensor) ->
     return cb err if err
     askFor sensor.schema, data, cb
 
 # ### Ask user to give the data for the schema
-askFor = (schema, data = {}, cb) ->
+askFor = (schema, predef = {}, cb) ->
   validator = require 'alinex-validator'
   console.log """Give the settings to run this (default is used if nothing given).
   Type 'null' to clear default value."""
   # for each key
+  data = {}
   async.eachSeries Object.keys(schema.keys), (key, cb) ->
     def = schema.keys[key]
     # ask for each one
-    base = data[key] ? def.default
+    base = predef[key] ? def.default
     readline = require('readline').createInterface
       input: process.stdin
       output: process.stdout
