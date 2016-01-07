@@ -17,6 +17,7 @@
 exports.debug = debug = require('debug')('monitor:sensor:cpu')
 # include alinex modules
 async = require 'alinex-async'
+config = require 'alinex-config'
 Exec = require 'alinex-exec'
 {string} = require 'alinex-util'
 
@@ -41,6 +42,7 @@ exports.schema =
       description: "the remote server on which to run the command"
       type: 'string'
       optional: true
+      list: Object.keys config.get '/exec/remote/server'
     time:
       title: "Measurement Time"
       description: "the time for the measurement"

@@ -378,14 +378,22 @@ askFor = (schema, data = {}, cb) ->
   validator = require 'alinex-validator'
   console.log """Give the settings to run this (default is used if nothing given).
   Type 'null' to clear default value."""
-  readline = require('readline').createInterface
-    input: process.stdin
-    output: process.stdout
   # for each key
   async.eachSeries Object.keys(schema.keys), (key, cb) ->
     def = schema.keys[key]
     # ask for each one
     base = data[key] ? def.default
+    readline = require('readline').createInterface
+      input: process.stdin
+      output: process.stdout
+      completer: (line) ->
+        list = def.list ? []
+        hits = list.filter (c) ->
+          c.indexOf(line) is 0
+        [
+          if hits.length then hits else list
+          line
+        ]
     async.retry 3, (cb) ->
       readline.question "#{def.title}#{if base? then ' (' + base + ')' else ''}: ", (line) ->
         # get result
@@ -405,8 +413,9 @@ askFor = (schema, data = {}, cb) ->
             return cb err
           data[key] = result ? base
           cb()
-    , cb
+    , (err) ->
+      readline.close()
+      cb err
   , (err) ->
-    readline.close()
     console.log ''
     cb err, data
