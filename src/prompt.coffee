@@ -16,13 +16,15 @@ Report = require 'alinex-report'
 monitor = require './index'
 Check = require './check'
 
+# set to true if interactive console is running
+interactive = false
+
 
 # Setup
 # -------------------------------------------------
 
 types = ['controller', 'sensor', 'actor', 'analyzer']
 
-interactive = false
 
 # Commands
 # -------------------------------------------------
