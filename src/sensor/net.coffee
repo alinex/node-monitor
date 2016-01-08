@@ -40,7 +40,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
-      values: Object.keys config.get '/exec/remote/server'
+      values: Object.keys config.get('/exec/remote/server') ? {}
     interface:
       title: "Interface Name"
       description: "the name of the interface to analyze"

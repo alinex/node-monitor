@@ -41,7 +41,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
-      values: Object.keys config.get '/exec/remote/server'
+      values: Object.keys config.get('/exec/remote/server') ? {}
     warn:
       title: "Warn if"
       description: "the javascript code to check to set status to warn"

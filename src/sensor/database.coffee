@@ -41,7 +41,7 @@ exports.schema =
       title: "Database"
       description: "the reference to the database setting in config/database"
       type: 'string'
-      values: Object.keys config.get '/database'
+      values: Object.keys config.get('/database') ? {}
     query:
       title: "Query"
       description: "the query to run to retrieve the measurement result"

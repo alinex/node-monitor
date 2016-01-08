@@ -39,7 +39,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
-      values: Object.keys config.get '/exec/remote/server'
+      values: Object.keys config.get('/exec/remote/server') ? {}
     user:
       title: "Username to check"
       description: "the local user name to check"

@@ -37,7 +37,7 @@ exports.schema =
       title: "Remote Server"
       description: "the remote server on which to run the command"
       type: 'string'
-      values: Object.keys config.get '/exec/remote/server'
+      values: Object.keys config.get('/exec/remote/server') ? {}
     share:
       title: "Share or Mount"
       description: "the disk share's path or mount point to check"
