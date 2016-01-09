@@ -33,7 +33,7 @@ check:
 
     # ### Specific setup
     config:
-      remote: dvb-develop
+#      remote: dvb-develop
       share: /
 #     # ### Specific mapping for database sensor
 #     mapping:

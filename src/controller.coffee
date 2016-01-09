@@ -55,6 +55,7 @@ class Controller extends EventEmitter
     # last results
     @history = []
     @changed = 0
+    @ruledata = null
 
 
   # ### Initialize
@@ -133,6 +134,7 @@ class Controller extends EventEmitter
         report = @report()
         if mode.verbose > 2
           console.error "\n#{report.toConsole()}\n"
+        @rules()
         @emit 'result', this
         cb null, @status
 
@@ -192,6 +194,7 @@ class Controller extends EventEmitter
       report.ul ul
     # references
     if @conf.ref
+
       report.p Report.b "For further assistance check the following links:"
       ul = []
       for name, list of @conf.ref
@@ -208,6 +211,48 @@ class Controller extends EventEmitter
     # action
     # store  report
     # send email
+
+
+  # Run rules
+  # -------------------------------------------------
+  rules: ->
+    if @changed
+      @ruledata =
+        count: 0
+        date: @date
+        action: {}
+    @ruledata.count++
+    rules = config.get '/monitor/rule'
+    for name in @conf.rule
+      # check if defined
+      continue unless rule = rules[name]
+      # Only work on specific status.
+      continue unless rule.status is @status
+      # Number of minimum attempts (controller runs) before informing.
+      continue if rule.attempt and @ruledata.count < rule.attempt
+      # Time (in seconds) to wait before informing.
+      if rule.latency
+        continue if new Date() < moment(@ruledata.date).add(rule.latency, 'seconds').toDate()
+      # if already done and not in redo time
+      if @ruledata.action[name]?
+        # Timeout (in seconds) without status change before informing again.
+        if rule.redo
+          continue if new Date() < moment(@ruledata.action[name]).add(rule.redo, 'seconds').toDate()
+      # run rules
+      @ruledata.action[name] = new Date()
+      @ruleType[type]? name, rule for type of @ruleType
+
+
+  # Run specific rule
+  # -------------------------------------------------
+  ruleType:
+    email: (name, rule) ->
+      console.log '==> email =>', name, rule
+      # call actor with all data
+
+
+
+
 
   # Helper to colorize output
   # -------------------------------------------------
@@ -231,6 +276,7 @@ class Controller extends EventEmitter
 # -------------------------------------------------
 
 module.exports =  Controller
+
 
 # Calculating Controller Status
 # -------------------------------------------------
