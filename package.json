@@ -54,6 +54,7 @@
     "mathjs": "^2.4.0",
     "moment": "^2.10.6",
     "named-regexp": "^0.1.1",
+    "nodemailer": "^1.11.0",
     "ntp-client": "^0.5.3",
     "readline-history": "^1.2.0",
     "request": "^2.65.0",

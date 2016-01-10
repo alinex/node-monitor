@@ -52,6 +52,78 @@ contact =
     ]
   ]
 
+# Email Transport settings
+# -------------------------------------------------
+
+emailTransport =
+  title: "Email Transport"
+  description: "the setup to connect to a SMTP server"
+  type: 'object'
+  allowedKeys: true
+  keys:
+    port:
+      name: "Port"
+      description: "the port to connect to (defaults to 25 or 465)"
+      type: 'port'
+    host:
+      name: "Hostname"
+      description: "the hostname or IP address to connect to (defaults to 'localhost')"
+      type: 'hostname'
+      default: 'localhost'
+    secure:
+      name: "Use SSL"
+      description: "a flag indicating the connection should use SSL"
+      type: 'boolean'
+    auth:
+      name: "Authentication"
+      description: "the authentication data to use"
+      type: 'object'
+      mandatoryKeys: true
+      keys:
+        user:
+          name: "Username"
+          description: "the username to log in"
+          type: 'string'
+        pass:
+          name: "Password"
+          description: "the password for the username"
+          type: 'string'
+    ignoreTLS:
+      name: "No STARTTLS"
+      description: "a flag to turn off STARTTLS support if true"
+      type: 'boolean'
+    name:
+      name: "Client Hostname"
+      description: "an optional hostname of the client, used for identifying to the server"
+      type: 'hostname'
+    localAddress:
+      name: "localAddress"
+      description: "the local interface to bind to for network connections"
+      type: 'ipaddr'
+
+    connectionTimeout:
+      name: "Connection Timeout"
+      description: "the timeout in milliseconds to wait for the connection to establish"
+      type: 'interval'
+      unit: 'ms'
+    greetingTimeout:
+      name: "Greeting Timeout"
+      description: "the timeout in milliseconds to wait for the greeting after connection
+      is established"
+      type: 'interval'
+      unit: 'ms'
+    socketTimeout:
+      name: "Socket Timeout"
+      description: "the timeout in milliseconds of inactivity to allow"
+      type: 'interval'
+      unit: 'ms'
+    authMethod:
+      name: "Authentication"
+      description: "defines preferred authentication method, eg. 'PLAIN'"
+      type: 'string'
+      values: ['PLAIN']
+
+
 # Email Templates
 # -------------------------------------------------
 
@@ -372,6 +444,8 @@ module.exports =
       description: "the possible templates used for sending emails"
       type: 'object'
       entries: [ email ]
+      keys:
+        transport: emailTransport
     rule: rule
     controller: controller
     storage: storage
