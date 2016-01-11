@@ -344,7 +344,7 @@ getCommand = (data, cb) ->
       ]
     path: "#{os.tmpdir()}/#{process.title}-history"
     maxLength: 1000
-    next: (readline) =>
+    next: (readline) ->
       readline.on 'SIGINT', -> exit 130, new Error "Got SIGINT signal"
       console.log ''
       readline.question 'monitor> ', (line) ->

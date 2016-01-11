@@ -1,13 +1,17 @@
 chai = require 'chai'
 expect = chai.expect
 
-validator = require 'alinex-validator'
+config = require 'alinex-config'
 test = require '../sensor'
 Check = require '../../../src/check'
+sensor = null
 
-sensor = require '../../../src/sensor/database'
-
-before (cb) -> test.setup cb
+before (cb) ->
+  config.pushOrigin
+    uri: "#{__dirname}/../data/config/database.yml"
+  config.init ->
+    sensor = require '../../../src/sensor/database'
+    test.setup cb
 
 describe "Database sensor", ->
 

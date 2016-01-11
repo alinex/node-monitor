@@ -1,0 +1,21 @@
+# Database setup
+# =================================================
+
+# PostgreSQL Test database
+# -------------------------------------------------
+test-postgresql:
+
+  server:
+    type: postgresql
+    host: <<<env://POSTGRESQL_HOST | localhost>>>
+    #port: <<<env://POSTGRESQL_PORT | 5432>>>
+    database: <<<env://POSTGRESQL_DATABASE | test>>>
+    user: <<<env://POSTGRESQL_USER | test>>>
+    password: <<<env://POSTGRESQL_PASSWORD | test>>>
+    #ssl
+    #charset: UTF8_GENERAL_CI
+    #timezone: local
+    #connectTimeout: 10s
+
+  pool:
+    limit: 2
