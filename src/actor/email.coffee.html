@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>cpu.coffee</title>
+  <title>email.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/cpucoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/actor/emailcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -33,10 +33,19 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#check%20cpu%20core">Check cpu core</a>
+        <a href="#send%20an%20email">Send an email</a>
       </div>
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#general%20setup">General setup</a>
+      </div>
+      <div class="heading h2">
+        <a href="#initialization">Initialization</a>
+      </div>
+      <div class="heading h2">
+        <a href="#run%20the%20actor">Run the actor</a>
       </div>
       <div class="heading h2">
         <a href="#schema%20definition">Schema Definition</a>
@@ -64,35 +73,15 @@
   <tbody>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20cpu%20core">
+<div class="pilwrap" id="send%20an%20email">
   <h1>
-    <a href="#check%20cpu%20core" name="check%20cpu%20core" class="pilcrow">&#182;</a>
-    Check cpu core
+    <a href="#send%20an%20email" name="send%20an%20email" class="pilcrow">&#182;</a>
+    Send an email
   </h1>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
-</div>
-<p>Find the description of the possible configuration values and the returned
-values in the code below.</p>
-
-<p>This methods will be called in the context of the corresponding check()
-instance.</p>
-
-<p>The analysis part currently is based on debian linux.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-
-</pre></div>
         </td>
       </tr>
       <tr>
@@ -114,12 +103,14 @@ instance.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:cpu&#39;</span><span class="p">)</span>
+<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:actor:email&#39;</span><span class="p">)</span>
+<span class="nv">nodemailer = </span><span class="nx">require</span> <span class="s">&#39;nodemailer&#39;</span>
+<span class="nv">smtpTransport = </span><span class="nx">require</span> <span class="s">&#39;nodemailer-smtp-transport&#39;</span>
 
 </pre></div>
         </td>
@@ -127,15 +118,90 @@ instance.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 <span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="general%20setup">
+  <h2>
+    <a href="#general%20setup" name="general%20setup" class="pilcrow">&#182;</a>
+    General setup
+  </h2>
+</div>
+
+
+<p>will setup on init</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">transporter = </span><span class="kc">null</span>
+
+
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="initialization">
+  <h2>
+    <a href="#initialization" name="initialization" class="pilcrow">&#182;</a>
+    Initialization
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>create new mail transport</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">transporter = </span><span class="k">if</span> <span class="nv">setup = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor/email/transport&#39;</span>
+    <span class="nx">nodemailer</span><span class="p">.</span><span class="nx">createTransport</span> <span class="nx">smtpTransport</span> <span class="nx">setup</span>
+  <span class="k">else</span>
+    <span class="nx">nodemailer</span><span class="p">.</span><span class="nx">createTransport</span><span class="p">()</span>
+  <span class="nx">cb</span><span class="p">()</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20the%20actor">
+  <h2>
+    <a href="#run%20the%20actor" name="run%20the%20actor" class="pilcrow">&#182;</a>
+    Run the actor
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">exports.run = </span><span class="nf">-&gt;</span>
+
+
 
 
 
@@ -338,7 +404,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>run check</p>
         </td>
@@ -388,7 +454,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>cpu info values</p>
         </td>
@@ -408,7 +474,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>cpu load</p>
         </td>
@@ -429,7 +495,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>get percentage</p>
         </td>
@@ -450,7 +516,7 @@ You may use any of these in your warn/fail expressions.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>get min/max cpus</p>
         </td>

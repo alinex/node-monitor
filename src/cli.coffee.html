@@ -318,6 +318,19 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
+<p>parse data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">argv.json = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
 <p>implement some global switches</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -347,7 +360,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>exit without error</p>
         </td>
@@ -360,7 +373,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>exit with error</p>
         </td>
@@ -416,14 +429,14 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>direct command given to execute</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">args = </span><span class="nx">argv</span><span class="p">.</span><span class="nx">command</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>
     <span class="nv">args = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span> <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
-    <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./prompt&#39;</span><span class="p">).</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./prompt&#39;</span><span class="p">).</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="nx">exit</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">exit</span><span class="p">()</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">interactive</span>
@@ -434,12 +447,12 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>interactive console</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./prompt&#39;</span><span class="p">).</span><span class="nx">interactive</span> <span class="nx">conf</span>
+    <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./prompt&#39;</span><span class="p">).</span><span class="nx">interactive</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span>
   <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">daemon</span>
 
 </pre></div>
@@ -448,7 +461,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>daemon start</p>
         </td>
@@ -462,7 +475,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>run all once</p>
         </td>

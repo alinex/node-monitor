@@ -137,9 +137,6 @@
       <div class="heading h3">
         <a href="#ping">Ping</a>
       </div>
-      <div class="heading h2">
-        <a href="#ping%20localhost-%3E193.99.144.80">Ping localhost->193.99.144.80</a>
-      </div>
       <div class="heading h3">
         <a href="#configuration">Configuration</a>
       </div>
@@ -556,8 +553,9 @@ files. And maybe a storage database will be used.</p>
 </div>
 
 
-<p>You may start the interactive console by using the <code>-i</code> option. After that you
-will be greeted and may give the commands:</p>
+<p>You may start the interactive console by using the <code>-i</code> option. Additionally you
+can use <code>--json</code> to set some presettings with default for the later interactive
+call. After that you will be greeted and may give the commands:</p>
 
 
 <div class="highlight"><pre><code>&gt; monitor -i # or --interactive
@@ -627,6 +625,12 @@ monitor&gt;
 <p>Everything the controller/sensor/actor/explorer need is asked within or before
 starting the process.</p>
 
+<blockquote>
+  <p>The interactive console uses a file based history so use the arrow keys to
+  step in history. Also auto completion is often available try hitting the
+  <code>TAB</code> key.</p>
+</blockquote>
+
 
 <div class="pilwrap" id="using%20parameters">
   <h3>
@@ -665,6 +669,14 @@ directly you can send it as command using the options:</p>
 <p>If you run a command which needs optional parameters while running you have to
 give all of them on call as a json data object. Take the names from the interactive
 run displayed in front of the question.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">run</span> <span class="nx">sensor</span> <span class="nx">cpu</span> <span class="o">-</span><span class="nx">j</span> <span class="s1">&#39;{&quot;remote&quot;:&quot;localhost&quot;}&#39;</span>
+</code></pre></div>
+
+
+
+<p>This will run the cpu sensor on localhost server.</p>
 
 
 <div class="pilwrap" id="definitions">
@@ -1683,37 +1695,29 @@ as the response time and packet loss:</p>
 <li>fail - the javascript code to check for fail status (default: 'quality is 0')</li>
 </ul>
 
-<p>``` text</p>
 
+<div class="highlight"><pre><code>Ping localhost-&gt;193.99.144.80
+--------------------------------------------------------------------------------
 
-<div class="pilwrap" id="ping%20localhost-%3E193.99.144.80">
-  <h2>
-    <a href="#ping%20localhost-%3E193.99.144.80" name="ping%20localhost-%3E193.99.144.80" class="pilcrow">&#182;</a>
-    Ping localhost->193.99.144.80
-  </h2>
-</div>
+Test the reachability of a host in an IP network and measure the round-trip time
+for the messages send.
 
+::: info
+- __STATUS: ok__ at Thu Dec 24 2015 08:59:40 GMT+0100 (CET)
+:::
 
-<p>Test the reachability of a host in an IP network and measure the round-trip time
-for the messages send.</p>
+Last check results from Thu Dec 24 2015 08:59:40 GMT+0100 (CET) are:
 
-<p>::: info
-- <strong>STATUS: ok</strong> at Thu Dec 24 2015 08:59:40 GMT+0100 (CET)
-:::</p>
-
-<p>Last check results from Thu Dec 24 2015 08:59:40 GMT+0100 (CET) are:</p>
-
-<p style="font-family:monospace;white-space:pre">| NAME         | LABEL              |   VALUE |
+| NAME         | LABEL              |   VALUE |
 |:------------ |:------------------ | -------:|
 | responseTime | Avg. Response Time | 15.3 ms |
 | responseMin  | Min. Respons Time  | 15.3 ms |
 | responseMax  | Max. Response Time | 15.3 ms |
-| quality      | Quality            |   100 % |</p>
+| quality      | Quality            |   100 % |
 
-<p><strong>Result:</strong></p>
+__Result:__
 
-
-<div class="highlight"><pre><code>PING 193.99.144.80 (193.99.144.80) 56(84) bytes of data.
+PING 193.99.144.80 (193.99.144.80) 56(84) bytes of data.
 64 bytes from 193.99.144.80: icmp_seq=1 ttl=244 time=15.3 ms
 
 --- 193.99.144.80 ping statistics ---
@@ -2611,7 +2615,7 @@ if no config given</li>
 <li>fully working explorers</li>
 </ul>
 
-<p>After that a lot of bugfixes, smaller improvements and more sensors, actors and
+<p>After that a lot of bug fixes, smaller improvements and more sensors, actors and
 explorers will follow.</p>
 
 
@@ -2623,7 +2627,7 @@ explorers will follow.</p>
 </div>
 
 
-<p>Copyright 2015 Alexander Schilling</p>
+<p>Copyright 2015 - 2016 Alexander Schilling</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

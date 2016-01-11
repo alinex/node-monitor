@@ -157,7 +157,7 @@ the context of the check.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 <span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
 <span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
@@ -503,7 +503,7 @@ the context of the check.</p>
       <span class="nx">@sensor</span><span class="p">.</span><span class="nx">calc</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
         <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
         <span class="nx">@setStatus</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span> <span class="k">unless</span> <span class="nx">@databaseID</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@status</span> <span class="k">unless</span> <span class="nx">@databaseID</span>
 
 </pre></div>
         </td>
@@ -519,7 +519,7 @@ the context of the check.</p>
         <span class="nx">storage</span><span class="p">.</span><span class="nx">results</span> <span class="nx">@databaseID</span><span class="p">,</span> <span class="nx">@type</span><span class="p">,</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
         <span class="p">,</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">@values</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
           <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
-          <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span>
+          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@status</span>
 
 
 </pre></div>
@@ -793,9 +793,9 @@ verbose output</p>
     <span class="nv">boxtype =</span>
       <span class="nv">warn: </span><span class="s">&#39;warning&#39;</span>
       <span class="nv">fail: </span><span class="s">&#39;alert&#39;</span>
-    <span class="nv">list = </span><span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
-      <span class="s">&quot;__STATUS: </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="nx">list</span><span class="p">,</span> <span class="nx">boxtype</span><span class="p">[</span><span class="nx">@status</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;info&#39;</span>
+    <span class="k">if</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span>
+      <span class="nv">list = </span><span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+        <span class="s">&quot;__STATUS: </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"></span>
 
 </pre></div>
         </td>
@@ -805,13 +805,10 @@ verbose output</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
 </div>
-<p>table with max. last 3 values</p>
+<p>{if e.err then '\\n' + e.err else ''}"</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Last check results from </span><span class="si">#{</span><span class="nx">last</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> are:&quot;</span>
-    <span class="nv">data = </span><span class="p">[]</span>
-    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">of</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
-      <span class="k">continue</span> <span class="k">unless</span> <span class="nv">value = </span><span class="nx">last</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+<span class="s">      report.box list, boxtype[@status] ? &#39;info&#39;</span>
 
 </pre></div>
         </td>
@@ -821,12 +818,14 @@ verbose output</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
 </div>
-<p>support mappings from database sensor</p>
+<p>table with max. last 3 values</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="o">?</span>
-        <span class="nv">nconf = </span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">key</span>
-        <span class="nv">conf = </span><span class="nx">nconf</span> <span class="k">if</span> <span class="nx">nconf</span>
+<span class="s">    if @date.length</span>
+<span class="s">      report.p &quot;</span><span class="nx">Last</span> <span class="nx">check</span> <span class="nx">results</span> <span class="nx">from</span> <span class="c1">#{last.date[0]} are:&quot;</span>
+      <span class="nv">data = </span><span class="p">[]</span>
+      <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">of</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
+        <span class="k">continue</span> <span class="k">unless</span> <span class="nv">value = </span><span class="nx">last</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
 
 </pre></div>
         </td>
@@ -836,31 +835,12 @@ verbose output</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
 </div>
-<p>add rows</p>
+<p>support mappings from database sensor</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">value</span>
-        <span class="k">for</span> <span class="nx">k</span> <span class="k">of</span> <span class="nx">value</span>
-          <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span>
-          <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">][</span><span class="nx">k</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
-          <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
-      <span class="k">else</span>
-        <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="p">]</span>
-        <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
-        <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
-    <span class="nv">col =</span>
-      <span class="mi">0</span><span class="o">:</span>
-        <span class="nv">title: </span><span class="s">&#39;NAME&#39;</span>
-      <span class="mi">1</span><span class="o">:</span>
-        <span class="nv">title: </span><span class="s">&#39;LABEL&#39;</span>
-      <span class="mi">2</span><span class="o">:</span>
-        <span class="nv">title: </span><span class="s">&#39;VALUE&#39;</span>
-        <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
-    <span class="k">if</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
-      <span class="nv">num = </span><span class="mi">2</span>
-      <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">2</span><span class="p">]</span>
-        <span class="nx">col</span><span class="p">[</span><span class="o">++</span><span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="s">&#39;PREVIOUS&#39;</span><span class="p">,</span> <span class="nv">align: </span><span class="s">&#39;right&#39;</span><span class="p">}</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">col</span>
+        <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="o">?</span>
+          <span class="nv">nconf = </span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">key</span>
+          <span class="nv">conf = </span><span class="nx">nconf</span> <span class="k">if</span> <span class="nx">nconf</span>
 
 </pre></div>
         </td>
@@ -869,6 +849,40 @@ verbose output</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+</div>
+<p>add rows</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">if</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">value</span>
+          <span class="k">for</span> <span class="nx">k</span> <span class="k">of</span> <span class="nx">value</span>
+            <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span>
+            <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">][</span><span class="nx">k</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
+            <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
+        <span class="k">else</span>
+          <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="p">]</span>
+          <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
+          <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
+      <span class="nv">col =</span>
+        <span class="mi">0</span><span class="o">:</span>
+          <span class="nv">title: </span><span class="s">&#39;NAME&#39;</span>
+        <span class="mi">1</span><span class="o">:</span>
+          <span class="nv">title: </span><span class="s">&#39;LABEL&#39;</span>
+        <span class="mi">2</span><span class="o">:</span>
+          <span class="nv">title: </span><span class="s">&#39;VALUE&#39;</span>
+          <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
+      <span class="k">if</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="nv">num = </span><span class="mi">2</span>
+        <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">2</span><span class="p">]</span>
+          <span class="nx">col</span><span class="p">[</span><span class="o">++</span><span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="s">&#39;PREVIOUS&#39;</span><span class="p">,</span> <span class="nv">align: </span><span class="s">&#39;right&#39;</span><span class="p">}</span>
+      <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">col</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
 </div>
 <p>special report details</p>
         </td>
@@ -882,7 +896,7 @@ verbose output</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
 </div>
 <p>additional hints</p>
         </td>
@@ -898,14 +912,17 @@ verbose output</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
 </div>
 <p>configuration</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">report</span><span class="p">.</span><span class="nx">h3</span> <span class="s">&#39;Configuration&#39;</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The </span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s"> sensor is configured with:&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">@conf</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;CONFIGURATION SETTING&#39;</span><span class="p">,</span> <span class="s">&#39;VALUE&#39;</span><span class="p">]</span>
+    <span class="nv">c = </span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">keys</span>
+      <span class="nx">c</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@conf</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;---&#39;</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">c</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;CONFIGURATION SETTING&#39;</span><span class="p">,</span> <span class="s">&#39;VALUE&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="nx">report</span>
 
 
@@ -955,7 +972,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
+  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
 </div>
 <p>it's an regular expression</p>
         </td>
@@ -1013,7 +1030,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-52" id="section-52">&#182;</a>
+  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
 </div>
 <p>format with autodetect</p>
         </td>
@@ -1033,7 +1050,7 @@ the full match.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
+  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
 </div>
 <p>format using config setting</p>
         </td>

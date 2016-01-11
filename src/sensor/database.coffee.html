@@ -139,6 +139,7 @@ instance.</p>
 <p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 <span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
 <span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
 
@@ -174,6 +175,7 @@ compatible schema definition:</p>
       <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the reference to the database setting in config/database&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/database&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
     <span class="nv">query:</span>
       <span class="nv">title: </span><span class="s">&quot;Query&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the query to run to retrieve the measurement result&quot;</span>
@@ -288,11 +290,11 @@ You may use any of these in your warn/fail expressions.</p>
   <span class="nx">exports</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="s">&quot;text</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span> <span class="o">=</span>
     <span class="nv">title: </span><span class="s">&quot;text-</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">description: </span><span class="s">&quot;the text value </span><span class="err">#</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
+    <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
   <span class="nx">exports</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="s">&quot;date</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span> <span class="o">=</span>
     <span class="nv">title: </span><span class="s">&quot;date-</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">description: </span><span class="s">&quot;the date value </span><span class="err">#</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
+    <span class="nv">type: </span><span class="s">&#39;date&#39;</span>
 
 
 

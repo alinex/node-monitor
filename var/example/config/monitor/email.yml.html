@@ -57,7 +57,46 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight"><div class="highlight"><pre><span class="l-Scalar-Plain">transport</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>the port to connect to (defaults to 25 or 465)
+port:
+the hostname or IP address to connect to (defaults to 'localhost')
+host:
+defines if the connection should use SSL (if true) or not (if false)
+secure:
+defines authentication data (see authentication section below)
+auth:
+ user:
+ pass:
+turns off STARTTLS support if true
+ignoreTLS:
+optional hostname of the client, used for identifying to the server
+name:
+is the local interface to bind to for network connections
+localAddress:
+how many milliseconds to wait for the connection to establish
+connectionTimeout:
+how many milliseconds to wait for the greeting after connection is established
+greetingTimeout:
+how many milliseconds of inactivity to allow
+socketTimeout:
+defines preferred authentication method, eg. 'PLAIN'
+authMethod:</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+
+</pre></div>
         </td>
       </tr>
       <tr>
@@ -80,7 +119,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>already defined, so only set the 'To' address here.</p>
         </td>

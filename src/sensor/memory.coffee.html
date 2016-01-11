@@ -132,6 +132,7 @@ instance.</p>
 <p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 <span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 
 
@@ -170,6 +171,7 @@ compatible schema definition:</p>
       <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/exec/remote/server&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
     <span class="nv">warn:</span>
       <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>

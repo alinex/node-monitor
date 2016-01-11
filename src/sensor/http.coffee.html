@@ -180,6 +180,7 @@ compatible schema definition:</p>
       <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/exec/remote/server&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
     <span class="nv">url:</span>
       <span class="nv">title: </span><span class="s">&quot;URL&quot;</span>
       <span class="nv">description: </span><span class="s">&quot;the URL to request&quot;</span>
@@ -455,12 +456,12 @@ You may use any of these in your warn/fail expressions.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">exports.report = </span><span class="nf">-&gt;</span>
   <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-  <span class="k">if</span> <span class="nv">request = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">request</span>
+  <span class="k">if</span> <span class="nv">req = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">request</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Request:&quot;</span>
-    <span class="nv">text = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">request</span><span class="p">.</span><span class="nx">method</span> <span class="o">?</span> <span class="s">&#39;GET&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">if</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span>
-      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n\n&quot;</span> <span class="o">+</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
-        <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">text = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span> <span class="o">?</span> <span class="s">&#39;GET&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="k">if</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span>
+      <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot;\n\n&quot;</span> <span class="o">+</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
+        <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="nx">e</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
     <span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">text</span><span class="p">,</span> <span class="s">&#39;text&#39;</span>
   <span class="nv">bodyType = </span><span class="s">&#39;text&#39;</span>

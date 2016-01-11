@@ -39,6 +39,9 @@
         <a href="#contacts">Contacts</a>
       </div>
       <div class="heading h2">
+        <a href="#email%20transport%20settings">Email Transport settings</a>
+      </div>
+      <div class="heading h2">
         <a href="#email%20templates">Email Templates</a>
       </div>
       <div class="heading h2">
@@ -137,6 +140,91 @@
             <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
     <span class="p">]</span>
   <span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="email%20transport%20settings">
+  <h2>
+    <a href="#email%20transport%20settings" name="email%20transport%20settings" class="pilcrow">&#182;</a>
+    Email Transport settings
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nv">emailTransport =</span>
+  <span class="nv">title: </span><span class="s">&quot;Email Transport&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the setup to connect to a SMTP server&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">port:</span>
+      <span class="nv">name: </span><span class="s">&quot;Port&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the port to connect to (defaults to 25 or 465)&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
+    <span class="nv">host:</span>
+      <span class="nv">name: </span><span class="s">&quot;Hostname&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the hostname or IP address to connect to (defaults to &#39;localhost&#39;)&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
+    <span class="nv">secure:</span>
+      <span class="nv">name: </span><span class="s">&quot;Use SSL&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;a flag indicating the connection should use SSL&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+    <span class="nv">auth:</span>
+      <span class="nv">name: </span><span class="s">&quot;Authentication&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the authentication data to use&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">user:</span>
+          <span class="nv">name: </span><span class="s">&quot;Username&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the username to log in&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">pass:</span>
+          <span class="nv">name: </span><span class="s">&quot;Password&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the password for the username&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+    <span class="nv">ignoreTLS:</span>
+      <span class="nv">name: </span><span class="s">&quot;No STARTTLS&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;a flag to turn off STARTTLS support if true&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+    <span class="nv">name:</span>
+      <span class="nv">name: </span><span class="s">&quot;Client Hostname&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;an optional hostname of the client, used for identifying to the server&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+    <span class="nv">localAddress:</span>
+      <span class="nv">name: </span><span class="s">&quot;localAddress&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the local interface to bind to for network connections&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
+
+    <span class="nv">connectionTimeout:</span>
+      <span class="nv">name: </span><span class="s">&quot;Connection Timeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds to wait for the connection to establish&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+    <span class="nv">greetingTimeout:</span>
+      <span class="nv">name: </span><span class="s">&quot;Greeting Timeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds to wait for the greeting after connection</span>
+<span class="s">      is established&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+    <span class="nv">socketTimeout:</span>
+      <span class="nv">name: </span><span class="s">&quot;Socket Timeout&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds of inactivity to allow&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+    <span class="nv">authMethod:</span>
+      <span class="nv">name: </span><span class="s">&quot;Authentication&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;defines preferred authentication method, eg. &#39;PLAIN&#39;&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;PLAIN&#39;</span><span class="p">]</span>
+
 
 
 </pre></div>
@@ -335,7 +423,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>wenn combine = 'average' ->
 if:
@@ -563,6 +651,8 @@ if:
       <span class="nv">description: </span><span class="s">&quot;the possible templates used for sending emails&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
       <span class="nv">entries: </span><span class="p">[</span> <span class="nx">email</span> <span class="p">]</span>
+      <span class="nv">keys:</span>
+        <span class="nv">transport: </span><span class="nx">emailTransport</span>
     <span class="nv">rule: </span><span class="nx">rule</span>
     <span class="nv">controller: </span><span class="nx">controller</span>
     <span class="nv">storage: </span><span class="nx">storage</span>

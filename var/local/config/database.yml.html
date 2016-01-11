@@ -36,9 +36,6 @@
         <a href="#database%20setup">Database setup</a>
       </div>
       <div class="heading h2">
-        <a href="#database%20for%20monitor%20results">Database for Monitor Results</a>
-      </div>
-      <div class="heading h2">
         <a href="#postgresql%20test%20database">PostgreSQL Test database</a>
       </div>
     </div>
@@ -58,42 +55,6 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="database%20for%20monitor%20results">
-  <h2>
-    <a href="#database%20for%20monitor%20results" name="database%20for%20monitor%20results" class="pilcrow">&#182;</a>
-    Database for Monitor Results
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="l-Scalar-Plain">test_monitor</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql</span>
-    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
-    <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb_monitor</span>
-    <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb_monitor</span>
-    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb_monitor</span>
-  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">limit</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
-
-<span class="l-Scalar-Plain">dvb_monitor</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql</span>
-    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">192.168.100.202</span>
-    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">5433</span>
-    <span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb_monitor</span>
-    <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dvb_monitor</span>
-    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">k5bN0TJDAJGiw</span>
-  <span class="l-Scalar-Plain">pool</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">limit</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
-
-
-</pre></div>
         </td>
       </tr>
       <tr>
@@ -119,7 +80,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
 <p>port: &lt;&lt;<env://POSTGRESQL_PORT | 5432>>></p>
         </td>
@@ -134,7 +95,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>ssl
 charset: UTF8_GENERAL_CI
