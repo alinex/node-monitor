@@ -4,6 +4,34 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.4 (2016-01-11)
+-------------------------------------------------
+- Allow more time in database test.
+- Added configuration for database test.
+- Start designing the actors.
+- Analyze rule definition in controller.
+- Document interactive flag.
+- Remove old code for running checks without dependencies.
+- Fix to run also without configured remote server or database.
+- Support completion in all sensors.
+- Update documentation.
+- Also support --json setting for defaults in interactive mode.
+- Use completer in ask with list values.
+- Add support for history in interactive console and separate ask mode.
+- Validate user input with multiple retries and detailed error output.
+- Run sensor through interactive mode and ask for settings.
+- Optimize two line status display in html.
+- Support json oprion on cli for direct sensor call.
+- Optimize status box in sensor report.
+- Display sensor setup.
+- Fixed set command and its help in interactive console.
+- Updated copyright.
+- Allow tests to not get direct error returned from sensors.
+- Fixed return values to not break on sensor if warn or fail.
+- Fixed data type for database sensor storage.
+- Fixed bug which overloaded request library after first use.
+- Automatically create all missing database objects on startup.
+
 Version 1.0.3 (2015-12-30)
 -------------------------------------------------
 - Allow all tests to run.
