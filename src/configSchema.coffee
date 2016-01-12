@@ -100,7 +100,6 @@ emailTransport =
       name: "localAddress"
       description: "the local interface to bind to for network connections"
       type: 'ipaddr'
-
     connectionTimeout:
       name: "Connection Timeout"
       description: "the timeout in milliseconds to wait for the connection to establish"
