@@ -38,6 +38,16 @@ exports.init = (cb) ->
 exports.run = ->
 
 
+# to
+# cc
+# bcc
+# from
+# replyTo
+# subject
+# priority
+# report
+# text
+# html
 
 
 # Schema Definition
