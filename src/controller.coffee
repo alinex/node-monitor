@@ -134,7 +134,7 @@ class Controller extends EventEmitter
         report = @report()
         if mode.verbose > 2
           console.error "\n#{report.toConsole()}\n"
-        @rules()
+#        @rules()
         @emit 'result', this
         cb null, @status
 
