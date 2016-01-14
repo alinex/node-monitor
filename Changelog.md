@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.5 (2016-01-14)
+-------------------------------------------------
+- Update nodemailer to new major version 2.0.
+- Added better checks for valid remote exec result.
+- Merge branch 'master' of https://github.com/alinex/node-monitor
+- Template for email actor setup.
+- Added comment for better error control in freemem.
+- Disable rules.
+
 Version 1.0.4 (2016-01-11)
 -------------------------------------------------
 - Allow more time in database test.
