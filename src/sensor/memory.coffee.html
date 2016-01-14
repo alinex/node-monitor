@@ -347,6 +347,9 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="nv">cmd: </span><span class="s">&#39;cat&#39;</span>
     <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;/proc/meminfo&#39;</span><span class="p">]</span>
     <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
+    <span class="nv">check:</span>
+      <span class="nv">matchStdout:</span>
+        <span class="nv">args: </span><span class="sr">/MemTotal/</span>
   <span class="p">,</span> <span class="nx">cb</span>
 
 
