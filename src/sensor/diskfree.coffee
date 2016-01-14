@@ -140,6 +140,7 @@ exports.run = (cb) ->
     timeout: @conf.timeout
     check:
       noExitCode: true
+      stdout: true
   , cb
 
 

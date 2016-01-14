@@ -149,8 +149,9 @@ exports.run = (cb) ->
     cmd: 'cat'
     args: ['/proc/meminfo']
     priority: 'immediately'
-#    check:
-#      matchStdout: /MemTotal/
+    check:
+      matchStdout:
+        args: /MemTotal/
   , cb
 
 
