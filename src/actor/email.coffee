@@ -9,6 +9,7 @@
 exports.debug = debug = require('debug')('monitor:actor:email')
 chalk = require 'chalk'
 nodemailer = require 'nodemailer'
+inlineBase64 = require 'nodemailer-plugin-inline-base64'
 # include alinex modules
 config = require 'alinex-config'
 {string} = require 'alinex-util'
@@ -49,16 +50,22 @@ util = require 'util'
 # -------------------------------------------------
 exports.run = (setup, cb) ->
   debug "sending email to..."
-
-  transporter = nodemailer.createTransport setup.transport
+  # setup transporter
+  transporter = nodemailer.createTransport setup.transport ? 'direct:?name=hostname'
+  transporter.use 'compile', inlineBase64
+  # configure email
+  email = object.clone setup
+  delete email.transport if email.transport?
+  for f in ['to', 'cc', 'bcc']
+    email[f] = email[f].join ', ' if Array.isArray email[f]
+  if email.report
+    email.text = report.toText()
+    email.html = report.toHtml()
+    email.subject ?= email.html.match(/<title>([\s\S]*?)</title>/)[1]
+    delete email.report
+  # try to send email
   transporter.sendMail
-    from: 'alexander.schilling@divibib.com'
-    to: 'alexander.schilling@divibib.com'
-    # cc
-    # bcc
-    # replyTo
-    subject: 'Testmail from Alinex Monitor'
-    text: 'Hello World'
+    email
   , (err, info) ->
     if err
       if err.errors
