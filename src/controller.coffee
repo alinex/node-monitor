@@ -19,6 +19,7 @@ Report = require 'alinex-report'
 # include classes and helpers
 storage = require './storage'
 Check = require './check'
+rules = require './rules'
 
 
 # Configuration
@@ -48,6 +49,7 @@ class Controller extends EventEmitter
     # set on initialization
     @queue = {}
     @alias = {} # name reference to check
+    @ruledata = null
     # Data storage with last results
     @status = 'disabled' # Last status
     @date = null # last run
@@ -55,10 +57,6 @@ class Controller extends EventEmitter
     # last results
     @history = []
     @changed = 0
-    @ruledata =
-      count: 0
-      date: @date
-      action: {}
 
 
   # ### Initialize
@@ -90,6 +88,8 @@ class Controller extends EventEmitter
             @queue[@check[num].conf.name ? num] = args
           else
             @queue[check.conf.name ? num] =  check.run.bind check
+        # initialize rules
+        rules.init.call this
         debug "#{chalk.grey @name} Initialized controller"
         cb()
 
@@ -137,7 +137,7 @@ class Controller extends EventEmitter
         report = @report()
         if mode.verbose > 2
           console.error "\n#{report.toConsole()}\n"
-        @rules()
+        rules.run.call this
         @emit 'result', this
         cb null, @status
 
@@ -209,49 +209,6 @@ class Controller extends EventEmitter
     report.add check.report() for check in @check
     # return result
     report
-
-
-  # Run rules
-  # -------------------------------------------------
-  rules: ->
-    if @changed
-      @ruledata =
-        count: 0
-        date: @date
-        action: {}
-    @ruledata.count++
-    rules = config.get '/monitor/rule'
-    for name in @conf.rule
-      # check that rule is defined
-      continue unless rule = rules[name]
-      # only work on specific status
-      continue unless rule.status is @status
-      # number of minimum attempts (controller runs) before informing.
-      continue if rule.attempt and @ruledata.count < rule.attempt
-      # time (in seconds) to wait before informing.
-      if rule.latency
-        continue if new Date() < moment(@ruledata.date).add(rule.latency, 'seconds').toDate()
-      # if already done and not in redo time
-      if @ruledata.action[name]?
-        # Timeout (in seconds) without status change before informing again.
-        if rule.redo
-          continue if new Date() < moment(@ruledata.action[name]).add(rule.redo, 'seconds').toDate()
-      # if ok, not changed and action is empty
-      continue if not @changed and @status is 'ok' and Object.keys(@ruledata.action).length is 0
-      # run rules
-      @ruledata.action[name] = new Date()
-      @ruleType[type]? name, rule for type of @ruleType
-
-
-  # Run specific rule
-  # -------------------------------------------------
-  ruleType:
-    email: (name, rule) ->
-      console.log '==> email =>', name, rule
-      # call actor with all data
-
-
-
 
 
   # Helper to colorize output
