@@ -3,21 +3,19 @@
 
 transport:
   # the hostname or IP address to connect to (defaults to 'localhost')
-  #host:
+  host: mail.divibib.com
   # the port to connect to (defaults to 25 or 465)
-  #port:
+  port: 143
+  # defines authentication data (see authentication section below)
+  auth:
+    user: alexander.schilling@divibib.com
+    pass: <<<env://PW_ALEX_DIVIBIB_COM>>>
   # defines if the connection should use SSL (if true) or not (if false)
   #secure:
   # turns off STARTTLS support if true
   #ignoreTLS:
-  # defines authentication data (see authentication section below)
-  #auth:
-  #  user:
-  #  pass:
-  # defines preferred authentication method, eg. 'PLAIN'
-  #authMethod:
   # optional hostname of the client, used for identifying to the server
-  #name:
+  name: mail.divibib.com
   # is the local interface to bind to for network connections
   #localAddress:
   # how many milliseconds to wait for the connection to establish
@@ -26,6 +24,8 @@ transport:
   #greetingTimeout:
   # how many milliseconds of inactivity to allow
   #socketTimeout:
+  # defines preferred authentication method, eg. 'PLAIN'
+  #authMethod:
 
 
 # Default (extended)

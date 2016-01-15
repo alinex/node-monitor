@@ -1,6 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 
+
 config = require 'alinex-config'
 test = require '../sensor'
 Check = require '../../../src/check'

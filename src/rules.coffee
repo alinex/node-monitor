@@ -77,4 +77,3 @@ actors =
   email: (name, rule) ->
     console.log '==> email =>', name, rule
     # call actor with all data
-
