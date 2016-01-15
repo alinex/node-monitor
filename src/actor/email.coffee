@@ -18,38 +18,39 @@ util = require 'util'
 # General setup
 # -------------------------------------------------
 # will setup on init
-transporter = null
+#transporter = null
 
 
 # Initialization
 # -------------------------------------------------
-exports.init = (cb) ->
-  debug "init email actor"
-
-  transporter = nodemailer.createTransport 'smtp://alexander.schilling%40divibib.com:12errors@\
-    mail.divibib.com'
-  return cb()
-
-  # create new mail transport
-  if setup = config.get '/monitor/email/transport'
-
-    setup.debug = true
-    setup.logger = true
-    if setup.type is 'smtp'
-      smtpTransport = require 'nodemailer-smtp-transport'
-      transporter = nodemailer.createTransport smtpTransport setup
-    else
-      transporter = null
-  else
-    transporter = nodemailer.createTransport()
-  cb()
+#exports.init = (cb) ->
+#  debug "init email actor"
+#
+#  transporter = nodemailer.createTransport 'smtp://alexander.schilling%40divibib.com:12errors@\
+#    mail.divibib.com'
+#  return cb()
+#
+#  # create new mail transport
+#  if setup = config.get '/monitor/email/transport'
+#
+#    setup.debug = true
+#    setup.logger = true
+#    if setup.type is 'smtp'
+#      smtpTransport = require 'nodemailer-smtp-transport'
+#      transporter = nodemailer.createTransport smtpTransport setup
+#    else
+#      transporter = null
+#  else
+#    transporter = nodemailer.createTransport()
+#  cb()
 
 
 # Run the actor
 # -------------------------------------------------
-exports.run = (cb) ->
+exports.run = (setup, cb) ->
   debug "sending email to..."
-#  transporter = nodemailer.createTransport ''
+
+  transporter = nodemailer.createTransport setup.transport
   transporter.sendMail
     from: 'alexander.schilling@divibib.com'
     to: 'alexander.schilling@divibib.com'
@@ -65,7 +66,8 @@ exports.run = (cb) ->
       else
         debug chalk.red err.message
     if info
-      debug info
+      debug "message send to"
+      debug chalk.grey util.inspect(info).replace /\s+/, ''
     cb err?.errors?[0] ? err ? null
 
 # priority
