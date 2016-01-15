@@ -8,7 +8,7 @@ Check = require '../../../src/check'
 sensor = null
 
 before (cb) ->
-  @timeout 5000
+  @timeout 10000
   config.pushOrigin
     uri: "#{__dirname}/../data/config/database.yml"
   config.init ->

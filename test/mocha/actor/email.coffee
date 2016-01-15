@@ -9,7 +9,7 @@ config = require 'alinex-config'
 actor = require '../../../src/actor/email'
 
 before (cb) ->
-  @timeout 5000
+  @timeout 10000
   config.pushOrigin
     uri: "#{__dirname}/../data/config/monitor/email.yml"
   cb()
@@ -17,11 +17,6 @@ before (cb) ->
 describe.only "Email actor", ->
 
   describe "simple mail", ->
-
-    it "should initialize", (cb) ->
-      actor.init (err) ->
-        expect(err, 'error').to.not.exist
-        cb()
 
     it "should send email", (cb) ->
       actor.run (err) ->
