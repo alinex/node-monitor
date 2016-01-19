@@ -12,7 +12,7 @@ nodemailer = require 'nodemailer'
 inlineBase64 = require 'nodemailer-plugin-inline-base64'
 # include alinex modules
 config = require 'alinex-config'
-{string} = require 'alinex-util'
+{string, object} = require 'alinex-util'
 
 util = require 'util'
 
@@ -61,12 +61,10 @@ exports.run = (setup, cb) ->
   if email.report
     email.text = report.toText()
     email.html = report.toHtml()
-    email.subject ?= email.html.match(/<title>([\s\S]*?)</title>/)[1]
+    email.subject ?= email.html.match(/<title>([\s\S]*?)<\/title>/)[1]
     delete email.report
   # try to send email
-  transporter.sendMail
-    email
-  , (err, info) ->
+  transporter.sendMail email, (err, info) ->
     if err
       if err.errors
         debug chalk.red e.message for e in err.errors
