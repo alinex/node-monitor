@@ -48,7 +48,7 @@ util = require 'util'
 
 # Run the actor
 # -------------------------------------------------
-exports.run = (setup, data, cb) ->
+exports.run = (setup, context, cb) ->
   # configure email
   email = object.clone setup
   # use base settings
