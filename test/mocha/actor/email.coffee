@@ -11,7 +11,8 @@ actor = require '../../../src/actor/email'
 before (cb) ->
   @timeout 10000
   config.pushOrigin
-    uri: "#{__dirname}/../data/config/monitor/email.yml"
+    uri: "#{__dirname}/../../data/config/monitor/email.yml"
+    path: 'monitor'
   cb()
 
 describe.only "Email actor", ->
@@ -19,15 +20,10 @@ describe.only "Email actor", ->
   describe "simple mail", ->
 
     it "should send email", (cb) ->
+      console.log config.get '/'
       actor.run
-        transport: 'smtp://alexander.schilling%40divibib.com:<<<env://PW_ALEX_DIVIBIB_COM>>>@mail.divibib.com'
-        from: 'alexander.schilling@divibib.com'
-        to: 'alexander.schilling@divibib.com'
-        # cc
-        # bcc
-        # replyTo
-        subject: 'Testmail from Alinex Monitor'
-        text: 'Hello World'
-      , (err) ->
+        base: 'default'
+        from: 'monitor'
+      , null, (err) ->
         expect(err, 'error').to.not.exist
         cb()

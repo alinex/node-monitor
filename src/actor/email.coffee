@@ -11,8 +11,8 @@ chalk = require 'chalk'
 nodemailer = require 'nodemailer'
 inlineBase64 = require 'nodemailer-plugin-inline-base64'
 # include alinex modules
+{object, array} = require 'alinex-util'
 config = require 'alinex-config'
-{string, object} = require 'alinex-util'
 
 util = require 'util'
 
@@ -48,19 +48,48 @@ util = require 'util'
 
 # Run the actor
 # -------------------------------------------------
-exports.run = (setup, cb) ->
-  debug "sending email to..."
+exports.run = (setup, data, cb) ->
+  # configure email
+  email = object.clone setup
+  # use base settings
+  while email.base
+    base = config.get "/monitor/email/#{email.base}"
+    delete email.base
+    email = object.extend base, email
+  # resolve contacts
+  resolve = (list) ->
+    return null unless list
+    list = [list] if typeof list is 'string'
+    list = array.unique(list).map (e) ->
+      contact = config.get "/monitor/contact/#{e}"
+      return e unless contact
+      return resolve switch
+        when Array.isArray contact then contact
+        when contact.email and contact.name
+          "\"#{contact.name}\" <#{contact.email}>"
+        when contact.email then contact.email
+        else null
+    return list unless Array.isArray list[0]
+    # make a shallow list
+    shallow = []
+    for e in list
+      shallow = shallow.concat e
+    array.unique shallow
+  # run resolve for all address fields
+  for f in ['from', 'to', 'cc', 'bcc']
+    email[f] = resolve email[f]
+    delete email[f] unless email[f]?
+  # single address fields
+  email[f] = email[f][0] for f in ['from']
+  console.log email
+  debug "sending email to #{email.to?.join ', '}..."
   # setup transporter
   transporter = nodemailer.createTransport setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
-  # configure email
-  email = object.clone setup
   delete email.transport if email.transport?
-  for f in ['to', 'cc', 'bcc']
-    email[f] = email[f].join ', ' if Array.isArray email[f]
   if email.report
-    email.text = report.toText()
-    email.html = report.toHtml()
+    email.text = email.report.toText()
+    email.html = email.report.toHtml()
     email.subject ?= email.html.match(/<title>([\s\S]*?)<\/title>/)[1]
     delete email.report
   # try to send email

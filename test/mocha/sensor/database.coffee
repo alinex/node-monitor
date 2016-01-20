@@ -10,7 +10,7 @@ sensor = null
 before (cb) ->
   @timeout 10000
   config.pushOrigin
-    uri: "#{__dirname}/../data/config/database.yml"
+    uri: "#{__dirname}/../../data/config/database.yml"
   config.init ->
     sensor = require '../../../src/sensor/database'
     test.setup cb
