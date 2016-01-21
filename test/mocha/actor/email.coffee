@@ -1,10 +1,10 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
+test = require '../actor'
+Action = require '../../../src/action'
 config = require 'alinex-config'
-#test = require '../sensor'
-#Check = require '../../../src/check'
 
 actor = require '../../../src/actor/email'
 
@@ -16,6 +16,24 @@ before (cb) ->
   cb()
 
 describe.only "Email actor", ->
+
+  describe "definition", ->
+
+    it "should has actor instance loaded", (cb) ->
+      expect(actor, 'actor instance').to.exist
+      cb()
+
+    it "should has correct validator rules", (cb) ->
+      test.schema actor, cb
+
+    it "should has meta data", (cb) ->
+      test.meta actor, cb
+
+    it "should has api methods", (cb) ->
+      expect(test.init, 'init').to.exist
+      expect(test.init, 'run').to.exist
+      cb()
+
 
   describe "simple mail", ->
 

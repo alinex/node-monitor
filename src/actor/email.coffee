@@ -1,6 +1,12 @@
 # Send an email
 # =================================================
 
+# Find the description of the possible configuration values and the returned
+# values in the code below.
+#
+# This methods will be called in the context of the corresponding action()
+# instance.
+
 
 # Node Modules
 # -------------------------------------------------
@@ -93,6 +99,10 @@ exports.run = (setup, data, cb) ->
     email.subject ?= email.html.match(/<title>([\s\S]*?)<\/title>/)[1]
     delete email.report
   # try to send email
+  ################################################################################
+  # PREVENT EMAIL sending
+  ################################################################################
+  return cb()
   transporter.sendMail email, (err, info) ->
     if err
       if err.errors
