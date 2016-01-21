@@ -16,11 +16,6 @@ config = require 'alinex-config'
 # include classes and helpers
 
 
-# Configuration
-# -------------------------------------------------
-HISTORY_LENGTH = 5
-
-
 # Initialized Data
 # -------------------------------------------------
 # This will be set on init
@@ -29,6 +24,7 @@ monitor = null  # require './index'
 
 # Initialize rule data
 # -------------------------------------------------
+# This will be called after controller is initialized.
 exports.init = ->
   monitor ?= require './index'
   @ruledata =

@@ -13,12 +13,10 @@ exports.setup = (cb) ->
 # action some general things
 
 exports.schema = (actor, cb) ->
-  for field in ['keys.warn', 'keys.fail']
-    expect(actor.schema, field).to.have.deep.property field
-  validator.selfaction actor.schema, cb
+  validator.selfcheck actor.schema, cb
 
 exports.meta = (actor, cb) ->
-  for field in ['title', 'description', 'category', 'values']
+  for field in ['title', 'description', 'values']
     expect(actor.meta, field).to.have.deep.property field
   for name, val of actor.meta.values
     for field in ['title', 'description', 'type']

@@ -6,9 +6,7 @@
 
 # include base modules
 debug = require('debug')('monitor:controller')
-debugSensor = require('debug')('monitor:sensor')
 chalk = require 'chalk'
-util = require 'util'
 EventEmitter = require('events').EventEmitter
 moment = require 'moment'
 # include alinex modules

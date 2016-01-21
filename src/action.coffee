@@ -90,11 +90,13 @@ class Action extends EventEmitter
           @actor.debug "#{chalk.grey @name} Initialized"
           return cb() unless @controller?
           # only add database entry if run below controller
-          storage.check @controller.databaseID, @type, @name, @actor.meta.category
-          , (err, checkID) =>
-            return cb err if err
-            @databaseID = checkID
-            cb()
+          # TODO enable storage
+          cb()
+#          storage.action @controller.databaseID, @type, @name
+#          , (err, actionID) =>
+#            return cb err if err
+#            @databaseID = checkID
+#            cb()
 
   # ### Run one actor check
   run: (cb) ->

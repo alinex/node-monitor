@@ -16,40 +16,138 @@ exports.debug = debug = require('debug')('monitor:actor:email')
 chalk = require 'chalk'
 nodemailer = require 'nodemailer'
 inlineBase64 = require 'nodemailer-plugin-inline-base64'
+util = require 'util'
 # include alinex modules
 {object, array} = require 'alinex-util'
 config = require 'alinex-config'
+Report = require 'alinex-report'
 
-util = require 'util'
 
-# General setup
+# Schema Definition
 # -------------------------------------------------
-# will setup on init
-#transporter = null
+# This is used as configuration specification and to add the default values for
+# specific setting.
+#
+# It's an [alinex-validator](http://alinex.githhub.io/node-validator)
+# compatible schema definition:
+exports.schema =
+  title: "Email Configuration"
+  description: "the configuration to send an email"
+  type: 'object'
+  default:
+    warn: 'active >= 100%'
+  allowedKeys: true
+  keys:
+    base:
+      title: "Base Settings"
+      description: "a reference to the base under /monitor/email"
+      type: 'string'
+      optional: true
+    transport:
+      title: "Server Setup"
+      description: "the transport settings for the server"
+      type: 'or'
+      or: [
+        type: 'string'
+      ,
+        type: 'object'
+      ]
+      optional: true
+    from:
+      title: "Sender's Address"
+      description: "the address of the sender"
+      type: 'string'
+      optional: true
+    to:
+      title: "Receipient"
+      description: "the address to send email to"
+      type: 'array'
+      toArray: true
+      entries: [
+        type: 'string'
+      ]
+      optional: true
+    cc:
+      title: "Carbon Copy"
+      description: "the carbon copy address to send email to"
+      type: 'array'
+      toArray: true
+      entries: [
+        type: 'string'
+      ]
+      optional: true
+    bcc:
+      title: "Blind Carbon Copy"
+      description: "the blind carbon copy address to send email to"
+      type: 'array'
+      toArray: true
+      entries: [
+        type: 'string'
+      ]
+      optional: true
+    subject:
+      title: "Subject"
+      description: "the title of the message, defaults to body title text"
+      type: 'or'
+      or: [
+        type: 'handlebars'
+      ,
+        type: 'string'
+      ]
+      optional: true
+    text:
+      title: ""
+      description: ""
+      type: 'or'
+      or: [
+        type: 'handlebars'
+      ,
+        type: 'string'
+      ]
+      optional: true
+    html:
+      title: ""
+      description: ""
+      type: 'or'
+      or: [
+        type: 'handlebars'
+      ,
+        type: 'string'
+      ]
+      optional: true
+    report:
+      title: ""
+      description: ""
+      type: 'object'
+      instanceOf: Report
+      optional: true
+
+
+# General information
+# -------------------------------------------------
+# This information may be used later for display and explanation.
+exports.meta =
+  title: 'Email'
+  description: "Send an email."
+  hint: "Check the error response and your spam folder if the email won't be
+  delivered correctly."
+
+  # ### Result values
+  #
+  # This are possible values which may be given if the check runs normally.
+  # You may use any of these in your warn/fail expressions.
+  values:
+    cpus:
+      title: "CPU Cores"
+      description: "number of cpu cores"
+      type: 'integer'
 
 
 # Initialization
 # -------------------------------------------------
-#exports.init = (cb) ->
-#  debug "init email actor"
-#
-#  transporter = nodemailer.createTransport 'smtp://alexander.schilling%40divibib.com:12errors@\
-#    mail.divibib.com'
-#  return cb()
-#
-#  # create new mail transport
-#  if setup = config.get '/monitor/email/transport'
-#
-#    setup.debug = true
-#    setup.logger = true
-#    if setup.type is 'smtp'
-#      smtpTransport = require 'nodemailer-smtp-transport'
-#      transporter = nodemailer.createTransport smtpTransport setup
-#    else
-#      transporter = null
-#  else
-#    transporter = nodemailer.createTransport()
-#  cb()
+exports.init = (cb) ->
+  @name ?= @conf.subject ? '<Unnamed>'
+  cb()
 
 
 # Run the actor
@@ -87,11 +185,12 @@ exports.run = (setup, data, cb) ->
     delete email[f] unless email[f]?
   # single address fields
   email[f] = email[f][0] for f in ['from']
-  console.log email
-  debug "sending email to #{email.to?.join ', '}..."
+  mails = email.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
+  debug "sending email to #{mails?.join ', '}..."
   # setup transporter
   transporter = nodemailer.createTransport setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
+  debug chalk.grey "using #{transporter.transporter.name}"
   delete email.transport if email.transport?
   if email.report
     email.text = email.report.toText()
@@ -102,6 +201,7 @@ exports.run = (setup, data, cb) ->
   ################################################################################
   # PREVENT EMAIL sending
   ################################################################################
+  console.log chalk.bold.yellow "Skipped real sending"
   return cb()
   transporter.sendMail email, (err, info) ->
     if err

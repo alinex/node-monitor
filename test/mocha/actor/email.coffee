@@ -19,6 +19,8 @@ describe.only "Email actor", ->
 
   describe "definition", ->
 
+    action = null
+
     it "should has actor instance loaded", (cb) ->
       expect(actor, 'actor instance').to.exist
       cb()
@@ -34,11 +36,23 @@ describe.only "Email actor", ->
       expect(test.init, 'run').to.exist
       cb()
 
+  describe "run", ->
 
-  describe "simple mail", ->
+    it "should create new action", (cb) ->
+      test.init
+        actor: 'email'
+      , (err, instance) ->
+        action = instance
+        cb()
 
     it "should send email", (cb) ->
-      console.log config.get '/'
+      @timeout 5000
+      test.ok actor, ->
+#        expect(actor.values.active).to.be.above 0
+        cb()
+
+    it "should send email", (cb) ->
+      @timeout 5000
       actor.run
         base: 'default'
         from: 'monitor'
