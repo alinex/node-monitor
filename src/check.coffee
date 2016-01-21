@@ -19,7 +19,6 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug')('monitor:check')
 chalk = require 'chalk'
 util = require 'util'
 EventEmitter = require('events').EventEmitter
@@ -28,8 +27,6 @@ math = require 'mathjs'
 named = require('named-regexp').named
 moment = require 'moment'
 # include alinex modules
-async = require 'alinex-async'
-{object, string} = require 'alinex-util'
 validator = require 'alinex-validator'
 Report = require 'alinex-report'
 # include classes and helpers
@@ -62,7 +59,7 @@ class Check extends EventEmitter
     @name = setup.name
     @depend = setup.depend
     @conf = setup.config ? {}
-    @weight = setup.seight
+    @weight = setup.weight
     @hint = setup.hint
     # will be set after initialization
     @num = 0 # number of check in config

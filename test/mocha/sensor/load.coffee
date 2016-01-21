@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/load'
 
 before (cb) -> test.setup cb
@@ -41,7 +39,7 @@ describe "Load sensor", ->
         cb()
 
     it "should return success", (cb) ->
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.short).to.be.above 0
         cb()
 

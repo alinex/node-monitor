@@ -53,12 +53,12 @@ contact =
   ]
 
 
-# Email Templates
+# Email Action
 # -------------------------------------------------
 
 email =
-  title: "Email Template"
-  description: "a single template used for emails"
+  title: "Email Action"
+  description: "the setup for an individual email action"
   type: 'object'
   allowedKeys: true
   keys:

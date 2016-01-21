@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/time'
 
 before (cb) -> test.setup cb
@@ -41,7 +39,7 @@ describe "Time sensor", ->
 
     it "should return success", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.local).to.be.above 0
         cb()
 
@@ -52,7 +50,7 @@ describe "Time sensor", ->
         config:
           warn: 'diff < 100000'
       , (err, instance) ->
-        test.warn instance, (err) ->
+        test.warn instance, ->
           expect(instance.values.local).to.be.above 0
           cb()
 

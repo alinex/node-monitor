@@ -1,5 +1,4 @@
-chai = require 'chai'
-expect = chai.expect
+### eslint-env node, mocha ###
 
 validator = require 'alinex-validator'
 
@@ -11,4 +10,3 @@ describe "Base", ->
       validator = require 'alinex-validator'
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
-

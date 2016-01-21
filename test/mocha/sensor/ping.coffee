@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/ping'
 
 before (cb) -> test.setup cb
@@ -43,7 +41,7 @@ describe "Ping sensor", ->
 
     it "should return success", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.responseTime).to.exist
         cb()
 
@@ -54,7 +52,7 @@ describe "Ping sensor", ->
         config:
           host: 'heise.de'
       , (err, instance) ->
-        test.ok instance, (err) ->
+        test.ok instance, ->
           expect(instance.values.responseTime).to.exist
           cb()
 
@@ -66,7 +64,7 @@ describe "Ping sensor", ->
           host: '193.99.144.80'
           count: 10
       , (err, instance) ->
-        test.ok instance, (err) ->
+        test.ok instance, ->
           expect(instance.values.responseTime).to.exist
           cb()
 

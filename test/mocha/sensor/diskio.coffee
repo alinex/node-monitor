@@ -1,9 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
 
 sensor = require '../../../src/sensor/diskio'
 
@@ -43,7 +42,7 @@ describe "DiskIO sensor", ->
 
     it "should return success", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.read).to.exist
         cb()
 
@@ -55,7 +54,7 @@ describe "DiskIO sensor", ->
           device: 'sda'
           warn: 'read >= -1'
       , (err, instance) ->
-        test.warn instance, (err, res) ->
+        test.warn instance, ->
           expect(instance.values.read).to.be.above -1
           cb()
 

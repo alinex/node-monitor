@@ -1,7 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
-debugReport = require('debug')('test:report')
+### eslint-env node, mocha ###
 
+debugReport = require('debug')('test:report')
 validator = require 'alinex-validator'
 index = require '../../src/index'
 Check = require '../../src/check'
@@ -63,7 +64,7 @@ exports.fail = (check, cb) ->
     cb null, status
 
 exports.values = (check, cb) ->
-  for name, val of check.values
+  for name of check.values
     expect(check.sensor.meta.values[name], "value #{name}").to.exist
   cb()
 
