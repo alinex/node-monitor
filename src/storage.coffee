@@ -32,6 +32,7 @@ monitor = null  # require './index'
 conf = null
 mode = {}
 
+
 # Initialize database
 # -------------------------------------------------
 exports.init = (setup, cb) ->
@@ -48,6 +49,7 @@ exports.init = (setup, cb) ->
         cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
         cb err
 
+
 # Drop database
 # -------------------------------------------------
 # This should not be enabled in productive system.
@@ -59,6 +61,7 @@ drop = (conf, db, cb) ->
   ], (sql, cb) ->
     db.exec sql, cb
   , cb
+
 
 # Create database structure
 # -------------------------------------------------
@@ -134,8 +137,8 @@ create = (conf, db, cb) ->
         report TEXT NOT NULL
       )
       """, cb]
-  # get list of sensors
   monitor = require './index'
+  # add sensor tables
   async.each monitor.listSensor(), (name, cb) ->
     monitor.getSensor name, (err, sensor) ->
       return cb err if err
@@ -157,8 +160,31 @@ create = (conf, db, cb) ->
       queries["sensor_#{name}"] = ['intervalType', 'check', (cb) -> db.exec sql, cb]
       cb()
   , (err) ->
-    # run all sql queries
-    async.auto queries, db.conf.pool?.limit ? 10, cb
+    console.error chalk.red err if err
+    # add actor tables
+    async.each monitor.listActor(), (name, cb) ->
+      monitor.getActor name, (err, actor) ->
+        return cb err if err
+        sql = """
+          CREATE TABLE IF NOT EXISTS #{prefix}actor_#{name} (
+            controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
+            runAt TIMESTAMP WITH TIME ZONE
+          """
+        for k, v of actor.meta.values
+          type = switch v.type
+            when 'integer', 'byte' then 'BIGINT'
+            when 'float', 'percent', 'interval' then 'FLOAT'
+            when 'date' then 'TIMESTAMP WITH TIME ZONE'
+            else 'VARCHAR(100)'
+          sql += ", \"#{k.toLowerCase()}\" #{type}"
+        sql += ")"
+        queries["actor_#{name}"] = ['controller', (cb) -> db.exec sql, cb]
+        cb()
+    , (err) ->
+      console.error chalk.red err if err
+      # run all sql queries
+      async.auto queries, db.conf.pool?.limit ? 10, cb
+
 
 # Get or register controller
 # -------------------------------------------------
@@ -177,6 +203,7 @@ exports.controller = (name, cb) ->
         INSERT INTO #{prefix}controller (name) VALUES ($1) RETURNING controller_id
         """, name, (err, num, id) ->
         cb err, id
+
 
 # Get or register check
 # -------------------------------------------------
@@ -197,6 +224,7 @@ exports.check = (controller, sensor, name, category, cb) ->
         RETURNING check_id
         """, [controller, sensor, name, category], (err, num, id) ->
         cb err, id
+
 
 valueTypes = ['integer', 'float', 'interval', 'byte', 'percent']
 
@@ -246,9 +274,9 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
           cb err, id
     , cb
 
+
 # Add status on change
 # -------------------------------------------------
-
 exports.statusCheck = (checkID, date, status, comment, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?.database? and not mode.try
@@ -291,11 +319,11 @@ exports.statusController = (controllerID, date, status, cb) ->
       , [controllerID, date, status]
       , cb
 
+
 # Cleanup old data
 # -------------------------------------------------
 # This is triggered by timeouts of itself, started on storage initialization.
 # See the configuration at the top of this file.
-
 cleanup = (interval) ->
   setTimeout cleanup, cleanupInterval[interval], interval
   # run the cleanup

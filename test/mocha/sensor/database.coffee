@@ -1,11 +1,10 @@
 chai = require 'chai'
 expect = chai.expect
-
+### eslint-env node, mocha ###
 
 config = require 'alinex-config'
 test = require '../sensor'
-Check = require '../../../src/check'
-sensor = null
+sensor = null # loaded later after config init
 
 before (cb) ->
   @timeout 10000
@@ -56,7 +55,7 @@ describe "Database sensor", ->
 
     it "should return success", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.num1).to.be.equal 100
         cb()
 
@@ -75,7 +74,7 @@ describe "Database sensor", ->
               type: 'integer'
           warn: 'num > 0'
       , (err, instance) ->
-        test.warn instance, (err) ->
+        test.warn instance, ->
           expect(instance.values.num1).to.be.above 0
           cb()
 

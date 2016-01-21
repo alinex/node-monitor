@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/diskfree'
 
 before (cb) -> test.setup cb
@@ -43,7 +41,7 @@ describe "Diskfree sensor", ->
 
     it "should return success", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.total).to.be.above 0
         expect(check.values.used).to.be.above 0
         expect(check.values.free).to.be.above 0
@@ -57,7 +55,7 @@ describe "Diskfree sensor", ->
           share: '/'
           warn: 'free < 1GB'
       , (err, instance) ->
-        test.ok instance, (err, res) ->
+        test.ok instance, ->
           expect(check.values.total).to.be.above 0
           expect(check.values.used).to.be.above 0
           expect(check.values.free).to.be.above 0

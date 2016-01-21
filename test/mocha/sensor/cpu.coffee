@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/cpu'
 
 before (cb) -> test.setup cb
@@ -41,7 +39,7 @@ describe "CPU sensor", ->
 
     it "should return success", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.active).to.be.above 0
         cb()
 
@@ -52,7 +50,7 @@ describe "CPU sensor", ->
         config:
           warn: 'active > 0.01%'
       , (err, instance) ->
-        test.warn instance, (err, res) ->
+        test.warn instance, ->
           expect(instance.values.active).to.be.above 0
           cb()
 

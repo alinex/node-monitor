@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/http'
 
 before (cb) -> test.setup cb
@@ -43,7 +41,7 @@ describe "HTTP sensor", ->
 
     it "should connect to webserver", (cb) ->
       @timeout 20000
-      test.ok check, (err) ->
+      test.ok check, ->
         expect(check.values.responseTime).to.exist
         expect(check.values.statusCode).to.exist
         expect(check.values.statusMessage).to.exist
@@ -89,7 +87,7 @@ describe "HTTP sensor", ->
           match: 'Newsticker'
           fail: 'not match'
       , (err, instance) ->
-        test.ok instance, (err, res) ->
+        test.ok instance, ->
           expect(instance.values.match).to.exist
           expect(instance.values.match).to.deep.equal ['Newsticker']
           cb()
@@ -112,7 +110,7 @@ describe "HTTP sensor", ->
           match: /heise Developer|iX Magazin/
           fail: 'not match'
       , (err, instance) ->
-        test.ok instance, (err, res) ->
+        test.ok instance, ->
           expect(instance.values.match).to.exist
           expect(instance.values.match).to.deep.equal ['heise Developer']
           cb()
@@ -135,7 +133,7 @@ describe "HTTP sensor", ->
           match: /(:<title>heise Developer|iX Magazin)/
           fail: 'not match'
       , (err, instance) ->
-        test.ok instance, (err, res) ->
+        test.ok instance, ->
           expect(instance.values.match).to.exist
           expect(Boolean instance.values.match).to.equal true
           cb()
@@ -158,7 +156,7 @@ describe "HTTP sensor", ->
           match: /(:<title>heise Developer|iX Magazin)/
           fail: 'match.title isnt \'heise Developer\''
       , (err, instance) ->
-        test.ok instance, (err, res) ->
+        test.ok instance, ->
           expect(instance.values.match).to.exist
           expect(Boolean instance.values.match).to.equal true
           cb()

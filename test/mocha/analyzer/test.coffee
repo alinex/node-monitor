@@ -1,5 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
+
 validator = require 'alinex-validator'
 index = require '../../../src/index'
 

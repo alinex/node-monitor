@@ -1,18 +1,18 @@
-# Run a check
+# Run an actor
 # =================================================
-# This will call the sensor and work with it. A sensor is not usable standalone
-# and needs a check which defines it's environment.
+# This will call the actor and work with it. A actor is not usable standalone
+# and needs a action which defines it's environment.
 #
-# The sensor should have the following API:
+# The actor should have the following API:
 #
 # - schema - validator compatible definition
 # - meta - some meta informations
-# - init() - setup of the sensor for this check
-# - run() - run the sensor for the check
+# - init() - setup of the actor for this check
+# - run() - run the actor for the check
 # - calc() - check the results
 #
-# The sensor will use the check instance for storing it's data and is called in
-# the context of the check.
+# The actoz will use the check instance for storing it's data and is called in
+# the context of the action.
 
 
 # Node Modules
@@ -46,7 +46,7 @@ mode = {}
 
 # Controller class
 # -------------------------------------------------
-class Check extends EventEmitter
+class Action extends EventEmitter
 
   # ### General initialization
   @init: (setup, cb) ->
@@ -55,15 +55,13 @@ class Check extends EventEmitter
 
   # ### Create instance
   constructor: (setup, @controller) ->
-    @type = setup.sensor
+    @type = setup.actor
     @name = setup.name
-    @depend = setup.depend
     @conf = setup.config ? {}
-    @weight = setup.weight
     @hint = setup.hint
     # will be set after initialization
-    @num = 0 # number of check in config
-    @sensor = null
+    @num = 0 # number of actor in config
+    @actor = null
     @databaseID = null
     @base = null
     # will be filled on run
@@ -72,36 +70,35 @@ class Check extends EventEmitter
     @result = {}
     @values = {}
     @status = 'disabled'
-    # last results
-    @history = []
-    @changed = 0
 
-  # ### Initialize check and sensor
+  # ### Initialize check and actor
   init: (cb) ->
-    return cb() if @sensor?
+    return cb() if @actor?
     monitor ?= require './index'
-    monitor.getSensor @type, (err, @sensor) =>
+    monitor.getActor @type, (err, @actor) =>
       return cb err if err
       # check config
       validator.check
-        name: if @controller then "/controller/#{@controller.name}/check/#{@num}:#{@type}"
-        else "/sensor:#{@type}"
+        name: if @controller then "/controller/#{@controller.name}/action/#{@type}:#{@name}"
+        else "/actor:#{@type}"
         value: @conf
-        schema: @sensor.schema
+        schema: @actor.schema
       , (err) =>
         return cb err if err
-        @sensor.init.call this, (err) =>
+        @actor.init.call this, (err) =>
           return cb err if err
-          @sensor.debug "#{chalk.grey @name} Initialized"
+          @actor.debug "#{chalk.grey @name} Initialized"
           return cb() unless @controller?
           # only add database entry if run below controller
-          storage.check @controller.databaseID, @type, @name, @sensor.meta.category
-          , (err, checkID) =>
-            return cb err if err
-            @databaseID = checkID
-            cb()
+          # TODO enable storage
+          cb()
+#          storage.action @controller.databaseID, @type, @name
+#          , (err, actionID) =>
+#            return cb err if err
+#            @databaseID = checkID
+#            cb()
 
-  # ### Run one sensor check
+  # ### Run one actor check
   run: (cb) ->
     # stop if already running
     if @status is 'running'
@@ -110,15 +107,15 @@ class Check extends EventEmitter
       @setStatus()
       return cb @err, @status unless @databaseID
       # store in database
-      return storage.results @databaseID, @type, @sensor.meta.values
+      return storage.results @databaseID, @type, @actor.meta.values
       , @date[0], @values, (err) =>
         return cb err if err
         cb @err, @status
-    @sensor.debug "#{chalk.grey @name} start check"
+    @actor.debug "#{chalk.grey @name} start check"
     @status = 'running'
-    return @runNow cb unless @sensor.prerun?
+    return @runNow cb unless @actor.prerun?
     # call prerun first
-    @sensor.prerun.call this, (@err) =>
+    @actor.prerun.call this, (@err) =>
       return cb @err if @err
       @runNow cb
 
@@ -129,21 +126,21 @@ class Check extends EventEmitter
     @date = [new Date()]
     @values = {}
     @changed = 0
-    # run the sensor
+    # run the actor
     started = @date[0]
-    @sensor.run.call this, (err, res) =>
+    @actor.run.call this, (err, res) =>
       return unless started = @date[0]
       @err = err if not @err and err
       @result.data = res
-      @sensor.debug "#{chalk.grey @name} ended check"
+      @actor.debug "#{chalk.grey @name} ended check"
       @date[1] = new Date()
       # calculate results
-      @sensor.calc.call this, (err) =>
+      @actor.calc.call this, (err) =>
         @err = err if not @err and err
         @setStatus()
         return cb null, @status unless @databaseID
         # store in database
-        storage.results @databaseID, @type, @sensor.meta.values
+        storage.results @databaseID, @type, @actor.meta.values
         , @date[0], @values, (err) =>
           @err = err if not @err and err
           cb null, @status
@@ -151,9 +148,9 @@ class Check extends EventEmitter
   # set status from rules
   setStatus: ->
     for n, v of @values
-      @sensor.debug "#{chalk.grey @name} result #{n}: #{util.inspect v}"
+      @actor.debug "#{chalk.grey @name} result #{n}: #{util.inspect v}"
     @calcStatus()
-    @sensor.debug "#{chalk.grey @name} result status:
+    @actor.debug "#{chalk.grey @name} result status:
     #{@status}#{if @err then ' (' + @err.message + ')' else ''}"
     # verbose output
     if mode.verbose > 1
@@ -180,7 +177,7 @@ class Check extends EventEmitter
     for status in ['fail', 'warn']
       continue unless @conf[status]
       rule = @conf[status]
-      @sensor.debug chalk.grey "#{@name} check #{status} rule: #{rule}"
+      @actor.debug chalk.grey "#{@name} check #{status} rule: #{rule}"
       # replace data values
       for name, value of @values
         if Array.isArray value
@@ -221,11 +218,11 @@ class Check extends EventEmitter
       for name, value of {and: '&&', or: '||', is: '==', isnt: '!=', not: '!'}
         re = new RegExp "\\b#{name}\\b", 'g'
         rule = rule.replace re, value
-      @sensor.debug chalk.grey "#{@name} optimized: #{rule}"
+      @actor.debug chalk.grey "#{@name} optimized: #{rule}"
       # run the code in sandbox
       sandbox = {}
-      vm.runInNewContext "result = #{rule}", sandbox, {filename: "sensor-#{@type}:#{@name}.vm"}
-      @sensor.debug chalk.grey "#{@name} rule result: #{status} = #{sandbox.result}"
+      vm.runInNewContext "result = #{rule}", sandbox, {filename: "actor-#{@type}:#{@name}.vm"}
+      @actor.debug chalk.grey "#{@name} rule result: #{status} = #{sandbox.result}"
       if sandbox.result
         @err = new Error @conf[status]
         return @status = status
@@ -235,8 +232,8 @@ class Check extends EventEmitter
   report: ->
     last = @history[@history.length - 1]
     report = new Report()
-    report.h2 "#{@sensor.meta.title} #{@name}"
-    report.p @sensor.meta.description
+    report.h2 "#{@actor.meta.title} #{@name}"
+    report.p @actor.meta.description
     # status box
     boxtype =
       warn: 'warning'
@@ -250,11 +247,11 @@ class Check extends EventEmitter
     if @date.length
       report.p "Last check results from #{last.date[0]} are:"
       data = []
-      for key, conf of @sensor.meta.values
+      for key, conf of @actor.meta.values
         continue unless value = last.values[key]
-        # support mappings from database sensor
-        if @sensor.mapping?
-          nconf =  @sensor.mapping.call this, key
+        # support mappings from database actor
+        if @actor.mapping?
+          nconf =  @actor.mapping.call this, key
           conf = nconf if nconf
         # add rows
         if typeof value is 'object' and not Array.isArray value
@@ -280,23 +277,23 @@ class Check extends EventEmitter
           col[++num] = {title: 'PREVIOUS', align: 'right'}
       report.table data, col
     # special report details
-    if @sensor.report?
-      report.add @sensor.report.call this
+    if @actor.report?
+      report.add @actor.report.call this
     # additional hints
-    if @sensor.meta.hint
-      report.quote @sensor.meta.hint
+    if @actor.meta.hint
+      report.quote @actor.meta.hint
     if @hint
       report.quote @hint
     # configuration
     report.h3 'Configuration'
-    report.p "The #{@type} sensor is configured with:"
+    report.p "The #{@type} actor is configured with:"
     c = {}
-    for key of @sensor.schema.keys
+    for key of @actor.schema.keys
       c[key] = @conf[key] ? '---'
     report.table c, ['CONFIGURATION SETTING', 'VALUE']
     return report
 
-  # Helper methods for sensor
+  # Helper methods for actor
   # -------------------------------------------------
 
   # ### Check expression against string
@@ -325,7 +322,7 @@ class Check extends EventEmitter
 # Export class
 # -------------------------------------------------
 
-module.exports =  Check
+module.exports =  Action
 
 # ### Format a value for better human readable display
 formatValue = (value, config) ->

@@ -1,10 +1,8 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 
-validator = require 'alinex-validator'
 test = require '../sensor'
-Check = require '../../../src/check'
-
 sensor = require '../../../src/sensor/user'
 
 before (cb) -> test.setup cb

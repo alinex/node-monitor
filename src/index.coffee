@@ -9,7 +9,6 @@
 
 # include base modules
 debug = require('debug')('monitor')
-chalk = require 'chalk'
 fspath = require 'path'
 EventEmitter = require('events').EventEmitter
 math = require 'mathjs'
@@ -50,7 +49,7 @@ class Monitor extends EventEmitter
 
   # Setup
   # -------------------------------------------------
-  setup: (selection = null) ->
+  setup: (selection = null, cb) ->
     # setup module configs first
     async.each [Exec, database], (mod, cb) ->
       mod.setup cb
@@ -90,15 +89,19 @@ class Monitor extends EventEmitter
     # find sensor plugins
     debug "Loading plugins..."
     debug "load base plugin into system"
-    fs.find "#{__dirname}/sensor",
-      type: 'f'
-      maxdepth: 1
-    , (err, list) ->
-      cache.sensor = {}
-      for e in list
-        name = fspath.basename e, fspath.extname e
-        cache.sensor[name] = "./sensor/#{name}"
-      # try to load sensor from plugins
+    async.each ['sensor', 'actor'], (type, cb) ->
+      fs.find "#{__dirname}/#{type}",
+        type: 'f'
+        maxdepth: 1
+      , (err, list) ->
+        cache[type] = {}
+        for e in list
+          name = fspath.basename e, fspath.extname e
+          cache[type][name] = "./#{type}/#{name}"
+        cb()
+    , (err) ->
+      return cb err if err
+      # try to load from plugins
       plugins = config.get "/monitor/plugins"
       return cb() unless plugins
       async.each plugins, (plugin, cb) ->
@@ -114,7 +117,8 @@ class Monitor extends EventEmitter
             lib.listSensor (err, list) ->
               return cb err if err
               for name, path of list
-                cache.sensor[name] = "#{plugin}/#{path}"
+                for type in ['sensor', 'actor']
+                  cache[type][name] = "#{plugin}/#{path}"
         ], cb
       , cb
 
