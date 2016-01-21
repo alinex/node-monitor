@@ -17,7 +17,7 @@ Report = require 'alinex-report'
 # include classes and helpers
 storage = require './storage'
 Check = require './check'
-rules = require './rules'
+Action = require './action'
 
 
 # Configuration
@@ -47,7 +47,7 @@ class Controller extends EventEmitter
     # set on initialization
     @queue = {}
     @alias = {} # name reference to check
-    @ruledata = null
+    @actions = null # set from action rules
     # Data storage with last results
     @status = 'disabled' # Last status
     @date = null # last run
@@ -65,7 +65,7 @@ class Controller extends EventEmitter
     storage.controller @name, (err, @databaseID) =>
       return cb err if err
       async.each @conf.check, (setup, cb) =>
-        check = new Check setup, this
+          check = new Check setup, this
         @check.push check
         check.init cb
       , (err) =>
@@ -76,7 +76,7 @@ class Controller extends EventEmitter
           @alias[num] = @check[num]
           if @check[num].name
             @alias[@check[num].name] = @check[num]
-        # create a work queue
+        # create a work queue for checks
         @queue = {}
         for num in [0..@check.length-1]
           check = @check[num]
@@ -86,10 +86,10 @@ class Controller extends EventEmitter
             @queue[@check[num].conf.name ? num] = args
           else
             @queue[check.conf.name ? num] =  check.run.bind check
-        # initialize rules
-        rules.init.call this
-        debug "#{chalk.grey @name} Initialized controller"
-        cb()
+        # initialize action rules
+        Action.init.call this, ->
+          debug "#{chalk.grey @name} Initialized controller"
+          cb()
 
   start: ->
     if @conf.disabled
@@ -102,7 +102,6 @@ class Controller extends EventEmitter
 
   stop: ->
     debug "#{chalk.grey @name} Stopped daemon mode"
-
 
   # ### Run once
   run: (cb = ->) ->
@@ -135,7 +134,7 @@ class Controller extends EventEmitter
         report = @report()
         if mode.verbose > 2
           console.error "\n#{report.toConsole()}\n"
-        rules.run.call this
+        Action.run.call this
         @emit 'result', this
         cb null, @status
 
