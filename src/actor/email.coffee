@@ -152,9 +152,9 @@ exports.init = (cb) ->
 
 # Run the actor
 # -------------------------------------------------
-exports.run = (setup, context, cb) ->
+exports.run = (cb) ->
   # configure email
-  email = object.clone setup
+  email = object.clone @conf.email
   # use base settings
   while email.base
     base = config.get "/monitor/email/#{email.base}"
@@ -188,7 +188,7 @@ exports.run = (setup, context, cb) ->
   mails = email.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
   debug "sending email to #{mails?.join ', '}..."
   # setup transporter
-  transporter = nodemailer.createTransport setup.transport ? 'direct:?name=hostname'
+  transporter = nodemailer.createTransport email.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
   debug chalk.grey "using #{transporter.transporter.name}"
   delete email.transport if email.transport?

@@ -162,7 +162,7 @@ class Action extends EventEmitter
     @err = null
     @values = {}
     @lastrun = [new Date()]
-    @actor.run (err) ->
+    @actor.run.call this, (err) =>
       return cb err if err
       @lastrun.push new Date()
       @err = err if not @err and err
