@@ -22,6 +22,7 @@ Action = require './action'
 
 # Configuration
 # -------------------------------------------------
+# maximum number of localy stored values for reporting
 HISTORY_LENGTH = 5
 
 
@@ -36,6 +37,7 @@ mode = {}
 class Controller extends EventEmitter
 
   # ### General initialization
+  # have to be run only once
   @init: (setup, cb) ->
     mode = setup
     Check.init setup, cb
@@ -58,6 +60,7 @@ class Controller extends EventEmitter
 
 
   # ### Initialize
+  # should be called after new instance is created once
   init: (cb) ->
     debug "#{chalk.grey @name} Initialize controller..."
     monitor ?= require './index'
@@ -92,6 +95,8 @@ class Controller extends EventEmitter
           debug "#{chalk.grey @name} Initialized controller"
           cb()
 
+  # ### Start in Loop
+  # run the controller in a daemon like mannerism
   start: ->
     if @conf.disabled
       console.log chalk.grey "Controller #{@name} is disabled!"
@@ -101,6 +106,8 @@ class Controller extends EventEmitter
       @start()
     , @conf.interval * 1000
 
+  # Stop Controller
+  # after started with above method
   stop: ->
     debug "#{chalk.grey @name} Stopped daemon mode"
 
@@ -196,7 +203,6 @@ class Controller extends EventEmitter
       report.ul ul
     # references
     if @conf.ref
-
       report.p Report.b "For further assistance check the following links:"
       ul = []
       for name, list of @conf.ref
@@ -230,7 +236,6 @@ class Controller extends EventEmitter
 
 # Export class
 # -------------------------------------------------
-
 module.exports =  Controller
 
 

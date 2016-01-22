@@ -10,10 +10,11 @@
 # - schema - validator compatible definition
 # - meta - some meta informations
 # - init() - setup of the actor for this check
+# - prerun() - run some initialization which have to be done before each run
 # - run() - run the actor for the check
-# - calc() - check the results
+# - report() - generate a report after run
 #
-# The actors will use the check instance for storing it's data and is called in
+# The actors will use the storage instance for storing it's data and is called in
 # the context of the action.
 
 
@@ -107,6 +108,7 @@ class Action extends EventEmitter
       @base = @conf[type]
     debug "#{chalk.grey @controller.name} initialized #{@name} rule"
 
+  # ### Check the Rules and run Actor
   run: (cb) ->
     if @controller.changed
       @count = 0
@@ -150,6 +152,7 @@ class Action extends EventEmitter
             return cb err if err
             @prerun cb
 
+  # ### Prerun
   prerun: (cb) ->
     return @runNow cb unless @actor.prerun?
     # call prerun first
@@ -157,6 +160,7 @@ class Action extends EventEmitter
       return cb @err if @err
       @runNow cb
 
+  # ### Run Actor
   runNow: (cb) ->
     @actor.debug "#{chalk.grey @controller.name} run #{@name} actor"
     @err = null

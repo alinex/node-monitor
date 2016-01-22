@@ -8,10 +8,12 @@
 # - schema - validator compatible definition
 # - meta - some meta informations
 # - init() - setup of the sensor for this check
+# - prerun() - run some initialization which have to be done before each run
 # - run() - run the sensor for the check
 # - calc() - check the results
+# - report() - generate a report after run
 #
-# The sensor will use the check instance for storing it's data and is called in
+# The sensor will use the storage instance for storing it's data and is called in
 # the context of the check.
 
 
