@@ -101,7 +101,7 @@ class Action extends EventEmitter
     unless @conf
       throw new Error "No definition for rule #{@name}"
     # set actor list
-    for type of actors
+    for type in monitor.listActor()
       continue unless @conf[type]
       @type = type
       @base = @conf[type]
@@ -113,8 +113,6 @@ class Action extends EventEmitter
       @date = @controller.date
     debug chalk.grey "#{@controller.name} check #{@name} rule"
     @count++
-    # no actor defined
-    return cb() unless @actor
     # only work on specific status
     return cb() unless @conf.status is @controller.status
     # number of minimum attempts (controller runs) before informing.
@@ -129,17 +127,22 @@ class Action extends EventEmitter
       if @conf.redo
         return cb() if now < moment(@lastrun).add(@conf.redo, 'seconds').toDate()
       # don't run if no redo defined
-      else return cb()
+      else
+        return cb()
+# TODO reenable if not testing
+#    else if @controller.status is 'ok' and not @controller.cahnged
+#      return cb()
     # run actor
     return @prerun cb if @actor
     # initialize actor first
     monitor.getActor @type, (err, @actor) =>
-      return cb err if err
+      if err
+        return cb new Error "#{err.message} in #{@name} rule of #{@controller.name} controller"
       # check config
       validator.check
-        name: if @controller then "/controller/#{@controller.name}/action/#{@name}"
+        name: if @controller then "/controller/#{@controller.name}/action/#{@name}/#{@type}"
         else "/actor:#{@type}"
-        value: @conf
+        value: @conf[@type]
         schema: @actor.schema
         , (err) =>
           return cb err if err
