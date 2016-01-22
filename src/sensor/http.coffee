@@ -13,12 +13,10 @@
 # -------------------------------------------------
 
 # include base modules
-exports.debug = debug = require('debug')('monitor:sensor:http')
+exports.debug = require('debug')('monitor:sensor:http')
 request = require 'request'
 http = require 'http'
-util = require 'util'
 # include alinex modules
-Exec = require 'alinex-exec'
 config = require 'alinex-config'
 {string} = require 'alinex-util'
 Report = require 'alinex-report'
@@ -152,7 +150,8 @@ exports.prerun = (cb) ->
     headers:
       'User-Agent': "Alinex Monitor through request.js"
   option.timeout = @conf.timeout if @conf.timeout?
-  remote @conf, option, =>
+  remote @conf, option, (err) =>
+    return cb err if err
     if @conf.username? and @conf.password?
       option.auth =
         username: @conf.username
@@ -230,9 +229,10 @@ remote = (conf, option, cb) ->
     ssl: config.get "/exec/remote/server/#{conf.remote}"
     tunnel:
       localHost: '127.0.0.1'
-  , (err, tunnel) ->
+  , (err) ->
+    return cb err if err
     # use tunnel
-    if string.starts url, 'https:'
+    if string.starts conf.url, 'https:'
       option.agentClass = require 'socks5-https-client/lib/Agent'
       option.strictSSL = true
     else

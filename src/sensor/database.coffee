@@ -17,7 +17,7 @@
 # -------------------------------------------------
 
 # include base modules
-exports.debug = debug = require('debug')('monitor:sensor:database')
+exports.debug = require('debug')('monitor:sensor:database')
 # include alinex modules
 config = require 'alinex-config'
 database = require 'alinex-database'

@@ -186,26 +186,21 @@ class Check extends EventEmitter
         if Array.isArray value
           for i, val in value
             re = new RegExp "\\b#{name}\\[#{i}\\]\\b", 'g'
-            rule = rule.replace re, (str, name) ->
-              "'#{value[i]?.toString()}'"
+            rule = rule.replace re, "'#{value[i]?.toString()}'"
           re = new RegExp "\\b#{name}\\b", 'g'
-          rule = rule.replace re, (str, name) ->
-            "'#{value.toString()}'"
+          rule = rule.replace re, "'#{value.toString()}'"
         else if typeof value is 'object'
           for i, val of value
             re = new RegExp "\\b#{name}\\.#{i}\\b", 'g'
-            rule = rule.replace re, (str, name) ->
-              "'#{value[i]?.toString()}'"
+            rule = rule.replace re, "'#{value[i]?.toString()}'"
           re = new RegExp "\\b#{name}\\b", 'g'
-          rule = rule.replace re, (str, name) ->
-            "'#{value.toString()}'"
+          rule = rule.replace re, "'#{value.toString()}'"
         else
           re = new RegExp "\\b#{name}\\b", 'g'
-          rule = rule.replace re, (str, name) ->
-            value
+          rule = rule.replace re, value
       # replace not existing data values
-      if meta?.values?
-        for name of meta.values
+      if @sensor.meta?.values?
+        for name of @sensor.meta.values
           re = new RegExp "\\b#{name}(\\.\\w+|\\[\\d+\\])?\\b", 'g'
           rule = rule.replace re, 'null'
       # replace percent values
@@ -216,7 +211,7 @@ class Check extends EventEmitter
         math.unit(str).toNumber('B')
       # replace interval values
       rule = rule.replace /\b(\d+(\.\d+)?)(ms|s|m|h|d)/g, (str) ->
-        number.parseMSeconds str
+        Number.parseMSeconds str
       # replace operators
       for name, value of {and: '&&', or: '||', is: '==', isnt: '!=', not: '!'}
         re = new RegExp "\\b#{name}\\b", 'g'

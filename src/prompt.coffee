@@ -107,7 +107,6 @@ commands =
       else
         []
     run: (args, data, cb) ->
-      subcmd = ['try', 'verbose'] #, 'controller']
       unless 1 < args.length < 4
         console.log chalk.red "Wrong number of parameters for command #{chalk.bold 'set'}
         use #{chalk.bold 'help set'} for more information!"
@@ -284,6 +283,7 @@ commands =
               return cb err if err
               # and run it
               check.run (err) ->
+                return cb err if err
                 console.log check.report().toConsole()
                 cb()
         else
@@ -306,7 +306,6 @@ exports.interactive = (conf, data) ->
   async.forever (cb) ->
     getCommand data, cb
   , (err) ->
-    readline.close()
     exit 1, err
 
 # Direct command execution

@@ -6,9 +6,7 @@
 
 # include base modules
 chalk = require 'chalk'
-vm = require 'vm'
 math = require 'mathjs'
-util = require 'util'
 named = require('named-regexp').named
 # include alinex modules
 {string} = require 'alinex-util'
@@ -77,7 +75,7 @@ exports.report = (work) ->
       for vname, value of work.result.values
         re = new RegExp "\\b#{vname}\\b", 'g'
         val = val.replace re, (str) ->
-          meta.values[vname]?.title ? vname
+          meta.values[str]?.title ? str
     report += "| #{string.rpad set.title, 18}
     | #{string.lpad val.toString(), 53} |\n"
   report += "\n#{work.result.analysis}\n" if work.result.analysis
@@ -126,7 +124,7 @@ formatValue = (value, config) ->
       val
 
 # ### Convert object to markdown table
-exports.formatTable = formatTable = (obj) ->
+exports.formatTable = (obj) ->
   result = ''
   unless Array.isArray obj
     # single object

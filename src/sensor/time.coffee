@@ -14,7 +14,7 @@
 # -------------------------------------------------
 
 # include base modules
-exports.debug = debug = require('debug')('monitor:sensor:time')
+exports.debug = require('debug')('monitor:sensor:time')
 ntp = require 'ntp-client'
 # include alinex modules
 config = require 'alinex-config'

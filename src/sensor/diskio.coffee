@@ -14,7 +14,7 @@
 # -------------------------------------------------
 
 # include base modules
-exports.debug = debug = require('debug')('monitor:sensor:diskio')
+exports.debug = require('debug')('monitor:sensor:diskio')
 # include alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'

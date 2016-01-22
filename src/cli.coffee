@@ -7,18 +7,13 @@
 # include base modules
 yargs = require 'yargs'
 chalk = require 'chalk'
-fspath = require 'path'
-moment = require 'moment'
 # include alinex modules
-async = require 'alinex-async'
 config = require 'alinex-config'
-{string} = require 'alinex-util'
 Exec = require 'alinex-exec'
 database = require 'alinex-database'
 # include classes and helpers
 logo = require('./logo') 'Monitoring Application'
 monitor = require './index'
-Report = require 'alinex-report'
 #Controller = require './controller'
 
 process.title = 'Monitor'
