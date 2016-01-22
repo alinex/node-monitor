@@ -87,7 +87,7 @@ class Controller extends EventEmitter
           else
             @queue[check.conf.name ? num] =  check.run.bind check
         # initialize action rules
-        Action.init.call this, ->
+        Action.init.call this, mode, =>
           debug "#{chalk.grey @name} Initialized controller"
           cb()
 
