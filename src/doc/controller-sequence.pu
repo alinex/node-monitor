@@ -1,0 +1,43 @@
+@startuml
+title Controller Management
+
+== Class Initialization ==
+Controller <-> Check : init
+
+== Instance Initialization ==
+Controller -> Controller : new
+activate Controller
+Controller -> Check : create
+Check -> Check : new
+activate Check
+Check -> Controller
+Controller <-> storage : add controller
+Controller -> Check : init
+Check <-> sensor : get + validate
+Check <-> sensor : init
+Check <-> storage : add check
+Check -> Controller
+Controller -> Action : init
+Action <-> actor : list
+Action -> Action : new
+activate Action
+Action -> Controller
+
+== Run Controller ==
+
+Controller -> Check : Run
+Check --> Check : stop if running
+Check <--> sensor : prerun (optional)
+Check <-> sensor : run
+Check <-> sensor : calc
+Check -> storage : add sensor results
+Check -> Controller
+Controller <-> storage : add controller status
+Controller -> Controller : report
+Controller <-> Check : report
+Controller -> Action : run
+Action <--> actor : init once
+Action <--> actor : run
+Action <-> storage : add action results
+Action -> Controller
+@enduml

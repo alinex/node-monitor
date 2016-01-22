@@ -65,7 +65,7 @@ class Controller extends EventEmitter
     storage.controller @name, (err, @databaseID) =>
       return cb err if err
       async.each @conf.check, (setup, cb) =>
-          check = new Check setup, this
+        check = new Check setup, this
         @check.push check
         check.init cb
       , (err) =>
