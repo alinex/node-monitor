@@ -53,10 +53,10 @@ class Action extends EventEmitter
   # This will be called after controller is initialized.
   @init: (setup, cb) ->
     mode = setup
-    monitor ?= require './index'
     # set actions object in the controller
     @actions = []
     # setup actors
+    monitor ?= require './index'
     actors = monitor.listActor()
     # resolve rules
     rules = config.get '/monitor/rule'
@@ -84,8 +84,8 @@ class Action extends EventEmitter
   # ### Create instance
   constructor: (@name, @conf, @controller) ->
     @count = 0 # number of calls in current status
-    @date = @controller.date # last change of status
-    @status = @controller.status # last status
+    @date = @controller?.date # last change of status
+    @status = @controller?.status # last status
     # will be set on init
     @type = null # list actor
     @base = null # template
@@ -102,21 +102,22 @@ class Action extends EventEmitter
     unless @conf
       throw new Error "No definition for rule #{@name}"
     # set actor list
+    monitor ?= require './index'
     for type in monitor.listActor()
       continue unless @conf[type]
       @type = type
       @base = @conf[type]
-    debug "#{chalk.grey @controller.name} initialized #{@name} rule"
+    debug "#{chalk.grey @controller?.name} initialized #{@name} rule"
 
   # ### Check the Rules and run Actor
   run: (cb) ->
-    if @controller.changed
+    if not @controller? or @controller.changed
       @count = 0
-      @date = @controller.date
-    debug chalk.grey "#{@controller.name} check #{@name} rule"
+      @date = @controller?.date ? new Date()
+    debug chalk.grey "#{@controller?.name} check #{@name} rule"
     @count++
     # only work on specific status
-    return cb() unless @conf.status is @controller.status
+    return cb() unless @conf.status is @controller?.status
     # number of minimum attempts (controller runs) before informing.
     return cb() if @conf.attempt and @count < @conf.attempt
     # time (in seconds) to wait before informing.
@@ -132,17 +133,17 @@ class Action extends EventEmitter
       else
         return cb()
 # TODO reenable if not testing
-#    else if @controller.status is 'ok' and not @controller.cahnged
+#    else if @controller?.status is 'ok' and not @controller?.cahnged
 #      return cb()
     # run actor
     return @prerun cb if @actor
     # initialize actor first
     monitor.getActor @type, (err, @actor) =>
       if err
-        return cb new Error "#{err.message} in #{@name} rule of #{@controller.name} controller"
+        return cb new Error "#{err.message} in #{@name} rule of #{@controller?.name} controller"
       # check config
       validator.check
-        name: if @controller then "/controller/#{@controller.name}/action/#{@name}/#{@type}"
+        name: if @controller then "/controller/#{@controller?.name}/action/#{@name}/#{@type}"
         else "/actor:#{@type}"
         value: @conf[@type]
         schema: @actor.schema
@@ -162,21 +163,21 @@ class Action extends EventEmitter
 
   # ### Run Actor
   runNow: (cb) ->
-    @actor.debug "#{chalk.grey @controller.name} run #{@name} actor"
+    @actor.debug "#{chalk.grey @controller?.name} run #{@name} actor"
     @err = null
     @values = {}
     @lastrun = [new Date()]
     @actor.run.call this, (err) =>
-      return cb err if err
       @lastrun.push new Date()
       @err = err if not @err and err
-      @actor.debug "#{chalk.grey @controller.name} finished #{@name} actor"
+      @actor.debug "#{chalk.grey @controller?.name} finished #{@name} actor"
       # TODO storage
       # store in database
 #      storage.results @databaseID, @type, @actor.meta.values
 #      , @date[0], @values, (err) =>
 #        @err = err if not @err and err
 #        cb null, @status
+      console.log '------------------------'
       cb()
 
 

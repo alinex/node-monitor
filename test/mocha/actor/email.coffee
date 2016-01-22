@@ -17,9 +17,10 @@ before (cb) ->
 
 describe.only "Email actor", ->
 
+  action = null
+
   describe "definition", ->
 
-    action = null
 
     it "should has actor instance loaded", (cb) ->
       expect(actor, 'actor instance').to.exist
@@ -40,15 +41,16 @@ describe.only "Email actor", ->
 
     it "should create new action", (cb) ->
       test.init
-        actor: 'email'
+        email:
+          base: 'ok'
       , (err, instance) ->
         action = instance
         cb()
 
     it "should send email", (cb) ->
       @timeout 5000
-      test.ok actor, ->
-#        expect(actor.values.active).to.be.above 0
+      test.run action, ->
+        expect(action.actor).to.exist
         cb()
 
     it "should send email", (cb) ->
