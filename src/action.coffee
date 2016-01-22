@@ -62,16 +62,13 @@ class Action extends EventEmitter
     # set specific one
     for name in @conf.rule
       rule = rules[name]
-      console.log name, setup
       try
         if rule.email
           @actions.push new Action name, rule, this
         else
           @actions.unshift new Action name, rule, this
       catch err
-        console.log 'error', err
         return cb new Error "#{err.message} in #{name} rule of #{@name} controller"
-    console.log @actions
     cb()
 
 
@@ -88,7 +85,6 @@ class Action extends EventEmitter
     @date = @controller.date # last change of status
     @status = @controller.status # last status
     # will be set on init
-    @rule = null # current rule
     @type = null # list actor
     @base = null # template
     # actor specific
@@ -100,16 +96,14 @@ class Action extends EventEmitter
 
   # ### Initialize check and actor
   init: ->
-    # resolve rules
-    rules = config.get '/monitor/rule'
     # check that rule is defined
-    unless @rule = rules[name]
+    unless @conf
       throw new Error "No definition for rule #{@name}"
     # set actor list
     for type of actors
-      continue unless @rule[type]
+      continue unless @conf[type]
       @type = type
-      @base = @rule[type]
+      @base = @conf[type]
     debug "#{chalk.grey @controller.name} initialized #{@name} rule"
 
   run: (cb) ->
@@ -121,18 +115,18 @@ class Action extends EventEmitter
     # no actor defined
     return cb() unless @actor
     # only work on specific status
-    return cb() unless @rule.status is @controller.status
+    return cb() unless @conf.status is @controller.status
     # number of minimum attempts (controller runs) before informing.
-    return cb() if @rule.attempt and @count < @rule.attempt
+    return cb() if @conf.attempt and @count < @conf.attempt
     # time (in seconds) to wait before informing.
     now = new Date()
-    if @rule.latency
-      return cb() if now < moment(@date).add(@rule.latency, 'seconds').toDate()
+    if @conf.latency
+      return cb() if now < moment(@date).add(@conf.latency, 'seconds').toDate()
     # if already done and not in redo time
     if @lastrun?
       # Timeout (in seconds) without status change before informing again.
-      if @rule.redo
-        return cb() if now < moment(@lastrun).add(@rule.redo, 'seconds').toDate()
+      if @conf.redo
+        return cb() if now < moment(@lastrun).add(@conf.redo, 'seconds').toDate()
       # don't run if no redo defined
       else return cb()
     # run actor
