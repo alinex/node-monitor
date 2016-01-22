@@ -54,7 +54,7 @@ class Action extends EventEmitter
     mode = setup
     monitor ?= require './index'
     # set actions object in the controller
-    @actions = {}
+    @actions = []
     # setup actors
     actors = monitor.listActor()
     # resolve rules
@@ -68,7 +68,8 @@ class Action extends EventEmitter
         else
           @actions.unshift new Action name, rule, this
       catch err
-        return cb new Error "#{err.message} in #{name} rule of #{@name} controller"
+        return cb new Error "#{err.message} #{err.stack.split(/\n/)[1].trim()}
+        in #{name} rule of #{@name} controller"
     cb()
 
 
