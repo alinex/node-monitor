@@ -57,22 +57,28 @@ class Action extends EventEmitter
     @actions = {}
     # setup actors
     actors = monitor.listActor()
+    # resolve rules
+    rules = config.get '/monitor/rule'
     # set specific one
-    for name, setup in @conf.rule
+    for name in @conf.rule
+      rule = rules[name]
+      console.log name, setup
       try
-        if setup.email
-          @actions.push new Action name, setup, this
+        if rule.email
+          @actions.push new Action name, rule, this
         else
-          @actions.unshift new Action name, setup, this
+          @actions.unshift new Action name, rule, this
       catch err
-        return cb err
+        console.log 'error', err
+        return cb new Error "#{err.message} in #{name} rule of #{@name} controller"
+    console.log @actions
     cb()
 
 
   # Run all action rules
   # -------------------------------------------------
   @run: (cb) ->
-    async.each @actions.list (action, cb) ->
+    async.each @actions, (action, cb) ->
       action.run cb
     , cb
 
