@@ -32,12 +32,10 @@ exports.init = (setup, cb) ->
   expect(action.type, 'actor instance').to.exist
   cb null, action
 
-  exports.run = (action, cb) ->
+exports.run = (action, cb) ->
   action.run (err) ->
-    console.log 'actor end', err
-
     expect(action.date, 'date').to.exist
     expect(err, 'error').to.not.exist
     expect(action.err, 'error').to.not.exist
     expect(action.values, 'values').to.exist
-    cb err, status
+    cb err

@@ -265,6 +265,7 @@ get = (element, name, cb) ->
   return cb new Error "Could not find #{element} #{name}" unless cache[element][name]?
   # try to load sensor from plugins
   try
-    cb null, require cache[element][name]
+    elem = require cache[element][name]
   catch err
     return cb err
+  cb null, elem

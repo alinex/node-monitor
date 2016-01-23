@@ -177,7 +177,6 @@ class Action extends EventEmitter
 #      , @date[0], @values, (err) =>
 #        @err = err if not @err and err
 #        cb null, @status
-      console.log '------------------------'
       cb()
 
 
