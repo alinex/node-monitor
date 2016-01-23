@@ -128,7 +128,7 @@ exports.schema =
 # This information may be used later for display and explanation.
 exports.meta =
   title: 'Email'
-  description: "Send an email."
+  description: "Send an @setup."
   hint: "Check the error response and your spam folder if the email won't be
   delivered correctly."
 
@@ -154,12 +154,12 @@ exports.init = (cb) ->
 # -------------------------------------------------
 exports.run = (cb) ->
   # configure email
-  email = object.clone @conf.email
+  @setup = object.clone @conf.email
   # use base settings
-  while email.base
-    base = config.get "/monitor/email/#{email.base}"
-    delete email.base
-    email = object.extend base, email
+  while @setup.base
+    base = config.get "/monitor/email/#{@setup.base}"
+    delete @setup.base
+    @setup = object.extend base, @setup
   # resolve contacts
   resolve = (list) ->
     return null unless list
@@ -181,27 +181,28 @@ exports.run = (cb) ->
     array.unique shallow
   # run resolve for all address fields
   for f in ['from', 'to', 'cc', 'bcc']
-    email[f] = resolve email[f]
-    delete email[f] unless email[f]?
+    @setup[f] = resolve @setup[f]
+    delete @setup[f] unless @setup[f]?
   # single address fields
-  email[f] = email[f][0] for f in ['from']
-  mails = email.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
+  @setup[f] = @setup[f][0] for f in ['from']
+  mails = @setup.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
   debug "sending email to #{mails?.join ', '}..."
   # setup transporter
-  transporter = nodemailer.createTransport email.transport ? 'direct:?name=hostname'
+  transporter = nodemailer.createTransport @setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
   debug chalk.grey "using #{transporter.transporter.name}"
-  delete email.transport if email.transport?
-  if email.report
-    email.text = email.report.toText()
-    email.html = email.report.toHtml()
-    email.subject ?= email.html.match(/<title>([\s\S]*?)<\/title>/)[1]
-    delete email.report
+  delete @setup.transport if @setup.transport?
+  if @setup.report
+    @setup.text = @setup.report.toText()
+    @setup.html = @setup.report.toHtml()
+    @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
+    delete @setup.report
   # try to send email
   ################################################################################
   # PREVENT EMAIL sending
   ################################################################################
   console.log chalk.bold.yellow "Skipped real sending"
+  console.log @setup
   return cb()
   transporter.sendMail email, (err, info) ->
     if err
