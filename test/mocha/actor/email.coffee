@@ -41,13 +41,38 @@ describe.only "Email actor", ->
     it "should create new action", (cb) ->
       test.init
         email:
-          base: 'ok'
+          transport: "smtp://alexander.schilling%40divibib.com:" +
+            process.env.PW_ALEX_DIVIBIB_COM + "@mail.divibib.com"
+          from: 'info@alinex.de'
+          to: 'info@alinex.de'
+          cc: 'info@alinex.de'
+          subject: 'Mocha Test 01'
       , (err, instance) ->
         action = instance
         cb()
 
     it "should send email", (cb) ->
       @timeout 5000
-      test.run action, ->
-        expect(action.actor).to.exist
-        cb()
+      test.run action, cb
+
+  describe "possibilities", ->
+
+    it "should send email through smtp", (cb) ->
+      @timeout 5000
+      test.init
+        email:
+          base: 'ok'
+          to: 'info@alinex.de'
+      , (err, action) ->
+        test.run action, ->
+          cb()
+
+    it "should send email through gmail", (cb) ->
+
+    it "should support text+html", (cb) ->
+
+    it "should use report if no text/html", (cb) ->
+
+    it "should support handlebars", (cb) ->
+
+    it "should auto create subject from body", (cb) ->

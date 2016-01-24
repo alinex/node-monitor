@@ -63,36 +63,27 @@ exports.schema =
       description: "the address to send email to"
       type: 'array'
       toArray: true
-      entries: [
-        type: 'string'
-      ]
       optional: true
     cc:
       title: "Carbon Copy"
       description: "the carbon copy address to send email to"
       type: 'array'
       toArray: true
-      entries: [
-        type: 'string'
-      ]
       optional: true
     bcc:
       title: "Blind Carbon Copy"
       description: "the blind carbon copy address to send email to"
       type: 'array'
       toArray: true
-      entries: [
-        type: 'string'
-      ]
       optional: true
     subject:
       title: "Subject"
       description: "the title of the message, defaults to body title text"
       type: 'or'
       or: [
-        type: 'handlebars'
-      ,
         type: 'string'
+      ,
+        type: 'handlebars'
       ]
       optional: true
     text:
@@ -100,9 +91,9 @@ exports.schema =
       description: ""
       type: 'or'
       or: [
-        type: 'handlebars'
-      ,
         type: 'string'
+      ,
+        type: 'handlebars'
       ]
       optional: true
     html:
@@ -110,9 +101,9 @@ exports.schema =
       description: ""
       type: 'or'
       or: [
-        type: 'handlebars'
-      ,
         type: 'string'
+      ,
+        type: 'handlebars'
       ]
       optional: true
     report:

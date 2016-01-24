@@ -8,7 +8,6 @@ Version 1.0.5 (2016-01-14)
 -------------------------------------------------
 - Update nodemailer to new major version 2.0.
 - Added better checks for valid remote exec result.
-- Merge branch 'master' of https://github.com/alinex/node-monitor
 - Template for email actor setup.
 - Added comment for better error control in freemem.
 - Disable rules.
@@ -30,7 +29,7 @@ Version 1.0.4 (2016-01-11)
 - Validate user input with multiple retries and detailed error output.
 - Run sensor through interactive mode and ask for settings.
 - Optimize two line status display in html.
-- Support json oprion on cli for direct sensor call.
+- Support json option on cli for direct sensor call.
 - Optimize status box in sensor report.
 - Display sensor setup.
 - Fixed set command and its help in interactive console.
@@ -53,7 +52,6 @@ Version 1.0.3 (2015-12-30)
 - Add stdout to ping report.
 - Fixed all sensors to use new check structure with @result support.
 - Restructure sensor calls to allow report() method.
-- Merge branch 'master' of https://github.com/alinex/node-monitor
 - Updated all sensor report examples in docu.
 - Optimized report to show name and label.
 - Optimize reports and add more config settings.
@@ -349,4 +347,3 @@ Version 0.0.1 (2014-10-09)
 - Added brainstorm overviw as mindmap.
 - Added overview drawing.
 - Initial commit
-

@@ -34,6 +34,7 @@ exports.init = (setup, cb) ->
 
 exports.run = (action, cb) ->
   action.run (err) ->
+    expect(action.actor).to.exist
     expect(action.date, 'date').to.exist
     expect(err, 'error').to.not.exist
     expect(action.err, 'error').to.not.exist
