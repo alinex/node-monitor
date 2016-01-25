@@ -63,18 +63,24 @@ exports.schema =
       description: "the address to send email to"
       type: 'array'
       toArray: true
+      entries:
+        type: 'string'
       optional: true
     cc:
       title: "Carbon Copy"
       description: "the carbon copy address to send email to"
       type: 'array'
       toArray: true
+      entries:
+        type: 'string'
       optional: true
     bcc:
       title: "Blind Carbon Copy"
       description: "the blind carbon copy address to send email to"
       type: 'array'
       toArray: true
+      entries:
+        type: 'string'
       optional: true
     subject:
       title: "Subject"
@@ -192,10 +198,10 @@ exports.run = (cb) ->
   ################################################################################
   # PREVENT EMAIL sending
   ################################################################################
-  console.log chalk.bold.yellow "Skipped real sending"
+#  console.log chalk.bold.yellow "Skipped real sending"
   console.log @setup
-  return cb()
-  transporter.sendMail email, (err, info) ->
+#  return cb()
+  transporter.sendMail @setup, (err, info) ->
     if err
       if err.errors
         debug chalk.red e.message for e in err.errors

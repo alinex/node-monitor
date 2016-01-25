@@ -41,11 +41,14 @@ describe.only "Email actor", ->
     it "should create new action", (cb) ->
       test.init
         email:
-          transport: "smtp://alexander.schilling%40divibib.com:" +
-            process.env.PW_ALEX_DIVIBIB_COM + "@mail.divibib.com"
+          transport:
+            name: 'testsend'
+            version: '1'
+            send: (data, callback) ->
+              callback()
+            logger: false
           from: 'info@alinex.de'
-          to: 'info@alinex.de'
-          cc: 'info@alinex.de'
+          to: 'root@localhost'
           subject: 'Mocha Test 01'
       , (err, instance) ->
         action = instance
@@ -61,13 +64,27 @@ describe.only "Email actor", ->
       @timeout 5000
       test.init
         email:
-          base: 'ok'
+          transport: "smtp://alexander.schilling%40divibib.com:" +
+            process.env.PW_ALEX_DIVIBIB_COM + "@mail.divibib.com"
+          from: 'alexander.schilling@divibib.com'
           to: 'info@alinex.de'
+          subject: 'Mocha Test 02'
       , (err, action) ->
         test.run action, ->
           cb()
 
     it "should send email through gmail", (cb) ->
+      @timeout 5000
+      test.init
+        email:
+          transport: "smtp://alexander.reiner.schilling:" +
+            process.env.PW_ALEX_GMAIL + "@smtp.gmail.com"
+          from: 'info@alinex.de'
+          to: 'info@alinex.de'
+          subject: 'Mocha Test 03'
+      , (err, action) ->
+        test.run action, ->
+          cb()
 
     it "should support text+html", (cb) ->
 
