@@ -7,6 +7,12 @@ Action = require '../../../src/action'
 config = require 'alinex-config'
 
 actor = require '../../../src/actor/email'
+transportStub =
+  name: 'testsend'
+  version: '1'
+  send: (data, callback) ->
+    callback()
+  logger: false
 
 before (cb) ->
   @timeout 10000
@@ -41,12 +47,7 @@ describe.only "Email actor", ->
     it "should create new action", (cb) ->
       test.init
         email:
-          transport:
-            name: 'testsend'
-            version: '1'
-            send: (data, callback) ->
-              callback()
-            logger: false
+          transport: transportStub
           from: 'info@alinex.de'
           to: 'root@localhost'
           subject: 'Mocha Test 01'
@@ -82,6 +83,31 @@ describe.only "Email actor", ->
           from: 'info@alinex.de'
           to: 'info@alinex.de'
           subject: 'Mocha Test 03'
+      , (err, action) ->
+        test.run action, ->
+          cb()
+
+    it "should send using smtps", (cb) ->
+      @timeout 5000
+      test.init
+        email:
+          transport: "smtps://alexander.reiner.schilling:" +
+            process.env.PW_ALEX_GMAIL + "@smtp.gmail.com"
+          from: 'info@alinex.de'
+          to: 'info@alinex.de'
+          subject: 'Mocha Test 04'
+      , (err, action) ->
+        test.run action, ->
+          cb()
+
+    it "should support base settings", (cb) ->
+      @timeout 5000
+      test.init
+        email:
+          transport: transportStub
+          base: 'ok'
+          to: 'info@alinex.de'
+          subject: 'Mocha Test 05'
       , (err, action) ->
         test.run action, ->
           cb()
