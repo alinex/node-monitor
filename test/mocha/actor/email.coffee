@@ -3,16 +3,37 @@ expect = chai.expect
 ### eslint-env node, mocha ###
 
 test = require '../actor'
-Action = require '../../../src/action'
 config = require 'alinex-config'
 
 actor = require '../../../src/actor/email'
+
+stubData = null
 transportStub =
   name: 'testsend'
   version: '1'
-  send: (data, callback) ->
-    callback()
+  send: (data, cb) ->
+    stubData = data
+    cb()
   logger: false
+
+testEmail = (setup, cb) ->
+  test.init
+    email: setup
+  , (err, action) ->
+    test.run action, cb
+
+testStub = (setup, cb) ->
+  stubData = null
+  setup.transport = transportStub
+  test.init
+    email: setup
+  , (err, action) ->
+    test.run action, (err, action) ->
+      console.log 'SEND', action.setup
+      console.log 'RECEIVE', stubData
+      expect(stubData, 'send message').to.exist
+      cb err, action, stubData
+
 
 before (cb) ->
   @timeout 10000
@@ -59,58 +80,76 @@ describe.only "Email actor", ->
       @timeout 5000
       test.run action, cb
 
-  describe "possibilities", ->
+  describe.skip "sending", ->
 
     it "should send email through smtp", (cb) ->
       @timeout 5000
-      test.init
-        email:
-          transport: "smtp://alexander.schilling%40divibib.com:" +
-            process.env.PW_ALEX_DIVIBIB_COM + "@mail.divibib.com"
-          from: 'alexander.schilling@divibib.com'
-          to: 'info@alinex.de'
-          subject: 'Mocha Test 02'
-      , (err, action) ->
-        test.run action, ->
-          cb()
+      testEmail
+        transport: "smtp://alexander.schilling%40divibib.com:" +
+          process.env.PW_ALEX_DIVIBIB_COM + "@mail.divibib.com"
+        from: 'alexander.schilling@divibib.com'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test 02'
+      , cb
 
     it "should send email through gmail", (cb) ->
       @timeout 5000
-      test.init
-        email:
-          transport: "smtp://alexander.reiner.schilling:" +
-            process.env.PW_ALEX_GMAIL + "@smtp.gmail.com"
-          from: 'info@alinex.de'
-          to: 'info@alinex.de'
-          subject: 'Mocha Test 03'
-      , (err, action) ->
-        test.run action, ->
-          cb()
+      testEmail
+        transport: "smtp://alexander.reiner.schilling:" +
+          process.env.PW_ALEX_GMAIL + "@smtp.gmail.com"
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test 03'
+      , cb
 
     it "should send using smtps", (cb) ->
       @timeout 5000
-      test.init
-        email:
-          transport: "smtps://alexander.reiner.schilling:" +
-            process.env.PW_ALEX_GMAIL + "@smtp.gmail.com"
-          from: 'info@alinex.de'
-          to: 'info@alinex.de'
-          subject: 'Mocha Test 04'
-      , (err, action) ->
-        test.run action, ->
-          cb()
+      testEmail
+        transport: "smtps://alexander.reiner.schilling:" +
+          process.env.PW_ALEX_GMAIL + "@smtp.gmail.com"
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test 04'
+      , cb
+
+    it "should send through well-known service", (cb) ->
+      @timeout 5000
+      testEmail
+        transport:
+          service: 'gmail'
+          auth:
+            user: 'alexander.reiner.schilling'
+            pass: process.env.PW_ALEX_GMAIL
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test 05'
+      , cb
+
+    it "should send using object structure", (cb) ->
+      @timeout 5000
+      testEmail
+        transport:
+          host: 'smtp.gmail.com'
+          port: 465
+          secure: true
+          auth:
+            user: 'alexander.reiner.schilling'
+            pass: process.env.PW_ALEX_GMAIL
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test 06'
+      , cb
+
+  describe "possibilities", ->
 
     it "should support base settings", (cb) ->
       @timeout 5000
-      test.init
-        email:
-          transport: transportStub
-          base: 'ok'
-          to: 'info@alinex.de'
-          subject: 'Mocha Test 05'
-      , (err, action) ->
-        test.run action, ->
-          cb()
+      testStub
+        base: 'ok'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test'
+      , (err, action, email) ->
+        cb()
 
     it "should support text+html", (cb) ->
 

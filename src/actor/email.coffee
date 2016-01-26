@@ -188,28 +188,23 @@ exports.run = (cb) ->
   transporter = nodemailer.createTransport @setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
   debug chalk.grey "using #{transporter.transporter.name}"
-  delete @setup.transport if @setup.transport?
   if @setup.report
     @setup.text = @setup.report.toText()
     @setup.html = @setup.report.toHtml()
     @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
     delete @setup.report
   # try to send email
-  ################################################################################
-  # PREVENT EMAIL sending
-  ################################################################################
-#  console.log chalk.bold.yellow "Skipped real sending"
-  console.log @setup
-#  return cb()
-  transporter.sendMail @setup, (err, info) ->
+  transporter.sendMail @setup, (err, info) =>
     if err
       if err.errors
         debug chalk.red e.message for e in err.errors
       else
         debug chalk.red err.message
+      debug chalk.grey "send through " + util.inspect @setup.transport
     if info
       debug "message send to"
       debug chalk.grey util.inspect(info).replace /\s+/, ''
+      # TODO @values = accepted, rejected, response
     cb err?.errors?[0] ? err ? null
 
 # priority

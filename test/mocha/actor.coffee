@@ -39,4 +39,4 @@ exports.run = (action, cb) ->
     expect(err, 'error').to.not.exist
     expect(action.err, 'error').to.not.exist
     expect(action.values, 'values').to.exist
-    cb err
+    cb err, action
