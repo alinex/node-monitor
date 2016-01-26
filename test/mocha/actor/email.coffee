@@ -4,6 +4,7 @@ expect = chai.expect
 
 test = require '../actor'
 config = require 'alinex-config'
+Report = require 'alinex-report'
 
 actor = require '../../../src/actor/email'
 
@@ -142,8 +143,13 @@ describe.only "Email actor", ->
 
   describe "possibilities", ->
 
+    report = new Report()
+    report.h1 'Test Report'
+    report.p 'This is a short example of an report which is added Automatically
+      to the email before sending.'
+    report.ul ['in text', 'and html']
+
     it "should support base settings", (cb) ->
-      @timeout 5000
       testStub
         base: 'ok'
         to: 'info@alinex.de'
@@ -153,9 +159,50 @@ describe.only "Email actor", ->
         cb()
 
     it "should support text+html", (cb) ->
+      testStub
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test'
+        text: 'This is the content.'
+        html: '<p>This is <b>the</b> content.</p>'
+      , (err, action, email) ->
+        expect(email.data.text, 'text').to.exist
+        expect(email.data.html, 'html').to.exist
+        cb()
 
     it "should use report if no text/html", (cb) ->
+      testStub
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test'
+        report: report
+      , (err, action, email) ->
+        expect(email.data.text, 'text').to.exist
+        expect(email.data.html, 'html').to.exist
+        cb()
 
-    it "should support handlebars", (cb) ->
+    it "should use report to add to text/html", (cb) ->
+      testStub
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'Mocha Test'
+        text: 'This is the content.'
+        html: '<p>This is <b>the</b> content.</p>'
+        report: report
+      , (err, action, email) ->
+        expect(email.data.text, 'text').to.exist
+        expect(email.data.html, 'html').to.exist
+        cb()
 
     it "should auto create subject from body", (cb) ->
+      testStub
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        report: report
+      , (err, action, email) ->
+        expect(email.data.text, 'text').to.exist
+        expect(email.data.html, 'html').to.exist
+        cb()
+
+
+    it "should support handlebars", (cb) ->

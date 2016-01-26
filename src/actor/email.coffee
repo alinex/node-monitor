@@ -93,8 +93,8 @@ exports.schema =
       ]
       optional: true
     text:
-      title: ""
-      description: ""
+      title: "Text Content"
+      description: "the plain text content to be send"
       type: 'or'
       or: [
         type: 'string'
@@ -103,8 +103,8 @@ exports.schema =
       ]
       optional: true
     html:
-      title: ""
-      description: ""
+      title: "HTML Content"
+      description: "the html content to be send"
       type: 'or'
       or: [
         type: 'string'
@@ -113,10 +113,16 @@ exports.schema =
       ]
       optional: true
     report:
-      title: ""
-      description: ""
+      title: "Report"
+      description: "the report to send as content (appended to text and html)"
       type: 'object'
       instanceOf: Report
+      optional: true
+    priority:
+      title: "Priority"
+      description: "the importance of the mail set in the header"
+      type: 'string'
+      values: ['high', 'normal', 'low']
       optional: true
 
 
@@ -182,7 +188,7 @@ exports.run = (cb) ->
     @setup[f] = resolve @setup[f]
     delete @setup[f] unless @setup[f]?
   # single address fields
-  @setup[f] = @setup[f][0] for f in ['from']
+  @setup[f] = @setup[f]?[0] for f in ['from']
   mails = @setup.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
   debug "sending email to #{mails?.join ', '}..."
   # setup transporter
@@ -190,8 +196,10 @@ exports.run = (cb) ->
   transporter.use 'compile', inlineBase64
   debug chalk.grey "using #{transporter.transporter.name}"
   if @setup.report
-    @setup.text = @setup.report.toText()
-    @setup.html = @setup.report.toHtml()
+    @setup.text = if @setup.text? then @setup.text + '\n\n' else ''
+    @setup.html ?= ''
+    @setup.text += @setup.report.toText()
+    @setup.html += @setup.report.toHtml()
     @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
     delete @setup.report
   # try to send email
