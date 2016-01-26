@@ -30,7 +30,7 @@ testStub = (setup, cb) ->
   , (err, action) ->
     test.run action, (err, action) ->
       console.log 'SEND', action.setup
-      console.log 'RECEIVE', stubData
+      console.log 'EMAIL', stubData
       expect(stubData, 'send message').to.exist
       cb err, action, stubData
 
@@ -149,6 +149,7 @@ describe.only "Email actor", ->
         to: 'info@alinex.de'
         subject: 'Mocha Test'
       , (err, action, email) ->
+        expect(email.data.body, 'body').to.exist
         cb()
 
     it "should support text+html", (cb) ->

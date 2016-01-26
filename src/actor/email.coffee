@@ -157,6 +157,7 @@ exports.run = (cb) ->
     base = config.get "/monitor/email/#{@setup.base}"
     delete @setup.base
     @setup = object.extend base, @setup
+    console.log base
   # resolve contacts
   resolve = (list) ->
     return null unless list
