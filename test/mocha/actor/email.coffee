@@ -204,5 +204,18 @@ describe.only "Email actor", ->
         expect(email.data.html, 'html').to.exist
         cb()
 
-
     it "should support handlebars", (cb) ->
+      handlebars = require 'handlebars'
+      testStub
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: handlebars.compile "Mail with {{title}}"
+        text: handlebars.compile "This is only a {{name}}"
+        context:
+          title: 'handlebars'
+          name: 'test'
+      , (err, action, email) ->
+        expect(email.data.subject, 'subject').to.equal 'Mail with handlebars'
+        expect(email.data.text, 'text').to.equal 'This is only a test'
+        cb()
+# priority

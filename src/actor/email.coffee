@@ -118,6 +118,11 @@ exports.schema =
       type: 'object'
       instanceOf: Report
       optional: true
+    context:
+      title: "Context"
+      description: "the context to use for potentional handlebar templates"
+      type: 'object'
+      optional: true
     priority:
       title: "Priority"
       description: "the importance of the mail set in the header"
@@ -191,6 +196,10 @@ exports.run = (cb) ->
   @setup[f] = @setup[f]?[0] for f in ['from']
   mails = @setup.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
   debug "sending email to #{mails?.join ', '}..."
+  # support handlebars
+  @setup.subject = @setup.subject @setup.context if typeof @setup.subject is 'function'
+  @setup.text = @setup.text @setup.context if typeof @setup.text is 'function'
+  @setup.html = @setup.html @setup.context if typeof @setup.html is 'function'
   # setup transporter
   transporter = nodemailer.createTransport @setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
