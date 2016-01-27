@@ -141,7 +141,7 @@ describe.only "Email actor", ->
         subject: 'Mocha Test 06'
       , cb
 
-  describe "possibilities", ->
+  describe.skip "possibilities", ->
 
     report = new Report()
     report.h1 'Test Report'

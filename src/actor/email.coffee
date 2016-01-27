@@ -145,9 +145,21 @@ exports.meta =
   # This are possible values which may be given if the check runs normally.
   # You may use any of these in your warn/fail expressions.
   values:
-    cpus:
-      title: "CPU Cores"
-      description: "number of cpu cores"
+    accepted:
+      title: "Accepted"
+      description: "list of accepted email addresses"
+      type: 'array'
+    rejected:
+      title: "Rejected"
+      description: "list of rejected email addresses"
+      type: 'array'
+    message:
+      title: "Server Response"
+      description: "message from the mail server"
+      type: 'string'
+    code:
+      title: "Code"
+      description: "smtp response code"
       type: 'integer'
 
 
@@ -222,9 +234,9 @@ exports.run = (cb) ->
     if info
       debug "message send to"
       debug chalk.grey util.inspect(info).replace /\s+/, ''
-      # TODO @values = accepted, rejected, response
+      for e in ['accepted', 'rejected']
+        @values[e] = info[e] if info[e]?.length
+      @values.message = info.response
+      @values.code = Number.parseInt info.response?.match(/\d+/)?[0]
+      return cb new Error "Some messages were rejected: #{info.response}" if info.rejected?.length
     cb err?.errors?[0] ? err ? null
-
-# priority
-# report
-# html
