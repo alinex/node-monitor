@@ -1,0 +1,51 @@
+@startuml
+title Monitor Parts
+
+node Monitor {
+
+  [Start] -> Parts
+  [Start] -> Webserver
+
+  frame Webserver {
+    rectangle Admin
+    rectangle REST
+  }
+
+  folder "local files" as local {
+    [config/controller] as files_config
+    [logs] as files_logs
+  }
+
+  frame Parts {
+    rectangle Controller
+    rectangle Checks
+    rectangle Actions
+    rectangle Analysis
+  }
+
+  database Database
+  Webserver -> Database
+  Parts -> Database
+  Parts -> local
+}
+
+node Testsystems
+note top
+  Objects to inspect
+  and monitor
+end note
+node Testsystems {
+  rectangle Service
+  rectangle SSH
+  database Database as db1
+  folder Files
+}
+Parts -> Testsystems
+
+frame Email
+note top
+  Inform about
+  Problems
+end note
+Parts -> Email
+@enduml
