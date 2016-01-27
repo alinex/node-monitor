@@ -171,13 +171,10 @@ class Action extends EventEmitter
       @lastrun.push new Date()
       @err = err if not @err and err
       @actor.debug "#{chalk.grey @controller?.name} finished #{@name} actor"
-      # TODO storage
-      # store in database
-#      storage.results @databaseID, @type, @actor.meta.values
-#      , @date[0], @values, (err) =>
-#        @err = err if not @err and err
-#        cb null, @status
-      cb()
+      return cb() unless @controller?
+      # add database entry if run below controller
+      storage.action @databaseID, @type, @actor.meta.values
+      , @date[0], @values, cb
 
 
 # Export class
