@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="587px" style="width:997px;height:587px;" version="1.1" viewBox="0 0 997 587" width="997px">
+        <defs>
+            <filter height="300%" id="f1" width="300%" x="-1" y="-1">
+                <feGaussianBlur result="blurOut" stdDeviation="2.0" />
+                <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0" />
+                <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3" />
+                <feBlend in="SourceGraphic" in2="blurOut3" mode="normal" />
+            </filter>
+        </defs>
+        <g>
+            <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="186" x="419" y="16.708">Monitor Components</text>
+            <rect fill="#FFFFFF" filter="url(#f1)" height="88" style="stroke: #000000; stroke-width: 2.0;" width="313" x="32" y="110.9531" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="176.5" y="125.9482">Init</text>
+            <rect fill="#FFFFFF" filter="url(#f1)" height="88" style="stroke: #000000; stroke-width: 2.0;" width="392" x="182" y="232.9531" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="35" x="360.5" y="247.9482">Test</text>
+            <rect fill="#FFFFFF" filter="url(#f1)" height="88" style="stroke: #000000; stroke-width: 2.0;" width="221" x="234" y="370.9531" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="43" x="323" y="385.9482">Solve</text>
+            <rect fill="#FFFFFF" filter="url(#f1)" height="88" style="stroke: #000000; stroke-width: 2.0;" width="254" x="736" y="370.9531" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="30" x="848" y="385.9482">Info</text>
+            <polygon fill="#FFFFFF" filter="url(#f1)" points="22,492.9531,102,492.9531,109,515.25,322,515.25,322,580.9531,22,580.9531,22,492.9531" style="stroke: #000000; stroke-width: 2.0;" />
+            <line style="stroke: #000000; stroke-width: 2.0;" x1="22" x2="109" y1="515.25" y2="515.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="74" x="26" y="507.9482">local files</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="40" x="48" y="146.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="43" y="151.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="43" y="173.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="20" x="58" y="169.9482">CLI</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="91" x="237.75" y="146.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="232.75" y="151.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="232.75" y="173.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="247.75" y="169.9482">Interactive</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="79" x="123.75" y="146.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="118.75" y="151.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="118.75" y="173.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="59" x="133.75" y="169.9482">Daemon</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="87" x="198.75" y="268.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="193.75" y="273.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="193.75" y="295.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="67" x="208.75" y="291.9482">Controller</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="64" x="355" y="268.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="350" y="273.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="350" y="295.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="44" x="365" y="291.9482">Check</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="69" x="488.75" y="268.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="483.75" y="273.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="483.75" y="295.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="49" x="498.75" y="291.9482">Sensor</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="63" x="250.75" y="406.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="245.75" y="411.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="245.75" y="433.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="43" x="260.75" y="429.9482">Action</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="56" x="383.5" y="406.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="378.5" y="411.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="378.5" y="433.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="36" x="393.5" y="429.9482">Actor</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="75" x="751.75" y="406.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="746.75" y="411.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="746.75" y="433.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="55" x="761.75" y="429.9482">Analysis</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="78" x="896" y="406.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="891" y="411.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="891" y="433.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="58" x="906" y="429.9482">Analyzer</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="62" x="159.5" y="528.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="154.5" y="533.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="154.5" y="555.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="42" x="169.5" y="551.9482">config</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="85" x="38.75" y="528.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="33.75" y="533.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="33.75" y="555.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="65" x="48.75" y="551.9482">controller</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="36.2969" style="stroke: #A80036; stroke-width: 1.5;" width="49" x="256.75" y="528.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="251.75" y="533.9531" />
+            <rect fill="#FEFECE" height="5" style="stroke: #A80036; stroke-width: 1.5;" width="10" x="251.75" y="555.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="29" x="266.75" y="551.9482">logs</text>
+            <ellipse cx="163" cy="37.9531" fill="#FEFECE" filter="url(#f1)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="50" x="138" y="59.9482">Access</text>
+            <path d="M498,536.4531 C498,526.4531 541,526.4531 541,526.4531 C541,526.4531 584,526.4531 584,536.4531 L584,557.75 C584,567.75 541,567.75 541,567.75 C541,567.75 498,567.75 498,557.75 L498,536.4531 " fill="#FEFECE" filter="url(#f1)"
+            style="stroke: #000000; stroke-width: 1.5;" />
+            <path d="M498,536.4531 C498,546.4531 541,546.4531 541,546.4531 C541,546.4531 584,546.4531 584,536.4531 " fill="none" style="stroke: #000000; stroke-width: 1.5;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="66" x="508" y="559.4482">Database</text>
+            <polygon fill="#FEFECE" filter="url(#f1)" points="633.75,533.9531,643.75,523.9531,762.75,523.9531,762.75,560.25,752.75,570.25,633.75,570.25,633.75,533.9531" style="stroke: #000000; stroke-width: 1.5;" />
+            <line style="stroke: #000000; stroke-width: 1.5;" x1="752.75" x2="761.75" y1="533.9531" y2="524.9531" />
+            <line style="stroke: #000000; stroke-width: 1.5;" x1="633.75" x2="752.75" y1="533.9531" y2="533.9531" />
+            <line style="stroke: #000000; stroke-width: 1.5;" x1="752.75" x2="752.75" y1="533.9531" y2="570.25" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="89" x="648.75" y="556.9482">Testsystems</text>
+            <rect fill="#FEFECE" filter="url(#f1)" height="46.2969" style="stroke: #000000; stroke-width: 1.5;" width="76" x="373" y="523.9531" />
+            <path d="M398.3333,524.9531 L398.3333,528.9531 L391.3333,535.9531 L373,535.9531 " fill="#FEFECE" style="stroke: #000000; stroke-width: 1.5;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="36" x="388" y="556.9482">Email</text>
+            <path d="M81.777,183.0171 C88.583,190.8421 97.2094,199.9201 106,206.9531 C135.628,230.6581 173.163,251.9061 201.291,266.3791 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="206.075,268.8221,199.8793,261.1662,201.6222,266.5479,196.2405,268.2907,206.075,268.8221" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M277.126,183.1461 C269.849,204.4431 257.443,240.7541 249.49,264.0321 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;" />
+            <polygon fill="#A80036" points="247.863,268.7921,254.5568,261.5677,249.4788,264.0604,246.9861,258.9824,247.863,268.7921" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M174.319,183.1461 C188.457,204.6211 212.645,241.3631 227.952,264.6141 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="230.702,268.7921,229.0941,259.0754,227.9526,264.6159,222.4121,263.4744,230.702,268.7921" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M285.33,286.9531 C306.778,286.9531 328.225,286.9531 349.673,286.9531 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="354.831,286.9531,345.831,282.9531,349.831,286.9531,345.831,290.9531,354.831,286.9531" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M297.901,183.1461 C316.59,204.7111 348.62,241.6681 368.756,264.9031 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;" />
+            <polygon fill="#A80036" points="372.127,268.7921,369.2561,259.371,368.8526,265.0134,363.2102,264.61,372.127,268.7921" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M419.141,286.9531 C440.549,286.9531 461.958,286.9531 483.367,286.9531 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="488.515,286.9531,479.515,282.9531,483.515,286.9531,479.515,290.9531,488.515,286.9531" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M247.066,305.1771 C254.309,329.8051 267.624,375.0761 275.559,402.0531 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="276.975,406.8681,278.2747,397.1054,275.565,402.071,270.5994,399.3614,276.975,406.8681" style="stroke: #A80036; stroke-width: 1.0;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="31" x="262" y="350.02">rules</text>
+            <path d="M257.881,183.0091 C246.246,190.6571 232.119,199.5931 219,206.9531 C203.051,215.9011 191.699,209.4501 182,224.9531 C157.486,264.1391 162.344,287.1181 182,328.9531 C192.067,350.3791 205.634,346.8651 223,362.9531 C236.789,375.7271 251.488,390.9191 262.764,402.9461 "
+            fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;" />
+            <polygon fill="#A80036" points="266.451,406.8951,263.2314,397.5874,263.0382,403.2409,257.3847,403.0478,266.451,406.8951" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M313.494,424.9531 C335.004,424.9531 356.513,424.9531 378.022,424.9531 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="383.196,424.9531,374.196,420.9531,378.196,424.9531,374.196,428.9531,383.196,424.9531" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M328.359,167.6151 C387.816,171.4271 493.94,183.9421 574,224.9531 C661.967,270.0141 740.27,361.3311 772.894,402.7151 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;" />
+            <polygon fill="#A80036" points="776.092,406.7981,773.6911,397.2464,773.0088,402.8619,767.3932,402.1796,776.092,406.7981" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M826.355,424.9531 C847.834,424.9531 869.312,424.9531 890.79,424.9531 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="895.956,424.9531,886.956,420.9531,890.956,424.9531,886.956,428.9531,895.956,424.9531" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M281.857,443.1461 C281.68,464.3541 281.379,500.4508 281.185,523.7397 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="281.143,528.7919,285.2179,519.8256,281.1847,523.7921,277.2182,519.7589,281.143,528.7919" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M230.037,305.2251 C220.59,319.8701 208.028,341.8081 202,362.9531 C186.008,419.0471 186.759,488.5741 188.48,523.5813 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="188.762,528.8961,192.2791,519.6967,188.4969,523.9032,184.2904,520.1209,188.762,528.8961" style="stroke: #A80036; stroke-width: 1.0;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="29" x="203" y="429.02">read</text>
+            <path d="M212.987,305.0141 C192.352,318.4521 165.326,338.8971 148,362.9531 C111.251,413.9791 92.547,487.3721 85.0566,523.7596 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="84.032,528.8526,89.7287,520.8185,85.0183,523.9509,81.8859,519.2404,84.032,528.8526" style="stroke: #A80036; stroke-width: 1.0;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="29" x="149" y="429.02">read</text>
+            <path d="M144.424,63.1031 C132.699,73.7851 117.626,88.4481 106,102.9531 C96.1486,115.2431 86.7724,130.2461 79.7985,142.2971 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="77.1527,146.9271,85.0902,141.0965,79.6328,142.5856,78.1437,137.1283,77.1527,146.9271" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M179.685,63.2211 C201.081,84.0821 238.21,120.2831 261.646,143.1331 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="265.286,146.6811,261.6337,137.5345,261.7057,143.1909,256.0494,143.2629,265.286,146.6811" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M163,63.2211 C163,83.5671 163,118.5051 163,141.4171 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="163,146.6811,167,137.6811,163,141.6811,159,137.6811,163,146.6811" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M278.559,305.0221 C296.038,312.8491 317.383,321.9261 337,328.9531 C388.381,347.3591 413.468,327.5431 455,362.9531 C504.468,405.1301 527.37,482.0471 536.255,521.3735 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="537.368,526.4367,539.3421,516.7877,536.2943,521.5534,531.5287,518.5056,537.368,526.4367" style="stroke: #A80036; stroke-width: 1.0;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="19" x="520" y="429.02">init</text>
+            <path d="M415.968,305.0441 C431.73,313.5731 451.869,323.2601 471,328.9531 C484.738,333.0411 524.723,326.9621 535,336.9531 C584.624,385.1921 563.662,477.4981 549.727,521.4802 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"
+            />
+            <polygon fill="#A80036" points="548.152,526.3447,554.7302,519.0149,549.6925,521.5879,547.1194,516.5501,548.152,526.3447" style="stroke: #A80036; stroke-width: 1.0;" />
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="41" x="567" y="429.02">values</text>
+            <path d="M311.488,443.0661 C326.973,451.3881 346.526,460.8801 365,466.9531 C408.316,481.1921 424.547,465.9621 466,484.9531 C485.805,494.0261 504.807,509.5803 518.73,522.7106 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"
+            />
+            <polygon fill="#A80036" points="522.518,526.3424,518.789,517.2268,518.9085,522.8824,513.2529,523.0019,522.518,526.3424" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M751.637,434.5931 C715.481,443.8821 659.862,460.6631 616,484.9531 C597.479,495.2101 579.001,510.1688 565.02,522.7061 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="561.2,526.1721,570.5531,523.0868,564.9029,522.8123,565.1774,517.1621,561.2,526.1721" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M551.457,304.9871 C572.149,318.5511 599.64,339.1651 618,362.9531 C655.712,411.8151 679.659,481.2061 690.749,518.952 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="692.166,523.84,693.5036,514.0824,690.7747,519.0375,685.8196,516.3086,692.166,523.84" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M428.877,442.9781 C438.987,451.5991 452.319,461.3921 466,466.9531 C522.483,489.9131 544.7,464.1131 602,484.9531 C624.924,493.2901 648.078,507.7854 665.902,520.5538 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"
+            />
+            <polygon fill="#A80036" points="670.315,523.758,665.3816,515.2338,666.2688,520.8207,660.6819,521.7078,670.315,523.758" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M901.295,443.0191 C860.77,463.5381 792.46,498.1254 746.327,521.4835 " fill="none" style="stroke: #A80036; stroke-width: 1.0;" />
+            <polygon fill="#A80036" points="741.655,523.8493,751.4913,523.3525,746.1158,521.5907,747.8775,516.2152,741.655,523.8493" style="stroke: #A80036; stroke-width: 1.0;" />
+            <path d="M411,443.1461 C411,462.9081 411,495.5981 411,518.8062 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;" />
+            <polygon fill="#A80036" points="411,523.8996,415,514.8996,411,518.8996,407,514.8996,411,523.8996" style="stroke: #A80036; stroke-width: 1.0;" />
+        </g>
+    </svg>

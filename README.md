@@ -279,6 +279,8 @@ Definitions
 - __Interactive Console__ - will interactively work
 - __Daemon__ - service mode in which the monitor runs the controller checks continuously
 
+![Components](src/doc/components.svg)
+
 
 Configuration
 -------------------------------------------------

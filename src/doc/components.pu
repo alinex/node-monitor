@@ -1,0 +1,54 @@
+@startuml
+title Monitor Components
+
+rectangle Init {
+  [CLI]
+  [Interactive]
+  [Daemon]
+}
+rectangle Test {
+  [CLI] -> [Controller]
+  [Interactive] ..> [Controller]
+  [Daemon] -> [Controller]
+  [Controller] -> [Check]
+  [Interactive] ..> [Check]
+  [Check] -> [Sensor]
+}
+rectangle Solve {
+  [Controller] -> [Action] : rules
+  [Interactive] ..> [Action]
+  [Action] -> [Actor]
+}
+rectangle Info {
+  [Interactive] ..> [Analysis]
+  [Analysis] -> [Analyzer]
+}
+
+
+folder "local files" {
+  [config] as files_config
+  [controller] as files_controller
+  [logs] as files_logs
+  [Action] -> [files_logs]
+  [Controller] -> files_config : read
+  [Controller] -> files_controller : read
+}
+
+interface Access
+Access -> [CLI]
+Access -> [Interactive]
+Access -> [Daemon]
+
+database Database
+[Controller] -> [Database] : init
+[Check] -> [Database] : values
+[Action] -> [Database]
+[Analysis] -> Database
+
+node Testsystems
+[Sensor] -> Testsystems
+[Actor] ..> Testsystems
+[Analyzer] -> Testsystems
+frame Email
+[Actor] ..> Email
+@enduml
