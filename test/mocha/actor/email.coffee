@@ -228,4 +228,3 @@ describe.only "Email actor", ->
       , (err, action, email) ->
         expect(email.data.priority, 'priority').to.equal 'high'
         cb()
-# priority
