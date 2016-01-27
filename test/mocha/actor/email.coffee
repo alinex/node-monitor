@@ -218,4 +218,14 @@ describe.only "Email actor", ->
         expect(email.data.subject, 'subject').to.equal 'Mail with handlebars'
         expect(email.data.text, 'text').to.equal 'This is only a test'
         cb()
+
+    it "should support priorities", (cb) ->
+      testStub
+        from: 'info@alinex.de'
+        to: 'info@alinex.de'
+        subject: 'test'
+        priority: 'high'
+      , (err, action, email) ->
+        expect(email.data.priority, 'priority').to.equal 'high'
+        cb()
 # priority
