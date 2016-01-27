@@ -365,6 +365,12 @@ storage =
           description: "the number of sensor data time entries to keep, older will be removed"
           type: 'integer'
           min: 1
+        action:
+          title: "Max. Time Entries"
+          description: "the number of actor data time entries to keep, older will be removed"
+          type: 'interval'
+          unit: 'd'
+          min: 1
 
 
 # Complete Schema Definition

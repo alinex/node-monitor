@@ -23,6 +23,7 @@ cleanupInterval =
   day: 24*3600*1000 # every day
   week: 7*24*3600*1000 # every week
   month: 24*24*3600*1000 # every 24 days (maximum for setTimeout)
+  action: 24*3600*1000 # every day
 
 
 # Initialized Data
@@ -46,7 +47,7 @@ exports.init = (setup, cb) ->
     drop conf, db, (err) ->
       return cb err if err
       create conf, db, (err) ->
-        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month']
+        cleanup interval for interval in ['minute', 'hour', 'day', 'week', 'month', 'action']
         cb err
 
 
@@ -346,11 +347,18 @@ cleanup = (interval) ->
   database.instance conf.storage.database, (err, db) ->
     num = conf.storage.cleanup[interval]
     debug "remove #{interval} entries older than #{num} #{interval}s"
-    # for each sensor
-    time = moment().subtract(num, interval).toDate()
-    async.each monitor.listSensor(), (sensor, cb) ->
-      db.exec "DELETE FROM #{prefix}sensor_#{sensor} WHERE interval=? AND period<?"
-      , [interval, time]
-      , cb
-    , (err) ->
-      console.error chalk.red.bold err if err
+    if interval is 'action'
+      # delete old actions
+      time = moment().subtract(num, 'day').toDate()
+      async.each monitor.listActor(), (actor, cb) ->
+        db.exec "DELETE FROM #{prefix}actor_#{actor} WHERE runAt<?", [time], (err) ->
+          console.error chalk.red.bold err if err
+    else
+      # for each sensor
+      time = moment().subtract(num, interval).toDate()
+      async.each monitor.listSensor(), (sensor, cb) ->
+        db.exec "DELETE FROM #{prefix}sensor_#{sensor} WHERE interval=? AND period<?"
+        , [interval, time]
+        , cb
+      , (err) ->
+        console.error chalk.red.bold err if err

@@ -64,3 +64,4 @@ storage:
     day: 90 # 3 months
     week: 104 # two years
     month: 60 # 5 years
+    action: 360 # days
