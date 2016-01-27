@@ -9,7 +9,7 @@
             </filter>
         </defs>
         <g>
-            <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="186" x="419" y="16.708">Monitor Components</text>
+            <text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="281" x="371.5" y="16.708">Monitor Components (Runtime)</text>
             <rect fill="#FFFFFF" filter="url(#f1)" height="88" style="stroke: #000000; stroke-width: 2.0;" width="313" x="32" y="110.9531" />
             <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="24" x="176.5" y="125.9482">Init</text>
             <rect fill="#FFFFFF" filter="url(#f1)" height="88" style="stroke: #000000; stroke-width: 2.0;" width="392" x="182" y="232.9531" />

@@ -1,5 +1,5 @@
 @startuml
-title Monitor Components
+title Monitor Components (Runtime)
 
 rectangle Init {
   [CLI]
@@ -23,7 +23,6 @@ rectangle Info {
   [Interactive] ..> [Analysis]
   [Analysis] -> [Analyzer]
 }
-
 
 folder "local files" {
   [config] as files_config
