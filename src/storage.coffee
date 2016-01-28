@@ -82,7 +82,8 @@ create = (conf, db, cb) ->
         controller_id INTEGER REFERENCES #{prefix}controller ON DELETE CASCADE,
         sensor VARCHAR(16) NOT NULL,
         name VARCHAR(120),
-        category VARCHAR(8) NOT NULL
+        category VARCHAR(8) NOT NULL,
+        mapping TEXT
       )
       """, cb]
     idx_check: ['check', (cb) -> db.exec """
@@ -208,7 +209,7 @@ exports.controller = (name, cb) ->
 
 # Get or register check
 # -------------------------------------------------
-exports.check = (controller, sensor, name, category, cb) ->
+exports.check = (controller, sensor, name, meta, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
@@ -219,11 +220,20 @@ exports.check = (controller, sensor, name, category, cb) ->
       """, [controller, sensor, name], (err, value) ->
       return cb err, value if err or value
       debug "register check #{sensor}:#{name} for controller_id #{controller}"
+      # add mapping information
+      if meta.mapping?
+        mapping = {}
+        for key, set of meta.mapping
+          mapping[set.storage] =
+            name: key
+          mapping[set.storage].title = set.title if set.title
+          mapping[set.storage].type = set.type if set.type
+        mapping = JSON.stringify mapping
       db.exec """
         INSERT INTO #{prefix}check
-        (controller_id, sensor, name, category) VALUES ($1, $2, $3, $4)
+        (controller_id, sensor, name, category) VALUES (?, ?, ?, ?, ?)
         RETURNING check_id
-        """, [controller, sensor, name, category], (err, num, id) ->
+        """, [controller, sensor, name, meta.category, mapping ? null], (err, num, id) ->
         cb err, id
 
 
@@ -351,8 +361,9 @@ cleanup = (interval) ->
       # delete old actions
       time = moment().subtract(num, 'day').toDate()
       async.each monitor.listActor(), (actor, cb) ->
-        db.exec "DELETE FROM #{prefix}actor_#{actor} WHERE runAt<?", [time], (err) ->
-          console.error chalk.red.bold err if err
+        db.exec "DELETE FROM #{prefix}actor_#{actor} WHERE runAt<?", [time], cb
+      , (err) ->
+        console.error chalk.red.bold err if err
     else
       # for each sensor
       time = moment().subtract(num, interval).toDate()
