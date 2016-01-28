@@ -13,4 +13,4 @@ prefix: mon_
 #  day: 90 # 3 months
 #  week: 104 # two years
 #  month: 60 # 5 years
-#  action: 360d
+#  other: 365d # one year
