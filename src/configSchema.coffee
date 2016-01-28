@@ -342,32 +342,32 @@ storage =
       keys:
         minute:
           title: "Max. Time Entries"
-          description: "the number of sensor data time entries to keep, older will be removed"
+          description: "the interval for sensor data time entries to keep, older will be removed"
           type: 'integer'
           min: 1
         hour:
           title: "Max. Time Entries"
-          description: "the number of sensor data time entries to keep, older will be removed"
+          description: "the interval for sensor data time entries to keep, older will be removed"
           type: 'integer'
           min: 1
         day:
           title: "Max. Time Entries"
-          description: "the number of sensor data time entries to keep, older will be removed"
+          description: "the interval for sensor data time entries to keep, older will be removed"
           type: 'integer'
           min: 1
         week:
           title: "Max. Time Entries"
-          description: "the number of sensor data time entries to keep, older will be removed"
+          description: "the interval for sensor data time entries to keep, older will be removed"
           type: 'integer'
           min: 1
         month:
           title: "Max. Time Entries"
-          description: "the number of sensor data time entries to keep, older will be removed"
+          description: "the interval for sensor data time entries to keep, older will be removed"
           type: 'integer'
           min: 1
-        action:
+        other:
           title: "Max. Time Entries"
-          description: "the number of actor data time entries to keep, older will be removed"
+          description: "the interval for other entries to keep, older will be removed"
           type: 'interval'
           unit: 'd'
           min: 1

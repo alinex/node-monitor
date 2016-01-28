@@ -363,7 +363,7 @@ cleanup = (interval) ->
       async.each monitor.listActor(), (actor, cb) ->
         db.exec "DELETE FROM #{prefix}actor_#{actor} WHERE runAt<?", [time], cb
       , (err) ->
-        # delete old
+        # delete old status entries
         console.error chalk.red.bold err if err
         async.each ['check', 'controller'], (type, cb) ->
           db.exec "DELETE FROM #{prefix}status_#{type} WHERE change<?", [time], cb
