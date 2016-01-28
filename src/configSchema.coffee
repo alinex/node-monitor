@@ -222,6 +222,7 @@ controller =
   title: "Controller List"
   description: "the list of controllers to check"
   type: 'object'
+  flatten: true
   entries: [
     title: "Controller"
     description: "a single controller checking one part of the system"
