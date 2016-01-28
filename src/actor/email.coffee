@@ -238,5 +238,6 @@ exports.run = (cb) ->
         @values[e] = info[e] if info[e]?.length
       @values.message = info.response
       @values.code = Number.parseInt info.response?.match(/\d+/)?[0]
+      debug chalk.grey util.inspect(@values).replace /\s+/g, ' '
       return cb new Error "Some messages were rejected: #{info.response}" if info.rejected?.length
     cb err?.errors?[0] ? err ? null

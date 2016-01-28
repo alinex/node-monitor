@@ -97,7 +97,7 @@ class Check extends EventEmitter
           @sensor.debug "#{chalk.grey @name} Initialized"
           return cb() unless @controller?
           # only add database entry if run below controller
-          storage.check @controller.databaseID, @type, @name, @sensor.meta.category
+          storage.check @controller.databaseID, @type, @name, @sensor.meta
           , (err, checkID) =>
             return cb err if err
             @databaseID = checkID

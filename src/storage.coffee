@@ -231,7 +231,7 @@ exports.check = (controller, sensor, name, meta, cb) ->
         mapping = JSON.stringify mapping
       db.exec """
         INSERT INTO #{prefix}check
-        (controller_id, sensor, name, category) VALUES (?, ?, ?, ?, ?)
+        (controller_id, sensor, name, category, mapping) VALUES (?, ?, ?, ?, ?)
         RETURNING check_id
         """, [controller, sensor, name, meta.category, mapping ? null], (err, num, id) ->
         cb err, id
