@@ -11,3 +11,7 @@
 /var/local
 /var/lib
 /build
+.travis.yml
+.npmignore
+.gitignore
+coffeelint.json
