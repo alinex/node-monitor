@@ -148,7 +148,7 @@ exports.init = (cb) ->
     if @conf.warn
       @conf.warn = @conf.warn.replace re, v.storage
     if @conf.fail
-      @conf.fail = @conf.warn.replace re, v.storage
+      @conf.fail = @conf.fail.replace re, v.storage
   cb()
 
 
