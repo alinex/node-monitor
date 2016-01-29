@@ -146,9 +146,9 @@ exports.init = (cb) ->
   for k, v of @conf.mapping
     re = new RegExp "\\b#{k}\\b", 'g'
     if @conf.warn
-      @conf.warn = @conf.warn.replace re, v.storage
+      @rule.warn = @rule.warn.replace re, v.storage
     if @conf.fail
-      @conf.fail = @conf.fail.replace re, v.storage
+      @rule.fail = @rule.fail.replace re, v.storage
   cb()
 
 

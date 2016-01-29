@@ -68,6 +68,7 @@ class Check extends EventEmitter
     @sensor = null
     @databaseID = null
     @base = null
+    @rule = null
     # will be filled on run
     @err = null
     @date = []
@@ -81,6 +82,9 @@ class Check extends EventEmitter
   # ### Initialize check and sensor
   init: (cb) ->
     return cb() if @sensor?
+    @rule =
+      warn: @conf.warn
+      fail: @conf.fail
     monitor ?= require './index'
     monitor.getSensor @type, (err, @sensor) =>
       return cb err if err
@@ -134,7 +138,7 @@ class Check extends EventEmitter
     # run the sensor
     started = @date[0]
     @sensor.run.call this, (err, res) =>
-      return unless started = @date[0]
+      return unless started is @date[0]
       @err = err if not @err and err
       @result.data = res
       @sensor.debug "#{chalk.grey @name} ended check"
@@ -180,9 +184,9 @@ class Check extends EventEmitter
       return @status = 'fail'
     # calculate from values
     for status in ['fail', 'warn']
-      continue unless @conf[status]
-      rule = @conf[status]
-      @sensor.debug chalk.grey "#{@name} check #{status} rule: #{rule}"
+      continue unless @rule[status]
+      rule = @rule[status]
+      @sensor.debug chalk.grey "#{@name} check #{status} rule: #{@conf[status]}"
       # replace data values
       for name, value of @values
         if Array.isArray value
