@@ -37,6 +37,7 @@ Controller -> Controller : report
 Controller <-> Check : report
 Controller -> Action : run
 Action <--> actor : init once
+Action <--> actor : prerun (optional)
 Action <--> actor : run
 Action <-> storage : add action results
 Action -> Controller

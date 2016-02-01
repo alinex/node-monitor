@@ -41,7 +41,7 @@ contact =
         email:
           title: "Email"
           description: "the email address to send alerts"
-          type: 'string'
+          type: 'email'
         phone:
           title: "Phone"
           description: "the phone numbers used for direct contact"
@@ -227,6 +227,7 @@ controller =
     title: "Controller"
     description: "a single controller checking one part of the system"
     type: 'object'
+    flatten: true
     mandatoryKeys: ['name']
     allowedKeys: true
     keys:
