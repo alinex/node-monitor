@@ -142,10 +142,10 @@ class Controller extends EventEmitter
         report = @report()
         if mode.verbose > 2
           console.error "\n#{report.toConsole()}\n"
+        @emit 'result', this
         Action.run.call this, (err) ->
           console.error chalk.red.bold "Action failed because #{err.message}" if err
-        @emit 'result', this
-        cb null, @status
+          cb null, @status
 
   # ### Create a report
   report: ->

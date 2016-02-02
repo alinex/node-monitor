@@ -127,8 +127,9 @@ class Action extends EventEmitter
     @count++
     # only work on specific status
     return cb() unless @conf.status is @controller?.status
-    # number of minimum attempts (controller runs) before informing.
-    return cb() if @conf.attempt and @count < @conf.attempt
+# TODO reenable if not testing
+#    # number of minimum attempts (controller runs) before informing.
+#    return cb() if @conf.attempt and @count < @conf.attempt
     # time (in seconds) to wait before informing.
     now = new Date()
     if @conf.latency

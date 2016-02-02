@@ -223,6 +223,7 @@ exports.run = (cb) ->
     @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
     delete @setup.report
   # try to send email
+  console.log @setup
   transporter.sendMail @setup, (err, info) =>
     if err
       if err.errors
@@ -236,7 +237,8 @@ exports.run = (cb) ->
       for e in ['accepted', 'rejected']
         @values[e] = info[e] if info[e]?.length
       @values.message = info.response
-      @values.code = Number.parseInt info.response?.match(/\d+/)?[0]
+      code = info.response?.match(/\d+/)?[0]
+      @values.code = Number code if code
       debug chalk.grey util.inspect(@values).replace /\s+/g, ' '
       return cb new Error "Some messages were rejected: #{info.response}" if info.rejected?.length
     cb err?.errors?[0] ? err ? null
