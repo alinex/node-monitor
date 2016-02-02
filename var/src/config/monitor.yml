@@ -26,12 +26,13 @@ email:
       \n
       {{hint}}\n
 
-# Rule Definition
+# Rule Template
 # -------------------------------------------------
 
 rule:
 
   fail:
+    name: fail
     status: fail
     attempt: 3
     latency: 60
@@ -41,6 +42,7 @@ rule:
     redo: 3h
 
   warn:
+    name: warn
     status: warn
     attempt: 3
     latency: 60
@@ -50,6 +52,7 @@ rule:
     redo: 3h
 
   ok:
+    name: ok
     status: ok
     email:
       base: default

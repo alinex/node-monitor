@@ -81,9 +81,9 @@ combine: max
 #
 # The following list references the active rules for this controller:
 rule:
-  - fail
-  - warn
-  - ok
+  - base: fail
+  - base: warn
+  - base: ok
 
 # Information Text
 # -------------------------------------------------

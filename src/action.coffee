@@ -31,6 +31,7 @@ validator = require 'alinex-validator'
 Report = require 'alinex-report'
 config = require 'alinex-config'
 async = require 'alinex-async'
+{object} = require 'alinex-util'
 # include classes and helpers
 storage = require './storage'
 
@@ -40,7 +41,7 @@ storage = require './storage'
 # This will be set on init
 monitor = null  # require './index'
 mode = {}
-actors = []
+actors = null
 
 
 # Controller class
@@ -61,16 +62,24 @@ class Action extends EventEmitter
     # resolve rules
     rules = config.get '/monitor/rule'
     # set specific one
-    for name in @conf.rule
-      rule = rules[name]
+    for rule, num in @conf.rule
+      # use base settings
+      while rule.base
+        unless base = rules[rule.base]
+          return cb new Error "No base rule with name #{rule.base} defined, like used
+          in #{rule.name} rule of #{@controller?.name} controller"
+        delete rule.base
+        rule = object.extend {}, base, rule
+      rule.name ?= "##{num}"
+#      rule = rules[name]
       try
         if rule.email
-          @actions.push new Action name, rule, this
+          @actions.push new Action rule, this
         else
-          @actions.unshift new Action name, rule, this
+          @actions.unshift new Action rule, this
       catch err
         return cb new Error "#{err.message} #{err.stack.split(/\n/)[1].trim()}
-        in #{name} rule of #{@name} controller"
+        in #{rule.name} rule of #{@controller?.name} controller"
     cb()
 
 
@@ -82,7 +91,7 @@ class Action extends EventEmitter
     , cb
 
   # ### Create instance
-  constructor: (@name, @conf, @controller) ->
+  constructor: (@conf, @controller) ->
     @count = 0 # number of calls in current status
     @date = @controller?.date # last change of status
     @status = @controller?.status # last status
@@ -100,21 +109,21 @@ class Action extends EventEmitter
   init: ->
     # check that rule is defined
     unless @conf
-      throw new Error "No definition for rule #{@name}"
+      throw new Error "No definition for rule #{@conf.name}"
     # set actor list
     monitor ?= require './index'
     for type in monitor.listActor()
       continue unless @conf[type]
       @type = type
       @base = @conf[type]
-    debug "#{chalk.grey @controller?.name} initialized #{@name} rule"
+    debug "#{chalk.grey @controller?.name} initialized #{@conf.name} rule"
 
   # ### Check the Rules and run Actor
   run: (cb) ->
     if not @controller? or @controller.changed
       @count = 0
       @date = @controller?.date ? new Date()
-    debug chalk.grey "#{@controller?.name} check #{@name} rule"
+    debug chalk.grey "#{@controller?.name} check #{@conf.name} rule"
     @count++
     # only work on specific status
     return cb() unless @conf.status is @controller?.status
@@ -140,10 +149,11 @@ class Action extends EventEmitter
     # initialize actor first
     monitor.getActor @type, (err, @actor) =>
       if err
-        return cb new Error "#{err.message} in #{@name} rule of #{@controller?.name} controller"
+        return cb new Error "#{err.message} in #{@conf.name} rule
+        of #{@controller?.name} controller"
       # check config
       validator.check
-        name: if @controller then "/controller/#{@controller?.name}/action/#{@name}/#{@type}"
+        name: if @controller then "/controller/#{@controller?.name}/action/#{@conf.name}/#{@type}"
         else "/actor:#{@type}"
         value: @conf[@type]
         schema: @actor.schema
@@ -163,14 +173,14 @@ class Action extends EventEmitter
 
   # ### Run Actor
   runNow: (cb) ->
-    @actor.debug "#{chalk.grey @controller?.name} run #{@name} actor"
+    @actor.debug "#{chalk.grey @controller?.name} run #{@conf.name} actor"
     @err = null
     @values = {}
     @lastrun = [new Date()]
     @actor.run.call this, (err) =>
       @lastrun.push new Date()
       @err = err if not @err and err
-      @actor.debug "#{chalk.grey @controller?.name} finished #{@name} actor"
+      @actor.debug "#{chalk.grey @controller?.name} finished #{@conf.name} actor"
       return cb() unless @controller?
       # add database entry if run below controller
       storage.action @databaseID, @type, @actor.meta.values

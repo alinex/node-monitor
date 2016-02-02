@@ -1,4 +1,4 @@
-# Rule Definition
+# Rule Templates
 # =================================================
 
 # ### Set templates for default rules
@@ -30,5 +30,3 @@ specific:
     base: fail # template to use defined under monitor/email
   # Timeout (in seconds) without status change before informing again.
   redo: 3h
-
-

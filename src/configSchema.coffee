@@ -107,45 +107,53 @@ email =
 # -------------------------------------------------
 
 rule =
-  title: "Rules"
-  description: "the list of all possible rules to be referenced from controller"
+  title: "Rule"
+  description: "a rule to run after the controller is done"
   type: 'object'
-  entries: [
-    title: "Rule"
-    description: "a rule to run after the controller is done"
-    type: 'object'
-    allowedKeys: true
-    keys:
-      status:
-        title: "Status"
-        description: "the status on which to act"
-        type: 'string'
-        list: ['ok', 'warn', 'fail']
-      attempt:
-        title: "Number of Checks"
-        description: "the minimal number of checks to wait before executing this rule"
-        type: 'integer'
-        min: 1
-      latency:
-        title: "Latency"
-        description: "the time (in seconds) to wait before executing this rule"
-        type: 'interval'
-        unit: 's'
-        min: 0
-      dependskip:
-        title: "Dependent Skip"
-        description: "the flag indicating if this rule should be skipped if
-          dependent controllers failed"
-        type: 'boolean'
-        default: false
-      email: email
-      redo:
-        title: "Redo Action"
-        description: "the time (in seconds) after which the action will be executed again"
-        type: 'interval'
-        unit: 's'
-        min: 0
-  ]
+  allowedKeys: true
+  keys:
+    name:
+      title: "Name"
+      description: "a specific name to refer to this check"
+      type: 'string'
+    base:
+      title: "Base Rule"
+      description: "the template to use for this rule"
+      type: 'string'
+      list: '<<<context:///monitor/rule>>>'
+    status:
+      title: "Status"
+      description: "the status on which to act"
+      type: 'string'
+      list: ['ok', 'warn', 'fail']
+    attempt:
+      title: "Number of Checks"
+      description: "the minimal number of checks to wait before executing this rule"
+      type: 'integer'
+      min: 1
+    latency:
+      title: "Latency"
+      description: "the time (in seconds) to wait before executing this rule"
+      type: 'interval'
+      unit: 's'
+      min: 0
+    check:
+      title: "Filter Checks"
+      description: "a filter to work only on specific check status or values"
+      type: 'string'
+    dependskip:
+      title: "Dependent Skip"
+      description: "the flag indicating if this rule should be skipped if
+        dependent controllers failed"
+      type: 'boolean'
+      default: false
+    email: email
+    redo:
+      title: "Redo Action"
+      description: "the time (in seconds) after which the action will be executed again"
+      type: 'interval'
+      unit: 's'
+      min: 0
 
 # Controller
 # -------------------------------------------------
@@ -276,9 +284,7 @@ controller =
         description: "the list of rules (references) to be used"
         type: 'array'
         toArray: true
-        entries:
-          type: 'string'
-          list: '<<<context:///monitor/rule>>>'
+        entries: rule
       info:
         title: "Info"
         description: "a general information about this part of the system"
@@ -389,8 +395,12 @@ module.exports =
       title: "Email Templates"
       description: "the possible templates used for sending emails"
       type: 'object'
-      entries: [ email ]
-    rule: rule
+      entries: [email]
+    rule:
+      title: "Rule Templates"
+      description: "the possible templates used for rules"
+      type: 'object'
+      entries: [rule]
     controller: controller
     storage: storage
     log:
