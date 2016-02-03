@@ -108,8 +108,8 @@ class Monitor extends EventEmitter
         debug "load #{plugin} into system"
         try
           lib = require plugin
-        catch err
-          return cb new Error "Could not load plugin #{plugin}: #{err.message}"
+        catch error
+          return cb new Error "Could not load plugin #{plugin}: #{error.message}"
         async.parallel [
           # sensors
           (cb) ->

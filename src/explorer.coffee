@@ -72,7 +72,7 @@ exports.report = (work) ->
     val = formatValue work.config[name], set
     if name in ['fail', 'warn']
       # replace values
-      for vname, value of work.result.values
+      for vname of work.result.values
         re = new RegExp "\\b#{vname}\\b", 'g'
         val = val.replace re, (str) ->
           meta.values[str]?.title ? str
@@ -85,7 +85,7 @@ exports.report = (work) ->
       config: work.config
       results: work.result
       meta: work.meta
-    report += "\n> #{string.wordwrap conf.hint(context), 76, '\n> '}\n"
+    report += "\n> #{string.wordwrap work.hint(context), 76, '\n> '}\n"
   report #  string.wordwrap report
 
 # ### Format a value for better human readable display

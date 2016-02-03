@@ -77,8 +77,8 @@ class Action extends EventEmitter
           @actions.push new Action rule, this
         else
           @actions.unshift new Action rule, this
-      catch err
-        return cb new Error "#{err.message} #{err.stack.split(/\n/)[1].trim()}
+      catch error
+        return cb new Error "#{error.message} #{error.stack.split(/\n/)[1].trim()}
         in #{rule.name} rule of #{@controller?.name} controller"
     cb()
 
