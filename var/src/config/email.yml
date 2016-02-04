@@ -1,0 +1,15 @@
+# Email Template
+# =================================================
+
+default:
+  from: monitor
+  subject: >
+    {{alias}} => {{status}}
+  body: |+
+    {{name}}
+    ==========================================================================
+    {{description}}
+
+    This test failed at {{date}}!
+
+    {{hint}}

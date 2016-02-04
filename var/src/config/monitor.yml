@@ -10,21 +10,6 @@ contact:
     name: Alinex Monitor
     email: monitor@<<<cmd://hostname#1 | localhost>>>
 
-# Email Template
-# -------------------------------------------------
-email:
-  default:
-    from: monitor
-    subject: >
-      {{alias}} => {{status}}
-    body: >
-      {{name}}\n
-      ==========================================================================\n
-      {{description}}\n
-      \n
-      This test failed at {{date}}!\n
-      \n
-      {{hint}}\n
 
 # Rule Template
 # -------------------------------------------------

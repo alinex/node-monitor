@@ -40,7 +40,7 @@ exports.schema =
   keys:
     base:
       title: "Base Settings"
-      description: "a reference to the base under /monitor/email"
+      description: "a reference to the base under /email"
       type: 'string'
       optional: true
     transport:
@@ -177,7 +177,7 @@ exports.run = (cb) ->
   @setup = object.clone @conf.email
   # use base settings
   while @setup.base
-    base = config.get "/monitor/email/#{@setup.base}"
+    base = config.get "/email/#{@setup.base}"
     delete @setup.base
     @setup = object.extend {}, base, @setup
   # resolve contacts

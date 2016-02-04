@@ -57,7 +57,8 @@ class Monitor extends EventEmitter
       return cb err if err
 
       # add schema for module's configuration
-      config.setSchema '/monitor', schema
+      config.setSchema '/monitor', schema.monitor
+      config.setSchema '/email', schema.email
       # set module search path
       config.register 'monitor', fspath.dirname __dirname
 
