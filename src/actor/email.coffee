@@ -176,6 +176,7 @@ exports.run = (cb) ->
   # configure email
   @setup = object.clone @conf.email
   # use base settings
+  console.log @setup
   while @setup.base
     base = config.get "/email/#{@setup.base}"
     delete @setup.base
@@ -208,22 +209,26 @@ exports.run = (cb) ->
   mails = @setup.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
   debug "sending email to #{mails?.join ', '}..."
   # support handlebars
-  @setup.subject = @setup.subject @setup.context if typeof @setup.subject is 'function'
-  @setup.text = @setup.text @setup.context if typeof @setup.text is 'function'
-  @setup.html = @setup.html @setup.context if typeof @setup.html is 'function'
+  @setup.subject = @setup.subject @controller if typeof @setup.subject is 'function'
+  @setup.text = @setup.text @controller if typeof @setup.text is 'function'
+  @setup.html = @setup.html @controller if typeof @setup.html is 'function'
+  if @setup.body
+    report = new Report
+      source: @setup.body @controller if typeof @setup.body is 'function'
+    @setup.text ?= report.toText()
+    @setup.html ?= report.toHtml()
+    delete @setup.body
+  else if @controller.report
+    @setup.text ?= @controller.report.toText()
+    @setup.html ?= @controller.report.toHtml()
+  if @setup.html
+    @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
+#  console.log @setup
   # setup transporter
   transporter = nodemailer.createTransport @setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
   debug chalk.grey "using #{transporter.transporter.name}"
-  if @setup.report
-    @setup.text = if @setup.text? then @setup.text + '\n\n' else ''
-    @setup.html ?= ''
-    @setup.text += @setup.report.toText()
-    @setup.html += @setup.report.toHtml()
-    @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
-    delete @setup.report
   # try to send email
-  console.log @setup
   transporter.sendMail @setup, (err, info) =>
     if err
       if err.errors

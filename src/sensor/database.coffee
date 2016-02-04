@@ -105,8 +105,7 @@ exports.schema =
 # This information may be used later for display and explanation.
 exports.meta =
   title: 'Database'
-  description: "Run a query on the database to chech a value like count of entries
-  in the database."
+  description: "Run a query on the database to check the database contents."
   category: 'data'
 
   # ### Result values
@@ -144,6 +143,7 @@ for num in [1..8]
 exports.init = (cb) ->
   @name ?= "#{@conf.database}:#{string.shorten @conf.query, 30}"
   for k, v of @conf.mapping
+    v.name = k
     re = new RegExp "\\b#{k}\\b", 'g'
     if @conf.warn
       @rule.warn = @rule.warn.replace re, v.storage
@@ -155,7 +155,9 @@ exports.init = (cb) ->
 # Access Mappings (for Report)
 # -------------------------------------------------
 exports.mapping = (name) ->
+  # forward mapping
   return @conf.mapping[name] if @conf.mapping[name]?
+  # backward mapping
   for k, v of @conf.mapping
     return v if v.storage is name
 

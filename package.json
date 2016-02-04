@@ -41,18 +41,18 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "^0.2.3",
+    "alinex-async": "^1.0.0",
     "alinex-config": "^1.0.6",
     "alinex-database": "^0.1.0",
     "alinex-exec": "^1.0.0",
-    "alinex-fs": "^0.2.1",
+    "alinex-fs": "^2.0.0",
     "alinex-report": "^1.0.0",
     "alinex-sshtunnel": "^1.0.0",
-    "alinex-util": "^0.3.6",
+    "alinex-util": "^0.3.15",
     "chalk": "^1.1.1",
     "debug": "^2.2.0",
-    "mathjs": "^2.4.0",
-    "moment": "^2.10.6",
+    "mathjs": "^2.7.0",
+    "moment": "^2.11.2",
     "named-regexp": "^0.1.1",
     "nodemailer": "^2.0.0",
     "nodemailer-plugin-inline-base64": "^1.0.1",
@@ -64,8 +64,8 @@
     "yargs": "^3.27.0"
   },
   "devDependencies": {
-    "alinex-builder": "^1.1.7",
-    "alinex-validator": "^1.0.5",
+    "alinex-builder": "^1.1.16",
+    "alinex-validator": "^1.2.4",
     "chai": "^3.3.0"
   },
   "optionalDependencies": {},
