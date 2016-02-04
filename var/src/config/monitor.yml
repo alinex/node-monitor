@@ -16,15 +16,7 @@ email:
   default:
     from: monitor
     subject: >
-      {{alias}} => {{status}}
-    body: >
-      {{name}}\n
-      ==========================================================================\n
-      {{description}}\n
-      \n
-      This test failed at {{date}}!\n
-      \n
-      {{hint}}\n
+      {{name}} => {{status}}
 
 # Rule Template
 # -------------------------------------------------

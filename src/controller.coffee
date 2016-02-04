@@ -54,6 +54,7 @@ class Controller extends EventEmitter
     @status = 'disabled' # Last status
     @date = null # last run
     @err = null
+    @report = null
     # last results
     @history = []
     @changed = 0
@@ -139,7 +140,7 @@ class Controller extends EventEmitter
         debug "#{chalk.grey @name} Controller => #{@colorStatus()}
         #{if changed then 'CHANGED' else ''}".trim()
         # make report
-        report = @report()
+        @report = @createReport()
         if mode.verbose > 2
           console.error "\n#{report.toConsole()}\n"
         @emit 'result', this
@@ -148,7 +149,7 @@ class Controller extends EventEmitter
           cb null, @status
 
   # ### Create a report
-  report: ->
+  createReport: ->
     # make report
     context =
       name: @name

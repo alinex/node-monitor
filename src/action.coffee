@@ -185,7 +185,7 @@ class Action extends EventEmitter
       return cb() unless @controller?
       # add database entry if run below controller
       storage.action @databaseID, @type, @actor.meta.values
-      , @date[0], @values, cb
+      , @date, @values, cb
 
 
 # Export class

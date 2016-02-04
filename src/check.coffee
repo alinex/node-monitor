@@ -244,8 +244,8 @@ class Check extends EventEmitter
       fail: 'alert'
     if @history.length
       list = Report.ul @history.map (e) ->
-        "__STATUS: #{e.status}__ at #{e.date[0]}
-        #{if e.err then '\\\n' + e.err else ''}"
+        "__STATUS #{e.status}__ at #{e.date[0]}
+        #{if e.err then '\\\nBecause ' + e.err.message else ''}"
       report.box list, boxtype[@status] ? 'info'
     # table with max. last 3 values
     if @date.length
@@ -255,7 +255,7 @@ class Check extends EventEmitter
         continue unless value = last.values[key]
         # support mappings from database sensor
         if @sensor.mapping?
-          nconf =  @sensor.mapping.call this, key
+          nconf = @sensor.mapping.call this, key
           conf = nconf if nconf
         # add rows
         if typeof value is 'object' and not Array.isArray value
@@ -264,8 +264,10 @@ class Check extends EventEmitter
             row.push formatValue e.values[key][k], conf for e in @history[..2]
             data.push row
         else
-          row = [key, conf.title ? key]
-          row.push formatValue e.values[key], conf for e in @history[..2]
+          row = [conf.name ? key, conf.title ? key]
+          for e in @history[..2]
+            row.push formatValue e.values[key], conf
+            console.log e.values[key], e.values, util.inspect formatValue e.values[key], conf
           data.push row
       col =
         0:
@@ -355,10 +357,11 @@ formatValue = (value, config) ->
       interval = interval.to 'm' if interval.toNumber('s') > 120
       interval.format 2
     when 'float', 'integer'
+      value = Number value if typeof value is 'string'
       if config.unit?
         math.unit(value, config.unit).format 3
       else
-        math.format value, 3
+        math.format Number(value), 3
     when 'array'
       val = value[0..9].join ', '
       val += '...' if value.length > 10

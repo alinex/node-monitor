@@ -285,7 +285,7 @@ exports.results = (checkID, sensor, meta, date, value, cb) ->
           cb err, id
     , cb
 
-exports.actions = (controllerID, actor, meta, date, value, cb) ->
+exports.action = (controllerID, actor, meta, date, value, cb) ->
   conf ?= config.get '/monitor'
   return cb() unless conf.storage?.database? and not mode.try
   prefix = conf.storage.prefix
@@ -294,7 +294,7 @@ exports.actions = (controllerID, actor, meta, date, value, cb) ->
     db.exec """
       INSERT INTO #{prefix}actor_#{actor}
       (controller_id, runAt, "#{Object.keys(value).join('", "').toLowerCase()}")
-      VALUES (?, ?, ?, 1#{string.repeat ', ?', Object.keys(value).length})
+      VALUES (?, ?#{string.repeat ', ?', Object.keys(value).length})
       """
     , [controllerID, date].concat(Object.keys(value).map (k) -> value[k])
     , (err, num, id) ->
