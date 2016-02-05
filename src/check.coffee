@@ -267,7 +267,6 @@ class Check extends EventEmitter
           row = [conf.name ? key, conf.title ? key]
           for e in @history[..2]
             row.push formatValue e.values[key], conf
-            console.log e.values[key], e.values, util.inspect formatValue e.values[key], conf
           data.push row
       col =
         0:
@@ -294,8 +293,11 @@ class Check extends EventEmitter
     report.h3 'Configuration'
     report.p "The #{@type} sensor is configured with:"
     c = {}
-    for key of @sensor.schema.keys
-      c[key] = @conf[key] ? '---'
+    for key, meta of @sensor.schema.keys
+      continue if key is 'mapping'
+      c[key] = if @conf[key]
+        formatValue @conf[key], meta
+      else '---'
     report.table c, ['CONFIGURATION SETTING', 'VALUE']
     return report
 
@@ -331,7 +333,7 @@ class Check extends EventEmitter
 module.exports =  Check
 
 # ### Format a value for better human readable display
-formatValue = (value, config) ->
+Check.formatValue = formatValue = (value, config) ->
   # format with autodetect
   unless config
     return switch
@@ -354,7 +356,9 @@ formatValue = (value, config) ->
         m: 'minute'
       unit = long[config.unit] ? config.unit
       interval = math.unit value, unit
-      interval = interval.to 'm' if interval.toNumber('s') > 120
+      interval = interval.to 'min' if interval.toNumber('s') > 120
+      interval = interval.to 'h' if interval.toNumber('min') > 120
+      interval = interval.to 'day' if interval.toNumber('h') > 48
       interval.format 2
     when 'float', 'integer'
       value = Number value if typeof value is 'string'

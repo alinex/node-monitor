@@ -28,7 +28,6 @@ EventEmitter = require('events').EventEmitter
 moment = require 'moment'
 # include alinex modules
 validator = require 'alinex-validator'
-Report = require 'alinex-report'
 config = require 'alinex-config'
 async = require 'alinex-async'
 {object} = require 'alinex-util'
@@ -112,7 +111,7 @@ class Action extends EventEmitter
       throw new Error "No definition for rule #{@conf.name}"
     # set actor list
     monitor ?= require './index'
-    for type in monitor.listActor()
+    for type in actors
       continue unless @conf[type]
       @type = type
       @base = @conf[type]

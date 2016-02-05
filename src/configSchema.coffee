@@ -56,7 +56,7 @@ contact =
 # Email Action
 # -------------------------------------------------
 
-exports.email = email =
+email =
   title: "Email Action"
   description: "the setup for an individual email action"
   type: 'object'
@@ -66,7 +66,7 @@ exports.email = email =
       title: "Base Template"
       description: "the template used as base for this"
       type: 'string'
-      list: '<<<context:///email>>>'
+      list: '<<<context:///monitor/email>>>'
     transport:
       title: "Service Connection"
       description: "the service connection to send mails through"
@@ -384,7 +384,7 @@ storage =
 # Complete Schema Definition
 # -------------------------------------------------
 
-exports.monitor =
+module.exports =
   title: "Monitor Setup"
   description: "the configuration for the monitor system"
   type: 'object'

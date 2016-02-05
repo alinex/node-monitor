@@ -18,6 +18,7 @@ Report = require 'alinex-report'
 storage = require './storage'
 Check = require './check'
 Action = require './action'
+schema = require './configSchema'
 
 
 # Configuration
@@ -156,7 +157,7 @@ class Controller extends EventEmitter
       config: @conf
     report = new Report()
     report.toc()
-    report.h1 "Controller #{@name} (#{@conf.name})"
+    report.h1 @conf.name
     report.p @conf.description if @conf.description
     report.p @conf.info if @conf.info
     # status box
@@ -183,6 +184,9 @@ class Controller extends EventEmitter
       min: "The least critical status type of the checks is used for the controller."
       average: "The average status type of the checks is used for the controller."
     report.p combine[@conf.combine]
+    disabled = if @conf.disabled then "It is disabled at the moment. " else ''
+    report.p disabled + "It will be called automatically every
+    #{Check.formatValue @conf.interval, schema.keys.controller.entries[0].keys.interval}."
     report.p "See the last results of all of this checks below!"
     # contact
     report.h2 "More Information"

@@ -10,6 +10,16 @@ contact:
     name: Alinex Monitor
     email: monitor@<<<cmd://hostname#1 | localhost>>>
 
+# Email Templates
+# -------------------------------------------------
+
+email:
+  default:
+    from: monitor
+    subject: >
+      {{alias}} => {{status}}
+    body: >
+      {{report}}
 
 # Rule Template
 # -------------------------------------------------

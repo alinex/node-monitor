@@ -40,7 +40,7 @@ exports.schema =
   keys:
     base:
       title: "Base Settings"
-      description: "a reference to the base under /email"
+      description: "a reference to the base under /monitor/email"
       type: 'string'
       optional: true
     transport:
@@ -176,9 +176,8 @@ exports.run = (cb) ->
   # configure email
   @setup = object.clone @conf.email
   # use base settings
-  console.log @setup
   while @setup.base
-    base = config.get "/email/#{@setup.base}"
+    base = config.get "/monitor/email/#{@setup.base}"
     delete @setup.base
     @setup = object.extend {}, base, @setup
   # resolve contacts
@@ -214,7 +213,11 @@ exports.run = (cb) ->
   @setup.html = @setup.html @controller if typeof @setup.html is 'function'
   if @setup.body
     report = new Report
-      source: @setup.body @controller if typeof @setup.body is 'function'
+      source:
+        if typeof @setup.body is 'function'
+          @setup.body(@controller).replace /&#x3D;/g, '='
+#    console.log @controller.report.body
+#    console.log report.body
     @setup.text ?= report.toText()
     @setup.html ?= report.toHtml()
     delete @setup.body
@@ -223,7 +226,6 @@ exports.run = (cb) ->
     @setup.html ?= @controller.report.toHtml()
   if @setup.html
     @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
-#  console.log @setup
   # setup transporter
   transporter = nodemailer.createTransport @setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
