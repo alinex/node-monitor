@@ -80,7 +80,6 @@ email =
       title: "From"
       description: "the address emails are send from"
       type: 'string'
-      default: 'monitor'
     to:
       title: "To"
       description: "the address emails are send to"
