@@ -17,6 +17,7 @@ chalk = require 'chalk'
 nodemailer = require 'nodemailer'
 inlineBase64 = require 'nodemailer-plugin-inline-base64'
 util = require 'util'
+moment = require 'moment'
 # include alinex modules
 {object, array} = require 'alinex-util'
 config = require 'alinex-config'
@@ -82,6 +83,14 @@ exports.schema =
       entries:
         type: 'string'
       optional: true
+    locale:
+      title: "Locale Setting"
+      description: "the locale setting for subject and body dates"
+      type: 'string'
+      minLength: 2
+      maxLength: 5
+      lowerCase: true
+      match: /^[a-z]{2}(-[a-z]{2})?$/
     subject:
       title: "Subject"
       description: "the title of the message, defaults to body title text"
@@ -208,6 +217,9 @@ exports.run = (cb) ->
   mails = @setup.to?.map (e) -> e.replace /".*?" <(.*?)>/g, '$1'
   debug "sending email to #{mails?.join ', '}..."
   # support handlebars
+  if @setup.locale # change locale
+    oldLocale = moment.locale()
+    moment.locale @setup.locale
   @setup.subject = @setup.subject @controller if typeof @setup.subject is 'function'
   @setup.text = @setup.text @controller if typeof @setup.text is 'function'
   @setup.html = @setup.html @controller if typeof @setup.html is 'function'
@@ -226,6 +238,8 @@ exports.run = (cb) ->
     @setup.html ?= @controller.report.toHtml()
   if @setup.html
     @setup.subject ?= @setup.html.match(/<title>([\s\S]*?)<\/title>/)[1]
+  if @setup.locale # change locale back
+    moment.locale oldLocale
   # setup transporter
   transporter = nodemailer.createTransport @setup.transport ? 'direct:?name=hostname'
   transporter.use 'compile', inlineBase64
