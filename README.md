@@ -141,6 +141,8 @@ all.
 Like seen above you may send the normal output to a log file but better configure
 a log destination through the config files (see below).
 
+> For production use you may start it using [pm2](http://pm2.keymetrics.io/).
+
 ### Additional commands
 
 You may run some other commands through the interactive console or directly by
