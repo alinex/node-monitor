@@ -12,7 +12,7 @@ config = require 'alinex-config'
 Exec = require 'alinex-exec'
 database = require 'alinex-database'
 # include classes and helpers
-logo = require('./logo') 'Monitoring Application'
+logo = require('alinex').logo 'Monitoring Application'
 monitor = require './index'
 #Controller = require './controller'
 
