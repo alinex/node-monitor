@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/diskiocoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-monitor/src/sensor/diskio.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,365 +39,380 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#check%20disk%20io">Check Disk IO</a>
+        <a href="#check-disk-io">Check Disk IO</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#schema%20definition">Schema Definition</a>
+        <a href="#schema-definition">Schema Definition</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20information">General information</a>
+        <a href="#general-information">General information</a>
       </div>
+
       <div class="heading h3">
-        <a href="#result%20values">Result values</a>
+        <a href="#result-values">Result values</a>
       </div>
+
       <div class="heading h2">
-        <a href="#initialize%20check">Initialize check</a>
+        <a href="#initialize-check">Initialize check</a>
       </div>
+
       <div class="heading h2">
-        <a href="#run%20the%20sensor">Run the Sensor</a>
+        <a href="#run-the-sensor">Run the Sensor</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20the%20results">Get the results</a>
+        <a href="#get-the-results">Get the results</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20disk%20io">
+          <div class="pilwrap" id="check-disk-io">
   <h1>
-    <a href="#check%20disk%20io" name="check%20disk%20io" class="pilcrow">&#182;</a>
-    Check Disk IO
+    <a href="#check-disk-io" name="check-disk-io" class="pilcrow"></a>
+Check Disk IO
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
 </div>
 <p>Find the description of the possible configuration values and the returned
 values in the code below.</p>
-
 <p>This methods will be called in the context of the corresponding check()
 instance.</p>
-
 <p>The analysis part currently is based on debian linux.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:diskio&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:diskio'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="schema%20definition">
+          <div class="pilwrap" id="schema-definition">
   <h2>
-    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
-    Schema Definition
+    <a href="#schema-definition" name="schema-definition" class="pilcrow"></a>
+Schema Definition
   </h2>
 </div>
-
-
 <p>This is used as configuration specification and to add the default values for
 specific setting.</p>
-
 <p>It's a n<a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
 compatible schema definition:</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;Disk IO Test&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the configuration for the disk input/output check&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">remote:</span>
-      <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/exec/remote/server&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
-    <span class="nv">device:</span>
-      <span class="nv">title: </span><span class="s">&quot;Device name&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the disk&#39;s device name like sda, ...&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">time:</span>
-      <span class="nv">title: </span><span class="s">&quot;Measurement Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time for the measurement&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
-      <span class="nv">default: </span><span class="mi">10</span>
-      <span class="nv">min: </span><span class="mi">1</span>
-    <span class="nv">warn:</span>
-      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">fail:</span>
-      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.schema =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Disk IO Test"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for the disk input/output check"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">remote</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    <span class="hljs-attribute">device</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Device name"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the disk's device name like sda, ..."</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">time</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Measurement Time"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time for the measurement"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">10</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+    <span class="hljs-attribute">warn</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">fail</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20information">
+          <div class="pilwrap" id="general-information">
   <h2>
-    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
-    General information
+    <a href="#general-information" name="general-information" class="pilcrow"></a>
+General information
   </h2>
 </div>
-
-
 <p>This information may be used later for display and explanation.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;Disk IO&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Check the disk io traffic.&quot;</span>
-  <span class="nv">category: </span><span class="s">&#39;sys&#39;</span>
-  <span class="nv">hint: </span><span class="s">&quot;If there are any problems here check the device for hardware or</span>
-<span class="s">  network problems.&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.meta =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Disk IO'</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the disk io traffic."</span>
+  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If there are any problems here check the device for hardware or
+  network problems."</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result%20values">
+          <div class="pilwrap" id="result-values">
   <h3>
-    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
-    Result values
+    <a href="#result-values" name="result-values" class="pilcrow"></a>
+Result values
   </h3>
 </div>
-
-
 <p>This are possible values which may be given if the check runs normally.
 You may use any of these in your warn/fail expressions.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">values:</span>
-    <span class="nv">read:</span>
-      <span class="nv">title: </span><span class="s">&quot;Read operations/s&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the amount of operations to read from the device per second&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
-    <span class="nv">write:</span>
-      <span class="nv">title: </span><span class="s">&quot;Write operation/s&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the amount of operations to written to the device per second&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
-    <span class="nv">readSize:</span>
-      <span class="nv">title: </span><span class="s">&quot;Read/s&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the amount of data read from the device per second&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">writeSize:</span>
-      <span class="nv">title: </span><span class="s">&quot;Write/s&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the amount of data written to the device per second&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">readTotal:</span>
-      <span class="nv">title: </span><span class="s">&quot;Total Read&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the total amount of read data&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">writeTotal:</span>
-      <span class="nv">title: </span><span class="s">&quot;Total Write&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the total amount of written data&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">readTime:</span>
-      <span class="nv">title: </span><span class="s">&quot;Read Time/s&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the amount of data read from the device per second&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">writeTime:</span>
-      <span class="nv">title: </span><span class="s">&quot;Write Time/s&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the amount of data written to the device per second&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
+    <span class="hljs-attribute">read</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Read operations/s"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of operations to read from the device per second"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+    <span class="hljs-attribute">write</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write operation/s"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of operations to written to the device per second"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+    <span class="hljs-attribute">readSize</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Read/s"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data read from the device per second"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">writeSize</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write/s"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data written to the device per second"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">readTotal</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Read"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the total amount of read data"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">writeTotal</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Write"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the total amount of written data"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">readTime</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Read Time/s"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data read from the device per second"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+    <span class="hljs-attribute">writeTime</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write Time/s"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data written to the device per second"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
 
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20check">
+          <div class="pilwrap" id="initialize-check">
   <h2>
-    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
-    Initialize check
+    <a href="#initialize-check" name="initialize-check" class="pilcrow"></a>
+Initialize check
   </h2>
 </div>
-
-
 <p>This method is used for some precalculations or analyzations and should set:</p>
-
 <ul>
 <li>check.name = <string> # mandatory</li>
 <li>check.base = <object> # optionally</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="nx">@name</span> <span class="o">?=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span>"</span>
+  cb()
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20the%20sensor">
+          <div class="pilwrap" id="run-the-sensor">
   <h2>
-    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
-    Run the Sensor
+    <a href="#run-the-sensor" name="run-the-sensor" class="pilcrow"></a>
+Run the Sensor
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>run check</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s"> /proc/diskstats&quot;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">,</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">device</span><span class="si">}</span><span class="s"> /proc/diskstats&quot;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  async.map [
+    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span> /proc/diskstats"</span>]
+    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+  ,
+    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.time}</span> &amp;&amp; grep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span> /proc/diskstats"</span>]
+    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+  ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
+    Exec.run setup, cb
+  , cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20the%20results">
+          <div class="pilwrap" id="get-the-results">
   <h2>
-    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
-    Get the results
+    <a href="#get-the-results" name="get-the-results" class="pilcrow"></a>
+Get the results
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
-  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
+  res = <span class="hljs-property">@result</span>.data
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>calculate diffs</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">l1 = </span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
-  <span class="nv">l2 = </span><span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span>
-  <span class="vi">@values.read = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span>
-  <span class="vi">@values.write = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span>
-  <span class="vi">@values.readSize = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span> <span class="o">*</span> <span class="mi">512</span>
-  <span class="vi">@values.writeSize = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span> <span class="o">*</span> <span class="mi">512</span>
-  <span class="vi">@values.readTotal = </span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">*</span> <span class="mi">512</span>
-  <span class="vi">@values.writeTotal = </span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="o">*</span> <span class="mi">512</span>
-  <span class="vi">@values.readTime = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span>
-  <span class="vi">@values.writeTime = </span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">l1</span><span class="p">[</span><span class="mi">10</span><span class="p">]))</span> <span class="o">/</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span>
-  <span class="nx">cb</span><span class="p">()</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  l1 = res[<span class="hljs-number">0</span>].stdout().trim().split(<span class="hljs-regexp">/\s+/</span>)
+  l2 = res[<span class="hljs-number">1</span>].stdout().trim().split(<span class="hljs-regexp">/\s+/</span>)
+  <span class="hljs-property">@values</span>.read = (Number(l2[<span class="hljs-number">3</span>]) - Number(l1[<span class="hljs-number">3</span>])) / <span class="hljs-property">@conf</span>.time
+  <span class="hljs-property">@values</span>.write = (Number(l2[<span class="hljs-number">7</span>]) - Number(l1[<span class="hljs-number">7</span>])) / <span class="hljs-property">@conf</span>.time
+  <span class="hljs-property">@values</span>.readSize = (Number(l2[<span class="hljs-number">5</span>]) - Number(l1[<span class="hljs-number">5</span>])) / <span class="hljs-property">@conf</span>.time * <span class="hljs-number">512</span>
+  <span class="hljs-property">@values</span>.writeSize = (Number(l2[<span class="hljs-number">9</span>]) - Number(l1[<span class="hljs-number">9</span>])) / <span class="hljs-property">@conf</span>.time * <span class="hljs-number">512</span>
+  <span class="hljs-property">@values</span>.readTotal = Number(l2[<span class="hljs-number">5</span>]) * <span class="hljs-number">512</span>
+  <span class="hljs-property">@values</span>.writeTotal = Number(l2[<span class="hljs-number">9</span>]) * <span class="hljs-number">512</span>
+  <span class="hljs-property">@values</span>.readTime = (Number(l2[<span class="hljs-number">6</span>]) - Number(l1[<span class="hljs-number">6</span>])) / <span class="hljs-property">@conf</span>.time
+  <span class="hljs-property">@values</span>.writeTime = (Number(l2[<span class="hljs-number">10</span>]) - Number(l1[<span class="hljs-number">10</span>])) / <span class="hljs-property">@conf</span>.time
+  cb()
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

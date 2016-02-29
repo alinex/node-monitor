@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-monitor/src/index.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,732 +39,776 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#main%20controlling%20class">Main controlling class</a>
+        <a href="#main-controlling-class">Main controlling class</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#initialized%20data">Initialized Data</a>
+        <a href="#initialized-data">Initialized Data</a>
       </div>
+
       <div class="heading h3">
-        <a href="#general%20mode">General Mode</a>
+        <a href="#general-mode">General Mode</a>
       </div>
+
       <div class="heading h2">
-        <a href="#monitor%20class">Monitor class</a>
+        <a href="#monitor-class">Monitor class</a>
       </div>
+
       <div class="heading h2">
         <a href="#setup">Setup</a>
       </div>
+
       <div class="heading h2">
-        <a href="#control%20daemon%20mode">Control daemon mode</a>
+        <a href="#control-daemon-mode">Control daemon mode</a>
       </div>
+
       <div class="heading h2">
-        <a href="#list%20elements">List Elements</a>
+        <a href="#list-elements">List Elements</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20specified%20element">Get specified Element</a>
+        <a href="#get-specified-element">Get specified Element</a>
       </div>
+
       <div class="heading h2">
-        <a href="#show%20information%20about%20specified%20element">Show information about specified Element</a>
+        <a href="#show-information-about-specified-element">Show information about specified Element</a>
       </div>
+
       <div class="heading h2">
-        <a href="#run%20specified%20element">Run specified Element</a>
+        <a href="#run-specified-element">Run specified Element</a>
       </div>
+
       <div class="heading h2">
-        <a href="#export%20singleton">Export Singleton</a>
+        <a href="#export-singleton">Export Singleton</a>
       </div>
+
       <div class="heading h2">
-        <a href="#element%20management">Element Management</a>
+        <a href="#element-management">Element Management</a>
       </div>
+
       <div class="heading h3">
-        <a href="#list%20elements">list elements</a>
+        <a href="#list-elements-1">list elements</a>
       </div>
+
       <div class="heading h3">
-        <a href="#get%20specified%20element%20module">get specified element module</a>
+        <a href="#get-specified-element-module">get specified element module</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="main%20controlling%20class">
+          <div class="pilwrap" id="main-controlling-class">
   <h1>
-    <a href="#main%20controlling%20class" name="main%20controlling%20class" class="pilcrow">&#182;</a>
-    Main controlling class
+    <a href="#main-controlling-class" name="main-controlling-class" class="pilcrow"></a>
+Main controlling class
   </h1>
 </div>
-
-
 <p>This is the real main class which can be called using it's API. Other modules
 like the cli may be used as bridges to this.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
-<span class="nv">math = </span><span class="nx">require</span> <span class="s">&#39;mathjs&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor'</span>)
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
+math = <span class="hljs-built_in">require</span> <span class="hljs-string">'mathjs'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
-<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
+database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include classes and helpers</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">schema = </span><span class="nx">require</span> <span class="s">&#39;./configSchema&#39;</span>
-<span class="nv">Controller = </span><span class="nx">require</span> <span class="s">&#39;./controller&#39;</span>
-<span class="nv">storage = </span><span class="nx">require</span> <span class="s">&#39;./storage&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
+Controller = <span class="hljs-built_in">require</span> <span class="hljs-string">'./controller'</span>
+storage = <span class="hljs-built_in">require</span> <span class="hljs-string">'./storage'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialized%20data">
+          <div class="pilwrap" id="initialized-data">
   <h2>
-    <a href="#initialized%20data" name="initialized%20data" class="pilcrow">&#182;</a>
-    Initialized Data
+    <a href="#initialized-data" name="initialized-data" class="pilcrow"></a>
+Initialized Data
   </h2>
 </div>
-
-
 <p>This will be set on init</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20mode">
+          <div class="pilwrap" id="general-mode">
   <h3>
-    <a href="#general%20mode" name="general%20mode" class="pilcrow">&#182;</a>
-    General Mode
+    <a href="#general-mode" name="general-mode" class="pilcrow"></a>
+General Mode
   </h3>
 </div>
-
-
 <p>This is a collection of base settings which may alter the runtime of the system
 without changing anything in the general configuration. This values may also
 be changed at any time.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">mode =</span>
-  <span class="nv">verbose: </span><span class="mi">0</span> <span class="c1"># verbosity level</span>
-  <span class="k">try</span><span class="o">:</span> <span class="kc">false</span> <span class="c1"># Is this a try run that won&#39;t change anything?</span>
+        <td class="code highlight">
+          <pre class="coffeescript">mode =
+  <span class="hljs-attribute">verbose</span>: <span class="hljs-number">0</span> <span class="hljs-comment"># verbosity level</span>
+  <span class="hljs-attribute">try</span>: <span class="hljs-literal">false</span> <span class="hljs-comment"># Is this a try run that won't change anything?</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="monitor%20class">
+          <div class="pilwrap" id="monitor-class">
   <h2>
-    <a href="#monitor%20class" name="monitor%20class" class="pilcrow">&#182;</a>
-    Monitor class
+    <a href="#monitor-class" name="monitor-class" class="pilcrow"></a>
+Monitor class
   </h2>
 </div>
-
-
 <p>This module is defined as a class exporting a singleton instance to have events
 possible within it.</p>
-
 <p>T</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Monitor</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Monitor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="setup">
+          <div class="pilwrap" id="setup">
   <h2>
-    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
-    Setup
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">setup: </span><span class="nf">(selection = null) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: <span class="hljs-function"><span class="hljs-params">(selection = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>setup module configs first</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="p">[</span><span class="nx">Exec</span><span class="p">,</span> <span class="nx">database</span><span class="p">],</span> <span class="nf">(mod, cb) -&gt;</span>
-      <span class="nx">mod</span><span class="p">.</span><span class="nx">setup</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    async.each [Exec, database], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span>
+      mod.setup cb
+    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>add schema for module's configuration</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/monitor&#39;</span><span class="p">,</span> <span class="nx">schema</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      config.setSchema <span class="hljs-string">'/monitor'</span>, schema
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>set module search path</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;monitor&#39;</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      config.register <span class="hljs-string">'monitor'</span>, fspath.dirname __dirname
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>register selected controllers from /etc/monitor-controller</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">selection</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">if</span> selection?.length
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>specific controllers only</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">for</span> <span class="nx">ctrl</span> <span class="k">in</span> <span class="nx">selection</span>
-          <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;monitor&#39;</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span>
-            <span class="nv">uri: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">ctrl</span><span class="si">}</span><span class="s">*&quot;</span>
-            <span class="nv">folder: </span><span class="s">&#39;controller&#39;</span>
-            <span class="nv">path: </span><span class="s">&#39;monitor/controller&#39;</span>
-      <span class="k">else</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">for</span> ctrl <span class="hljs-keyword">in</span> selection
+          config.register <span class="hljs-string">'monitor'</span>, fspath.dirname(__dirname),
+            <span class="hljs-attribute">uri</span>: <span class="hljs-string">"<span class="hljs-subst">#{ctrl}</span>*"</span>
+            <span class="hljs-attribute">folder</span>: <span class="hljs-string">'controller'</span>
+            <span class="hljs-attribute">path</span>: <span class="hljs-string">'monitor/controller'</span>
+      <span class="hljs-keyword">else</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>read all controllers</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;monitor&#39;</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span>
-          <span class="nv">folder: </span><span class="s">&#39;controller&#39;</span>
-          <span class="nv">path: </span><span class="s">&#39;monitor/controller&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">        config.register <span class="hljs-string">'monitor'</span>, fspath.dirname(__dirname),
+          <span class="hljs-attribute">folder</span>: <span class="hljs-string">'controller'</span>
+          <span class="hljs-attribute">path</span>: <span class="hljs-string">'monitor/controller'</span>
 
-  <span class="nv">init: </span><span class="nf">(@mode, cb) -&gt;</span>
-    <span class="nv">mode = </span><span class="nx">@mode</span>
-    <span class="nx">debug</span> <span class="s">&quot;Loading configuration...&quot;</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
-      <span class="nf">(cb) =&gt;</span> <span class="nx">@initPlugins</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">storage</span><span class="p">.</span><span class="nx">init</span> <span class="nx">mode</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) =&gt;</span> <span class="nx">@initController</span> <span class="nx">cb</span>
-    <span class="p">],</span> <span class="nx">cb</span>
+  <span class="hljs-attribute">init</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@mode</span>, cb)</span> -&gt;</span>
+    mode = <span class="hljs-property">@mode</span>
+    debug <span class="hljs-string">"Loading configuration..."</span>
+    async.series [
+      (cb) -&gt; config.init cb
+      (cb) =&gt; <span class="hljs-property">@initPlugins</span> cb
+      (cb) -&gt; storage.init mode, cb
+      (cb) =&gt; <span class="hljs-property">@initController</span> cb
+    ], cb
 
-  <span class="nv">initPlugins: </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+  <span class="hljs-attribute">initPlugins</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>find sensor plugins</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debug</span> <span class="s">&quot;Loading plugins...&quot;</span>
-    <span class="nx">debug</span> <span class="s">&quot;load base plugin into system&quot;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">__dirname</span><span class="si">}</span><span class="s">/sensor&quot;</span><span class="p">,</span>
-      <span class="nv">type: </span><span class="s">&#39;f&#39;</span>
-      <span class="nv">maxdepth: </span><span class="mi">1</span>
-    <span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
-      <span class="nv">cache.sensor = </span><span class="p">{}</span>
-      <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">list</span>
-        <span class="nv">name = </span><span class="nx">fspath</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">extname</span> <span class="nx">e</span>
-        <span class="nx">cache</span><span class="p">.</span><span class="nx">sensor</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;./sensor/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    debug <span class="hljs-string">"Loading plugins..."</span>
+    debug <span class="hljs-string">"load base plugin into system"</span>
+    async.each [<span class="hljs-string">'sensor'</span>, <span class="hljs-string">'actor'</span>], <span class="hljs-function"><span class="hljs-params">(type, cb)</span> -&gt;</span>
+      fs.find <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/<span class="hljs-subst">#{type}</span>"</span>,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'f'</span>
+        <span class="hljs-attribute">maxdepth</span>: <span class="hljs-number">1</span>
+      , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
+        cache[type] = {}
+        <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> list
+          name = fspath.basename e, fspath.extname e
+          cache[type][name] = <span class="hljs-string">"./<span class="hljs-subst">#{type}</span>/<span class="hljs-subst">#{name}</span>"</span>
+        cb()
+    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
-<p>try to load sensor from plugins</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">plugins = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/plugins&quot;</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">plugins</span>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">plugins</span><span class="p">,</span> <span class="nf">(plugin, cb) -&gt;</span>
-        <span class="nx">debug</span> <span class="s">&quot;load </span><span class="si">#{</span><span class="nx">plugin</span><span class="si">}</span><span class="s"> into system&quot;</span>
-        <span class="k">try</span>
-          <span class="nv">lib = </span><span class="nx">require</span> <span class="nx">plugin</span>
-        <span class="k">catch</span> <span class="nx">err</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load plugin </span><span class="si">#{</span><span class="nx">plugin</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+<p>try to load from plugins</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      plugins = config.get <span class="hljs-string">"/monitor/plugins"</span>
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> plugins
+      async.each plugins, <span class="hljs-function"><span class="hljs-params">(plugin, cb)</span> -&gt;</span>
+        debug <span class="hljs-string">"load <span class="hljs-subst">#{plugin}</span> into system"</span>
+        <span class="hljs-keyword">try</span>
+          lib = <span class="hljs-built_in">require</span> plugin
+        <span class="hljs-keyword">catch</span> error
+          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load plugin <span class="hljs-subst">#{plugin}</span>: <span class="hljs-subst">#{error.message}</span>"</span>
+        async.parallel [
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>sensors</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nf">(cb) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">lib</span><span class="p">.</span><span class="nx">listSensor</span><span class="o">?</span>
-            <span class="nx">lib</span><span class="p">.</span><span class="nx">listSensor</span> <span class="nf">(err, list) -&gt;</span>
-              <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-              <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">path</span> <span class="k">of</span> <span class="nx">list</span>
-                <span class="nx">cache</span><span class="p">.</span><span class="nx">sensor</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">plugin</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="p">],</span> <span class="nx">cb</span>
-      <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          (cb) -&gt;
+            <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> lib.listSensor?
+            lib.listSensor (err, list) -&gt;
+              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+              <span class="hljs-keyword">for</span> name, path <span class="hljs-keyword">of</span> list
+                <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">'sensor'</span>, <span class="hljs-string">'actor'</span>]
+                  cache[type][name] = <span class="hljs-string">"<span class="hljs-subst">#{plugin}</span>/<span class="hljs-subst">#{path}</span>"</span>
+        ], cb
+      , cb
 
-  <span class="nv">initController: </span><span class="nf">(cb) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;Instantiate controllers...&quot;</span>
-    <span class="nx">Controller</span><span class="p">.</span><span class="nx">init</span> <span class="nx">mode</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="vi">@controller = </span><span class="p">{}</span>
-      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span> <span class="k">of</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller&quot;</span>
-        <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Controller</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">def</span>
-        <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">on</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nf">(ctrl) =&gt;</span> <span class="nx">@emit</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="nx">ctrl</span>
-
-</pre></div>
+  <span class="hljs-attribute">initController</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    debug <span class="hljs-string">"Instantiate controllers..."</span>
+    Controller.init mode, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-property">@controller</span> = {}
+      <span class="hljs-keyword">for</span> name, def <span class="hljs-keyword">of</span> config.get <span class="hljs-string">"/monitor/controller"</span>
+        <span class="hljs-property">@controller</span>[name] = <span class="hljs-keyword">new</span> Controller name, def
+        <span class="hljs-property">@controller</span>[name].<span class="hljs-literal">on</span> <span class="hljs-string">'result'</span>, <span class="hljs-function"><span class="hljs-params">(ctrl)</span> =&gt;</span> <span class="hljs-property">@emit</span> <span class="hljs-string">'result'</span>, ctrl
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>parallel instantiation</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">@controller</span><span class="p">,</span> <span class="nf">(ctrl, cb) -&gt;</span>
-        <span class="nx">ctrl</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
-      <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      async.each <span class="hljs-property">@controller</span>, <span class="hljs-function"><span class="hljs-params">(ctrl, cb)</span> -&gt;</span>
+        ctrl.init cb
+      , cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="control%20daemon%20mode">
+          <div class="pilwrap" id="control-daemon-mode">
   <h2>
-    <a href="#control%20daemon%20mode" name="control%20daemon%20mode" class="pilcrow">&#182;</a>
-    Control daemon mode
+    <a href="#control-daemon-mode" name="control-daemon-mode" class="pilcrow"></a>
+Control daemon mode
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+  <span class="hljs-attribute">start</span>: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-property">@instantiate</span>() <span class="hljs-keyword">unless</span> <span class="hljs-property">@controller</span>
+    debug <span class="hljs-string">"start daemon"</span>
+    <span class="hljs-keyword">for</span> name, ctrl <span class="hljs-keyword">of</span> <span class="hljs-property">@controller</span>
+      ctrl.start()
+    <span class="hljs-keyword">this</span>
 
-  <span class="nv">start: </span><span class="nf">-&gt;</span>
-    <span class="nx">@instantiate</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@controller</span>
-    <span class="nx">debug</span> <span class="s">&quot;start daemon&quot;</span>
-    <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">ctrl</span> <span class="k">of</span> <span class="nx">@controller</span>
-      <span class="nx">ctrl</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
-    <span class="k">this</span>
-
-  <span class="nv">stop: </span><span class="nf">-&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;stop daemon&quot;</span>
-
-
-    <span class="k">this</span>
+  <span class="hljs-attribute">stop</span>: <span class="hljs-function">-&gt;</span>
+    debug <span class="hljs-string">"stop daemon"</span>
 
 
+    <span class="hljs-keyword">this</span>
 
-</pre></div>
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="list%20elements">
+          <div class="pilwrap" id="list-elements">
   <h2>
-    <a href="#list%20elements" name="list%20elements" class="pilcrow">&#182;</a>
-    List Elements
+    <a href="#list-elements" name="list-elements" class="pilcrow"></a>
+List Elements
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">listController: </span><span class="nf">-&gt;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">@controller</span>
-  <span class="nv">listSensor: </span><span class="nf">-&gt;</span> <span class="nx">list</span> <span class="s">&#39;sensor&#39;</span>
-  <span class="nv">listActor: </span><span class="nf">-&gt;</span> <span class="nx">list</span> <span class="s">&#39;actor&#39;</span>
-  <span class="nv">listExplorer: </span><span class="nf">-&gt;</span> <span class="nx">list</span> <span class="s">&#39;explorer&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">listController</span>: <span class="hljs-function">-&gt;</span> Object.keys <span class="hljs-property">@controller</span>
+  <span class="hljs-attribute">listSensor</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'sensor'</span>
+  <span class="hljs-attribute">listActor</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'actor'</span>
+  <span class="hljs-attribute">listExplorer</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'explorer'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20specified%20element">
+          <div class="pilwrap" id="get-specified-element">
   <h2>
-    <a href="#get%20specified%20element" name="get%20specified%20element" class="pilcrow">&#182;</a>
-    Get specified Element
+    <a href="#get-specified-element" name="get-specified-element" class="pilcrow"></a>
+Get specified Element
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">getController: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
-  <span class="nv">getSensor: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">get</span> <span class="s">&#39;sensor&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="nv">getActor: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">get</span> <span class="s">&#39;actor&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="nv">getExplorer: </span><span class="nf">(name, cb) -&gt;</span> <span class="nx">get</span> <span class="s">&#39;explorer&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">getController</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, <span class="hljs-property">@controller</span>[name]
+  <span class="hljs-attribute">getSensor</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'sensor'</span>, name, cb
+  <span class="hljs-attribute">getActor</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'actor'</span>, name, cb
+  <span class="hljs-attribute">getExplorer</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'explorer'</span>, name, cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="show%20information%20about%20specified%20element">
+          <div class="pilwrap" id="show-information-about-specified-element">
   <h2>
-    <a href="#show%20information%20about%20specified%20element" name="show%20information%20about%20specified%20element" class="pilcrow">&#182;</a>
-    Show information about specified Element
+    <a href="#show-information-about-specified-element" name="show-information-about-specified-element" class="pilcrow"></a>
+Show information about specified Element
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">showController: </span><span class="nf">(name, cb) -&gt;</span>
-    <span class="nv">ctrl = </span><span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
-    <span class="nv">conf = </span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">conf</span>
-    <span class="nv">context =</span>
-      <span class="nv">name: </span><span class="nx">name</span>
-      <span class="nv">config: </span><span class="nx">conf</span>
-    <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">description</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">info</span> <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">info</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span> <span class="nx">context</span> <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">hint</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">showController</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span>
+    ctrl = <span class="hljs-property">@controller</span>[name]
+    conf = ctrl.conf
+    context =
+      <span class="hljs-attribute">name</span>: name
+      <span class="hljs-attribute">config</span>: conf
+    report = <span class="hljs-keyword">new</span> Report()
+    report.h1 <span class="hljs-string">"<span class="hljs-subst">#{name}</span>: <span class="hljs-subst">#{conf.name}</span>"</span>
+    report.p conf.description
+    report.p conf.info <span class="hljs-keyword">if</span> conf.info
+    report.quote conf.hint context <span class="hljs-keyword">if</span> conf.hint
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>checks</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">interval = </span><span class="nx">math</span><span class="p">.</span><span class="nx">unit</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span><span class="p">,</span> <span class="s">&#39;seconds&#39;</span>
-    <span class="nv">interval = </span><span class="nx">interval</span><span class="p">.</span><span class="nx">to</span> <span class="k">switch</span>
-      <span class="k">when</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span> <span class="o">&gt;=</span> <span class="mi">14400</span> <span class="k">then</span> <span class="s">&#39;hours&#39;</span>
-      <span class="k">when</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span> <span class="o">&gt;=</span> <span class="mi">300</span> <span class="k">then</span> <span class="s">&#39;minutes&#39;</span>
-      <span class="k">else</span> <span class="s">&#39;seconds&#39;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The following checks will run every </span><span class="si">#{</span><span class="nx">interval</span><span class="p">.</span><span class="nx">format</span><span class="p">()</span><span class="si">}</span><span class="s">:&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ctrl</span><span class="p">.</span><span class="nx">check</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Attention: This controller is </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">mark</span> <span class="s">&#39;disabled&#39;</span><span class="si">}</span><span class="s"> at the moment.&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    interval = math.unit conf.interval, <span class="hljs-string">'seconds'</span>
+    interval = interval.to <span class="hljs-keyword">switch</span>
+      <span class="hljs-keyword">when</span> conf.interval &gt;= <span class="hljs-number">14400</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'hours'</span>
+      <span class="hljs-keyword">when</span> conf.interval &gt;= <span class="hljs-number">300</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'minutes'</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-string">'seconds'</span>
+    report.p <span class="hljs-string">"The following checks will run every <span class="hljs-subst">#{interval.format()}</span>:"</span>
+    report.ul ctrl.check.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{e.type}</span> - <span class="hljs-subst">#{e.name}</span>"</span>
+    report.p <span class="hljs-string">"Attention: This controller is <span class="hljs-subst">#{Report.mark <span class="hljs-string">'disabled'</span>}</span> at the moment."</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>actor rules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>contact</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Contact Persons:&quot;</span>
-      <span class="nv">formatContact = </span><span class="nf">(name) -&gt;</span>
-        <span class="nv">contact = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/contact/</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">contact</span>
-          <span class="k">return</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">formatContact</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
-        <span class="nv">text = </span><span class="s">&#39;&#39;</span>
-        <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">name</span>
-        <span class="nx">text</span> <span class="o">+=</span> <span class="s">&quot; &lt;</span><span class="si">#{</span><span class="nx">contact</span><span class="p">.</span><span class="nx">email</span><span class="si">}</span><span class="s">&gt;&quot;</span> <span class="k">if</span> <span class="nx">contact</span><span class="p">.</span><span class="nx">email</span>
-        <span class="p">[</span><span class="nx">text</span><span class="p">.</span><span class="nx">trim</span><span class="p">()]</span>
-      <span class="nv">ul = </span><span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">group</span><span class="p">,</span> <span class="nx">glist</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">contact</span>
-        <span class="nx">ul</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;__</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">ucFirst</span> <span class="nx">group</span><span class="si">}</span><span class="s">__&quot;</span>
-        <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">glist</span>
-          <span class="nv">ul = </span><span class="nx">ul</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">formatContact</span> <span class="nx">e</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ul</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> conf.contact
+      report.p Report.b <span class="hljs-string">"Contact Persons:"</span>
+<span class="hljs-function">      <span class="hljs-title">formatContact</span> = <span class="hljs-params">(name)</span> -&gt;</span>
+        contact = config.get <span class="hljs-string">"/monitor/contact/<span class="hljs-subst">#{name}</span>"</span>
+        <span class="hljs-keyword">if</span> Array.isArray contact
+          <span class="hljs-keyword">return</span> contact.map (e) -&gt; formatContact(e)
+        text = <span class="hljs-string">''</span>
+        text += <span class="hljs-string">" <span class="hljs-subst">#{contact.name}</span>"</span> <span class="hljs-keyword">if</span> contact.name
+        text += <span class="hljs-string">" &lt;<span class="hljs-subst">#{contact.email}</span>&gt;"</span> <span class="hljs-keyword">if</span> contact.email
+        [text.trim()]
+      ul = []
+      <span class="hljs-keyword">for</span> group, glist <span class="hljs-keyword">of</span> conf.contact
+        ul.push <span class="hljs-string">"__<span class="hljs-subst">#{string.ucFirst group}</span>__"</span>
+        <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> glist
+          ul = ul.concat formatContact e
+      report.ul ul
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>references</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;For further assistance check the following links:&quot;</span>
-      <span class="nv">ul = </span><span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">ref</span>
-        <span class="nx">ul</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">rpad</span> <span class="nx">name</span><span class="p">,</span> <span class="mi">15</span><span class="si">}</span><span class="s"> &quot;</span> <span class="o">+</span> <span class="nx">list</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">ul</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> conf.ref
+      report.p Report.b <span class="hljs-string">"For further assistance check the following links:"</span>
+      ul = []
+      <span class="hljs-keyword">for</span> name, list <span class="hljs-keyword">of</span> conf.ref
+        ul.push <span class="hljs-string">"<span class="hljs-subst">#{string.rpad name, <span class="hljs-number">15</span>}</span> "</span> + list.join <span class="hljs-string">', '</span>
+      report.ul ul
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>last reports</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+    cb <span class="hljs-literal">null</span>, report
 
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">report</span>
-
-  <span class="nv">showSensor: </span><span class="nf">(name) -&gt;</span>
-    <span class="s">&quot;xxxxx&quot;</span>
+  <span class="hljs-attribute">showSensor</span>: <span class="hljs-function"><span class="hljs-params">(name)</span> -&gt;</span>
+    <span class="hljs-string">"xxxxx"</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20specified%20element">
+          <div class="pilwrap" id="run-specified-element">
   <h2>
-    <a href="#run%20specified%20element" name="run%20specified%20element" class="pilcrow">&#182;</a>
-    Run specified Element
+    <a href="#run-specified-element" name="run-specified-element" class="pilcrow"></a>
+Run specified Element
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">runController: </span><span class="nf">(name, cb) -&gt;</span>
-    <span class="k">if</span> <span class="nx">name</span>
-      <span class="nv">list = </span><span class="p">{}</span>
-      <span class="nx">list</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@controller</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
-    <span class="nx">list</span> <span class="o">?=</span> <span class="nx">@controller</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">mapOf</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(ctrl, name, cb) -&gt;</span>
-      <span class="nx">ctrl</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nf">(err, results) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nv">status = </span><span class="s">&#39;ok&#39;</span>
-      <span class="k">for</span> <span class="nx">s</span> <span class="k">in</span> <span class="nx">results</span>
-        <span class="nv">status = </span><span class="nx">s</span> <span class="k">if</span> <span class="nx">s</span> <span class="o">is</span> <span class="s">&#39;fail&#39;</span> <span class="o">or</span> <span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;ok&#39;</span>
-      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">status</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">runController</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> name
+      list = {}
+      list[name] = <span class="hljs-property">@controller</span>[name]
+    list ?= <span class="hljs-property">@controller</span>
+    async.mapOf list, <span class="hljs-function"><span class="hljs-params">(ctrl, name, cb)</span> -&gt;</span>
+      ctrl.run cb
+    , <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      status = <span class="hljs-string">'ok'</span>
+      <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> results
+        status = s <span class="hljs-keyword">if</span> s <span class="hljs-keyword">is</span> <span class="hljs-string">'fail'</span> <span class="hljs-keyword">or</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'ok'</span>
+      cb <span class="hljs-literal">null</span>, status
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="export%20singleton">
+          <div class="pilwrap" id="export-singleton">
   <h2>
-    <a href="#export%20singleton" name="export%20singleton" class="pilcrow">&#182;</a>
-    Export Singleton
+    <a href="#export-singleton" name="export-singleton" class="pilcrow"></a>
+Export Singleton
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> Monitor()
 
-<span class="nv">module.exports = </span><span class="k">new</span> <span class="nx">Monitor</span><span class="p">()</span>
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="element%20management">
+          <div class="pilwrap" id="element-management">
   <h2>
-    <a href="#element%20management" name="element%20management" class="pilcrow">&#182;</a>
-    Element Management
+    <a href="#element-management" name="element-management" class="pilcrow"></a>
+Element Management
   </h2>
 </div>
-
-
 <p>This methods are used to work with the cached elements which are setup on
 initialization phase by initPlugin().</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+cache = {} <span class="hljs-comment"># object of sensors, actors and explorers with require path</span>
 
-<span class="nv">cache = </span><span class="p">{}</span> <span class="c1"># object of sensors, actors and explorers with require path</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="list%20elements">
+          <div class="pilwrap" id="list-elements-1">
   <h3>
-    <a href="#list%20elements" name="list%20elements" class="pilcrow">&#182;</a>
-    list elements
+    <a href="#list-elements-1" name="list-elements-1" class="pilcrow"></a>
+list elements
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">list = </span><span class="nf">(element) -&gt;</span>
-  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">cache</span><span class="p">[</span><span class="nx">element</span><span class="p">]</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">list</span> = <span class="hljs-params">(element)</span> -&gt;</span>
+  Object.keys cache[element]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20specified%20element%20module">
+          <div class="pilwrap" id="get-specified-element-module">
   <h3>
-    <a href="#get%20specified%20element%20module" name="get%20specified%20element%20module" class="pilcrow">&#182;</a>
-    get specified element module
+    <a href="#get-specified-element-module" name="get-specified-element-module" class="pilcrow"></a>
+get specified element module
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">get = </span><span class="nf">(element, name, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not find </span><span class="si">#{</span><span class="nx">element</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">unless</span> <span class="nx">cache</span><span class="p">[</span><span class="nx">element</span><span class="p">][</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">get</span> = <span class="hljs-params">(element, name, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not find <span class="hljs-subst">#{element}</span> <span class="hljs-subst">#{name}</span>"</span> <span class="hljs-keyword">unless</span> cache[element][name]?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
 </div>
 <p>try to load sensor from plugins</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">try</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">require</span> <span class="nx">cache</span><span class="p">[</span><span class="nx">element</span><span class="p">][</span><span class="nx">name</span><span class="p">]</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">try</span>
+    elem = <span class="hljs-built_in">require</span> cache[element][name]
+  <span class="hljs-keyword">catch</span> err
+    <span class="hljs-keyword">return</span> cb err
+  cb <span class="hljs-literal">null</span>, elem
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

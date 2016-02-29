@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-monitor/READMEmd", defaultSidebar = true;
+    var relativeDir = "";
+    var thisFile = "home/alex/github/node-monitor/README.md";
+    var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
-  <script src="fileSearch.js"></script>
-  <script src="goToLine.js"></script>
-  <link rel="stylesheet" href="fileSearch.css" />
-  <link rel="stylesheet" href="goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,271 +39,280 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#package%3A%20alinex-monitor">Package: alinex-monitor</a>
+        <a href="#package-alinex-monitor">Package: alinex-monitor</a>
       </div>
+
       <div class="heading h2">
         <a href="#install">Install</a>
       </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+
       <div class="heading h3">
-        <a href="#check%20controller%20once">Check controller once</a>
+        <a href="#check-controller-once">Check controller once</a>
       </div>
+
       <div class="heading h3">
-        <a href="#run%20as%20a%20service">Run as a service</a>
+        <a href="#run-as-a-service">Run as a service</a>
       </div>
+
       <div class="heading h3">
-        <a href="#additional%20commands">Additional commands</a>
+        <a href="#additional-commands">Additional commands</a>
       </div>
+
       <div class="heading h3">
         <a href="#setup">Setup</a>
       </div>
+
       <div class="heading h3">
-        <a href="#exit%20codes">Exit Codes</a>
+        <a href="#exit-codes">Exit Codes</a>
       </div>
+
       <div class="heading h2">
-        <a href="#interactive%20console">Interactive Console</a>
+        <a href="#interactive-console">Interactive Console</a>
       </div>
+
       <div class="heading h3">
-        <a href="#using%20parameters">Using Parameters</a>
+        <a href="#using-parameters">Using Parameters</a>
       </div>
+
       <div class="heading h2">
         <a href="#definitions">Definitions</a>
       </div>
+
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
+
       <div class="heading h3">
         <a href="#contacts">Contacts</a>
       </div>
+
       <div class="heading h3">
-        <a href="#email%20templates">Email Templates</a>
+        <a href="#email-templates">Email Templates</a>
       </div>
+
       <div class="heading h3">
         <a href="#rules">Rules</a>
       </div>
+
       <div class="heading h3">
         <a href="#storage">Storage</a>
       </div>
+
       <div class="heading h3">
-        <a href="#exec%20and%20database">Exec and Database</a>
+        <a href="#exec-and-database">Exec and Database</a>
       </div>
+
       <div class="heading h2">
         <a href="#controller">Controller</a>
       </div>
+
       <div class="heading h3">
         <a href="#structure">Structure</a>
       </div>
+
       <div class="heading h2">
         <a href="#status">Status</a>
       </div>
+
       <div class="heading h2">
         <a href="#sensor">Sensor</a>
       </div>
+
       <div class="heading h3">
         <a href="#config">Config</a>
       </div>
+
       <div class="heading h3">
-        <a href="#meta%20data">Meta Data</a>
+        <a href="#meta-data">Meta Data</a>
       </div>
+
       <div class="heading h3">
         <a href="#result">Result</a>
       </div>
+
       <div class="heading h2">
-        <a href="#system%20sensors">System Sensors</a>
+        <a href="#system-sensors">System Sensors</a>
       </div>
+
       <div class="heading h3">
         <a href="#cpu">CPU</a>
       </div>
+
       <div class="heading h3">
         <a href="#load">Load</a>
       </div>
+
       <div class="heading h3">
         <a href="#memory">Memory</a>
       </div>
+
       <div class="heading h3">
         <a href="#diskfree">Diskfree</a>
       </div>
+
       <div class="heading h3">
         <a href="#diskio">DiskIO</a>
       </div>
+
       <div class="heading h3">
         <a href="#net">Net</a>
       </div>
+
       <div class="heading h3">
         <a href="#time">Time</a>
       </div>
+
       <div class="heading h3">
         <a href="#user">User</a>
       </div>
+
       <div class="heading h2">
-        <a href="#network%20sensors">Network Sensors</a>
+        <a href="#network-sensors">Network Sensors</a>
       </div>
+
       <div class="heading h3">
         <a href="#ping">Ping</a>
       </div>
+
       <div class="heading h3">
-        <a href="#configuration">Configuration</a>
+        <a href="#configuration-1">Configuration</a>
       </div>
-      <div class="heading h3">
-        <a href="#socket">Socket</a>
-      </div>
+
       <div class="heading h3">
         <a href="#http">Http</a>
       </div>
-      <div class="heading h2">
-        <a href="#%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de"> HTTP Request ->http://heise.de</a>
-      </div>
+
       <div class="heading h3">
-        <a href="#configuration">Configuration</a>
+        <a href="#configuration-2">Configuration</a>
       </div>
+
       <div class="heading h3">
-        <a href="#ftp">Ftp</a>
+        <a href="#database-stats">Database Stats</a>
       </div>
+
       <div class="heading h3">
-        <a href="#sftp">SFtp</a>
+        <a href="#database-queue">Database Queue</a>
       </div>
-      <div class="heading h3">
-        <a href="#snmp">SNMP</a>
-      </div>
-      <div class="heading h3">
-        <a href="#ipmi">IPMI</a>
-      </div>
-      <div class="heading h3">
-        <a href="#certificate">Certificate</a>
-      </div>
-      <div class="heading h2">
-        <a href="#daemon%20sensors">Daemon Sensors</a>
-      </div>
-      <div class="heading h3">
-        <a href="#pid">PID</a>
-      </div>
-      <div class="heading h3">
-        <a href="#postgresql">PostgreSQL</a>
-      </div>
-      <div class="heading h3">
-        <a href="#apache">Apache</a>
-      </div>
-      <div class="heading h3">
-        <a href="#tomcat">Tomcat</a>
-      </div>
-      <div class="heading h3">
-        <a href="#wowza">Wowza</a>
-      </div>
-      <div class="heading h3">
-        <a href="#vmware">VMWare</a>
-      </div>
-      <div class="heading h2">
-        <a href="#data%20sensors">Data Sensors</a>
-      </div>
-      <div class="heading h3">
-        <a href="#log">Log</a>
-      </div>
-      <div class="heading h3">
-        <a href="#database">Database</a>
-      </div>
-      <div class="heading h3">
-        <a href="#database%20stats">Database Stats</a>
-      </div>
-      <div class="heading h3">
-        <a href="#database%20queue">Database Queue</a>
-      </div>
+
       <div class="heading h3">
         <a href="#rest">REST</a>
       </div>
+
       <div class="heading h2">
-        <a href="#simulation%20sensors">Simulation Sensors</a>
+        <a href="#simulation-sensors">Simulation Sensors</a>
       </div>
+
       <div class="heading h3">
-        <a href="#web%20session">Web Session</a>
+        <a href="#web-session">Web Session</a>
       </div>
+
       <div class="heading h3">
         <a href="#streaming">Streaming</a>
       </div>
+
       <div class="heading h2">
-        <a href="#storage">Storage</a>
+        <a href="#storage-1">Storage</a>
       </div>
+
       <div class="heading h2">
         <a href="#actor">Actor</a>
       </div>
+
       <div class="heading h2">
         <a href="#explorer">Explorer</a>
       </div>
+
       <div class="heading h3">
         <a href="#hardware">Hardware</a>
       </div>
+
       <div class="heading h3">
         <a href="#os">OS</a>
       </div>
+
       <div class="heading h3">
         <a href="#services">Services</a>
       </div>
+
       <div class="heading h3">
-        <a href="#network%20settings">Network Settings</a>
+        <a href="#network-settings">Network Settings</a>
       </div>
+
       <div class="heading h3">
         <a href="#apachesites">ApacheSites</a>
       </div>
+
       <div class="heading h3">
         <a href="#tomcatapps">TomcatApps</a>
       </div>
+
       <div class="heading h3">
         <a href="#upgrade">Upgrade</a>
       </div>
+
       <div class="heading h3">
         <a href="#database">Database</a>
       </div>
+
       <div class="heading h3">
-        <a href="#cron%20schedule">Cron Schedule</a>
+        <a href="#cron-schedule">Cron Schedule</a>
       </div>
+
       <div class="heading h2">
-        <a href="#plugin%20system">Plugin System</a>
+        <a href="#plugin-system">Plugin System</a>
       </div>
+
       <div class="heading h3">
-        <a href="#include%20and%20use">Include and Use</a>
+        <a href="#include-and-use">Include and Use</a>
       </div>
+
       <div class="heading h3">
-        <a href="#plugin%20structure">Plugin Structure</a>
+        <a href="#plugin-structure">Plugin Structure</a>
       </div>
+
       <div class="heading h3">
-        <a href="#sensor%20structure">Sensor Structure</a>
+        <a href="#sensor-structure">Sensor Structure</a>
       </div>
+
       <div class="heading h3">
-        <a href="#actor%20structure">Actor Structure</a>
+        <a href="#actor-structure">Actor Structure</a>
       </div>
+
       <div class="heading h3">
-        <a href="#explorer%20structure">Explorer Structure</a>
+        <a href="#explorer-structure">Explorer Structure</a>
       </div>
+
       <div class="heading h2">
         <a href="#roadmap">Roadmap</a>
       </div>
+
       <div class="heading h2">
         <a href="#license">License</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="docs markdown">
-<div class="pilwrap" id="package%3A%20alinex-monitor">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="docs markdown"><div class="pilwrap" id="package-alinex-monitor">
   <h1>
-    <a href="#package%3A%20alinex-monitor" name="package%3A%20alinex-monitor" class="pilcrow">&#182;</a>
-    Package: alinex-monitor
+    <a href="#package-alinex-monitor" name="package-alinex-monitor" class="pilcrow"></a>
+Package: alinex-monitor
   </h1>
 </div>
-
-
-<p><a href="https://travis-ci.org/alinex/node-monitor"><img src="https://travis-ci.org/alinex/node-monitor.svg?branch=master" alt="Build Status" title="" /></a>
-<a href="https://coveralls.io/r/alinex/node-monitor?branch=master"><img src="https://coveralls.io/repos/alinex/node-monitor/badge.png?branch=master" alt="Coverage Status" title="" /></a>
-<a href="https://gemnasium.com/alinex/node-monitor"><img src="https://gemnasium.com/alinex/node-monitor.png" alt="Dependency Status" title="" /></a></p>
-
+<p><a href="https://travis-ci.org/alinex/node-monitor"><img src="https://travis-ci.org/alinex/node-monitor.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-monitor?branch=master"><img src="https://coveralls.io/repos/alinex/node-monitor/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/alinex/node-monitor"><img src="https://gemnasium.com/alinex/node-monitor.png" alt="Dependency Status"></a></p>
 <p>This application will make server management easy and fast. It will check the
 whole IT landscape from the host to the application.</p>
-
 <p>While most monitoring tools has it's focus on the server here the focus lies on
 the application side, too.</p>
-
 <ul>
 <li>remote daemon-less analysis</li>
 <li>lots of sensors</li>
@@ -304,261 +320,212 @@ the application side, too.</p>
 <li>data store for time analysis</li>
 <li>interactive analyzing and exploring</li>
 </ul>
-
 <p>The monitor will analyze your whole environment in deep by connecting to the different
 systems in parallel and check them deeply. If a problem occurs an additional analysis
 step may be made to get more information. The result values will be stored in the
 storage database and a detailed report will be created. Based on additional action
 rules the report may be send by email or a web request is made. Out of the stored
 values time reports may be created.</p>
-
 <blockquote>
-  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
 </blockquote>
-
-
 <div class="pilwrap" id="install">
   <h2>
-    <a href="#install" name="install" class="pilcrow">&#182;</a>
-    Install
+    <a href="#install" name="install" class="pilcrow"></a>
+Install
   </h2>
 </div>
-
-
-<p><a href="https://www.npmjs.com/package/alinex-monitor"><img src="https://nodei.co/npm/alinex-monitor.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
- <img src="https://nodei.co/npm-dl/alinex-monitor.png?months=9&amp;height=3" alt="Downloads" title="" />
+<p><a href="https://www.npmjs.com/package/alinex-monitor"><img src="https://nodei.co/npm/alinex-monitor.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
+<img src="https://nodei.co/npm-dl/alinex-monitor.png?months=9&amp;height=3" alt="Downloads">
 </a></p>
-
 <p>Install the package globally using npm on a central server. From there all your
 machines may be checked:</p>
-
-
-<div class="highlight"><pre><code>sudo npm install -g alinex-monitor --production
-</code></pre></div>
-
-
-
+<pre><code class="sh">sudo npm install -g alinex-monitor --production
+</code></pre>
 <p>After global installation you may directly call <code>monitor</code> from anywhere.</p>
-
-
-<div class="highlight"><pre><code>monitor --help
-</code></pre></div>
-
-
-
+<pre><code class="sh">monitor --help
+</code></pre>
 <p>Because this application works agentless, you don't have to do something special
 on your clients but often some simple changes can make the reports more powerful.
 If so you will get a hint in the report.</p>
-
-<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-
-
+<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
-    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
-    Usage
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
   </h2>
 </div>
-
-
 <p>After the monitor and it's controllers are fully configured it may be run by
 only calling:</p>
+<pre><code>&gt; monitor
 
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span>
-
-<span class="nx">Initializing</span><span class="p">...</span>
-<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
-<span class="nx">Finished</span><span class="p">.</span>
-</code></pre></div>
-
-
-
+Initializing...
+Analyzing systems...
+Finished.
+</code></pre>
 <p>This will start the monitor on the command line and check all controllers. All
 of them which make some problems will be printed on the console.</p>
-
 <p>Global options:</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">C</span><span class="p">,</span> <span class="o">--</span><span class="nx">nocolors</span>  <span class="nx">turn</span> <span class="nx">of</span> <span class="nx">color</span> <span class="nx">output</span>
-<span class="o">-</span><span class="nx">v</span><span class="p">,</span> <span class="o">--</span><span class="nx">verbose</span>   <span class="nx">run</span> <span class="k">in</span> <span class="nx">verbose</span> <span class="nx">mode</span>
-<span class="o">-</span><span class="nx">h</span><span class="p">,</span> <span class="o">--</span><span class="nx">help</span>      <span class="nx">Show</span> <span class="nx">help</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="check%20controller%20once">
+<pre><code>-C, --nocolors  turn of color output
+-v, --verbose   run in verbose mode
+-h, --help      Show help
+</code></pre>
+<div class="pilwrap" id="check-controller-once">
   <h3>
-    <a href="#check%20controller%20once" name="check%20controller%20once" class="pilcrow">&#182;</a>
-    Check controller once
+    <a href="#check-controller-once" name="check-controller-once" class="pilcrow"></a>
+Check controller once
   </h3>
 </div>
-
-
 <p>You may run the monitor to check the defined controllers once and get their
 status:</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-</span><span class="nx">develop</span>    <span class="err">#</span> <span class="nx">run</span> <span class="nx">only</span> <span class="k">this</span> <span class="nx">controller</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-*</span>          <span class="err">#</span> <span class="nx">run</span> <span class="nx">controllers</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">name</span> <span class="nx">prefix</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span>               <span class="err">#</span> <span class="nx">run</span> <span class="nx">all</span> <span class="nx">controllers</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor my-develop    # run only this controller
+&gt; monitor my-*          # run controllers with the given name prefix
+&gt; monitor               # run all controllers
+</code></pre>
 <p>You may start a try run in which nothing is stored in the storage and no action
 is taken.</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">t</span> <span class="o">--</span><span class="k">try</span>        <span class="k">do</span> <span class="nx">a</span> <span class="k">try</span> <span class="nx">run</span>
-</code></pre></div>
-
-
-
+<pre><code>-t --try        do a try run
+</code></pre>
 <p>The verbose mode works here in multiple steps:</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">v</span>    <span class="nx">show</span> <span class="nx">the</span> <span class="nx">controller</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
-<span class="o">-</span><span class="nx">vv</span>   <span class="nx">show</span> <span class="nx">also</span> <span class="nx">the</span> <span class="nx">sensor</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
-<span class="o">-</span><span class="nx">vvv</span>  <span class="nx">also</span> <span class="nx">display</span> <span class="nx">the</span> <span class="nx">result</span> <span class="nx">values</span>
-</code></pre></div>
-
-
-
+<pre><code>-v    show the controller status on console
+-vv   show also the sensor status on console
+-vvv  also display the result values
+</code></pre>
 <p>If no verbose mode is set only warning and error state of controller will be reported
 on console.</p>
-
 <p>The output may look like:</p>
+<pre><code>&gt; monitor -v
 
+Initializing...
+Analyzing systems...
+2015-12-15 12:55:32 Controller dvb-develop =&gt; ok
+Finished.
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">v</span>
+&gt; monitor -vvv
 
-<span class="nx">Initializing</span><span class="p">...</span>
-<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">32</span> <span class="nx">Controller</span> <span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="nx">Finished</span><span class="p">.</span>
-
-<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">vvv</span>
-
-<span class="nx">Initializing</span><span class="p">...</span>
-<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">load</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">http</span><span class="o">:-&gt;</span><span class="nx">http</span><span class="o">:</span><span class="c1">//192.168.200.106/svn/ =&gt; ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">memory</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">diskfree</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="err">/ =&gt; ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">diskfree</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="err">/var =&gt; ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">ping</span><span class="o">:</span><span class="nx">localhost</span><span class="o">-&gt;</span><span class="mf">192.168</span><span class="p">.</span><span class="mf">200.106</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">socket</span><span class="o">:</span><span class="nx">tcp</span> <span class="nx">localhost</span><span class="o">-&gt;</span><span class="mf">192.168</span><span class="p">.</span><span class="mf">200.106</span><span class="o">:</span><span class="mi">80</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">time</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">user</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">01</span> <span class="nx">Check</span> <span class="nx">cpu</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">01</span> <span class="nx">Check</span> <span class="nx">diskio</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="nx">sda1</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">02</span> <span class="nx">Check</span> <span class="nx">net</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="nx">eth0</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">02</span> <span class="nx">Controller</span> <span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="nx">Finished</span><span class="p">.</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="run%20as%20a%20service">
+Initializing...
+Analyzing systems...
+2015-12-15 12:55:51 Check load:dvb-develop =&gt; ok
+2015-12-15 12:55:51 Check http:-&gt;http://192.168.200.106/svn/ =&gt; ok
+2015-12-15 12:55:51 Check memory:dvb-develop =&gt; ok
+2015-12-15 12:55:51 Check diskfree:dvb-develop:/ =&gt; ok
+2015-12-15 12:55:51 Check diskfree:dvb-develop:/var =&gt; ok
+2015-12-15 12:55:52 Check ping:localhost-&gt;192.168.200.106 =&gt; ok
+2015-12-15 12:55:52 Check socket:tcp localhost-&gt;192.168.200.106:80 =&gt; ok
+2015-12-15 12:55:52 Check time:dvb-develop =&gt; ok
+2015-12-15 12:55:52 Check user:dvb-develop =&gt; ok
+2015-12-15 12:56:01 Check cpu:dvb-develop =&gt; ok
+2015-12-15 12:56:01 Check diskio:dvb-develop:sda1 =&gt; ok
+2015-12-15 12:56:02 Check net:dvb-develop:eth0 =&gt; ok
+2015-12-15 12:56:02 Controller dvb-develop =&gt; ok
+Finished.
+</code></pre>
+<div class="pilwrap" id="run-as-a-service">
   <h3>
-    <a href="#run%20as%20a%20service" name="run%20as%20a%20service" class="pilcrow">&#182;</a>
-    Run as a service
+    <a href="#run-as-a-service" name="run-as-a-service" class="pilcrow"></a>
+Run as a service
   </h3>
 </div>
-
-
 <p>To run the controller continuously use the <code>daemon</code> option and start it in the
 background.</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">d</span> <span class="o">-</span><span class="nx">C</span> <span class="o">&gt;</span> <span class="err">/var/log/monitor.log 2&gt;&amp;1 &amp;</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor -d -C &gt; /var/log/monitor.log 2&gt;&amp;1 &amp;
+</code></pre>
 <p>This will check all the controllers in the defined timerange, collect measurement
 values and send alerts. You may also specify some controllers to run instead of
 all.</p>
-
 <p>Like seen above you may send the normal output to a log file but better configure
 a log destination through the config files (see below).</p>
-
-
-<div class="pilwrap" id="additional%20commands">
+<blockquote>
+<p>For production use you may start it using <a href="http://pm2.keymetrics.io/">pm2</a>.</p>
+</blockquote>
+<div class="pilwrap" id="additional-commands">
   <h3>
-    <a href="#additional%20commands" name="additional%20commands" class="pilcrow">&#182;</a>
-    Additional commands
+    <a href="#additional-commands" name="additional-commands" class="pilcrow"></a>
+Additional commands
   </h3>
 </div>
-
-
 <p>You may run some other commands through the interactive console or directly by
 giving everything on the command line call.</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">list</span> <span class="nx">controller</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor -c list controller
+</code></pre>
 <p>See the next section for the interactive console and their integrated help system
 for more details on the possible commands..</p>
-
-
 <div class="pilwrap" id="setup">
   <h3>
-    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
-    Setup
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h3>
 </div>
-
-
 <p>To use the controller you have to setup the whole process using some configuration
 files. And maybe a storage database will be used.</p>
-
-
-<div class="pilwrap" id="exit%20codes">
+<div class="pilwrap" id="exit-codes">
   <h3>
-    <a href="#exit%20codes" name="exit%20codes" class="pilcrow">&#182;</a>
-    Exit Codes
+    <a href="#exit-codes" name="exit-codes" class="pilcrow"></a>
+Exit Codes
   </h3>
 </div>
-
-
 <p>The exit codes are arranged alongside the UNIX default:</p>
-
-<p style="font-family:monospace;white-space:pre">| Code | Description                             |
-| ----:| --------------------------------------- |
-|    0 | OK - no error in controller             |
-|    1 | General error which should not occur.   |
-|    2 | Fail - controller run failed            |
-|    3 | Warn - warning in controller run        |
-|  129 | SIGHUP (Signal 1)                       |
-|  130 | SIGINT like through Ctrl + C (Signal 2) |
-|  131 | SIGQUIT (Signal 3)                      |
-|  134 | SIGABRT or SIGIOT (Signal 6)            |
-|  143 | SIGTERM (Signal 15)                     |
-|  255 | Exit status out of range                |</p>
-
-
-<div class="pilwrap" id="interactive%20console">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td>OK - no error in controller</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td>General error which should not occur.</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>Fail - controller run failed</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>Warn - warning in controller run</td>
+</tr>
+<tr>
+<td style="text-align:right">129</td>
+<td>SIGHUP (Signal 1)</td>
+</tr>
+<tr>
+<td style="text-align:right">130</td>
+<td>SIGINT like through Ctrl + C (Signal 2)</td>
+</tr>
+<tr>
+<td style="text-align:right">131</td>
+<td>SIGQUIT (Signal 3)</td>
+</tr>
+<tr>
+<td style="text-align:right">134</td>
+<td>SIGABRT or SIGIOT (Signal 6)</td>
+</tr>
+<tr>
+<td style="text-align:right">143</td>
+<td>SIGTERM (Signal 15)</td>
+</tr>
+<tr>
+<td style="text-align:right">255</td>
+<td>Exit status out of range</td>
+</tr>
+</tbody>
+</table>
+<div class="pilwrap" id="interactive-console">
   <h2>
-    <a href="#interactive%20console" name="interactive%20console" class="pilcrow">&#182;</a>
-    Interactive Console
+    <a href="#interactive-console" name="interactive-console" class="pilcrow"></a>
+Interactive Console
   </h2>
 </div>
-
-
 <p>You may start the interactive console by using the <code>-i</code> option. Additionally you
 can use <code>--json</code> to set some presettings with default for the later interactive
 call. After that you will be greeted and may give the commands:</p>
-
-
-<div class="highlight"><pre><code>&gt; monitor -i # or --interactive
+<pre><code class="text">&gt; monitor -i # or --interactive
 
                            __   ____     __
            ######  #####  |  | |    \   |  |   ########### #####       #####
@@ -584,109 +551,62 @@ information about special tools, run individual tests and explore systems.
 To get help call the command help and close with exit!
 
 monitor&gt;
-</code></pre></div>
-
-
-
+</code></pre>
 <p>The following commands are possible here:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">help</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">a</span> <span class="nx">help</span> <span class="nx">page</span> <span class="kd">with</span> <span class="nx">all</span> <span class="k">this</span> <span class="nx">commands</span>
-<span class="nx">set</span> <span class="o">-</span> <span class="nx">change</span> <span class="nx">general</span> <span class="nx">or</span> <span class="nx">specific</span> <span class="nx">settings</span>
-<span class="nx">exit</span> <span class="o">-</span> <span class="k">this</span> <span class="nx">will</span> <span class="nx">close</span> <span class="nx">the</span> <span class="nx">interactive</span> <span class="nx">run</span> <span class="nx">or</span> <span class="nx">send</span> <span class="nx">Ctrl</span><span class="o">-</span><span class="nx">C</span>
-</code></pre></div>
-
-
-
+<pre><code>help - show a help page with all this commands
+set - change general or specific settings
+exit - this will close the interactive run or send Ctrl-C
+</code></pre>
 <p>Commands possible for controller, sensor, actor and explorer:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">list</span> <span class="o">&lt;</span><span class="nx">type</span><span class="o">&gt;</span> <span class="o">-</span> <span class="nx">list</span> <span class="nx">all</span> <span class="nx">possible</span> <span class="nx">elements</span> <span class="nx">of</span> <span class="nx">given</span> <span class="nx">type</span>
-<span class="nx">show</span> <span class="o">&lt;</span><span class="nx">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">element</span><span class="o">&gt;</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">meta</span> <span class="nx">information</span> <span class="k">for</span> <span class="k">this</span> <span class="nx">element</span>
-<span class="nx">run</span> <span class="o">&lt;</span><span class="nx">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">element</span><span class="o">&gt;</span> <span class="o">-</span> <span class="nx">run</span> <span class="k">this</span> <span class="nx">element</span> <span class="p">(</span><span class="nx">maybe</span> <span class="nx">ask</span> <span class="k">for</span> <span class="nx">decisions</span><span class="p">)</span>
-</code></pre></div>
-
-
-
+<pre><code>list &lt;type&gt; - list all possible elements of given type
+show &lt;type&gt; &lt;element&gt; - show meta information for this element
+run &lt;type&gt; &lt;element&gt; - run this element (maybe ask for decisions)
+</code></pre>
 <p>Examples:</p>
-
-
-<div class="highlight"><pre><code><span class="nx">list</span> <span class="nx">controller</span>
-<span class="nx">show</span> <span class="nx">controller</span> <span class="nx">my_machine</span>
-<span class="nx">set</span> <span class="nx">verbose</span> <span class="mi">3</span>
-<span class="nx">run</span> <span class="nx">controller</span> <span class="nx">my_machine</span>
-<span class="nx">show</span> <span class="nx">sensor</span> <span class="nx">cpu</span>
-<span class="nx">run</span> <span class="nx">sensor</span> <span class="nx">cpu</span>
-<span class="nx">run</span> <span class="nx">explorer</span> <span class="nx">database</span>
-</code></pre></div>
-
-
-
+<pre><code>list controller
+show controller my_machine
+set verbose 3
+run controller my_machine
+show sensor cpu
+run sensor cpu
+run explorer database
+</code></pre>
 <p>Everything the controller/sensor/actor/explorer need is asked within or before
 starting the process.</p>
-
 <blockquote>
-  <p>The interactive console uses a file based history so use the arrow keys to
-  step in history. Also auto completion is often available try hitting the
-  <code>TAB</code> key.</p>
+<p>The interactive console uses a file based history so use the arrow keys to
+step in history. Also auto completion is often available try hitting the
+<code>TAB</code> key.</p>
 </blockquote>
-
-
-<div class="pilwrap" id="using%20parameters">
+<div class="pilwrap" id="using-parameters">
   <h3>
-    <a href="#using%20parameters" name="using%20parameters" class="pilcrow">&#182;</a>
-    Using Parameters
+    <a href="#using-parameters" name="using-parameters" class="pilcrow"></a>
+Using Parameters
   </h3>
 </div>
-
-
 <p>If you want to run the same command as on the interactive console but call it
 directly you can send it as command using the options:</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">c</span> <span class="o">--</span><span class="nx">command</span>
-<span class="o">-</span><span class="nx">j</span> <span class="o">--</span><span class="nx">json</span>
-</code></pre></div>
-
-
-
+<pre><code>-c --command
+-j --json
+</code></pre>
 <p>As an example you may run the cleanup:</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">cleanup</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor -c cleanup
+</code></pre>
 <p>Or get the list of controllers:</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="s1">&#39;list controller&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor -c 'list controller'
+</code></pre>
 <p>If you run a command which needs optional parameters while running you have to
 give all of them on call as a json data object. Take the names from the interactive
 run displayed in front of the question.</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">run</span> <span class="nx">sensor</span> <span class="nx">cpu</span> <span class="o">-</span><span class="nx">j</span> <span class="s1">&#39;{&quot;remote&quot;:&quot;localhost&quot;}&#39;</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor -c run sensor cpu -j '{&quot;remote&quot;:&quot;localhost&quot;}'
+</code></pre>
 <p>This will run the cpu sensor on localhost server.</p>
-
-
 <div class="pilwrap" id="definitions">
   <h2>
-    <a href="#definitions" name="definitions" class="pilcrow">&#182;</a>
-    Definitions
+    <a href="#definitions" name="definitions" class="pilcrow"></a>
+Definitions
   </h2>
 </div>
-
-
 <ul>
 <li><strong>Monitor</strong> - is the main program</li>
 <li><strong>Controller</strong> - is the configurable automatic monitoring element holding some checks</li>
@@ -702,35 +622,27 @@ run displayed in front of the question.</p>
 <li><strong>Interactive Console</strong> - will interactively work</li>
 <li><strong>Daemon</strong> - service mode in which the monitor runs the controller checks continuously</li>
 </ul>
-
-
+<p><img src="src/doc/components.svg" alt="Components"></p>
 <div class="pilwrap" id="configuration">
   <h2>
-    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
-    Configuration
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
   </h2>
 </div>
-
-
 <p>This will describe the base setup. Also needed is the controller configuration which
 is described in the next section.
 Most parts of the configuration is the base setup which is used from within the
 controller and sensors.</p>
-
-
 <div class="pilwrap" id="contacts">
   <h3>
-    <a href="#contacts" name="contacts" class="pilcrow">&#182;</a>
-    Contacts
+    <a href="#contacts" name="contacts" class="pilcrow"></a>
+Contacts
   </h3>
 </div>
-
-
 <p>The contacts are referenced from the controllers and are defined here in a central
 file under <code>/monitor/contacts</code>. Entries with array are groups and objects are
 address entries. Within the controller both may be used.</p>
-
-<pre><code language='yaml'># Contacts for Monitoring
+<pre><code class="yaml"># Contacts for Monitoring
 # =================================================
 # This file holds a list of contacts to be used from within the rules and
 # specific controllers.
@@ -745,386 +657,322 @@ aschi:
   name: Alexander Schilling
   position: Developer
   company: Alinex Project
-  email: <a href='mailto:info@alinex.de'>info@alinex.de</a>
+  email: info@alinex.de
   phone: 07129/922545
 </code></pre>
-
 <p>Multiple phone numbers as array are possible.</p>
-
 <p>The contact <code>monitor</code> is already defined and used as from address in emails. You
 may overwrite it by defining it yourself.</p>
-
-
-<div class="pilwrap" id="email%20templates">
+<div class="pilwrap" id="email-templates">
   <h3>
-    <a href="#email%20templates" name="email%20templates" class="pilcrow">&#182;</a>
-    Email Templates
+    <a href="#email-templates" name="email-templates" class="pilcrow"></a>
+Email Templates
   </h3>
 </div>
-
-
 <p>This templates are used for sending emails out. A <code>default</code> template is already
 defined and only needs the 'to' address. But you may define more templates under
 <code>/monitor/email</code>:</p>
+<pre><code class="yaml"># Email Report Configuration
+# =================================================
 
+# Default (extended)
+# -------------------------------------------------
 
-<div class="highlight"><pre><code><span class="c1"># Email Report Configuration</span>
-<span class="c1"># =================================================</span>
+default:
+  # already defined, so only set the 'To' address here.
+  to: operations
 
-<span class="c1"># Default (extended)</span>
-<span class="c1"># -------------------------------------------------</span>
+# Own Templates
+# -------------------------------------------------
 
-<span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
-  <span class="c1"># already defined, so only set the &#39;To&#39; address here.</span>
-  <span class="l-Scalar-Plain">to</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">operations</span>
+fail:
+  subject: &gt;
+    Failed {{alias}}
+  body: &gt;
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
 
-<span class="c1"># Own Templates</span>
-<span class="c1"># -------------------------------------------------</span>
+warn:
+  subject: &gt;
+    Warning for {{alias}}
+  body: &gt;
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
 
-<span class="l-Scalar-Plain">fail</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">Failed {{alias}}</span>
-  <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">{{name}}\n</span>
-    <span class="no">==========================================================================\n</span>
-    <span class="no">{{description}}\n</span>
-    <span class="no">\n</span>
-    <span class="no">This test failed at {{date}}!\n</span>
-    <span class="no">\n</span>
-    <span class="no">{{hint}}\n</span>
-
-<span class="l-Scalar-Plain">warn</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">Warning for {{alias}}</span>
-  <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">{{name}}\n</span>
-    <span class="no">==========================================================================\n</span>
-    <span class="no">{{description}}\n</span>
-    <span class="no">\n</span>
-    <span class="no">This test failed at {{date}}!\n</span>
-    <span class="no">\n</span>
-    <span class="no">{{hint}}\n</span>
-
-<span class="l-Scalar-Plain">ok</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">subject</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">OK for {{alias}}</span>
-  <span class="l-Scalar-Plain">body</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
-    <span class="no">{{name}}\n</span>
-    <span class="no">==========================================================================\n</span>
-    <span class="no">{{description}}\n</span>
-    <span class="no">\n</span>
-    <span class="no">This test failed at {{date}}!\n</span>
-    <span class="no">\n</span>
-    <span class="no">{{hint}}\n</span>
-</code></pre></div>
-
-
-
-
+ok:
+  subject: &gt;
+    OK for {{alias}}
+  body: &gt;
+    {{name}}\n
+    ==========================================================================\n
+    {{description}}\n
+    \n
+    This test failed at {{date}}!\n
+    \n
+    {{hint}}\n
+</code></pre>
 <div class="pilwrap" id="rules">
   <h3>
-    <a href="#rules" name="rules" class="pilcrow">&#182;</a>
-    Rules
+    <a href="#rules" name="rules" class="pilcrow"></a>
+Rules
   </h3>
 </div>
-
-
 <p>The rules specify what to do in specific situations under <code>/monitor/rule</code>:</p>
+<pre><code class="yaml"># Rule Definition
+# =================================================
 
+# ### Set templates for default rules
+fail:
+  email:
+    base: fail
+warn:
+  email:
+    base: warn
+ok:
+  email:
+    base: ok
 
-<div class="highlight"><pre><code><span class="c1"># Rule Definition</span>
-<span class="c1"># =================================================</span>
-
-<span class="c1"># ### Set templates for default rules</span>
-<span class="l-Scalar-Plain">fail</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
-<span class="l-Scalar-Plain">warn</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">warn</span>
-<span class="l-Scalar-Plain">ok</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ok</span>
-
-<span class="c1"># ### specific check</span>
-<span class="l-Scalar-Plain">specific</span><span class="p-Indicator">:</span>
-  <span class="c1"># Only work on specific status.</span>
-  <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span>
-  <span class="c1"># Number of minimum attempts before informing.</span>
-  <span class="l-Scalar-Plain">attempt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
-  <span class="c1"># Time (in seconds) to wait before informing.</span>
-  <span class="l-Scalar-Plain">latency</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>
-  <span class="c1"># Only inform if dependent jobs not failed. This prevents of hundred of</span>
-  <span class="c1"># messages if a central system failed.</span>
-  <span class="l-Scalar-Plain">dependskip</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
-  <span class="c1"># Type of actor to run with it&#39;s configuration</span>
-  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fail</span> <span class="c1"># template to use defined under monitor/email</span>
-    <span class="l-Scalar-Plain">to</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">aschi</span> <span class="c1"># but send to myself</span>
-  <span class="c1"># Timeout (in seconds) without status change before informing again.</span>
-  <span class="l-Scalar-Plain">redo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3h</span>
-</code></pre></div>
-
-
-
-
+# ### specific check
+specific:
+  # Only work on specific status.
+  status: fail
+  # Number of minimum attempts before informing.
+  attempt: 3
+  # Time (in seconds) to wait before informing.
+  latency: 60
+  # Only inform if dependent jobs not failed. This prevents of hundred of
+  # messages if a central system failed.
+  dependskip: true
+  # Type of actor to run with it's configuration
+  email:
+    base: fail # template to use defined under monitor/email
+    to: aschi # but send to myself
+  # Timeout (in seconds) without status change before informing again.
+  redo: 3h
+</code></pre>
 <div class="pilwrap" id="storage">
   <h3>
-    <a href="#storage" name="storage" class="pilcrow">&#182;</a>
-    Storage
+    <a href="#storage" name="storage" class="pilcrow"></a>
+Storage
   </h3>
 </div>
-
-
 <p>If you want to store the measurement values, you need the following setup under
 <code>/monitor/storage</code>:</p>
+<pre><code class="yaml"># Storage settings
+# =================================================
+# There to store the results of the monitoring.
 
+database: monitor
+prefix: mon_
 
-<div class="highlight"><pre><code><span class="c1"># Storage settings</span>
-<span class="c1"># =================================================</span>
-<span class="c1"># There to store the results of the monitoring.</span>
-
-<span class="l-Scalar-Plain">database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">monitor</span>
-<span class="l-Scalar-Plain">prefix</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mon_</span>
-
-<span class="c1"># When to cleanup entries from storage</span>
-<span class="c1"># -------------------------------------------------</span>
-<span class="c1"># The values are the number of max. entries of given interval.</span>
-<span class="l-Scalar-Plain">storage</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">cleanup</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">minute</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">360</span> <span class="c1"># 6 hours</span>
-    <span class="l-Scalar-Plain">hour</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">96</span>    <span class="c1"># 4 days</span>
-    <span class="l-Scalar-Plain">day</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">90</span>     <span class="c1"># 3 months</span>
-    <span class="l-Scalar-Plain">week</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">104</span>   <span class="c1"># two years</span>
-    <span class="l-Scalar-Plain">month</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>   <span class="c1"># 5 years</span>
-</code></pre></div>
-
-
-
+# When to cleanup entries from storage
+# -------------------------------------------------
+# The values are the number of max. entries of given interval.
+storage:
+  cleanup:
+    minute: 360 # 6 hours
+    hour: 96    # 4 days
+    day: 90     # 3 months
+    week: 104   # two years
+    month: 60   # 5 years
+</code></pre>
 <p>The referenced database have to be a <strong>postgresql</strong> database here and the data
 structure will be build on startup automatically. The concrete connection
 settings are defined in the <code>/database</code> configuration, see below.</p>
-
 <p>The cleanup defines how much time units to keep before removing them. Keep in
 mind that your database will grow if you set high values here.</p>
-
-
-<div class="pilwrap" id="exec%20and%20database">
+<div class="pilwrap" id="exec-and-database">
   <h3>
-    <a href="#exec%20and%20database" name="exec%20and%20database" class="pilcrow">&#182;</a>
-    Exec and Database
+    <a href="#exec-and-database" name="exec-and-database" class="pilcrow"></a>
+Exec and Database
   </h3>
 </div>
-
-
 <p>Also you need the setup under <code>/exec</code> and <code>/database</code> like described in
 <a href="http://alinex.github.io/node-exec">Exec</a> and <a href="http://alinex.github.io/node-database">Database</a>.
 This is used in the different sensors by references to the setup stored there.</p>
-
-
 <div class="pilwrap" id="controller">
   <h2>
-    <a href="#controller" name="controller" class="pilcrow">&#182;</a>
-    Controller
+    <a href="#controller" name="controller" class="pilcrow"></a>
+Controller
   </h2>
 </div>
-
-
 <p>A controller is an individual part to be checked. It contains some sensors to check
 the system and may also depend on other controllers. Each controller is made by a
 specific configuration files containing meta information.</p>
-
 <p>See the following example for a full controller configuration:</p>
+<pre><code class="yaml"># Monitoring controller configuration
+# =================================================
+# This is an example of a complete controller configuration.
 
+name: Development Center
+description: Server containing miscellaneous tools to help in the development process.
 
-<div class="highlight"><pre><code><span class="c1"># Monitoring controller configuration</span>
-<span class="c1"># =================================================</span>
-<span class="c1"># This is an example of a complete controller configuration.</span>
+# Monitor runtime configuration
+# -------------------------------------------------
+# Within the validity the same values will be used without rechecking them and
+# after the interval an automatic new run will be started in daemon mode.
 
-<span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Development Center</span>
-<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Server containing miscellaneous tools to help in the development process.</span>
+# Time (in seconds) in which the value is seen as valid and should not be rechecked.
+validity: 1m
+# Time (in seconds) to rerun the check in daemon mode.
+interval: 5m
 
-<span class="c1"># Monitor runtime configuration</span>
-<span class="c1"># -------------------------------------------------</span>
-<span class="c1"># Within the validity the same values will be used without rechecking them and</span>
-<span class="c1"># after the interval an automatic new run will be started in daemon mode.</span>
+# Sensors to run
+# -------------------------------------------------
+# The list of dependencies are sensors which have to work to make this controller
+# fully work.
+check:
+  - sensor: diskfree
 
-<span class="c1"># Time (in seconds) in which the value is seen as valid and should not be rechecked.</span>
-<span class="l-Scalar-Plain">validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1m</span>
-<span class="c1"># Time (in seconds) to rerun the check in daemon mode.</span>
-<span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5m</span>
+    # ### Name and dependency
+    # The name is used for identifying and also to be referred in other checks as
+    # dependency meaning that a check only can run if all it's dependant checks are
+    # done and don't fail.
+    #name: mytest-3
+    #depend: mytest-1, mytest-2
 
-<span class="c1"># Sensors to run</span>
-<span class="c1"># -------------------------------------------------</span>
-<span class="c1"># The list of dependencies are sensors which have to work to make this controller</span>
-<span class="c1"># fully work.</span>
-<span class="l-Scalar-Plain">check</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sensor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">diskfree</span>
+    # ### Specific setup
+    config:
+      remote: my-develop
+      share: /
 
-    <span class="c1"># ### Name and dependency</span>
-    <span class="c1"># The name is used for identifying and also to be referred in other checks as</span>
-    <span class="c1"># dependency meaning that a check only can run if all it&#39;s dependant checks are</span>
-    <span class="c1"># done and don&#39;t fail.</span>
-    <span class="c1">#name: mytest-3</span>
-    <span class="c1">#depend: mytest-1, mytest-2</span>
+    # ### Weight setting
+    # Specific to value of the following 'combine' setting.
+    # With the `weight` settings on the different entries single group entries may
+    # be rated specific not like the others. Use a number in `average` to make the
+    # weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
+    # level for one step before using in calculation on all combine methods.
+    #weight: down
 
-    <span class="c1"># ### Specific setup</span>
-    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop</span>
-      <span class="l-Scalar-Plain">share</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
+    # ### Hint
+    # Specific hint as handlebars text which may include the current results. Use
+    # the following variables:
+    #
+    #     name: Name of the sensor
+    #     meta: Meta Information of the sensor
+    #     config: Sensor configuration
+    #     results: Results
+    #hint: |+
 
-    <span class="c1"># ### Weight setting</span>
-    <span class="c1"># Specific to value of the following &#39;combine&#39; setting.</span>
-    <span class="c1"># With the `weight` settings on the different entries single group entries may</span>
-    <span class="c1"># be rated specific not like the others. Use a number in `average` to make the</span>
-    <span class="c1"># weight higher (1 is normal). Also the weight &#39;up&#39; and &#39;down&#39; changes the error</span>
-    <span class="c1"># level for one step before using in calculation on all combine methods.</span>
-    <span class="c1">#weight: down</span>
+# ### Max Parallel checks
+# This goes from 1 = serial to n parallel checks running. It is wise not to use
+# too high values here to not make a high load on the server by the monitor itself.
+parallel: 5
 
-    <span class="c1"># ### Hint</span>
-    <span class="c1"># Specific hint as handlebars text which may include the current results. Use</span>
-    <span class="c1"># the following variables:</span>
-    <span class="c1">#</span>
-    <span class="c1">#     name: Name of the sensor</span>
-    <span class="c1">#     meta: Meta Information of the sensor</span>
-    <span class="c1">#     config: Sensor configuration</span>
-    <span class="c1">#     results: Results</span>
-    <span class="c1">#hint: |+</span>
+# ### Combine values
+# For multiple dependencies this value defines how the individual sensors are
+# combined to calculate the overall status:
+#
+# - max - the one with the highest failure value is used
+# - min - the lowest failure value is used
+# - average - the average status (arithmetic round) is used
+combine: max
 
-<span class="c1"># ### Max Parallel checks</span>
-<span class="c1"># This goes from 1 = serial to n parallel checks running. It is wise not to use</span>
-<span class="c1"># too high values here to not make a high load on the server by the monitor itself.</span>
-<span class="l-Scalar-Plain">parallel</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+# Rules to process
+# -------------------------------------------------
+# The following rules will be processed after the controller is run. They will
+# decide which actions to run and how to do it.
+#
+# The following list references the active rules for this controller:
+rule:
+  - fail
+  - warn
+  - ok
 
-<span class="c1"># ### Combine values</span>
-<span class="c1"># For multiple dependencies this value defines how the individual sensors are</span>
-<span class="c1"># combined to calculate the overall status:</span>
-<span class="c1">#</span>
-<span class="c1"># - max - the one with the highest failure value is used</span>
-<span class="c1"># - min - the lowest failure value is used</span>
-<span class="c1"># - average - the average status (arithmetic round) is used</span>
-<span class="l-Scalar-Plain">combine</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">max</span>
+# Information Text
+# -------------------------------------------------
+# This is a general and unspecific information text for that controller.
+info: |+
+  This system is used for software development, building and deployment. An
+  outage will have direct effects to the developers so that they can't submit,
+  test and deploy their code.
 
-<span class="c1"># Rules to process</span>
-<span class="c1"># -------------------------------------------------</span>
-<span class="c1"># The following rules will be processed after the controller is run. They will</span>
-<span class="c1"># decide which actions to run and how to do it.</span>
-<span class="c1">#</span>
-<span class="c1"># The following list references the active rules for this controller:</span>
-<span class="l-Scalar-Plain">rule</span><span class="p-Indicator">:</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">fail</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">warn</span>
-  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ok</span>
+# ### Specific Hint
+# In contrast to the `info` the `hint` will be more specific to the concrete
+# results. Within this handlebar text you may use some specific variables:
+#
+#     name: controller name
+#     config: this config
+#     sensor: sensor results
+hint: |+
+  All necessary parts are on the same machine, so that you only have to bring
+  this machine to work. Backups of the data are made on my-backup.
 
-<span class="c1"># Information Text</span>
-<span class="c1"># -------------------------------------------------</span>
-<span class="c1"># This is a general and unspecific information text for that controller.</span>
-<span class="l-Scalar-Plain">info</span><span class="p-Indicator">:</span> <span class="p-Indicator">|+</span>
-  <span class="no">This system is used for software development, building and deployment. An</span>
-  <span class="no">outage will have direct effects to the developers so that they can&#39;t submit,</span>
-  <span class="no">test and deploy their code.</span>
+  Keep in mind that the machine is in the test net and you have to use a valid
+  VPN connection for accessing.
 
-<span class="c1"># ### Specific Hint</span>
-<span class="c1"># In contrast to the `info` the `hint` will be more specific to the concrete</span>
-<span class="c1"># results. Within this handlebar text you may use some specific variables:</span>
-<span class="c1">#</span>
-<span class="c1">#     name: controller name</span>
-<span class="c1">#     config: this config</span>
-<span class="c1">#     sensor: sensor results</span>
-<span class="l-Scalar-Plain">hint</span><span class="p-Indicator">:</span> <span class="p-Indicator">|+</span>
-  <span class="no">All necessary parts are on the same machine, so that you only have to bring</span>
-  <span class="no">this machine to work. Backups of the data are made on my-backup.</span>
+# Additional Help
+# -------------------------------------------------
+contact:
+  operations: alex
 
-  <span class="no">Keep in mind that the machine is in the test net and you have to use a valid</span>
-  <span class="no">VPN connection for accessing.</span>
-
-<span class="c1"># Additional Help</span>
-<span class="c1"># -------------------------------------------------</span>
-<span class="l-Scalar-Plain">contact</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">operations</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
-
-<span class="l-Scalar-Plain">ref</span><span class="p-Indicator">:</span>
-  <span class="c1"># system access</span>
-  <span class="l-Scalar-Plain">subversion</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://192.168.1.6/svn</span>
-  <span class="l-Scalar-Plain">nexus</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://192.168.1.6:8081/nexus</span>
-  <span class="l-Scalar-Plain">Jenkins</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://192.168.1.6:8080/</span>
-  <span class="l-Scalar-Plain">sonarqube</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://192.168.1.6:9000/</span>
-  <span class="c1"># user/developer help</span>
-  <span class="l-Scalar-Plain">doc</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://my-docs/confluence/pages/viewpage.action?pageId=48398554</span>
-  <span class="c1">#issues:</span>
-  <span class="c1">#api:</span>
-  <span class="c1">#code:</span>
-  <span class="c1">#other:</span>
-</code></pre></div>
-
-
-
+ref:
+  # system access
+  subversion: http://192.168.1.6/svn
+  nexus: http://192.168.1.6:8081/nexus
+  Jenkins: http://192.168.1.6:8080/
+  sonarqube: http://192.168.1.6:9000/
+  # user/developer help
+  doc: https://my-docs/confluence/pages/viewpage.action?pageId=48398554
+  #issues:
+  #api:
+  #code:
+  #other:
+</code></pre>
 <p>The controller will call the sensors and collect the data. It may also generate
 reports or trigger specific actions.</p>
-
-
 <div class="pilwrap" id="structure">
   <h3>
-    <a href="#structure" name="structure" class="pilcrow">&#182;</a>
-    Structure
+    <a href="#structure" name="structure" class="pilcrow"></a>
+Structure
   </h3>
 </div>
-
-
 <p>A controller may hold some sensor but not to much. You should only group corresponding
 sensors within it. Dependent parts may be put in another controller, one for each
 level of dependency.</p>
-
 <p>Each controller should have an unique and memorable name. A good structure of
 controllers may be:</p>
-
 <ul>
 <li>one for each server: name it like your machine names i.e. <code>vs1626</code>, <code>ma77234</code></li>
 <li>one for each application part i.e. <code>web</code>, <code>web1</code>, <code>web2</code>, <code>web3</code>, <code>ftp</code></li>
 <li>one for each end user application i.e. <code>login</code>, <code>browse</code>, <code>buy</code></li>
 <li>one overall check i.e. <code>all</code></li>
 </ul>
-
-
 <div class="pilwrap" id="status">
   <h2>
-    <a href="#status" name="status" class="pilcrow">&#182;</a>
-    Status
+    <a href="#status" name="status" class="pilcrow"></a>
+Status
   </h2>
 </div>
-
-
 <p>The monitor uses the following status:</p>
-
 <p><strong>running</strong> if the sensor is already analyzing, you have to wait</p>
-
 <p><strong>disabled</strong> if this controller is currently not checked - this will be used
 like ok for further processing</p>
-
 <p><strong>ok</strong> if everything is perfect, there nothing have to be done - exit code 0</p>
-
 <p><strong>warn</strong> if the sensor reached the warning level, know you have to keep an eye on
 it - exit code 1</p>
-
 <p><strong>fail</strong> if the sensor failed and there is a problem - exit code 2</p>
-
-
 <div class="pilwrap" id="sensor">
   <h2>
-    <a href="#sensor" name="sensor" class="pilcrow">&#182;</a>
-    Sensor
+    <a href="#sensor" name="sensor" class="pilcrow"></a>
+Sensor
   </h2>
 </div>
-
-
 <p>An sensor is a code module which allows to check specific parts of the system. It
 will analyze the system and get some measurement values back.</p>
-
 <p>Each use of a sensor in an controller with specific setup data is further called
 a <strong>check</strong>.</p>
-
 <p>A check consists of the following setup:</p>
-
 <ul>
 <li>sensor - the name of the sensor to use</li>
 <li>name - an optional alias name for referencing (optional)</li>
@@ -1133,91 +981,65 @@ a <strong>check</strong>.</p>
 <li>weight - change setting belongs to the controllers combine setting (optional)</li>
 <li>hint - a technical hint to find or resolve the problem (optional)</li>
 </ul>
-
-
 <div class="pilwrap" id="config">
   <h3>
-    <a href="#config" name="config" class="pilcrow">&#182;</a>
-    Config
+    <a href="#config" name="config" class="pilcrow"></a>
+Config
   </h3>
 </div>
-
-
 <p>Each sensor has its own configuration settings like seen above in the controller
 configuration. The common keys are:</p>
-
 <ul>
 <li>warn - the javascript code to check if status should be set to warn</li>
 <li>fail - the javascript code to check if status should be set to fail</li>
 </ul>
-
-
-<div class="pilwrap" id="meta%20data">
+<div class="pilwrap" id="meta-data">
   <h3>
-    <a href="#meta%20data" name="meta%20data" class="pilcrow">&#182;</a>
-    Meta Data
+    <a href="#meta-data" name="meta-data" class="pilcrow"></a>
+Meta Data
   </h3>
 </div>
-
-
 <p>The following meta data are available:</p>
-
 <ul>
 <li>title</li>
 <li>description</li>
 <li>category - one of 'sys', 'net', 'srv'</li>
 <li>hint - additional help for problems</li>
 </ul>
-
-
 <div class="pilwrap" id="result">
   <h3>
-    <a href="#result" name="result" class="pilcrow">&#182;</a>
-    Result
+    <a href="#result" name="result" class="pilcrow"></a>
+Result
   </h3>
 </div>
-
-
 <p>After running a sensor you get a result object containing:</p>
-
 <ul>
 <li>date - array with start and end date of run</li>
 <li>status - one of: 'ok', 'warn', 'fail' ('running')</li>
 <li>message - optional, explaining the status</li>
 <li>values - object containing specific values</li>
 </ul>
-
-
-<div class="pilwrap" id="system%20sensors">
+<div class="pilwrap" id="system-sensors">
   <h2>
-    <a href="#system%20sensors" name="system%20sensors" class="pilcrow">&#182;</a>
-    System Sensors
+    <a href="#system-sensors" name="system-sensors" class="pilcrow"></a>
+System Sensors
   </h2>
 </div>
-
-
-
 <div class="pilwrap" id="cpu">
   <h3>
-    <a href="#cpu" name="cpu" class="pilcrow">&#182;</a>
-    CPU
+    <a href="#cpu" name="cpu" class="pilcrow"></a>
+CPU
   </h3>
 </div>
-
-
 <p>Checking the CPU utilization of all cores together. With the configuration values:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>time - measurement time in seconds</li>
-<li>warn - the javascript code to check for warn status (default: 'active >= 100%')</li>
+<li>warn - the javascript code to check for warn status (default: 'active &gt;= 100%')</li>
 <li>fail - the javascript code to check for fail status</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>CPU localhost
+<pre><code class="text">CPU localhost
 --------------------------------------------------------------------------------
 
 Check the current activity in average percent of all cores.
@@ -1252,32 +1074,22 @@ The cpu sensor is configured with:
 |:--------------------- |:-------------- |
 | time                  | 10             |
 | warn                  | active &gt;= 100% |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="load">
   <h3>
-    <a href="#load" name="load" class="pilcrow">&#182;</a>
-    Load
+    <a href="#load" name="load" class="pilcrow"></a>
+Load
   </h3>
 </div>
-
-
 <p>Check the system load in the last time ranges. With the configuration values:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>time - measurement time in seconds</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Load localhost
+<pre><code class="text">Load localhost
 --------------------------------------------------------------------------------
 
 Check the local processor activity over the last minute to 15 minutes.
@@ -1305,31 +1117,21 @@ The load sensor is configured with:
 | CONFIGURATION SETTING | VALUE        |
 |:--------------------- |:------------ |
 | warn                  | short &gt; 500% |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="memory">
   <h3>
-    <a href="#memory" name="memory" class="pilcrow">&#182;</a>
-    Memory
+    <a href="#memory" name="memory" class="pilcrow"></a>
+Memory
   </h3>
 </div>
-
-
 <p>Check the memory usage on the system</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Memory localhost
+<pre><code class="text">Memory localhost
 --------------------------------------------------------------------------------
 
 Check the free and used memory.
@@ -1365,22 +1167,15 @@ The memory sensor is configured with:
 | CONFIGURATION SETTING | VALUE     |
 |:--------------------- |:--------- |
 | warn                  | free &lt; 1% |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="diskfree">
   <h3>
-    <a href="#diskfree" name="diskfree" class="pilcrow">&#182;</a>
-    Diskfree
+    <a href="#diskfree" name="diskfree" class="pilcrow"></a>
+Diskfree
   </h3>
 </div>
-
-
 <p>This sensor will check the disk usage on a specific block device. The configuration
 allows:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>share - the disk share's path or mount point to check</li>
@@ -1388,11 +1183,8 @@ allows:</p>
 <li>fail - the javascript code to check for fail status (default: 'free is 0')</li>
 <li>timeout - the time the whole test may take before stopping</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Diskfree localhost:/
+<pre><code class="text">Diskfree localhost:/
 --------------------------------------------------------------------------------
 
 Test the free diskspace of one share.
@@ -1428,21 +1220,14 @@ The diskfree sensor is configured with:
 | timeout               | 5000              |
 | warn                  | freePercent &lt; 10% |
 | fail                  | free is 0         |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="diskio">
   <h3>
-    <a href="#diskio" name="diskio" class="pilcrow">&#182;</a>
-    DiskIO
+    <a href="#diskio" name="diskio" class="pilcrow"></a>
+DiskIO
   </h3>
 </div>
-
-
 <p>This sensor will check the disk io traffic:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>device - the disk device name</li>
@@ -1450,11 +1235,8 @@ The diskfree sensor is configured with:
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Disk IO localhost:sda
+<pre><code class="text">Disk IO localhost:sda
 --------------------------------------------------------------------------------
 
 Check the disk io traffic.
@@ -1484,33 +1266,23 @@ The diskio sensor is configured with:
 |:--------------------- |:----- |
 | device                | sda   |
 | time                  | 10    |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="net">
   <h3>
-    <a href="#net" name="net" class="pilcrow">&#182;</a>
-    Net
+    <a href="#net" name="net" class="pilcrow"></a>
+Net
   </h3>
 </div>
-
-
 <p>This sensor will check the network traffic on a specified interface:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>interface - the interface to analyze</li>
 <li>time - measurement time in seconds</li>
-<li>warn - the javascript code to check for warn status (default: 'errors > 50%')</li>
-<li>fail - the javascript code to check for fail status (default: 'errors > 99%')</li>
+<li>warn - the javascript code to check for warn status (default: 'errors &gt; 50%')</li>
+<li>fail - the javascript code to check for fail status (default: 'errors &gt; 99%')</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Network Traffic localhost:eth0
+<pre><code class="text">Network Traffic localhost:eth0
 --------------------------------------------------------------------------------
 
 Check the network traffic.
@@ -1546,34 +1318,24 @@ The net sensor is configured with:
 | time                  | 10           |
 | warn                  | errors &gt; 50% |
 | fail                  | errors &gt; 99% |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="time">
   <h3>
-    <a href="#time" name="time" class="pilcrow">&#182;</a>
-    Time
+    <a href="#time" name="time" class="pilcrow"></a>
+Time
   </h3>
 </div>
-
-
 <p>This sensor will check the network traffic on a specified interface:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>host - the name of an NTP server to call (default: pool.ntp.org)</li>
 <li>port - the port to use for NTP calls (default: 123)</li>
 <li>timeout - the time in milliseconds to retrieve time</li>
-<li>warn - the javascript code to check for warn status (default: 'diff > 10000')</li>
+<li>warn - the javascript code to check for warn status (default: 'diff &gt; 10000')</li>
 <li>fail - the javascript code to check for fail status</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Time Check localhost
+<pre><code class="text">Time Check localhost
 --------------------------------------------------------------------------------
 
 Check the system time against the Internet.
@@ -1601,32 +1363,22 @@ The time sensor is configured with:
 | port                  | 123          |
 | timeout               | 10000        |
 | warn                  | diff &gt; 10000 |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="user">
   <h3>
-    <a href="#user" name="user" class="pilcrow">&#182;</a>
-    User
+    <a href="#user" name="user" class="pilcrow"></a>
+User
   </h3>
 </div>
-
-
 <p>This sensor will analyse processes started from a specific user:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>user - the user name to analyze</li>
-<li>warn - the javascript code to check for warn status (default: 'diff > 10000')</li>
+<li>warn - the javascript code to check for warn status (default: 'diff &gt; 10000')</li>
 <li>fail - the javascript code to check for fail status</li>
 </ul>
-
 <p>The resulting report part may look like:</p>
-
-
-<div class="highlight"><pre><code>Active User localhost
+<pre><code class="text">Active User localhost
 --------------------------------------------------------------------------------
 
 Check what an active user do.
@@ -1656,32 +1408,22 @@ The user sensor is configured with:
 | CONFIGURATION SETTING | VALUE |
 |:--------------------- |:----- |
 | user                  | alex  |
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="network%20sensors">
+</code></pre>
+<div class="pilwrap" id="network-sensors">
   <h2>
-    <a href="#network%20sensors" name="network%20sensors" class="pilcrow">&#182;</a>
-    Network Sensors
+    <a href="#network-sensors" name="network-sensors" class="pilcrow"></a>
+Network Sensors
   </h2>
 </div>
-
-
-
 <div class="pilwrap" id="ping">
   <h3>
-    <a href="#ping" name="ping" class="pilcrow">&#182;</a>
-    Ping
+    <a href="#ping" name="ping" class="pilcrow"></a>
+Ping
   </h3>
 </div>
-
-
 <p>Although simple, but important to check if a host is responding to ICMP ping
 packets. Thus, it is possible to measure the availability of a server, as well
 as the response time and packet loss:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>host - the server hostname or ip address to be called for ping</li>
@@ -1694,9 +1436,7 @@ as the response time and packet loss:</p>
 <li>warn - the javascript code to check for warn status (default: 'quality &lt; 100%')</li>
 <li>fail - the javascript code to check for fail status (default: 'quality is 0')</li>
 </ul>
-
-
-<div class="highlight"><pre><code>Ping localhost-&gt;193.99.144.80
+<pre><code class="text">Ping localhost-&gt;193.99.144.80
 --------------------------------------------------------------------------------
 
 Test the reachability of a host in an IP network and measure the round-trip time
@@ -1723,60 +1463,71 @@ PING 193.99.144.80 (193.99.144.80) 56(84) bytes of data.
 --- 193.99.144.80 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
 rtt min/avg/max/mdev = 15.354/15.354/15.354/0.000 ms
-</code></pre></div>
-
-
-
+</code></pre>
 <blockquote>
-  <p>Check the network card configuration if local ping won't work or the network
-  connection for external pings. Problems can also be that the firewall will block
-  the ping port.</p>
+<p>Check the network card configuration if local ping won't work or the network
+connection for external pings. Problems can also be that the firewall will block
+the ping port.</p>
 </blockquote>
-
-
-<div class="pilwrap" id="configuration_1">
+<div class="pilwrap" id="configuration-1">
   <h3>
-    <a href="#configuration_1" name="configuration_1" class="pilcrow">&#182;</a>
-    Configuration
+    <a href="#configuration-1" name="configuration-1" class="pilcrow"></a>
+Configuration
   </h3>
 </div>
-
-
 <p>The ping sensor is configured with:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CONFIGURATION SETTING</th>
+<th style="text-align:left">VALUE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">host</td>
+<td style="text-align:left">193.99.144.80</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">interval</td>
+<td style="text-align:left">1000</td>
+</tr>
+<tr>
+<td style="text-align:left">size</td>
+<td style="text-align:left">56</td>
+</tr>
+<tr>
+<td style="text-align:left">timeout</td>
+<td style="text-align:left">1000</td>
+</tr>
+<tr>
+<td style="text-align:left">warn</td>
+<td style="text-align:left">quality &lt; 100%</td>
+</tr>
+<tr>
+<td style="text-align:left">fail</td>
+<td style="text-align:left">quality is 0</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+### Socket
 
-<p style="font-family:monospace;white-space:pre">| CONFIGURATION SETTING | VALUE          |
-|:--------------------- |:-------------- |
-| host                  | 193.99.144.80  |
-| count                 | 1              |
-| interval              | 1000           |
-| size                  | 56             |
-| timeout               | 1000           |
-| warn                  | quality &lt; 100% |
-| fail                  | quality is 0   |
-```</p>
+This sensor will ping another host:
 
+- remote - the remote server, there to run the sensor
+- host - the server hostname or ip address to be called for ping
+- port - the port number used to connect to
+- transport - the protocol used for internet transport layer (default:tcp)
+- warn - the javascript code to check for warn status (default: 'quality &lt; 100%')
+- fail - the javascript code to check for fail status (default: 'quality is 0')
 
-<div class="pilwrap" id="socket">
-  <h3>
-    <a href="#socket" name="socket" class="pilcrow">&#182;</a>
-    Socket
-  </h3>
-</div>
-
-
-<p>This sensor will ping another host:</p>
-
-<ul>
-<li>remote - the remote server, there to run the sensor</li>
-<li>host - the server hostname or ip address to be called for ping</li>
-<li>port - the port number used to connect to</li>
-<li>transport - the protocol used for internet transport layer (default:tcp)</li>
-<li>warn - the javascript code to check for warn status (default: 'quality &lt; 100%')</li>
-<li>fail - the javascript code to check for fail status (default: 'quality is 0')</li>
-</ul>
-
-
-<div class="highlight"><pre><code>Socket tcp localhost-&gt;193.99.144.80:80
+``` text
+Socket tcp localhost-&gt;193.99.144.80:80
 --------------------------------------------------------------------------------
 
 Use TCP sockets to check for the availability of a service behind a given port.
@@ -1803,21 +1554,14 @@ The socket sensor is configured with:
 | port                  | 80            |
 | transport             | tcp           |
 | timeout               | 2000          |
-</code></pre></div>
-
-
-
-
+</code></pre>
 <div class="pilwrap" id="http">
   <h3>
-    <a href="#http" name="http" class="pilcrow">&#182;</a>
-    Http
+    <a href="#http" name="http" class="pilcrow"></a>
+Http
   </h3>
 </div>
-
-
 <p>This sensor will ping another host:</p>
-
 <ul>
 <li>remote - the remote server, there to run the sensor</li>
 <li>url - the URL to request</li>
@@ -1828,59 +1572,43 @@ and be considered as failed</li>
 <li>match - the substring or regular expression which have to match</li>
 <li>warn - the javascript code to check for warn status</li>
 <li>fail - the javascript code to check for fail status
-(default: 'statusCode &lt; 200 or statusCode >= 400')</li>
+(default: 'statusCode &lt; 200 or statusCode &gt;= 400')</li>
 </ul>
-
 <p>If a remote server reference is given this will be used for tunneling over ssh
 as proxy.</p>
-
 <blockquote>
-  <p>Within the match parameter you may use named-captures in the form (:<name>regexp).
-  If you do so you will get a named object instead of an array as result.</p>
+<p>Within the match parameter you may use named-captures in the form (:<name>regexp).
+If you do so you will get a named object instead of an array as result.</p>
 </blockquote>
+<pre><code class="text"> HTTP Request -&gt;http://heise.de
+--------------------------------------------------------------------------------
 
-<p>``` text</p>
+Connect to an HTTP or HTTPS server and check the response.
 
+::: info
+- __STATUS: ok__ at Wed Dec 23 2015 21:26:14 GMT+0100 (CET)
+:::
 
-<div class="pilwrap" id="%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de">
-  <h2>
-    <a href="#%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de" name="%20http%20request%20-%3Ehttp%3A%2F%2Fheise.de" class="pilcrow">&#182;</a>
-     HTTP Request -><a href='http://heise.de'>http://heise.de</a>
-  </h2>
-</div>
+Last check results from Wed Dec 23 2015 21:26:14 GMT+0100 (CET) are:
 
-
-<p>Connect to an HTTP or HTTPS server and check the response.</p>
-
-<p>::: info
-- <strong>STATUS: ok</strong> at Wed Dec 23 2015 21:26:14 GMT+0100 (CET)
-:::</p>
-
-<p>Last check results from Wed Dec 23 2015 21:26:14 GMT+0100 (CET) are:</p>
-
-<p style="font-family:monospace;white-space:pre">| NAME          | LABEL          |                    VALUE |
+| NAME          | LABEL          |                    VALUE |
 |:------------- |:-------------- | ------------------------:|
 | responseTime  | Response Time  |                   320 ms |
 | statusCode    | Status Code    |                      200 |
 | statusMessage | Status Message |                       OK |
 | server        | Server         |                    nginx |
 | contentType   | Content Type   | text/html; charset=utf-8 |
-| length        | Content Length |                  177 KiB |</p>
+| length        | Content Length |                  177 KiB |
 
-<p><strong>Request:</strong></p>
+__Request:__
 
-
-<div class="highlight"><pre><code>GET http://heise.de
+``` text
+GET http://heise.de
 
 User-Agent: Alinex Monitor through request.js
-</code></pre></div>
-
-
-
+</code></pre>
 <p><strong>Response:</strong></p>
-
-
-<div class="highlight"><pre><code>server: nginx
+<pre><code class="text">server: nginx
 content-type: text/html; charset=utf-8
 x-cobbler: octo09.heise.de
 x-clacks-overhead: GNU Terry Pratchett
@@ -1892,280 +1620,172 @@ date: Wed, 23 Dec 2015 20:26:15 GMT
 age: 8
 connection: keep-alive
 vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
-</code></pre></div>
-
-
-
+</code></pre>
 <p><strong>Body:</strong></p>
+<pre><code class="html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"de"</span>&gt;</span>
 
-
-<div class="highlight"><pre><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;de&quot;</span><span class="nt">&gt;</span>
-
-<span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;title&gt;</span>heise online - IT-News, Nachrichten und Hintergründe
-    <span class="nt">&lt;/title&gt;</span>
-        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware und Software sowie Downloads bei Heise Medien.&quot;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;keywords&quot;</span> <span class="na">content=</span><span class="s">&quot;heise online, c&#39;t, iX, Technology Review&quot;</span><span class="err">...</span>
-</code></pre></div>
-
-
-
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>heise online - IT-News, Nachrichten und Hintergründe
+    <span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"description"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware und Software sowie Downloads bei Heise Medien."</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"keywords"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"heise online, c't, iX, Technology Review"</span><span class="hljs-value">...</span>
+</span></code></pre>
 <blockquote>
-  <p>If the server didn't respond it also may be a network problem.</p>
+<p>If the server didn't respond it also may be a network problem.</p>
 </blockquote>
-
-
-<div class="pilwrap" id="configuration_2">
+<div class="pilwrap" id="configuration-2">
   <h3>
-    <a href="#configuration_2" name="configuration_2" class="pilcrow">&#182;</a>
-    Configuration
+    <a href="#configuration-2" name="configuration-2" class="pilcrow"></a>
+Configuration
   </h3>
 </div>
-
-
 <p>The http sensor is configured with:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CONFIGURATION SETTING</th>
+<th style="text-align:left">VALUE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">url</td>
+<td style="text-align:left">http://heise.de</td>
+</tr>
+<tr>
+<td style="text-align:left">timeout</td>
+<td style="text-align:left">10000</td>
+</tr>
+<tr>
+<td style="text-align:left">fail</td>
+<td style="text-align:left">statusCode &lt; 200 or statusCode &gt;= 400</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+### Ftp
 
-<p style="font-family:monospace;white-space:pre">| CONFIGURATION SETTING | VALUE                                 |
-|:--------------------- |:------------------------------------- |
-| url                   | <a href='http://heise.de'>http://heise.de</a>                       |
-| timeout               | 10000                                 |
-| fail                  | statusCode &lt; 200 or statusCode >= 400 |
-```</p>
+To be written...
 
+- put
+- read
+- move
+- delete
+- responseTime
 
-<div class="pilwrap" id="ftp">
-  <h3>
-    <a href="#ftp" name="ftp" class="pilcrow">&#182;</a>
-    Ftp
-  </h3>
-</div>
+### SFtp
 
+To be written...
 
-<p>To be written...</p>
+- put
+- read
+- move
+- delete
+- responseTime
 
-<ul>
-<li>put</li>
-<li>read</li>
-<li>move</li>
-<li>delete</li>
-<li>responseTime</li>
-</ul>
+### SNMP
 
+To be written...
 
-<div class="pilwrap" id="sftp">
-  <h3>
-    <a href="#sftp" name="sftp" class="pilcrow">&#182;</a>
-    SFtp
-  </h3>
-</div>
+Makes monitoring any network device like printer... possible.
 
+### IPMI
 
-<p>To be written...</p>
+### Certificate
 
-<ul>
-<li>put</li>
-<li>read</li>
-<li>move</li>
-<li>delete</li>
-<li>responseTime</li>
-</ul>
+To be written...
 
-
-<div class="pilwrap" id="snmp">
-  <h3>
-    <a href="#snmp" name="snmp" class="pilcrow">&#182;</a>
-    SNMP
-  </h3>
-</div>
-
-
-<p>To be written...</p>
-
-<p>Makes monitoring any network device like printer... possible.</p>
-
-
-<div class="pilwrap" id="ipmi">
-  <h3>
-    <a href="#ipmi" name="ipmi" class="pilcrow">&#182;</a>
-    IPMI
-  </h3>
-</div>
+- validTime
+- keySize
 
 
+Daemon Sensors
+-------------------------------------------------
 
-<div class="pilwrap" id="certificate">
-  <h3>
-    <a href="#certificate" name="certificate" class="pilcrow">&#182;</a>
-    Certificate
-  </h3>
-</div>
+### PID
 
+To be written...
 
-<p>To be written...</p>
+cat /proc/PID/cmdline
+cat /proc/PID/status
 
-<ul>
-<li>validTime</li>
-<li>keySize</li>
-</ul>
+### PostgreSQL
 
+To be written...
 
-<div class="pilwrap" id="daemon%20sensors">
-  <h2>
-    <a href="#daemon%20sensors" name="daemon%20sensors" class="pilcrow">&#182;</a>
-    Daemon Sensors
-  </h2>
-</div>
+https://wiki.postgresql.org/wiki/Monitoring
 
+analysis:
+- pid sensor
 
+### Apache
 
-<div class="pilwrap" id="pid">
-  <h3>
-    <a href="#pid" name="pid" class="pilcrow">&#182;</a>
-    PID
-  </h3>
-</div>
+To be written...
 
+mod_status:
 
-<p>To be written...</p>
+- The number of worker serving requests
+- The number of idle worker
+- A total number of accesses and byte count served (*)
+- The time the server was started/restarted and the time it has been running for
+  Averages giving the number of requests per second, the number of bytes served per second and the average number of bytes per request (*)
 
-<p>cat /proc/PID/cmdline
-cat /proc/PID/status</p>
-
-
-<div class="pilwrap" id="postgresql">
-  <h3>
-    <a href="#postgresql" name="postgresql" class="pilcrow">&#182;</a>
-    PostgreSQL
-  </h3>
-</div>
-
-
-<p>To be written...</p>
-
-<p><a href='https://wiki.postgresql.org/wiki/Monitoring'>https://wiki.postgresql.org/wiki/Monitoring</a></p>
-
-<p>analysis:
-- pid sensor</p>
-
-
-<div class="pilwrap" id="apache">
-  <h3>
-    <a href="#apache" name="apache" class="pilcrow">&#182;</a>
-    Apache
-  </h3>
-</div>
-
-
-<p>To be written...</p>
-
-<p>mod_status:</p>
-
-<ul>
-<li>The number of worker serving requests</li>
-<li>The number of idle worker</li>
-<li>A total number of accesses and byte count served (*)</li>
-<li>The time the server was started/restarted and the time it has been running for
-Averages giving the number of requests per second, the number of bytes served per second and the average number of bytes per request (*)</li>
-</ul>
-
-<p>analysis:
+analysis:
 - The current hosts and requests being processed (*)
-- pid sensor</p>
+- pid sensor
+
+### Tomcat
+
+To be written...
+
+Maybe use JMX... https://www.npmjs.com/package/jmx
+
+analysis:
+- pid sensor
+
+### Wowza
+
+To be written...
+
+Parsing stats page
+
+analysis:
+- pid sensor
+
+### VMWare
+
+To be written...
+
+http://searchitchannel.techtarget.com/feature/Monitoring-vSphere-performance-with-command-line-tools
 
 
-<div class="pilwrap" id="tomcat">
-  <h3>
-    <a href="#tomcat" name="tomcat" class="pilcrow">&#182;</a>
-    Tomcat
-  </h3>
-</div>
+Data Sensors
+-------------------------------------------------
 
+### Log
 
-<p>To be written...</p>
+To be written...
 
-<p>Maybe use JMX... <a href='https://www.npmjs.com/package/jmx'>https://www.npmjs.com/package/jmx</a></p>
+- filter
+- timerange
 
-<p>analysis:
-- pid sensor</p>
+- num lines
+- filtered lines
+- comment
 
+- list of lines
 
-<div class="pilwrap" id="wowza">
-  <h3>
-    <a href="#wowza" name="wowza" class="pilcrow">&#182;</a>
-    Wowza
-  </h3>
-</div>
+### Database
 
+This sensor will get some measurement values from the database:
 
-<p>To be written...</p>
+- database - alias name of the database to use
+- query - the query to run
+- timeout - maximum time to run the query (default: 10s)
 
-<p>Parsing stats page</p>
-
-<p>analysis:
-- pid sensor</p>
-
-
-<div class="pilwrap" id="vmware">
-  <h3>
-    <a href="#vmware" name="vmware" class="pilcrow">&#182;</a>
-    VMWare
-  </h3>
-</div>
-
-
-<p>To be written...</p>
-
-<p><a href='http://searchitchannel.techtarget.com/feature/Monitoring-vSphere-performance-with-command-line-tools'>http://searchitchannel.techtarget.com/feature/Monitoring-vSphere-performance-with-command-line-tools</a></p>
-
-
-<div class="pilwrap" id="data%20sensors">
-  <h2>
-    <a href="#data%20sensors" name="data%20sensors" class="pilcrow">&#182;</a>
-    Data Sensors
-  </h2>
-</div>
-
-
-
-<div class="pilwrap" id="log">
-  <h3>
-    <a href="#log" name="log" class="pilcrow">&#182;</a>
-    Log
-  </h3>
-</div>
-
-
-<p>To be written...</p>
-
-<ul>
-<li>filter</li>
-<li><p>timerange</p></li>
-<li><p>num lines</p></li>
-<li>filtered lines</li>
-<li><p>comment</p></li>
-<li><p>list of lines</p></li>
-</ul>
-
-
-<div class="pilwrap" id="database">
-  <h3>
-    <a href="#database" name="database" class="pilcrow">&#182;</a>
-    Database
-  </h3>
-</div>
-
-
-<p>This sensor will get some measurement values from the database:</p>
-
-<ul>
-<li>database - alias name of the database to use</li>
-<li>query - the query to run</li>
-<li>timeout - maximum time to run the query (default: 10s)</li>
-</ul>
-
-
-<div class="highlight"><pre><code>Database test-postgresql:SELECT 100 as num, &#39;just a...
+``` text
+Database test-postgresql:SELECT 100 as num, 'just a...
 --------------------------------------------------------------------------------
 
 Run a query on the database to chech a value like count of entries in the
@@ -2190,167 +1810,112 @@ The database sensor is configured with:
 | CONFIGURATION SETTING | VALUE                                         |
 |:--------------------- |:--------------------------------------------- |
 | database              | test-postgresql                               |
-| query                 | SELECT 100 as num, &#39;just a number&#39; as comment |
+| query                 | SELECT 100 as num, 'just a number' as comment |
 | timeout               | 10000                                         |
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="database%20stats">
+</code></pre>
+<div class="pilwrap" id="database-stats">
   <h3>
-    <a href="#database%20stats" name="database%20stats" class="pilcrow">&#182;</a>
-    Database Stats
+    <a href="#database-stats" name="database-stats" class="pilcrow"></a>
+Database Stats
   </h3>
 </div>
-
-
-
-<div class="pilwrap" id="database%20queue">
+<div class="pilwrap" id="database-queue">
   <h3>
-    <a href="#database%20queue" name="database%20queue" class="pilcrow">&#182;</a>
-    Database Queue
+    <a href="#database-queue" name="database-queue" class="pilcrow"></a>
+Database Queue
   </h3>
 </div>
-
-
-
 <div class="pilwrap" id="rest">
   <h3>
-    <a href="#rest" name="rest" class="pilcrow">&#182;</a>
-    REST
+    <a href="#rest" name="rest" class="pilcrow"></a>
+REST
   </h3>
 </div>
-
-
 <p>To be written...</p>
-
-
-<div class="pilwrap" id="simulation%20sensors">
+<div class="pilwrap" id="simulation-sensors">
   <h2>
-    <a href="#simulation%20sensors" name="simulation%20sensors" class="pilcrow">&#182;</a>
-    Simulation Sensors
+    <a href="#simulation-sensors" name="simulation-sensors" class="pilcrow"></a>
+Simulation Sensors
   </h2>
 </div>
-
-
-
-<div class="pilwrap" id="web%20session">
+<div class="pilwrap" id="web-session">
   <h3>
-    <a href="#web%20session" name="web%20session" class="pilcrow">&#182;</a>
-    Web Session
+    <a href="#web-session" name="web-session" class="pilcrow"></a>
+Web Session
   </h3>
 </div>
-
-
 <p>To be written...</p>
-
-<p><a href='http://casperjs.org/'>http://casperjs.org/</a></p>
-
-
+<p>http://casperjs.org/</p>
 <div class="pilwrap" id="streaming">
   <h3>
-    <a href="#streaming" name="streaming" class="pilcrow">&#182;</a>
-    Streaming
+    <a href="#streaming" name="streaming" class="pilcrow"></a>
+Streaming
   </h3>
 </div>
-
-
 <p>To be written...</p>
-
-
-<div class="pilwrap" id="storage_1">
+<div class="pilwrap" id="storage-1">
   <h2>
-    <a href="#storage_1" name="storage_1" class="pilcrow">&#182;</a>
-    Storage
+    <a href="#storage-1" name="storage-1" class="pilcrow"></a>
+Storage
   </h2>
 </div>
-
-
 <p>The controllers will hold some information in memory but store all values also in
 a database for long time analysis. This includes the following information:</p>
-
 <ul>
 <li>sensor values in different intervals for specified timeframe</li>
 <li>status changes in sensors and controller with date</li>
 <li>action log</li>
 <li>last explorer information per element config</li>
 </ul>
-
 <p>The database structure therefore looks like:</p>
-
-<p><img src="src/doc/db-structure.png" alt="Database Structure" title="" /></p>
-
+<p><img src="src/doc/db-structure.png" alt="Database Structure"></p>
 <p>To get easy to view report diagrams out of this you may use the dbVisualizer
 tool. First make a script to select the values you want to display:</p>
-
-
-<div class="highlight"><pre><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">controller</span>
-<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="k">check</span> <span class="k">USING</span> <span class="p">(</span><span class="n">controller_id</span><span class="p">)</span>
-<span class="k">RIGHT</span> <span class="k">JOIN</span> <span class="n">sensor_cpu</span> <span class="k">USING</span> <span class="p">(</span><span class="n">check_id</span><span class="p">)</span>
-<span class="k">WHERE</span> <span class="n">controller</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my-develop&#39;</span> <span class="k">AND</span> <span class="nb">interval</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">period</span>
-</code></pre></div>
-
-
-
+<pre><code class="sql"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> controller
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> <span class="hljs-keyword">check</span> <span class="hljs-keyword">USING</span> (controller_id)
+<span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> sensor_cpu <span class="hljs-keyword">USING</span> (check_id)
+<span class="hljs-keyword">WHERE</span> controller.<span class="hljs-keyword">name</span>=<span class="hljs-string">'my-develop'</span> <span class="hljs-keyword">AND</span> <span class="hljs-built_in">interval</span>=<span class="hljs-string">'hour'</span>
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">period</span>
+</span></code></pre>
 <p>In the result you may switch to graphical view and select the rows to display.</p>
-
 <p>To keep the data volume low old values will be removed.</p>
-
-
 <div class="pilwrap" id="actor">
   <h2>
-    <a href="#actor" name="actor" class="pilcrow">&#182;</a>
-    Actor
+    <a href="#actor" name="actor" class="pilcrow"></a>
+Actor
   </h2>
 </div>
-
-
 <p>The controller may do some actions:</p>
-
 <ul>
 <li>inform on console/log (each analyzation)</li>
 <li>inform per email (on state change)</li>
 <li>send web request (on state change)</li>
 <li>try to repair (not implemented, yet)</li>
 </ul>
-
 <p>All these are triggered using the configuration rules described above.</p>
-
-
 <div class="pilwrap" id="explorer">
   <h2>
-    <a href="#explorer" name="explorer" class="pilcrow">&#182;</a>
-    Explorer
+    <a href="#explorer" name="explorer" class="pilcrow"></a>
+Explorer
   </h2>
 </div>
-
-
 <p>The explorer modules are used for exploratory analyzation with the given data
 or by interactively requesting for answers. They are a scriptable tool to gather
 information and analyze them.</p>
-
 <p>In contrast to the sensor it will retrieve also a lot of more static or seldom
 changing information and may take a lot more time to execute. It will also run with
 lower priority on the server. Multiple parallel analysis is also possible on some
 of the explorers leading to a comparison or overview report.</p>
-
 <p>To run them use the interactive console or give all details to the cli as a json
 object.</p>
-
 <p>If you want to have the report as email give <code>-m &lt;address&gt;</code> as parameter on the
 monitor startup.</p>
-
-
 <div class="pilwrap" id="hardware">
   <h3>
-    <a href="#hardware" name="hardware" class="pilcrow">&#182;</a>
-    Hardware
+    <a href="#hardware" name="hardware" class="pilcrow"></a>
+Hardware
   </h3>
 </div>
-
-
 <ol>
 <li>lshw -json</li>
 <li>dmidecode</li>
@@ -2360,182 +1925,134 @@ lsusb
 cat /proc/cpuinfo
 cat /proc/diskstats</li>
 </ol>
-
 <p>run by step only if before failed and add to result.hint</p>
-
-
 <div class="pilwrap" id="os">
   <h3>
-    <a href="#os" name="os" class="pilcrow">&#182;</a>
-    OS
+    <a href="#os" name="os" class="pilcrow"></a>
+OS
   </h3>
 </div>
-
-
 <p>cat /proc/version</p>
-
-
 <div class="pilwrap" id="services">
   <h3>
-    <a href="#services" name="services" class="pilcrow">&#182;</a>
-    Services
+    <a href="#services" name="services" class="pilcrow"></a>
+Services
   </h3>
 </div>
-
-
 <p>running daemons (exclude system ones)</p>
-
-
-<div class="pilwrap" id="network%20settings">
+<div class="pilwrap" id="network-settings">
   <h3>
-    <a href="#network%20settings" name="network%20settings" class="pilcrow">&#182;</a>
-    Network Settings
+    <a href="#network-settings" name="network-settings" class="pilcrow"></a>
+Network Settings
   </h3>
 </div>
-
-
 <p>/proc/sys/kernel/domainname
 /proc/sys/kernel/hostname
 ? firewall</p>
-
-
 <div class="pilwrap" id="apachesites">
   <h3>
-    <a href="#apachesites" name="apachesites" class="pilcrow">&#182;</a>
-    ApacheSites
+    <a href="#apachesites" name="apachesites" class="pilcrow"></a>
+ApacheSites
   </h3>
 </div>
-
-
-
 <div class="pilwrap" id="tomcatapps">
   <h3>
-    <a href="#tomcatapps" name="tomcatapps" class="pilcrow">&#182;</a>
-    TomcatApps
+    <a href="#tomcatapps" name="tomcatapps" class="pilcrow"></a>
+TomcatApps
   </h3>
 </div>
-
-
-
 <div class="pilwrap" id="upgrade">
   <h3>
-    <a href="#upgrade" name="upgrade" class="pilcrow">&#182;</a>
-    Upgrade
+    <a href="#upgrade" name="upgrade" class="pilcrow"></a>
+Upgrade
   </h3>
 </div>
-
-
-
-<div class="pilwrap" id="database_1">
+<div class="pilwrap" id="database">
   <h3>
-    <a href="#database_1" name="database_1" class="pilcrow">&#182;</a>
-    Database
+    <a href="#database" name="database" class="pilcrow"></a>
+Database
   </h3>
 </div>
-
-
-
-<div class="pilwrap" id="cron%20schedule">
+<div class="pilwrap" id="cron-schedule">
   <h3>
-    <a href="#cron%20schedule" name="cron%20schedule" class="pilcrow">&#182;</a>
-    Cron Schedule
+    <a href="#cron-schedule" name="cron-schedule" class="pilcrow"></a>
+Cron Schedule
   </h3>
 </div>
-
-
 <p>config
-  date from-to (default today)
-  time from-to</p>
-
+date from-to (default today)
+time from-to</p>
 <p>crontab -l
 sort by time
 split alternatives into multiple entries
 split from to into multiple entries</p>
-
-
-<div class="pilwrap" id="plugin%20system">
+<div class="pilwrap" id="plugin-system">
   <h2>
-    <a href="#plugin%20system" name="plugin%20system" class="pilcrow">&#182;</a>
-    Plugin System
+    <a href="#plugin-system" name="plugin-system" class="pilcrow"></a>
+Plugin System
   </h2>
 </div>
-
-
 <p>To extend the monitor with your own sensors, analyzers and actors you have the
 possibility to create your own package with them.</p>
-
-
-<div class="pilwrap" id="include%20and%20use">
+<div class="pilwrap" id="include-and-use">
   <h3>
-    <a href="#include%20and%20use" name="include%20and%20use" class="pilcrow">&#182;</a>
-    Include and Use
+    <a href="#include-and-use" name="include-and-use" class="pilcrow"></a>
+Include and Use
   </h3>
 </div>
-
-
 <p>To include your own plugins you have to install them using <code>npm</code> and then add
 them in the <code>/monitor/plugins</code> list of your configuration file.</p>
+<pre><code>npm install my-plugin
 
-
-<div class="highlight"><pre><code><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">my</span><span class="o">-</span><span class="nx">plugin</span>
-
-<span class="p">...</span>
-<span class="nx">plugins</span><span class="o">:</span>
-  <span class="o">-</span> <span class="nx">my</span><span class="o">-</span><span class="nx">plugin</span>
-<span class="p">...</span>
-</code></pre></div>
-
-
-
+...
+plugins:
+  - my-plugin
+...
+</code></pre>
 <p>After that you can use them in your controller or analyzation run as if they are
 internal ones by name.</p>
-
-
-<div class="pilwrap" id="plugin%20structure">
+<div class="pilwrap" id="plugin-structure">
   <h3>
-    <a href="#plugin%20structure" name="plugin%20structure" class="pilcrow">&#182;</a>
-    Plugin Structure
+    <a href="#plugin-structure" name="plugin-structure" class="pilcrow"></a>
+Plugin Structure
   </h3>
 </div>
-
-
 <p>Each plugin may have the following methods in the main module:</p>
-
 <ul>
-<li>listSensor(cb) -> calling cb(err, map)</li>
-<li>listActor(cb) -> calling cb(err, map)</li>
-<li>listExplorer(cb) -> calling cb(err, map)</li>
+<li>listSensor(cb) -&gt; calling cb(err, map)</li>
+<li>listActor(cb) -&gt; calling cb(err, map)</li>
+<li>listExplorer(cb) -&gt; calling cb(err, map)</li>
 </ul>
-
 <p>This methods should return a map of elements with <code>name: require path</code> within the
 module like  <code>cpu: 'sensor/cpu'</code>.
 The elements returned need the same API as in the main package (see below).</p>
-
-
-<div class="pilwrap" id="sensor%20structure">
+<div class="pilwrap" id="sensor-structure">
   <h3>
-    <a href="#sensor%20structure" name="sensor%20structure" class="pilcrow">&#182;</a>
-    Sensor Structure
+    <a href="#sensor-structure" name="sensor-structure" class="pilcrow"></a>
+Sensor Structure
   </h3>
 </div>
-
-
 <p>A sensor should be a module exporting the following objects:</p>
-
 <ul>
 <li>schema - an <a href="http://alinex.github.io/node-validator">alinex-validator</a> compatible
 definition to validate its check configuration</li>
 <li>meta - object containing meta data like:
-<ul><li>title</li>
+<ul>
+<li>title</li>
 <li>description</li>
 <li>category - like 'sys', 'net', 'app'</li>
 <li>hint - handlebar template possible</li>
-<li>values - the values which the sensor will return</li>
+<li>values - the values which the sensor will return
+<ul>
 <li>title</li>
 <li>description</li>
 <li>type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
 'array', 'object'</li>
-<li>unit - optional unit of values if number type used</li></ul></li>
+<li>unit - optional unit of values if number type used</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>init(cb) - initialize the check once</li>
 <li>prerun(cb) - method to be called before each run (optional)</li>
 <li>run(cb) - runing the acquisition of data</li>
@@ -2543,61 +2060,53 @@ definition to validate its check configuration</li>
 <li>mapping(name) - access a mapped field definition (database sensor only)</li>
 <li>report - create an additional detail report from the results (optional)</li>
 </ul>
-
-
-<div class="pilwrap" id="actor%20structure">
+<div class="pilwrap" id="actor-structure">
   <h3>
-    <a href="#actor%20structure" name="actor%20structure" class="pilcrow">&#182;</a>
-    Actor Structure
+    <a href="#actor-structure" name="actor-structure" class="pilcrow"></a>
+Actor Structure
   </h3>
 </div>
-
-
 <p>Coming soon...</p>
-
-
-<div class="pilwrap" id="explorer%20structure">
+<div class="pilwrap" id="explorer-structure">
   <h3>
-    <a href="#explorer%20structure" name="explorer%20structure" class="pilcrow">&#182;</a>
-    Explorer Structure
+    <a href="#explorer-structure" name="explorer-structure" class="pilcrow"></a>
+Explorer Structure
   </h3>
 </div>
-
-
 <p>Like the sensor it needs a schema definition for all values needed in the process.
 In interactive mode the explorer it will ask for them then needed. Therefore the
 structure is nearly the same as for a sensor:</p>
-
 <ul>
 <li>schema - possible values needed as <a href="http://alinex.github.io/node-validator">alinex-validator</a>
 compatible definition</li>
 <li>meta - object containing meta data like:
-<ul><li>title</li>
+<ul>
+<li>title</li>
 <li>description</li>
 <li>category - like 'sys', 'net', 'app'</li>
 <li>hint - handlebar template possible</li>
-<li>values - the values which the sensor will return</li>
+<li>values - the values which the sensor will return
+<ul>
 <li>title</li>
 <li>description</li>
 <li>type - one of 'string', 'integer', 'float', 'interval', 'byte', 'percent',
 'array', 'object'</li>
-<li>unit - optional unit of values if number type used</li></ul></li>
+<li>unit - optional unit of values if number type used</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>name(config) - a method returning a configuration based short name to identify</li>
 <li>run(config, cb) - will run this explorer with given configuration or interactively
 if no config given</li>
 </ul>
-
-
 <div class="pilwrap" id="roadmap">
   <h2>
-    <a href="#roadmap" name="roadmap" class="pilcrow">&#182;</a>
-    Roadmap
+    <a href="#roadmap" name="roadmap" class="pilcrow"></a>
+Roadmap
   </h2>
 </div>
-
-
 <p>I will try to release a first stable version in December 2015. This will have:</p>
-
 <ul>
 <li>a working cli syntax - done</li>
 <li>the interactive console - done</li>
@@ -2606,42 +2115,33 @@ if no config given</li>
 <li>daemon mode running controller on schedule - done</li>
 <li>modular base design -done</li>
 </ul>
-
 <p>The next version coming early in 2016 will have:</p>
-
 <ul>
 <li>tested in productive environment</li>
 <li>alerting with mail actor</li>
 <li>fully working explorers</li>
 </ul>
-
 <p>After that a lot of bug fixes, smaller improvements and more sensors, actors and
 explorers will follow.</p>
-
-
 <div class="pilwrap" id="license">
   <h2>
-    <a href="#license" name="license" class="pilcrow">&#182;</a>
-    License
+    <a href="#license" name="license" class="pilcrow"></a>
+License
   </h2>
 </div>
-
-
-<p>Copyright 2015 - 2016 Alexander Schilling</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<p>Copyright 2015-2016 Alexander Schilling</p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <blockquote>
-  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</p></div>
+limitations under the License.</p>
+</div>
   </div>
 </body>
 </html>

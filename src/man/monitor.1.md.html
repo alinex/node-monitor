@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/man/monitor1.md", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-monitor/src/man/monitor.1.md";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,48 +39,53 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
         <a href="#monitor">monitor</a>
       </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
+
       <div class="heading h3">
-        <a href="#check%20controller%20once">Check controller once</a>
+        <a href="#check-controller-once">Check controller once</a>
       </div>
+
       <div class="heading h3">
-        <a href="#run%20as%20a%20service">Run as a service</a>
+        <a href="#run-as-a-service">Run as a service</a>
       </div>
+
       <div class="heading h3">
-        <a href="#additional%20commands">Additional commands</a>
+        <a href="#additional-commands">Additional commands</a>
       </div>
+
       <div class="heading h3">
         <a href="#setup">Setup</a>
       </div>
+
       <div class="heading h2">
-        <a href="#read%20more">Read more</a>
+        <a href="#read-more">Read more</a>
       </div>
+
       <div class="heading h2">
         <a href="#license">License</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="docs markdown">
-<div class="pilwrap" id="monitor">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="docs markdown"><div class="pilwrap" id="monitor">
   <h1>
-    <a href="#monitor" name="monitor" class="pilcrow">&#182;</a>
-    monitor
+    <a href="#monitor" name="monitor" class="pilcrow"></a>
+monitor
   </h1>
 </div>
-
-
 <p>This application will make server management easy and fast. It will check the
 whole IT landscape from the host to the application.</p>
-
 <p>While most monitoring tools has it's focus on the server here the focus lies on
 the application side, too.</p>
-
 <ul>
 <li>remote daemon-less analysis</li>
 <li>lots of sensors</li>
@@ -81,209 +93,142 @@ the application side, too.</p>
 <li>data store for time analysis</li>
 <li>interactive analyzing and exploring</li>
 </ul>
-
 <p>The monitor will analyze your whole environment in deep by connecting to the different
 systems in parallel and check them deeply. If a problem occurs an additional analysis
 step may be made to get more information. The result values will be stored in the
 storage database and a detailed report will be created. Based on additional action
 rules the report may be send by email or a web request is made. Out of the stored
 values time reports may be created.</p>
-
-
 <div class="pilwrap" id="usage">
   <h2>
-    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
-    Usage
+    <a href="#usage" name="usage" class="pilcrow"></a>
+Usage
   </h2>
 </div>
-
-
 <p>After the monitor and it's controllers are fully configured it may be run by
 only calling:</p>
+<pre><code>&gt; monitor
 
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span>
-
-<span class="nx">Initializing</span><span class="p">...</span>
-<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
-<span class="nx">Finished</span><span class="p">.</span>
-</code></pre></div>
-
-
-
+Initializing...
+Analyzing systems...
+Finished.
+</code></pre>
 <p>This will start the monitor on the command line and check all controllers. All
 of them which make some problems will be printed on the console.</p>
-
 <p>Global options:</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">C</span><span class="p">,</span> <span class="o">--</span><span class="nx">nocolors</span>  <span class="nx">turn</span> <span class="nx">of</span> <span class="nx">color</span> <span class="nx">output</span>
-<span class="o">-</span><span class="nx">v</span><span class="p">,</span> <span class="o">--</span><span class="nx">verbose</span>   <span class="nx">run</span> <span class="k">in</span> <span class="nx">verbose</span> <span class="nx">mode</span>
-<span class="o">-</span><span class="nx">h</span><span class="p">,</span> <span class="o">--</span><span class="nx">help</span>      <span class="nx">Show</span> <span class="nx">help</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="check%20controller%20once">
+<pre><code>-C, --nocolors  turn of color output
+-v, --verbose   run in verbose mode
+-h, --help      Show help
+</code></pre>
+<div class="pilwrap" id="check-controller-once">
   <h3>
-    <a href="#check%20controller%20once" name="check%20controller%20once" class="pilcrow">&#182;</a>
-    Check controller once
+    <a href="#check-controller-once" name="check-controller-once" class="pilcrow"></a>
+Check controller once
   </h3>
 </div>
-
-
 <p>You may run the monitor to check the defined controllers once and get their
 status:</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-</span><span class="nx">develop</span>    <span class="err">#</span> <span class="nx">run</span> <span class="nx">only</span> <span class="k">this</span> <span class="nx">controller</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="nx">my</span><span class="o">-*</span>          <span class="err">#</span> <span class="nx">run</span> <span class="nx">controllers</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">name</span> <span class="nx">prefix</span>
-<span class="o">&gt;</span> <span class="nx">monitor</span>               <span class="err">#</span> <span class="nx">run</span> <span class="nx">all</span> <span class="nx">controllers</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor my-develop    # run only this controller
+&gt; monitor my-*          # run controllers with the given name prefix
+&gt; monitor               # run all controllers
+</code></pre>
 <p>You may start a try run in which nothing is stored in the storage and no action
 is taken.</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">t</span> <span class="o">--</span><span class="k">try</span>        <span class="k">do</span> <span class="nx">a</span> <span class="k">try</span> <span class="nx">run</span>
-</code></pre></div>
-
-
-
+<pre><code>-t --try        do a try run
+</code></pre>
 <p>The verbose mode works here in multiple steps:</p>
-
-
-<div class="highlight"><pre><code><span class="o">-</span><span class="nx">v</span>    <span class="nx">show</span> <span class="nx">the</span> <span class="nx">controller</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
-<span class="o">-</span><span class="nx">vv</span>   <span class="nx">show</span> <span class="nx">also</span> <span class="nx">the</span> <span class="nx">sensor</span> <span class="nx">status</span> <span class="nx">on</span> <span class="nx">console</span>
-<span class="o">-</span><span class="nx">vvv</span>  <span class="nx">also</span> <span class="nx">display</span> <span class="nx">the</span> <span class="nx">result</span> <span class="nx">values</span>
-</code></pre></div>
-
-
-
+<pre><code>-v    show the controller status on console
+-vv   show also the sensor status on console
+-vvv  also display the result values
+</code></pre>
 <p>If no verbose mode is set only warning and error state of controller will be reported
 on console.</p>
-
 <p>The output may look like:</p>
+<pre><code>&gt; monitor -v
 
+Initializing...
+Analyzing systems...
+2015-12-15 12:55:32 Controller dvb-develop =&gt; ok
+Finished.
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">v</span>
+&gt; monitor -vvv
 
-<span class="nx">Initializing</span><span class="p">...</span>
-<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">32</span> <span class="nx">Controller</span> <span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="nx">Finished</span><span class="p">.</span>
-
-<span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">vvv</span>
-
-<span class="nx">Initializing</span><span class="p">...</span>
-<span class="nx">Analyzing</span> <span class="nx">systems</span><span class="p">...</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">load</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">http</span><span class="o">:-&gt;</span><span class="nx">http</span><span class="o">:</span><span class="c1">//192.168.200.106/svn/ =&gt; ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">memory</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">diskfree</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="err">/ =&gt; ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">51</span> <span class="nx">Check</span> <span class="nx">diskfree</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="err">/var =&gt; ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">ping</span><span class="o">:</span><span class="nx">localhost</span><span class="o">-&gt;</span><span class="mf">192.168</span><span class="p">.</span><span class="mf">200.106</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">socket</span><span class="o">:</span><span class="nx">tcp</span> <span class="nx">localhost</span><span class="o">-&gt;</span><span class="mf">192.168</span><span class="p">.</span><span class="mf">200.106</span><span class="o">:</span><span class="mi">80</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">time</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">55</span><span class="o">:</span><span class="mi">52</span> <span class="nx">Check</span> <span class="nx">user</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">01</span> <span class="nx">Check</span> <span class="nx">cpu</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">01</span> <span class="nx">Check</span> <span class="nx">diskio</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="nx">sda1</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">02</span> <span class="nx">Check</span> <span class="nx">net</span><span class="o">:</span><span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span><span class="o">:</span><span class="nx">eth0</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="mi">2015</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="o">:</span><span class="mi">56</span><span class="o">:</span><span class="mi">02</span> <span class="nx">Controller</span> <span class="nx">dvb</span><span class="o">-</span><span class="nx">develop</span> <span class="o">=&gt;</span> <span class="nx">ok</span>
-<span class="nx">Finished</span><span class="p">.</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="run%20as%20a%20service">
+Initializing...
+Analyzing systems...
+2015-12-15 12:55:51 Check load:dvb-develop =&gt; ok
+2015-12-15 12:55:51 Check http:-&gt;http://192.168.200.106/svn/ =&gt; ok
+2015-12-15 12:55:51 Check memory:dvb-develop =&gt; ok
+2015-12-15 12:55:51 Check diskfree:dvb-develop:/ =&gt; ok
+2015-12-15 12:55:51 Check diskfree:dvb-develop:/var =&gt; ok
+2015-12-15 12:55:52 Check ping:localhost-&gt;192.168.200.106 =&gt; ok
+2015-12-15 12:55:52 Check socket:tcp localhost-&gt;192.168.200.106:80 =&gt; ok
+2015-12-15 12:55:52 Check time:dvb-develop =&gt; ok
+2015-12-15 12:55:52 Check user:dvb-develop =&gt; ok
+2015-12-15 12:56:01 Check cpu:dvb-develop =&gt; ok
+2015-12-15 12:56:01 Check diskio:dvb-develop:sda1 =&gt; ok
+2015-12-15 12:56:02 Check net:dvb-develop:eth0 =&gt; ok
+2015-12-15 12:56:02 Controller dvb-develop =&gt; ok
+Finished.
+</code></pre>
+<div class="pilwrap" id="run-as-a-service">
   <h3>
-    <a href="#run%20as%20a%20service" name="run%20as%20a%20service" class="pilcrow">&#182;</a>
-    Run as a service
+    <a href="#run-as-a-service" name="run-as-a-service" class="pilcrow"></a>
+Run as a service
   </h3>
 </div>
-
-
 <p>To run the controller continuously use the <code>daemon</code> option and start it in the
 background.</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">monitor</span> <span class="o">-</span><span class="nx">d</span> <span class="o">-</span><span class="nx">C</span> <span class="o">&gt;</span> <span class="err">/var/log/monitor.log 2&gt;&amp;1 &amp;</span>
-</code></pre></div>
-
-
-
+<pre><code>&gt; monitor -d -C &gt; /var/log/monitor.log 2&gt;&amp;1 &amp;
+</code></pre>
 <p>This will check all the controllers in the defined timerange, collect measurement
 values and send alerts. You may also specify some controllers to run instead of
 all.</p>
-
 <p>Like seen above you may send the normal output to a log file but better configure
 a log destination through the config files (see below).</p>
-
-
-<div class="pilwrap" id="additional%20commands">
+<div class="pilwrap" id="additional-commands">
   <h3>
-    <a href="#additional%20commands" name="additional%20commands" class="pilcrow">&#182;</a>
-    Additional commands
+    <a href="#additional-commands" name="additional-commands" class="pilcrow"></a>
+Additional commands
   </h3>
 </div>
-
-
 <p>You may run some other commands through the interactive console or directly by
 giving everything on the commandline call. See the next section for more details
 on this topic.</p>
-
-
 <div class="pilwrap" id="setup">
   <h3>
-    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
-    Setup
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h3>
 </div>
-
-
 <p>To use the controller you have to setup the whole process using some configuration
 files. And maybe a storage database will be used.</p>
-
-
-<div class="pilwrap" id="read%20more">
+<div class="pilwrap" id="read-more">
   <h2>
-    <a href="#read%20more" name="read%20more" class="pilcrow">&#182;</a>
-    Read more
+    <a href="#read-more" name="read-more" class="pilcrow"></a>
+Read more
   </h2>
 </div>
-
-
 <p>To get the full documentation including configuration description look into
 <a href="http://alinex.github.io/node-monitor">Monitor</a>.</p>
-
-
 <div class="pilwrap" id="license">
   <h2>
-    <a href="#license" name="license" class="pilcrow">&#182;</a>
-    License
+    <a href="#license" name="license" class="pilcrow"></a>
+License
   </h2>
 </div>
-
-
 <p>Copyright 2015 Alexander Schilling</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <blockquote>
-  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</p></div>
+limitations under the License.</p>
+</div>
   </div>
 </body>
 </html>

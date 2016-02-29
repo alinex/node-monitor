@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/databasecoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-monitor/src/sensor/database.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,407 +39,449 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#database%20test">Database test</a>
+        <a href="#database-test">Database test</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#schema%20definition">Schema Definition</a>
+        <a href="#schema-definition">Schema Definition</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20information">General information</a>
+        <a href="#general-information">General information</a>
       </div>
+
       <div class="heading h3">
-        <a href="#result%20values">Result values</a>
+        <a href="#result-values">Result values</a>
       </div>
+
       <div class="heading h2">
-        <a href="#initialize%20check">Initialize check</a>
+        <a href="#initialize-check">Initialize check</a>
       </div>
+
       <div class="heading h2">
-        <a href="#access%20mappings%20(for%20report)">Access Mappings (for Report)</a>
+        <a href="#access-mappings-for-report">Access Mappings (for Report)</a>
       </div>
+
       <div class="heading h2">
-        <a href="#run%20the%20sensor">Run the Sensor</a>
+        <a href="#run-the-sensor">Run the Sensor</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20the%20results">Get the results</a>
+        <a href="#get-the-results">Get the results</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="database%20test">
+          <div class="pilwrap" id="database-test">
   <h1>
-    <a href="#database%20test" name="database%20test" class="pilcrow">&#182;</a>
-    Database test
+    <a href="#database-test" name="database-test" class="pilcrow"></a>
+Database test
   </h1>
 </div>
-
-
 <p>This test will not check the availability and performance of a database server
 but check the database contents.</p>
-
 <p>This is a relative free sensor in which you can define your own sql but it needs
 a bit more configuration like the mappings to set up.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
 </div>
 <p>Find the description of the possible configuration values and the returned
 values in the code below.</p>
-
 <p>This methods will be called in the context of the corresponding check()
 instance.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:database&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:database'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="schema%20definition">
+          <div class="pilwrap" id="schema-definition">
   <h2>
-    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
-    Schema Definition
+    <a href="#schema-definition" name="schema-definition" class="pilcrow"></a>
+Schema Definition
   </h2>
 </div>
-
-
 <p>This is used as configuration specification and to add the default values for
 specific setting.</p>
-
 <p>It's a n<a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
 compatible schema definition:</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;Database Query Test&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the configuration for a database query check&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">database:</span>
-      <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the reference to the database setting in config/database&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/database&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
-    <span class="nv">query:</span>
-      <span class="nv">title: </span><span class="s">&quot;Query&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the query to run to retrieve the measurement result&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">timeout:</span>
-      <span class="nv">title: </span><span class="s">&quot;Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time in milliseconds the whole test may take before</span>
-<span class="s">        stopping and failing it&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">default: </span><span class="mi">10000</span>
-      <span class="nv">min: </span><span class="mi">500</span>
-    <span class="nv">mapping:</span>
-      <span class="nv">title: </span><span class="s">&quot;Data Mappings&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the mapping for the result data to storage values&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">entries: </span><span class="p">[</span>
-        <span class="nv">title: </span><span class="s">&quot;Data Mapping&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the mapping for one result column to a storage value&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;storage&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">]</span>
-        <span class="nv">keys:</span>
-          <span class="nv">storage:</span>
-            <span class="nv">title: </span><span class="s">&quot;Storage Field&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the storage field to use&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-            <span class="nv">values: </span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">8</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;num</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">concat</span> <span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">4</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;text</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">concat</span> <span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">4</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nf">(e) -&gt;</span> <span class="s">&quot;date</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-          <span class="nv">title:</span>
-            <span class="nv">title: </span><span class="s">&quot;Title&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the title to use in reports&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">description:</span>
-            <span class="nv">title: </span><span class="s">&quot;Description&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;a short description&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">type:</span>
-            <span class="nv">title: </span><span class="s">&quot;Type&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the data type for formatting&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">unit:</span>
-            <span class="nv">title: </span><span class="s">&quot;Unit&quot;</span>
-            <span class="nv">description: </span><span class="s">&quot;the unit of the stored value for numbers&quot;</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="p">]</span>
-    <span class="nv">warn:</span>
-      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">fail:</span>
-      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.schema =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database Query Test"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for a database query check"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">database</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the reference to the database setting in config/database"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/database'</span>) ? {}
+    <span class="hljs-attribute">query</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Query"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the query to run to retrieve the measurement result"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">timeout</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Timeout"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time in milliseconds the whole test may take before
+        stopping and failing it"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">10000</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
+    <span class="hljs-attribute">mapping</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Data Mappings"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the mapping for the result data to storage values"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">entries</span>: [
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Data Mapping"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the mapping for one result column to a storage value"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'storage'</span>, <span class="hljs-string">'type'</span>]
+        <span class="hljs-attribute">keys</span>:
+          <span class="hljs-attribute">storage</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Storage Field"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the storage field to use"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+            <span class="hljs-attribute">values</span>: [<span class="hljs-number">1.</span><span class="hljs-number">.8</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"num<span class="hljs-subst">#{e}</span>"</span>)
+            .concat [<span class="hljs-number">1.</span><span class="hljs-number">.4</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"text<span class="hljs-subst">#{e}</span>"</span>)
+            .concat [<span class="hljs-number">1.</span><span class="hljs-number">.4</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"date<span class="hljs-subst">#{e}</span>"</span>)
+          <span class="hljs-attribute">title</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Title"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the title to use in reports"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          <span class="hljs-attribute">description</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Description"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a short description"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          <span class="hljs-attribute">type</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Type"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the data type for formatting"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          <span class="hljs-attribute">unit</span>:
+            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Unit"</span>
+            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the unit of the stored value for numbers"</span>
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ]
+    <span class="hljs-attribute">warn</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">fail</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20information">
+          <div class="pilwrap" id="general-information">
   <h2>
-    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
-    General information
+    <a href="#general-information" name="general-information" class="pilcrow"></a>
+General information
   </h2>
 </div>
-
-
 <p>This information may be used later for display and explanation.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;Database&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Run a query on the database to chech a value like count of entries</span>
-<span class="s">  in the database.&quot;</span>
-  <span class="nv">category: </span><span class="s">&#39;data&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.meta =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Database'</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Run a query on the database to check the database contents."</span>
+  <span class="hljs-attribute">category</span>: <span class="hljs-string">'data'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result%20values">
+          <div class="pilwrap" id="result-values">
   <h3>
-    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
-    Result values
+    <a href="#result-values" name="result-values" class="pilcrow"></a>
+Result values
   </h3>
 </div>
-
-
 <p>This are possible values which may be given if the check runs normally.
 You may use any of these in your warn/fail expressions.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">values:</span>
-    <span class="nv">responseTime:</span>
-      <span class="nv">title: </span><span class="s">&#39;Response Time&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;time to retrieve the data&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-<span class="k">for</span> <span class="nx">num</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">8</span><span class="p">]</span>
-  <span class="nx">exports</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="s">&quot;num</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span> <span class="o">=</span>
-    <span class="nv">title: </span><span class="s">&quot;num-</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;the numeric value </span><span class="err">#</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
-  <span class="k">continue</span> <span class="k">if</span> <span class="nx">num</span> <span class="o">&gt;</span> <span class="mi">4</span>
-  <span class="nx">exports</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="s">&quot;text</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span> <span class="o">=</span>
-    <span class="nv">title: </span><span class="s">&quot;text-</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;the text value </span><span class="err">#</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-  <span class="nx">exports</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="s">&quot;date</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span> <span class="o">=</span>
-    <span class="nv">title: </span><span class="s">&quot;date-</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;the date value </span><span class="err">#</span><span class="si">#{</span><span class="nx">num</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;date&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
+    <span class="hljs-attribute">responseTime</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Response Time'</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"time to retrieve the data"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+<span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">1.</span><span class="hljs-number">.8</span>]
+  exports.meta.values[<span class="hljs-string">"num<span class="hljs-subst">#{num}</span>"</span>] =
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"num-<span class="hljs-subst">#{num}</span>"</span>
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the numeric value #<span class="hljs-subst">#{num}</span>"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+  <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> num &gt; <span class="hljs-number">4</span>
+  exports.meta.values[<span class="hljs-string">"text<span class="hljs-subst">#{num}</span>"</span>] =
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"text-<span class="hljs-subst">#{num}</span>"</span>
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the text value #<span class="hljs-subst">#{num}</span>"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  exports.meta.values[<span class="hljs-string">"date<span class="hljs-subst">#{num}</span>"</span>] =
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"date-<span class="hljs-subst">#{num}</span>"</span>
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the date value #<span class="hljs-subst">#{num}</span>"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'date'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20check">
+          <div class="pilwrap" id="initialize-check">
   <h2>
-    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
-    Initialize check
+    <a href="#initialize-check" name="initialize-check" class="pilcrow"></a>
+Initialize check
   </h2>
 </div>
-
-
 <p>This method is used for some pre calculations or analyzations and should set:</p>
-
 <ul>
 <li>check.name = <string> # mandatory</li>
 <li>check.base = <object> # optionally</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="nx">@name</span> <span class="o">?=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">database</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">string</span><span class="p">.</span><span class="nx">shorten</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="mi">30</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">mapping</span>
-    <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-    <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">warn</span>
-      <span class="vi">@conf.warn = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">warn</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">storage</span>
-    <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">fail</span>
-      <span class="vi">@conf.fail = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">warn</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">storage</span>
-  <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.database}</span>:<span class="hljs-subst">#{string.shorten <span class="hljs-property">@conf</span>.query, <span class="hljs-number">30</span>}</span>"</span>
+  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
+    v.name = k
+    re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{k}</span>\\b"</span>, <span class="hljs-string">'g'</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.warn
+      <span class="hljs-property">@rule</span>.warn = <span class="hljs-property">@rule</span>.warn.replace re, v.storage
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.fail
+      <span class="hljs-property">@rule</span>.fail = <span class="hljs-property">@rule</span>.fail.replace re, v.storage
+  cb()
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="access%20mappings%20(for%20report)">
+          <div class="pilwrap" id="access-mappings-for-report">
   <h2>
-    <a href="#access%20mappings%20(for%20report)" name="access%20mappings%20(for%20report)" class="pilcrow">&#182;</a>
-    Access Mappings (for Report)
+    <a href="#access-mappings-for-report" name="access-mappings-for-report" class="pilcrow"></a>
+Access Mappings (for Report)
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.mapping = </span><span class="nf">(name) -&gt;</span>
-  <span class="k">return</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">mapping</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="k">if</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">mapping</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="o">?</span>
-  <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">mapping</span>
-    <span class="k">return</span> <span class="nx">v</span> <span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nx">storage</span> <span class="o">is</span> <span class="nx">name</span>
-
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.mapping = <span class="hljs-function"><span class="hljs-params">(name)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20the%20sensor">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>forward mapping</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">return</span> <span class="hljs-property">@conf</span>.mapping[name] <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.mapping[name]?
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>backward mapping</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
+    <span class="hljs-keyword">return</span> v <span class="hljs-keyword">if</span> v.storage <span class="hljs-keyword">is</span> name
+
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="run-the-sensor">
   <h2>
-    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
-    Run the Sensor
+    <a href="#run-the-sensor" name="run-the-sensor" class="pilcrow"></a>
+Run the Sensor
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>run check</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">database</span><span class="p">.</span><span class="nx">record</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">database</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  database.record <span class="hljs-property">@conf</span>.database, <span class="hljs-property">@conf</span>.query, cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20the%20results">
+          <div class="pilwrap" id="get-the-results">
   <h2>
-    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
-    Get the results
+    <a href="#get-the-results" name="get-the-results" class="pilcrow"></a>
+Get the results
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
-  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
+  res = <span class="hljs-property">@result</span>.data
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>calculate values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@values.responseTime = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>use mappings to store values</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">mapping</span>
-    <span class="nx">@values</span><span class="p">[</span><span class="nx">v</span><span class="p">.</span><span class="nx">storage</span><span class="p">]</span> <span class="o">=</span> <span class="nx">res</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="k">if</span> <span class="nx">res</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span>
-  <span class="nx">cb</span><span class="p">()</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
+    <span class="hljs-property">@values</span>[v.storage] = res[k] <span class="hljs-keyword">if</span> res[k]
+  cb()
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

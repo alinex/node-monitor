@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/memorycoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-monitor/src/sensor/memory.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,379 +39,394 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#check%20cpu%20core">Check cpu core</a>
+        <a href="#check-cpu-core">Check cpu core</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#schema%20definition">Schema Definition</a>
+        <a href="#schema-definition">Schema Definition</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20information">General information</a>
+        <a href="#general-information">General information</a>
       </div>
+
       <div class="heading h3">
-        <a href="#result%20values">Result values</a>
+        <a href="#result-values">Result values</a>
       </div>
+
       <div class="heading h2">
-        <a href="#initialize%20check">Initialize check</a>
+        <a href="#initialize-check">Initialize check</a>
       </div>
+
       <div class="heading h2">
-        <a href="#run%20the%20sensor">Run the Sensor</a>
+        <a href="#run-the-sensor">Run the Sensor</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20the%20results">Get the results</a>
+        <a href="#get-the-results">Get the results</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20cpu%20core">
+          <div class="pilwrap" id="check-cpu-core">
   <h1>
-    <a href="#check%20cpu%20core" name="check%20cpu%20core" class="pilcrow">&#182;</a>
-    Check cpu core
+    <a href="#check-cpu-core" name="check-cpu-core" class="pilcrow"></a>
+Check cpu core
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
 </div>
 <p>Find the description of the possible configuration values and the returned
 values in the code below.</p>
-
 <p>This methods will be called in the context of the corresponding check()
 instance.</p>
-
 <p>The analysis part currently is based on debian linux.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:memory&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:memory'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="schema%20definition">
+          <div class="pilwrap" id="schema-definition">
   <h2>
-    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
-    Schema Definition
+    <a href="#schema-definition" name="schema-definition" class="pilcrow"></a>
+Schema Definition
   </h2>
 </div>
-
-
 <p>This is used as configuration specification and to add the default values for
 specific setting.</p>
-
 <p>It's a n<a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
 compatible schema definition:</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;Memory check&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the memory usage on the machine&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">default:</span>
-    <span class="nv">warn: </span><span class="s">&#39;free &lt; 1%&#39;</span>
-    <span class="nv">analysis:</span>
-      <span class="nv">minMem: </span><span class="mf">0.1</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">remote:</span>
-      <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/exec/remote/server&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
-    <span class="nv">warn:</span>
-      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;free &lt; 1%&#39;</span>
-    <span class="nv">fail:</span>
-      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.schema =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Memory check"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the memory usage on the machine"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">default</span>:
+    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'free &lt; 1%'</span>
+    <span class="hljs-attribute">analysis</span>:
+      <span class="hljs-attribute">minMem</span>: <span class="hljs-number">0.1</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">remote</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    <span class="hljs-attribute">warn</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'free &lt; 1%'</span>
+    <span class="hljs-attribute">fail</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20information">
+          <div class="pilwrap" id="general-information">
   <h2>
-    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
-    General information
+    <a href="#general-information" name="general-information" class="pilcrow"></a>
+General information
   </h2>
 </div>
-
-
 <p>This information may be used later for display and explanation.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;Memory&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Check the free and used memory.&quot;</span>
-  <span class="nv">category: </span><span class="s">&#39;sys&#39;</span>
-  <span class="nv">hint: </span><span class="s">&quot;Check which process consumes how much memory, maybe some processes have</span>
-<span class="s">    a memory leak.&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.meta =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Memory'</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the free and used memory."</span>
+  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check which process consumes how much memory, maybe some processes have
+    a memory leak."</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result%20values">
+          <div class="pilwrap" id="result-values">
   <h3>
-    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
-    Result values
+    <a href="#result-values" name="result-values" class="pilcrow"></a>
+Result values
   </h3>
 </div>
-
-
 <p>This are possible values which may be given if the check runs normally.
 You may use any of these in your warn/fail expressions.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">values:</span>
-    <span class="nv">total:</span>
-      <span class="nv">title: </span><span class="s">&quot;Total&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;total system memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">used:</span>
-      <span class="nv">title: </span><span class="s">&quot;Used&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;used system memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">free:</span>
-      <span class="nv">title: </span><span class="s">&quot;Free&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;free system memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">shared:</span>
-      <span class="nv">title: </span><span class="s">&quot;Shared&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;shared system memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">buffers:</span>
-      <span class="nv">title: </span><span class="s">&quot;Buffers&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;system memory used as buffer&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">cached:</span>
-      <span class="nv">title: </span><span class="s">&quot;Cached&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;system memory used as cache&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">swapTotal:</span>
-      <span class="nv">title: </span><span class="s">&quot;Swap Total&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;total swap memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">swapUsed:</span>
-      <span class="nv">title: </span><span class="s">&quot;Swap Used&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;used swap memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">swapFree:</span>
-      <span class="nv">title: </span><span class="s">&quot;Swap Free&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;free swap memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">actualFree:</span>
-      <span class="nv">title: </span><span class="s">&quot;Actual Free&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;real free system memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-    <span class="nv">percentFree:</span>
-      <span class="nv">title: </span><span class="s">&quot;Percent Free&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of real free system memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">swapPercentFree:</span>
-      <span class="nv">title: </span><span class="s">&quot;Swap Percent Free&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of free swap memory&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
+    <span class="hljs-attribute">total</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"total system memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">used</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Used"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"used system memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">free</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Free"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"free system memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">shared</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Shared"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"shared system memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">buffers</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Buffers"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"system memory used as buffer"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">cached</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Cached"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"system memory used as cache"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">swapTotal</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Total"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"total swap memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">swapUsed</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Used"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"used swap memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">swapFree</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Free"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"free swap memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">actualFree</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Actual Free"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"real free system memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+    <span class="hljs-attribute">percentFree</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Percent Free"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of real free system memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
+    <span class="hljs-attribute">swapPercentFree</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Percent Free"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of free swap memory"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20check">
+          <div class="pilwrap" id="initialize-check">
   <h2>
-    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
-    Initialize check
+    <a href="#initialize-check" name="initialize-check" class="pilcrow"></a>
+Initialize check
   </h2>
 </div>
-
-
 <p>This method is used for some precalculations or analyzations and should set:</p>
-
 <ul>
 <li>check.name = <string> # mandatory</li>
 <li>check.base = <object> # optionally</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="nx">@name</span> <span class="o">?=</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span>
-  <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
+  cb()
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20the%20sensor">
+          <div class="pilwrap" id="run-the-sensor">
   <h2>
-    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
-    Run the Sensor
+    <a href="#run-the-sensor" name="run-the-sensor" class="pilcrow"></a>
+Run the Sensor
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>run check</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;cat&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;/proc/meminfo&#39;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-    <span class="nv">check:</span>
-      <span class="nv">matchStdout:</span>
-        <span class="nv">args: </span><span class="sr">/MemTotal/</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  Exec.run
+    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'cat'</span>
+    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'/proc/meminfo'</span>]
+    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    <span class="hljs-attribute">check</span>:
+      <span class="hljs-attribute">matchStdout</span>:
+        <span class="hljs-attribute">args</span>: <span class="hljs-regexp">/MemTotal/</span>
+  , cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20the%20results">
+          <div class="pilwrap" id="get-the-results">
   <h2>
-    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
-    Get the results
+    <a href="#get-the-results" name="get-the-results" class="pilcrow"></a>
+Get the results
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
-  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
+  res = <span class="hljs-property">@result</span>.data
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>calculate results</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">res</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
-    <span class="nv">col = </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-    <span class="k">switch</span> <span class="nx">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="k">when</span> <span class="s">&#39;MemTotal:&#39;</span> <span class="k">then</span> <span class="vi">@values.total = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;MemFree:&#39;</span> <span class="k">then</span> <span class="vi">@values.free = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;MemShared:&#39;</span> <span class="k">then</span> <span class="vi">@values.shared = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;Shmem:&#39;</span> <span class="k">then</span> <span class="vi">@values.shared = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;Buffers:&#39;</span> <span class="k">then</span> <span class="vi">@values.buffers = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;Cached:&#39;</span> <span class="k">then</span> <span class="vi">@values.cached = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;SwapTotal:&#39;</span> <span class="k">then</span> <span class="vi">@values.swapTotal = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-      <span class="k">when</span> <span class="s">&#39;SwapFree:&#39;</span> <span class="k">then</span> <span class="vi">@values.swapFree = </span><span class="nx">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-  <span class="vi">@values.used = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">total</span> <span class="o">-</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">free</span>
-  <span class="vi">@values.swapUsed = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">swapTotal</span> <span class="o">-</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">swapFree</span>
-  <span class="vi">@values.actualFree = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">free</span> <span class="o">+</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">buffers</span> <span class="o">+</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">cached</span>
-  <span class="vi">@values.percentFree = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">actualFree</span><span class="o">/</span><span class="nx">@values</span><span class="p">.</span><span class="nx">total</span>
-  <span class="vi">@values.swapPercentFree = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">swapFree</span><span class="o">/</span><span class="nx">@values</span><span class="p">.</span><span class="nx">swapTotal</span>
-  <span class="nx">cb</span><span class="p">()</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> res.stdout().split <span class="hljs-regexp">/\n/</span>
+    col = line.split <span class="hljs-regexp">/\s+/</span>
+    <span class="hljs-keyword">switch</span> col[<span class="hljs-number">0</span>]
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemTotal:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.total = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemFree:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.free = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemShared:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.shared = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'Shmem:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.shared = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'Buffers:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.buffers = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'Cached:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.cached = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'SwapTotal:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.swapTotal = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'SwapFree:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.swapFree = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+  <span class="hljs-property">@values</span>.used = <span class="hljs-property">@values</span>.total - <span class="hljs-property">@values</span>.free
+  <span class="hljs-property">@values</span>.swapUsed = <span class="hljs-property">@values</span>.swapTotal - <span class="hljs-property">@values</span>.swapFree
+  <span class="hljs-property">@values</span>.actualFree = <span class="hljs-property">@values</span>.free + <span class="hljs-property">@values</span>.buffers + <span class="hljs-property">@values</span>.cached
+  <span class="hljs-property">@values</span>.percentFree = <span class="hljs-property">@values</span>.actualFree/<span class="hljs-property">@values</span>.total
+  <span class="hljs-property">@values</span>.swapPercentFree = <span class="hljs-property">@values</span>.swapFree/<span class="hljs-property">@values</span>.swapTotal
+  cb()
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/promptcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-monitor/src/prompt.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,960 +39,1007 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#prompt%20(interactive%20console)">Prompt (Interactive Console)</a>
+        <a href="#prompt-interactive-console">Prompt (Interactive Console)</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
         <a href="#setup">Setup</a>
       </div>
+
       <div class="heading h2">
         <a href="#commands">Commands</a>
       </div>
+
       <div class="heading h3">
-        <a href="#integrated%20help">Integrated help</a>
+        <a href="#integrated-help">Integrated help</a>
       </div>
+
       <div class="heading h3">
-        <a href="#exit%20console">exit console</a>
+        <a href="#exit-console">exit console</a>
       </div>
+
       <div class="heading h3">
-        <a href="#list%20elements%20of%20type">list elements of type</a>
+        <a href="#list-elements-of-type">list elements of type</a>
       </div>
+
       <div class="heading h3">
-        <a href="#show%20element">Show element</a>
+        <a href="#show-element">Show element</a>
       </div>
+
       <div class="heading h2">
-        <a href="#interactive%20console">Interactive Console</a>
+        <a href="#interactive-console">Interactive Console</a>
       </div>
+
       <div class="heading h2">
-        <a href="#direct%20command%20execution">Direct command execution</a>
+        <a href="#direct-command-execution">Direct command execution</a>
       </div>
+
       <div class="heading h2">
-        <a href="#helper%20methods">Helper methods</a>
+        <a href="#helper-methods">Helper methods</a>
       </div>
+
       <div class="heading h3">
-        <a href="#ask%20for%20the%20next%20command">ask for the next command</a>
+        <a href="#ask-for-the-next-command">ask for the next command</a>
       </div>
+
       <div class="heading h3">
-        <a href="#error%20management">Error management</a>
+        <a href="#error-management">Error management</a>
       </div>
+
       <div class="heading h3">
-        <a href="#ask%20for%20missing%20data">Ask for missing data</a>
+        <a href="#ask-for-missing-data">Ask for missing data</a>
       </div>
+
       <div class="heading h3">
-        <a href="#ask%20user%20to%20give%20the%20data%20for%20the%20schema">Ask user to give the data for the schema</a>
+        <a href="#ask-user-to-give-the-data-for-the-schema">Ask user to give the data for the schema</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="prompt%20(interactive%20console)">
+          <div class="pilwrap" id="prompt-interactive-console">
   <h1>
-    <a href="#prompt%20(interactive%20console)" name="prompt%20(interactive%20console)" class="pilcrow">&#182;</a>
-    Prompt (Interactive Console)
+    <a href="#prompt-interactive-console" name="prompt-interactive-console" class="pilcrow"></a>
+Prompt (Interactive Console)
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">os = </span><span class="nx">require</span> <span class="s">&#39;os&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include classes and helpers</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">monitor = </span><span class="nx">require</span> <span class="s">&#39;./index&#39;</span>
-<span class="nv">Check = </span><span class="nx">require</span> <span class="s">&#39;./check&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
+Check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>set to true if interactive console is running</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">interactive = </span><span class="kc">false</span>
+        <td class="code highlight">
+          <pre class="coffeescript">interactive = <span class="hljs-literal">false</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="setup">
+          <div class="pilwrap" id="setup">
   <h2>
-    <a href="#setup" name="setup" class="pilcrow">&#182;</a>
-    Setup
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+types = [<span class="hljs-string">'controller'</span>, <span class="hljs-string">'sensor'</span>, <span class="hljs-string">'actor'</span>, <span class="hljs-string">'analyzer'</span>]
 
-<span class="nv">types = </span><span class="p">[</span><span class="s">&#39;controller&#39;</span><span class="p">,</span> <span class="s">&#39;sensor&#39;</span><span class="p">,</span> <span class="s">&#39;actor&#39;</span><span class="p">,</span> <span class="s">&#39;analyzer&#39;</span><span class="p">]</span>
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="commands">
+          <div class="pilwrap" id="commands">
   <h2>
-    <a href="#commands" name="commands" class="pilcrow">&#182;</a>
-    Commands
+    <a href="#commands" name="commands" class="pilcrow"></a>
+Commands
   </h2>
 </div>
-
-
 <p>Each key in the following object is a command with the following fields:</p>
-
 <ul>
 <li>description - a short description line</li>
 <li>help - a specific help text (optional, markdown possible)</li>
 <li>commands(parts) - method to get a command completion array (optional)</li>
 <li>run(parts, cb) - do the task</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">commands =</span>
+        <td class="code highlight">
+          <pre class="coffeescript">commands =
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="integrated%20help">
+          <div class="pilwrap" id="integrated-help">
   <h3>
-    <a href="#integrated%20help" name="integrated%20help" class="pilcrow">&#182;</a>
-    Integrated help
+    <a href="#integrated-help" name="integrated-help" class="pilcrow"></a>
+Integrated help
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">help:</span>
-    <span class="nv">description: </span><span class="s">&quot;list a help page with possible commands&quot;</span>
-    <span class="nv">commands: </span><span class="nf">-&gt;</span>
-      <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">commands</span>
-      <span class="p">.</span><span class="nx">filter</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span> <span class="o">isnt</span> <span class="s">&#39;help&#39;</span>
-      <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;help </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">run: </span><span class="nf">(args, data, cb) -&gt;</span>
-      <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-      <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">and</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">commands</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">help</span>:
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"list a help page with possible commands"</span>
+    <span class="hljs-attribute">commands</span>: <span class="hljs-function">-&gt;</span>
+      Object.keys commands
+      .filter (e) -&gt; e <span class="hljs-keyword">isnt</span> <span class="hljs-string">'help'</span>
+      .map (e) -&gt; <span class="hljs-string">"help <span class="hljs-subst">#{e}</span>"</span>
+    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+      report = <span class="hljs-keyword">new</span> Report()
+      <span class="hljs-keyword">if</span> args.length &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> args[<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> Object.keys commands
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>specific help for one command</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nv">cmd = </span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&quot;Help for </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> command&quot;</span>
-        <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;This command will </span><span class="si">#{</span><span class="nx">commands</span><span class="p">[</span><span class="nx">cmd</span><span class="p">].</span><span class="nx">description</span><span class="si">}</span><span class="s">.&quot;</span>
-        <span class="nx">report</span><span class="p">.</span><span class="nx">add</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">cmd</span><span class="p">].</span><span class="nx">help</span><span class="p">()</span> <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">cmd</span><span class="p">].</span><span class="nx">help</span><span class="o">?</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span><span class="p">.</span><span class="nx">toConsole</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        cmd = args[<span class="hljs-number">1</span>]
+        report.h1 <span class="hljs-string">"Help for <span class="hljs-subst">#{cmd}</span> command"</span>
+        report.p <span class="hljs-string">"This command will <span class="hljs-subst">#{commands[cmd].description}</span>."</span>
+        report.add commands[cmd].help() <span class="hljs-keyword">if</span> commands[cmd].help?
+        <span class="hljs-built_in">console</span>.log report.toConsole()
+        <span class="hljs-keyword">return</span> cb()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>General help page</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">h1</span> <span class="s">&quot;Help for interactive console&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Within this interactive console you can use different</span>
-<span class="s">      commands with sub arguments to run. See the list of possibilities below.</span>
-<span class="s">      You can also use code completion to get a list of available commands.&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;To close this console use Ctrl-C or the</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      report.h1 <span class="hljs-string">"Help for interactive console"</span>
+      report.p <span class="hljs-string">"Within this interactive console you can use different
+      commands with sub arguments to run. See the list of possibilities below.
+      You can also use code completion to get a list of available commands."</span>
+      report.p <span class="hljs-string">"To close this console use Ctrl-C or the
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
-<p>{Report.b 'exit'} command."</p>
+<p>{Report.b 'exit'} command.&quot;</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      report.p &quot;</span><span class="nx">The</span> <span class="nx">following</span> <span class="nx">commands</span> <span class="nx">are</span> <span class="nx">possible</span><span class="o">:</span><span class="s">&quot;</span>
-<span class="s">      report.ul Object.keys(commands).map (name) -&gt;</span>
-<span class="s">        &quot;</span><span class="c1">#{string.rpad name, 10} #{commands[name].description}&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;To get more information about a specific command and</span>
-<span class="s">      its additional arguments type </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;help &lt;command&gt;&#39;</span><span class="si">}</span><span class="s">.&quot;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span><span class="p">.</span><span class="nx">toConsole</span><span class="p">()</span>
-      <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      report.p <span class="hljs-string">"The following commands are possible:"</span>
+      report.ul Object.keys(commands).map (name) -&gt;
+        <span class="hljs-string">"<span class="hljs-subst">#{string.rpad name, <span class="hljs-number">10</span>}</span> <span class="hljs-subst">#{commands[name].description}</span>"</span>
+      report.p <span class="hljs-string">"To get more information about a specific command and
+      its additional arguments type <span class="hljs-subst">#{Report.b <span class="hljs-string">'help &lt;command&gt;'</span>}</span>."</span>
+      <span class="hljs-built_in">console</span>.log report.toConsole()
+      cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="exit%20console">
+          <div class="pilwrap" id="exit-console">
   <h3>
-    <a href="#exit%20console" name="exit%20console" class="pilcrow">&#182;</a>
-    exit console
+    <a href="#exit-console" name="exit-console" class="pilcrow"></a>
+exit console
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">exit:</span>
-    <span class="nv">description: </span><span class="s">&quot;close the console&quot;</span>
-    <span class="nv">help: </span><span class="nf">-&gt;</span>
-      <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;You may also type `Ctrl` + `C` to exit ungraceful. But be patient</span>
-<span class="s">      till the program exits. This may take some time to close opened connections.&quot;</span>
-    <span class="nv">run: </span><span class="nf">-&gt;</span>
-      <span class="nx">exit</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">exit</span>:
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"close the console"</span>
+    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+      report = <span class="hljs-keyword">new</span> Report()
+      report.p <span class="hljs-string">"You may also type `Ctrl` + `C` to exit ungraceful. But be patient
+      till the program exits. This may take some time to close opened connections."</span>
+    <span class="hljs-attribute">run</span>: <span class="hljs-function">-&gt;</span>
+      exit()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>change verbose level</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">set:</span>
-    <span class="nv">description: </span><span class="s">&quot;change general or specific settings&quot;</span>
-    <span class="nv">help: </span><span class="nf">-&gt;</span>
-      <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;Usage: __set &lt;option&gt; [&lt;value&gt;]&quot;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The following parameters may be changed:&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="p">[</span>
-        <span class="s">&quot;verbose - run in verbose mode (integer for verbose level 0..9)&quot;</span>
-        <span class="s">&quot;try     - try run which prevent actors to run (boolean)&quot;</span>
-      <span class="p">]</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The changes will take effect on the next command.&quot;</span>
-    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
-      <span class="nv">subcmd = </span><span class="p">[</span><span class="s">&#39;try&#39;</span><span class="p">,</span> <span class="s">&#39;verbose&#39;</span><span class="p">]</span> <span class="c1">#, &#39;controller&#39;]</span>
-      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">subcmd</span>
-        <span class="nx">subcmd</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;verbose&#39;</span>
-        <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span> <span class="o">or</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">not</span> <span class="k">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">9</span><span class="p">]</span>
-          <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">9</span><span class="p">].</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">else</span>
-          <span class="p">[]</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;try&#39;</span>
-        <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;true&#39;</span><span class="p">,</span> <span class="s">&#39;false&#39;</span><span class="p">]</span>
-          <span class="p">[</span><span class="s">&#39;true&#39;</span><span class="p">,</span> <span class="s">&#39;false&#39;</span><span class="p">].</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">else</span>
-          <span class="p">[]</span>
-      <span class="k">else</span>
-        <span class="p">[]</span>
-    <span class="nv">run: </span><span class="nf">(args, data, cb) -&gt;</span>
-      <span class="nv">subcmd = </span><span class="p">[</span><span class="s">&#39;try&#39;</span><span class="p">,</span> <span class="s">&#39;verbose&#39;</span><span class="p">]</span> <span class="c1">#, &#39;controller&#39;]</span>
-      <span class="k">unless</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">4</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Wrong number of parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;set&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help set&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-      <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">set</span>:
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"change general or specific settings"</span>
+    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+      report = <span class="hljs-keyword">new</span> Report()
+      report.box <span class="hljs-string">"Usage: __set &lt;option&gt; [&lt;value&gt;]"</span>, <span class="hljs-string">'info'</span>
+      report.p <span class="hljs-string">"The following parameters may be changed:"</span>
+      report.ul [
+        <span class="hljs-string">"verbose - run in verbose mode (integer for verbose level 0..9)"</span>
+        <span class="hljs-string">"try     - try run which prevent actors to run (boolean)"</span>
+      ]
+      report.p <span class="hljs-string">"The changes will take effect on the next command."</span>
+    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+      subcmd = [<span class="hljs-string">'try'</span>, <span class="hljs-string">'verbose'</span>] <span class="hljs-comment">#, 'controller']</span>
+      <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> subcmd
+        subcmd.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'verbose'</span>
+        <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span> <span class="hljs-keyword">or</span> Number(parts[<span class="hljs-number">2</span>]) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.9</span>]
+          [<span class="hljs-number">0.</span><span class="hljs-number">.9</span>].map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{parts[<span class="hljs-number">1</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
+        <span class="hljs-keyword">else</span>
+          []
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'try'</span>
+        <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">2</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> [<span class="hljs-string">'true'</span>, <span class="hljs-string">'false'</span>]
+          [<span class="hljs-string">'true'</span>, <span class="hljs-string">'false'</span>].map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{parts[<span class="hljs-number">1</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
+        <span class="hljs-keyword">else</span>
+          []
+      <span class="hljs-keyword">else</span>
+        []
+    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+      <span class="hljs-keyword">unless</span> <span class="hljs-number">1</span> &lt; args.length &lt; <span class="hljs-number">4</span>
+        <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Wrong number of parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'set'</span>}</span>
+        use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help set'</span>}</span> for more information!"</span>
+        <span class="hljs-keyword">return</span> cb()
+      <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">3</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>set</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-          <span class="k">when</span> <span class="s">&#39;verbose&#39;</span>
-            <span class="nv">num = </span><span class="nb">Number</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">?</span>
-            <span class="k">if</span> <span class="nb">isNaN</span> <span class="nx">num</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;The value </span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s"> is not a number.&quot;</span>
-              <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-            <span class="nv">monitor.mode.verbose = </span><span class="nx">num</span>
-          <span class="k">when</span> <span class="s">&#39;try&#39;</span>
-            <span class="k">unless</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;true&#39;</span><span class="p">,</span> <span class="s">&#39;false&#39;</span><span class="p">]</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;The value </span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s"> is not a number.&quot;</span>
-              <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-            <span class="nv">monitor.mode.try = </span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;true&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">switch</span> args[<span class="hljs-number">1</span>]
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'verbose'</span>
+            num = Number args[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> args[<span class="hljs-number">2</span>]?
+            <span class="hljs-keyword">if</span> isNaN num
+              <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"The value <span class="hljs-subst">#{args[<span class="hljs-number">2</span>]}</span> is not a number."</span>
+              <span class="hljs-keyword">return</span> cb()
+            monitor.mode.verbose = num
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'try'</span>
+            <span class="hljs-keyword">unless</span> args[<span class="hljs-number">2</span>] <span class="hljs-keyword">in</span> [<span class="hljs-string">'true'</span>, <span class="hljs-string">'false'</span>]
+              <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"The value <span class="hljs-subst">#{args[<span class="hljs-number">2</span>]}</span> is not a number."</span>
+              <span class="hljs-keyword">return</span> cb()
+            monitor.mode.<span class="hljs-keyword">try</span> = args[<span class="hljs-number">2</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'true'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>output</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">when</span> <span class="s">&#39;verbose&#39;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Verbosity set to level </span><span class="si">#{</span><span class="nx">monitor</span><span class="p">.</span><span class="nx">mode</span><span class="p">.</span><span class="nx">verbose</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">when</span> <span class="s">&#39;try&#39;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Try mode is set to </span><span class="si">#{</span><span class="nx">monitor</span><span class="p">.</span><span class="nx">mode</span><span class="p">.</span><span class="nx">try</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">else</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Unknown setting </span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> in command.&quot;</span>
-          <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">switch</span> args[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'verbose'</span>
+          <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Verbosity set to level <span class="hljs-subst">#{monitor.mode.verbose}</span>"</span>
+          cb()
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'try'</span>
+          <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Try mode is set to <span class="hljs-subst">#{monitor.mode.<span class="hljs-keyword">try</span>}</span>"</span>
+          cb()
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Unknown setting <span class="hljs-subst">#{args[<span class="hljs-number">1</span>]}</span> in command."</span>
+          cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="list%20elements%20of%20type">
+          <div class="pilwrap" id="list-elements-of-type">
   <h3>
-    <a href="#list%20elements%20of%20type" name="list%20elements%20of%20type" class="pilcrow">&#182;</a>
-    list elements of type
+    <a href="#list-elements-of-type" name="list-elements-of-type" class="pilcrow"></a>
+list elements of type
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">list:</span>
-    <span class="nv">description: </span><span class="s">&quot;show the list of possible elements&quot;</span>
-    <span class="nv">help: </span><span class="nf">-&gt;</span>
-      <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;Usage: </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;list &lt;type&gt;&#39;</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The list command will display a list of elements for the specified `type`:&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">types</span>
-    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
-      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
-        <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">else</span>
-        <span class="p">[]</span>
-    <span class="nv">run: </span><span class="nf">(args, data, cb) -&gt;</span>
-      <span class="k">unless</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Wrong number of parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;list&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help list&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
-          <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor/controller&#39;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Controllers:&quot;</span>
-          <span class="k">for</span> <span class="nx">el</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">el</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">gray</span> <span class="nx">conf</span><span class="p">[</span><span class="nx">el</span><span class="p">].</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Sensors:&quot;</span>
-          <span class="k">for</span> <span class="nx">el</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;  - </span><span class="si">#{</span><span class="nx">el</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">else</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> not possible in</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">list</span>:
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"show the list of possible elements"</span>
+    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+      report = <span class="hljs-keyword">new</span> Report()
+      report.box <span class="hljs-string">"Usage: <span class="hljs-subst">#{Report.b <span class="hljs-string">'list &lt;type&gt;'</span>}</span>"</span>, <span class="hljs-string">'info'</span>
+      report.p <span class="hljs-string">"The list command will display a list of elements for the specified `type`:"</span>
+      report.ul types
+    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> types
+        types.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
+      <span class="hljs-keyword">else</span>
+        []
+    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+      <span class="hljs-keyword">unless</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span>
+        <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Wrong number of parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'list'</span>}</span>
+        use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help list'</span>}</span> for more information!"</span>
+        <span class="hljs-keyword">return</span> cb()
+      <span class="hljs-keyword">switch</span> args[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'controller'</span>
+          conf = config.get <span class="hljs-string">'/monitor/controller'</span>
+          <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Controllers:"</span>
+          <span class="hljs-keyword">for</span> el <span class="hljs-keyword">in</span> monitor.listController()
+            <span class="hljs-built_in">console</span>.log <span class="hljs-string">"  - <span class="hljs-subst">#{el}</span> <span class="hljs-subst">#{chalk.gray conf[el].name}</span>"</span>
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'sensor'</span>
+          <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Sensors:"</span>
+          <span class="hljs-keyword">for</span> el <span class="hljs-keyword">in</span> monitor.listSensor()
+            <span class="hljs-built_in">console</span>.log <span class="hljs-string">"  - <span class="hljs-subst">#{el}</span>"</span>
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Given type <span class="hljs-subst">#{chalk.bold args[<span class="hljs-number">1</span>]}</span> not possible in
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>{chalk.bold 'list'} command. Use #{chalk.bold 'help list'} for more</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">          information!&quot;</span>
-      <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          information!<span class="hljs-string">"
+      cb()
 
-
-</pre></div>
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="show%20element">
+          <div class="pilwrap" id="show-element">
   <h3>
-    <a href="#show%20element" name="show%20element" class="pilcrow">&#182;</a>
-    Show element
+    <a href="#show-element" name="show-element" class="pilcrow"></a>
+Show element
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">show:</span>
-    <span class="nv">description: </span><span class="s">&quot;get more information about the element&quot;</span>
-    <span class="nv">help: </span><span class="nf">-&gt;</span>
-      <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;Usage: </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;show &lt;type&gt; &lt;element&gt;&#39;</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The show command will display detailed information about the specified `type`:&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">types</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Use code completion by typing `TAB` to get a list of possible</span>
-<span class="s">      elements.&quot;</span>
-    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
-      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
-        <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="c1"># only allow one element</span>
-        <span class="p">[]</span>
-      <span class="k">else</span>
-        <span class="nv">num = </span><span class="mi">1</span>
-        <span class="nv">elements = </span><span class="k">switch</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-          <span class="k">when</span> <span class="s">&#39;controller&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
-          <span class="k">when</span> <span class="s">&#39;sensor&#39;</span> <span class="k">then</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
-          <span class="k">else</span> <span class="p">[]</span>
-        <span class="nx">num</span><span class="o">++</span> <span class="k">while</span> <span class="nx">parts</span><span class="p">[</span><span class="nx">num</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">in</span> <span class="nx">elements</span>
-        <span class="nv">line = </span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">num</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
-        <span class="nx">elements</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">line</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">run: </span><span class="nf">(args, data, cb) -&gt;</span>
-      <span class="k">unless</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Too less parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;show&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help show&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
-          <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller/</span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">unless</span> <span class="nx">conf</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s"> not defined.</span>
-<span class="s">            Maybe use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;list controller&#39;</span><span class="si">}</span><span class="s"> for a list of possible ones.&quot;</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-          <span class="nx">monitor</span><span class="p">.</span><span class="nx">showController</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nf">(err, report) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">report</span><span class="p">.</span><span class="nx">toConsole</span><span class="p">()</span>
-            <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
-          <span class="nv">check = </span><span class="k">new</span> <span class="nx">Check</span>
-            <span class="nv">sensor: </span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-          <span class="nx">check</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">check</span><span class="p">.</span><span class="nx">report</span><span class="p">().</span><span class="nx">toConsole</span><span class="p">()</span>
-            <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">else</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> not possible in</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">show</span>:
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"get more information about the element"</span>
+    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+      report = <span class="hljs-keyword">new</span> Report()
+      report.box <span class="hljs-string">"Usage: <span class="hljs-subst">#{Report.b <span class="hljs-string">'show &lt;type&gt; &lt;element&gt;'</span>}</span>"</span>, <span class="hljs-string">'info'</span>
+      report.p <span class="hljs-string">"The show command will display detailed information about the specified `type`:"</span>
+      report.ul types
+      report.p <span class="hljs-string">"Use code completion by typing `TAB` to get a list of possible
+      elements."</span>
+    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> types
+        types.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">2</span> <span class="hljs-comment"># only allow one element</span>
+        []
+      <span class="hljs-keyword">else</span>
+        num = <span class="hljs-number">1</span>
+        elements = <span class="hljs-keyword">switch</span> parts[<span class="hljs-number">1</span>]
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'controller'</span> <span class="hljs-keyword">then</span> monitor.listController()
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'sensor'</span> <span class="hljs-keyword">then</span> monitor.listSensor()
+          <span class="hljs-keyword">else</span> []
+        num++ <span class="hljs-keyword">while</span> parts[num+<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> elements
+        line = parts[<span class="hljs-number">0.</span>.num].join <span class="hljs-string">' '</span>
+        elements.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{line}</span> <span class="hljs-subst">#{e}</span>"</span>
+    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+      <span class="hljs-keyword">unless</span> args.length &gt; <span class="hljs-number">2</span>
+        <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Too less parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'show'</span>}</span>
+        use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help show'</span>}</span> for more information!"</span>
+        <span class="hljs-keyword">return</span> cb()
+      <span class="hljs-keyword">switch</span> args[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'controller'</span>
+          conf = config.get <span class="hljs-string">"/monitor/controller/<span class="hljs-subst">#{args[<span class="hljs-number">2</span>]}</span>"</span>
+          <span class="hljs-keyword">unless</span> conf
+            <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Given controller <span class="hljs-subst">#{chalk.bold args[<span class="hljs-number">2</span>]}</span> not defined.
+            Maybe use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'list controller'</span>}</span> for a list of possible ones."</span>
+            <span class="hljs-keyword">return</span> cb()
+          monitor.showController args[<span class="hljs-number">2</span>], <span class="hljs-function"><span class="hljs-params">(err, report)</span> -&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            <span class="hljs-built_in">console</span>.log report.toConsole()
+            cb()
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'sensor'</span>
+          check = <span class="hljs-keyword">new</span> Check
+            <span class="hljs-attribute">sensor</span>: args[<span class="hljs-number">2</span>]
+          check.init (err) -&gt;
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            <span class="hljs-built_in">console</span>.log check.report().toConsole()
+            cb()
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Given type <span class="hljs-subst">#{chalk.bold args[<span class="hljs-number">1</span>]}</span> not possible in
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">          information!&quot;</span>
-          <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          information!<span class="hljs-string">"
+          cb()
 
-
-</pre></div>
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
 <p>Run element</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">run:</span>
-    <span class="nv">description: </span><span class="s">&quot;run the specified element&quot;</span>
-    <span class="nv">help: </span><span class="nf">-&gt;</span>
-      <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">box</span> <span class="s">&quot;Usage: </span><span class="si">#{</span><span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&#39;run &lt;type&gt; &lt;element&gt;&#39;</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The run command will start a specified element which type is one of:&quot;</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">types</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;Use code completion by typing `TAB` to get a list of possible</span>
-<span class="s">      elements.&quot;</span>
-    <span class="nv">commands: </span><span class="nf">(parts) -&gt;</span>
-      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">or</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">not</span> <span class="k">in</span> <span class="nx">types</span>
-        <span class="nx">types</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="c1"># only allow one element</span>
-        <span class="p">[]</span>
-      <span class="k">else</span>
-        <span class="nv">num = </span><span class="mi">1</span>
-        <span class="nv">elements = </span><span class="k">switch</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-          <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
-            <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span> <span class="k">then</span>  <span class="p">[]</span> <span class="k">else</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listController</span><span class="p">()</span>
-          <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
-            <span class="k">if</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">in</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span> <span class="k">then</span> <span class="p">[]</span> <span class="k">else</span> <span class="nx">monitor</span><span class="p">.</span><span class="nx">listSensor</span><span class="p">()</span>
-          <span class="k">else</span> <span class="p">[]</span>
-        <span class="nx">num</span><span class="o">++</span> <span class="k">while</span> <span class="nx">parts</span><span class="p">[</span><span class="nx">num</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">in</span> <span class="nx">elements</span>
-        <span class="nv">line = </span><span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">num</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
-        <span class="nx">elements</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">line</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">run: </span><span class="nf">(args, data, cb) -&gt;</span>
-      <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Too less parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;show&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">        use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help show&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-      <span class="k">switch</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">when</span> <span class="s">&#39;controller&#39;</span>
-          <span class="k">if</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-            <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&quot;/monitor/controller/</span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-            <span class="k">unless</span> <span class="nx">conf</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given controller </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s"> not defined.</span>
-<span class="s">              Maybe use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;list controller&#39;</span><span class="si">}</span><span class="s"> for a list of possible ones.&quot;</span>
-              <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-          <span class="nx">monitor</span><span class="p">.</span><span class="nx">runController</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nf">(err) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;DONE&quot;</span>
-            <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">when</span> <span class="s">&#39;sensor&#39;</span>
-          <span class="k">unless</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Too less parameters for command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;show&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">            use </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help show&#39;</span><span class="si">}</span><span class="s"> for more information!&quot;</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">run</span>:
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"run the specified element"</span>
+    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+      report = <span class="hljs-keyword">new</span> Report()
+      report.box <span class="hljs-string">"Usage: <span class="hljs-subst">#{Report.b <span class="hljs-string">'run &lt;type&gt; &lt;element&gt;'</span>}</span>"</span>, <span class="hljs-string">'info'</span>
+      report.p <span class="hljs-string">"The run command will start a specified element which type is one of:"</span>
+      report.ul types
+      report.p <span class="hljs-string">"Use code completion by typing `TAB` to get a list of possible
+      elements."</span>
+    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> types
+        types.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">3</span> <span class="hljs-comment"># only allow one element</span>
+        []
+      <span class="hljs-keyword">else</span>
+        num = <span class="hljs-number">1</span>
+        elements = <span class="hljs-keyword">switch</span> parts[<span class="hljs-number">1</span>]
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'controller'</span>
+            <span class="hljs-keyword">if</span> parts[<span class="hljs-number">2</span>] <span class="hljs-keyword">in</span> monitor.listController() <span class="hljs-keyword">then</span>  [] <span class="hljs-keyword">else</span> monitor.listController()
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'sensor'</span>
+            <span class="hljs-keyword">if</span> parts[<span class="hljs-number">2</span>] <span class="hljs-keyword">in</span> monitor.listSensor() <span class="hljs-keyword">then</span> [] <span class="hljs-keyword">else</span> monitor.listSensor()
+          <span class="hljs-keyword">else</span> []
+        num++ <span class="hljs-keyword">while</span> parts[num+<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> elements
+        line = parts[<span class="hljs-number">0.</span>.num].join <span class="hljs-string">' '</span>
+        elements.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{line}</span> <span class="hljs-subst">#{e}</span>"</span>
+    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
+        <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Too less parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'show'</span>}</span>
+        use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help show'</span>}</span> for more information!"</span>
+        <span class="hljs-keyword">return</span> cb()
+      <span class="hljs-keyword">switch</span> args[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'controller'</span>
+          <span class="hljs-keyword">if</span> args[<span class="hljs-number">2</span>]
+            conf = config.get <span class="hljs-string">"/monitor/controller/<span class="hljs-subst">#{args[<span class="hljs-number">2</span>]}</span>"</span>
+            <span class="hljs-keyword">unless</span> conf
+              <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Given controller <span class="hljs-subst">#{chalk.bold args[<span class="hljs-number">2</span>]}</span> not defined.
+              Maybe use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'list controller'</span>}</span> for a list of possible ones."</span>
+              <span class="hljs-keyword">return</span> cb()
+          monitor.runController args[<span class="hljs-number">2</span>], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"DONE"</span>
+            cb()
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'sensor'</span>
+          <span class="hljs-keyword">unless</span> args.length &gt; <span class="hljs-number">2</span>
+            <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Too less parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'show'</span>}</span>
+            use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help show'</span>}</span> for more information!"</span>
+            <span class="hljs-keyword">return</span> cb()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
 <p>ask for data if not given</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">askForSensor</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err, data) -&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          askForSensor args[<span class="hljs-number">2</span>], data, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>init check</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="nv">check = </span><span class="k">new</span> <span class="nx">Check</span>
-              <span class="nv">sensor: </span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-              <span class="nv">config: </span><span class="nx">data</span>
-            <span class="nx">check</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) -&gt;</span>
-              <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">            check = <span class="hljs-keyword">new</span> Check
+              <span class="hljs-attribute">sensor</span>: args[<span class="hljs-number">2</span>]
+              <span class="hljs-attribute">config</span>: data
+            check.init (err) -&gt;
+              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>and run it</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-              <span class="nx">check</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err) -&gt;</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">check</span><span class="p">.</span><span class="nx">report</span><span class="p">().</span><span class="nx">toConsole</span><span class="p">()</span>
-                <span class="nx">cb</span><span class="p">()</span>
-        <span class="k">else</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Given type </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s"> not possible in</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">              check.run (err) -&gt;
+                <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+                <span class="hljs-built_in">console</span>.log check.report().toConsole()
+                cb()
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Given type <span class="hljs-subst">#{chalk.bold args[<span class="hljs-number">1</span>]}</span> not possible in
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>{chalk.bold 'show'} command. Use #{chalk.bold 'show list'} for more</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">          information!&quot;</span>
-          <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          information!<span class="hljs-string">"
+          cb()
 
 
-
-</pre></div>
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="interactive%20console">
+          <div class="pilwrap" id="interactive-console">
   <h2>
-    <a href="#interactive%20console" name="interactive%20console" class="pilcrow">&#182;</a>
-    Interactive Console
+    <a href="#interactive-console" name="interactive-console" class="pilcrow"></a>
+Interactive Console
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.interactive = </span><span class="nf">(conf, data) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    \nWelcome to the </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;interactive monitor console&#39;</span><span class="si">}</span><span class="s"> in which you can get more</span>
-<span class="s">    information about special tools, run individual tests and explore systems.</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.interactive = <span class="hljs-function"><span class="hljs-params">(conf, data)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"""
+    \nWelcome to the <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'interactive monitor console'</span>}</span> in which you can get more
+    information about special tools, run individual tests and explore systems.
 
-<span class="s">    To get help call the command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;help&#39;</span><span class="si">}</span><span class="s"> and close with </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&#39;exit&#39;</span><span class="si">}</span><span class="s">!</span>
-<span class="s">  &quot;&quot;&quot;</span>
-  <span class="nv">interactive = </span><span class="kc">true</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">forever</span> <span class="nf">(cb) -&gt;</span>
-    <span class="nx">getCommand</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-    <span class="nx">readline</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
-    <span class="nx">exit</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">err</span>
+    To get help call the command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help'</span>}</span> and close with <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'exit'</span>}</span>!
+  """</span>
+  interactive = <span class="hljs-literal">true</span>
+  async.forever (cb) -&gt;
+    getCommand data, cb
+  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    exit <span class="hljs-number">1</span>, err
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="direct%20command%20execution">
+          <div class="pilwrap" id="direct-command-execution">
   <h2>
-    <a href="#direct%20command%20execution" name="direct%20command%20execution" class="pilcrow">&#182;</a>
-    Direct command execution
+    <a href="#direct-command-execution" name="direct-command-execution" class="pilcrow"></a>
+Direct command execution
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(args, data = {}, cb = -&gt;) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-  <span class="nv">command = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span><span class="o">?</span>
-    <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-      <span class="nx">cb</span> <span class="nx">err</span>
-  <span class="k">else</span>
-    <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Unknown command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">command</span><span class="si">}</span><span class="s"> use</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(args, data = {}, cb = -&gt;)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
+  command = args[<span class="hljs-number">0</span>]
+  <span class="hljs-keyword">if</span> commands[command]?
+    commands[command].run args, data, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
+      cb err
+  <span class="hljs-keyword">else</span>
+    cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unknown command <span class="hljs-subst">#{chalk.bold command}</span> use
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
-<p>{chalk.bold 'help'} for more information!"</p>
+<p>{chalk.bold 'help'} for more information!&quot;</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="helper%20methods">
+          <div class="pilwrap" id="helper-methods">
   <h2>
-    <a href="#helper%20methods" name="helper%20methods" class="pilcrow">&#182;</a>
-    Helper methods
+    <a href="#helper-methods" name="helper-methods" class="pilcrow"></a>
+Helper methods
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="ask%20for%20the%20next%20command">
+          <div class="pilwrap" id="ask-for-the-next-command">
   <h3>
-    <a href="#ask%20for%20the%20next%20command" name="ask%20for%20the%20next%20command" class="pilcrow">&#182;</a>
-    ask for the next command
+    <a href="#ask-for-the-next-command" name="ask-for-the-next-command" class="pilcrow"></a>
+ask for the next command
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">getCommand = (data, cb) -&gt;</span>
-<span class="s">  require(&#39;readline-history&#39;).createInterface</span>
-<span class="s">    input: process.stdin</span>
-<span class="s">    output: process.stdout</span>
-<span class="s">    completer: (line) -&gt;</span>
-<span class="s">      parts = line.trim().split /\s+/</span>
-<span class="s">      list = Object.keys commands</span>
-<span class="s">      if parts[0] in list and commands[parts[0]].commands</span>
-<span class="s">        list = commands[parts[0]].commands parts</span>
-<span class="s">      hits = list.filter (c) -&gt;</span>
-<span class="s">        c.indexOf(line) is 0</span>
-<span class="s">      .map (e) -&gt; &quot;</span><span class="c1">#{e} &quot;</span>
-      <span class="p">[</span>
-        <span class="k">if</span> <span class="nx">hits</span><span class="p">.</span><span class="nx">length</span> <span class="k">then</span> <span class="nx">hits</span> <span class="k">else</span> <span class="nx">list</span>
-        <span class="nx">line</span>
-      <span class="p">]</span>
-    <span class="nv">path: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">os</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">()</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">process</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="s">-history&quot;</span>
-    <span class="nv">maxLength: </span><span class="mi">1000</span>
-    <span class="nv">next: </span><span class="nf">(readline) -&gt;</span>
-      <span class="nx">readline</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="mi">130</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGINT signal&quot;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-      <span class="nx">readline</span><span class="p">.</span><span class="nx">question</span> <span class="s">&#39;monitor&gt; &#39;</span><span class="p">,</span> <span class="nf">(line) -&gt;</span>
-        <span class="nx">readline</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-        <span class="nv">args = </span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-        <span class="nv">command = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span><span class="o">?</span>
-          <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="k">else</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Unknown command </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">command</span><span class="si">}</span><span class="s"> use</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">getCommand</span> = <span class="hljs-params">(data, cb)</span> -&gt;</span>
+  <span class="hljs-built_in">require</span>(<span class="hljs-string">'readline-history'</span>).createInterface
+    <span class="hljs-attribute">input</span>: process.stdin
+    <span class="hljs-attribute">output</span>: process.stdout
+    <span class="hljs-attribute">completer</span>: <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+      parts = line.trim().split <span class="hljs-regexp">/\s+/</span>
+      list = Object.keys commands
+      <span class="hljs-keyword">if</span> parts[<span class="hljs-number">0</span>] <span class="hljs-keyword">in</span> list <span class="hljs-keyword">and</span> commands[parts[<span class="hljs-number">0</span>]].commands
+        list = commands[parts[<span class="hljs-number">0</span>]].commands parts
+      hits = list.filter (c) -&gt;
+        c.indexOf(line) <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+      .map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{e}</span> "</span>
+      [
+        <span class="hljs-keyword">if</span> hits.length <span class="hljs-keyword">then</span> hits <span class="hljs-keyword">else</span> list
+        line
+      ]
+    <span class="hljs-attribute">path</span>: <span class="hljs-string">"<span class="hljs-subst">#{os.tmpdir()}</span>/<span class="hljs-subst">#{process.title}</span>-history"</span>
+    <span class="hljs-attribute">maxLength</span>: <span class="hljs-number">1000</span>
+    <span class="hljs-attribute">next</span>: <span class="hljs-function"><span class="hljs-params">(readline)</span> -&gt;</span>
+      readline.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGINT'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">130</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGINT signal"</span>
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
+      readline.question <span class="hljs-string">'monitor&gt; '</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+        readline.close()
+        <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
+        args = line.trim().split <span class="hljs-regexp">/\s+/</span>
+        command = args[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">if</span> commands[command]?
+          commands[command].run args, data, cb
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Unknown command <span class="hljs-subst">#{chalk.bold command}</span> use
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
 </div>
-<p>{chalk.bold 'help'} for more information!"</p>
+<p>{chalk.bold 'help'} for more information!&quot;</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">          cb()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="error%20management">
+          <div class="pilwrap" id="error-management">
   <h3>
-    <a href="#error%20management" name="error%20management" class="pilcrow">&#182;</a>
-    Error management
+    <a href="#error-management" name="error-management" class="pilcrow"></a>
+Error management
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">exit = (code = 0, err) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">exit</span> = <span class="hljs-params">(code = <span class="hljs-number">0</span>, err)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
 </div>
 <p>exit without error</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  process.exit code unless err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  process.exit code <span class="hljs-keyword">unless</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
 </div>
 <p>exit with error</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  console.error chalk.red.bold &quot;</span><span class="nv">FAILED: </span><span class="c1">#{err.message}&quot;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="nx">code</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.error chalk.red.bold <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span>
+  <span class="hljs-built_in">console</span>.error err.description <span class="hljs-keyword">if</span> err.description
+  process.exit code
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="ask%20for%20missing%20data">
+          <div class="pilwrap" id="ask-for-missing-data">
   <h3>
-    <a href="#ask%20for%20missing%20data" name="ask%20for%20missing%20data" class="pilcrow">&#182;</a>
-    Ask for missing data
+    <a href="#ask-for-missing-data" name="ask-for-missing-data" class="pilcrow"></a>
+Ask for missing data
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">askForSensor = </span><span class="nf">(type, data, cb) -&gt;</span>
-  <span class="k">return</span>  <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">interactive</span>
-  <span class="nx">monitor</span><span class="p">.</span><span class="nx">getSensor</span> <span class="nx">type</span><span class="p">,</span> <span class="nf">(err, sensor) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">askFor</span> <span class="nx">sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">askForSensor</span> = <span class="hljs-params">(type, data, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span>  cb() <span class="hljs-keyword">unless</span> interactive
+  monitor.getSensor type, <span class="hljs-function"><span class="hljs-params">(err, sensor)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    askFor sensor.schema, data, cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="ask%20user%20to%20give%20the%20data%20for%20the%20schema">
+          <div class="pilwrap" id="ask-user-to-give-the-data-for-the-schema">
   <h3>
-    <a href="#ask%20user%20to%20give%20the%20data%20for%20the%20schema" name="ask%20user%20to%20give%20the%20data%20for%20the%20schema" class="pilcrow">&#182;</a>
-    Ask user to give the data for the schema
+    <a href="#ask-user-to-give-the-data-for-the-schema" name="ask-user-to-give-the-data-for-the-schema" class="pilcrow"></a>
+Ask user to give the data for the schema
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">askFor = </span><span class="nf">(schema, predef = {}, cb) -&gt;</span>
-  <span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;&quot;&quot;Give the settings to run this (default is used if nothing given).</span>
-<span class="s">  Type &#39;null&#39; to clear default value.&quot;&quot;&quot;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">askFor</span> = <span class="hljs-params">(schema, predef = {}, cb)</span> -&gt;</span>
+  validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"""Give the settings to run this (default is used if nothing given).
+  Type 'null' to clear default value."""</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
 </div>
 <p>for each key</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">data = </span><span class="p">{}</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">schema</span><span class="p">.</span><span class="nx">keys</span><span class="p">),</span> <span class="nf">(key, cb) -&gt;</span>
-    <span class="nv">def = </span><span class="nx">schema</span><span class="p">.</span><span class="nx">keys</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  data = {}
+  async.eachSeries Object.keys(schema.keys), <span class="hljs-function"><span class="hljs-params">(key, cb)</span> -&gt;</span>
+    def = schema.keys[key]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
 </div>
 <p>ask for each one</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">base = </span><span class="nx">predef</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">?</span> <span class="nx">def</span><span class="p">.</span><span class="nx">default</span>
-    <span class="nv">readline = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;readline&#39;</span><span class="p">).</span><span class="nx">createInterface</span>
-      <span class="nv">input: </span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span>
-      <span class="nv">output: </span><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span>
-      <span class="nv">completer: </span><span class="nf">(line) -&gt;</span>
-        <span class="nv">list = </span><span class="nx">def</span><span class="p">.</span><span class="nx">values</span> <span class="o">?</span> <span class="p">[]</span>
-        <span class="nv">hits = </span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(c) -&gt;</span>
-          <span class="nx">c</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="o">is</span> <span class="mi">0</span>
-        <span class="p">[</span>
-          <span class="k">if</span> <span class="nx">hits</span><span class="p">.</span><span class="nx">length</span> <span class="k">then</span> <span class="nx">hits</span> <span class="k">else</span> <span class="nx">list</span>
-          <span class="nx">line</span>
-        <span class="p">]</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">retry</span> <span class="mi">3</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
-      <span class="nx">readline</span><span class="p">.</span><span class="nx">question</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">def</span><span class="p">.</span><span class="nx">title</span><span class="si">}#{</span><span class="k">if</span> <span class="nx">base</span><span class="o">?</span> <span class="k">then</span> <span class="s">&#39; (&#39;</span> <span class="o">+</span> <span class="nx">base</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="si">}</span><span class="s">: &quot;</span><span class="p">,</span> <span class="nf">(line) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    base = predef[key] ? def.default
+    readline = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readline'</span>).createInterface
+      <span class="hljs-attribute">input</span>: process.stdin
+      <span class="hljs-attribute">output</span>: process.stdout
+      <span class="hljs-attribute">completer</span>: <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+        list = def.values ? []
+        hits = list.filter (c) -&gt;
+          c.indexOf(line) <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+        [
+          <span class="hljs-keyword">if</span> hits.length <span class="hljs-keyword">then</span> hits <span class="hljs-keyword">else</span> list
+          line
+        ]
+    async.retry <span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+      readline.question <span class="hljs-string">"<span class="hljs-subst">#{def.title}</span><span class="hljs-subst">#{<span class="hljs-keyword">if</span> base? <span class="hljs-keyword">then</span> <span class="hljs-string">' ('</span> + base + <span class="hljs-string">')'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span>: "</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
 </div>
 <p>get result</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nv">line = </span><span class="k">switch</span>
-          <span class="k">when</span> <span class="nx">line</span> <span class="o">is</span> <span class="s">&#39;null&#39;</span> <span class="k">then</span> <span class="kc">null</span>
-          <span class="k">when</span> <span class="nx">line</span> <span class="k">then</span> <span class="nx">line</span>
-          <span class="k">else</span> <span class="nx">base</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        line = <span class="hljs-keyword">switch</span>
+          <span class="hljs-keyword">when</span> line <span class="hljs-keyword">is</span> <span class="hljs-string">'null'</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span>
+          <span class="hljs-keyword">when</span> line <span class="hljs-keyword">then</span> line
+          <span class="hljs-keyword">else</span> base
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
 </div>
 <p>validate</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
-          <span class="nv">name: </span><span class="s">&#39;userResponse&#39;</span>
-          <span class="nv">value: </span><span class="nx">line</span>
-          <span class="nv">schema: </span><span class="nx">def</span>
-        <span class="p">,</span> <span class="nf">(err, result) -&gt;</span>
-          <span class="k">if</span> <span class="nx">err</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
-          <span class="nx">data</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">result</span> <span class="o">?</span> <span class="nx">base</span>
-          <span class="nx">cb</span><span class="p">()</span>
-    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">readline</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
-      <span class="nx">cb</span> <span class="nx">err</span>
-  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;&#39;</span>
-    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">data</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">        validator.check
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">'userResponse'</span>
+          <span class="hljs-attribute">value</span>: line
+          <span class="hljs-attribute">schema</span>: def
+        , <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+          <span class="hljs-keyword">if</span> err
+            <span class="hljs-built_in">console</span>.log chalk.magenta err.message
+            <span class="hljs-built_in">console</span>.log err.description <span class="hljs-keyword">if</span> err.description
+            <span class="hljs-keyword">return</span> cb err
+          data[key] = result ? base
+          cb()
+    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      readline.close()
+      cb err
+  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
+    cb err, data
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

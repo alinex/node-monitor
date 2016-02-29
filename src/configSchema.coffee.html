@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/configSchemacoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-monitor/src/configSchema.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,672 +39,630 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#configuration%20schema">Configuration Schema</a>
+        <a href="#configuration-schema">Configuration Schema</a>
       </div>
+
       <div class="heading h2">
         <a href="#contacts">Contacts</a>
       </div>
+
       <div class="heading h2">
-        <a href="#email%20transport%20settings">Email Transport settings</a>
+        <a href="#email-action">Email Action</a>
       </div>
+
       <div class="heading h2">
-        <a href="#email%20templates">Email Templates</a>
+        <a href="#rule-definition">Rule Definition</a>
       </div>
-      <div class="heading h2">
-        <a href="#rule%20definition">Rule Definition</a>
-      </div>
+
       <div class="heading h2">
         <a href="#controller">Controller</a>
       </div>
+
       <div class="heading h3">
-        <a href="#defining%20the%20checks%20first">Defining the checks first</a>
+        <a href="#defining-the-checks-first">Defining the checks first</a>
       </div>
+
       <div class="heading h3">
-        <a href="#controller%20containing%20checks">Controller containing Checks</a>
+        <a href="#controller-containing-checks">Controller containing Checks</a>
       </div>
+
       <div class="heading h3">
-        <a href="#persistent%20storage%20definition">Persistent storage definition</a>
+        <a href="#persistent-storage-definition">Persistent storage definition</a>
       </div>
+
       <div class="heading h2">
-        <a href="#complete%20schema%20definition">Complete Schema Definition</a>
+        <a href="#complete-schema-definition">Complete Schema Definition</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="configuration%20schema">
+          <div class="pilwrap" id="configuration-schema">
   <h1>
-    <a href="#configuration%20schema" name="configuration%20schema" class="pilcrow">&#182;</a>
-    Configuration Schema
+    <a href="#configuration-schema" name="configuration-schema" class="pilcrow"></a>
+Configuration Schema
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="contacts">
+          <div class="pilwrap" id="contacts">
   <h2>
-    <a href="#contacts" name="contacts" class="pilcrow">&#182;</a>
-    Contacts
+    <a href="#contacts" name="contacts" class="pilcrow"></a>
+Contacts
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+contact =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Contacts"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the possible contacts to be referred from controller for email alerts"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">entries</span>: [
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+    <span class="hljs-attribute">or</span>: [
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Contact Group"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of references in the group specifies the individual
+        contacts"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">minLength</span>: <span class="hljs-number">1</span>
+      <span class="hljs-attribute">entries</span>:
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    ,
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Contact Details"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name and email address for a specific contact"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'name'</span>]
+      <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">keys</span>:
+        <span class="hljs-attribute">name</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Name"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the full name of the contact"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">position</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Position"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the position within the organization (informal)"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">company</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Company"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the company name this person belongs to"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">email</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Email"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the email address to send alerts"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'email'</span>
+        <span class="hljs-attribute">phone</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Phone"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the phone numbers used for direct contact"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+          <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+          <span class="hljs-attribute">entries</span>:
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    ]
+  ]
 
-<span class="nv">contact =</span>
-  <span class="nv">title: </span><span class="s">&quot;Contacts&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the possible contacts to be referred from controller for email alerts&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">entries: </span><span class="p">[</span>
-    <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-    <span class="o">or:</span> <span class="p">[</span>
-      <span class="nv">title: </span><span class="s">&quot;Contact Group&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the list of references in the group specifies the individual</span>
-<span class="s">        contacts&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-      <span class="nv">toArray: </span><span class="kc">true</span>
-      <span class="nv">minLength: </span><span class="mi">1</span>
-      <span class="nv">entries:</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="p">,</span>
-      <span class="nv">title: </span><span class="s">&quot;Contact Details&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the name and email address for a specific contact&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
-      <span class="nv">allowedKeys: </span><span class="kc">true</span>
-      <span class="nv">keys:</span>
-        <span class="nv">name:</span>
-          <span class="nv">title: </span><span class="s">&quot;Name&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the full name of the contact&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">position:</span>
-          <span class="nv">title: </span><span class="s">&quot;Position&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the position within the organization (informal)&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">company:</span>
-          <span class="nv">title: </span><span class="s">&quot;Company&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the company name this person belongs to&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">email:</span>
-          <span class="nv">title: </span><span class="s">&quot;Email&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the email address to send alerts&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">phone:</span>
-          <span class="nv">title: </span><span class="s">&quot;Phone&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the phone numbers used for direct contact&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-          <span class="nv">toArray: </span><span class="kc">true</span>
-          <span class="nv">entries:</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="p">]</span>
-  <span class="p">]</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="email%20transport%20settings">
+          <div class="pilwrap" id="email-action">
   <h2>
-    <a href="#email%20transport%20settings" name="email%20transport%20settings" class="pilcrow">&#182;</a>
-    Email Transport settings
+    <a href="#email-action" name="email-action" class="pilcrow"></a>
+Email Action
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="nv">emailTransport =</span>
-  <span class="nv">title: </span><span class="s">&quot;Email Transport&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the setup to connect to a SMTP server&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">port:</span>
-      <span class="nv">name: </span><span class="s">&quot;Port&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the port to connect to (defaults to 25 or 465)&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
-    <span class="nv">host:</span>
-      <span class="nv">name: </span><span class="s">&quot;Hostname&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the hostname or IP address to connect to (defaults to &#39;localhost&#39;)&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;localhost&#39;</span>
-    <span class="nv">secure:</span>
-      <span class="nv">name: </span><span class="s">&quot;Use SSL&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;a flag indicating the connection should use SSL&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
-    <span class="nv">auth:</span>
-      <span class="nv">name: </span><span class="s">&quot;Authentication&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the authentication data to use&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
-      <span class="nv">keys:</span>
-        <span class="nv">user:</span>
-          <span class="nv">name: </span><span class="s">&quot;Username&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the username to log in&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">pass:</span>
-          <span class="nv">name: </span><span class="s">&quot;Password&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the password for the username&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">ignoreTLS:</span>
-      <span class="nv">name: </span><span class="s">&quot;No STARTTLS&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;a flag to turn off STARTTLS support if true&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
-    <span class="nv">name:</span>
-      <span class="nv">name: </span><span class="s">&quot;Client Hostname&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;an optional hostname of the client, used for identifying to the server&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
-    <span class="nv">localAddress:</span>
-      <span class="nv">name: </span><span class="s">&quot;localAddress&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the local interface to bind to for network connections&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
-    <span class="nv">connectionTimeout:</span>
-      <span class="nv">name: </span><span class="s">&quot;Connection Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds to wait for the connection to establish&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">greetingTimeout:</span>
-      <span class="nv">name: </span><span class="s">&quot;Greeting Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds to wait for the greeting after connection</span>
-<span class="s">      is established&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">socketTimeout:</span>
-      <span class="nv">name: </span><span class="s">&quot;Socket Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the timeout in milliseconds of inactivity to allow&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">authMethod:</span>
-      <span class="nv">name: </span><span class="s">&quot;Authentication&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;defines preferred authentication method, eg. &#39;PLAIN&#39;&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;PLAIN&#39;</span><span class="p">]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">
+email =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Email Action"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup for an individual email action"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">base</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Base Template"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the template used as base for this"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">list</span>: <span class="hljs-string">'&lt;&lt;&lt;context:///monitor/email&gt;&gt;&gt;'</span>
+    <span class="hljs-attribute">transport</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Service Connection"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the service connection to send mails through"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      ]
+    <span class="hljs-attribute">from</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"From"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the address emails are send from"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">to</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"To"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the address emails are send to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">cc</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Cc"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the carbon copy addresses"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">bcc</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Bcc"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the blind carbon copy addresses"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">subject</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Subject"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the subject line of the generated email"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+    <span class="hljs-attribute">body</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Content"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the body content of the generated email"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="email%20templates">
+          <div class="pilwrap" id="rule-definition">
   <h2>
-    <a href="#email%20templates" name="email%20templates" class="pilcrow">&#182;</a>
-    Email Templates
+    <a href="#rule-definition" name="rule-definition" class="pilcrow"></a>
+Rule Definition
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+rule =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rule"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"a rule to run after the controller is done"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">name</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Name"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"a specific name to refer to this check"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">base</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Base Rule"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the template to use for this rule"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">list</span>: <span class="hljs-string">'&lt;&lt;&lt;context:///monitor/rule&gt;&gt;&gt;'</span>
+    <span class="hljs-attribute">status</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Status"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the status on which to act"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">list</span>: [<span class="hljs-string">'ok'</span>, <span class="hljs-string">'warn'</span>, <span class="hljs-string">'fail'</span>]
+    <span class="hljs-attribute">attempt</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Number of Checks"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the minimal number of checks to wait before executing this rule"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+    <span class="hljs-attribute">latency</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Latency"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time (in seconds) to wait before executing this rule"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">0</span>
+    <span class="hljs-attribute">check</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Filter Checks"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"a filter to work only on specific check status or values"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">dependskip</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Dependent Skip"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the flag indicating if this rule should be skipped if
+        dependent controllers failed"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-literal">false</span>
+    <span class="hljs-attribute">email</span>: email
+    <span class="hljs-attribute">redo</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Redo Action"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time (in seconds) after which the action will be executed again"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">0</span>
 
-<span class="nv">email =</span>
-  <span class="nv">title: </span><span class="s">&quot;Email Template&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;a single template used for emails&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">base:</span>
-      <span class="nv">title: </span><span class="s">&quot;Base Template&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the template used as base for this&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/email&gt;&gt;&gt;&#39;</span>
-    <span class="nv">from:</span>
-      <span class="nv">title: </span><span class="s">&quot;From&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the address emails are send from&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;monitor&#39;</span>
-    <span class="nv">to:</span>
-      <span class="nv">title: </span><span class="s">&quot;To&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the address emails are send to&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">cc:</span>
-      <span class="nv">title: </span><span class="s">&quot;Cc&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the carbon copy addresses&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">bcc:</span>
-      <span class="nv">title: </span><span class="s">&quot;Bcc&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the blind carbon copy addresses&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">subject:</span>
-      <span class="nv">title: </span><span class="s">&quot;Subject&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the subject line of the generated email&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
-    <span class="nv">body:</span>
-      <span class="nv">title: </span><span class="s">&quot;Content&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the body content of the generated email&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
-
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="rule%20definition">
+          <div class="pilwrap" id="controller">
   <h2>
-    <a href="#rule%20definition" name="rule%20definition" class="pilcrow">&#182;</a>
-    Rule Definition
+    <a href="#controller" name="controller" class="pilcrow"></a>
+Controller
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="nv">rule =</span>
-  <span class="nv">title: </span><span class="s">&quot;Rules&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the list of all possible rules to be referenced from controller&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">entries: </span><span class="p">[</span>
-    <span class="nv">title: </span><span class="s">&quot;Rule&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;a rule to run after the controller is done&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">allowedKeys: </span><span class="kc">true</span>
-    <span class="nv">keys:</span>
-      <span class="nv">status:</span>
-        <span class="nv">title: </span><span class="s">&quot;Status&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the status on which to act&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">list: </span><span class="p">[</span><span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;warn&#39;</span><span class="p">,</span> <span class="s">&#39;fail&#39;</span><span class="p">]</span>
-      <span class="nv">attempt:</span>
-        <span class="nv">title: </span><span class="s">&quot;Number of Checks&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the minimal number of checks to wait before executing this rule&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-        <span class="nv">min: </span><span class="mi">1</span>
-      <span class="nv">latency:</span>
-        <span class="nv">title: </span><span class="s">&quot;Latency&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the time (in seconds) to wait before executing this rule&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
-        <span class="nv">min: </span><span class="mi">0</span>
-      <span class="nv">dependskip:</span>
-        <span class="nv">title: </span><span class="s">&quot;Dependent Skip&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the flag indicating if this rule should be skipped if</span>
-<span class="s">          dependent controllers failed&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
-        <span class="nv">default: </span><span class="kc">false</span>
-      <span class="nv">email: </span><span class="nx">email</span>
-      <span class="nv">redo:</span>
-        <span class="nv">title: </span><span class="s">&quot;Redo Action&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the time (in seconds) after which the action will be executed again&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
-        <span class="nv">min: </span><span class="mi">0</span>
-  <span class="p">]</span>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="controller">
-  <h2>
-    <a href="#controller" name="controller" class="pilcrow">&#182;</a>
-    Controller
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="defining%20the%20checks%20first">
+          <div class="pilwrap" id="defining-the-checks-first">
   <h3>
-    <a href="#defining%20the%20checks%20first" name="defining%20the%20checks%20first" class="pilcrow">&#182;</a>
-    Defining the checks first
+    <a href="#defining-the-checks-first" name="defining-the-checks-first" class="pilcrow"></a>
+Defining the checks first
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="nv">check =</span>
-  <span class="nv">title: </span><span class="s">&quot;Checks&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the list of checks which have to be run&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-  <span class="nv">default: </span><span class="p">[]</span>
-  <span class="nv">entries:</span>
-    <span class="nv">title: </span><span class="s">&quot;Check&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;the type and configuration for a check run&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">allowedKeys: </span><span class="kc">true</span>
-    <span class="nv">keys:</span>
-      <span class="nv">sensor:</span>
-        <span class="nv">title: </span><span class="s">&quot;Sensor Class&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the  class name of a sensor to run&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">lowerCase: </span><span class="kc">true</span>
-      <span class="nv">name:</span>
-        <span class="nv">title: </span><span class="s">&quot;Name&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a specific name to refer to this check&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">depend:</span>
-        <span class="nv">title: </span><span class="s">&quot;Dependent Check&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a list of check names, which should run before this&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-        <span class="nv">toArray: </span><span class="kc">true</span>
-        <span class="nv">optional: </span><span class="kc">true</span>
-        <span class="nv">entries: </span><span class="p">[</span>
-          <span class="nv">name: </span><span class="s">&quot;Dependency&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the dependent check which have to complete before starting this&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="p">]</span>
-      <span class="nv">config:</span>
-        <span class="nv">title: </span><span class="s">&quot;Sensor Configuration&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the configuration for a sensor run&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">weight:</span>
-        <span class="nv">title: </span><span class="s">&quot;Weight&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the special weight for the combination of sensors&quot;</span>
-        <span class="nv">optional: </span><span class="kc">true</span>
-        <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
-        <span class="o">or:</span> <span class="p">[</span>
-          <span class="nv">title: </span><span class="s">&quot;Up/Down&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the info to rate the status more or less important</span>
-<span class="s">            in the calculation&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;up&#39;</span><span class="p">,</span> <span class="s">&#39;down&#39;</span><span class="p">]</span>
-        <span class="p">,</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+check =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Checks"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of checks which have to be run"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+  <span class="hljs-attribute">default</span>: []
+  <span class="hljs-attribute">entries</span>:
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Check"</span>
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the type and configuration for a check run"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">keys</span>:
+      <span class="hljs-attribute">sensor</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Sensor Class"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the  class name of a sensor to run"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">lowerCase</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">name</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Name"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a specific name to refer to this check"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">depend</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Dependent Check"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a list of check names, which should run before this"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+        <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">entries</span>: [
+          <span class="hljs-attribute">name</span>: <span class="hljs-string">"Dependency"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the dependent check which have to complete before starting this"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        ]
+      <span class="hljs-attribute">config</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Sensor Configuration"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for a sensor run"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">weight</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Weight"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the special weight for the combination of sensors"</span>
+        <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+        <span class="hljs-attribute">or</span>: [
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Up/Down"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the info to rate the status more or less important
+            in the calculation"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          <span class="hljs-attribute">values</span>: [<span class="hljs-string">'up'</span>, <span class="hljs-string">'down'</span>]
+        ,
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
-<p>wenn combine = 'average' ->
+<p>wenn combine = 'average' -&gt;
 if:
-  cmd: 'eq'
-  op1: '&lt;&lt;<combine>>>'
-  op2: 'average'</p>
+cmd: 'eq'
+op1: '&lt;&lt;<combine>&gt;&gt;'
+op2: 'average'</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nv">title: </span><span class="s">&quot;Priority&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the priority for the &#39;average&#39; combination method&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">0</span>
-        <span class="p">]</span>
-      <span class="nv">hint:</span>
-        <span class="nv">title: </span><span class="s">&quot;Hint&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a specific description for this sensor that describes</span>
-<span class="s">          what may be done if this check failed and other things which are</span>
-<span class="s">          helpful to know&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Priority"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the priority for the 'average' combination method"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">0</span>
+        ]
+      <span class="hljs-attribute">hint</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hint"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a specific description for this sensor that describes
+          what may be done if this check failed and other things which are
+          helpful to know"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="controller%20containing%20checks">
+          <div class="pilwrap" id="controller-containing-checks">
   <h3>
-    <a href="#controller%20containing%20checks" name="controller%20containing%20checks" class="pilcrow">&#182;</a>
-    Controller containing Checks
+    <a href="#controller-containing-checks" name="controller-containing-checks" class="pilcrow"></a>
+Controller containing Checks
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+controller =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Controller List"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of controllers to check"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">flatten</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">entries</span>: [
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">"Controller"</span>
+    <span class="hljs-attribute">description</span>: <span class="hljs-string">"a single controller checking one part of the system"</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+    <span class="hljs-attribute">flatten</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'name'</span>]
+    <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">keys</span>:
+      <span class="hljs-attribute">name</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Name"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the short title of the controller to be used in display"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">description</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Description"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a short abstract of what this controller will check"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">validity</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Result Validity"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time (in seconds) the result will be valid and should not be rechecked"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+        <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
+        <span class="hljs-attribute">min</span>: <span class="hljs-number">0</span>
+        <span class="hljs-attribute">default</span>: <span class="hljs-number">60</span>
+      <span class="hljs-attribute">interval</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Check Interval"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the default time (in seconds) to rerun a check"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+        <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
+        <span class="hljs-attribute">min</span>: <span class="hljs-number">0</span>
+        <span class="hljs-attribute">default</span>: <span class="hljs-number">300</span>
+      <span class="hljs-attribute">disabled</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Disabled"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the controller is disabled for automatic run"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+        <span class="hljs-attribute">default</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">check</span>: check
+      <span class="hljs-attribute">parallel</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Parallel Checks"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum number of parallel running checks"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+        <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">default</span>: <span class="hljs-number">5</span>
+      <span class="hljs-attribute">combine</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Combine Method"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the calculation of the combined status"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">values</span>: [<span class="hljs-string">'min'</span>, <span class="hljs-string">'max'</span>, <span class="hljs-string">'average'</span>]
+        <span class="hljs-attribute">default</span>: <span class="hljs-string">'max'</span>
+      <span class="hljs-attribute">rule</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rules"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of rules (references) to be used"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+        <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">entries</span>: rule
+      <span class="hljs-attribute">info</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Info"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a general information about this part of the system"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">hint</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hint"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"a specific description for this controller that describes
+          what may be done if this check failed and other things which are helpful to know"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+      <span class="hljs-attribute">contact</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Contact Types"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the contacts categorized into groups"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        <span class="hljs-attribute">entries</span>: [
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Contact List"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of contacts for the group"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+          <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+          <span class="hljs-attribute">entries</span>:
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+            <span class="hljs-attribute">list</span>: <span class="hljs-string">'&lt;&lt;&lt;context:///monitor/contact&gt;&gt;&gt;'</span>
+        ]
+      <span class="hljs-attribute">ref</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"References"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of URL references which may help getting informed
+          as title - URL pairs"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        <span class="hljs-attribute">entries</span>: [
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Access URL"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the URL to access this reference"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+          <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+          <span class="hljs-attribute">entries</span>:
+            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        ]
+  ]
 
-<span class="nv">controller =</span>
-  <span class="nv">title: </span><span class="s">&quot;Controller List&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the list of controllers to check&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">entries: </span><span class="p">[</span>
-    <span class="nv">title: </span><span class="s">&quot;Controller&quot;</span>
-    <span class="nv">description: </span><span class="s">&quot;a single controller checking one part of the system&quot;</span>
-    <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-    <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
-    <span class="nv">allowedKeys: </span><span class="kc">true</span>
-    <span class="nv">keys:</span>
-      <span class="nv">name:</span>
-        <span class="nv">title: </span><span class="s">&quot;Name&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the short title of the controller to be used in display&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">description:</span>
-        <span class="nv">title: </span><span class="s">&quot;Description&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a short abstract of what this controller will check&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">validity:</span>
-        <span class="nv">title: </span><span class="s">&quot;Result Validity&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the time (in seconds) the result will be valid and should not be rechecked&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
-        <span class="nv">min: </span><span class="mi">0</span>
-        <span class="nv">default: </span><span class="mi">60</span>
-      <span class="nv">interval:</span>
-        <span class="nv">title: </span><span class="s">&quot;Check Interval&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the default time (in seconds) to rerun a check&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-        <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
-        <span class="nv">min: </span><span class="mi">0</span>
-        <span class="nv">default: </span><span class="mi">300</span>
-      <span class="nv">disabled:</span>
-        <span class="nv">title: </span><span class="s">&quot;Disabled&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the controller is disabled for automatic run&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
-        <span class="nv">default: </span><span class="kc">false</span>
-      <span class="nv">check: </span><span class="nx">check</span>
-      <span class="nv">parallel:</span>
-        <span class="nv">title: </span><span class="s">&quot;Max. Parallel Checks&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the maximum number of parallel running checks&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-        <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">default: </span><span class="mi">5</span>
-      <span class="nv">combine:</span>
-        <span class="nv">title: </span><span class="s">&quot;Combine Method&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the calculation of the combined status&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="nv">values: </span><span class="p">[</span><span class="s">&#39;min&#39;</span><span class="p">,</span> <span class="s">&#39;max&#39;</span><span class="p">,</span> <span class="s">&#39;average&#39;</span><span class="p">]</span>
-        <span class="nv">default: </span><span class="s">&#39;max&#39;</span>
-      <span class="nv">rule:</span>
-        <span class="nv">title: </span><span class="s">&quot;Rules&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the list of rules (references) to be used&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-        <span class="nv">toArray: </span><span class="kc">true</span>
-        <span class="nv">entries:</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/rule&gt;&gt;&gt;&#39;</span>
-      <span class="nv">info:</span>
-        <span class="nv">title: </span><span class="s">&quot;Info&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a general information about this part of the system&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">hint:</span>
-        <span class="nv">title: </span><span class="s">&quot;Hint&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;a specific description for this controller that describes</span>
-<span class="s">          what may be done if this check failed and other things which are helpful to know&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;handlebars&#39;</span>
-      <span class="nv">contact:</span>
-        <span class="nv">title: </span><span class="s">&quot;Contact Types&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the contacts categorized into groups&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">entries: </span><span class="p">[</span>
-          <span class="nv">title: </span><span class="s">&quot;Contact List&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the list of contacts for the group&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-          <span class="nv">toArray: </span><span class="kc">true</span>
-          <span class="nv">entries:</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-            <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///monitor/contact&gt;&gt;&gt;&#39;</span>
-        <span class="p">]</span>
-      <span class="nv">ref:</span>
-        <span class="nv">title: </span><span class="s">&quot;References&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the list of URL references which may help getting informed</span>
-<span class="s">          as title - URL pairs&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-        <span class="nv">entries: </span><span class="p">[</span>
-          <span class="nv">title: </span><span class="s">&quot;Access URL&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the URL to access this reference&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-          <span class="nv">toArray: </span><span class="kc">true</span>
-          <span class="nv">entries:</span>
-            <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-        <span class="p">]</span>
-  <span class="p">]</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="persistent%20storage%20definition">
+          <div class="pilwrap" id="persistent-storage-definition">
   <h3>
-    <a href="#persistent%20storage%20definition" name="persistent%20storage%20definition" class="pilcrow">&#182;</a>
-    Persistent storage definition
+    <a href="#persistent-storage-definition" name="persistent-storage-definition" class="pilcrow"></a>
+Persistent storage definition
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+storage =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Storage"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the storage to use for results"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'database'</span>]
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">database</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the alias name of the database to store to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">list</span>: <span class="hljs-string">'&lt;&lt;&lt;context:///database&gt;&gt;&gt;'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">prefix</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Table Prefix"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"a prefix to be put before each table name"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">''</span>
+    <span class="hljs-attribute">cleanup</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Cleanup Sensor Data"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of sensor data entries per each interval"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">mandatoryKeys</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">keys</span>:
+        <span class="hljs-attribute">minute</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Time Entries"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for sensor data time entries to keep, older will be removed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">hour</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Time Entries"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for sensor data time entries to keep, older will be removed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">day</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Time Entries"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for sensor data time entries to keep, older will be removed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">week</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Time Entries"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for sensor data time entries to keep, older will be removed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">month</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Time Entries"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for sensor data time entries to keep, older will be removed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">other</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Max. Time Entries"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the interval for other entries to keep, older will be removed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+          <span class="hljs-attribute">unit</span>: <span class="hljs-string">'d'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
 
-<span class="nv">storage =</span>
-  <span class="nv">title: </span><span class="s">&quot;Storage&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the storage to use for results&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;database&#39;</span><span class="p">]</span>
-  <span class="nv">keys:</span>
-    <span class="nv">database:</span>
-      <span class="nv">title: </span><span class="s">&quot;Database&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the alias name of the database to store to&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt;context:///database&gt;&gt;&gt;&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-    <span class="nv">prefix:</span>
-      <span class="nv">title: </span><span class="s">&quot;Table Prefix&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;a prefix to be put before each table name&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;&#39;</span>
-    <span class="nv">cleanup:</span>
-      <span class="nv">title: </span><span class="s">&quot;Cleanup Sensor Data&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the number of sensor data entries per each interval&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
-      <span class="nv">keys:</span>
-        <span class="nv">minute:</span>
-          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">hour:</span>
-          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">day:</span>
-          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">week:</span>
-          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">month:</span>
-          <span class="nv">title: </span><span class="s">&quot;Max. Time Entries&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the number of sensor data time entries to keep, older will be removed&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
 
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="complete%20schema%20definition">
+          <div class="pilwrap" id="complete-schema-definition">
   <h2>
-    <a href="#complete%20schema%20definition" name="complete%20schema%20definition" class="pilcrow">&#182;</a>
-    Complete Schema Definition
+    <a href="#complete-schema-definition" name="complete-schema-definition" class="pilcrow"></a>
+Complete Schema Definition
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Monitor Setup"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for the monitor system"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">contact</span>: contact
+    <span class="hljs-attribute">email</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Email Templates"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the possible templates used for sending emails"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">entries</span>: [email]
+    <span class="hljs-attribute">rule</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rule Templates"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the possible templates used for rules"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">entries</span>: [rule]
+    <span class="hljs-attribute">controller</span>: controller
+    <span class="hljs-attribute">storage</span>: storage
+    <span class="hljs-attribute">log</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"File Logger"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup for the file logger"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">keys</span>:
+        <span class="hljs-attribute">filename</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Filename"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the filename within the log directory"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'file'</span>
+        <span class="hljs-attribute">datePattern</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rotation Pattern"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the date pattern to be used for rotating files"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          <span class="hljs-attribute">minLength</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">maxSize</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"max. Size"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum file size before file rotation"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">maxFiles</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"max. Files"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"the maximum number of files (older ones will be deleted on rotation)"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+          <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+        <span class="hljs-attribute">compress</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">"Compress"</span>
+          <span class="hljs-attribute">description</span>: <span class="hljs-string">"a flag indicating rotated files should be compressed"</span>
+          <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">plugins</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Enabled Plugins"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the list of enabled plugins"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">entries</span>:
+        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Plugin"</span>
+        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name of the already installed npm plugin module"</span>
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
 
-<span class="nv">module.exports =</span>
-  <span class="nv">title: </span><span class="s">&quot;Monitor Setup&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the configuration for the monitor system&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">contact: </span><span class="nx">contact</span>
-    <span class="nv">email:</span>
-      <span class="nv">title: </span><span class="s">&quot;Email Templates&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the possible templates used for sending emails&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">entries: </span><span class="p">[</span> <span class="nx">email</span> <span class="p">]</span>
-      <span class="nv">keys:</span>
-        <span class="nv">transport: </span><span class="nx">emailTransport</span>
-    <span class="nv">rule: </span><span class="nx">rule</span>
-    <span class="nv">controller: </span><span class="nx">controller</span>
-    <span class="nv">storage: </span><span class="nx">storage</span>
-    <span class="nv">log:</span>
-      <span class="nv">title: </span><span class="s">&quot;File Logger&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the setup for the file logger&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">allowedKeys: </span><span class="kc">true</span>
-      <span class="nv">keys:</span>
-        <span class="nv">filename:</span>
-          <span class="nv">title: </span><span class="s">&quot;Filename&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the filename within the log directory&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
-        <span class="nv">datePattern:</span>
-          <span class="nv">title: </span><span class="s">&quot;Rotation Pattern&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the date pattern to be used for rotating files&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-          <span class="nv">minLength: </span><span class="mi">1</span>
-        <span class="nv">maxSize:</span>
-          <span class="nv">title: </span><span class="s">&quot;max. Size&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the maximum file size before file rotation&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">maxFiles:</span>
-          <span class="nv">title: </span><span class="s">&quot;max. Files&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the maximum number of files (older ones will be deleted on rotation)&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-          <span class="nv">min: </span><span class="mi">1</span>
-        <span class="nv">compress:</span>
-          <span class="nv">title: </span><span class="s">&quot;Compress&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;a flag indicating rotated files should be compressed&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
-    <span class="nv">plugins:</span>
-      <span class="nv">title: </span><span class="s">&quot;Enabled Plugins&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the list of enabled plugins&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
-      <span class="nv">toArray: </span><span class="kc">true</span>
-      <span class="nv">entries:</span>
-        <span class="nv">title: </span><span class="s">&quot;Plugin&quot;</span>
-        <span class="nv">description: </span><span class="s">&quot;the name of the already installed npm plugin module&quot;</span>
-        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-</pre></div>
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

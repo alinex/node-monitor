@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/clicoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-monitor/src/cli.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,465 +39,496 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#main%20class">Main class</a>
+        <a href="#main-class">Main class</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#start%20argument%20parsing">Start argument parsing</a>
+        <a href="#start-argument-parsing">Start argument parsing</a>
       </div>
+
       <div class="heading h2">
-        <a href="#error%20management">Error management</a>
+        <a href="#error-management">Error management</a>
       </div>
+
       <div class="heading h2">
-        <a href="#main%20routine">Main routine</a>
+        <a href="#main-routine">Main routine</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="main%20class">
+          <div class="pilwrap" id="main-class">
   <h1>
-    <a href="#main%20class" name="main%20class" class="pilcrow">&#182;</a>
-    Main class
+    <a href="#main-class" name="main-class" class="pilcrow"></a>
+Main class
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">yargs = </span><span class="nx">require</span> <span class="s">&#39;yargs&#39;</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">yargs = <span class="hljs-built_in">require</span> <span class="hljs-string">'yargs'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="nv">database = </span><span class="nx">require</span> <span class="s">&#39;alinex-database&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
+database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include classes and helpers</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">logo = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./logo&#39;</span><span class="p">)</span> <span class="s">&#39;Monitoring Application&#39;</span>
-<span class="nv">monitor = </span><span class="nx">require</span> <span class="s">&#39;./index&#39;</span>
-<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">logo = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex'</span>).logo <span class="hljs-string">'Monitoring Application'</span>
+monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>Controller = require './controller'</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+process.title = <span class="hljs-string">'Monitor'</span>
 
-<span class="nv">process.title = </span><span class="s">&#39;Monitor&#39;</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="start%20argument%20parsing">
+          <div class="pilwrap" id="start-argument-parsing">
   <h2>
-    <a href="#start%20argument%20parsing" name="start%20argument%20parsing" class="pilcrow">&#182;</a>
-    Start argument parsing
+    <a href="#start-argument-parsing" name="start-argument-parsing" class="pilcrow"></a>
+Start argument parsing
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">argv = </span><span class="nx">yargs</span>
-<span class="p">.</span><span class="nx">usage</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">argv = yargs
+.usage(<span class="hljs-string">"""
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>{logo}</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  Usage: $0 [-vCclt] &lt;controller...&gt;</span>
-<span class="s">  &quot;&quot;&quot;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">Usage</span>: $<span class="hljs-number">0</span> [-vCclt] &lt;controller...&gt;
+  <span class="hljs-string">""")
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>examples</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0&#39;</span><span class="p">,</span> <span class="s">&#39;to simply check all services once&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 fileserv&#39;</span><span class="p">,</span> <span class="s">&#39;to call a single service or group&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -d -C &gt;/dev/null&#39;</span><span class="p">,</span> <span class="s">&#39;run continuously as a daemon&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -tvvv&#39;</span><span class="p">,</span> <span class="s">&#39;make a try run and show all details&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -i&#39;</span><span class="p">,</span> <span class="s">&#39;run in interactive mode&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.example(<span class="hljs-string">'$0'</span>, <span class="hljs-string">'to simply check all services once'</span>)
+.example(<span class="hljs-string">'$0 fileserv'</span>, <span class="hljs-string">'to call a single service or group'</span>)
+.example(<span class="hljs-string">'$0 -d -C &gt;/dev/null'</span>, <span class="hljs-string">'run continuously as a daemon'</span>)
+.example(<span class="hljs-string">'$0 -tvvv'</span>, <span class="hljs-string">'make a try run and show all details'</span>)
+.example(<span class="hljs-string">'$0 -i'</span>, <span class="hljs-string">'run in interactive mode'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>general options</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;nocolors&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;turn of color output&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;verbose&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">,</span> <span class="s">&#39;run in verbose mode (multiple makes more verbose)&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">count</span><span class="p">(</span><span class="s">&#39;verbose&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.alias(<span class="hljs-string">'C'</span>, <span class="hljs-string">'nocolors'</span>)
+.describe(<span class="hljs-string">'C'</span>, <span class="hljs-string">'turn of color output'</span>)
+.boolean(<span class="hljs-string">'C'</span>)
+.alias(<span class="hljs-string">'v'</span>, <span class="hljs-string">'verbose'</span>)
+.describe(<span class="hljs-string">'v'</span>, <span class="hljs-string">'run in verbose mode (multiple makes more verbose)'</span>)
+.count(<span class="hljs-string">'verbose'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>controller run</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;try&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;try run which prevent actors to run&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.alias(<span class="hljs-string">'t'</span>, <span class="hljs-string">'try'</span>)
+.describe(<span class="hljs-string">'t'</span>, <span class="hljs-string">'try run which prevent actors to run'</span>)
+.boolean(<span class="hljs-string">'t'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>daemon</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="s">&#39;daemon&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">,</span> <span class="s">&#39;run as a daemon&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.alias(<span class="hljs-string">'d'</span>, <span class="hljs-string">'daemon'</span>)
+.describe(<span class="hljs-string">'d'</span>, <span class="hljs-string">'run as a daemon'</span>)
+.boolean(<span class="hljs-string">'d'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>exploring with special data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command to execute&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">array</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;json&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;j&#39;</span><span class="p">,</span> <span class="s">&#39;json data for the command&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.alias(<span class="hljs-string">'c'</span>, <span class="hljs-string">'command'</span>)
+.describe(<span class="hljs-string">'c'</span>, <span class="hljs-string">'command to execute'</span>)
+.array(<span class="hljs-string">'c'</span>)
+.alias(<span class="hljs-string">'j'</span>, <span class="hljs-string">'json'</span>)
+.describe(<span class="hljs-string">'j'</span>, <span class="hljs-string">'json data for the command'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>interactive mode</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;interactive&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="s">&#39;interactive mode&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">)</span>
+        <td class="code highlight">
+          <pre class="coffeescript">.alias(<span class="hljs-string">'i'</span>, <span class="hljs-string">'interactive'</span>)
+.describe(<span class="hljs-string">'i'</span>, <span class="hljs-string">'interactive mode'</span>)
+.boolean(<span class="hljs-string">'i'</span>)
 
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;ssh&#39;</span><span class="p">,</span> <span class="s">&#39;info: ssh connection url&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;key&#39;</span><span class="p">,</span> <span class="s">&#39;info: ssh private key to connect&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="s">&#39;info: ss password to connect&#39;</span><span class="p">)</span>
-
-</pre></div>
+.describe(<span class="hljs-string">'ssh'</span>, <span class="hljs-string">'info: ssh connection url'</span>)
+.describe(<span class="hljs-string">'key'</span>, <span class="hljs-string">'info: ssh private key to connect'</span>)
+.describe(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'info: ss password to connect'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>general help</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="s">&#39;help&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">epilogue</span><span class="p">(</span><span class="s">&quot;For more information, look into the man page.&quot;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">showHelpOnFail</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s">&quot;Specify --help for available options&quot;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">strict</span><span class="p">()</span>
-<span class="p">.</span><span class="nx">fail</span> <span class="nf">(err) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;&quot;&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.help(<span class="hljs-string">'h'</span>)
+.alias(<span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>)
+.epilogue(<span class="hljs-string">"For more information, look into the man page."</span>)
+.showHelpOnFail(<span class="hljs-literal">false</span>, <span class="hljs-string">"Specify --help for available options"</span>)
+.strict()
+.fail (err) -&gt;
+  <span class="hljs-built_in">console</span>.error <span class="hljs-string">"""
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>{logo}
 {chalk.red.bold 'CLI Parameter Failure:'} #{chalk.red err}</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="s">    &quot;&quot;&quot;</span>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
-<span class="p">.</span><span class="nx">argv</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+    <span class="hljs-string">"""
+  process.exit 1
+.argv
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>parse data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">argv.json = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">argv.json = JSON.parse argv.json <span class="hljs-keyword">if</span> argv.json
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>implement some global switches</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">chalk.enabled = </span><span class="kc">false</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
+        <td class="code highlight">
+          <pre class="coffeescript">chalk.enabled = <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> argv.nocolors
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="error%20management">
+          <div class="pilwrap" id="error-management">
   <h2>
-    <a href="#error%20management" name="error%20management" class="pilcrow">&#182;</a>
-    Error management
+    <a href="#error-management" name="error-management" class="pilcrow"></a>
+Error management
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exit = </span><span class="nf">(code = 0, err) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">exit</span> = <span class="hljs-params">(code = <span class="hljs-number">0</span>, err)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>exit without error</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="nx">code</span> <span class="k">unless</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  process.exit code <span class="hljs-keyword">unless</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
 <p>exit with error</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;FAILED: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span> <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">description</span>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="nx">code</span> <span class="k">unless</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">daemon</span>
-  <span class="nx">monitor</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
-  <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="nx">code</span>
-  <span class="p">,</span> <span class="mi">2000</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.error chalk.red.bold <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span>
+  <span class="hljs-built_in">console</span>.error err.description <span class="hljs-keyword">if</span> err.description
+  process.exit code <span class="hljs-keyword">unless</span> argv.daemon
+  monitor.stop()
+  setTimeout -&gt;
+    process.exit code
+  , <span class="hljs-number">2000</span>
 
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="mi">130</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGINT signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGTERM&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="mi">143</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGTERM signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGHUP&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="mi">129</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGHUP signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGQUIT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="mi">131</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGQUIT signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;SIGABRT&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">exit</span> <span class="mi">134</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got SIGABRT signal&quot;</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Goodbye\n&quot;</span>
-  <span class="nx">Exec</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
-  <span class="nx">database</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGINT'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">130</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGINT signal"</span>
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGTERM'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">143</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGTERM signal"</span>
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGHUP'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">129</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGHUP signal"</span>
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGQUIT'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">131</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGQUIT signal"</span>
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGABRT'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">134</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGABRT signal"</span>
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'exit'</span>, <span class="hljs-function">-&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Goodbye\n"</span>
+  Exec.close()
+  database.close()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="main%20routine">
+          <div class="pilwrap" id="main-routine">
   <h2>
-    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
-    Main routine
+    <a href="#main-routine" name="main-routine" class="pilcrow"></a>
+Main routine
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">logo</span>
-<span class="nx">monitor</span><span class="p">.</span><span class="nx">setup</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">console</span>.log logo
+monitor.setup argv._
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Initializing...&quot;</span>
-<span class="nx">monitor</span><span class="p">.</span><span class="nx">init</span>
-  <span class="nv">verbose: </span><span class="nx">argv</span><span class="p">.</span><span class="nx">verbose</span>
-  <span class="k">try</span><span class="o">:</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">try</span>
-<span class="p">,</span> <span class="nf">(err) -&gt;</span>
-  <span class="nx">exit</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;monitor&#39;</span>
-  <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">command</span>
-
-</pre></div>
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">"Initializing..."</span>
+monitor.init
+  <span class="hljs-attribute">verbose</span>: argv.verbose
+  <span class="hljs-attribute">try</span>: argv.<span class="hljs-keyword">try</span>
+, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+  exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
+  conf = config.get <span class="hljs-string">'monitor'</span>
+  <span class="hljs-keyword">if</span> argv.command
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>direct command given to execute</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">args = </span><span class="nx">argv</span><span class="p">.</span><span class="nx">command</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span>
-    <span class="nv">args = </span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\s+/</span> <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
-    <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./prompt&#39;</span><span class="p">).</span><span class="nx">run</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">exit</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">exit</span><span class="p">()</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">interactive</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    args = argv.command.slice()
+    args = args[<span class="hljs-number">0</span>].trim().split <span class="hljs-regexp">/\s+/</span> <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
+    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./prompt'</span>).run args, argv.json, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
+      exit()
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> argv.interactive
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>interactive console</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./prompt&#39;</span><span class="p">).</span><span class="nx">interactive</span> <span class="nx">conf</span><span class="p">,</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">json</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">daemon</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./prompt'</span>).interactive conf, argv.json
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> argv.daemon
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>daemon start</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
-  <span class="k">else</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    monitor.start()
+  <span class="hljs-keyword">else</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>run all once</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Analyzing systems...&quot;</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">runController</span> <span class="kc">null</span><span class="p">,</span> <span class="nf">(err, status) -&gt;</span>
-      <span class="nx">exit</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Finished.\n&quot;</span>
-      <span class="nx">exit</span><span class="p">()</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;ok&#39;</span>
-      <span class="nx">exit</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">is</span> <span class="s">&#39;fail&#39;</span> <span class="k">then</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">3</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Analyzing systems..."</span>
+    monitor.runController <span class="hljs-literal">null</span>, <span class="hljs-function"><span class="hljs-params">(err, status)</span> -&gt;</span>
+      exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Finished.\n"</span>
+      exit() <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'ok'</span>
+      exit <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'fail'</span> <span class="hljs-keyword">then</span> <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">3</span>
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

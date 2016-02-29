@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-monitor/src/checkcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-monitor/src/check.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,1072 +39,1136 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#run%20a%20check">Run a check</a>
+        <a href="#run-a-check">Run a check</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
+
       <div class="heading h2">
-        <a href="#initialized%20data">Initialized Data</a>
+        <a href="#initialized-data">Initialized Data</a>
       </div>
+
       <div class="heading h2">
-        <a href="#controller%20class">Controller class</a>
+        <a href="#controller-class">Controller class</a>
       </div>
+
       <div class="heading h3">
-        <a href="#general%20initialization">General initialization</a>
+        <a href="#general-initialization">General initialization</a>
       </div>
+
       <div class="heading h3">
-        <a href="#create%20instance">Create instance</a>
+        <a href="#create-instance">Create instance</a>
       </div>
+
       <div class="heading h3">
-        <a href="#initialize%20check%20and%20sensor">Initialize check and sensor</a>
+        <a href="#initialize-check-and-sensor">Initialize check and sensor</a>
       </div>
+
       <div class="heading h3">
-        <a href="#run%20one%20sensor%20check">Run one sensor check</a>
+        <a href="#run-one-sensor-check">Run one sensor check</a>
       </div>
+
       <div class="heading h3">
-        <a href="#really%20run%20(after%20optional%20prerun%20call)">Really run (after optional prerun call)</a>
+        <a href="#really-run-after-optional-prerun-call">Really run (after optional prerun call)</a>
       </div>
+
       <div class="heading h3">
-        <a href="#create%20text%20report">create text report</a>
+        <a href="#create-text-report">create text report</a>
       </div>
+
       <div class="heading h2">
-        <a href="#helper%20methods%20for%20sensor">Helper methods for sensor</a>
+        <a href="#helper-methods-for-sensor">Helper methods for sensor</a>
       </div>
+
       <div class="heading h3">
-        <a href="#check%20expression%20against%20string">Check expression against string</a>
+        <a href="#check-expression-against-string">Check expression against string</a>
       </div>
+
       <div class="heading h2">
-        <a href="#export%20class">Export class</a>
+        <a href="#export-class">Export class</a>
       </div>
+
       <div class="heading h3">
-        <a href="#format%20a%20value%20for%20better%20human%20readable%20display">Format a value for better human readable display</a>
+        <a href="#format-a-value-for-better-human-readable-display">Format a value for better human readable display</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20a%20check">
+          <div class="pilwrap" id="run-a-check">
   <h1>
-    <a href="#run%20a%20check" name="run%20a%20check" class="pilcrow">&#182;</a>
-    Run a check
+    <a href="#run-a-check" name="run-a-check" class="pilcrow"></a>
+Run a check
   </h1>
 </div>
-
-
 <p>This will call the sensor and work with it. A sensor is not usable standalone
 and needs a check which defines it's environment.</p>
-
 <p>The sensor should have the following API:</p>
-
 <ul>
 <li>schema - validator compatible definition</li>
 <li>meta - some meta informations</li>
 <li>init() - setup of the sensor for this check</li>
+<li>prerun() - run some initialization which have to be done before each run</li>
 <li>run() - run the sensor for the check</li>
 <li>calc() - check the results</li>
+<li>report() - generate a report after run</li>
 </ul>
-
-<p>The sensor will use the check instance for storing it's data and is called in
+<p>The sensor will use the storage instance for storing it's data and is called in
 the context of the check.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:check&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
-<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
-<span class="nv">vm = </span><span class="nx">require</span> <span class="s">&#39;vm&#39;</span>
-<span class="nv">math = </span><span class="nx">require</span> <span class="s">&#39;mathjs&#39;</span>
-<span class="nv">named = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;named-regexp&#39;</span><span class="p">).</span><span class="nx">named</span>
-<span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
+vm = <span class="hljs-built_in">require</span> <span class="hljs-string">'vm'</span>
+math = <span class="hljs-built_in">require</span> <span class="hljs-string">'mathjs'</span>
+named = <span class="hljs-built_in">require</span>(<span class="hljs-string">'named-regexp'</span>).named
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="p">{</span><span class="nx">object</span><span class="p">,</span> <span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-<span class="nv">validator = </span><span class="nx">require</span> <span class="s">&#39;alinex-validator&#39;</span>
-<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include classes and helpers</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">storage = </span><span class="nx">require</span> <span class="s">&#39;./storage&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">storage = <span class="hljs-built_in">require</span> <span class="hljs-string">'./storage'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="configuration">
+          <div class="pilwrap" id="configuration">
   <h2>
-    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
-    Configuration
+    <a href="#configuration" name="configuration" class="pilcrow"></a>
+Configuration
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">HISTORY_LENGTH = </span><span class="mi">5</span>
+        <td class="code highlight">
+          <pre class="coffeescript">HISTORY_LENGTH = <span class="hljs-number">5</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialized%20data">
+          <div class="pilwrap" id="initialized-data">
   <h2>
-    <a href="#initialized%20data" name="initialized%20data" class="pilcrow">&#182;</a>
-    Initialized Data
+    <a href="#initialized-data" name="initialized-data" class="pilcrow"></a>
+Initialized Data
   </h2>
 </div>
-
-
 <p>This will be set on init</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">monitor = </span><span class="kc">null</span>  <span class="c1"># require &#39;./index&#39;</span>
-<span class="nv">mode = </span><span class="p">{}</span>
+        <td class="code highlight">
+          <pre class="coffeescript">monitor = <span class="hljs-literal">null</span>  <span class="hljs-comment"># require './index'</span>
+mode = {}
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="controller%20class">
+          <div class="pilwrap" id="controller-class">
   <h2>
-    <a href="#controller%20class" name="controller%20class" class="pilcrow">&#182;</a>
-    Controller class
+    <a href="#controller-class" name="controller-class" class="pilcrow"></a>
+Controller class
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Check</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Check</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20initialization">
+          <div class="pilwrap" id="general-initialization">
   <h3>
-    <a href="#general%20initialization" name="general%20initialization" class="pilcrow">&#182;</a>
-    General initialization
+    <a href="#general-initialization" name="general-initialization" class="pilcrow"></a>
+General initialization
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@init: </span><span class="nf">(setup, cb) -&gt;</span>
-    <span class="nv">mode = </span><span class="nx">setup</span>
-    <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@init</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
+    mode = setup
+    cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20instance">
+          <div class="pilwrap" id="create-instance">
   <h3>
-    <a href="#create%20instance" name="create%20instance" class="pilcrow">&#182;</a>
-    Create instance
+    <a href="#create-instance" name="create-instance" class="pilcrow"></a>
+Create instance
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">constructor: </span><span class="nf">(setup, @controller) -&gt;</span>
-    <span class="vi">@type = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">sensor</span>
-    <span class="vi">@name = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">name</span>
-    <span class="vi">@depend = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">depend</span>
-    <span class="vi">@conf = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">config</span> <span class="o">?</span> <span class="p">{}</span>
-    <span class="vi">@weight = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">seight</span>
-    <span class="vi">@hint = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">hint</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(setup, <span class="hljs-property">@controller</span>)</span> -&gt;</span>
+    <span class="hljs-property">@type</span> = setup.sensor
+    <span class="hljs-property">@name</span> = setup.name
+    <span class="hljs-property">@depend</span> = setup.depend
+    <span class="hljs-property">@conf</span> = setup.config ? {}
+    <span class="hljs-property">@weight</span> = setup.weight
+    <span class="hljs-property">@hint</span> = setup.hint
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>will be set after initialization</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="vi">@num = </span><span class="mi">0</span> <span class="c1"># number of check in config</span>
-    <span class="vi">@sensor = </span><span class="kc">null</span>
-    <span class="vi">@databaseID = </span><span class="kc">null</span>
-    <span class="vi">@base = </span><span class="kc">null</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@num</span> = <span class="hljs-number">0</span> <span class="hljs-comment"># number of check in config</span>
+    <span class="hljs-property">@sensor</span> = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@databaseID</span> = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@base</span> = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@rule</span> = <span class="hljs-literal">null</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>will be filled on run</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="vi">@err = </span><span class="kc">null</span>
-    <span class="vi">@date = </span><span class="p">[]</span>
-    <span class="vi">@result = </span><span class="p">{}</span>
-    <span class="vi">@values = </span><span class="p">{}</span>
-    <span class="vi">@status = </span><span class="s">&#39;disabled&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@err</span> = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@date</span> = []
+    <span class="hljs-property">@result</span> = {}
+    <span class="hljs-property">@values</span> = {}
+    <span class="hljs-property">@status</span> = <span class="hljs-string">'disabled'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>last results</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="vi">@history = </span><span class="p">[]</span>
-    <span class="vi">@changed = </span><span class="mi">0</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@history</span> = []
+    <span class="hljs-property">@changed</span> = <span class="hljs-number">0</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20check%20and%20sensor">
+          <div class="pilwrap" id="initialize-check-and-sensor">
   <h3>
-    <a href="#initialize%20check%20and%20sensor" name="initialize%20check%20and%20sensor" class="pilcrow">&#182;</a>
-    Initialize check and sensor
+    <a href="#initialize-check-and-sensor" name="initialize-check-and-sensor" class="pilcrow"></a>
+Initialize check and sensor
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">init: </span><span class="nf">(cb) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@sensor</span><span class="o">?</span>
-    <span class="nx">monitor</span> <span class="o">?=</span> <span class="nx">require</span> <span class="s">&#39;./index&#39;</span>
-    <span class="nx">monitor</span><span class="p">.</span><span class="nx">getSensor</span> <span class="nx">@type</span><span class="p">,</span> <span class="nf">(err, @sensor) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">init</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>?
+    <span class="hljs-property">@rule</span> =
+      <span class="hljs-attribute">warn</span>: <span class="hljs-property">@conf</span>.warn
+      <span class="hljs-attribute">fail</span>: <span class="hljs-property">@conf</span>.fail
+    monitor ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
+    monitor.getSensor <span class="hljs-property">@type</span>, <span class="hljs-function"><span class="hljs-params">(err, <span class="hljs-property">@sensor</span>)</span> =&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>check config</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">validator</span><span class="p">.</span><span class="nx">check</span>
-        <span class="nv">name: </span><span class="k">if</span> <span class="nx">@controller</span> <span class="k">then</span> <span class="s">&quot;/controller/</span><span class="si">#{</span><span class="nx">@controller</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s">/check/</span><span class="si">#{</span><span class="nx">@num</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">else</span> <span class="s">&quot;/sensor:</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nv">value: </span><span class="nx">@conf</span>
-        <span class="nv">schema: </span><span class="nx">@sensor</span><span class="p">.</span><span class="nx">schema</span>
-      <span class="p">,</span> <span class="nf">(err) =&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">@sensor</span><span class="p">.</span><span class="nx">init</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> Initialized&quot;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">@controller</span><span class="o">?</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      validator.check
+        <span class="hljs-attribute">name</span>: <span class="hljs-keyword">if</span> <span class="hljs-property">@controller</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"/controller/<span class="hljs-subst">#{<span class="hljs-property">@controller</span>.name}</span>/check/<span class="hljs-subst">#{<span class="hljs-property">@num</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span>"</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-string">"/sensor:<span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span>"</span>
+        <span class="hljs-attribute">value</span>: <span class="hljs-property">@conf</span>
+        <span class="hljs-attribute">schema</span>: <span class="hljs-property">@sensor</span>.schema
+      , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+        <span class="hljs-property">@sensor</span>.init.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+          <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> Initialized"</span>
+          <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@controller</span>?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>only add database entry if run below controller</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">storage</span><span class="p">.</span><span class="nx">check</span> <span class="nx">@controller</span><span class="p">.</span><span class="nx">databaseID</span><span class="p">,</span> <span class="nx">@type</span><span class="p">,</span> <span class="nx">@name</span><span class="p">,</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">category</span>
-          <span class="p">,</span> <span class="nf">(err, checkID) =&gt;</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-            <span class="vi">@databaseID = </span><span class="nx">checkID</span>
-            <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          storage.check <span class="hljs-property">@controller</span>.databaseID, <span class="hljs-property">@type</span>, <span class="hljs-property">@name</span>, <span class="hljs-property">@sensor</span>.meta
+          , <span class="hljs-function"><span class="hljs-params">(err, checkID)</span> =&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            <span class="hljs-property">@databaseID</span> = checkID
+            cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20one%20sensor%20check">
+          <div class="pilwrap" id="run-one-sensor-check">
   <h3>
-    <a href="#run%20one%20sensor%20check" name="run%20one%20sensor%20check" class="pilcrow">&#182;</a>
-    Run one sensor check
+    <a href="#run-one-sensor-check" name="run-one-sensor-check" class="pilcrow"></a>
+Run one sensor check
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">run: </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>stop if already running</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">@status</span> <span class="o">is</span> <span class="s">&#39;running&#39;</span>
-      <span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
-      <span class="vi">@err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Skipped test because it is called again while running.&quot;</span>
-      <span class="nx">@setStatus</span><span class="p">()</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span> <span class="k">unless</span> <span class="nx">@databaseID</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@status</span> <span class="hljs-keyword">is</span> <span class="hljs-string">'running'</span>
+      <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> Date()
+      <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Skipped test because it is called again while running."</span>
+      <span class="hljs-property">@setStatus</span>()
+      <span class="hljs-keyword">return</span> cb <span class="hljs-property">@err</span>, <span class="hljs-property">@status</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@databaseID</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>store in database</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">storage</span><span class="p">.</span><span class="nx">results</span> <span class="nx">@databaseID</span><span class="p">,</span> <span class="nx">@type</span><span class="p">,</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
-      <span class="p">,</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">@values</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">cb</span> <span class="nx">@err</span><span class="p">,</span> <span class="nx">@status</span>
-    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> start check&quot;</span>
-    <span class="vi">@status = </span><span class="s">&#39;running&#39;</span>
-    <span class="k">return</span> <span class="nx">@runNow</span> <span class="nx">cb</span> <span class="k">unless</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">prerun</span><span class="o">?</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">return</span> storage.results <span class="hljs-property">@databaseID</span>, <span class="hljs-property">@type</span>, <span class="hljs-property">@sensor</span>.meta.values
+      , <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>], <span class="hljs-property">@values</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+        cb <span class="hljs-property">@err</span>, <span class="hljs-property">@status</span>
+    <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> start check"</span>
+    <span class="hljs-property">@status</span> = <span class="hljs-string">'running'</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@runNow</span> cb <span class="hljs-keyword">unless</span> <span class="hljs-property">@sensor</span>.prerun?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>call prerun first</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">prerun</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(@err) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">@err</span> <span class="k">if</span> <span class="nx">@err</span>
-      <span class="nx">@runNow</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@sensor</span>.prerun.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@err</span>)</span> =&gt;</span>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-property">@err</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
+      <span class="hljs-property">@runNow</span> cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="really%20run%20(after%20optional%20prerun%20call)">
+          <div class="pilwrap" id="really-run-after-optional-prerun-call">
   <h3>
-    <a href="#really%20run%20(after%20optional%20prerun%20call)" name="really%20run%20(after%20optional%20prerun%20call)" class="pilcrow">&#182;</a>
-    Really run (after optional prerun call)
+    <a href="#really-run-after-optional-prerun-call" name="really-run-after-optional-prerun-call" class="pilcrow"></a>
+Really run (after optional prerun call)
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">runNow: </span><span class="nf">(cb) -&gt;</span>
-    <span class="vi">@err = </span><span class="kc">null</span>
-    <span class="vi">@date = </span><span class="p">[</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()]</span>
-    <span class="vi">@values = </span><span class="p">{}</span>
-    <span class="vi">@changed = </span><span class="mi">0</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">runNow</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    <span class="hljs-property">@err</span> = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@date</span> = [<span class="hljs-keyword">new</span> Date()]
+    <span class="hljs-property">@values</span> = {}
+    <span class="hljs-property">@changed</span> = <span class="hljs-number">0</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
 <p>run the sensor</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
-      <span class="k">return</span> <span class="k">unless</span> <span class="nv">started = </span><span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-      <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
-      <span class="vi">@result.data = </span><span class="nx">res</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> ended check&quot;</span>
-      <span class="nx">@date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    started = <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
+    <span class="hljs-property">@sensor</span>.run.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> started <span class="hljs-keyword">is</span> <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
+      <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
+      <span class="hljs-property">@result</span>.data = res
+      <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> ended check"</span>
+      <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> Date()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>calculate results</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">calc</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-        <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
-        <span class="nx">@setStatus</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@status</span> <span class="k">unless</span> <span class="nx">@databaseID</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-property">@sensor</span>.calc.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+        <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
+        <span class="hljs-property">@setStatus</span>()
+        <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-property">@status</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@databaseID</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>store in database</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">storage</span><span class="p">.</span><span class="nx">results</span> <span class="nx">@databaseID</span><span class="p">,</span> <span class="nx">@type</span><span class="p">,</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
-        <span class="p">,</span> <span class="nx">@date</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">@values</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-          <span class="vi">@err = </span><span class="nx">err</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@err</span> <span class="o">and</span> <span class="nx">err</span>
-          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">@status</span>
+        <td class="code highlight">
+          <pre class="coffeescript">        storage.results <span class="hljs-property">@databaseID</span>, <span class="hljs-property">@type</span>, <span class="hljs-property">@sensor</span>.meta.values
+        , <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>], <span class="hljs-property">@values</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+          <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
+          cb <span class="hljs-literal">null</span>, <span class="hljs-property">@status</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>set status from rules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">setStatus: </span><span class="nf">-&gt;</span>
-    <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">@values</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> result </span><span class="si">#{</span><span class="nx">n</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">v</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">@calcStatus</span><span class="p">()</span>
-    <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">@name</span><span class="si">}</span><span class="s"> result status:</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">setStatus</span>: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">for</span> n, v <span class="hljs-keyword">of</span> <span class="hljs-property">@values</span>
+      <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> result <span class="hljs-subst">#{n}</span>: <span class="hljs-subst">#{util.inspect v}</span>"</span>
+    <span class="hljs-property">@calcStatus</span>()
+    <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> result status:
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
-<p>{@status}#{if @err then ' (' + @err.message + ')' else ''}"
+<p>{@status}#{if @err then ' (' + @err.message + ')' else ''}&quot;
 verbose output</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    if mode.verbose &gt; 1</span>
-<span class="s">      console.log chalk.grey &quot;</span><span class="c1">#{moment().format(&quot;YYYY-MM-DD HH:mm:ss&quot;)}</span>
-      <span class="nx">Check</span> <span class="c1">#{chalk.white @type+&#39;:&#39;+@name} =&gt; #{@controller.colorStatus @status}&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> mode.verbose &gt; <span class="hljs-number">1</span>
+      <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{moment().format(<span class="hljs-string">"YYYY-MM-DD HH:mm:ss"</span>)}</span>
+      Check <span class="hljs-subst">#{chalk.white <span class="hljs-property">@type</span>+<span class="hljs-string">':'</span>+<span class="hljs-property">@name</span>}</span> =&gt; <span class="hljs-subst">#{<span class="hljs-property">@controller</span>.colorStatus <span class="hljs-property">@status</span>}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>add to history</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@history</span><span class="p">.</span><span class="nx">unshift</span>
-      <span class="nv">status: </span><span class="nx">@status</span>
-      <span class="nv">date: </span><span class="nx">@date</span>
-      <span class="nv">values: </span><span class="nx">@values</span>
-      <span class="nv">err: </span><span class="nx">@err</span>
-    <span class="nx">@history</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span> <span class="k">while</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">HISTORY_LENGTH</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@history</span>.unshift
+      <span class="hljs-attribute">status</span>: <span class="hljs-property">@status</span>
+      <span class="hljs-attribute">date</span>: <span class="hljs-property">@date</span>
+      <span class="hljs-attribute">values</span>: <span class="hljs-property">@values</span>
+      <span class="hljs-attribute">err</span>: <span class="hljs-property">@err</span>
+    <span class="hljs-property">@history</span>.pop() <span class="hljs-keyword">while</span> <span class="hljs-property">@history</span>.length &gt; HISTORY_LENGTH
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>return status</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@status</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@status</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
 </div>
 <p>calculate status</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">calcStatus: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="vi">@status = </span><span class="s">&#39;fail&#39;</span> <span class="k">if</span> <span class="nx">@err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">calcStatus</span>: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = <span class="hljs-string">'fail'</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
 </div>
 <p>check for values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">unless</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">@values</span>
-      <span class="vi">@err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&#39;no data&#39;</span>
-      <span class="k">return</span> <span class="vi">@status = </span><span class="s">&#39;fail&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">unless</span> Object.keys <span class="hljs-property">@values</span>
+      <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error <span class="hljs-string">'no data'</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = <span class="hljs-string">'fail'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
 </div>
 <p>calculate from values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">for</span> <span class="nx">status</span> <span class="k">in</span> <span class="p">[</span><span class="s">&#39;fail&#39;</span><span class="p">,</span> <span class="s">&#39;warn&#39;</span><span class="p">]</span>
-      <span class="k">continue</span> <span class="k">unless</span> <span class="nx">@conf</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
-      <span class="nv">rule = </span><span class="nx">@conf</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> check </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s"> rule: </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> status <span class="hljs-keyword">in</span> [<span class="hljs-string">'fail'</span>, <span class="hljs-string">'warn'</span>]
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@rule</span>[status]
+      rule = <span class="hljs-property">@rule</span>[status]
+      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> check <span class="hljs-subst">#{status}</span> rule: <span class="hljs-subst">#{<span class="hljs-property">@conf</span>[status]}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
 </div>
 <p>replace data values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">@values</span>
-        <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">value</span>
-          <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">val</span> <span class="k">in</span> <span class="nx">value</span>
-            <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\[</span><span class="si">#{</span><span class="nx">i</span><span class="si">}</span><span class="s">\\]\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-            <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nf">(str, name) -&gt;</span>
-              <span class="s">&quot;&#39;</span><span class="si">#{</span><span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&#39;&quot;</span>
-          <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-          <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nf">(str, name) -&gt;</span>
-            <span class="s">&quot;&#39;</span><span class="si">#{</span><span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&#39;&quot;</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span>
-          <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">value</span>
-            <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\.</span><span class="si">#{</span><span class="nx">i</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-            <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nf">(str, name) -&gt;</span>
-              <span class="s">&quot;&#39;</span><span class="si">#{</span><span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&#39;&quot;</span>
-          <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-          <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nf">(str, name) -&gt;</span>
-            <span class="s">&quot;&#39;</span><span class="si">#{</span><span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&#39;&quot;</span>
-        <span class="k">else</span>
-          <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-          <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nf">(str, name) -&gt;</span>
-            <span class="nx">value</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">for</span> name, value <span class="hljs-keyword">of</span> <span class="hljs-property">@values</span>
+        <span class="hljs-keyword">if</span> Array.isArray value
+          <span class="hljs-keyword">for</span> i, val <span class="hljs-keyword">in</span> value
+            re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\[<span class="hljs-subst">#{i}</span>\\]\\b"</span>, <span class="hljs-string">'g'</span>
+            rule = rule.replace re, <span class="hljs-string">"'<span class="hljs-subst">#{value[i]?.toString()}</span>'"</span>
+          re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\b"</span>, <span class="hljs-string">'g'</span>
+          rule = rule.replace re, <span class="hljs-string">"'<span class="hljs-subst">#{value.toString()}</span>'"</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> value <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
+          <span class="hljs-keyword">for</span> i, val <span class="hljs-keyword">of</span> value
+            re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\.<span class="hljs-subst">#{i}</span>\\b"</span>, <span class="hljs-string">'g'</span>
+            rule = rule.replace re, <span class="hljs-string">"'<span class="hljs-subst">#{value[i]?.toString()}</span>'"</span>
+          re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\b"</span>, <span class="hljs-string">'g'</span>
+          rule = rule.replace re, <span class="hljs-string">"'<span class="hljs-subst">#{value.toString()}</span>'"</span>
+        <span class="hljs-keyword">else</span>
+          re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\b"</span>, <span class="hljs-string">'g'</span>
+          rule = rule.replace re, value
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
 </div>
 <p>replace not existing data values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">meta</span><span class="o">?</span><span class="p">.</span><span class="nx">values</span><span class="o">?</span>
-        <span class="k">for</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
-          <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">(\\.\\w+|\\[\\d+\\])?\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-          <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="s">&#39;null&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.meta?.values?
+        <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> <span class="hljs-property">@sensor</span>.meta.values
+          re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>(\\.\\w+|\\[\\d+\\])?\\b"</span>, <span class="hljs-string">'g'</span>
+          rule = rule.replace re, <span class="hljs-string">'null'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
 </div>
 <p>replace percent values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\b(\d+(\.\d+)?)%/g</span><span class="p">,</span> <span class="nf">(str, value) -&gt;</span>
-        <span class="nx">value</span> <span class="o">/</span> <span class="mi">100</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      rule = rule.replace <span class="hljs-regexp">/\b(\d+(\.\d+)?)%/g</span>, <span class="hljs-function"><span class="hljs-params">(str, value)</span> -&gt;</span>
+        value / <span class="hljs-number">100</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
 </div>
 <p>replace binary values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\b(\d+(\.\d+)?)([kMGTPEYZ]?B)/g</span><span class="p">,</span> <span class="nf">(str) -&gt;</span>
-        <span class="nx">math</span><span class="p">.</span><span class="nx">unit</span><span class="p">(</span><span class="nx">str</span><span class="p">).</span><span class="nx">toNumber</span><span class="p">(</span><span class="s">&#39;B&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      rule = rule.replace <span class="hljs-regexp">/\b(\d+(\.\d+)?)([kMGTPEYZ]?B)/g</span>, <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
+        math.unit(str).toNumber(<span class="hljs-string">'B'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
 </div>
 <p>replace interval values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\b(\d+(\.\d+)?)(ms|s|m|h|d)/g</span><span class="p">,</span> <span class="nf">(str) -&gt;</span>
-        <span class="nx">number</span><span class="p">.</span><span class="nx">parseMSeconds</span> <span class="nx">str</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      rule = rule.replace <span class="hljs-regexp">/\b(\d+(\.\d+)?)(ms|s|m|h|d)/g</span>, <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
+        Number.parseMSeconds str
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
 </div>
 <p>replace operators</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">for</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="p">{</span><span class="o">and:</span> <span class="s">&#39;&amp;&amp;&#39;</span><span class="p">,</span> <span class="o">or:</span> <span class="s">&#39;||&#39;</span><span class="p">,</span> <span class="o">is:</span> <span class="s">&#39;==&#39;</span><span class="p">,</span> <span class="o">isnt:</span> <span class="s">&#39;!=&#39;</span><span class="p">,</span> <span class="o">not:</span> <span class="s">&#39;!&#39;</span><span class="p">}</span>
-        <span class="nv">re = </span><span class="k">new</span> <span class="nb">RegExp</span> <span class="s">&quot;\\b</span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">\\b&quot;</span><span class="p">,</span> <span class="s">&#39;g&#39;</span>
-        <span class="nv">rule = </span><span class="nx">rule</span><span class="p">.</span><span class="nx">replace</span> <span class="nx">re</span><span class="p">,</span> <span class="nx">value</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> optimized: </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">for</span> name, value <span class="hljs-keyword">of</span> {<span class="hljs-attribute">and</span>: <span class="hljs-string">'&amp;&amp;'</span>, <span class="hljs-attribute">or</span>: <span class="hljs-string">'||'</span>, <span class="hljs-attribute">is</span>: <span class="hljs-string">'=='</span>, <span class="hljs-attribute">isnt</span>: <span class="hljs-string">'!='</span>, <span class="hljs-attribute">not</span>: <span class="hljs-string">'!'</span>}
+        re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\b"</span>, <span class="hljs-string">'g'</span>
+        rule = rule.replace re, value
+      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> optimized: <span class="hljs-subst">#{rule}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
 </div>
 <p>run the code in sandbox</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">sandbox = </span><span class="p">{}</span>
-      <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span> <span class="s">&quot;result = </span><span class="si">#{</span><span class="nx">rule</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">sandbox</span><span class="p">,</span> <span class="p">{</span><span class="nv">filename: </span><span class="s">&quot;sensor-</span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">.vm&quot;</span><span class="p">}</span>
-      <span class="nx">@sensor</span><span class="p">.</span><span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> rule result: </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s"> = </span><span class="si">#{</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">result</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">if</span> <span class="nx">sandbox</span><span class="p">.</span><span class="nx">result</span>
-        <span class="vi">@err = </span><span class="k">new</span> <span class="nb">Error</span> <span class="nx">@conf</span><span class="p">[</span><span class="nx">status</span><span class="p">]</span>
-        <span class="k">return</span> <span class="vi">@status = </span><span class="nx">status</span>
-    <span class="vi">@status = </span><span class="s">&#39;ok&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      sandbox = {}
+      vm.runInNewContext <span class="hljs-string">"result = <span class="hljs-subst">#{rule}</span>"</span>, sandbox, {<span class="hljs-attribute">filename</span>: <span class="hljs-string">"sensor-<span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>.vm"</span>}
+      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> rule result: <span class="hljs-subst">#{status}</span> = <span class="hljs-subst">#{sandbox.result}</span>"</span>
+      <span class="hljs-keyword">if</span> sandbox.result
+        <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error <span class="hljs-property">@conf</span>[status]
+        <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = status
+    <span class="hljs-property">@status</span> = <span class="hljs-string">'ok'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20text%20report">
+          <div class="pilwrap" id="create-text-report">
   <h3>
-    <a href="#create%20text%20report" name="create%20text%20report" class="pilcrow">&#182;</a>
-    create text report
+    <a href="#create-text-report" name="create-text-report" class="pilcrow"></a>
+create text report
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">report: </span><span class="nf">-&gt;</span>
-    <span class="nv">last = </span><span class="nx">@history</span><span class="p">[</span><span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">h2</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">description</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">report</span>: <span class="hljs-function">-&gt;</span>
+    last = <span class="hljs-property">@history</span>[<span class="hljs-property">@history</span>.length - <span class="hljs-number">1</span>]
+    report = <span class="hljs-keyword">new</span> Report()
+    report.h2 <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@sensor</span>.meta.title}</span> <span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>"</span>
+    report.p <span class="hljs-property">@sensor</span>.meta.description
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
 </div>
 <p>status box</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">boxtype =</span>
-      <span class="nv">warn: </span><span class="s">&#39;warning&#39;</span>
-      <span class="nv">fail: </span><span class="s">&#39;alert&#39;</span>
-    <span class="k">if</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span>
-      <span class="nv">list = </span><span class="nx">Report</span><span class="p">.</span><span class="nx">ul</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span>
-        <span class="s">&quot;__STATUS: </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="s">__ at </span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"></span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    boxtype =
+      <span class="hljs-attribute">warn</span>: <span class="hljs-string">'warning'</span>
+      <span class="hljs-attribute">fail</span>: <span class="hljs-string">'alert'</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@history</span>.length
+      list = Report.ul <span class="hljs-property">@history</span>.map (e) -&gt;
+        <span class="hljs-string">"__STATUS <span class="hljs-subst">#{e.status}</span>__ at <span class="hljs-subst">#{e.date[<span class="hljs-number">0</span>]}</span>
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
 </div>
-<p>{if e.err then '\\n' + e.err else ''}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      report.box list, boxtype[@status] ? &#39;info&#39;</span>
+<p>{if e.err then '\\nBecause ' + e.err.message else ''}&quot;</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      report.box list, boxtype[<span class="hljs-property">@status</span>] ? <span class="hljs-string">'info'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
 </div>
 <p>table with max. last 3 values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    if @date.length</span>
-<span class="s">      report.p &quot;</span><span class="nx">Last</span> <span class="nx">check</span> <span class="nx">results</span> <span class="nx">from</span> <span class="c1">#{last.date[0]} are:&quot;</span>
-      <span class="nv">data = </span><span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span> <span class="k">of</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">values</span>
-        <span class="k">continue</span> <span class="k">unless</span> <span class="nv">value = </span><span class="nx">last</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@date</span>.length
+      report.p <span class="hljs-string">"Last check results from <span class="hljs-subst">#{last.date[<span class="hljs-number">0</span>]}</span> are:"</span>
+      data = []
+      <span class="hljs-keyword">for</span> key, conf <span class="hljs-keyword">of</span> <span class="hljs-property">@sensor</span>.meta.values
+        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> value = last.values[key]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
 </div>
 <p>support mappings from database sensor</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="o">?</span>
-          <span class="nv">nconf = </span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">key</span>
-          <span class="nv">conf = </span><span class="nx">nconf</span> <span class="k">if</span> <span class="nx">nconf</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.mapping?
+          nconf = <span class="hljs-property">@sensor</span>.mapping.call <span class="hljs-keyword">this</span>, key
+          conf = nconf <span class="hljs-keyword">if</span> nconf
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
 </div>
 <p>add rows</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">if</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;object&#39;</span> <span class="o">and</span> <span class="o">not</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">value</span>
-          <span class="k">for</span> <span class="nx">k</span> <span class="k">of</span> <span class="nx">value</span>
-            <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="si">}</span><span class="s">.</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span><span class="p">]</span>
-            <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">][</span><span class="nx">k</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
-            <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
-        <span class="k">else</span>
-          <span class="nv">row = </span><span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">title</span> <span class="o">?</span> <span class="nx">key</span><span class="p">]</span>
-          <span class="nx">row</span><span class="p">.</span><span class="nx">push</span> <span class="nx">formatValue</span> <span class="nx">e</span><span class="p">.</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">conf</span> <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[..</span><span class="mi">2</span><span class="p">]</span>
-          <span class="nx">data</span><span class="p">.</span><span class="nx">push</span> <span class="nx">row</span>
-      <span class="nv">col =</span>
-        <span class="mi">0</span><span class="o">:</span>
-          <span class="nv">title: </span><span class="s">&#39;NAME&#39;</span>
-        <span class="mi">1</span><span class="o">:</span>
-          <span class="nv">title: </span><span class="s">&#39;LABEL&#39;</span>
-        <span class="mi">2</span><span class="o">:</span>
-          <span class="nv">title: </span><span class="s">&#39;VALUE&#39;</span>
-          <span class="nv">align: </span><span class="s">&#39;right&#39;</span>
-      <span class="k">if</span> <span class="nx">@history</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
-        <span class="nv">num = </span><span class="mi">2</span>
-        <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">@history</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">2</span><span class="p">]</span>
-          <span class="nx">col</span><span class="p">[</span><span class="o">++</span><span class="nx">num</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nv">title: </span><span class="s">&#39;PREVIOUS&#39;</span><span class="p">,</span> <span class="nv">align: </span><span class="s">&#39;right&#39;</span><span class="p">}</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">col</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> value <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> Array.isArray value
+          <span class="hljs-keyword">for</span> k <span class="hljs-keyword">of</span> value
+            row = [key, <span class="hljs-string">"<span class="hljs-subst">#{conf.title ? key}</span>.<span class="hljs-subst">#{k}</span>"</span>]
+            row.push formatValue e.values[key][k], conf <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> <span class="hljs-property">@history</span>[.<span class="hljs-number">.2</span>]
+            data.push row
+        <span class="hljs-keyword">else</span>
+          row = [conf.name ? key, conf.title ? key]
+          <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> <span class="hljs-property">@history</span>[.<span class="hljs-number">.2</span>]
+            row.push formatValue e.values[key], conf
+          data.push row
+      col =
+        <span class="hljs-number">0</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">'NAME'</span>
+        <span class="hljs-number">1</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">'LABEL'</span>
+        <span class="hljs-number">2</span>:
+          <span class="hljs-attribute">title</span>: <span class="hljs-string">'VALUE'</span>
+          <span class="hljs-attribute">align</span>: <span class="hljs-string">'right'</span>
+      <span class="hljs-keyword">if</span> <span class="hljs-property">@history</span>.length &gt; <span class="hljs-number">1</span>
+        num = <span class="hljs-number">2</span>
+        <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> <span class="hljs-property">@history</span>[<span class="hljs-number">1.</span><span class="hljs-number">.2</span>]
+          col[++num] = {<span class="hljs-attribute">title</span>: <span class="hljs-string">'PREVIOUS'</span>, <span class="hljs-attribute">align</span>: <span class="hljs-string">'right'</span>}
+      report.table data, col
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
 </div>
 <p>special report details</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">report</span><span class="o">?</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">add</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">report</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.report?
+      report.add <span class="hljs-property">@sensor</span>.report.call <span class="hljs-keyword">this</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
 </div>
 <p>additional hints</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">hint</span>
-    <span class="k">if</span> <span class="nx">@hint</span>
-      <span class="nx">report</span><span class="p">.</span><span class="nx">quote</span> <span class="nx">@hint</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.meta.hint
+      report.quote <span class="hljs-property">@sensor</span>.meta.hint
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@hint</span>
+      report.quote <span class="hljs-property">@hint</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
 </div>
 <p>configuration</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">h3</span> <span class="s">&#39;Configuration&#39;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="s">&quot;The </span><span class="si">#{</span><span class="nx">@type</span><span class="si">}</span><span class="s"> sensor is configured with:&quot;</span>
-    <span class="nv">c = </span><span class="p">{}</span>
-    <span class="k">for</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">@sensor</span><span class="p">.</span><span class="nx">schema</span><span class="p">.</span><span class="nx">keys</span>
-      <span class="nx">c</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@conf</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">?</span> <span class="s">&#39;---&#39;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">table</span> <span class="nx">c</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;CONFIGURATION SETTING&#39;</span><span class="p">,</span> <span class="s">&#39;VALUE&#39;</span><span class="p">]</span>
-    <span class="k">return</span> <span class="nx">report</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    report.h3 <span class="hljs-string">'Configuration'</span>
+    report.p <span class="hljs-string">"The <span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span> sensor is configured with:"</span>
+    c = {}
+    <span class="hljs-keyword">for</span> key, meta <span class="hljs-keyword">of</span> <span class="hljs-property">@sensor</span>.schema.keys
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> key <span class="hljs-keyword">is</span> <span class="hljs-string">'mapping'</span>
+      c[key] = <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>[key]
+        formatValue <span class="hljs-property">@conf</span>[key], meta
+      <span class="hljs-keyword">else</span> <span class="hljs-string">'---'</span>
+    report.table c, [<span class="hljs-string">'CONFIGURATION SETTING'</span>, <span class="hljs-string">'VALUE'</span>]
+    <span class="hljs-keyword">return</span> report
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="helper%20methods%20for%20sensor">
+          <div class="pilwrap" id="helper-methods-for-sensor">
   <h2>
-    <a href="#helper%20methods%20for%20sensor" name="helper%20methods%20for%20sensor" class="pilcrow">&#182;</a>
-    Helper methods for sensor
+    <a href="#helper-methods-for-sensor" name="helper-methods-for-sensor" class="pilcrow"></a>
+Helper methods for sensor
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="check%20expression%20against%20string">
+          <div class="pilwrap" id="check-expression-against-string">
   <h3>
-    <a href="#check%20expression%20against%20string" name="check%20expression%20against%20string" class="pilcrow">&#182;</a>
-    Check expression against string
+    <a href="#check-expression-against-string" name="check-expression-against-string" class="pilcrow"></a>
+Check expression against string
   </h3>
 </div>
-
-
 <p>It will will try to match the given expression once and return the matched
 groups or false if not matched. The groups are an array with the full match as
 first element or in case of named regexp an object with key 'match' containing
 the full match.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">match: </span><span class="nf">(text, re) -&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">re</span><span class="o">?</span>
-    <span class="k">unless</span> <span class="nx">re</span> <span class="k">instanceof</span> <span class="nb">RegExp</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nb">Boolean</span> <span class="o">~</span><span class="nx">text</span><span class="p">.</span><span class="nx">indexOf</span> <span class="nx">re</span> <span class="k">then</span> <span class="p">[</span><span class="nx">re</span><span class="p">]</span> <span class="k">else</span> <span class="kc">false</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">match</span>: <span class="hljs-function"><span class="hljs-params">(text, re)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> re?
+    <span class="hljs-keyword">unless</span> re <span class="hljs-keyword">instanceof</span> RegExp
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> Boolean ~text.indexOf re <span class="hljs-keyword">then</span> [re] <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
 </div>
 <p>it's an regular expression</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">useNamed = </span><span class="o">~</span><span class="nx">re</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">indexOf</span> <span class="s">&#39;(:&lt;&#39;</span>
-    <span class="nv">re = </span><span class="nx">named</span> <span class="nx">re</span> <span class="k">if</span> <span class="nx">useNamed</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nv">match = </span><span class="nx">re</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">text</span>
-    <span class="k">if</span> <span class="nx">useNamed</span>
-      <span class="nv">matches = </span><span class="p">{}</span>
-      <span class="nx">matches</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">match</span><span class="p">.</span><span class="nx">capture</span> <span class="nx">name</span> <span class="k">for</span> <span class="nx">name</span> <span class="k">of</span> <span class="nx">match</span><span class="p">.</span><span class="nx">captures</span>
-    <span class="k">else</span>
-      <span class="nv">matches = </span><span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">match</span><span class="p">.</span><span class="nx">length</span><span class="p">]</span>
-    <span class="k">return</span> <span class="nx">matches</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    useNamed = ~re.toString().indexOf <span class="hljs-string">'(:&lt;'</span>
+    re = named re <span class="hljs-keyword">if</span> useNamed
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> match = re.exec text
+    <span class="hljs-keyword">if</span> useNamed
+      matches = {}
+      matches[name] = match.capture name <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> match.captures
+    <span class="hljs-keyword">else</span>
+      matches = match[<span class="hljs-number">0.</span>.match.length]
+    <span class="hljs-keyword">return</span> matches
 
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="export%20class">
+          <div class="pilwrap" id="export-class">
   <h2>
-    <a href="#export%20class" name="export%20class" class="pilcrow">&#182;</a>
-    Export class
+    <a href="#export-class" name="export-class" class="pilcrow"></a>
+Export class
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript">
+<span class="hljs-built_in">module</span>.exports =  Check
 
-<span class="nv">module.exports = </span> <span class="nx">Check</span>
-
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="format%20a%20value%20for%20better%20human%20readable%20display">
+          <div class="pilwrap" id="format-a-value-for-better-human-readable-display">
   <h3>
-    <a href="#format%20a%20value%20for%20better%20human%20readable%20display" name="format%20a%20value%20for%20better%20human%20readable%20display" class="pilcrow">&#182;</a>
-    Format a value for better human readable display
+    <a href="#format-a-value-for-better-human-readable-display" name="format-a-value-for-better-human-readable-display" class="pilcrow"></a>
+Format a value for better human readable display
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">formatValue = </span><span class="nf">(value, config) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">Check.formatValue = formatValue = <span class="hljs-function"><span class="hljs-params">(value, config)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
 </div>
 <p>format with autodetect</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">unless</span> <span class="nx">config</span>
-    <span class="k">return</span> <span class="k">switch</span>
-      <span class="k">when</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s">&#39;number&#39;</span>
-        <span class="nv">parts = </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">value</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">).</span><span class="nx">toString</span><span class="p">().</span><span class="nx">split</span> <span class="s">&#39;.&#39;</span>
-        <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span> <span class="sr">/\B(?=(\d{3})+(?!\d))/g</span><span class="p">,</span> <span class="s">&quot;,&quot;</span>
-        <span class="nx">parts</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;.&#39;</span>
-      <span class="k">else</span>
-        <span class="nx">value</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">unless</span> config
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-keyword">typeof</span> value <span class="hljs-keyword">is</span> <span class="hljs-string">'number'</span>
+        parts = (Math.round(value * <span class="hljs-number">100</span>) / <span class="hljs-number">100</span>).toString().split <span class="hljs-string">'.'</span>
+        parts[<span class="hljs-number">0</span>] = parts[<span class="hljs-number">0</span>].replace <span class="hljs-regexp">/\B(?=(\d{3})+(?!\d))/g</span>, <span class="hljs-string">","</span>
+        parts.join <span class="hljs-string">'.'</span>
+      <span class="hljs-keyword">else</span>
+        value
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-54" id="section-54"></a>
 </div>
 <p>format using config setting</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">switch</span> <span class="nx">config</span><span class="p">.</span><span class="nx">type</span>
-    <span class="k">when</span> <span class="s">&#39;percent&#39;</span>
-      <span class="nx">math</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">value</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; %&#39;</span>
-    <span class="k">when</span> <span class="s">&#39;byte&#39;</span>
-      <span class="nv">byte = </span><span class="nx">math</span><span class="p">.</span><span class="nx">unit</span> <span class="nx">value</span><span class="p">,</span> <span class="s">&#39;B&#39;</span>
-      <span class="nx">byte</span><span class="p">.</span><span class="nx">format</span> <span class="mi">3</span>
-    <span class="k">when</span> <span class="s">&#39;interval&#39;</span>
-      <span class="nv">long =</span>
-        <span class="nv">d: </span><span class="s">&#39;day&#39;</span>
-        <span class="nv">m: </span><span class="s">&#39;minute&#39;</span>
-      <span class="nv">unit = </span><span class="nx">long</span><span class="p">[</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="p">]</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>
-      <span class="nv">interval = </span><span class="nx">math</span><span class="p">.</span><span class="nx">unit</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">unit</span>
-      <span class="nv">interval = </span><span class="nx">interval</span><span class="p">.</span><span class="nx">to</span> <span class="s">&#39;m&#39;</span> <span class="k">if</span> <span class="nx">interval</span><span class="p">.</span><span class="nx">toNumber</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">120</span>
-      <span class="nx">interval</span><span class="p">.</span><span class="nx">format</span> <span class="mi">2</span>
-    <span class="k">when</span> <span class="s">&#39;float&#39;</span><span class="p">,</span> <span class="s">&#39;integer&#39;</span>
-      <span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="o">?</span>
-        <span class="nx">math</span><span class="p">.</span><span class="nx">unit</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="p">).</span><span class="nx">format</span> <span class="mi">3</span>
-      <span class="k">else</span>
-        <span class="nx">math</span><span class="p">.</span><span class="nx">format</span> <span class="nx">value</span><span class="p">,</span> <span class="mi">3</span>
-    <span class="k">when</span> <span class="s">&#39;array&#39;</span>
-      <span class="nv">val = </span><span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">9</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-      <span class="nx">val</span> <span class="o">+=</span> <span class="s">&#39;...&#39;</span> <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">10</span>
-      <span class="nx">val</span>
-    <span class="k">when</span> <span class="s">&#39;object&#39;</span>
-      <span class="k">switch</span> <span class="k">typeof</span> <span class="nx">value</span>
-        <span class="k">when</span> <span class="s">&#39;string&#39;</span><span class="p">,</span> <span class="s">&#39;number&#39;</span>
-          <span class="nx">value</span>
-        <span class="k">else</span>
-          <span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">value</span>
-            <span class="nv">val = </span><span class="nx">value</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">9</span><span class="p">].</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span>
-            <span class="nx">val</span> <span class="o">+=</span> <span class="s">&#39;...&#39;</span> <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">10</span>
-            <span class="nx">val</span>
-          <span class="k">else</span>
-            <span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span>
-    <span class="k">else</span>
-      <span class="nv">val = </span><span class="nx">value</span>
-      <span class="nx">val</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">config</span><span class="p">.</span><span class="nx">unit</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">value</span> <span class="o">and</span> <span class="nx">config</span><span class="p">.</span><span class="nx">unit</span>
-      <span class="nx">val</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">switch</span> config.type
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'percent'</span>
+      math.format(value*<span class="hljs-number">100</span>, <span class="hljs-number">2</span>) + <span class="hljs-string">' %'</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'byte'</span>
+      byte = math.unit value, <span class="hljs-string">'B'</span>
+      byte.format <span class="hljs-number">3</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'interval'</span>
+      long =
+        <span class="hljs-attribute">d</span>: <span class="hljs-string">'day'</span>
+        <span class="hljs-attribute">m</span>: <span class="hljs-string">'minute'</span>
+      unit = long[config.unit] ? config.unit
+      interval = math.unit value, unit
+      interval = interval.to <span class="hljs-string">'min'</span> <span class="hljs-keyword">if</span> interval.toNumber(<span class="hljs-string">'s'</span>) &gt; <span class="hljs-number">120</span>
+      interval = interval.to <span class="hljs-string">'h'</span> <span class="hljs-keyword">if</span> interval.toNumber(<span class="hljs-string">'min'</span>) &gt; <span class="hljs-number">120</span>
+      interval = interval.to <span class="hljs-string">'day'</span> <span class="hljs-keyword">if</span> interval.toNumber(<span class="hljs-string">'h'</span>) &gt; <span class="hljs-number">48</span>
+      interval.format <span class="hljs-number">2</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'float'</span>, <span class="hljs-string">'integer'</span>
+      value = Number value <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> value <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+      <span class="hljs-keyword">if</span> config.unit?
+        math.unit(value, config.unit).format <span class="hljs-number">3</span>
+      <span class="hljs-keyword">else</span>
+        math.format Number(value), <span class="hljs-number">3</span>
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'array'</span>
+      val = value[<span class="hljs-number">0.</span><span class="hljs-number">.9</span>].join <span class="hljs-string">', '</span>
+      val += <span class="hljs-string">'...'</span> <span class="hljs-keyword">if</span> value.length &gt; <span class="hljs-number">10</span>
+      val
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'object'</span>
+      <span class="hljs-keyword">switch</span> <span class="hljs-keyword">typeof</span> value
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'string'</span>, <span class="hljs-string">'number'</span>
+          value
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-keyword">if</span> Array.isArray value
+            val = value[<span class="hljs-number">0.</span><span class="hljs-number">.9</span>].join <span class="hljs-string">', '</span>
+            val += <span class="hljs-string">'...'</span> <span class="hljs-keyword">if</span> value.length &gt; <span class="hljs-number">10</span>
+            val
+          <span class="hljs-keyword">else</span>
+            util.inspect(value).replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">' '</span>
+    <span class="hljs-keyword">else</span>
+      val = value
+      val += <span class="hljs-string">" <span class="hljs-subst">#{config.unit}</span>"</span> <span class="hljs-keyword">if</span> value <span class="hljs-keyword">and</span> config.unit
+      val
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

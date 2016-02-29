@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/actor/emailcoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-monitor/src/actor/email.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,528 +39,558 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#send%20an%20email">Send an email</a>
+        <a href="#send-an-email">Send an email</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20setup">General setup</a>
+        <a href="#schema-definition">Schema Definition</a>
       </div>
+
+      <div class="heading h2">
+        <a href="#general-information">General information</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#result-values">Result values</a>
+      </div>
+
       <div class="heading h2">
         <a href="#initialization">Initialization</a>
       </div>
+
       <div class="heading h2">
-        <a href="#run%20the%20actor">Run the actor</a>
+        <a href="#run-the-actor">Run the actor</a>
       </div>
-      <div class="heading h2">
-        <a href="#schema%20definition">Schema Definition</a>
-      </div>
-      <div class="heading h2">
-        <a href="#general%20information">General information</a>
-      </div>
-      <div class="heading h3">
-        <a href="#result%20values">Result values</a>
-      </div>
-      <div class="heading h2">
-        <a href="#initialize%20check">Initialize check</a>
-      </div>
-      <div class="heading h2">
-        <a href="#run%20the%20sensor">Run the Sensor</a>
-      </div>
-      <div class="heading h2">
-        <a href="#get%20the%20results">Get the results</a>
-      </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="send%20an%20email">
+          <div class="pilwrap" id="send-an-email">
   <h1>
-    <a href="#send%20an%20email" name="send%20an%20email" class="pilcrow">&#182;</a>
-    Send an email
+    <a href="#send-an-email" name="send-an-email" class="pilcrow"></a>
+Send an email
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Find the description of the possible configuration values and the returned
+values in the code below.</p>
+<p>This methods will be called in the context of the corresponding action()
+instance.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:actor:email&#39;</span><span class="p">)</span>
-<span class="nv">nodemailer = </span><span class="nx">require</span> <span class="s">&#39;nodemailer&#39;</span>
-<span class="nv">smtpTransport = </span><span class="nx">require</span> <span class="s">&#39;nodemailer-smtp-transport&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.debug = debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:actor:email'</span>)
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+nodemailer = <span class="hljs-built_in">require</span> <span class="hljs-string">'nodemailer'</span>
+inlineBase64 = <span class="hljs-built_in">require</span> <span class="hljs-string">'nodemailer-plugin-inline-base64'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="p">{</span><span class="nx">string</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">{object, array} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
+config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20setup">
+          <div class="pilwrap" id="schema-definition">
   <h2>
-    <a href="#general%20setup" name="general%20setup" class="pilcrow">&#182;</a>
-    General setup
+    <a href="#schema-definition" name="schema-definition" class="pilcrow"></a>
+Schema Definition
   </h2>
 </div>
-
-
-<p>will setup on init</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">transporter = </span><span class="kc">null</span>
-
-
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="initialization">
-  <h2>
-    <a href="#initialization" name="initialization" class="pilcrow">&#182;</a>
-    Initialization
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
-</div>
-<p>create new mail transport</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">transporter = </span><span class="k">if</span> <span class="nv">setup = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/monitor/email/transport&#39;</span>
-    <span class="nx">nodemailer</span><span class="p">.</span><span class="nx">createTransport</span> <span class="nx">smtpTransport</span> <span class="nx">setup</span>
-  <span class="k">else</span>
-    <span class="nx">nodemailer</span><span class="p">.</span><span class="nx">createTransport</span><span class="p">()</span>
-  <span class="nx">cb</span><span class="p">()</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20the%20actor">
-  <h2>
-    <a href="#run%20the%20actor" name="run%20the%20actor" class="pilcrow">&#182;</a>
-    Run the actor
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">-&gt;</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
-</div>
-<p>to
-cc
-bcc
-from
-replyTo
-subject
-priority
-report
-text
-html</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="schema%20definition">
-  <h2>
-    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
-    Schema Definition
-  </h2>
-</div>
-
-
 <p>This is used as configuration specification and to add the default values for
 specific setting.</p>
-
 <p>It's an <a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
 compatible schema definition:</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;CPU check configuration&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the configuration to check the CPU utilization&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">default:</span>
-    <span class="nv">warn: </span><span class="s">&#39;active &gt;= 100%&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">remote:</span>
-      <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/exec/remote/server&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
-    <span class="nv">time:</span>
-      <span class="nv">title: </span><span class="s">&quot;Measurement Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time for the measurement&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;s&#39;</span>
-      <span class="nv">default: </span><span class="mi">10</span>
-      <span class="nv">min: </span><span class="mi">1</span>
-    <span class="nv">warn:</span>
-      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
-      <span class="nv">default: </span><span class="s">&#39;active &gt;= 100%&#39;</span>
-    <span class="nv">fail:</span>
-      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">optional: </span><span class="kc">true</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.schema =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Email Configuration"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to send an email"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">default</span>:
+    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'active &gt;= 100%'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">base</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Base Settings"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"a reference to the base under /monitor/email"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">transport</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Server Setup"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the transport settings for the server"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      ]
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">from</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Sender's Address"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the address of the sender"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">to</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Receipient"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the address to send email to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">entries</span>:
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">cc</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Carbon Copy"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the carbon copy address to send email to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">entries</span>:
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">bcc</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Blind Carbon Copy"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the blind carbon copy address to send email to"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">entries</span>:
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">locale</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Locale Setting"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the locale setting for subject and body dates"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">minLength</span>: <span class="hljs-number">2</span>
+      <span class="hljs-attribute">maxLength</span>: <span class="hljs-number">5</span>
+      <span class="hljs-attribute">lowerCase</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">match</span>: <span class="hljs-regexp">/^[a-z]{2}(-[a-z]{2})?$/</span>
+    <span class="hljs-attribute">subject</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Subject"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the title of the message, defaults to body title text"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+      ]
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">text</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Text Content"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the plain text content to be send"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+      ]
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">html</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"HTML Content"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the html content to be send"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
+      <span class="hljs-attribute">or</span>: [
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      ,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+      ]
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">report</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Report"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the report to send as content (appended to text and html)"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">instanceOf</span>: Report
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">context</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Context"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the context to use for potentional handlebar templates"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">priority</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Priority"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the importance of the mail set in the header"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">values</span>: [<span class="hljs-string">'high'</span>, <span class="hljs-string">'normal'</span>, <span class="hljs-string">'low'</span>]
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20information">
+          <div class="pilwrap" id="general-information">
   <h2>
-    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
-    General information
+    <a href="#general-information" name="general-information" class="pilcrow"></a>
+General information
   </h2>
 </div>
-
-
 <p>This information may be used later for display and explanation.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;CPU&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Check the current activity in average percent of all cores.&quot;</span>
-  <span class="nv">category: </span><span class="s">&#39;sys&#39;</span>
-  <span class="nv">hint: </span><span class="s">&quot;A high CPU usage means that the server may not start another task immediately.</span>
-<span class="s">  If the load is also very high the system is overloaded, check if any application</span>
-<span class="s">  goes evil.&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.meta =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Email'</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Send an @setup."</span>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check the error response and your spam folder if the email won't be
+  delivered correctly."</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result%20values">
+          <div class="pilwrap" id="result-values">
   <h3>
-    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
-    Result values
+    <a href="#result-values" name="result-values" class="pilcrow"></a>
+Result values
   </h3>
 </div>
-
-
 <p>This are possible values which may be given if the check runs normally.
 You may use any of these in your warn/fail expressions.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">values:</span>
-    <span class="nv">cpus:</span>
-      <span class="nv">title: </span><span class="s">&quot;CPU Cores&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;number of cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-    <span class="nv">speed:</span>
-      <span class="nv">title: </span><span class="s">&quot;CPU Speed&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;speed in MHz&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;MHz&#39;</span>
-    <span class="nv">user:</span>
-      <span class="nv">title: </span><span class="s">&quot;User Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of user time over all cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">nice:</span>
-      <span class="nv">title: </span><span class="s">&quot;Nice User Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of niced user time over all cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">system:</span>
-      <span class="nv">title: </span><span class="s">&quot;System Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of system time over all cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">idle:</span>
-      <span class="nv">title: </span><span class="s">&quot;Idle Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of idle time over all cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">active:</span>
-      <span class="nv">title: </span><span class="s">&quot;Activity&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of active time over all cpu cores&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">wait:</span>
-      <span class="nv">title: </span><span class="s">&quot;I/O Wait Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of time waiting for I/O completion&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">hwint:</span>
-      <span class="nv">title: </span><span class="s">&quot;Hardware Interrupt Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of time spent serving hardware interrupts&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">swint:</span>
-      <span class="nv">title: </span><span class="s">&quot;Software Interrupt Time&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of time spent serving software interrupts&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">low:</span>
-      <span class="nv">title: </span><span class="s">&quot;Lowest CPU Core&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of lowest usage of a CPU core&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
-    <span class="nv">high:</span>
-      <span class="nv">title: </span><span class="s">&quot;Highest CPU Core&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;percentage of highest usage of a CPU core&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
+    <span class="hljs-attribute">accepted</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Accepted"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"list of accepted email addresses"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+    <span class="hljs-attribute">rejected</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rejected"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"list of rejected email addresses"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
+    <span class="hljs-attribute">message</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Server Response"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"message from the mail server"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">code</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Code"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"smtp response code"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20check">
+          <div class="pilwrap" id="initialization">
   <h2>
-    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
-    Initialize check
-  </h2>
-</div>
-
-
-<p>This method is used for some precalculations or analyzations and should set:</p>
-
-<ul>
-<li>check.name = <string> # mandatory</li>
-<li>check.base = <object> # optionally</li>
-</ul>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="nx">@name</span> <span class="o">?=</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span>
-  <span class="nx">cb</span><span class="p">()</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20the%20sensor">
-  <h2>
-    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
-    Run the Sensor
+    <a href="#initialization" name="initialization" class="pilcrow"></a>
+Initialization
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.subject ? <span class="hljs-string">'&lt;Unnamed&gt;'</span>
+  cb()
 
-</pre></div>
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
-</div>
-<p>run check</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">map</span> <span class="p">[</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;cat /proc/cpuinfo | egrep &#39;(processor|cpu MHz)&#39;&quot;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">,</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;grep cpu /proc/stat&quot;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">,</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;sh&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&quot;sleep </span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">time</span><span class="si">}</span><span class="s"> &amp;&amp; grep cpu /proc/stat&quot;</span><span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">],</span> <span class="nf">(setup, cb) -&gt;</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">setup</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nx">cb</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="get%20the%20results">
+          <div class="pilwrap" id="run-the-actor">
   <h2>
-    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
-    Get the results
+    <a href="#run-the-actor" name="run-the-actor" class="pilcrow"></a>
+Run the actor
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
-  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
-<p>cpu info values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@values.cpus = </span><span class="mi">0</span>
-  <span class="vi">@values.speed = </span><span class="mi">0</span>
-  <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
-    <span class="nv">match = </span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^(\w+(?: \w+)*).*:\s+(.*)/</span><span class="p">)</span>
-    <span class="k">switch</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-      <span class="k">when</span> <span class="s">&#39;processor&#39;</span> <span class="k">then</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">cpus</span><span class="o">++</span>
-      <span class="k">when</span> <span class="s">&#39;cpu MHz&#39;</span> <span class="k">then</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">speed</span> <span class="o">+=</span> <span class="nb">Number</span> <span class="nx">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-  <span class="nx">@values</span><span class="p">.</span><span class="nx">speed</span> <span class="o">/=</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">cpus</span>
+<p>configure email</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@setup</span> = object.clone <span class="hljs-property">@conf</span>.email
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
-<p>cpu load</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">l1 = </span><span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\n/</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(line) -&gt;</span>
-    <span class="nx">line</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(c) -&gt;</span>
-      <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">c</span><span class="p">,</span> <span class="s">&#39;cpu&#39;</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">Number</span> <span class="nx">c</span>
-  <span class="nv">l2 = </span><span class="nx">res</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\n/</span><span class="p">).</span><span class="nx">map</span>  <span class="nf">(line) -&gt;</span>
-    <span class="nx">line</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(c) -&gt;</span>
-      <span class="k">if</span> <span class="nx">string</span><span class="p">.</span><span class="nx">starts</span> <span class="nx">c</span><span class="p">,</span> <span class="s">&#39;cpu&#39;</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">Number</span> <span class="nx">c</span>
-  <span class="k">for</span> <span class="nx">num</span> <span class="k">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">l1</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nx">l1</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">c</span> <span class="k">for</span> <span class="nx">c</span> <span class="k">in</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">1</span><span class="p">..]</span>
-    <span class="nx">l2</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">c</span> <span class="k">for</span> <span class="nx">c</span> <span class="k">in</span> <span class="nx">l2</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">1</span><span class="p">..]</span>
+<p>use base settings</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">while</span> <span class="hljs-property">@setup</span>.base
+    base = config.get <span class="hljs-string">"/monitor/email/<span class="hljs-subst">#{<span class="hljs-property">@setup</span>.base}</span>"</span>
+    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>.base
+    <span class="hljs-property">@setup</span> = object.extend {}, base, <span class="hljs-property">@setup</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
-<p>get percentage</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">percent = </span><span class="nf">(col) -&gt;</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">col</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-  <span class="vi">@values.user = </span><span class="nx">percent</span> <span class="mi">1</span>
-  <span class="vi">@values.nice = </span><span class="nx">percent</span> <span class="mi">2</span>
-  <span class="vi">@values.system = </span><span class="nx">percent</span> <span class="mi">3</span>
-  <span class="vi">@values.idle = </span><span class="nx">percent</span> <span class="mi">4</span>
-  <span class="vi">@values.wait = </span><span class="nx">percent</span> <span class="mi">5</span>
-  <span class="vi">@values.hwint = </span><span class="nx">percent</span> <span class="mi">6</span>
-  <span class="vi">@values.swint = </span><span class="nx">percent</span> <span class="mi">7</span>
-  <span class="vi">@values.active = </span><span class="mf">1.0</span> <span class="o">-</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">idle</span>
+<p>resolve contacts</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">  <span class="hljs-title">resolve</span> = <span class="hljs-params">(list)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">unless</span> list
+    list = [list] <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> list <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+    list = array.unique(list).map (e) -&gt;
+      contact = config.get <span class="hljs-string">"/monitor/contact/<span class="hljs-subst">#{e}</span>"</span>
+      <span class="hljs-keyword">return</span> e <span class="hljs-keyword">unless</span> contact
+      <span class="hljs-keyword">return</span> resolve <span class="hljs-keyword">switch</span>
+        <span class="hljs-keyword">when</span> Array.isArray contact <span class="hljs-keyword">then</span> contact
+        <span class="hljs-keyword">when</span> contact.email <span class="hljs-keyword">and</span> contact.name
+          <span class="hljs-string">"\"<span class="hljs-subst">#{contact.name}</span>\" &lt;<span class="hljs-subst">#{contact.email}</span>&gt;"</span>
+        <span class="hljs-keyword">when</span> contact.email <span class="hljs-keyword">then</span> contact.email
+        <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">return</span> list <span class="hljs-keyword">unless</span> Array.isArray list[<span class="hljs-number">0</span>]
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
-<p>get min/max cpus</p>
+<p>make a shallow list</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@values.low = </span><span class="mf">1.0</span>
-  <span class="vi">@values.high = </span><span class="mf">0.0</span>
-  <span class="k">for</span> <span class="nx">num</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">l1</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nv">active = </span><span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">l2</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">l1</span><span class="p">[</span><span class="nx">num</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-    <span class="vi">@values.low = </span><span class="nx">active</span> <span class="k">if</span> <span class="nx">active</span> <span class="o">&lt;</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">low</span>
-    <span class="vi">@values.high = </span><span class="nx">active</span> <span class="k">if</span> <span class="nx">active</span> <span class="o">&gt;</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">high</span>
-  <span class="nx">cb</span><span class="p">()</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">    shallow = []
+    <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> list
+      shallow = shallow.concat e
+    array.unique shallow
+</pre>
         </td>
       </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>run resolve for all address fields</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>, <span class="hljs-string">'to'</span>, <span class="hljs-string">'cc'</span>, <span class="hljs-string">'bcc'</span>]
+    <span class="hljs-property">@setup</span>[f] = resolve <span class="hljs-property">@setup</span>[f]
+    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>[f] <span class="hljs-keyword">unless</span> <span class="hljs-property">@setup</span>[f]?
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>single address fields</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@setup</span>[f] = <span class="hljs-property">@setup</span>[f]?[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>]
+  mails = <span class="hljs-property">@setup</span>.to?.map (e) -&gt; e.replace <span class="hljs-regexp">/".*?" &lt;(.*?)&gt;/g</span>, <span class="hljs-string">'$1'</span>
+  debug <span class="hljs-string">"sending email to <span class="hljs-subst">#{mails?.join <span class="hljs-string">', '</span>}</span>..."</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>support handlebars</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.locale <span class="hljs-comment"># change locale</span>
+    oldLocale = moment.locale()
+    moment.locale <span class="hljs-property">@setup</span>.locale
+  <span class="hljs-property">@setup</span>.subject = <span class="hljs-property">@setup</span>.subject <span class="hljs-property">@controller</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.subject <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+  <span class="hljs-property">@setup</span>.text = <span class="hljs-property">@setup</span>.text <span class="hljs-property">@controller</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.text <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+  <span class="hljs-property">@setup</span>.html = <span class="hljs-property">@setup</span>.html <span class="hljs-property">@controller</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.html <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.body
+    report = <span class="hljs-keyword">new</span> Report
+      <span class="hljs-attribute">source</span>:
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.body <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+          <span class="hljs-property">@setup</span>.body(<span class="hljs-property">@controller</span>).replace <span class="hljs-regexp">/&amp;#x3D;/g</span>, <span class="hljs-string">'='</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>console.log @controller.report.body
+console.log report.body</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@setup</span>.text ?= report.toText()
+    <span class="hljs-property">@setup</span>.html ?= report.toHtml()
+    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>.body
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@controller</span>.report
+    <span class="hljs-property">@setup</span>.text ?= <span class="hljs-property">@controller</span>.report.toText()
+    <span class="hljs-property">@setup</span>.html ?= <span class="hljs-property">@controller</span>.report.toHtml()
+  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.html
+    <span class="hljs-property">@setup</span>.subject ?= <span class="hljs-property">@setup</span>.html.match(<span class="hljs-regexp">/&lt;title&gt;([\s\S]*?)&lt;\/title&gt;/</span>)[<span class="hljs-number">1</span>]
+  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.locale <span class="hljs-comment"># change locale back</span>
+    moment.locale oldLocale
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>setup transporter</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  transporter = nodemailer.createTransport <span class="hljs-property">@setup</span>.transport ? <span class="hljs-string">'direct:?name=hostname'</span>
+  transporter.use <span class="hljs-string">'compile'</span>, inlineBase64
+  debug chalk.grey <span class="hljs-string">"using <span class="hljs-subst">#{transporter.transporter.name}</span>"</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>try to send email</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  transporter.sendMail <span class="hljs-property">@setup</span>, <span class="hljs-function"><span class="hljs-params">(err, info)</span> =&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">if</span> err.errors
+        debug chalk.red e.message <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> err.errors
+      <span class="hljs-keyword">else</span>
+        debug chalk.red err.message
+      debug chalk.grey <span class="hljs-string">"send through "</span> + util.inspect <span class="hljs-property">@setup</span>.transport
+    <span class="hljs-keyword">if</span> info
+      debug <span class="hljs-string">"message send to"</span>
+      debug chalk.grey util.inspect(info).replace <span class="hljs-regexp">/\s+/</span>, <span class="hljs-string">''</span>
+      <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> [<span class="hljs-string">'accepted'</span>, <span class="hljs-string">'rejected'</span>]
+        <span class="hljs-property">@values</span>[e] = info[e] <span class="hljs-keyword">if</span> info[e]?.length
+      <span class="hljs-property">@values</span>.message = info.response
+      code = info.response?.match(<span class="hljs-regexp">/\d+/</span>)?[<span class="hljs-number">0</span>]
+      <span class="hljs-property">@values</span>.code = Number code <span class="hljs-keyword">if</span> code
+      debug chalk.grey util.inspect(<span class="hljs-property">@values</span>).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Some messages were rejected: <span class="hljs-subst">#{info.response}</span>"</span> <span class="hljs-keyword">if</span> info.rejected?.length
+    cb err?.errors?[<span class="hljs-number">0</span>] ? err ? <span class="hljs-literal">null</span>
+
+</pre>
+        </td>
+      </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

@@ -6,24 +6,31 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-monitor/src/sensor/pingcoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-monitor/src/sensor/ping.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-  <script src="../../fileSearch.js"></script>
-  <script src="../../goToLine.js"></script>
-  <link rel="stylesheet" href="../../fileSearch.css" />
-  <link rel="stylesheet" href="../../goToLine.css" />
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -32,406 +39,417 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#ping%20test%20class">Ping test class</a>
+        <a href="#ping-test-class">Ping test class</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#schema%20definition">Schema Definition</a>
+        <a href="#schema-definition">Schema Definition</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20information">General information</a>
+        <a href="#general-information">General information</a>
       </div>
+
       <div class="heading h3">
-        <a href="#result%20values">Result values</a>
+        <a href="#result-values">Result values</a>
       </div>
+
       <div class="heading h2">
-        <a href="#initialize%20check">Initialize check</a>
+        <a href="#initialize-check">Initialize check</a>
       </div>
+
       <div class="heading h2">
-        <a href="#run%20the%20sensor">Run the Sensor</a>
+        <a href="#run-the-sensor">Run the Sensor</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20the%20results">Get the results</a>
+        <a href="#get-the-results">Get the results</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20special%20report%20elements">Get special report elements</a>
+        <a href="#get-special-report-elements">Get special report elements</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-monitor" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="ping%20test%20class">
+          <div class="pilwrap" id="ping-test-class">
   <h1>
-    <a href="#ping%20test%20class" name="ping%20test%20class" class="pilcrow">&#182;</a>
-    Ping test class
+    <a href="#ping-test-class" name="ping-test-class" class="pilcrow"></a>
+Ping test class
   </h1>
 </div>
-
-
 <p>This is a basic test to check if connection to a specific server is possible.
 Keep in mind that some servers mare blocked through firewall settings.</p>
-
 <p>The warning level is based upon the round-trip time of packets which are
 typically:</p>
-
-
-<div class="highlight"><pre><code><span class="mi">1</span> <span class="nx">ms</span>        <span class="mi">100</span><span class="nx">BaseT</span><span class="o">-</span><span class="nx">Ethernet</span>
-<span class="mi">10</span> <span class="nx">ms</span>       <span class="nx">WLAN</span> <span class="mf">802.11</span><span class="nx">b</span>
-<span class="mi">40</span> <span class="nx">ms</span>       <span class="nx">DSL</span><span class="o">-</span><span class="mi">6000</span> <span class="nx">without</span> <span class="nx">fastpath</span>
-<span class="o">&lt;</span> <span class="mi">50</span> <span class="nx">ms</span>     <span class="nx">internet</span> <span class="nx">regional</span>
-<span class="mi">55</span> <span class="nx">ms</span>       <span class="nx">DSL</span><span class="o">-</span><span class="mi">2000</span> <span class="nx">without</span> <span class="nx">fastpath</span>
-<span class="mi">100</span><span class="err">–</span><span class="mi">150</span> <span class="nx">ms</span>  <span class="nx">internet</span> <span class="nx">europe</span> <span class="nx">to</span> <span class="nx">usa</span>
-<span class="mi">200</span> <span class="nx">ms</span>      <span class="nx">ISDN</span>
-<span class="mi">300</span> <span class="nx">ms</span>      <span class="nx">internet</span> <span class="nx">europe</span> <span class="nx">to</span> <span class="nx">asia</span>
-<span class="mi">300</span><span class="o">-</span><span class="mi">400</span> <span class="nx">ms</span>  <span class="nx">UMTS</span>
-<span class="mi">700</span><span class="err">–</span><span class="mi">1000</span> <span class="nx">ms</span> <span class="nx">GPRS</span>
-</code></pre></div>
-
+<pre><code>1 ms        100BaseT-Ethernet
+10 ms       WLAN 802.11b
+40 ms       DSL-6000 without fastpath
+&lt; 50 ms     internet regional
+55 ms       DSL-2000 without fastpath
+100–150 ms  internet europe to usa
+200 ms      ISDN
+300 ms      internet europe to asia
+300-400 ms  UMTS
+700–1000 ms GPRS
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.debug = debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;monitor:sensor:ping&#39;</span><span class="p">)</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:ping'</span>)
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="nv">Report = </span><span class="nx">require</span> <span class="s">&#39;alinex-report&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="schema%20definition">
+          <div class="pilwrap" id="schema-definition">
   <h2>
-    <a href="#schema%20definition" name="schema%20definition" class="pilcrow">&#182;</a>
-    Schema Definition
+    <a href="#schema-definition" name="schema-definition" class="pilcrow"></a>
+Schema Definition
   </h2>
 </div>
-
-
 <p>This is used as configuration specification and to add the default values for
 specific setting.</p>
-
 <p>It's a n<a href="http://alinex.githhub.io/node-validator">alinex-validator</a>
 compatible schema definition:</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.schema =</span>
-  <span class="nv">title: </span><span class="s">&quot;Ping test&quot;</span>
-  <span class="nv">description: </span><span class="s">&quot;the configuration to make a ping to another server&quot;</span>
-  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-  <span class="nv">default:</span>
-    <span class="nv">warn: </span><span class="s">&#39;quality &lt; 100%&#39;</span>
-    <span class="nv">fail: </span><span class="s">&#39;quality is 0&#39;</span>
-  <span class="nv">allowedKeys: </span><span class="kc">true</span>
-  <span class="nv">keys:</span>
-    <span class="nv">remote:</span>
-      <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the remote server on which to run the command&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">values: </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;/exec/remote/server&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="p">{}</span>
-    <span class="nv">host:</span>
-      <span class="nv">title: </span><span class="s">&quot;Hostname or IP&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the server hostname or ip address to be called for ping&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-    <span class="nv">count:</span>
-      <span class="nv">title: </span><span class="s">&quot;Number of Packets&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the number of ping packets to send, each after the other&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
-      <span class="nv">default: </span><span class="mi">1</span>
-      <span class="nv">min: </span><span class="mi">1</span>
-      <span class="nv">max: </span><span class="mi">10000</span>
-    <span class="nv">interval:</span>
-      <span class="nv">title: </span><span class="s">&quot;Wait Interval&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time to wait between sending each packet&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">default: </span><span class="mi">1000</span>
-      <span class="nv">min: </span><span class="mi">200</span>
-    <span class="nv">size:</span>
-      <span class="nv">title: </span><span class="s">&quot;Packetsize&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the number of bytes to be send, keep in mind that 8 bytes</span>
-<span class="s">      for the ICMP header are added&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;byte&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;B&#39;</span>
-      <span class="nv">default: </span><span class="mi">56</span>
-      <span class="nv">min: </span><span class="mi">24</span>
-      <span class="nv">max: </span><span class="mi">65507</span>
-    <span class="nv">timeout:</span>
-      <span class="nv">title: </span><span class="s">&quot;Overall Timeout&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the time in milliseconds the whole test may take before</span>
-<span class="s">        stopping and failing it&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-      <span class="nv">default: </span><span class="mi">1000</span>
-      <span class="nv">min: </span><span class="mi">500</span>
-    <span class="nv">warn:</span>
-      <span class="nv">title: </span><span class="s">&quot;Warn if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to warn&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;quality &lt; 100%&#39;</span>
-    <span class="nv">fail:</span>
-      <span class="nv">title: </span><span class="s">&quot;Fail if&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the javascript code to check to set status to fail&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
-      <span class="nv">default: </span><span class="s">&#39;quality is 0&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.schema =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Ping test"</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to make a ping to another server"</span>
+  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+  <span class="hljs-attribute">default</span>:
+    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'quality &lt; 100%'</span>
+    <span class="hljs-attribute">fail</span>: <span class="hljs-string">'quality is 0'</span>
+  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attribute">keys</span>:
+    <span class="hljs-attribute">remote</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    <span class="hljs-attribute">host</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname or IP"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the server hostname or ip address to be called for ping"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">count</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Number of Packets"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of ping packets to send, each after the other"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">1</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
+      <span class="hljs-attribute">max</span>: <span class="hljs-number">10000</span>
+    <span class="hljs-attribute">interval</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Wait Interval"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time to wait between sending each packet"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">1000</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">200</span>
+    <span class="hljs-attribute">size</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Packetsize"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of bytes to be send, keep in mind that 8 bytes
+      for the ICMP header are added"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">56</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">24</span>
+      <span class="hljs-attribute">max</span>: <span class="hljs-number">65507</span>
+    <span class="hljs-attribute">timeout</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Overall Timeout"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time in milliseconds the whole test may take before
+        stopping and failing it"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-number">1000</span>
+      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
+    <span class="hljs-attribute">warn</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'quality &lt; 100%'</span>
+    <span class="hljs-attribute">fail</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'quality is 0'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20information">
+          <div class="pilwrap" id="general-information">
   <h2>
-    <a href="#general%20information" name="general%20information" class="pilcrow">&#182;</a>
-    General information
+    <a href="#general-information" name="general-information" class="pilcrow"></a>
+General information
   </h2>
 </div>
-
-
 <p>This information may be used later for display and explanation.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.meta =</span>
-  <span class="nv">title: </span><span class="s">&#39;Ping&#39;</span>
-  <span class="nv">description: </span><span class="s">&quot;Test the reachability of a host in an IP network and measure the</span>
-<span class="s">  round-trip time for the messages send.&quot;</span>
-  <span class="nv">category: </span><span class="s">&#39;net&#39;</span>
-  <span class="nv">hint: </span><span class="s">&quot;Check the network card configuration if local ping won&#39;t work or the</span>
-<span class="s">  network connection for external pings. Problems can also be that the firewall</span>
-<span class="s">  will block the ping port. &quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.meta =
+  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Ping'</span>
+  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Test the reachability of a host in an IP network and measure the
+  round-trip time for the messages send."</span>
+  <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check the network card configuration if local ping won't work or the
+  network connection for external pings. Problems can also be that the firewall
+  will block the ping port. "</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result%20values">
+          <div class="pilwrap" id="result-values">
   <h3>
-    <a href="#result%20values" name="result%20values" class="pilcrow">&#182;</a>
-    Result values
+    <a href="#result-values" name="result-values" class="pilcrow"></a>
+Result values
   </h3>
 </div>
-
-
 <p>This are possible values which may be given if the check runs normally.
 You may use any of these in your warn/fail expressions.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">values:</span>
-    <span class="nv">responseTime:</span>
-      <span class="nv">title: </span><span class="s">&#39;Avg. Response Time&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;average round-trip time of packets&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">responseMin:</span>
-      <span class="nv">title: </span><span class="s">&#39;Min. Respons Time&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;minimum round-trip time of packets&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">responseMax:</span>
-      <span class="nv">title: </span><span class="s">&#39;Max. Response Time&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;maximum round-trip time of packets&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;float&#39;</span>
-      <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
-    <span class="nv">quality:</span>
-      <span class="nv">title: </span><span class="s">&#39;Quality&#39;</span>
-      <span class="nv">description: </span><span class="s">&quot;quality of response (packets succeeded)&quot;</span>
-      <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
+    <span class="hljs-attribute">responseTime</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Avg. Response Time'</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"average round-trip time of packets"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+    <span class="hljs-attribute">responseMin</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Min. Respons Time'</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"minimum round-trip time of packets"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+    <span class="hljs-attribute">responseMax</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Max. Response Time'</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"maximum round-trip time of packets"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+    <span class="hljs-attribute">quality</span>:
+      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Quality'</span>
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">"quality of response (packets succeeded)"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialize%20check">
+          <div class="pilwrap" id="initialize-check">
   <h2>
-    <a href="#initialize%20check" name="initialize%20check" class="pilcrow">&#182;</a>
-    Initialize check
+    <a href="#initialize-check" name="initialize-check" class="pilcrow"></a>
+Initialize check
   </h2>
 </div>
-
-
 <p>This method is used for some precalculations or analyzations and should set:</p>
-
 <ul>
 <li>check.name = <string> # mandatory</li>
 <li>check.base = <object> # optionally</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.init = </span><span class="nf">(cb) -&gt;</span>
-  <span class="nx">@name</span> <span class="o">?=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span><span class="si">}</span><span class="s">-&gt;</span><span class="si">#{</span><span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>"</span>
+  cb()
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="run%20the%20sensor">
+          <div class="pilwrap" id="run-the-sensor">
   <h2>
-    <a href="#run%20the%20sensor" name="run%20the%20sensor" class="pilcrow">&#182;</a>
-    Run the Sensor
+    <a href="#run-the-sensor" name="run-the-sensor" class="pilcrow"></a>
+Run the Sensor
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.run = </span><span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>run check</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-    <span class="nv">remote: </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">remote</span>
-    <span class="nv">cmd: </span><span class="s">&#39;/bin/ping&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span>
-      <span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">count</span>
-      <span class="s">&#39;-W&#39;</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">timeout</span><span class="o">/</span><span class="mi">1000</span>
-      <span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">interval</span><span class="o">/</span><span class="mi">1000</span>
-      <span class="s">&#39;-s&#39;</span><span class="p">,</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">size</span>
-      <span class="nx">@conf</span><span class="p">.</span><span class="nx">host</span>
-    <span class="p">]</span>
-    <span class="nv">priority: </span><span class="s">&#39;immediately&#39;</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  Exec.run
+    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'/bin/ping'</span>
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'-c'</span>, <span class="hljs-property">@conf</span>.count
+      <span class="hljs-string">'-W'</span>, Math.ceil <span class="hljs-property">@conf</span>.timeout/<span class="hljs-number">1000</span>
+      <span class="hljs-string">'-i'</span>, <span class="hljs-property">@conf</span>.interval/<span class="hljs-number">1000</span>
+      <span class="hljs-string">'-s'</span>, <span class="hljs-property">@conf</span>.size
+      <span class="hljs-property">@conf</span>.host
+    ]
+    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+  , cb
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20the%20results">
+          <div class="pilwrap" id="get-the-results">
   <h2>
-    <a href="#get%20the%20results" name="get%20the%20results" class="pilcrow">&#182;</a>
-    Get the results
+    <a href="#get-the-results" name="get-the-results" class="pilcrow"></a>
+Get the results
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.calc = </span><span class="nf">(cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@err</span>
-  <span class="nv">res = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
+  res = <span class="hljs-property">@result</span>.data
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>calculate values</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">num = </span><span class="mi">0</span>
-  <span class="nv">sum = </span><span class="mi">0</span>
-  <span class="nv">re = </span><span class="sr">/time=(\d+.?\d*) ms/g</span>
-  <span class="k">while</span> <span class="nv">match = </span><span class="nx">re</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">res</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
-    <span class="nv">time = </span><span class="nb">parseFloat</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nx">num</span><span class="o">++</span>
-    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">time</span>
-    <span class="k">if</span> <span class="o">not</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">responseMin</span><span class="o">?</span> <span class="o">or</span> <span class="nx">time</span> <span class="o">&lt;</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">responseMin</span>
-      <span class="vi">@values.responseMin = </span><span class="nx">time</span>
-    <span class="k">if</span> <span class="o">not</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">responseMax</span><span class="o">?</span> <span class="o">or</span> <span class="nx">time</span> <span class="o">&gt;</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">responseMax</span>
-      <span class="vi">@values.responseMax = </span><span class="nx">time</span>
-  <span class="vi">@values.responseTime = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">sum</span><span class="o">/</span><span class="nx">num</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="mf">10.0</span>
-  <span class="nv">match = </span><span class="sr">/\s(\d+)% packet loss/</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">res</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
-  <span class="vi">@values.quality = </span><span class="mi">100</span><span class="o">-</span><span class="nx">match</span><span class="o">?</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-  <span class="vi">@values.quality = </span><span class="nx">@values</span><span class="p">.</span><span class="nx">quality</span><span class="o">/</span><span class="mi">100</span> <span class="k">if</span> <span class="nx">@values</span><span class="p">.</span><span class="nx">quality</span>
-  <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  num = <span class="hljs-number">0</span>
+  sum = <span class="hljs-number">0</span>
+  re = <span class="hljs-regexp">/time=(\d+.?\d*) ms/g</span>
+  <span class="hljs-keyword">while</span> match = re.exec res.stdout()
+    time = parseFloat match[<span class="hljs-number">1</span>]
+    num++
+    sum += time
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@values</span>.responseMin? <span class="hljs-keyword">or</span> time &lt; <span class="hljs-property">@values</span>.responseMin
+      <span class="hljs-property">@values</span>.responseMin = time
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@values</span>.responseMax? <span class="hljs-keyword">or</span> time &gt; <span class="hljs-property">@values</span>.responseMax
+      <span class="hljs-property">@values</span>.responseMax = time
+  <span class="hljs-property">@values</span>.responseTime = Math.round(sum/num*<span class="hljs-number">10</span>)/<span class="hljs-number">10.0</span>
+  match = <span class="hljs-regexp">/\s(\d+)% packet loss/</span>.exec res.stdout()
+  <span class="hljs-property">@values</span>.quality = <span class="hljs-number">100</span>-match?[<span class="hljs-number">1</span>]
+  <span class="hljs-property">@values</span>.quality = <span class="hljs-property">@values</span>.quality/<span class="hljs-number">100</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@values</span>.quality
+  cb()
 
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20special%20report%20elements">
+          <div class="pilwrap" id="get-special-report-elements">
   <h2>
-    <a href="#get%20special%20report%20elements" name="get%20special%20report%20elements" class="pilcrow">&#182;</a>
-    Get special report elements
+    <a href="#get-special-report-elements" name="get-special-report-elements" class="pilcrow"></a>
+Get special report elements
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">exports.report = </span><span class="nf">-&gt;</span>
-  <span class="nv">report = </span><span class="k">new</span> <span class="nx">Report</span><span class="p">()</span>
-  <span class="k">if</span> <span class="nv">data = </span><span class="nx">@result</span><span class="p">.</span><span class="nx">data</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">p</span> <span class="nx">Report</span><span class="p">.</span><span class="nx">b</span> <span class="s">&quot;Result:&quot;</span>
-    <span class="nx">report</span><span class="p">.</span><span class="nx">code</span> <span class="nx">data</span><span class="p">.</span><span class="nx">stdout</span><span class="p">(),</span> <span class="s">&#39;text&#39;</span>
-  <span class="nx">report</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.report = <span class="hljs-function">-&gt;</span>
+  report = <span class="hljs-keyword">new</span> Report()
+  <span class="hljs-keyword">if</span> data = <span class="hljs-property">@result</span>.data
+    report.p Report.b <span class="hljs-string">"Result:"</span>
+    report.code data.stdout(), <span class="hljs-string">'text'</span>
+  report
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>
