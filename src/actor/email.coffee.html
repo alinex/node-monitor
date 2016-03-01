@@ -137,8 +137,7 @@ chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'ch
 nodemailer = <span class="hljs-built_in">require</span> <span class="hljs-string">'nodemailer'</span>
 inlineBase64 = <span class="hljs-built_in">require</span> <span class="hljs-string">'nodemailer-plugin-inline-base64'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
-</pre>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span></pre>
         </td>
       </tr>
     
@@ -153,10 +152,7 @@ moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'m
         <td class="code highlight">
           <pre class="coffeescript">{object, array} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-
-
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -281,10 +277,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the importance of the mail set in the header"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
       <span class="hljs-attribute">values</span>: [<span class="hljs-string">'high'</span>, <span class="hljs-string">'normal'</span>, <span class="hljs-string">'low'</span>]
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -304,9 +297,7 @@ General information
   <span class="hljs-attribute">title</span>: <span class="hljs-string">'Email'</span>
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Send an @setup."</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check the error response and your spam folder if the email won't be
-  delivered correctly."</span>
-
-</pre>
+  delivered correctly."</span></pre>
         </td>
       </tr>
     
@@ -339,10 +330,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">code</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Code"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"smtp response code"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span></pre>
         </td>
       </tr>
     
@@ -359,10 +347,7 @@ Initialization
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.subject ? <span class="hljs-string">'&lt;Unnamed&gt;'</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -377,8 +362,7 @@ Run the actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -391,8 +375,7 @@ Run the actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@setup</span> = object.clone <span class="hljs-property">@conf</span>.email
-</pre>
+          <pre class="coffeescript">  <span class="hljs-property">@setup</span> = object.clone <span class="hljs-property">@conf</span>.email</pre>
         </td>
       </tr>
     
@@ -408,8 +391,7 @@ Run the actor
           <pre class="coffeescript">  <span class="hljs-keyword">while</span> <span class="hljs-property">@setup</span>.base
     base = config.get <span class="hljs-string">"/monitor/email/<span class="hljs-subst">#{<span class="hljs-property">@setup</span>.base}</span>"</span>
     <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>.base
-    <span class="hljs-property">@setup</span> = object.extend {}, base, <span class="hljs-property">@setup</span>
-</pre>
+    <span class="hljs-property">@setup</span> = object.extend {}, base, <span class="hljs-property">@setup</span></pre>
         </td>
       </tr>
     
@@ -434,8 +416,7 @@ Run the actor
           <span class="hljs-string">"\"<span class="hljs-subst">#{contact.name}</span>\" &lt;<span class="hljs-subst">#{contact.email}</span>&gt;"</span>
         <span class="hljs-keyword">when</span> contact.email <span class="hljs-keyword">then</span> contact.email
         <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
-    <span class="hljs-keyword">return</span> list <span class="hljs-keyword">unless</span> Array.isArray list[<span class="hljs-number">0</span>]
-</pre>
+    <span class="hljs-keyword">return</span> list <span class="hljs-keyword">unless</span> Array.isArray list[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
@@ -451,8 +432,7 @@ Run the actor
           <pre class="coffeescript">    shallow = []
     <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> list
       shallow = shallow.concat e
-    array.unique shallow
-</pre>
+    array.unique shallow</pre>
         </td>
       </tr>
     
@@ -467,8 +447,7 @@ Run the actor
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>, <span class="hljs-string">'to'</span>, <span class="hljs-string">'cc'</span>, <span class="hljs-string">'bcc'</span>]
     <span class="hljs-property">@setup</span>[f] = resolve <span class="hljs-property">@setup</span>[f]
-    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>[f] <span class="hljs-keyword">unless</span> <span class="hljs-property">@setup</span>[f]?
-</pre>
+    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>[f] <span class="hljs-keyword">unless</span> <span class="hljs-property">@setup</span>[f]?</pre>
         </td>
       </tr>
     
@@ -483,8 +462,7 @@ Run the actor
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-property">@setup</span>[f] = <span class="hljs-property">@setup</span>[f]?[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>]
   mails = <span class="hljs-property">@setup</span>.to?.map (e) -&gt; e.replace <span class="hljs-regexp">/".*?" &lt;(.*?)&gt;/g</span>, <span class="hljs-string">'$1'</span>
-  debug <span class="hljs-string">"sending email to <span class="hljs-subst">#{mails?.join <span class="hljs-string">', '</span>}</span>..."</span>
-</pre>
+  debug <span class="hljs-string">"sending email to <span class="hljs-subst">#{mails?.join <span class="hljs-string">', '</span>}</span>..."</span></pre>
         </td>
       </tr>
     
@@ -507,8 +485,7 @@ Run the actor
     report = <span class="hljs-keyword">new</span> Report
       <span class="hljs-attribute">source</span>:
         <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.body <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
-          <span class="hljs-property">@setup</span>.body(<span class="hljs-property">@controller</span>).replace <span class="hljs-regexp">/&amp;#x3D;/g</span>, <span class="hljs-string">'='</span>
-</pre>
+          <span class="hljs-property">@setup</span>.body(<span class="hljs-property">@controller</span>).replace <span class="hljs-regexp">/&amp;#x3D;/g</span>, <span class="hljs-string">'='</span></pre>
         </td>
       </tr>
     
@@ -531,8 +508,7 @@ console.log report.body</p>
   <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.html
     <span class="hljs-property">@setup</span>.subject ?= <span class="hljs-property">@setup</span>.html.match(<span class="hljs-regexp">/&lt;title&gt;([\s\S]*?)&lt;\/title&gt;/</span>)[<span class="hljs-number">1</span>]
   <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.locale <span class="hljs-comment"># change locale back</span>
-    moment.locale oldLocale
-</pre>
+    moment.locale oldLocale</pre>
         </td>
       </tr>
     
@@ -547,8 +523,7 @@ console.log report.body</p>
         <td class="code highlight">
           <pre class="coffeescript">  transporter = nodemailer.createTransport <span class="hljs-property">@setup</span>.transport ? <span class="hljs-string">'direct:?name=hostname'</span>
   transporter.use <span class="hljs-string">'compile'</span>, inlineBase64
-  debug chalk.grey <span class="hljs-string">"using <span class="hljs-subst">#{transporter.transporter.name}</span>"</span>
-</pre>
+  debug chalk.grey <span class="hljs-string">"using <span class="hljs-subst">#{transporter.transporter.name}</span>"</span></pre>
         </td>
       </tr>
     
@@ -578,9 +553,7 @@ console.log report.body</p>
       <span class="hljs-property">@values</span>.code = Number code <span class="hljs-keyword">if</span> code
       debug chalk.grey util.inspect(<span class="hljs-property">@values</span>).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Some messages were rejected: <span class="hljs-subst">#{info.response}</span>"</span> <span class="hljs-keyword">if</span> info.rejected?.length
-    cb err?.errors?[<span class="hljs-number">0</span>] ? err ? <span class="hljs-literal">null</span>
-
-</pre>
+    cb err?.errors?[<span class="hljs-number">0</span>] ? err ? <span class="hljs-literal">null</span></pre>
         </td>
       </tr>
     

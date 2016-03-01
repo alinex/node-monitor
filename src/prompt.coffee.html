@@ -149,8 +149,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</span>
-</pre>
+os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</span></pre>
         </td>
       </tr>
     
@@ -166,8 +165,7 @@ os = <span class="hljs-built_in">require</span> <span class="hljs-string">'os'</
           <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 {string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -181,9 +179,7 @@ Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'a
         </td>
         <td class="code highlight">
           <pre class="coffeescript">monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
-Check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span>
-
-</pre>
+Check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span></pre>
         </td>
       </tr>
     
@@ -196,10 +192,7 @@ Check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">interactive = <span class="hljs-literal">false</span>
-
-
-</pre>
+          <pre class="coffeescript">interactive = <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -215,10 +208,7 @@ Setup
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-types = [<span class="hljs-string">'controller'</span>, <span class="hljs-string">'sensor'</span>, <span class="hljs-string">'actor'</span>, <span class="hljs-string">'analyzer'</span>]
-
-
-</pre>
+types = [<span class="hljs-string">'controller'</span>, <span class="hljs-string">'sensor'</span>, <span class="hljs-string">'actor'</span>, <span class="hljs-string">'analyzer'</span>]</pre>
         </td>
       </tr>
     
@@ -240,9 +230,7 @@ Commands
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">commands =
-
-</pre>
+          <pre class="coffeescript">commands =</pre>
         </td>
       </tr>
     
@@ -265,8 +253,7 @@ Integrated help
       .map (e) -&gt; <span class="hljs-string">"help <span class="hljs-subst">#{e}</span>"</span>
     <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
-      <span class="hljs-keyword">if</span> args.length &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> args[<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> Object.keys commands
-</pre>
+      <span class="hljs-keyword">if</span> args.length &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> args[<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> Object.keys commands</pre>
         </td>
       </tr>
     
@@ -284,8 +271,7 @@ Integrated help
         report.p <span class="hljs-string">"This command will <span class="hljs-subst">#{commands[cmd].description}</span>."</span>
         report.add commands[cmd].help() <span class="hljs-keyword">if</span> commands[cmd].help?
         <span class="hljs-built_in">console</span>.log report.toConsole()
-        <span class="hljs-keyword">return</span> cb()
-</pre>
+        <span class="hljs-keyword">return</span> cb()</pre>
         </td>
       </tr>
     
@@ -322,9 +308,7 @@ Integrated help
       report.p <span class="hljs-string">"To get more information about a specific command and
       its additional arguments type <span class="hljs-subst">#{Report.b <span class="hljs-string">'help &lt;command&gt;'</span>}</span>."</span>
       <span class="hljs-built_in">console</span>.log report.toConsole()
-      cb()
-
-</pre>
+      cb()</pre>
         </td>
       </tr>
     
@@ -346,9 +330,7 @@ exit console
       report.p <span class="hljs-string">"You may also type `Ctrl` + `C` to exit ungraceful. But be patient
       till the program exits. This may take some time to close opened connections."</span>
     <span class="hljs-attribute">run</span>: <span class="hljs-function">-&gt;</span>
-      exit()
-
-</pre>
+      exit()</pre>
         </td>
       </tr>
     
@@ -393,8 +375,7 @@ exit console
         <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Wrong number of parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'set'</span>}</span>
         use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help set'</span>}</span> for more information!"</span>
         <span class="hljs-keyword">return</span> cb()
-      <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">3</span>
-</pre>
+      <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">3</span></pre>
         </td>
       </tr>
     
@@ -418,8 +399,7 @@ exit console
             <span class="hljs-keyword">unless</span> args[<span class="hljs-number">2</span>] <span class="hljs-keyword">in</span> [<span class="hljs-string">'true'</span>, <span class="hljs-string">'false'</span>]
               <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"The value <span class="hljs-subst">#{args[<span class="hljs-number">2</span>]}</span> is not a number."</span>
               <span class="hljs-keyword">return</span> cb()
-            monitor.mode.<span class="hljs-keyword">try</span> = args[<span class="hljs-number">2</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'true'</span>
-</pre>
+            monitor.mode.<span class="hljs-keyword">try</span> = args[<span class="hljs-number">2</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'true'</span></pre>
         </td>
       </tr>
     
@@ -441,9 +421,7 @@ exit console
           cb()
         <span class="hljs-keyword">else</span>
           <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Unknown setting <span class="hljs-subst">#{args[<span class="hljs-number">1</span>]}</span> in command."</span>
-          cb()
-
-</pre>
+          cb()</pre>
         </td>
       </tr>
     
@@ -641,8 +619,7 @@ Show element
           <span class="hljs-keyword">unless</span> args.length &gt; <span class="hljs-number">2</span>
             <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Too less parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'show'</span>}</span>
             use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help show'</span>}</span> for more information!"</span>
-            <span class="hljs-keyword">return</span> cb()
-</pre>
+            <span class="hljs-keyword">return</span> cb()</pre>
         </td>
       </tr>
     
@@ -656,8 +633,7 @@ Show element
         </td>
         <td class="code highlight">
           <pre class="coffeescript">          askForSensor args[<span class="hljs-number">2</span>], data, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
-            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -674,8 +650,7 @@ Show element
               <span class="hljs-attribute">sensor</span>: args[<span class="hljs-number">2</span>]
               <span class="hljs-attribute">config</span>: data
             check.init (err) -&gt;
-              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -737,9 +712,7 @@ Interactive Console
   async.forever (cb) -&gt;
     getCommand data, cb
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    exit <span class="hljs-number">1</span>, err
-
-</pre>
+    exit <span class="hljs-number">1</span>, err</pre>
         </td>
       </tr>
     
@@ -849,9 +822,7 @@ ask for the next command
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          cb()
-
-</pre>
+          <pre class="coffeescript">          cb()</pre>
         </td>
       </tr>
     
@@ -866,8 +837,7 @@ Error management
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">exit</span> = <span class="hljs-params">(code = <span class="hljs-number">0</span>, err)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">exit</span> = <span class="hljs-params">(code = <span class="hljs-number">0</span>, err)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -880,8 +850,7 @@ Error management
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  process.exit code <span class="hljs-keyword">unless</span> err
-</pre>
+          <pre class="coffeescript">  process.exit code <span class="hljs-keyword">unless</span> err</pre>
         </td>
       </tr>
     
@@ -896,9 +865,7 @@ Error management
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-built_in">console</span>.error chalk.red.bold <span class="hljs-string">"FAILED: <span class="hljs-subst">#{err.message}</span>"</span>
   <span class="hljs-built_in">console</span>.error err.description <span class="hljs-keyword">if</span> err.description
-  process.exit code
-
-</pre>
+  process.exit code</pre>
         </td>
       </tr>
     
@@ -917,9 +884,7 @@ Ask for missing data
   <span class="hljs-keyword">return</span>  cb() <span class="hljs-keyword">unless</span> interactive
   monitor.getSensor type, <span class="hljs-function"><span class="hljs-params">(err, sensor)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    askFor sensor.schema, data, cb
-
-</pre>
+    askFor sensor.schema, data, cb</pre>
         </td>
       </tr>
     
@@ -937,8 +902,7 @@ Ask user to give the data for the schema
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">askFor</span> = <span class="hljs-params">(schema, predef = {}, cb)</span> -&gt;</span>
   validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
   <span class="hljs-built_in">console</span>.log <span class="hljs-string">"""Give the settings to run this (default is used if nothing given).
-  Type 'null' to clear default value."""</span>
-</pre>
+  Type 'null' to clear default value."""</span></pre>
         </td>
       </tr>
     
@@ -953,8 +917,7 @@ Ask user to give the data for the schema
         <td class="code highlight">
           <pre class="coffeescript">  data = {}
   async.eachSeries Object.keys(schema.keys), <span class="hljs-function"><span class="hljs-params">(key, cb)</span> -&gt;</span>
-    def = schema.keys[key]
-</pre>
+    def = schema.keys[key]</pre>
         </td>
       </tr>
     
@@ -980,8 +943,7 @@ Ask user to give the data for the schema
           line
         ]
     async.retry <span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-      readline.question <span class="hljs-string">"<span class="hljs-subst">#{def.title}</span><span class="hljs-subst">#{<span class="hljs-keyword">if</span> base? <span class="hljs-keyword">then</span> <span class="hljs-string">' ('</span> + base + <span class="hljs-string">')'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span>: "</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
-</pre>
+      readline.question <span class="hljs-string">"<span class="hljs-subst">#{def.title}</span><span class="hljs-subst">#{<span class="hljs-keyword">if</span> base? <span class="hljs-keyword">then</span> <span class="hljs-string">' ('</span> + base + <span class="hljs-string">')'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>}</span>: "</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -997,8 +959,7 @@ Ask user to give the data for the schema
           <pre class="coffeescript">        line = <span class="hljs-keyword">switch</span>
           <span class="hljs-keyword">when</span> line <span class="hljs-keyword">is</span> <span class="hljs-string">'null'</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span>
           <span class="hljs-keyword">when</span> line <span class="hljs-keyword">then</span> line
-          <span class="hljs-keyword">else</span> base
-</pre>
+          <span class="hljs-keyword">else</span> base</pre>
         </td>
       </tr>
     
@@ -1027,9 +988,7 @@ Ask user to give the data for the schema
       cb err
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
     <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
-    cb err, data
-
-</pre>
+    cb err, data</pre>
         </td>
       </tr>
     

@@ -138,8 +138,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:storage'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
-</pre>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span></pre>
         </td>
       </tr>
     
@@ -155,8 +154,7 @@ moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'m
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
-{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-</pre>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -190,10 +188,7 @@ Configuration
   <span class="hljs-attribute">day</span>: <span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every day</span>
   <span class="hljs-attribute">week</span>: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span>
   <span class="hljs-attribute">month</span>: <span class="hljs-number">24</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every 24 days (maximum for setTimeout)</span>
-  <span class="hljs-attribute">other</span>: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span>
-
-
-</pre>
+  <span class="hljs-attribute">other</span>: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span></pre>
         </td>
       </tr>
     
@@ -211,10 +206,7 @@ Initialized Data
         <td class="code highlight">
           <pre class="coffeescript">monitor = <span class="hljs-literal">null</span>  <span class="hljs-comment"># require './index'</span>
 conf = <span class="hljs-literal">null</span>
-mode = {}
-
-
-</pre>
+mode = {}</pre>
         </td>
       </tr>
     
@@ -241,10 +233,7 @@ Initialize database
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       create conf, db, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
         cleanup interval <span class="hljs-keyword">for</span> interval <span class="hljs-keyword">of</span> cleanupInterval
-        cb err
-
-
-</pre>
+        cb err</pre>
         </td>
       </tr>
     
@@ -267,10 +256,7 @@ Drop database
     <span class="hljs-string">"CREATE SCHEMA public"</span>
   ], <span class="hljs-function"><span class="hljs-params">(sql, cb)</span> -&gt;</span>
     db.exec sql, cb
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -285,8 +271,7 @@ Create database structure
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">create</span> = <span class="hljs-params">(conf, db, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">create</span> = <span class="hljs-params">(conf, db, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -370,8 +355,7 @@ Create database structure
         report TEXT NOT NULL
       )
       """</span>, cb]
-  monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
-</pre>
+  monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span></pre>
         </td>
       </tr>
     
@@ -405,8 +389,7 @@ Create database structure
       queries[<span class="hljs-string">"sensor_<span class="hljs-subst">#{name}</span>"</span>] = [<span class="hljs-string">'intervalType'</span>, <span class="hljs-string">'check'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec sql, cb]
       cb()
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    <span class="hljs-built_in">console</span>.error chalk.red err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-built_in">console</span>.error chalk.red err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -438,8 +421,7 @@ Create database structure
         queries[<span class="hljs-string">"actor_<span class="hljs-subst">#{name}</span>"</span>] = [<span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec sql, cb]
         cb()
     , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-built_in">console</span>.error chalk.red err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-built_in">console</span>.error chalk.red err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -452,10 +434,7 @@ Create database structure
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      async.auto queries, db.conf.pool?.limit ? <span class="hljs-number">10</span>, cb
-
-
-</pre>
+          <pre class="coffeescript">      async.auto queries, db.conf.pool?.limit ? <span class="hljs-number">10</span>, cb</pre>
         </td>
       </tr>
     
@@ -484,10 +463,7 @@ Get or register controller
       db.exec <span class="hljs-string">"""
         INSERT INTO <span class="hljs-subst">#{prefix}</span>controller (name) VALUES ($1) RETURNING controller_id
         """</span>, name, <span class="hljs-function"><span class="hljs-params">(err, num, id)</span> -&gt;</span>
-        cb err, id
-
-
-</pre>
+        cb err, id</pre>
         </td>
       </tr>
     
@@ -512,8 +488,7 @@ Get or register check
       SELECT check_id FROM <span class="hljs-subst">#{prefix}</span>check WHERE controller_id=$1 AND sensor=$2 AND name=$3
       """</span>, [controller, sensor, name], <span class="hljs-function"><span class="hljs-params">(err, value)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err, value <span class="hljs-keyword">if</span> err <span class="hljs-keyword">or</span> value
-      debug <span class="hljs-string">"register check <span class="hljs-subst">#{sensor}</span>:<span class="hljs-subst">#{name}</span> for controller_id <span class="hljs-subst">#{controller}</span>"</span>
-</pre>
+      debug <span class="hljs-string">"register check <span class="hljs-subst">#{sensor}</span>:<span class="hljs-subst">#{name}</span> for controller_id <span class="hljs-subst">#{controller}</span>"</span></pre>
         </td>
       </tr>
     
@@ -542,9 +517,7 @@ Get or register check
         cb err, id
 
 
-valueTypes = [<span class="hljs-string">'integer'</span>, <span class="hljs-string">'float'</span>, <span class="hljs-string">'interval'</span>, <span class="hljs-string">'byte'</span>, <span class="hljs-string">'percent'</span>]
-
-</pre>
+valueTypes = [<span class="hljs-string">'integer'</span>, <span class="hljs-string">'float'</span>, <span class="hljs-string">'interval'</span>, <span class="hljs-string">'byte'</span>, <span class="hljs-string">'percent'</span>]</pre>
         </td>
       </tr>
     
@@ -571,8 +544,7 @@ Add results
         SELECT COUNT(*)::int FROM <span class="hljs-subst">#{prefix}</span>sensor_<span class="hljs-subst">#{sensor}</span>
         WHERE check_id=$1 AND interval=$2 AND period=$3
         """</span>, [checkID, interval, period], <span class="hljs-function"><span class="hljs-params">(err, exists)</span> -&gt;</span>
-        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -595,8 +567,7 @@ Add results
           , [checkID, interval, period].concat(Object.keys(value).map (k) -&gt; value[k])
           , <span class="hljs-function"><span class="hljs-params">(err, num, id)</span> -&gt;</span>
             cb err, id
-          <span class="hljs-keyword">return</span>
-</pre>
+          <span class="hljs-keyword">return</span></pre>
         </td>
       </tr>
     
@@ -675,8 +646,7 @@ Add status on change
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> conf.storage?.database? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> mode.<span class="hljs-keyword">try</span>
   prefix = conf.storage.prefix
   database.instance conf.storage.database, <span class="hljs-function"><span class="hljs-params">(err, db)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -694,8 +664,7 @@ Add status on change
       WHERE check_id=$1 ORDER BY change DESC
       """</span>, [checkID], <span class="hljs-function"><span class="hljs-params">(err, oldStatus)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> oldStatus
-</pre>
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> oldStatus</pre>
         </td>
       </tr>
     
@@ -720,8 +689,7 @@ exports.statusController = <span class="hljs-function"><span class="hljs-params"
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> conf.storage?.database? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> mode.<span class="hljs-keyword">try</span>
   prefix = conf.storage.prefix
   database.instance conf.storage.database, <span class="hljs-function"><span class="hljs-params">(err, db)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -739,8 +707,7 @@ exports.statusController = <span class="hljs-function"><span class="hljs-params"
       WHERE controller_id=$1 ORDER BY change DESC
       """</span>, [controllerID], <span class="hljs-function"><span class="hljs-params">(err, oldStatus)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> oldStatus
-</pre>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> oldStatus</pre>
         </td>
       </tr>
     
@@ -758,10 +725,7 @@ exports.statusController = <span class="hljs-function"><span class="hljs-params"
         (controller_id, change, status) VALUES (?, ?, ?)
         """</span>
       , [controllerID, date, status]
-      , cb
-
-
-</pre>
+      , cb</pre>
         </td>
       </tr>
     
@@ -779,8 +743,7 @@ See the configuration at the top of this file.</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">cleanup</span> = <span class="hljs-params">(interval)</span> -&gt;</span>
-  setTimeout cleanup, cleanupInterval[interval], interval
-</pre>
+  setTimeout cleanup, cleanupInterval[interval], interval</pre>
         </td>
       </tr>
     
@@ -797,8 +760,7 @@ See the configuration at the top of this file.</p>
   database.instance conf.storage.database, <span class="hljs-function"><span class="hljs-params">(err, db)</span> -&gt;</span>
     num = conf.storage.cleanup[interval]
     debug <span class="hljs-string">"remove <span class="hljs-subst">#{interval}</span> entries older than <span class="hljs-subst">#{num}</span> <span class="hljs-subst">#{interval}</span>s"</span>
-    <span class="hljs-keyword">if</span> interval <span class="hljs-keyword">is</span> <span class="hljs-string">'other'</span>
-</pre>
+    <span class="hljs-keyword">if</span> interval <span class="hljs-keyword">is</span> <span class="hljs-string">'other'</span></pre>
         </td>
       </tr>
     
@@ -814,8 +776,7 @@ See the configuration at the top of this file.</p>
           <pre class="coffeescript">      time = moment().subtract(num, <span class="hljs-string">'day'</span>).toDate()
       async.each monitor.listActor(), <span class="hljs-function"><span class="hljs-params">(actor, cb)</span> -&gt;</span>
         db.exec <span class="hljs-string">"DELETE FROM <span class="hljs-subst">#{prefix}</span>actor_<span class="hljs-subst">#{actor}</span> WHERE runAt&lt;?"</span>, [time], cb
-      , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-</pre>
+      , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -833,8 +794,7 @@ See the configuration at the top of this file.</p>
           db.exec <span class="hljs-string">"DELETE FROM <span class="hljs-subst">#{prefix}</span>status_<span class="hljs-subst">#{type}</span> WHERE change&lt;?"</span>, [time], cb
         , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
           <span class="hljs-built_in">console</span>.error chalk.red.bold err <span class="hljs-keyword">if</span> err
-    <span class="hljs-keyword">else</span>
-</pre>
+    <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -853,9 +813,7 @@ See the configuration at the top of this file.</p>
         , [interval, time]
         , cb
       , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-        <span class="hljs-built_in">console</span>.error chalk.red.bold err <span class="hljs-keyword">if</span> err
-
-</pre>
+        <span class="hljs-built_in">console</span>.error chalk.red.bold err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     

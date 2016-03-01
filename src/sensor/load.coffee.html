@@ -137,8 +137,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:load'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:load'</span>)</pre>
         </td>
       </tr>
     
@@ -152,10 +151,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-
-
-</pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
     
@@ -198,10 +194,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -223,9 +216,7 @@ General information
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"A very high system load makes the system irresponsible or really slow.
   Mostly this is CPU-bound load, load caused by out of memory issues or I/O-bound
-  load problems. "</span>
-
-</pre>
+  load problems. "</span></pre>
         </td>
       </tr>
     
@@ -254,10 +245,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">long</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"15min Load"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"average value of 15 minute processor load (normalized)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -287,10 +275,7 @@ Initialize check
   , <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-property">@base</span> = Number res.stdout()
-    cb()
-
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     
@@ -305,8 +290,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -324,10 +308,7 @@ Run the Sensor
     <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'cat'</span>
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">'/proc/loadavg'</span>]
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -344,8 +325,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-</pre>
+  res = <span class="hljs-property">@result</span>.data</pre>
         </td>
       </tr>
     
@@ -362,9 +342,7 @@ Get the results
   <span class="hljs-property">@values</span>.short = Number(load[<span class="hljs-number">0</span>]) / <span class="hljs-property">@base</span>
   <span class="hljs-property">@values</span>.medium = Number(load[<span class="hljs-number">1</span>]) / <span class="hljs-property">@base</span>
   <span class="hljs-property">@values</span>.long = Number(load[<span class="hljs-number">2</span>]) / <span class="hljs-property">@base</span>
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

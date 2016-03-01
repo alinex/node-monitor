@@ -136,8 +136,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.debug = debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:cpu'</span>)
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-</pre>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
         </td>
       </tr>
     
@@ -153,8 +152,7 @@ chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'ch
           <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
 {object, string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -227,9 +225,7 @@ compatible schema definition:</p>
           <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of top CPU heavy processes for analysis"</span>
           <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
           <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-          <span class="hljs-attribute">default</span>: <span class="hljs-number">5</span>
-
-</pre>
+          <span class="hljs-attribute">default</span>: <span class="hljs-number">5</span></pre>
         </td>
       </tr>
     
@@ -251,9 +247,7 @@ General information
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"A high CPU usage means that the server may not start another task immediately.
   If the load is also very high the system is overloaded, check if any application
-  goes evil."</span>
-
-</pre>
+  goes evil."</span></pre>
         </td>
       </tr>
     
@@ -319,9 +313,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">high</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Highest CPU Core"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of highest usage of a CPU core"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -336,9 +328,7 @@ Get content specific name
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.name = <span class="hljs-function"><span class="hljs-params">(config)</span> -&gt;</span> <span class="hljs-string">''</span>
-
-</pre>
+          <pre class="coffeescript">exports.name = <span class="hljs-function"><span class="hljs-params">(config)</span> -&gt;</span> <span class="hljs-string">''</span></pre>
         </td>
       </tr>
     
@@ -353,8 +343,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(check, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(check, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -397,8 +386,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
     <span class="hljs-attribute">sensor</span>: <span class="hljs-keyword">this</span>
     <span class="hljs-attribute">config</span>: config
     <span class="hljs-attribute">result</span>: {}
-  sensor.start work
-</pre>
+  sensor.start work</pre>
         </td>
       </tr>
     
@@ -429,8 +417,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    sensor.end work
-</pre>
+    sensor.end work</pre>
         </td>
       </tr>
     
@@ -446,8 +433,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> err
       work.err = err
     <span class="hljs-keyword">else</span>
-      val = work.result.values
-</pre>
+      val = work.result.values</pre>
         </td>
       </tr>
     
@@ -467,8 +453,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
         <span class="hljs-keyword">switch</span> match[<span class="hljs-number">1</span>]
           <span class="hljs-keyword">when</span> <span class="hljs-string">'processor'</span> <span class="hljs-keyword">then</span> val.cpus++
           <span class="hljs-keyword">when</span> <span class="hljs-string">'cpu MHz'</span> <span class="hljs-keyword">then</span> val.speed += Number match[<span class="hljs-number">2</span>]
-      val.speed /= val.cpus
-</pre>
+      val.speed /= val.cpus</pre>
         </td>
       </tr>
     
@@ -489,8 +474,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
           <span class="hljs-keyword">if</span> string.starts c, <span class="hljs-string">'cpu'</span> <span class="hljs-keyword">then</span> <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> Number c
       <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>.l1.length-<span class="hljs-number">1</span>]
         l1[num][<span class="hljs-number">0</span>] += c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> l1[num][<span class="hljs-number">1.</span>.]
-        l2[num][<span class="hljs-number">0</span>] += c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> l2[num][<span class="hljs-number">1.</span>.]
-</pre>
+        l2[num][<span class="hljs-number">0</span>] += c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> l2[num][<span class="hljs-number">1.</span>.]</pre>
         </td>
       </tr>
     
@@ -511,8 +495,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
       val.wait = percent <span class="hljs-number">5</span>
       val.hwint = percent <span class="hljs-number">6</span>
       val.swint = percent <span class="hljs-number">7</span>
-      val.active = <span class="hljs-number">1.0</span> - val.idle
-</pre>
+      val.active = <span class="hljs-number">1.0</span> - val.idle</pre>
         </td>
       </tr>
     
@@ -532,9 +515,7 @@ exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb 
         val.low = active <span class="hljs-keyword">if</span> active &lt; val.low
         val.high = active <span class="hljs-keyword">if</span> active &gt; val.high
       sensor.result work
-    cb err, work.result
-
-</pre>
+    cb err, work.result</pre>
         </td>
       </tr>
     
@@ -550,8 +531,7 @@ Run additional analysis
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.analysis = <span class="hljs-function"><span class="hljs-params">(config, res, cb = -&gt;)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> config.analysis?
-</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> config.analysis?</pre>
         </td>
       </tr>
     
@@ -585,8 +565,7 @@ Run additional analysis
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -600,8 +579,7 @@ Run additional analysis
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    report = <span class="hljs-keyword">new</span> Report()
-    report.p <span class="hljs-string">"The top CPU consuming processes<span class="hljs-subst">#{criteria}</span> are:"</span>
-</pre>
+    report.p <span class="hljs-string">"The top CPU consuming processes<span class="hljs-subst">#{criteria}</span> are:"</span></pre>
         </td>
       </tr>
     
@@ -614,10 +592,7 @@ Run additional analysis
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    data = []
-
-
-</pre>
+          <pre class="coffeescript">    data = []</pre>
         </td>
       </tr>
     
@@ -630,8 +605,7 @@ Run additional analysis
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    report.table data,
-</pre>
+          <pre class="coffeescript">    report.table data,</pre>
         </td>
       </tr>
     
@@ -689,9 +663,7 @@ Run additional analysis
         | <span class="hljs-subst">#{string.lpad value[<span class="hljs-number">2</span>].toString() + <span class="hljs-string">'%'</span>, <span class="hljs-number">5</span>}</span> | <span class="hljs-subst">#{string.rpad proc, <span class="hljs-number">50</span>}</span> |\n"</span>
     <span class="hljs-keyword">if</span> min <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> found
       <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-string">"No high cpu consuming processes over <span class="hljs-subst">#{min}</span>% found!"</span>
-    cb <span class="hljs-literal">null</span>, report
-
-</pre>
+    cb <span class="hljs-literal">null</span>, report</pre>
         </td>
       </tr>
     

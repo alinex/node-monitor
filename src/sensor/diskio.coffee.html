@@ -137,8 +137,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:diskio'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:diskio'</span>)</pre>
         </td>
       </tr>
     
@@ -153,10 +152,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-
-
-</pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
     
@@ -206,9 +202,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -229,9 +223,7 @@ General information
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the disk io traffic."</span>
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If there are any problems here check the device for hardware or
-  network problems."</span>
-
-</pre>
+  network problems."</span></pre>
         </td>
       </tr>
     
@@ -286,11 +278,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write Time/s"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data written to the device per second"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-
-
-
-</pre>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span></pre>
         </td>
       </tr>
     
@@ -312,10 +300,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span>"</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -330,8 +315,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -356,10 +340,7 @@ Run the Sensor
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -376,8 +357,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-</pre>
+  res = <span class="hljs-property">@result</span>.data</pre>
         </td>
       </tr>
     
@@ -400,9 +380,7 @@ Get the results
   <span class="hljs-property">@values</span>.writeTotal = Number(l2[<span class="hljs-number">9</span>]) * <span class="hljs-number">512</span>
   <span class="hljs-property">@values</span>.readTime = (Number(l2[<span class="hljs-number">6</span>]) - Number(l1[<span class="hljs-number">6</span>])) / <span class="hljs-property">@conf</span>.time
   <span class="hljs-property">@values</span>.writeTime = (Number(l2[<span class="hljs-number">10</span>]) - Number(l1[<span class="hljs-number">10</span>])) / <span class="hljs-property">@conf</span>.time
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

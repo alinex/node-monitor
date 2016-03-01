@@ -132,8 +132,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.debug = debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:explorer:hardware'</span>)
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-</pre>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
         </td>
       </tr>
     
@@ -148,8 +147,7 @@ chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'ch
         <td class="code highlight">
           <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-{object, string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-</pre>
+{object, string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -162,10 +160,7 @@ Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'ali
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">explorer = <span class="hljs-built_in">require</span> <span class="hljs-string">'../explorer'</span>
-
-
-</pre>
+          <pre class="coffeescript">explorer = <span class="hljs-built_in">require</span> <span class="hljs-string">'../explorer'</span></pre>
         </td>
       </tr>
     
@@ -193,9 +188,7 @@ compatible schema definition:</p>
     <span class="hljs-attribute">remote</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -215,9 +208,7 @@ General information
   <span class="hljs-attribute">title</span>: <span class="hljs-string">'Hardware Explorer'</span>
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the hardware of the given system."</span>
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Depending on the user rights this report may be more or less complete."</span>
-
-</pre>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Depending on the user rights this report may be more or less complete."</span></pre>
         </td>
       </tr>
     
@@ -238,9 +229,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">systemId</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"System ID"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"name of the system by manufacturer"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -255,9 +244,7 @@ Get content specific name
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.name = <span class="hljs-function"><span class="hljs-params">(config)</span> -&gt;</span> config.remote
-
-</pre>
+          <pre class="coffeescript">exports.name = <span class="hljs-function"><span class="hljs-params">(config)</span> -&gt;</span> config.remote</pre>
         </td>
       </tr>
     
@@ -277,8 +264,7 @@ Run the Sensor
     <span class="hljs-attribute">explorer</span>: <span class="hljs-keyword">this</span>
     <span class="hljs-attribute">config</span>: config
     <span class="hljs-attribute">result</span>: {}
-  explorer.start work
-</pre>
+  explorer.start work</pre>
         </td>
       </tr>
     
@@ -303,8 +289,7 @@ Run the Sensor
       runCore work, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, result
 <span class="hljs-function">
-<span class="hljs-title">runLshw</span> = <span class="hljs-params">(work, cb)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">runLshw</span> = <span class="hljs-params">(work, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -322,8 +307,7 @@ Run the Sensor
     <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'lshw'</span>
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-json'</span>]
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-</pre>
+  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -340,8 +324,7 @@ Run the Sensor
       work.hint ?= []
       work.hint.push <span class="hljs-string">"Install the command `lshw` to get a lot more information."</span>
       <span class="hljs-keyword">return</span> err
-    data = JSON.parse proc.stdout()
-</pre>
+    data = JSON.parse proc.stdout()</pre>
         </td>
       </tr>
     
@@ -358,8 +341,7 @@ Run the Sensor
     val.systemId = data.id
     cb <span class="hljs-literal">null</span>, work.result
 <span class="hljs-function">
-<span class="hljs-title">runDmidecode</span> = <span class="hljs-params">(work, cb)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">runDmidecode</span> = <span class="hljs-params">(work, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -376,8 +358,7 @@ Run the Sensor
     <span class="hljs-attribute">remote</span>: work.config.remote
     <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'dmidecode'</span>
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-</pre>
+  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -393,8 +374,7 @@ Run the Sensor
           <pre class="coffeescript">
     cb <span class="hljs-literal">null</span>, work.result
 <span class="hljs-function">
-<span class="hljs-title">runCore</span> = <span class="hljs-params">(work, cb)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">runCore</span> = <span class="hljs-params">(work, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -418,8 +398,7 @@ Run the Sensor
   ,
     <span class="hljs-attribute">remote</span>: config.remote
     <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'lsusb'</span>
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-</pre>
+    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span></pre>
         </td>
       </tr>
     
@@ -435,8 +414,7 @@ cat /proc/diskstats</p>
         <td class="code highlight">
           <pre class="coffeescript">  ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
-  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-</pre>
+  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -450,9 +428,7 @@ cat /proc/diskstats</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-    cb <span class="hljs-literal">null</span>, work.result
-
-</pre>
+    cb <span class="hljs-literal">null</span>, work.result</pre>
         </td>
       </tr>
     

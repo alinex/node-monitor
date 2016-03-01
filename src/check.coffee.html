@@ -168,8 +168,7 @@ EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-stri
 vm = <span class="hljs-built_in">require</span> <span class="hljs-string">'vm'</span>
 math = <span class="hljs-built_in">require</span> <span class="hljs-string">'mathjs'</span>
 named = <span class="hljs-built_in">require</span>(<span class="hljs-string">'named-regexp'</span>).named
-moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
-</pre>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span></pre>
         </td>
       </tr>
     
@@ -183,8 +182,7 @@ moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'m
         </td>
         <td class="code highlight">
           <pre class="coffeescript">validator = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-validator'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -197,10 +195,7 @@ Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'a
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">storage = <span class="hljs-built_in">require</span> <span class="hljs-string">'./storage'</span>
-
-
-</pre>
+          <pre class="coffeescript">storage = <span class="hljs-built_in">require</span> <span class="hljs-string">'./storage'</span></pre>
         </td>
       </tr>
     
@@ -215,10 +210,7 @@ Configuration
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">HISTORY_LENGTH = <span class="hljs-number">5</span>
-
-
-</pre>
+          <pre class="coffeescript">HISTORY_LENGTH = <span class="hljs-number">5</span></pre>
         </td>
       </tr>
     
@@ -235,9 +227,7 @@ Initialized Data
         </td>
         <td class="code highlight">
           <pre class="coffeescript">monitor = <span class="hljs-literal">null</span>  <span class="hljs-comment"># require './index'</span>
-mode = {}
-
-</pre>
+mode = {}</pre>
         </td>
       </tr>
     
@@ -252,9 +242,7 @@ Controller class
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Check</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Check</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span></pre>
         </td>
       </tr>
     
@@ -271,9 +259,7 @@ General initialization
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-property">@init</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     mode = setup
-    cb()
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     
@@ -294,8 +280,7 @@ Create instance
     <span class="hljs-property">@depend</span> = setup.depend
     <span class="hljs-property">@conf</span> = setup.config ? {}
     <span class="hljs-property">@weight</span> = setup.weight
-    <span class="hljs-property">@hint</span> = setup.hint
-</pre>
+    <span class="hljs-property">@hint</span> = setup.hint</pre>
         </td>
       </tr>
     
@@ -312,8 +297,7 @@ Create instance
     <span class="hljs-property">@sensor</span> = <span class="hljs-literal">null</span>
     <span class="hljs-property">@databaseID</span> = <span class="hljs-literal">null</span>
     <span class="hljs-property">@base</span> = <span class="hljs-literal">null</span>
-    <span class="hljs-property">@rule</span> = <span class="hljs-literal">null</span>
-</pre>
+    <span class="hljs-property">@rule</span> = <span class="hljs-literal">null</span></pre>
         </td>
       </tr>
     
@@ -330,8 +314,7 @@ Create instance
     <span class="hljs-property">@date</span> = []
     <span class="hljs-property">@result</span> = {}
     <span class="hljs-property">@values</span> = {}
-    <span class="hljs-property">@status</span> = <span class="hljs-string">'disabled'</span>
-</pre>
+    <span class="hljs-property">@status</span> = <span class="hljs-string">'disabled'</span></pre>
         </td>
       </tr>
     
@@ -345,9 +328,7 @@ Create instance
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-property">@history</span> = []
-    <span class="hljs-property">@changed</span> = <span class="hljs-number">0</span>
-
-</pre>
+    <span class="hljs-property">@changed</span> = <span class="hljs-number">0</span></pre>
         </td>
       </tr>
     
@@ -369,8 +350,7 @@ Initialize check and sensor
       <span class="hljs-attribute">fail</span>: <span class="hljs-property">@conf</span>.fail
     monitor ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
     monitor.getSensor <span class="hljs-property">@type</span>, <span class="hljs-function"><span class="hljs-params">(err, <span class="hljs-property">@sensor</span>)</span> =&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -393,8 +373,7 @@ Initialize check and sensor
         <span class="hljs-property">@sensor</span>.init.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
           <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> Initialized"</span>
-          <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@controller</span>?
-</pre>
+          <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@controller</span>?</pre>
         </td>
       </tr>
     
@@ -411,9 +390,7 @@ Initialize check and sensor
           , <span class="hljs-function"><span class="hljs-params">(err, checkID)</span> =&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
             <span class="hljs-property">@databaseID</span> = checkID
-            cb()
-
-</pre>
+            cb()</pre>
         </td>
       </tr>
     
@@ -428,8 +405,7 @@ Run one sensor check
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -446,8 +422,7 @@ Run one sensor check
       <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> Date()
       <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Skipped test because it is called again while running."</span>
       <span class="hljs-property">@setStatus</span>()
-      <span class="hljs-keyword">return</span> cb <span class="hljs-property">@err</span>, <span class="hljs-property">@status</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@databaseID</span>
-</pre>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-property">@err</span>, <span class="hljs-property">@status</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@databaseID</span></pre>
         </td>
       </tr>
     
@@ -466,8 +441,7 @@ Run one sensor check
         cb <span class="hljs-property">@err</span>, <span class="hljs-property">@status</span>
     <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> start check"</span>
     <span class="hljs-property">@status</span> = <span class="hljs-string">'running'</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-property">@runNow</span> cb <span class="hljs-keyword">unless</span> <span class="hljs-property">@sensor</span>.prerun?
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@runNow</span> cb <span class="hljs-keyword">unless</span> <span class="hljs-property">@sensor</span>.prerun?</pre>
         </td>
       </tr>
     
@@ -482,10 +456,7 @@ Run one sensor check
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-property">@sensor</span>.prerun.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@err</span>)</span> =&gt;</span>
       <span class="hljs-keyword">return</span> cb <span class="hljs-property">@err</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-      <span class="hljs-property">@runNow</span> cb
-
-
-</pre>
+      <span class="hljs-property">@runNow</span> cb</pre>
         </td>
       </tr>
     
@@ -504,8 +475,7 @@ Really run (after optional prerun call)
     <span class="hljs-property">@err</span> = <span class="hljs-literal">null</span>
     <span class="hljs-property">@date</span> = [<span class="hljs-keyword">new</span> Date()]
     <span class="hljs-property">@values</span> = {}
-    <span class="hljs-property">@changed</span> = <span class="hljs-number">0</span>
-</pre>
+    <span class="hljs-property">@changed</span> = <span class="hljs-number">0</span></pre>
         </td>
       </tr>
     
@@ -524,8 +494,7 @@ Really run (after optional prerun call)
       <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
       <span class="hljs-property">@result</span>.data = res
       <span class="hljs-property">@sensor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@name</span>}</span> ended check"</span>
-      <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> Date()
-</pre>
+      <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> Date()</pre>
         </td>
       </tr>
     
@@ -541,8 +510,7 @@ Really run (after optional prerun call)
           <pre class="coffeescript">      <span class="hljs-property">@sensor</span>.calc.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
         <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
         <span class="hljs-property">@setStatus</span>()
-        <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-property">@status</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@databaseID</span>
-</pre>
+        <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-property">@status</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@databaseID</span></pre>
         </td>
       </tr>
     
@@ -558,9 +526,7 @@ Really run (after optional prerun call)
           <pre class="coffeescript">        storage.results <span class="hljs-property">@databaseID</span>, <span class="hljs-property">@type</span>, <span class="hljs-property">@sensor</span>.meta.values
         , <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>], <span class="hljs-property">@values</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
           <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
-          cb <span class="hljs-literal">null</span>, <span class="hljs-property">@status</span>
-
-</pre>
+          cb <span class="hljs-literal">null</span>, <span class="hljs-property">@status</span></pre>
         </td>
       </tr>
     
@@ -594,8 +560,7 @@ verbose output</p>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> mode.verbose &gt; <span class="hljs-number">1</span>
       <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{moment().format(<span class="hljs-string">"YYYY-MM-DD HH:mm:ss"</span>)}</span>
-      Check <span class="hljs-subst">#{chalk.white <span class="hljs-property">@type</span>+<span class="hljs-string">':'</span>+<span class="hljs-property">@name</span>}</span> =&gt; <span class="hljs-subst">#{<span class="hljs-property">@controller</span>.colorStatus <span class="hljs-property">@status</span>}</span>"</span>
-</pre>
+      Check <span class="hljs-subst">#{chalk.white <span class="hljs-property">@type</span>+<span class="hljs-string">':'</span>+<span class="hljs-property">@name</span>}</span> =&gt; <span class="hljs-subst">#{<span class="hljs-property">@controller</span>.colorStatus <span class="hljs-property">@status</span>}</span>"</span></pre>
         </td>
       </tr>
     
@@ -613,8 +578,7 @@ verbose output</p>
       <span class="hljs-attribute">date</span>: <span class="hljs-property">@date</span>
       <span class="hljs-attribute">values</span>: <span class="hljs-property">@values</span>
       <span class="hljs-attribute">err</span>: <span class="hljs-property">@err</span>
-    <span class="hljs-property">@history</span>.pop() <span class="hljs-keyword">while</span> <span class="hljs-property">@history</span>.length &gt; HISTORY_LENGTH
-</pre>
+    <span class="hljs-property">@history</span>.pop() <span class="hljs-keyword">while</span> <span class="hljs-property">@history</span>.length &gt; HISTORY_LENGTH</pre>
         </td>
       </tr>
     
@@ -627,9 +591,7 @@ verbose output</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@status</span>
-
-</pre>
+          <pre class="coffeescript">    <span class="hljs-property">@status</span></pre>
         </td>
       </tr>
     
@@ -643,8 +605,7 @@ verbose output</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-attribute">calcStatus</span>: <span class="hljs-function">-&gt;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = <span class="hljs-string">'fail'</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = <span class="hljs-string">'fail'</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span></pre>
         </td>
       </tr>
     
@@ -659,8 +620,7 @@ verbose output</p>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">unless</span> Object.keys <span class="hljs-property">@values</span>
       <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error <span class="hljs-string">'no data'</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = <span class="hljs-string">'fail'</span>
-</pre>
+      <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = <span class="hljs-string">'fail'</span></pre>
         </td>
       </tr>
     
@@ -676,8 +636,7 @@ verbose output</p>
           <pre class="coffeescript">    <span class="hljs-keyword">for</span> status <span class="hljs-keyword">in</span> [<span class="hljs-string">'fail'</span>, <span class="hljs-string">'warn'</span>]
       <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@rule</span>[status]
       rule = <span class="hljs-property">@rule</span>[status]
-      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> check <span class="hljs-subst">#{status}</span> rule: <span class="hljs-subst">#{<span class="hljs-property">@conf</span>[status]}</span>"</span>
-</pre>
+      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> check <span class="hljs-subst">#{status}</span> rule: <span class="hljs-subst">#{<span class="hljs-property">@conf</span>[status]}</span>"</span></pre>
         </td>
       </tr>
     
@@ -705,8 +664,7 @@ verbose output</p>
           rule = rule.replace re, <span class="hljs-string">"'<span class="hljs-subst">#{value.toString()}</span>'"</span>
         <span class="hljs-keyword">else</span>
           re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\b"</span>, <span class="hljs-string">'g'</span>
-          rule = rule.replace re, value
-</pre>
+          rule = rule.replace re, value</pre>
         </td>
       </tr>
     
@@ -722,8 +680,7 @@ verbose output</p>
           <pre class="coffeescript">      <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.meta?.values?
         <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> <span class="hljs-property">@sensor</span>.meta.values
           re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>(\\.\\w+|\\[\\d+\\])?\\b"</span>, <span class="hljs-string">'g'</span>
-          rule = rule.replace re, <span class="hljs-string">'null'</span>
-</pre>
+          rule = rule.replace re, <span class="hljs-string">'null'</span></pre>
         </td>
       </tr>
     
@@ -737,8 +694,7 @@ verbose output</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      rule = rule.replace <span class="hljs-regexp">/\b(\d+(\.\d+)?)%/g</span>, <span class="hljs-function"><span class="hljs-params">(str, value)</span> -&gt;</span>
-        value / <span class="hljs-number">100</span>
-</pre>
+        value / <span class="hljs-number">100</span></pre>
         </td>
       </tr>
     
@@ -752,8 +708,7 @@ verbose output</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      rule = rule.replace <span class="hljs-regexp">/\b(\d+(\.\d+)?)([kMGTPEYZ]?B)/g</span>, <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
-        math.unit(str).toNumber(<span class="hljs-string">'B'</span>)
-</pre>
+        math.unit(str).toNumber(<span class="hljs-string">'B'</span>)</pre>
         </td>
       </tr>
     
@@ -767,8 +722,7 @@ verbose output</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      rule = rule.replace <span class="hljs-regexp">/\b(\d+(\.\d+)?)(ms|s|m|h|d)/g</span>, <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
-        Number.parseMSeconds str
-</pre>
+        Number.parseMSeconds str</pre>
         </td>
       </tr>
     
@@ -784,8 +738,7 @@ verbose output</p>
           <pre class="coffeescript">      <span class="hljs-keyword">for</span> name, value <span class="hljs-keyword">of</span> {<span class="hljs-attribute">and</span>: <span class="hljs-string">'&amp;&amp;'</span>, <span class="hljs-attribute">or</span>: <span class="hljs-string">'||'</span>, <span class="hljs-attribute">is</span>: <span class="hljs-string">'=='</span>, <span class="hljs-attribute">isnt</span>: <span class="hljs-string">'!='</span>, <span class="hljs-attribute">not</span>: <span class="hljs-string">'!'</span>}
         re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{name}</span>\\b"</span>, <span class="hljs-string">'g'</span>
         rule = rule.replace re, value
-      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> optimized: <span class="hljs-subst">#{rule}</span>"</span>
-</pre>
+      <span class="hljs-property">@sensor</span>.debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> optimized: <span class="hljs-subst">#{rule}</span>"</span></pre>
         </td>
       </tr>
     
@@ -804,9 +757,7 @@ verbose output</p>
       <span class="hljs-keyword">if</span> sandbox.result
         <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error <span class="hljs-property">@conf</span>[status]
         <span class="hljs-keyword">return</span> <span class="hljs-property">@status</span> = status
-    <span class="hljs-property">@status</span> = <span class="hljs-string">'ok'</span>
-
-</pre>
+    <span class="hljs-property">@status</span> = <span class="hljs-string">'ok'</span></pre>
         </td>
       </tr>
     
@@ -825,8 +776,7 @@ create text report
     last = <span class="hljs-property">@history</span>[<span class="hljs-property">@history</span>.length - <span class="hljs-number">1</span>]
     report = <span class="hljs-keyword">new</span> Report()
     report.h2 <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@sensor</span>.meta.title}</span> <span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span>"</span>
-    report.p <span class="hljs-property">@sensor</span>.meta.description
-</pre>
+    report.p <span class="hljs-property">@sensor</span>.meta.description</pre>
         </td>
       </tr>
     
@@ -858,8 +808,7 @@ create text report
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      report.box list, boxtype[<span class="hljs-property">@status</span>] ? <span class="hljs-string">'info'</span>
-</pre>
+          <pre class="coffeescript">      report.box list, boxtype[<span class="hljs-property">@status</span>] ? <span class="hljs-string">'info'</span></pre>
         </td>
       </tr>
     
@@ -876,8 +825,7 @@ create text report
       report.p <span class="hljs-string">"Last check results from <span class="hljs-subst">#{last.date[<span class="hljs-number">0</span>]}</span> are:"</span>
       data = []
       <span class="hljs-keyword">for</span> key, conf <span class="hljs-keyword">of</span> <span class="hljs-property">@sensor</span>.meta.values
-        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> value = last.values[key]
-</pre>
+        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> value = last.values[key]</pre>
         </td>
       </tr>
     
@@ -892,8 +840,7 @@ create text report
         <td class="code highlight">
           <pre class="coffeescript">        <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.mapping?
           nconf = <span class="hljs-property">@sensor</span>.mapping.call <span class="hljs-keyword">this</span>, key
-          conf = nconf <span class="hljs-keyword">if</span> nconf
-</pre>
+          conf = nconf <span class="hljs-keyword">if</span> nconf</pre>
         </td>
       </tr>
     
@@ -928,8 +875,7 @@ create text report
         num = <span class="hljs-number">2</span>
         <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> <span class="hljs-property">@history</span>[<span class="hljs-number">1.</span><span class="hljs-number">.2</span>]
           col[++num] = {<span class="hljs-attribute">title</span>: <span class="hljs-string">'PREVIOUS'</span>, <span class="hljs-attribute">align</span>: <span class="hljs-string">'right'</span>}
-      report.table data, col
-</pre>
+      report.table data, col</pre>
         </td>
       </tr>
     
@@ -943,8 +889,7 @@ create text report
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.report?
-      report.add <span class="hljs-property">@sensor</span>.report.call <span class="hljs-keyword">this</span>
-</pre>
+      report.add <span class="hljs-property">@sensor</span>.report.call <span class="hljs-keyword">this</span></pre>
         </td>
       </tr>
     
@@ -960,8 +905,7 @@ create text report
           <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@sensor</span>.meta.hint
       report.quote <span class="hljs-property">@sensor</span>.meta.hint
     <span class="hljs-keyword">if</span> <span class="hljs-property">@hint</span>
-      report.quote <span class="hljs-property">@hint</span>
-</pre>
+      report.quote <span class="hljs-property">@hint</span></pre>
         </td>
       </tr>
     
@@ -983,9 +927,7 @@ create text report
         formatValue <span class="hljs-property">@conf</span>[key], meta
       <span class="hljs-keyword">else</span> <span class="hljs-string">'---'</span>
     report.table c, [<span class="hljs-string">'CONFIGURATION SETTING'</span>, <span class="hljs-string">'VALUE'</span>]
-    <span class="hljs-keyword">return</span> report
-
-</pre>
+    <span class="hljs-keyword">return</span> report</pre>
         </td>
       </tr>
     
@@ -1022,8 +964,7 @@ the full match.</p>
           <pre class="coffeescript">  <span class="hljs-attribute">match</span>: <span class="hljs-function"><span class="hljs-params">(text, re)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> re?
     <span class="hljs-keyword">unless</span> re <span class="hljs-keyword">instanceof</span> RegExp
-      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> Boolean ~text.indexOf re <span class="hljs-keyword">then</span> [re] <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
-</pre>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> Boolean ~text.indexOf re <span class="hljs-keyword">then</span> [re] <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -1044,11 +985,7 @@ the full match.</p>
       matches[name] = match.capture name <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> match.captures
     <span class="hljs-keyword">else</span>
       matches = match[<span class="hljs-number">0.</span>.match.length]
-    <span class="hljs-keyword">return</span> matches
-
-
-
-</pre>
+    <span class="hljs-keyword">return</span> matches</pre>
         </td>
       </tr>
     
@@ -1064,9 +1001,7 @@ Export class
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-<span class="hljs-built_in">module</span>.exports =  Check
-
-</pre>
+<span class="hljs-built_in">module</span>.exports =  Check</pre>
         </td>
       </tr>
     
@@ -1081,8 +1016,7 @@ Format a value for better human readable display
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">Check.formatValue = formatValue = <span class="hljs-function"><span class="hljs-params">(value, config)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">Check.formatValue = formatValue = <span class="hljs-function"><span class="hljs-params">(value, config)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -1102,8 +1036,7 @@ Format a value for better human readable display
         parts[<span class="hljs-number">0</span>] = parts[<span class="hljs-number">0</span>].replace <span class="hljs-regexp">/\B(?=(\d{3})+(?!\d))/g</span>, <span class="hljs-string">","</span>
         parts.join <span class="hljs-string">'.'</span>
       <span class="hljs-keyword">else</span>
-        value
-</pre>
+        value</pre>
         </td>
       </tr>
     
@@ -1156,9 +1089,7 @@ Format a value for better human readable display
     <span class="hljs-keyword">else</span>
       val = value
       val += <span class="hljs-string">" <span class="hljs-subst">#{config.unit}</span>"</span> <span class="hljs-keyword">if</span> value <span class="hljs-keyword">and</span> config.unit
-      val
-
-</pre>
+      val</pre>
         </td>
       </tr>
     

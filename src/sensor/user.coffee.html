@@ -137,8 +137,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:user'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:user'</span>)</pre>
         </td>
       </tr>
     
@@ -153,10 +152,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-
-
-</pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
     
@@ -200,10 +196,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -225,9 +218,7 @@ General information
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"This check will give an overview of the activities of an (logged in) user.
   If you look at the processes you may find out that some other warnings
-  like high load are user made and you may contact this person directly. "</span>
-
-</pre>
+  like high load are user made and you may contact this person directly. "</span></pre>
         </td>
       </tr>
     
@@ -266,10 +257,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">'Virtual Memory'</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"virtual memory usage"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-
-
-</pre>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span></pre>
         </td>
       </tr>
     
@@ -291,10 +279,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -309,8 +294,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -337,10 +321,7 @@ Run the Sensor
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -365,9 +346,7 @@ Get the results
   <span class="hljs-property">@values</span>.memory = Number(col[<span class="hljs-number">2</span>]) / <span class="hljs-number">100</span>
   <span class="hljs-property">@values</span>.rss = Number col[<span class="hljs-number">3</span>]
   <span class="hljs-property">@values</span>.vss = Number col[<span class="hljs-number">4</span>]
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

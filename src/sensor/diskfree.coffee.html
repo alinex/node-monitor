@@ -137,8 +137,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:diskfree'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:diskfree'</span>)</pre>
         </td>
       </tr>
     
@@ -152,10 +151,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-
-
-</pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
     
@@ -208,10 +204,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
       <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'free is 0'</span>
-
-
-</pre>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'free is 0'</span></pre>
         </td>
       </tr>
     
@@ -233,9 +226,7 @@ General information
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If a share is full it will make I/O problems in the system or applications
   in case of the root partition it may also neither be possible to log errors.
-  Maybe some old files like temp or logs can be removed or compressed. "</span>
-
-</pre>
+  Maybe some old files like temp or logs can be removed or compressed. "</span></pre>
         </td>
       </tr>
     
@@ -287,10 +278,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">freePercent</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">'% Free'</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the space, which is free"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -312,10 +300,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.share}</span>"</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -330,8 +315,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -353,10 +337,7 @@ Run the Sensor
     <span class="hljs-attribute">check</span>:
       <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
       <span class="hljs-attribute">stdout</span>: <span class="hljs-literal">true</span>
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -373,8 +354,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-</pre>
+  res = <span class="hljs-property">@result</span>.data</pre>
         </td>
       </tr>
     
@@ -397,9 +377,7 @@ Get the results
   <span class="hljs-property">@values</span>.mount = col[<span class="hljs-number">6</span>]
   <span class="hljs-property">@values</span>.usedPercent = <span class="hljs-property">@values</span>.used / <span class="hljs-property">@values</span>.total
   <span class="hljs-property">@values</span>.freePercent = <span class="hljs-property">@values</span>.free / <span class="hljs-property">@values</span>.total
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

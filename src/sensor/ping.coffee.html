@@ -139,8 +139,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:ping'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:ping'</span>)</pre>
         </td>
       </tr>
     
@@ -155,10 +154,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-
-
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -235,10 +231,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'quality is 0'</span>
-
-
-</pre>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'quality is 0'</span></pre>
         </td>
       </tr>
     
@@ -261,9 +254,7 @@ General information
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check the network card configuration if local ping won't work or the
   network connection for external pings. Problems can also be that the firewall
-  will block the ping port. "</span>
-
-</pre>
+  will block the ping port. "</span></pre>
         </td>
       </tr>
     
@@ -299,10 +290,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">quality</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">'Quality'</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"quality of response (packets succeeded)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -324,10 +312,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>"</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -342,8 +327,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -367,10 +351,7 @@ Run the Sensor
       <span class="hljs-property">@conf</span>.host
     ]
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -387,8 +368,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-</pre>
+  res = <span class="hljs-property">@result</span>.data</pre>
         </td>
       </tr>
     
@@ -416,10 +396,7 @@ Get the results
   match = <span class="hljs-regexp">/\s(\d+)% packet loss/</span>.exec res.stdout()
   <span class="hljs-property">@values</span>.quality = <span class="hljs-number">100</span>-match?[<span class="hljs-number">1</span>]
   <span class="hljs-property">@values</span>.quality = <span class="hljs-property">@values</span>.quality/<span class="hljs-number">100</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@values</span>.quality
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -439,9 +416,7 @@ Get special report elements
   <span class="hljs-keyword">if</span> data = <span class="hljs-property">@result</span>.data
     report.p Report.b <span class="hljs-string">"Result:"</span>
     report.code data.stdout(), <span class="hljs-string">'text'</span>
-  report
-
-</pre>
+  report</pre>
         </td>
       </tr>
     

@@ -109,8 +109,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">yargs = <span class="hljs-built_in">require</span> <span class="hljs-string">'yargs'</span>
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-</pre>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
         </td>
       </tr>
     
@@ -125,8 +124,7 @@ chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'ch
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
-</pre>
+database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span></pre>
         </td>
       </tr>
     
@@ -139,9 +137,8 @@ database = <span class="hljs-built_in">require</span> <span class="hljs-string">
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">logo = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex'</span>).logo <span class="hljs-string">'Monitoring Application'</span>
-monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
-</pre>
+          <pre class="coffeescript">logo = <span class="hljs-built_in">require</span>(<span class="hljs-string">'alinex-core'</span>).logo <span class="hljs-string">'Monitoring Application'</span>
+monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span></pre>
         </td>
       </tr>
     
@@ -155,9 +152,7 @@ monitor = <span class="hljs-built_in">require</span> <span class="hljs-string">'
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-process.title = <span class="hljs-string">'Monitor'</span>
-
-</pre>
+process.title = <span class="hljs-string">'Monitor'</span></pre>
         </td>
       </tr>
     
@@ -187,7 +182,7 @@ Start argument parsing
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">Usage</span>: $<span class="hljs-number">0</span> [-vCclt] &lt;controller...&gt;
+          <pre class="coffeescript">  <span class="hljs-attribute">Usage</span>: $<span class="hljs-number">0</span> [-vCcltdij] &lt;controller...&gt;
   <span class="hljs-string">""")
 </span></pre>
         </td>
@@ -206,8 +201,7 @@ Start argument parsing
 .example(<span class="hljs-string">'$0 fileserv'</span>, <span class="hljs-string">'to call a single service or group'</span>)
 .example(<span class="hljs-string">'$0 -d -C &gt;/dev/null'</span>, <span class="hljs-string">'run continuously as a daemon'</span>)
 .example(<span class="hljs-string">'$0 -tvvv'</span>, <span class="hljs-string">'make a try run and show all details'</span>)
-.example(<span class="hljs-string">'$0 -i'</span>, <span class="hljs-string">'run in interactive mode'</span>)
-</pre>
+.example(<span class="hljs-string">'$0 -i'</span>, <span class="hljs-string">'run in interactive mode'</span>)</pre>
         </td>
       </tr>
     
@@ -225,8 +219,7 @@ Start argument parsing
 .boolean(<span class="hljs-string">'C'</span>)
 .alias(<span class="hljs-string">'v'</span>, <span class="hljs-string">'verbose'</span>)
 .describe(<span class="hljs-string">'v'</span>, <span class="hljs-string">'run in verbose mode (multiple makes more verbose)'</span>)
-.count(<span class="hljs-string">'verbose'</span>)
-</pre>
+.count(<span class="hljs-string">'verbose'</span>)</pre>
         </td>
       </tr>
     
@@ -241,8 +234,7 @@ Start argument parsing
         <td class="code highlight">
           <pre class="coffeescript">.alias(<span class="hljs-string">'t'</span>, <span class="hljs-string">'try'</span>)
 .describe(<span class="hljs-string">'t'</span>, <span class="hljs-string">'try run which prevent actors to run'</span>)
-.boolean(<span class="hljs-string">'t'</span>)
-</pre>
+.boolean(<span class="hljs-string">'t'</span>)</pre>
         </td>
       </tr>
     
@@ -257,8 +249,7 @@ Start argument parsing
         <td class="code highlight">
           <pre class="coffeescript">.alias(<span class="hljs-string">'d'</span>, <span class="hljs-string">'daemon'</span>)
 .describe(<span class="hljs-string">'d'</span>, <span class="hljs-string">'run as a daemon'</span>)
-.boolean(<span class="hljs-string">'d'</span>)
-</pre>
+.boolean(<span class="hljs-string">'d'</span>)</pre>
         </td>
       </tr>
     
@@ -275,8 +266,7 @@ Start argument parsing
 .describe(<span class="hljs-string">'c'</span>, <span class="hljs-string">'command to execute'</span>)
 .array(<span class="hljs-string">'c'</span>)
 .alias(<span class="hljs-string">'j'</span>, <span class="hljs-string">'json'</span>)
-.describe(<span class="hljs-string">'j'</span>, <span class="hljs-string">'json data for the command'</span>)
-</pre>
+.describe(<span class="hljs-string">'j'</span>, <span class="hljs-string">'json data for the command'</span>)</pre>
         </td>
       </tr>
     
@@ -295,8 +285,7 @@ Start argument parsing
 
 .describe(<span class="hljs-string">'ssh'</span>, <span class="hljs-string">'info: ssh connection url'</span>)
 .describe(<span class="hljs-string">'key'</span>, <span class="hljs-string">'info: ssh private key to connect'</span>)
-.describe(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'info: ss password to connect'</span>)
-</pre>
+.describe(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'info: ss password to connect'</span>)</pre>
         </td>
       </tr>
     
@@ -347,8 +336,7 @@ Start argument parsing
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">argv.json = JSON.parse argv.json <span class="hljs-keyword">if</span> argv.json
-</pre>
+          <pre class="coffeescript">argv.json = JSON.parse argv.json <span class="hljs-keyword">if</span> argv.json</pre>
         </td>
       </tr>
     
@@ -361,10 +349,7 @@ Start argument parsing
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">chalk.enabled = <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> argv.nocolors
-
-
-</pre>
+          <pre class="coffeescript">chalk.enabled = <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> argv.nocolors</pre>
         </td>
       </tr>
     
@@ -379,8 +364,7 @@ Error management
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">exit</span> = <span class="hljs-params">(code = <span class="hljs-number">0</span>, err)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">exit</span> = <span class="hljs-params">(code = <span class="hljs-number">0</span>, err)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -393,8 +377,7 @@ Error management
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  process.exit code <span class="hljs-keyword">unless</span> err
-</pre>
+          <pre class="coffeescript">  process.exit code <span class="hljs-keyword">unless</span> err</pre>
         </td>
       </tr>
     
@@ -423,9 +406,7 @@ process.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGABRT'
 process.<span class="hljs-literal">on</span> <span class="hljs-string">'exit'</span>, <span class="hljs-function">-&gt;</span>
   <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Goodbye\n"</span>
   Exec.close()
-  database.close()
-
-</pre>
+  database.close()</pre>
         </td>
       </tr>
     
@@ -450,8 +431,7 @@ monitor.init
 , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
   exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
   conf = config.get <span class="hljs-string">'monitor'</span>
-  <span class="hljs-keyword">if</span> argv.command
-</pre>
+  <span class="hljs-keyword">if</span> argv.command</pre>
         </td>
       </tr>
     
@@ -469,8 +449,7 @@ monitor.init
     <span class="hljs-built_in">require</span>(<span class="hljs-string">'./prompt'</span>).run args, argv.json, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
       exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
       exit()
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> argv.interactive
-</pre>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> argv.interactive</pre>
         </td>
       </tr>
     
@@ -484,8 +463,7 @@ monitor.init
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./prompt'</span>).interactive conf, argv.json
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> argv.daemon
-</pre>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> argv.daemon</pre>
         </td>
       </tr>
     
@@ -499,8 +477,7 @@ monitor.init
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    monitor.start()
-  <span class="hljs-keyword">else</span>
-</pre>
+  <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -518,9 +495,7 @@ monitor.init
       exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
       <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Finished.\n"</span>
       exit() <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'ok'</span>
-      exit <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'fail'</span> <span class="hljs-keyword">then</span> <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">3</span>
-
-</pre>
+      exit <span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'fail'</span> <span class="hljs-keyword">then</span> <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">3</span></pre>
         </td>
       </tr>
     

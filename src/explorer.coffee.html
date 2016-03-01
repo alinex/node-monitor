@@ -118,8 +118,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 math = <span class="hljs-built_in">require</span> <span class="hljs-string">'mathjs'</span>
-named = <span class="hljs-built_in">require</span>(<span class="hljs-string">'named-regexp'</span>).named
-</pre>
+named = <span class="hljs-built_in">require</span>(<span class="hljs-string">'named-regexp'</span>).named</pre>
         </td>
       </tr>
     
@@ -132,8 +131,7 @@ named = <span class="hljs-built_in">require</span>(<span class="hljs-string">'na
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-</pre>
+          <pre class="coffeescript">{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -164,9 +162,7 @@ Start a new Run
           <pre class="coffeescript">exports.start = <span class="hljs-function"><span class="hljs-params">(work)</span> -&gt;</span>
   work.explorer.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey work.explorer.name work.config}</span> start check"</span>
   work.result.date = [<span class="hljs-keyword">new</span> Date()]
-  work.result.values = {}
-
-</pre>
+  work.result.values = {}</pre>
         </td>
       </tr>
     
@@ -203,8 +199,7 @@ exports.report = <span class="hljs-function"><span class="hljs-params">(work)</s
 
   |          LABEL          |                     VALUE                        |
   | ----------------------- | -----------------------------------------------: |\n
-  """</span>
-</pre>
+  """</span></pre>
         </td>
       </tr>
     
@@ -241,8 +236,7 @@ exports.report = <span class="hljs-function"><span class="hljs-params">(work)</s
       | ------------------ | ----------------------------------------------------: |\n
       """</span>
     val = formatValue work.config[name], set
-    <span class="hljs-keyword">if</span> name <span class="hljs-keyword">in</span> [<span class="hljs-string">'fail'</span>, <span class="hljs-string">'warn'</span>]
-</pre>
+    <span class="hljs-keyword">if</span> name <span class="hljs-keyword">in</span> [<span class="hljs-string">'fail'</span>, <span class="hljs-string">'warn'</span>]</pre>
         </td>
       </tr>
     
@@ -269,9 +263,7 @@ exports.report = <span class="hljs-function"><span class="hljs-params">(work)</s
       <span class="hljs-attribute">results</span>: work.result
       <span class="hljs-attribute">meta</span>: work.meta
     report += <span class="hljs-string">"\n&gt; <span class="hljs-subst">#{string.wordwrap work.hint(context), <span class="hljs-number">76</span>, <span class="hljs-string">'\n&gt; '</span>}</span>\n"</span>
-  report <span class="hljs-comment">#  string.wordwrap report</span>
-
-</pre>
+  report <span class="hljs-comment">#  string.wordwrap report</span></pre>
         </td>
       </tr>
     
@@ -286,8 +278,7 @@ Format a value for better human readable display
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">formatValue</span> = <span class="hljs-params">(value, config)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">formatValue</span> = <span class="hljs-params">(value, config)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -307,8 +298,7 @@ Format a value for better human readable display
         parts[<span class="hljs-number">0</span>] = parts[<span class="hljs-number">0</span>].replace <span class="hljs-regexp">/\B(?=(\d{3})+(?!\d))/g</span>, <span class="hljs-string">","</span>
         parts.join <span class="hljs-string">'.'</span>
       <span class="hljs-keyword">else</span>
-        value
-</pre>
+        value</pre>
         </td>
       </tr>
     
@@ -342,9 +332,7 @@ Format a value for better human readable display
     <span class="hljs-keyword">else</span>
       val = value
       val += <span class="hljs-string">" <span class="hljs-subst">#{config.unit}</span>"</span> <span class="hljs-keyword">if</span> val <span class="hljs-keyword">and</span> config.unit
-      val
-
-</pre>
+      val</pre>
         </td>
       </tr>
     
@@ -361,8 +349,7 @@ Convert object to markdown table
         <td class="code highlight">
           <pre class="coffeescript">exports.formatTable = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
   result = <span class="hljs-string">''</span>
-  <span class="hljs-keyword">unless</span> Array.isArray obj
-</pre>
+  <span class="hljs-keyword">unless</span> Array.isArray obj</pre>
         </td>
       </tr>
     
@@ -375,8 +362,7 @@ Convert object to markdown table
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    keys = Object.keys obj
-</pre>
+          <pre class="coffeescript">    keys = Object.keys obj</pre>
         </td>
       </tr>
     
@@ -392,8 +378,7 @@ Convert object to markdown table
           <pre class="coffeescript">    maxlen = []
     <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> keys
       maxlen[<span class="hljs-number">0</span>] = n.length <span class="hljs-keyword">if</span> maxlen[<span class="hljs-number">0</span>] &lt; n.length
-      maxlen[<span class="hljs-number">1</span>] = obj[n].length <span class="hljs-keyword">if</span> maxlen[<span class="hljs-number">1</span>] &lt; obj[n].length
-</pre>
+      maxlen[<span class="hljs-number">1</span>] = obj[n].length <span class="hljs-keyword">if</span> maxlen[<span class="hljs-number">1</span>] &lt; obj[n].length</pre>
         </td>
       </tr>
     
@@ -410,8 +395,7 @@ Convert object to markdown table
     result = <span class="hljs-string">"| <span class="hljs-subst">#{string.repeat <span class="hljs-string">'-'</span>, maxlen[<span class="hljs-number">0</span>]}</span> | <span class="hljs-subst">#{string.repeat <span class="hljs-string">'-'</span>, maxlen[<span class="hljs-number">1</span>]}</span> |\n"</span>
     <span class="hljs-keyword">for</span> n, v <span class="hljs-keyword">in</span> obj
       result = <span class="hljs-string">"| <span class="hljs-subst">#{string.rpad n, maxlen[<span class="hljs-number">0</span>]}</span> | <span class="hljs-subst">#{string.lpad formatValue(v), maxlen[<span class="hljs-number">1</span>]}</span> |\n"</span>
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> obj.length
-</pre>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> obj.length</pre>
         </td>
       </tr>
     
@@ -424,8 +408,7 @@ Convert object to markdown table
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    keys = Object.keys obj[<span class="hljs-number">0</span>]
-</pre>
+          <pre class="coffeescript">    keys = Object.keys obj[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
@@ -443,8 +426,7 @@ Convert object to markdown table
       maxlen[n] = n.length
     <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> obj
       <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> keys
-        maxlen[n] = e[n].length <span class="hljs-keyword">if</span> maxlen[n] &lt; e[n].length
-</pre>
+        maxlen[n] = e[n].length <span class="hljs-keyword">if</span> maxlen[n] &lt; e[n].length</pre>
         </td>
       </tr>
     
@@ -466,8 +448,7 @@ Convert object to markdown table
     <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> obj
       row = keys.map (n) -&gt;
         string.lpad formatValue(e[n]), maxlen[n]
-      result += <span class="hljs-string">"| <span class="hljs-subst">#{row.join <span class="hljs-string">' | '</span>}</span> |\n"</span>
-</pre>
+      result += <span class="hljs-string">"| <span class="hljs-subst">#{row.join <span class="hljs-string">' | '</span>}</span> |\n"</span></pre>
         </td>
       </tr>
     
@@ -480,9 +461,7 @@ Convert object to markdown table
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  result
-
-</pre>
+          <pre class="coffeescript">  result</pre>
         </td>
       </tr>
     
@@ -504,8 +483,7 @@ the full match.</p>
           <pre class="coffeescript">exports.match = <span class="hljs-function"><span class="hljs-params">(text, re)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> re?
   <span class="hljs-keyword">unless</span> re <span class="hljs-keyword">instanceof</span> RegExp
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> Boolean ~text.indexOf re <span class="hljs-keyword">then</span> [re] <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
-</pre>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> Boolean ~text.indexOf re <span class="hljs-keyword">then</span> [re] <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -526,9 +504,7 @@ the full match.</p>
     matches[name] = match.capture name <span class="hljs-keyword">for</span> name <span class="hljs-keyword">of</span> match.captures
   <span class="hljs-keyword">else</span>
     matches = match[<span class="hljs-number">0.</span>.match.length]
-  <span class="hljs-keyword">return</span> matches
-
-</pre>
+  <span class="hljs-keyword">return</span> matches</pre>
         </td>
       </tr>
     

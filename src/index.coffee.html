@@ -153,8 +153,7 @@ Node Modules
           <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor'</span>)
 fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
-math = <span class="hljs-built_in">require</span> <span class="hljs-string">'mathjs'</span>
-</pre>
+math = <span class="hljs-built_in">require</span> <span class="hljs-string">'mathjs'</span></pre>
         </td>
       </tr>
     
@@ -173,8 +172,7 @@ Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'ali
 database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
 {string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -189,10 +187,7 @@ Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'a
         <td class="code highlight">
           <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
 Controller = <span class="hljs-built_in">require</span> <span class="hljs-string">'./controller'</span>
-storage = <span class="hljs-built_in">require</span> <span class="hljs-string">'./storage'</span>
-
-
-</pre>
+storage = <span class="hljs-built_in">require</span> <span class="hljs-string">'./storage'</span></pre>
         </td>
       </tr>
     
@@ -228,10 +223,7 @@ be changed at any time.</p>
         <td class="code highlight">
           <pre class="coffeescript">mode =
   <span class="hljs-attribute">verbose</span>: <span class="hljs-number">0</span> <span class="hljs-comment"># verbosity level</span>
-  <span class="hljs-attribute">try</span>: <span class="hljs-literal">false</span> <span class="hljs-comment"># Is this a try run that won't change anything?</span>
-
-
-</pre>
+  <span class="hljs-attribute">try</span>: <span class="hljs-literal">false</span> <span class="hljs-comment"># Is this a try run that won't change anything?</span></pre>
         </td>
       </tr>
     
@@ -249,9 +241,7 @@ possible within it.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Monitor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Monitor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span></pre>
         </td>
       </tr>
     
@@ -266,8 +256,7 @@ Setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: <span class="hljs-function"><span class="hljs-params">(selection = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">setup</span>: <span class="hljs-function"><span class="hljs-params">(selection = <span class="hljs-literal">null</span>, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -283,9 +272,7 @@ Setup
           <pre class="coffeescript">    async.each [Exec, database], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span>
       mod.setup cb
     , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -298,8 +285,7 @@ Setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      config.setSchema <span class="hljs-string">'/monitor'</span>, schema
-</pre>
+          <pre class="coffeescript">      config.setSchema <span class="hljs-string">'/monitor'</span>, schema</pre>
         </td>
       </tr>
     
@@ -312,9 +298,7 @@ Setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      config.register <span class="hljs-string">'monitor'</span>, fspath.dirname __dirname
-
-</pre>
+          <pre class="coffeescript">      config.register <span class="hljs-string">'monitor'</span>, fspath.dirname __dirname</pre>
         </td>
       </tr>
     
@@ -327,8 +311,7 @@ Setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">if</span> selection?.length
-</pre>
+          <pre class="coffeescript">      <span class="hljs-keyword">if</span> selection?.length</pre>
         </td>
       </tr>
     
@@ -346,8 +329,7 @@ Setup
             <span class="hljs-attribute">uri</span>: <span class="hljs-string">"<span class="hljs-subst">#{ctrl}</span>*"</span>
             <span class="hljs-attribute">folder</span>: <span class="hljs-string">'controller'</span>
             <span class="hljs-attribute">path</span>: <span class="hljs-string">'monitor/controller'</span>
-      <span class="hljs-keyword">else</span>
-</pre>
+      <span class="hljs-keyword">else</span></pre>
         </td>
       </tr>
     
@@ -374,8 +356,7 @@ Setup
       (cb) =&gt; <span class="hljs-property">@initController</span> cb
     ], cb
 
-  <span class="hljs-attribute">initPlugins</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+  <span class="hljs-attribute">initPlugins</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -401,8 +382,7 @@ Setup
           cache[type][name] = <span class="hljs-string">"./<span class="hljs-subst">#{type}</span>/<span class="hljs-subst">#{name}</span>"</span>
         cb()
     , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -423,8 +403,7 @@ Setup
           lib = <span class="hljs-built_in">require</span> plugin
         <span class="hljs-keyword">catch</span> error
           <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load plugin <span class="hljs-subst">#{plugin}</span>: <span class="hljs-subst">#{error.message}</span>"</span>
-        async.parallel [
-</pre>
+        async.parallel [</pre>
         </td>
       </tr>
     
@@ -454,8 +433,7 @@ Setup
       <span class="hljs-property">@controller</span> = {}
       <span class="hljs-keyword">for</span> name, def <span class="hljs-keyword">of</span> config.get <span class="hljs-string">"/monitor/controller"</span>
         <span class="hljs-property">@controller</span>[name] = <span class="hljs-keyword">new</span> Controller name, def
-        <span class="hljs-property">@controller</span>[name].<span class="hljs-literal">on</span> <span class="hljs-string">'result'</span>, <span class="hljs-function"><span class="hljs-params">(ctrl)</span> =&gt;</span> <span class="hljs-property">@emit</span> <span class="hljs-string">'result'</span>, ctrl
-</pre>
+        <span class="hljs-property">@controller</span>[name].<span class="hljs-literal">on</span> <span class="hljs-string">'result'</span>, <span class="hljs-function"><span class="hljs-params">(ctrl)</span> =&gt;</span> <span class="hljs-property">@emit</span> <span class="hljs-string">'result'</span>, ctrl</pre>
         </td>
       </tr>
     
@@ -470,10 +448,7 @@ Setup
         <td class="code highlight">
           <pre class="coffeescript">      async.each <span class="hljs-property">@controller</span>, <span class="hljs-function"><span class="hljs-params">(ctrl, cb)</span> -&gt;</span>
         ctrl.init cb
-      , cb
-
-
-</pre>
+      , cb</pre>
         </td>
       </tr>
     
@@ -500,10 +475,7 @@ Control daemon mode
     debug <span class="hljs-string">"stop daemon"</span>
 
 
-    <span class="hljs-keyword">this</span>
-
-
-</pre>
+    <span class="hljs-keyword">this</span></pre>
         </td>
       </tr>
     
@@ -521,10 +493,7 @@ List Elements
           <pre class="coffeescript">  <span class="hljs-attribute">listController</span>: <span class="hljs-function">-&gt;</span> Object.keys <span class="hljs-property">@controller</span>
   <span class="hljs-attribute">listSensor</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'sensor'</span>
   <span class="hljs-attribute">listActor</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'actor'</span>
-  <span class="hljs-attribute">listExplorer</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'explorer'</span>
-
-
-</pre>
+  <span class="hljs-attribute">listExplorer</span>: <span class="hljs-function">-&gt;</span> list <span class="hljs-string">'explorer'</span></pre>
         </td>
       </tr>
     
@@ -542,10 +511,7 @@ Get specified Element
           <pre class="coffeescript">  <span class="hljs-attribute">getController</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, <span class="hljs-property">@controller</span>[name]
   <span class="hljs-attribute">getSensor</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'sensor'</span>, name, cb
   <span class="hljs-attribute">getActor</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'actor'</span>, name, cb
-  <span class="hljs-attribute">getExplorer</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'explorer'</span>, name, cb
-
-
-</pre>
+  <span class="hljs-attribute">getExplorer</span>: <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span> get <span class="hljs-string">'explorer'</span>, name, cb</pre>
         </td>
       </tr>
     
@@ -570,8 +536,7 @@ Show information about specified Element
     report.h1 <span class="hljs-string">"<span class="hljs-subst">#{name}</span>: <span class="hljs-subst">#{conf.name}</span>"</span>
     report.p conf.description
     report.p conf.info <span class="hljs-keyword">if</span> conf.info
-    report.quote conf.hint context <span class="hljs-keyword">if</span> conf.hint
-</pre>
+    report.quote conf.hint context <span class="hljs-keyword">if</span> conf.hint</pre>
         </td>
       </tr>
     
@@ -591,8 +556,7 @@ Show information about specified Element
       <span class="hljs-keyword">else</span> <span class="hljs-string">'seconds'</span>
     report.p <span class="hljs-string">"The following checks will run every <span class="hljs-subst">#{interval.format()}</span>:"</span>
     report.ul ctrl.check.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{e.type}</span> - <span class="hljs-subst">#{e.name}</span>"</span>
-    report.p <span class="hljs-string">"Attention: This controller is <span class="hljs-subst">#{Report.mark <span class="hljs-string">'disabled'</span>}</span> at the moment."</span>
-</pre>
+    report.p <span class="hljs-string">"Attention: This controller is <span class="hljs-subst">#{Report.mark <span class="hljs-string">'disabled'</span>}</span> at the moment."</span></pre>
         </td>
       </tr>
     
@@ -633,8 +597,7 @@ Show information about specified Element
         ul.push <span class="hljs-string">"__<span class="hljs-subst">#{string.ucFirst group}</span>__"</span>
         <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> glist
           ul = ul.concat formatContact e
-      report.ul ul
-</pre>
+      report.ul ul</pre>
         </td>
       </tr>
     
@@ -652,9 +615,7 @@ Show information about specified Element
       ul = []
       <span class="hljs-keyword">for</span> name, list <span class="hljs-keyword">of</span> conf.ref
         ul.push <span class="hljs-string">"<span class="hljs-subst">#{string.rpad name, <span class="hljs-number">15</span>}</span> "</span> + list.join <span class="hljs-string">', '</span>
-      report.ul ul
-
-</pre>
+      report.ul ul</pre>
         </td>
       </tr>
     
@@ -671,10 +632,7 @@ Show information about specified Element
     cb <span class="hljs-literal">null</span>, report
 
   <span class="hljs-attribute">showSensor</span>: <span class="hljs-function"><span class="hljs-params">(name)</span> -&gt;</span>
-    <span class="hljs-string">"xxxxx"</span>
-
-
-</pre>
+    <span class="hljs-string">"xxxxx"</span></pre>
         </td>
       </tr>
     
@@ -701,10 +659,7 @@ Run specified Element
       status = <span class="hljs-string">'ok'</span>
       <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> results
         status = s <span class="hljs-keyword">if</span> s <span class="hljs-keyword">is</span> <span class="hljs-string">'fail'</span> <span class="hljs-keyword">or</span> status <span class="hljs-keyword">is</span> <span class="hljs-string">'ok'</span>
-      cb <span class="hljs-literal">null</span>, status
-
-
-</pre>
+      cb <span class="hljs-literal">null</span>, status</pre>
         </td>
       </tr>
     
@@ -720,10 +675,7 @@ Export Singleton
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> Monitor()
-
-
-</pre>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> Monitor()</pre>
         </td>
       </tr>
     
@@ -741,9 +693,7 @@ initialization phase by initPlugin().</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-cache = {} <span class="hljs-comment"># object of sensors, actors and explorers with require path</span>
-
-</pre>
+cache = {} <span class="hljs-comment"># object of sensors, actors and explorers with require path</span></pre>
         </td>
       </tr>
     
@@ -759,9 +709,7 @@ list elements
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">list</span> = <span class="hljs-params">(element)</span> -&gt;</span>
-  Object.keys cache[element]
-
-</pre>
+  Object.keys cache[element]</pre>
         </td>
       </tr>
     
@@ -777,8 +725,7 @@ get specified element module
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">get</span> = <span class="hljs-params">(element, name, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not find <span class="hljs-subst">#{element}</span> <span class="hljs-subst">#{name}</span>"</span> <span class="hljs-keyword">unless</span> cache[element][name]?
-</pre>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not find <span class="hljs-subst">#{element}</span> <span class="hljs-subst">#{name}</span>"</span> <span class="hljs-keyword">unless</span> cache[element][name]?</pre>
         </td>
       </tr>
     
@@ -795,9 +742,7 @@ get specified element module
     elem = <span class="hljs-built_in">require</span> cache[element][name]
   <span class="hljs-keyword">catch</span> err
     <span class="hljs-keyword">return</span> cb err
-  cb <span class="hljs-literal">null</span>, elem
-
-</pre>
+  cb <span class="hljs-literal">null</span>, elem</pre>
         </td>
       </tr>
     

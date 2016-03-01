@@ -151,8 +151,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:http'</span>)
 request = <span class="hljs-built_in">require</span> <span class="hljs-string">'request'</span>
-http = <span class="hljs-built_in">require</span> <span class="hljs-string">'http'</span>
-</pre>
+http = <span class="hljs-built_in">require</span> <span class="hljs-string">'http'</span></pre>
         </td>
       </tr>
     
@@ -167,9 +166,7 @@ http = <span class="hljs-built_in">require</span> <span class="hljs-string">'htt
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 {string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span>
-
-</pre>
+Report = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-report'</span></pre>
         </td>
       </tr>
     
@@ -242,10 +239,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'statusCode &lt; 200 or statusCode &gt;= 400'</span>
-
-
-</pre>
+      <span class="hljs-attribute">default</span>: <span class="hljs-string">'statusCode &lt; 200 or statusCode &gt;= 400'</span></pre>
         </td>
       </tr>
     
@@ -265,9 +259,7 @@ General information
   <span class="hljs-attribute">title</span>: <span class="hljs-string">'HTTP Request'</span>
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Connect to an HTTP or HTTPS server and check the response."</span>
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If the server didn't respond it also may be a network problem. "</span>
-
-</pre>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If the server didn't respond it also may be a network problem. "</span></pre>
         </td>
       </tr>
     
@@ -313,10 +305,7 @@ You may use any of these in your warn/fail expressions.</p>
     <span class="hljs-attribute">match</span>:
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Body Match"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"success of check for content with containing result strings"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-
-
-</pre>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span></pre>
         </td>
       </tr>
     
@@ -338,10 +327,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-string">"-&gt;<span class="hljs-subst">#{string.shorten <span class="hljs-property">@conf</span>.url, <span class="hljs-number">30</span>}</span>"</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -356,8 +342,7 @@ Preset this run
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.prerun = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.prerun = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -382,10 +367,7 @@ Preset this run
         <span class="hljs-attribute">username</span>: <span class="hljs-property">@conf</span>.username
         <span class="hljs-attribute">password</span>: <span class="hljs-property">@conf</span>.password
     <span class="hljs-property">@result</span>.request = option
-    cb <span class="hljs-literal">null</span>, option
-
-
-</pre>
+    cb <span class="hljs-literal">null</span>, option</pre>
         </td>
       </tr>
     
@@ -410,10 +392,7 @@ Run the Sensor
   request <span class="hljs-property">@result</span>.request, <span class="hljs-function"><span class="hljs-params">(err, response, body)</span> =&gt;</span>
     <span class="hljs-property">@result</span>.response = response
     <span class="hljs-property">@result</span>.body = body
-    cb err
-
-
-</pre>
+    cb err</pre>
         </td>
       </tr>
     
@@ -431,8 +410,7 @@ Get the results
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
   <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@result</span>.response?
-</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@result</span>.response?</pre>
         </td>
       </tr>
     
@@ -451,10 +429,7 @@ Get the results
   <span class="hljs-property">@values</span>.contentType = <span class="hljs-property">@result</span>.response.headers[<span class="hljs-string">'content-type'</span>]
   <span class="hljs-property">@values</span>.length = <span class="hljs-property">@result</span>.response.connection.bytesRead
   <span class="hljs-property">@values</span>.match = <span class="hljs-property">@match</span> <span class="hljs-property">@result</span>.body, <span class="hljs-property">@conf</span>.match
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -490,10 +465,7 @@ Get special report elements
   <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>.body?
     report.p Report.b <span class="hljs-string">"Body:"</span>
     report.code string.shorten(<span class="hljs-property">@result</span>.body, <span class="hljs-number">400</span>), bodyType
-  report
-
-
-</pre>
+  report</pre>
         </td>
       </tr>
     
@@ -523,8 +495,7 @@ Helper methods
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function">
 <span class="hljs-title">remote</span> = <span class="hljs-params">(conf, option, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> conf.remote
-</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> conf.remote</pre>
         </td>
       </tr>
     
@@ -543,8 +514,7 @@ Helper methods
     <span class="hljs-attribute">tunnel</span>:
       <span class="hljs-attribute">localHost</span>: <span class="hljs-string">'127.0.0.1'</span>
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -564,9 +534,7 @@ Helper methods
       option.agentClass = <span class="hljs-built_in">require</span> <span class="hljs-string">'socks5-http-client/lib/Agent'</span>
     option.agentOptions =
       <span class="hljs-attribute">socksPort</span>: <span class="hljs-string">'7000'</span>
-    cb()
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     

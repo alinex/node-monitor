@@ -138,8 +138,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:time'</span>)
-ntp = <span class="hljs-built_in">require</span> <span class="hljs-string">'ntp-client'</span>
-</pre>
+ntp = <span class="hljs-built_in">require</span> <span class="hljs-string">'ntp-client'</span></pre>
         </td>
       </tr>
     
@@ -154,10 +153,7 @@ ntp = <span class="hljs-built_in">require</span> <span class="hljs-string">'ntp-
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-
-
-</pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
     
@@ -215,10 +211,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -239,9 +232,7 @@ General information
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the system time against the Internet."</span>
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
   <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If the time is not correct it may influence some processes which goes
-  over multiple hosts. Therefore install and configure `ntpd` on the machine."</span>
-
-</pre>
+  over multiple hosts. Therefore install and configure `ntpd` on the machine."</span></pre>
         </td>
       </tr>
     
@@ -271,10 +262,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">'Difference'</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the difference between both times"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-
-
-</pre>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span></pre>
         </td>
       </tr>
     
@@ -296,10 +284,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -314,8 +299,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -339,10 +323,7 @@ Run the Sensor
     (cb) =&gt;
       ntp.ntpReplyTimeout = <span class="hljs-property">@conf</span>.timeout
       ntp.getNetworkTime <span class="hljs-property">@conf</span>.host, <span class="hljs-property">@conf</span>.port, cb
-  ], cb
-
-
-</pre>
+  ], cb</pre>
         </td>
       </tr>
     
@@ -359,8 +340,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-</pre>
+  res = <span class="hljs-property">@result</span>.data</pre>
         </td>
       </tr>
     
@@ -376,9 +356,7 @@ Get the results
           <pre class="coffeescript">  <span class="hljs-property">@values</span>.local = <span class="hljs-keyword">new</span> Date res[<span class="hljs-number">0</span>].stdout().trim()
   <span class="hljs-property">@values</span>.remote = res[<span class="hljs-number">1</span>]
   <span class="hljs-property">@values</span>.diff = Math.abs <span class="hljs-property">@values</span>.local - <span class="hljs-property">@values</span>.remote
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

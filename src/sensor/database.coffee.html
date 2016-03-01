@@ -144,8 +144,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:database'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:database'</span>)</pre>
         </td>
       </tr>
     
@@ -160,10 +159,7 @@ Node Modules
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 database = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-database'</span>
-{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-
-
-</pre>
+{string} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
         </td>
       </tr>
     
@@ -248,10 +244,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -270,9 +263,7 @@ General information
           <pre class="coffeescript">exports.meta =
   <span class="hljs-attribute">title</span>: <span class="hljs-string">'Database'</span>
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Run a query on the database to check the database contents."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'data'</span>
-
-</pre>
+  <span class="hljs-attribute">category</span>: <span class="hljs-string">'data'</span></pre>
         </td>
       </tr>
     
@@ -308,10 +299,7 @@ You may use any of these in your warn/fail expressions.</p>
   exports.meta.values[<span class="hljs-string">"date<span class="hljs-subst">#{num}</span>"</span>] =
     <span class="hljs-attribute">title</span>: <span class="hljs-string">"date-<span class="hljs-subst">#{num}</span>"</span>
     <span class="hljs-attribute">description</span>: <span class="hljs-string">"the date value #<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'date'</span>
-
-
-</pre>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'date'</span></pre>
         </td>
       </tr>
     
@@ -340,10 +328,7 @@ Initialize check
       <span class="hljs-property">@rule</span>.warn = <span class="hljs-property">@rule</span>.warn.replace re, v.storage
     <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.fail
       <span class="hljs-property">@rule</span>.fail = <span class="hljs-property">@rule</span>.fail.replace re, v.storage
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -358,8 +343,7 @@ Access Mappings (for Report)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.mapping = <span class="hljs-function"><span class="hljs-params">(name)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.mapping = <span class="hljs-function"><span class="hljs-params">(name)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -372,8 +356,7 @@ Access Mappings (for Report)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">return</span> <span class="hljs-property">@conf</span>.mapping[name] <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.mapping[name]?
-</pre>
+          <pre class="coffeescript">  <span class="hljs-keyword">return</span> <span class="hljs-property">@conf</span>.mapping[name] <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.mapping[name]?</pre>
         </td>
       </tr>
     
@@ -387,10 +370,7 @@ Access Mappings (for Report)
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
-    <span class="hljs-keyword">return</span> v <span class="hljs-keyword">if</span> v.storage <span class="hljs-keyword">is</span> name
-
-
-</pre>
+    <span class="hljs-keyword">return</span> v <span class="hljs-keyword">if</span> v.storage <span class="hljs-keyword">is</span> name</pre>
         </td>
       </tr>
     
@@ -405,8 +385,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -419,10 +398,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  database.record <span class="hljs-property">@conf</span>.database, <span class="hljs-property">@conf</span>.query, cb
-
-
-</pre>
+          <pre class="coffeescript">  database.record <span class="hljs-property">@conf</span>.database, <span class="hljs-property">@conf</span>.query, cb</pre>
         </td>
       </tr>
     
@@ -439,8 +415,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-</pre>
+  res = <span class="hljs-property">@result</span>.data</pre>
         </td>
       </tr>
     
@@ -453,8 +428,7 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
-</pre>
+          <pre class="coffeescript">  <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
@@ -469,9 +443,7 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
     <span class="hljs-property">@values</span>[v.storage] = res[k] <span class="hljs-keyword">if</span> res[k]
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     

@@ -121,8 +121,7 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:socket'</span>)
-</pre>
+          <pre class="coffeescript">exports.debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'monitor:sensor:socket'</span>)</pre>
         </td>
       </tr>
     
@@ -136,10 +135,7 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-
-
-</pre>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
     
@@ -203,10 +199,7 @@ compatible schema definition:</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-
-
-</pre>
+      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -227,9 +220,7 @@ General information
   <span class="hljs-attribute">description</span>: <span class="hljs-string">"Use TCP sockets to check for the availability of a service
   behind a given port."</span>
   <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"On problems the service may not run or a network problem exists. "</span>
-
-</pre>
+  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"On problems the service may not run or a network problem exists. "</span></pre>
         </td>
       </tr>
     
@@ -251,10 +242,7 @@ You may use any of these in your warn/fail expressions.</p>
       <span class="hljs-attribute">title</span>: <span class="hljs-string">"Response Time"</span>
       <span class="hljs-attribute">description</span>: <span class="hljs-string">"time in milliseconds till connection could be established"</span>
       <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-
-
-</pre>
+      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span></pre>
         </td>
       </tr>
     
@@ -276,10 +264,7 @@ Initialize check
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
   <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.transport}</span> <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.port}</span>"</span>
-  cb()
-
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
@@ -294,8 +279,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -314,10 +298,7 @@ Run the Sensor
     <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"echo &gt; /dev/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.transport}</span>/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.port}</span>"</span>]
     <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
     <span class="hljs-attribute">timeout</span>: <span class="hljs-property">@conf</span>.timeout
-  , cb
-
-
-</pre>
+  , cb</pre>
         </td>
       </tr>
     
@@ -338,9 +319,7 @@ Get the results
   <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
   <span class="hljs-keyword">if</span> res.result.lines[<span class="hljs-number">0</span>]?[<span class="hljs-number">1</span>]
     <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error res.result.lines[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>].replace <span class="hljs-regexp">/bash:\s+/</span>, <span class="hljs-string">''</span>
-  cb()
-
-</pre>
+  cb()</pre>
         </td>
       </tr>
     
