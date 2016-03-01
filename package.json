@@ -41,7 +41,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex": "^0.1.2",
+    "alinex-core": "^0.1.2",
     "alinex-async": "^1.0.0",
     "alinex-config": "^1.0.6",
     "alinex-database": "^1.0.0",
