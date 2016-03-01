@@ -23,7 +23,7 @@ process.title = 'Monitor'
 argv = yargs
 .usage("""
   #{logo}
-  Usage: $0 [-vCclt] <controller...>
+  Usage: $0 [-vCcltdij] <controller...>
   """)
 # examples
 .example('$0', 'to simply check all services once')
