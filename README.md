@@ -25,7 +25,7 @@ rules the report may be send by email or a web request is made. Out of the store
 values time reports may be created.
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
+> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
 Install
