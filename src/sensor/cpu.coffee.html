@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/cpu.coffee";
+    var thisFile = "src/sensor/cpu.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -173,37 +173,37 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"CPU check configuration"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to check the CPU utilization"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'active &gt;= 100%'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">time</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Measurement Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time for the measurement"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">10</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'active &gt;= 100%'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+  title: <span class="hljs-string">"CPU check configuration"</span>
+  description: <span class="hljs-string">"the configuration to check the CPU utilization"</span>
+  type: <span class="hljs-string">'object'</span>
+  default:
+    warn: <span class="hljs-string">'active &gt;= 100%'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    time:
+      title: <span class="hljs-string">"Measurement Time"</span>
+      description: <span class="hljs-string">"the time for the measurement"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'s'</span>
+      default: <span class="hljs-number">10</span>
+      min: <span class="hljs-number">1</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+      default: <span class="hljs-string">'active &gt;= 100%'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -220,10 +220,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'CPU'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the current activity in average percent of all cores."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"A high CPU usage means that the server may not start another task immediately.
+  title: <span class="hljs-string">'CPU'</span>
+  description: <span class="hljs-string">"Check the current activity in average percent of all cores."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"A high CPU usage means that the server may not start another task immediately.
   If the load is also very high the system is overloaded, check if any application
   goes evil."</span></pre>
         </td>
@@ -242,56 +242,56 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">cpus</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"CPU Cores"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"number of cpu cores"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-    <span class="hljs-attribute">speed</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"CPU Speed"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"speed in MHz"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'MHz'</span>
-    <span class="hljs-attribute">user</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"User Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of user time over all cpu cores"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">nice</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Nice User Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of niced user time over all cpu cores"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">system</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"System Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of system time over all cpu cores"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">idle</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Idle Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of idle time over all cpu cores"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">active</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Activity"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of active time over all cpu cores"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">wait</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"I/O Wait Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of time waiting for I/O completion"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">hwint</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hardware Interrupt Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of time spent serving hardware interrupts"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">swint</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Software Interrupt Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of time spent serving software interrupts"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">low</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Lowest CPU Core"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of lowest usage of a CPU core"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">high</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Highest CPU Core"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of highest usage of a CPU core"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
+          <pre class="coffeescript">  values:
+    cpus:
+      title: <span class="hljs-string">"CPU Cores"</span>
+      description: <span class="hljs-string">"number of cpu cores"</span>
+      type: <span class="hljs-string">'integer'</span>
+    speed:
+      title: <span class="hljs-string">"CPU Speed"</span>
+      description: <span class="hljs-string">"speed in MHz"</span>
+      type: <span class="hljs-string">'integer'</span>
+      unit: <span class="hljs-string">'MHz'</span>
+    user:
+      title: <span class="hljs-string">"User Time"</span>
+      description: <span class="hljs-string">"percentage of user time over all cpu cores"</span>
+      type: <span class="hljs-string">'percent'</span>
+    nice:
+      title: <span class="hljs-string">"Nice User Time"</span>
+      description: <span class="hljs-string">"percentage of niced user time over all cpu cores"</span>
+      type: <span class="hljs-string">'percent'</span>
+    system:
+      title: <span class="hljs-string">"System Time"</span>
+      description: <span class="hljs-string">"percentage of system time over all cpu cores"</span>
+      type: <span class="hljs-string">'percent'</span>
+    idle:
+      title: <span class="hljs-string">"Idle Time"</span>
+      description: <span class="hljs-string">"percentage of idle time over all cpu cores"</span>
+      type: <span class="hljs-string">'percent'</span>
+    active:
+      title: <span class="hljs-string">"Activity"</span>
+      description: <span class="hljs-string">"percentage of active time over all cpu cores"</span>
+      type: <span class="hljs-string">'percent'</span>
+    wait:
+      title: <span class="hljs-string">"I/O Wait Time"</span>
+      description: <span class="hljs-string">"percentage of time waiting for I/O completion"</span>
+      type: <span class="hljs-string">'percent'</span>
+    hwint:
+      title: <span class="hljs-string">"Hardware Interrupt Time"</span>
+      description: <span class="hljs-string">"percentage of time spent serving hardware interrupts"</span>
+      type: <span class="hljs-string">'percent'</span>
+    swint:
+      title: <span class="hljs-string">"Software Interrupt Time"</span>
+      description: <span class="hljs-string">"percentage of time spent serving software interrupts"</span>
+      type: <span class="hljs-string">'percent'</span>
+    low:
+      title: <span class="hljs-string">"Lowest CPU Core"</span>
+      description: <span class="hljs-string">"percentage of lowest usage of a CPU core"</span>
+      type: <span class="hljs-string">'percent'</span>
+    high:
+      title: <span class="hljs-string">"Highest CPU Core"</span>
+      description: <span class="hljs-string">"percentage of highest usage of a CPU core"</span>
+      type: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -312,7 +312,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
+  @name ?= @conf.remote ? <span class="hljs-string">'localhost'</span>
   cb()</pre>
         </td>
       </tr>
@@ -342,20 +342,20 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  async.map [
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"cat /proc/cpuinfo | egrep '(processor|cpu MHz)'"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep cpu /proc/stat"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep cpu /proc/stat"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.time}</span> &amp;&amp; grep cpu /proc/stat"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{@conf.time}</span> &amp;&amp; grep cpu /proc/stat"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
   , cb</pre>
@@ -374,8 +374,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -388,14 +388,14 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@values</span>.cpus = <span class="hljs-number">0</span>
-  <span class="hljs-property">@values</span>.speed = <span class="hljs-number">0</span>
+          <pre class="coffeescript">  @values.cpus = <span class="hljs-number">0</span>
+  @values.speed = <span class="hljs-number">0</span>
   <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> res[<span class="hljs-number">0</span>].stdout().split <span class="hljs-regexp">/\n/</span>
     match =  line.match(<span class="hljs-regexp">/^(\w+(?: \w+)*).*:\s+(.*)/</span>)
     <span class="hljs-keyword">switch</span> match[<span class="hljs-number">1</span>]
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'processor'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.cpus++
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'cpu MHz'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.speed += Number match[<span class="hljs-number">2</span>]
-  <span class="hljs-property">@values</span>.speed /= <span class="hljs-property">@values</span>.cpus</pre>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'processor'</span> <span class="hljs-keyword">then</span> @values.cpus++
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'cpu MHz'</span> <span class="hljs-keyword">then</span> @values.speed += Number match[<span class="hljs-number">2</span>]
+  @values.speed /= @values.cpus</pre>
         </td>
       </tr>
     
@@ -414,7 +414,7 @@ Get the results
   l2 = res[<span class="hljs-number">2</span>].stdout().split(<span class="hljs-regexp">/\n/</span>).map  (line) -&gt;
     line.split(<span class="hljs-regexp">/\s+/</span>).map (c) -&gt;
       <span class="hljs-keyword">if</span> string.starts c, <span class="hljs-string">'cpu'</span> <span class="hljs-keyword">then</span> <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> Number c
-  <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>.l1.length-<span class="hljs-number">1</span>]
+  <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>.l1.length<span class="hljs-number">-1</span>]
     l1[num][<span class="hljs-number">0</span>] += c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> l1[num][<span class="hljs-number">1.</span>.]
     l2[num][<span class="hljs-number">0</span>] += c <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> l2[num][<span class="hljs-number">1.</span>.]</pre>
         </td>
@@ -430,14 +430,14 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function">  <span class="hljs-title">percent</span> = <span class="hljs-params">(col)</span> -&gt;</span> (l2[<span class="hljs-number">0</span>][col] - l1[<span class="hljs-number">0</span>][col]) / (l2[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] - l1[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])
-  <span class="hljs-property">@values</span>.user = percent <span class="hljs-number">1</span>
-  <span class="hljs-property">@values</span>.nice = percent <span class="hljs-number">2</span>
-  <span class="hljs-property">@values</span>.system = percent <span class="hljs-number">3</span>
-  <span class="hljs-property">@values</span>.idle = percent <span class="hljs-number">4</span>
-  <span class="hljs-property">@values</span>.wait = percent <span class="hljs-number">5</span>
-  <span class="hljs-property">@values</span>.hwint = percent <span class="hljs-number">6</span>
-  <span class="hljs-property">@values</span>.swint = percent <span class="hljs-number">7</span>
-  <span class="hljs-property">@values</span>.active = <span class="hljs-number">1.0</span> - <span class="hljs-property">@values</span>.idle</pre>
+  @values.user = percent <span class="hljs-number">1</span>
+  @values.nice = percent <span class="hljs-number">2</span>
+  @values.system = percent <span class="hljs-number">3</span>
+  @values.idle = percent <span class="hljs-number">4</span>
+  @values.wait = percent <span class="hljs-number">5</span>
+  @values.hwint = percent <span class="hljs-number">6</span>
+  @values.swint = percent <span class="hljs-number">7</span>
+  @values.active = <span class="hljs-number">1.0</span> - @values.idle</pre>
         </td>
       </tr>
     
@@ -450,12 +450,12 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@values</span>.low = <span class="hljs-number">1.0</span>
-  <span class="hljs-property">@values</span>.high = <span class="hljs-number">0.0</span>
-  <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">1.</span>.l1.length-<span class="hljs-number">1</span>]
+          <pre class="coffeescript">  @values.low = <span class="hljs-number">1.0</span>
+  @values.high = <span class="hljs-number">0.0</span>
+  <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">1.</span>.l1.length<span class="hljs-number">-1</span>]
     active = <span class="hljs-number">1.0</span> - (l2[num][<span class="hljs-number">4</span>] - l1[num][<span class="hljs-number">4</span>]) / (l2[num][<span class="hljs-number">0</span>] - l1[num][<span class="hljs-number">0</span>])
-    <span class="hljs-property">@values</span>.low = active <span class="hljs-keyword">if</span> active &lt; <span class="hljs-property">@values</span>.low
-    <span class="hljs-property">@values</span>.high = active <span class="hljs-keyword">if</span> active &gt; <span class="hljs-property">@values</span>.high
+    @values.low = active <span class="hljs-keyword">if</span> active &lt; @values.low
+    @values.high = active <span class="hljs-keyword">if</span> active &gt; @values.high
   cb()</pre>
         </td>
       </tr>

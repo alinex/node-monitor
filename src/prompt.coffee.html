@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-monitor/src/prompt.coffee";
+    var thisFile = "src/prompt.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -245,13 +245,13 @@ Integrated help
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">help</span>:
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"list a help page with possible commands"</span>
-    <span class="hljs-attribute">commands</span>: <span class="hljs-function">-&gt;</span>
+          <pre class="coffeescript">  help:
+    description: <span class="hljs-string">"list a help page with possible commands"</span>
+    commands: <span class="hljs-function">-&gt;</span>
       Object.keys commands
       .filter (e) -&gt; e <span class="hljs-keyword">isnt</span> <span class="hljs-string">'help'</span>
       .map (e) -&gt; <span class="hljs-string">"help <span class="hljs-subst">#{e}</span>"</span>
-    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+    run: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
       <span class="hljs-keyword">if</span> args.length &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> args[<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> Object.keys commands</pre>
         </td>
@@ -323,13 +323,13 @@ exit console
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">exit</span>:
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"close the console"</span>
-    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+          <pre class="coffeescript">  exit:
+    description: <span class="hljs-string">"close the console"</span>
+    help: <span class="hljs-function">-&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
       report.p <span class="hljs-string">"You may also type `Ctrl` + `C` to exit ungraceful. But be patient
       till the program exits. This may take some time to close opened connections."</span>
-    <span class="hljs-attribute">run</span>: <span class="hljs-function">-&gt;</span>
+    run: <span class="hljs-function">-&gt;</span>
       exit()</pre>
         </td>
       </tr>
@@ -343,9 +343,9 @@ exit console
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">set</span>:
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"change general or specific settings"</span>
-    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+          <pre class="coffeescript">  set:
+    description: <span class="hljs-string">"change general or specific settings"</span>
+    help: <span class="hljs-function">-&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
       report.box <span class="hljs-string">"Usage: __set &lt;option&gt; [&lt;value&gt;]"</span>, <span class="hljs-string">'info'</span>
       report.p <span class="hljs-string">"The following parameters may be changed:"</span>
@@ -354,7 +354,7 @@ exit console
         <span class="hljs-string">"try     - try run which prevent actors to run (boolean)"</span>
       ]
       report.p <span class="hljs-string">"The changes will take effect on the next command."</span>
-    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+    commands: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
       subcmd = [<span class="hljs-string">'try'</span>, <span class="hljs-string">'verbose'</span>] <span class="hljs-comment">#, 'controller']</span>
       <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> subcmd
         subcmd.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
@@ -370,7 +370,7 @@ exit console
           []
       <span class="hljs-keyword">else</span>
         []
-    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+    run: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
       <span class="hljs-keyword">unless</span> <span class="hljs-number">1</span> &lt; args.length &lt; <span class="hljs-number">4</span>
         <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Wrong number of parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'set'</span>}</span>
         use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help set'</span>}</span> for more information!"</span>
@@ -436,19 +436,19 @@ list elements of type
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">list</span>:
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"show the list of possible elements"</span>
-    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+          <pre class="coffeescript">  list:
+    description: <span class="hljs-string">"show the list of possible elements"</span>
+    help: <span class="hljs-function">-&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
       report.box <span class="hljs-string">"Usage: <span class="hljs-subst">#{Report.b <span class="hljs-string">'list &lt;type&gt;'</span>}</span>"</span>, <span class="hljs-string">'info'</span>
       report.p <span class="hljs-string">"The list command will display a list of elements for the specified `type`:"</span>
       report.ul types
-    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+    commands: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> types
         types.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
       <span class="hljs-keyword">else</span>
         []
-    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+    run: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
       <span class="hljs-keyword">unless</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span>
         <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Wrong number of parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'list'</span>}</span>
         use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help list'</span>}</span> for more information!"</span>
@@ -496,16 +496,16 @@ Show element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">show</span>:
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"get more information about the element"</span>
-    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+          <pre class="coffeescript">  show:
+    description: <span class="hljs-string">"get more information about the element"</span>
+    help: <span class="hljs-function">-&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
       report.box <span class="hljs-string">"Usage: <span class="hljs-subst">#{Report.b <span class="hljs-string">'show &lt;type&gt; &lt;element&gt;'</span>}</span>"</span>, <span class="hljs-string">'info'</span>
       report.p <span class="hljs-string">"The show command will display detailed information about the specified `type`:"</span>
       report.ul types
       report.p <span class="hljs-string">"Use code completion by typing `TAB` to get a list of possible
       elements."</span>
-    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+    commands: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> types
         types.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">2</span> <span class="hljs-comment"># only allow one element</span>
@@ -519,7 +519,7 @@ Show element
         num++ <span class="hljs-keyword">while</span> parts[num+<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> elements
         line = parts[<span class="hljs-number">0.</span>.num].join <span class="hljs-string">' '</span>
         elements.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{line}</span> <span class="hljs-subst">#{e}</span>"</span>
-    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+    run: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
       <span class="hljs-keyword">unless</span> args.length &gt; <span class="hljs-number">2</span>
         <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Too less parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'show'</span>}</span>
         use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help show'</span>}</span> for more information!"</span>
@@ -537,7 +537,7 @@ Show element
             cb()
         <span class="hljs-keyword">when</span> <span class="hljs-string">'sensor'</span>
           check = <span class="hljs-keyword">new</span> Check
-            <span class="hljs-attribute">sensor</span>: args[<span class="hljs-number">2</span>]
+            sensor: args[<span class="hljs-number">2</span>]
           check.init (err) -&gt;
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
             <span class="hljs-built_in">console</span>.log check.report().toConsole()
@@ -573,16 +573,16 @@ Show element
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">run</span>:
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"run the specified element"</span>
-    <span class="hljs-attribute">help</span>: <span class="hljs-function">-&gt;</span>
+          <pre class="coffeescript">  run:
+    description: <span class="hljs-string">"run the specified element"</span>
+    help: <span class="hljs-function">-&gt;</span>
       report = <span class="hljs-keyword">new</span> Report()
       report.box <span class="hljs-string">"Usage: <span class="hljs-subst">#{Report.b <span class="hljs-string">'run &lt;type&gt; &lt;element&gt;'</span>}</span>"</span>, <span class="hljs-string">'info'</span>
       report.p <span class="hljs-string">"The run command will start a specified element which type is one of:"</span>
       report.ul types
       report.p <span class="hljs-string">"Use code completion by typing `TAB` to get a list of possible
       elements."</span>
-    <span class="hljs-attribute">commands</span>: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
+    commands: <span class="hljs-function"><span class="hljs-params">(parts)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> parts.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">or</span> parts[<span class="hljs-number">1</span>] <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> types
         types.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{parts[<span class="hljs-number">0</span>]}</span> <span class="hljs-subst">#{e}</span>"</span>
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">3</span> <span class="hljs-comment"># only allow one element</span>
@@ -598,7 +598,7 @@ Show element
         num++ <span class="hljs-keyword">while</span> parts[num+<span class="hljs-number">1</span>] <span class="hljs-keyword">in</span> elements
         line = parts[<span class="hljs-number">0.</span>.num].join <span class="hljs-string">' '</span>
         elements.map (e) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{line}</span> <span class="hljs-subst">#{e}</span>"</span>
-    <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
+    run: <span class="hljs-function"><span class="hljs-params">(args, data, cb)</span> -&gt;</span>
       <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
         <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"Too less parameters for command <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'show'</span>}</span>
         use <span class="hljs-subst">#{chalk.bold <span class="hljs-string">'help show'</span>}</span> for more information!"</span>
@@ -647,8 +647,8 @@ Show element
         </td>
         <td class="code highlight">
           <pre class="coffeescript">            check = <span class="hljs-keyword">new</span> Check
-              <span class="hljs-attribute">sensor</span>: args[<span class="hljs-number">2</span>]
-              <span class="hljs-attribute">config</span>: data
+              sensor: args[<span class="hljs-number">2</span>]
+              config: data
             check.init (err) -&gt;
               <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
@@ -781,9 +781,9 @@ ask for the next command
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">getCommand</span> = <span class="hljs-params">(data, cb)</span> -&gt;</span>
   <span class="hljs-built_in">require</span>(<span class="hljs-string">'readline-history'</span>).createInterface
-    <span class="hljs-attribute">input</span>: process.stdin
-    <span class="hljs-attribute">output</span>: process.stdout
-    <span class="hljs-attribute">completer</span>: <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+    input: process.stdin
+    output: process.stdout
+    completer: <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
       parts = line.trim().split <span class="hljs-regexp">/\s+/</span>
       list = Object.keys commands
       <span class="hljs-keyword">if</span> parts[<span class="hljs-number">0</span>] <span class="hljs-keyword">in</span> list <span class="hljs-keyword">and</span> commands[parts[<span class="hljs-number">0</span>]].commands
@@ -795,9 +795,9 @@ ask for the next command
         <span class="hljs-keyword">if</span> hits.length <span class="hljs-keyword">then</span> hits <span class="hljs-keyword">else</span> list
         line
       ]
-    <span class="hljs-attribute">path</span>: <span class="hljs-string">"<span class="hljs-subst">#{os.tmpdir()}</span>/<span class="hljs-subst">#{process.title}</span>-history"</span>
-    <span class="hljs-attribute">maxLength</span>: <span class="hljs-number">1000</span>
-    <span class="hljs-attribute">next</span>: <span class="hljs-function"><span class="hljs-params">(readline)</span> -&gt;</span>
+    path: <span class="hljs-string">"<span class="hljs-subst">#{os.tmpdir()}</span>/<span class="hljs-subst">#{process.title}</span>-history"</span>
+    maxLength: <span class="hljs-number">1000</span>
+    next: <span class="hljs-function"><span class="hljs-params">(readline)</span> -&gt;</span>
       readline.<span class="hljs-literal">on</span> <span class="hljs-string">'SIGINT'</span>, <span class="hljs-function">-&gt;</span> exit <span class="hljs-number">130</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Got SIGINT signal"</span>
       <span class="hljs-built_in">console</span>.log <span class="hljs-string">''</span>
       readline.question <span class="hljs-string">'monitor&gt; '</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
@@ -932,9 +932,9 @@ Ask user to give the data for the schema
         <td class="code highlight">
           <pre class="coffeescript">    base = predef[key] ? def.default
     readline = <span class="hljs-built_in">require</span>(<span class="hljs-string">'readline'</span>).createInterface
-      <span class="hljs-attribute">input</span>: process.stdin
-      <span class="hljs-attribute">output</span>: process.stdout
-      <span class="hljs-attribute">completer</span>: <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+      input: process.stdin
+      output: process.stdout
+      completer: <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
         list = def.values ? []
         hits = list.filter (c) -&gt;
           c.indexOf(line) <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
@@ -973,9 +973,9 @@ Ask user to give the data for the schema
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        validator.check
-          <span class="hljs-attribute">name</span>: <span class="hljs-string">'userResponse'</span>
-          <span class="hljs-attribute">value</span>: line
-          <span class="hljs-attribute">schema</span>: def
+          name: <span class="hljs-string">'userResponse'</span>
+          value: line
+          schema: def
         , <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
           <span class="hljs-keyword">if</span> err
             <span class="hljs-built_in">console</span>.log chalk.magenta err.message

@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/http.coffee";
+    var thisFile = "src/sensor/http.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -186,60 +186,60 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Webserver response check"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to make an HTTP or HTTPS connection"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">url</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"URL"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the URL to request"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">timeout</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Timeout"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the timeout in milliseconds till the process is stopped
+  title: <span class="hljs-string">"Webserver response check"</span>
+  description: <span class="hljs-string">"the configuration to make an HTTP or HTTPS connection"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    url:
+      title: <span class="hljs-string">"URL"</span>
+      description: <span class="hljs-string">"the URL to request"</span>
+      type: <span class="hljs-string">'string'</span>
+    timeout:
+      title: <span class="hljs-string">"Timeout"</span>
+      description: <span class="hljs-string">"the timeout in milliseconds till the process is stopped
         and be considered as failed"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">10000</span>
-    <span class="hljs-attribute">username</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name used for basic authentication"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">password</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Password"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the password used for basic authentication"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">match</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Match body"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the substring or regular expression which have to match"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'any'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>: [
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-        <span class="hljs-attribute">minLength</span>: <span class="hljs-number">1</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      min: <span class="hljs-number">500</span>
+      default: <span class="hljs-number">10000</span>
+    username:
+      title: <span class="hljs-string">"Username"</span>
+      description: <span class="hljs-string">"the name used for basic authentication"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    password:
+      title: <span class="hljs-string">"Password"</span>
+      description: <span class="hljs-string">"the password used for basic authentication"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    match:
+      title: <span class="hljs-string">"Match body"</span>
+      description: <span class="hljs-string">"the substring or regular expression which have to match"</span>
+      type: <span class="hljs-string">'any'</span>
+      optional: <span class="hljs-literal">true</span>
+      entries: [
+        type: <span class="hljs-string">'string'</span>
+        minLength: <span class="hljs-number">1</span>
       ,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">instanceOf</span>: RegExp
+        type: <span class="hljs-string">'object'</span>
+        instanceOf: RegExp
       ]
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'statusCode &lt; 200 or statusCode &gt;= 400'</span></pre>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'statusCode &lt; 200 or statusCode &gt;= 400'</span></pre>
         </td>
       </tr>
     
@@ -256,10 +256,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'HTTP Request'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Connect to an HTTP or HTTPS server and check the response."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If the server didn't respond it also may be a network problem. "</span></pre>
+  title: <span class="hljs-string">'HTTP Request'</span>
+  description: <span class="hljs-string">"Connect to an HTTP or HTTPS server and check the response."</span>
+  category: <span class="hljs-string">'net'</span>
+  hint: <span class="hljs-string">"If the server didn't respond it also may be a network problem. "</span></pre>
         </td>
       </tr>
     
@@ -276,36 +276,36 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">responseTime</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Response Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"time till connection could be established"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-    <span class="hljs-attribute">statusCode</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Status Code"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"http status code"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-    <span class="hljs-attribute">statusMessage</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Status Message"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"http status message from server"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">server</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"application name of the server (if given)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">contentType</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Content Type"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the content mimetype"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">length</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Content Length"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"size of the content"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-    <span class="hljs-attribute">match</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Body Match"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"success of check for content with containing result strings"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span></pre>
+          <pre class="coffeescript">  values:
+    responseTime:
+      title: <span class="hljs-string">"Response Time"</span>
+      description: <span class="hljs-string">"time till connection could be established"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+    statusCode:
+      title: <span class="hljs-string">"Status Code"</span>
+      description: <span class="hljs-string">"http status code"</span>
+      type: <span class="hljs-string">'integer'</span>
+    statusMessage:
+      title: <span class="hljs-string">"Status Message"</span>
+      description: <span class="hljs-string">"http status message from server"</span>
+      type: <span class="hljs-string">'string'</span>
+    server:
+      title: <span class="hljs-string">"Server"</span>
+      description: <span class="hljs-string">"application name of the server (if given)"</span>
+      type: <span class="hljs-string">'string'</span>
+    contentType:
+      title: <span class="hljs-string">"Content Type"</span>
+      description: <span class="hljs-string">"the content mimetype"</span>
+      type: <span class="hljs-string">'string'</span>
+    length:
+      title: <span class="hljs-string">"Content Length"</span>
+      description: <span class="hljs-string">"size of the content"</span>
+      type: <span class="hljs-string">'byte'</span>
+    match:
+      title: <span class="hljs-string">"Body Match"</span>
+      description: <span class="hljs-string">"success of check for content with containing result strings"</span>
+      type: <span class="hljs-string">'object'</span></pre>
         </td>
       </tr>
     
@@ -326,7 +326,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"-&gt;<span class="hljs-subst">#{string.shorten <span class="hljs-property">@conf</span>.url, <span class="hljs-number">30</span>}</span>"</span>
+  @name ?= <span class="hljs-string">"-&gt;<span class="hljs-subst">#{string.shorten @conf.url, <span class="hljs-number">30</span>}</span>"</span>
   cb()</pre>
         </td>
       </tr>
@@ -356,17 +356,17 @@ Preset this run
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  option =
-    <span class="hljs-attribute">url</span>: <span class="hljs-property">@conf</span>.url
-    <span class="hljs-attribute">headers</span>:
+    url: @conf.url
+    headers:
       <span class="hljs-string">'User-Agent'</span>: <span class="hljs-string">"Alinex Monitor through request.js"</span>
-  option.timeout = <span class="hljs-property">@conf</span>.timeout <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.timeout?
-  remote <span class="hljs-property">@conf</span>, option, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+  option.timeout = @conf.timeout <span class="hljs-keyword">if</span> @conf.timeout?
+  remote @conf, option, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.username? <span class="hljs-keyword">and</span> <span class="hljs-property">@conf</span>.password?
+    <span class="hljs-keyword">if</span> @conf.username? <span class="hljs-keyword">and</span> @conf.password?
       option.auth =
-        <span class="hljs-attribute">username</span>: <span class="hljs-property">@conf</span>.username
-        <span class="hljs-attribute">password</span>: <span class="hljs-property">@conf</span>.password
-    <span class="hljs-property">@result</span>.request = option
+        username: @conf.username
+        password: @conf.password
+    @result.request = option
     cb <span class="hljs-literal">null</span>, option</pre>
         </td>
       </tr>
@@ -389,9 +389,9 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  request <span class="hljs-property">@result</span>.request, <span class="hljs-function"><span class="hljs-params">(err, response, body)</span> =&gt;</span>
-    <span class="hljs-property">@result</span>.response = response
-    <span class="hljs-property">@result</span>.body = body
+  request @result.request, <span class="hljs-function"><span class="hljs-params">(err, response, body)</span> =&gt;</span>
+    @result.response = response
+    @result.body = body
     cb err</pre>
         </td>
       </tr>
@@ -408,9 +408,9 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@result</span>.response?</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  @values.responseTime = @date[<span class="hljs-number">1</span>] - @date[<span class="hljs-number">0</span>]
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> @result.response?</pre>
         </td>
       </tr>
     
@@ -423,12 +423,12 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@values</span>.statusCode = <span class="hljs-property">@result</span>.response.statusCode
-  <span class="hljs-property">@values</span>.statusMessage = http.STATUS_CODES[<span class="hljs-property">@result</span>.response.statusCode]
-  <span class="hljs-property">@values</span>.server = <span class="hljs-property">@result</span>.response.headers.server
-  <span class="hljs-property">@values</span>.contentType = <span class="hljs-property">@result</span>.response.headers[<span class="hljs-string">'content-type'</span>]
-  <span class="hljs-property">@values</span>.length = <span class="hljs-property">@result</span>.response.connection.bytesRead
-  <span class="hljs-property">@values</span>.match = <span class="hljs-property">@match</span> <span class="hljs-property">@result</span>.body, <span class="hljs-property">@conf</span>.match
+          <pre class="coffeescript">  @values.statusCode = @result.response.statusCode
+  @values.statusMessage = http.STATUS_CODES[@result.response.statusCode]
+  @values.server = @result.response.headers.server
+  @values.contentType = @result.response.headers[<span class="hljs-string">'content-type'</span>]
+  @values.length = @result.response.connection.bytesRead
+  @values.match = @match @result.body, @conf.match
   cb()</pre>
         </td>
       </tr>
@@ -446,7 +446,7 @@ Get special report elements
         <td class="code highlight">
           <pre class="coffeescript">exports.report = <span class="hljs-function">-&gt;</span>
   report = <span class="hljs-keyword">new</span> Report()
-  <span class="hljs-keyword">if</span> req = <span class="hljs-property">@result</span>.request
+  <span class="hljs-keyword">if</span> req = @result.request
     report.p Report.b <span class="hljs-string">"Request:"</span>
     text = <span class="hljs-string">"<span class="hljs-subst">#{req.method ? <span class="hljs-string">'GET'</span>}</span> <span class="hljs-subst">#{req.url}</span>"</span>
     <span class="hljs-keyword">if</span> req.headers
@@ -455,16 +455,16 @@ Get special report elements
       .join <span class="hljs-string">'\n'</span>
     report.code text, <span class="hljs-string">'text'</span>
   bodyType = <span class="hljs-string">'text'</span>
-  <span class="hljs-keyword">if</span> headers = <span class="hljs-property">@result</span>.response?.headers
+  <span class="hljs-keyword">if</span> headers = @result.response?.headers
     report.p Report.b <span class="hljs-string">"Response:"</span>
     text = Object.keys(headers).map (e) -&gt;
       <span class="hljs-string">"<span class="hljs-subst">#{e}</span>: <span class="hljs-subst">#{headers[e]}</span>"</span>
     .join <span class="hljs-string">'\n'</span>
     report.code text, <span class="hljs-string">'text'</span>
     bodyType = <span class="hljs-string">'html'</span> <span class="hljs-keyword">if</span> ~headers[<span class="hljs-string">'content-type'</span>].indexOf <span class="hljs-string">'text/html'</span>
-  <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>.body?
+  <span class="hljs-keyword">if</span> @result.body?
     report.p Report.b <span class="hljs-string">"Body:"</span>
-    report.code string.shorten(<span class="hljs-property">@result</span>.body, <span class="hljs-number">400</span>), bodyType
+    report.code string.shorten(@result.body, <span class="hljs-number">400</span>), bodyType
   report</pre>
         </td>
       </tr>
@@ -510,9 +510,9 @@ Helper methods
         <td class="code highlight">
           <pre class="coffeescript">  sshtunnel = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-sshtunnel'</span>
   sshtunnel
-    <span class="hljs-attribute">ssl</span>: config.get <span class="hljs-string">"/exec/remote/server/<span class="hljs-subst">#{conf.remote}</span>"</span>
-    <span class="hljs-attribute">tunnel</span>:
-      <span class="hljs-attribute">localHost</span>: <span class="hljs-string">'127.0.0.1'</span>
+    ssl: config.get <span class="hljs-string">"/exec/remote/server/<span class="hljs-subst">#{conf.remote}</span>"</span>
+    tunnel:
+      localHost: <span class="hljs-string">'127.0.0.1'</span>
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
@@ -533,7 +533,7 @@ Helper methods
     <span class="hljs-keyword">else</span>
       option.agentClass = <span class="hljs-built_in">require</span> <span class="hljs-string">'socks5-http-client/lib/Agent'</span>
     option.agentOptions =
-      <span class="hljs-attribute">socksPort</span>: <span class="hljs-string">'7000'</span>
+      socksPort: <span class="hljs-string">'7000'</span>
     cb()</pre>
         </td>
       </tr>

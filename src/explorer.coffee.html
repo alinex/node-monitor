@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-monitor/src/explorer.coffee";
+    var thisFile = "src/explorer.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -258,10 +258,10 @@ exports.report = <span class="hljs-function"><span class="hljs-params">(work)</s
   report += <span class="hljs-string">"\n<span class="hljs-subst">#{work.result.analysis}</span>\n"</span> <span class="hljs-keyword">if</span> work.result.analysis
   <span class="hljs-keyword">if</span> work.hint
     context =
-      <span class="hljs-attribute">name</span>: work.sensor.name work.config
-      <span class="hljs-attribute">config</span>: work.config
-      <span class="hljs-attribute">results</span>: work.result
-      <span class="hljs-attribute">meta</span>: work.meta
+      name: work.sensor.name work.config
+      config: work.config
+      results: work.result
+      meta: work.meta
     report += <span class="hljs-string">"\n&gt; <span class="hljs-subst">#{string.wordwrap work.hint(context), <span class="hljs-number">76</span>, <span class="hljs-string">'\n&gt; '</span>}</span>\n"</span>
   report <span class="hljs-comment">#  string.wordwrap report</span></pre>
         </td>
@@ -319,8 +319,8 @@ Format a value for better human readable display
       byte.format <span class="hljs-number">3</span>
     <span class="hljs-keyword">when</span> <span class="hljs-string">'interval'</span>
       long =
-        <span class="hljs-attribute">d</span>: <span class="hljs-string">'day'</span>
-        <span class="hljs-attribute">m</span>: <span class="hljs-string">'minute'</span>
+        d: <span class="hljs-string">'day'</span>
+        m: <span class="hljs-string">'minute'</span>
       unit = long[config.unit] ? config.unit
       interval = math.unit value, unit
       interval = interval.to <span class="hljs-string">'m'</span> <span class="hljs-keyword">if</span> interval.toNumber(<span class="hljs-string">'s'</span>) &gt; <span class="hljs-number">120</span>

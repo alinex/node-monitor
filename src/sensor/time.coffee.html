@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/time.coffee";
+    var thisFile = "src/sensor/time.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -173,45 +173,45 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Time check configuration"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to check local time against ntp"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'diff &gt; 10000'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">host</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"NTP Hostname"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name of an NTP server to call"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'pool.ntp.org'</span>
-    <span class="hljs-attribute">port</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"NTP Port"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port to use for NTP calls"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">123</span>
-    <span class="hljs-attribute">timeout</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Timeout"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time in milliseconds to retrieve time"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">10000</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'diff &gt; 10000'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+  title: <span class="hljs-string">"Time check configuration"</span>
+  description: <span class="hljs-string">"the configuration to check local time against ntp"</span>
+  type: <span class="hljs-string">'object'</span>
+  default:
+    warn: <span class="hljs-string">'diff &gt; 10000'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    host:
+      title: <span class="hljs-string">"NTP Hostname"</span>
+      description: <span class="hljs-string">"the name of an NTP server to call"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'pool.ntp.org'</span>
+    port:
+      title: <span class="hljs-string">"NTP Port"</span>
+      description: <span class="hljs-string">"the port to use for NTP calls"</span>
+      type: <span class="hljs-string">'integer'</span>
+      default: <span class="hljs-number">123</span>
+    timeout:
+      title: <span class="hljs-string">"Timeout"</span>
+      description: <span class="hljs-string">"the time in milliseconds to retrieve time"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      default: <span class="hljs-number">10000</span>
+      min: <span class="hljs-number">500</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'diff &gt; 10000'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -228,10 +228,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Time Check'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the system time against the Internet."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If the time is not correct it may influence some processes which goes
+  title: <span class="hljs-string">'Time Check'</span>
+  description: <span class="hljs-string">"Check the system time against the Internet."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"If the time is not correct it may influence some processes which goes
   over multiple hosts. Therefore install and configure `ntpd` on the machine."</span></pre>
         </td>
       </tr>
@@ -249,20 +249,20 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">local</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Local Time'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time on the local host"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'date'</span>
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Remote Time'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time on an internet time server"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'date'</span>
-    <span class="hljs-attribute">diff</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Difference'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the difference between both times"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span></pre>
+          <pre class="coffeescript">  values:
+    local:
+      title: <span class="hljs-string">'Local Time'</span>
+      description: <span class="hljs-string">"the time on the local host"</span>
+      type: <span class="hljs-string">'date'</span>
+    remote:
+      title: <span class="hljs-string">'Remote Time'</span>
+      description: <span class="hljs-string">"the time on an internet time server"</span>
+      type: <span class="hljs-string">'date'</span>
+    diff:
+      title: <span class="hljs-string">'Difference'</span>
+      description: <span class="hljs-string">"the difference between both times"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span></pre>
         </td>
       </tr>
     
@@ -283,7 +283,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
+  @name ?= @conf.remote ? <span class="hljs-string">'localhost'</span>
   cb()</pre>
         </td>
       </tr>
@@ -315,14 +315,14 @@ Run the Sensor
           <pre class="coffeescript">  async.parallel [
     (cb) =&gt;
       Exec.run
-        <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-        <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'date'</span>
-        <span class="hljs-attribute">args</span>: [<span class="hljs-string">'--iso-8601=seconds'</span>]
-        <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+        remote: @conf.remote
+        cmd: <span class="hljs-string">'date'</span>
+        args: [<span class="hljs-string">'--iso-8601=seconds'</span>]
+        priority: <span class="hljs-string">'immediately'</span>
       , cb
     (cb) =&gt;
-      ntp.ntpReplyTimeout = <span class="hljs-property">@conf</span>.timeout
-      ntp.getNetworkTime <span class="hljs-property">@conf</span>.host, <span class="hljs-property">@conf</span>.port, cb
+      ntp.ntpReplyTimeout = @conf.timeout
+      ntp.getNetworkTime @conf.host, @conf.port, cb
   ], cb</pre>
         </td>
       </tr>
@@ -339,8 +339,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -353,9 +353,9 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@values</span>.local = <span class="hljs-keyword">new</span> Date res[<span class="hljs-number">0</span>].stdout().trim()
-  <span class="hljs-property">@values</span>.remote = res[<span class="hljs-number">1</span>]
-  <span class="hljs-property">@values</span>.diff = Math.abs <span class="hljs-property">@values</span>.local - <span class="hljs-property">@values</span>.remote
+          <pre class="coffeescript">  @values.local = <span class="hljs-keyword">new</span> Date res[<span class="hljs-number">0</span>].stdout().trim()
+  @values.remote = res[<span class="hljs-number">1</span>]
+  @values.diff = Math.abs @values.local - @values.remote
   cb()</pre>
         </td>
       </tr>

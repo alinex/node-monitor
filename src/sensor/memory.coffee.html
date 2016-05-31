@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/memory.coffee";
+    var thisFile = "src/sensor/memory.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -171,30 +171,30 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Memory check"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the memory usage on the machine"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'free &lt; 1%'</span>
-    <span class="hljs-attribute">analysis</span>:
-      <span class="hljs-attribute">minMem</span>: <span class="hljs-number">0.1</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'free &lt; 1%'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+  title: <span class="hljs-string">"Memory check"</span>
+  description: <span class="hljs-string">"the memory usage on the machine"</span>
+  type: <span class="hljs-string">'object'</span>
+  default:
+    warn: <span class="hljs-string">'free &lt; 1%'</span>
+    analysis:
+      minMem: <span class="hljs-number">0.1</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'free &lt; 1%'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -211,10 +211,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Memory'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the free and used memory."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check which process consumes how much memory, maybe some processes have
+  title: <span class="hljs-string">'Memory'</span>
+  description: <span class="hljs-string">"Check the free and used memory."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"Check which process consumes how much memory, maybe some processes have
     a memory leak."</span></pre>
         </td>
       </tr>
@@ -232,65 +232,65 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">total</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"total system memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">used</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Used"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"used system memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">free</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Free"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"free system memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">shared</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Shared"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"shared system memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">buffers</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Buffers"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"system memory used as buffer"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">cached</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Cached"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"system memory used as cache"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">swapTotal</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Total"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"total swap memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">swapUsed</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Used"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"used swap memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">swapFree</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Free"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"free swap memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">actualFree</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Actual Free"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"real free system memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">percentFree</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Percent Free"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of real free system memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">swapPercentFree</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Swap Percent Free"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"percentage of free swap memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
+          <pre class="coffeescript">  values:
+    total:
+      title: <span class="hljs-string">"Total"</span>
+      description: <span class="hljs-string">"total system memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    used:
+      title: <span class="hljs-string">"Used"</span>
+      description: <span class="hljs-string">"used system memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    free:
+      title: <span class="hljs-string">"Free"</span>
+      description: <span class="hljs-string">"free system memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    shared:
+      title: <span class="hljs-string">"Shared"</span>
+      description: <span class="hljs-string">"shared system memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    buffers:
+      title: <span class="hljs-string">"Buffers"</span>
+      description: <span class="hljs-string">"system memory used as buffer"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    cached:
+      title: <span class="hljs-string">"Cached"</span>
+      description: <span class="hljs-string">"system memory used as cache"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    swapTotal:
+      title: <span class="hljs-string">"Swap Total"</span>
+      description: <span class="hljs-string">"total swap memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    swapUsed:
+      title: <span class="hljs-string">"Swap Used"</span>
+      description: <span class="hljs-string">"used swap memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    swapFree:
+      title: <span class="hljs-string">"Swap Free"</span>
+      description: <span class="hljs-string">"free swap memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    actualFree:
+      title: <span class="hljs-string">"Actual Free"</span>
+      description: <span class="hljs-string">"real free system memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    percentFree:
+      title: <span class="hljs-string">"Percent Free"</span>
+      description: <span class="hljs-string">"percentage of real free system memory"</span>
+      type: <span class="hljs-string">'percent'</span>
+    swapPercentFree:
+      title: <span class="hljs-string">"Swap Percent Free"</span>
+      description: <span class="hljs-string">"percentage of free swap memory"</span>
+      type: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -311,7 +311,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
+  @name ?= @conf.remote ? <span class="hljs-string">'localhost'</span>
   cb()</pre>
         </td>
       </tr>
@@ -341,13 +341,13 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'cat'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'/proc/meminfo'</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-    <span class="hljs-attribute">check</span>:
-      <span class="hljs-attribute">matchStdout</span>:
-        <span class="hljs-attribute">args</span>: <span class="hljs-regexp">/MemTotal/</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'cat'</span>
+    args: [<span class="hljs-string">'/proc/meminfo'</span>]
+    priority: <span class="hljs-string">'immediately'</span>
+    check:
+      matchStdout:
+        args: <span class="hljs-regexp">/MemTotal/</span>
   , cb</pre>
         </td>
       </tr>
@@ -364,8 +364,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -381,19 +381,19 @@ Get the results
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> res.stdout().split <span class="hljs-regexp">/\n/</span>
     col = line.split <span class="hljs-regexp">/\s+/</span>
     <span class="hljs-keyword">switch</span> col[<span class="hljs-number">0</span>]
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemTotal:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.total = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemFree:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.free = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemShared:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.shared = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'Shmem:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.shared = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'Buffers:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.buffers = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'Cached:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.cached = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'SwapTotal:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.swapTotal = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-      <span class="hljs-keyword">when</span> <span class="hljs-string">'SwapFree:'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@values</span>.swapFree = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
-  <span class="hljs-property">@values</span>.used = <span class="hljs-property">@values</span>.total - <span class="hljs-property">@values</span>.free
-  <span class="hljs-property">@values</span>.swapUsed = <span class="hljs-property">@values</span>.swapTotal - <span class="hljs-property">@values</span>.swapFree
-  <span class="hljs-property">@values</span>.actualFree = <span class="hljs-property">@values</span>.free + <span class="hljs-property">@values</span>.buffers + <span class="hljs-property">@values</span>.cached
-  <span class="hljs-property">@values</span>.percentFree = <span class="hljs-property">@values</span>.actualFree/<span class="hljs-property">@values</span>.total
-  <span class="hljs-property">@values</span>.swapPercentFree = <span class="hljs-property">@values</span>.swapFree/<span class="hljs-property">@values</span>.swapTotal
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemTotal:'</span> <span class="hljs-keyword">then</span> @values.total = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemFree:'</span> <span class="hljs-keyword">then</span> @values.free = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'MemShared:'</span> <span class="hljs-keyword">then</span> @values.shared = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'Shmem:'</span> <span class="hljs-keyword">then</span> @values.shared = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'Buffers:'</span> <span class="hljs-keyword">then</span> @values.buffers = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'Cached:'</span> <span class="hljs-keyword">then</span> @values.cached = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'SwapTotal:'</span> <span class="hljs-keyword">then</span> @values.swapTotal = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'SwapFree:'</span> <span class="hljs-keyword">then</span> @values.swapFree = col[<span class="hljs-number">1</span>] * <span class="hljs-number">1024</span>
+  @values.used = @values.total - @values.free
+  @values.swapUsed = @values.swapTotal - @values.swapFree
+  @values.actualFree = @values.free + @values.buffers + @values.cached
+  @values.percentFree = @values.actualFree/@values.total
+  @values.swapPercentFree = @values.swapFree/@values.swapTotal
   cb()</pre>
         </td>
       </tr>

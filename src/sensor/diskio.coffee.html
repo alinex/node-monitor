@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/diskio.coffee";
+    var thisFile = "src/sensor/diskio.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -172,37 +172,37 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Disk IO Test"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for the disk input/output check"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">device</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Device name"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the disk's device name like sda, ..."</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">time</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Measurement Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time for the measurement"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">10</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+  title: <span class="hljs-string">"Disk IO Test"</span>
+  description: <span class="hljs-string">"the configuration for the disk input/output check"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    device:
+      title: <span class="hljs-string">"Device name"</span>
+      description: <span class="hljs-string">"the disk's device name like sda, ..."</span>
+      type: <span class="hljs-string">'string'</span>
+    time:
+      title: <span class="hljs-string">"Measurement Time"</span>
+      description: <span class="hljs-string">"the time for the measurement"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'s'</span>
+      default: <span class="hljs-number">10</span>
+      min: <span class="hljs-number">1</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -219,10 +219,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Disk IO'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the disk io traffic."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If there are any problems here check the device for hardware or
+  title: <span class="hljs-string">'Disk IO'</span>
+  description: <span class="hljs-string">"Check the disk io traffic."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"If there are any problems here check the device for hardware or
   network problems."</span></pre>
         </td>
       </tr>
@@ -240,45 +240,45 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">read</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Read operations/s"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of operations to read from the device per second"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
-    <span class="hljs-attribute">write</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write operation/s"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of operations to written to the device per second"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
-    <span class="hljs-attribute">readSize</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Read/s"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data read from the device per second"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">writeSize</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write/s"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data written to the device per second"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">readTotal</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Read"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the total amount of read data"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">writeTotal</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Write"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the total amount of written data"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">readTime</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Read Time/s"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data read from the device per second"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-    <span class="hljs-attribute">writeTime</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Write Time/s"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the amount of data written to the device per second"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span></pre>
+          <pre class="coffeescript">  values:
+    read:
+      title: <span class="hljs-string">"Read operations/s"</span>
+      description: <span class="hljs-string">"the amount of operations to read from the device per second"</span>
+      type: <span class="hljs-string">'float'</span>
+    write:
+      title: <span class="hljs-string">"Write operation/s"</span>
+      description: <span class="hljs-string">"the amount of operations to written to the device per second"</span>
+      type: <span class="hljs-string">'float'</span>
+    readSize:
+      title: <span class="hljs-string">"Read/s"</span>
+      description: <span class="hljs-string">"the amount of data read from the device per second"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    writeSize:
+      title: <span class="hljs-string">"Write/s"</span>
+      description: <span class="hljs-string">"the amount of data written to the device per second"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    readTotal:
+      title: <span class="hljs-string">"Total Read"</span>
+      description: <span class="hljs-string">"the total amount of read data"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    writeTotal:
+      title: <span class="hljs-string">"Total Write"</span>
+      description: <span class="hljs-string">"the total amount of written data"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    readTime:
+      title: <span class="hljs-string">"Read Time/s"</span>
+      description: <span class="hljs-string">"the amount of data read from the device per second"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+    writeTime:
+      title: <span class="hljs-string">"Write Time/s"</span>
+      description: <span class="hljs-string">"the amount of data written to the device per second"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span></pre>
         </td>
       </tr>
     
@@ -299,7 +299,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span>"</span>
+  @name ?= <span class="hljs-string">"<span class="hljs-subst">#{@conf.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{@conf.device}</span>"</span>
   cb()</pre>
         </td>
       </tr>
@@ -329,15 +329,15 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  async.map [
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span> /proc/diskstats"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep <span class="hljs-subst">#{@conf.device}</span> /proc/diskstats"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.time}</span> &amp;&amp; grep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.device}</span> /proc/diskstats"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{@conf.time}</span> &amp;&amp; grep <span class="hljs-subst">#{@conf.device}</span> /proc/diskstats"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
   , cb</pre>
@@ -356,8 +356,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -372,14 +372,14 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">  l1 = res[<span class="hljs-number">0</span>].stdout().trim().split(<span class="hljs-regexp">/\s+/</span>)
   l2 = res[<span class="hljs-number">1</span>].stdout().trim().split(<span class="hljs-regexp">/\s+/</span>)
-  <span class="hljs-property">@values</span>.read = (Number(l2[<span class="hljs-number">3</span>]) - Number(l1[<span class="hljs-number">3</span>])) / <span class="hljs-property">@conf</span>.time
-  <span class="hljs-property">@values</span>.write = (Number(l2[<span class="hljs-number">7</span>]) - Number(l1[<span class="hljs-number">7</span>])) / <span class="hljs-property">@conf</span>.time
-  <span class="hljs-property">@values</span>.readSize = (Number(l2[<span class="hljs-number">5</span>]) - Number(l1[<span class="hljs-number">5</span>])) / <span class="hljs-property">@conf</span>.time * <span class="hljs-number">512</span>
-  <span class="hljs-property">@values</span>.writeSize = (Number(l2[<span class="hljs-number">9</span>]) - Number(l1[<span class="hljs-number">9</span>])) / <span class="hljs-property">@conf</span>.time * <span class="hljs-number">512</span>
-  <span class="hljs-property">@values</span>.readTotal = Number(l2[<span class="hljs-number">5</span>]) * <span class="hljs-number">512</span>
-  <span class="hljs-property">@values</span>.writeTotal = Number(l2[<span class="hljs-number">9</span>]) * <span class="hljs-number">512</span>
-  <span class="hljs-property">@values</span>.readTime = (Number(l2[<span class="hljs-number">6</span>]) - Number(l1[<span class="hljs-number">6</span>])) / <span class="hljs-property">@conf</span>.time
-  <span class="hljs-property">@values</span>.writeTime = (Number(l2[<span class="hljs-number">10</span>]) - Number(l1[<span class="hljs-number">10</span>])) / <span class="hljs-property">@conf</span>.time
+  @values.read = (Number(l2[<span class="hljs-number">3</span>]) - Number(l1[<span class="hljs-number">3</span>])) / @conf.time
+  @values.write = (Number(l2[<span class="hljs-number">7</span>]) - Number(l1[<span class="hljs-number">7</span>])) / @conf.time
+  @values.readSize = (Number(l2[<span class="hljs-number">5</span>]) - Number(l1[<span class="hljs-number">5</span>])) / @conf.time * <span class="hljs-number">512</span>
+  @values.writeSize = (Number(l2[<span class="hljs-number">9</span>]) - Number(l1[<span class="hljs-number">9</span>])) / @conf.time * <span class="hljs-number">512</span>
+  @values.readTotal = Number(l2[<span class="hljs-number">5</span>]) * <span class="hljs-number">512</span>
+  @values.writeTotal = Number(l2[<span class="hljs-number">9</span>]) * <span class="hljs-number">512</span>
+  @values.readTime = (Number(l2[<span class="hljs-number">6</span>]) - Number(l1[<span class="hljs-number">6</span>])) / @conf.time
+  @values.writeTime = (Number(l2[<span class="hljs-number">10</span>]) - Number(l1[<span class="hljs-number">10</span>])) / @conf.time
   cb()</pre>
         </td>
       </tr>

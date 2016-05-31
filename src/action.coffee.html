@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-monitor/src/action.coffee";
+    var thisFile = "src/action.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -235,7 +235,7 @@ Initialize rule data
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@init</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
+          <pre class="coffeescript">  @init: <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     mode = setup</pre>
         </td>
       </tr>
@@ -249,7 +249,7 @@ Initialize rule data
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@actions</span> = []</pre>
+          <pre class="coffeescript">    @actions = []</pre>
         </td>
       </tr>
     
@@ -289,7 +289,7 @@ Initialize rule data
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">for</span> rule, num <span class="hljs-keyword">in</span> <span class="hljs-property">@conf</span>.rule</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> rule, num <span class="hljs-keyword">in</span> @conf.rule</pre>
         </td>
       </tr>
     
@@ -305,7 +305,7 @@ Initialize rule data
           <pre class="coffeescript">      <span class="hljs-keyword">while</span> rule.base
         <span class="hljs-keyword">unless</span> base = rules[rule.base]
           <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No base rule with name <span class="hljs-subst">#{rule.base}</span> defined, like used
-          in <span class="hljs-subst">#{rule.name}</span> rule of <span class="hljs-subst">#{<span class="hljs-property">@controller</span>?.name}</span> controller"</span>
+          in <span class="hljs-subst">#{rule.name}</span> rule of <span class="hljs-subst">#{@controller?.name}</span> controller"</span>
         <span class="hljs-keyword">delete</span> rule.base
         rule = object.extend {}, base, rule
       rule.name ?= <span class="hljs-string">"#<span class="hljs-subst">#{num}</span>"</span></pre>
@@ -324,12 +324,12 @@ Initialize rule data
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">try</span>
         <span class="hljs-keyword">if</span> rule.email
-          <span class="hljs-property">@actions</span>.push <span class="hljs-keyword">new</span> Action rule, <span class="hljs-keyword">this</span>
+          @actions.push <span class="hljs-keyword">new</span> Action rule, <span class="hljs-keyword">this</span>
         <span class="hljs-keyword">else</span>
-          <span class="hljs-property">@actions</span>.unshift <span class="hljs-keyword">new</span> Action rule, <span class="hljs-keyword">this</span>
+          @actions.unshift <span class="hljs-keyword">new</span> Action rule, <span class="hljs-keyword">this</span>
       <span class="hljs-keyword">catch</span> error
         <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{error.message}</span> <span class="hljs-subst">#{error.stack.split(<span class="hljs-regexp">/\n/</span>)[<span class="hljs-number">1</span>].trim()}</span>
-        in <span class="hljs-subst">#{rule.name}</span> rule of <span class="hljs-subst">#{<span class="hljs-property">@controller</span>?.name}</span> controller"</span>
+        in <span class="hljs-subst">#{rule.name}</span> rule of <span class="hljs-subst">#{@controller?.name}</span> controller"</span>
     cb()</pre>
         </td>
       </tr>
@@ -345,8 +345,8 @@ Run all action rules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    async.each <span class="hljs-property">@actions</span>, <span class="hljs-function"><span class="hljs-params">(action, cb)</span> -&gt;</span>
+          <pre class="coffeescript">  @run: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    async.each @actions, <span class="hljs-function"><span class="hljs-params">(action, cb)</span> -&gt;</span>
       action.run cb
     , cb</pre>
         </td>
@@ -363,10 +363,10 @@ Create instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@conf</span>, <span class="hljs-property">@controller</span>)</span> -&gt;</span>
-    <span class="hljs-property">@count</span> = <span class="hljs-number">0</span> <span class="hljs-comment"># number of calls in current status</span>
-    <span class="hljs-property">@date</span> = <span class="hljs-property">@controller</span>?.date <span class="hljs-comment"># last change of status</span>
-    <span class="hljs-property">@status</span> = <span class="hljs-property">@controller</span>?.status <span class="hljs-comment"># last status</span></pre>
+          <pre class="coffeescript">  constructor: <span class="hljs-function"><span class="hljs-params">(@conf, @controller)</span> -&gt;</span>
+    @count = <span class="hljs-number">0</span> <span class="hljs-comment"># number of calls in current status</span>
+    @date = @controller?.date <span class="hljs-comment"># last change of status</span>
+    @status = @controller?.status <span class="hljs-comment"># last status</span></pre>
         </td>
       </tr>
     
@@ -379,8 +379,8 @@ Create instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@type</span> = <span class="hljs-literal">null</span> <span class="hljs-comment"># list actor</span>
-    <span class="hljs-property">@base</span> = <span class="hljs-literal">null</span> <span class="hljs-comment"># template</span></pre>
+          <pre class="coffeescript">    @type = <span class="hljs-literal">null</span> <span class="hljs-comment"># list actor</span>
+    @base = <span class="hljs-literal">null</span> <span class="hljs-comment"># template</span></pre>
         </td>
       </tr>
     
@@ -393,11 +393,11 @@ Create instance
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@actor</span> = <span class="hljs-literal">null</span> <span class="hljs-comment"># list actor</span>
-    <span class="hljs-property">@lastrun</span> = <span class="hljs-literal">null</span> <span class="hljs-comment"># date of last actor run</span>
-    <span class="hljs-property">@err</span> = <span class="hljs-literal">null</span> <span class="hljs-comment"># last error</span>
-    <span class="hljs-property">@values</span> = {} <span class="hljs-comment"># last results</span>
-    <span class="hljs-property">@init</span>()</pre>
+          <pre class="coffeescript">    @actor = <span class="hljs-literal">null</span> <span class="hljs-comment"># list actor</span>
+    @lastrun = <span class="hljs-literal">null</span> <span class="hljs-comment"># date of last actor run</span>
+    @err = <span class="hljs-literal">null</span> <span class="hljs-comment"># last error</span>
+    @values = {} <span class="hljs-comment"># last results</span>
+    @init()</pre>
         </td>
       </tr>
     
@@ -412,7 +412,7 @@ Initialize check and actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">init</span>: <span class="hljs-function">-&gt;</span></pre>
+          <pre class="coffeescript">  init: <span class="hljs-function">-&gt;</span></pre>
         </td>
       </tr>
     
@@ -425,8 +425,8 @@ Initialize check and actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">unless</span> <span class="hljs-property">@conf</span>
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No definition for rule <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span>"</span></pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">unless</span> @conf
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No definition for rule <span class="hljs-subst">#{@conf.name}</span>"</span></pre>
         </td>
       </tr>
     
@@ -441,10 +441,10 @@ Initialize check and actor
         <td class="code highlight">
           <pre class="coffeescript">    monitor ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
     <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> actors
-      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@conf</span>[type]
-      <span class="hljs-property">@type</span> = type
-      <span class="hljs-property">@base</span> = <span class="hljs-property">@conf</span>[type]
-    debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@controller</span>?.name}</span> initialized <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span> rule"</span></pre>
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> @conf[type]
+      @type = type
+      @base = @conf[type]
+    debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey @controller?.name}</span> initialized <span class="hljs-subst">#{@conf.name}</span> rule"</span></pre>
         </td>
       </tr>
     
@@ -459,12 +459,12 @@ Check the Rules and run Actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@controller</span>? <span class="hljs-keyword">or</span> <span class="hljs-property">@controller</span>.changed
-      <span class="hljs-property">@count</span> = <span class="hljs-number">0</span>
-      <span class="hljs-property">@date</span> = <span class="hljs-property">@controller</span>?.date ? <span class="hljs-keyword">new</span> Date()
-    debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@controller</span>?.name}</span> check <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span> rule"</span>
-    <span class="hljs-property">@count</span>++</pre>
+          <pre class="coffeescript">  run: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> @controller? <span class="hljs-keyword">or</span> @controller.changed
+      @count = <span class="hljs-number">0</span>
+      @date = @controller?.date ? <span class="hljs-keyword">new</span> Date()
+    debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{@controller?.name}</span> check <span class="hljs-subst">#{@conf.name}</span> rule"</span>
+    @count++</pre>
         </td>
       </tr>
     
@@ -477,7 +477,7 @@ Check the Rules and run Actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@conf</span>.status <span class="hljs-keyword">is</span> <span class="hljs-property">@controller</span>?.status</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> @conf.status <span class="hljs-keyword">is</span> @controller?.status</pre>
         </td>
       </tr>
     
@@ -496,8 +496,8 @@ time (in seconds) to wait before informing.</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    now = <span class="hljs-keyword">new</span> Date()
-    <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.latency
-      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> now &lt; moment(<span class="hljs-property">@date</span>).add(<span class="hljs-property">@conf</span>.latency, <span class="hljs-string">'seconds'</span>).toDate()</pre>
+    <span class="hljs-keyword">if</span> @conf.latency
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> now &lt; moment(@date).add(@conf.latency, <span class="hljs-string">'seconds'</span>).toDate()</pre>
         </td>
       </tr>
     
@@ -510,7 +510,7 @@ time (in seconds) to wait before informing.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">if</span> <span class="hljs-property">@lastrun</span>?</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> @lastrun?</pre>
         </td>
       </tr>
     
@@ -523,8 +523,8 @@ time (in seconds) to wait before informing.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.redo
-        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> now &lt; moment(<span class="hljs-property">@lastrun</span>).add(<span class="hljs-property">@conf</span>.redo, <span class="hljs-string">'seconds'</span>).toDate()</pre>
+          <pre class="coffeescript">      <span class="hljs-keyword">if</span> @conf.redo
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> now &lt; moment(@lastrun).add(@conf.redo, <span class="hljs-string">'seconds'</span>).toDate()</pre>
         </td>
       </tr>
     
@@ -554,7 +554,7 @@ run actor</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> <span class="hljs-property">@prerun</span> cb <span class="hljs-keyword">if</span> <span class="hljs-property">@actor</span></pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> @prerun cb <span class="hljs-keyword">if</span> @actor</pre>
         </td>
       </tr>
     
@@ -567,10 +567,10 @@ run actor</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    monitor.getActor <span class="hljs-property">@type</span>, <span class="hljs-function"><span class="hljs-params">(err, <span class="hljs-property">@actor</span>)</span> =&gt;</span>
+          <pre class="coffeescript">    monitor.getActor @type, <span class="hljs-function"><span class="hljs-params">(err, @actor)</span> =&gt;</span>
       <span class="hljs-keyword">if</span> err
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{err.message}</span> in <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span> rule
-        of <span class="hljs-subst">#{<span class="hljs-property">@controller</span>?.name}</span> controller"</span></pre>
+        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{err.message}</span> in <span class="hljs-subst">#{@conf.name}</span> rule
+        of <span class="hljs-subst">#{@controller?.name}</span> controller"</span></pre>
         </td>
       </tr>
     
@@ -584,15 +584,15 @@ run actor</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      validator.check
-        <span class="hljs-attribute">name</span>: <span class="hljs-keyword">if</span> <span class="hljs-property">@controller</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"/controller/<span class="hljs-subst">#{<span class="hljs-property">@controller</span>?.name}</span>/action/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span>/<span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span>"</span>
-        <span class="hljs-keyword">else</span> <span class="hljs-string">"/actor:<span class="hljs-subst">#{<span class="hljs-property">@type</span>}</span>"</span>
-        <span class="hljs-attribute">value</span>: <span class="hljs-property">@conf</span>[<span class="hljs-property">@type</span>]
-        <span class="hljs-attribute">schema</span>: <span class="hljs-property">@actor</span>.schema
+        name: <span class="hljs-keyword">if</span> @controller <span class="hljs-keyword">then</span> <span class="hljs-string">"/controller/<span class="hljs-subst">#{@controller?.name}</span>/action/<span class="hljs-subst">#{@conf.name}</span>/<span class="hljs-subst">#{@type}</span>"</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-string">"/actor:<span class="hljs-subst">#{@type}</span>"</span>
+        value: @conf[@type]
+        schema: @actor.schema
         , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-          <span class="hljs-property">@actor</span>.init.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+          @actor.init.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-            <span class="hljs-property">@prerun</span> cb</pre>
+            @prerun cb</pre>
         </td>
       </tr>
     
@@ -607,8 +607,8 @@ Prerun
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">prerun</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-property">@runNow</span> cb <span class="hljs-keyword">unless</span> <span class="hljs-property">@actor</span>.prerun?</pre>
+          <pre class="coffeescript">  prerun: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> @runNow cb <span class="hljs-keyword">unless</span> @actor.prerun?</pre>
         </td>
       </tr>
     
@@ -621,9 +621,9 @@ Prerun
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@actor</span>.prerun.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@err</span>)</span> =&gt;</span>
-      <span class="hljs-keyword">return</span> cb <span class="hljs-property">@err</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-      <span class="hljs-property">@runNow</span> cb</pre>
+          <pre class="coffeescript">    @actor.prerun.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(@err)</span> =&gt;</span>
+      <span class="hljs-keyword">return</span> cb @err <span class="hljs-keyword">if</span> @err
+      @runNow cb</pre>
         </td>
       </tr>
     
@@ -638,16 +638,16 @@ Run Actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">runNow</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    <span class="hljs-property">@actor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@controller</span>?.name}</span> run <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span> actor"</span>
-    <span class="hljs-property">@err</span> = <span class="hljs-literal">null</span>
-    <span class="hljs-property">@values</span> = {}
-    <span class="hljs-property">@lastrun</span> = [<span class="hljs-keyword">new</span> Date()]
-    <span class="hljs-property">@actor</span>.run.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
-      <span class="hljs-property">@lastrun</span>.push <span class="hljs-keyword">new</span> Date()
-      <span class="hljs-property">@err</span> = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@err</span> <span class="hljs-keyword">and</span> err
-      <span class="hljs-property">@actor</span>.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey <span class="hljs-property">@controller</span>?.name}</span> finished <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.name}</span> actor"</span>
-      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> <span class="hljs-property">@controller</span>?</pre>
+          <pre class="coffeescript">  runNow: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    @actor.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey @controller?.name}</span> run <span class="hljs-subst">#{@conf.name}</span> actor"</span>
+    @err = <span class="hljs-literal">null</span>
+    @values = {}
+    @lastrun = [<span class="hljs-keyword">new</span> Date()]
+    @actor.run.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+      @lastrun.push <span class="hljs-keyword">new</span> Date()
+      @err = err <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> @err <span class="hljs-keyword">and</span> err
+      @actor.debug <span class="hljs-string">"<span class="hljs-subst">#{chalk.grey @controller?.name}</span> finished <span class="hljs-subst">#{@conf.name}</span> actor"</span>
+      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> @controller?</pre>
         </td>
       </tr>
     
@@ -660,8 +660,8 @@ Run Actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      storage.action <span class="hljs-property">@databaseID</span>, <span class="hljs-property">@type</span>, <span class="hljs-property">@actor</span>.meta.values
-      , <span class="hljs-property">@date</span>, <span class="hljs-property">@values</span>, cb</pre>
+          <pre class="coffeescript">      storage.action @databaseID, @type, @actor.meta.values
+      , @date, @values, cb</pre>
         </td>
       </tr>
     

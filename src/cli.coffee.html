@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-monitor/src/cli.coffee";
+    var thisFile = "src/cli.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -182,7 +182,7 @@ Start argument parsing
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">Usage</span>: $<span class="hljs-number">0</span> [-vCcltdij] &lt;controller...&gt;
+          <pre class="coffeescript">  Usage: $<span class="hljs-number">0</span> [-vCcltdij] &lt;controller...&gt;
   <span class="hljs-string">""")
 </span></pre>
         </td>
@@ -426,8 +426,8 @@ monitor.setup argv._
 
 <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Initializing..."</span>
 monitor.init
-  <span class="hljs-attribute">verbose</span>: argv.verbose
-  <span class="hljs-attribute">try</span>: argv.<span class="hljs-keyword">try</span>
+  verbose: argv.verbose
+  try: argv.<span class="hljs-keyword">try</span>
 , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
   exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
   conf = config.get <span class="hljs-string">'monitor'</span>

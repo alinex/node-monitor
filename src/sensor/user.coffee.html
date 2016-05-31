@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/user.coffee";
+    var thisFile = "src/sensor/user.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -172,31 +172,31 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"User Check"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup to check for an active users"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'user'</span>]
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">user</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Username to check"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the local user name to check"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+  title: <span class="hljs-string">"User Check"</span>
+  description: <span class="hljs-string">"the setup to check for an active users"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  mandatoryKeys: [<span class="hljs-string">'user'</span>]
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    user:
+      title: <span class="hljs-string">"Username to check"</span>
+      description: <span class="hljs-string">"the local user name to check"</span>
+      type: <span class="hljs-string">'string'</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -213,10 +213,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Active User'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check what an active user do."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"This check will give an overview of the activities of an (logged in) user.
+  title: <span class="hljs-string">'Active User'</span>
+  description: <span class="hljs-string">"Check what an active user do."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"This check will give an overview of the activities of an (logged in) user.
   If you look at the processes you may find out that some other warnings
   like high load are user made and you may contact this person directly. "</span></pre>
         </td>
@@ -235,29 +235,29 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">num</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Processes'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"number of running processes"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-    <span class="hljs-attribute">cpu</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'% CPU'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"usage of CPU"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">memory</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'% Memory'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"usage of Memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">rss</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Physical Memory'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"resident set size, the non-swapped physical memory"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">vss</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Virtual Memory'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"virtual memory usage"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span></pre>
+          <pre class="coffeescript">  values:
+    num:
+      title: <span class="hljs-string">'Processes'</span>
+      description: <span class="hljs-string">"number of running processes"</span>
+      type: <span class="hljs-string">'integer'</span>
+    cpu:
+      title: <span class="hljs-string">'% CPU'</span>
+      description: <span class="hljs-string">"usage of CPU"</span>
+      type: <span class="hljs-string">'percent'</span>
+    memory:
+      title: <span class="hljs-string">'% Memory'</span>
+      description: <span class="hljs-string">"usage of Memory"</span>
+      type: <span class="hljs-string">'percent'</span>
+    rss:
+      title: <span class="hljs-string">'Physical Memory'</span>
+      description: <span class="hljs-string">"resident set size, the non-swapped physical memory"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    vss:
+      title: <span class="hljs-string">'Virtual Memory'</span>
+      description: <span class="hljs-string">"virtual memory usage"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span></pre>
         </td>
       </tr>
     
@@ -278,7 +278,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
+  @name ?= @conf.remote ? <span class="hljs-string">'localhost'</span>
   cb()</pre>
         </td>
       </tr>
@@ -308,17 +308,17 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  async.map [
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"ps -U <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.user}</span> --no-headers -o pcpu,pmem,vsz,rss
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"ps -U <span class="hljs-subst">#{@conf.user}</span> --no-headers -o pcpu,pmem,vsz,rss
     | awk '{n++; pcpu+=$1; pmem+=$2; rss+=$3; vmem+=$4}
     END{print n\" \"pcpu\" \"pmem\" \"rss\" \"vmem}'"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep processor /proc/cpuinfo | wc -l"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep processor /proc/cpuinfo | wc -l"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
   , cb</pre>
@@ -337,15 +337,15 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data
   cpus = Number res[<span class="hljs-number">1</span>].stdout()
   col = res[<span class="hljs-number">0</span>].stdout().split <span class="hljs-regexp">/\s+/</span>
-  <span class="hljs-property">@values</span>.num = Number col[<span class="hljs-number">0</span>]
-  <span class="hljs-property">@values</span>.cpu = Number(col[<span class="hljs-number">1</span>]) / <span class="hljs-number">100</span> / cpus
-  <span class="hljs-property">@values</span>.memory = Number(col[<span class="hljs-number">2</span>]) / <span class="hljs-number">100</span>
-  <span class="hljs-property">@values</span>.rss = Number col[<span class="hljs-number">3</span>]
-  <span class="hljs-property">@values</span>.vss = Number col[<span class="hljs-number">4</span>]
+  @values.num = Number col[<span class="hljs-number">0</span>]
+  @values.cpu = Number(col[<span class="hljs-number">1</span>]) / <span class="hljs-number">100</span> / cpus
+  @values.memory = Number(col[<span class="hljs-number">2</span>]) / <span class="hljs-number">100</span>
+  @values.rss = Number col[<span class="hljs-number">3</span>]
+  @values.vss = Number col[<span class="hljs-number">4</span>]
   cb()</pre>
         </td>
       </tr>

@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/ping.coffee";
+    var thisFile = "src/sensor/ping.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -174,64 +174,64 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Ping test"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to make a ping to another server"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'quality &lt; 100%'</span>
-    <span class="hljs-attribute">fail</span>: <span class="hljs-string">'quality is 0'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">host</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname or IP"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the server hostname or ip address to be called for ping"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">count</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Number of Packets"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of ping packets to send, each after the other"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">1</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-      <span class="hljs-attribute">max</span>: <span class="hljs-number">10000</span>
-    <span class="hljs-attribute">interval</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Wait Interval"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time to wait between sending each packet"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">1000</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">200</span>
-    <span class="hljs-attribute">size</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Packetsize"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of bytes to be send, keep in mind that 8 bytes
+  title: <span class="hljs-string">"Ping test"</span>
+  description: <span class="hljs-string">"the configuration to make a ping to another server"</span>
+  type: <span class="hljs-string">'object'</span>
+  default:
+    warn: <span class="hljs-string">'quality &lt; 100%'</span>
+    fail: <span class="hljs-string">'quality is 0'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    host:
+      title: <span class="hljs-string">"Hostname or IP"</span>
+      description: <span class="hljs-string">"the server hostname or ip address to be called for ping"</span>
+      type: <span class="hljs-string">'string'</span>
+    count:
+      title: <span class="hljs-string">"Number of Packets"</span>
+      description: <span class="hljs-string">"the number of ping packets to send, each after the other"</span>
+      type: <span class="hljs-string">'integer'</span>
+      default: <span class="hljs-number">1</span>
+      min: <span class="hljs-number">1</span>
+      max: <span class="hljs-number">10000</span>
+    interval:
+      title: <span class="hljs-string">"Wait Interval"</span>
+      description: <span class="hljs-string">"the time to wait between sending each packet"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      default: <span class="hljs-number">1000</span>
+      min: <span class="hljs-number">200</span>
+    size:
+      title: <span class="hljs-string">"Packetsize"</span>
+      description: <span class="hljs-string">"the number of bytes to be send, keep in mind that 8 bytes
       for the ICMP header are added"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">56</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">24</span>
-      <span class="hljs-attribute">max</span>: <span class="hljs-number">65507</span>
-    <span class="hljs-attribute">timeout</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Overall Timeout"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time in milliseconds the whole test may take before
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+      default: <span class="hljs-number">56</span>
+      min: <span class="hljs-number">24</span>
+      max: <span class="hljs-number">65507</span>
+    timeout:
+      title: <span class="hljs-string">"Overall Timeout"</span>
+      description: <span class="hljs-string">"the time in milliseconds the whole test may take before
         stopping and failing it"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">1000</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'quality &lt; 100%'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'quality is 0'</span></pre>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      default: <span class="hljs-number">1000</span>
+      min: <span class="hljs-number">500</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'quality &lt; 100%'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'quality is 0'</span></pre>
         </td>
       </tr>
     
@@ -248,11 +248,11 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Ping'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Test the reachability of a host in an IP network and measure the
+  title: <span class="hljs-string">'Ping'</span>
+  description: <span class="hljs-string">"Test the reachability of a host in an IP network and measure the
   round-trip time for the messages send."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check the network card configuration if local ping won't work or the
+  category: <span class="hljs-string">'net'</span>
+  hint: <span class="hljs-string">"Check the network card configuration if local ping won't work or the
   network connection for external pings. Problems can also be that the firewall
   will block the ping port. "</span></pre>
         </td>
@@ -271,26 +271,26 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">responseTime</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Avg. Response Time'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"average round-trip time of packets"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-    <span class="hljs-attribute">responseMin</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Min. Respons Time'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"minimum round-trip time of packets"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-    <span class="hljs-attribute">responseMax</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Max. Response Time'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"maximum round-trip time of packets"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-    <span class="hljs-attribute">quality</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Quality'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"quality of response (packets succeeded)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
+          <pre class="coffeescript">  values:
+    responseTime:
+      title: <span class="hljs-string">'Avg. Response Time'</span>
+      description: <span class="hljs-string">"average round-trip time of packets"</span>
+      type: <span class="hljs-string">'float'</span>
+      unit: <span class="hljs-string">'ms'</span>
+    responseMin:
+      title: <span class="hljs-string">'Min. Respons Time'</span>
+      description: <span class="hljs-string">"minimum round-trip time of packets"</span>
+      type: <span class="hljs-string">'float'</span>
+      unit: <span class="hljs-string">'ms'</span>
+    responseMax:
+      title: <span class="hljs-string">'Max. Response Time'</span>
+      description: <span class="hljs-string">"maximum round-trip time of packets"</span>
+      type: <span class="hljs-string">'float'</span>
+      unit: <span class="hljs-string">'ms'</span>
+    quality:
+      title: <span class="hljs-string">'Quality'</span>
+      description: <span class="hljs-string">"quality of response (packets succeeded)"</span>
+      type: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -311,7 +311,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>"</span>
+  @name ?= <span class="hljs-string">"<span class="hljs-subst">#{@conf.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{@conf.host}</span>"</span>
   cb()</pre>
         </td>
       </tr>
@@ -341,16 +341,16 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'/bin/ping'</span>
-    <span class="hljs-attribute">args</span>: [
-      <span class="hljs-string">'-c'</span>, <span class="hljs-property">@conf</span>.count
-      <span class="hljs-string">'-W'</span>, Math.ceil <span class="hljs-property">@conf</span>.timeout/<span class="hljs-number">1000</span>
-      <span class="hljs-string">'-i'</span>, <span class="hljs-property">@conf</span>.interval/<span class="hljs-number">1000</span>
-      <span class="hljs-string">'-s'</span>, <span class="hljs-property">@conf</span>.size
-      <span class="hljs-property">@conf</span>.host
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'/bin/ping'</span>
+    args: [
+      <span class="hljs-string">'-c'</span>, @conf.count
+      <span class="hljs-string">'-W'</span>, Math.ceil @conf.timeout/<span class="hljs-number">1000</span>
+      <span class="hljs-string">'-i'</span>, @conf.interval/<span class="hljs-number">1000</span>
+      <span class="hljs-string">'-s'</span>, @conf.size
+      @conf.host
     ]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    priority: <span class="hljs-string">'immediately'</span>
   , cb</pre>
         </td>
       </tr>
@@ -367,8 +367,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -388,14 +388,14 @@ Get the results
     time = parseFloat match[<span class="hljs-number">1</span>]
     num++
     sum += time
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@values</span>.responseMin? <span class="hljs-keyword">or</span> time &lt; <span class="hljs-property">@values</span>.responseMin
-      <span class="hljs-property">@values</span>.responseMin = time
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@values</span>.responseMax? <span class="hljs-keyword">or</span> time &gt; <span class="hljs-property">@values</span>.responseMax
-      <span class="hljs-property">@values</span>.responseMax = time
-  <span class="hljs-property">@values</span>.responseTime = Math.round(sum/num*<span class="hljs-number">10</span>)/<span class="hljs-number">10.0</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> @values.responseMin? <span class="hljs-keyword">or</span> time &lt; @values.responseMin
+      @values.responseMin = time
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> @values.responseMax? <span class="hljs-keyword">or</span> time &gt; @values.responseMax
+      @values.responseMax = time
+  @values.responseTime = Math.round(sum/num*<span class="hljs-number">10</span>)/<span class="hljs-number">10.0</span>
   match = <span class="hljs-regexp">/\s(\d+)% packet loss/</span>.exec res.stdout()
-  <span class="hljs-property">@values</span>.quality = <span class="hljs-number">100</span>-match?[<span class="hljs-number">1</span>]
-  <span class="hljs-property">@values</span>.quality = <span class="hljs-property">@values</span>.quality/<span class="hljs-number">100</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@values</span>.quality
+  @values.quality = <span class="hljs-number">100</span>-match?[<span class="hljs-number">1</span>]
+  @values.quality = @values.quality/<span class="hljs-number">100</span> <span class="hljs-keyword">if</span> @values.quality
   cb()</pre>
         </td>
       </tr>
@@ -413,7 +413,7 @@ Get special report elements
         <td class="code highlight">
           <pre class="coffeescript">exports.report = <span class="hljs-function">-&gt;</span>
   report = <span class="hljs-keyword">new</span> Report()
-  <span class="hljs-keyword">if</span> data = <span class="hljs-property">@result</span>.data
+  <span class="hljs-keyword">if</span> data = @result.data
     report.p Report.b <span class="hljs-string">"Result:"</span>
     report.code data.stdout(), <span class="hljs-string">'text'</span>
   report</pre>

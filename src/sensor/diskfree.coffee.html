@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/diskfree.coffee";
+    var thisFile = "src/sensor/diskfree.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -171,40 +171,40 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Disk Free Test"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the setup for a check for free disk space"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">share</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Share or Mount"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the disk share's path or mount point to check"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">timeout</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Measurement Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time in milliseconds the whole test may take before
+  title: <span class="hljs-string">"Disk Free Test"</span>
+  description: <span class="hljs-string">"the setup for a check for free disk space"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    share:
+      title: <span class="hljs-string">"Share or Mount"</span>
+      description: <span class="hljs-string">"the disk share's path or mount point to check"</span>
+      type: <span class="hljs-string">'string'</span>
+    timeout:
+      title: <span class="hljs-string">"Measurement Time"</span>
+      description: <span class="hljs-string">"the time in milliseconds the whole test may take before
         stopping and failing it"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">5000</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'freePercent &lt; 10%'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'free is 0'</span></pre>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      min: <span class="hljs-number">500</span>
+      default: <span class="hljs-number">5000</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+      default: <span class="hljs-string">'freePercent &lt; 10%'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+      default: <span class="hljs-string">'free is 0'</span></pre>
         </td>
       </tr>
     
@@ -221,10 +221,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Diskfree'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Test the free diskspace of one share."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If a share is full it will make I/O problems in the system or applications
+  title: <span class="hljs-string">'Diskfree'</span>
+  description: <span class="hljs-string">"Test the free diskspace of one share."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"If a share is full it will make I/O problems in the system or applications
   in case of the root partition it may also neither be possible to log errors.
   Maybe some old files like temp or logs can be removed or compressed. "</span></pre>
         </td>
@@ -243,42 +243,42 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">share</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Share'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"path name of the share"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">type</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Type'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"type of filesystem"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">mount</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Mountpoint'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the path this share is mounted to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">total</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Available'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the space, which is available"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">used</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Used'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the space, which is already used"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">usedPercent</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'% Used'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the space, which is already used"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">free</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Free'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the space, which is free"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">freePercent</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'% Free'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the space, which is free"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
+          <pre class="coffeescript">  values:
+    share:
+      title: <span class="hljs-string">'Share'</span>
+      description: <span class="hljs-string">"path name of the share"</span>
+      type: <span class="hljs-string">'string'</span>
+    type:
+      title: <span class="hljs-string">'Type'</span>
+      description: <span class="hljs-string">"type of filesystem"</span>
+      type: <span class="hljs-string">'string'</span>
+    mount:
+      title: <span class="hljs-string">'Mountpoint'</span>
+      description: <span class="hljs-string">"the path this share is mounted to"</span>
+      type: <span class="hljs-string">'string'</span>
+    total:
+      title: <span class="hljs-string">'Available'</span>
+      description: <span class="hljs-string">"the space, which is available"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    used:
+      title: <span class="hljs-string">'Used'</span>
+      description: <span class="hljs-string">"the space, which is already used"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    usedPercent:
+      title: <span class="hljs-string">'% Used'</span>
+      description: <span class="hljs-string">"the space, which is already used"</span>
+      type: <span class="hljs-string">'percent'</span>
+    free:
+      title: <span class="hljs-string">'Free'</span>
+      description: <span class="hljs-string">"the space, which is free"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    freePercent:
+      title: <span class="hljs-string">'% Free'</span>
+      description: <span class="hljs-string">"the space, which is free"</span>
+      type: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -299,7 +299,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.share}</span>"</span>
+  @name ?= <span class="hljs-string">"<span class="hljs-subst">#{@conf.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{@conf.share}</span>"</span>
   cb()</pre>
         </td>
       </tr>
@@ -329,14 +329,14 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'df'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-kT'</span>, <span class="hljs-property">@conf</span>.share]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-    <span class="hljs-attribute">timeout</span>: <span class="hljs-property">@conf</span>.timeout
-    <span class="hljs-attribute">check</span>:
-      <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">stdout</span>: <span class="hljs-literal">true</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'df'</span>
+    args: [<span class="hljs-string">'-kT'</span>, @conf.share]
+    priority: <span class="hljs-string">'immediately'</span>
+    timeout: @conf.timeout
+    check:
+      noExitCode: <span class="hljs-literal">true</span>
+      stdout: <span class="hljs-literal">true</span>
   , cb</pre>
         </td>
       </tr>
@@ -353,8 +353,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -369,14 +369,14 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">  lines = res.stdout().split <span class="hljs-regexp">/\n/</span>
   col = lines[<span class="hljs-number">1</span>].split <span class="hljs-regexp">/\s+/</span>
-  <span class="hljs-property">@values</span>.share = col[<span class="hljs-number">0</span>]
-  <span class="hljs-property">@values</span>.type = col[<span class="hljs-number">1</span>]
-  <span class="hljs-property">@values</span>.used = Number(col[<span class="hljs-number">3</span>])*<span class="hljs-number">1024</span>
-  <span class="hljs-property">@values</span>.free = Number(col[<span class="hljs-number">4</span>])*<span class="hljs-number">1024</span>
-  <span class="hljs-property">@values</span>.total = <span class="hljs-property">@values</span>.used + <span class="hljs-property">@values</span>.free
-  <span class="hljs-property">@values</span>.mount = col[<span class="hljs-number">6</span>]
-  <span class="hljs-property">@values</span>.usedPercent = <span class="hljs-property">@values</span>.used / <span class="hljs-property">@values</span>.total
-  <span class="hljs-property">@values</span>.freePercent = <span class="hljs-property">@values</span>.free / <span class="hljs-property">@values</span>.total
+  @values.share = col[<span class="hljs-number">0</span>]
+  @values.type = col[<span class="hljs-number">1</span>]
+  @values.used = Number(col[<span class="hljs-number">3</span>])*<span class="hljs-number">1024</span>
+  @values.free = Number(col[<span class="hljs-number">4</span>])*<span class="hljs-number">1024</span>
+  @values.total = @values.used + @values.free
+  @values.mount = col[<span class="hljs-number">6</span>]
+  @values.usedPercent = @values.used / @values.total
+  @values.freePercent = @values.free / @values.total
   cb()</pre>
         </td>
       </tr>

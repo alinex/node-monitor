@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/database.coffee";
+    var thisFile = "src/sensor/database.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -179,72 +179,72 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database Query Test"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration for a database query check"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">database</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Database"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the reference to the database setting in config/database"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/database'</span>) ? {}
-    <span class="hljs-attribute">query</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Query"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the query to run to retrieve the measurement result"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">timeout</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Timeout"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time in milliseconds the whole test may take before
+  title: <span class="hljs-string">"Database Query Test"</span>
+  description: <span class="hljs-string">"the configuration for a database query check"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    database:
+      title: <span class="hljs-string">"Database"</span>
+      description: <span class="hljs-string">"the reference to the database setting in config/database"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/database'</span>) ? {}
+    query:
+      title: <span class="hljs-string">"Query"</span>
+      description: <span class="hljs-string">"the query to run to retrieve the measurement result"</span>
+      type: <span class="hljs-string">'string'</span>
+    timeout:
+      title: <span class="hljs-string">"Timeout"</span>
+      description: <span class="hljs-string">"the time in milliseconds the whole test may take before
         stopping and failing it"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">10000</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
-    <span class="hljs-attribute">mapping</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Data Mappings"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the mapping for the result data to storage values"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-      <span class="hljs-attribute">entries</span>: [
-        <span class="hljs-attribute">title</span>: <span class="hljs-string">"Data Mapping"</span>
-        <span class="hljs-attribute">description</span>: <span class="hljs-string">"the mapping for one result column to a storage value"</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-        <span class="hljs-attribute">mandatoryKeys</span>: [<span class="hljs-string">'storage'</span>, <span class="hljs-string">'type'</span>]
-        <span class="hljs-attribute">keys</span>:
-          <span class="hljs-attribute">storage</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Storage Field"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the storage field to use"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-            <span class="hljs-attribute">values</span>: [<span class="hljs-number">1.</span><span class="hljs-number">.8</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"num<span class="hljs-subst">#{e}</span>"</span>)
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      default: <span class="hljs-number">10000</span>
+      min: <span class="hljs-number">500</span>
+    mapping:
+      title: <span class="hljs-string">"Data Mappings"</span>
+      description: <span class="hljs-string">"the mapping for the result data to storage values"</span>
+      type: <span class="hljs-string">'object'</span>
+      entries: [
+        title: <span class="hljs-string">"Data Mapping"</span>
+        description: <span class="hljs-string">"the mapping for one result column to a storage value"</span>
+        type: <span class="hljs-string">'object'</span>
+        mandatoryKeys: [<span class="hljs-string">'storage'</span>, <span class="hljs-string">'type'</span>]
+        keys:
+          storage:
+            title: <span class="hljs-string">"Storage Field"</span>
+            description: <span class="hljs-string">"the storage field to use"</span>
+            type: <span class="hljs-string">'string'</span>
+            values: [<span class="hljs-number">1.</span><span class="hljs-number">.8</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"num<span class="hljs-subst">#{e}</span>"</span>)
             .concat [<span class="hljs-number">1.</span><span class="hljs-number">.4</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"text<span class="hljs-subst">#{e}</span>"</span>)
             .concat [<span class="hljs-number">1.</span><span class="hljs-number">.4</span>].map(<span class="hljs-function"><span class="hljs-params">(e)</span> -&gt;</span> <span class="hljs-string">"date<span class="hljs-subst">#{e}</span>"</span>)
-          <span class="hljs-attribute">title</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Title"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the title to use in reports"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">description</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Description"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"a short description"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">type</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Type"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the data type for formatting"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-          <span class="hljs-attribute">unit</span>:
-            <span class="hljs-attribute">title</span>: <span class="hljs-string">"Unit"</span>
-            <span class="hljs-attribute">description</span>: <span class="hljs-string">"the unit of the stored value for numbers"</span>
-            <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+          title:
+            title: <span class="hljs-string">"Title"</span>
+            description: <span class="hljs-string">"the title to use in reports"</span>
+            type: <span class="hljs-string">'string'</span>
+          description:
+            title: <span class="hljs-string">"Description"</span>
+            description: <span class="hljs-string">"a short description"</span>
+            type: <span class="hljs-string">'string'</span>
+          type:
+            title: <span class="hljs-string">"Type"</span>
+            description: <span class="hljs-string">"the data type for formatting"</span>
+            type: <span class="hljs-string">'string'</span>
+          unit:
+            title: <span class="hljs-string">"Unit"</span>
+            description: <span class="hljs-string">"the unit of the stored value for numbers"</span>
+            type: <span class="hljs-string">'string'</span>
       ]
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -261,9 +261,9 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Database'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Run a query on the database to check the database contents."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'data'</span></pre>
+  title: <span class="hljs-string">'Database'</span>
+  description: <span class="hljs-string">"Run a query on the database to check the database contents."</span>
+  category: <span class="hljs-string">'data'</span></pre>
         </td>
       </tr>
     
@@ -280,26 +280,26 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">responseTime</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">'Response Time'</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"time to retrieve the data"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
+          <pre class="coffeescript">  values:
+    responseTime:
+      title: <span class="hljs-string">'Response Time'</span>
+      description: <span class="hljs-string">"time to retrieve the data"</span>
+      type: <span class="hljs-string">'integer'</span>
+      unit: <span class="hljs-string">'ms'</span>
 <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> [<span class="hljs-number">1.</span><span class="hljs-number">.8</span>]
   exports.meta.values[<span class="hljs-string">"num<span class="hljs-subst">#{num}</span>"</span>] =
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"num-<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the numeric value #<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'float'</span>
+    title: <span class="hljs-string">"num-<span class="hljs-subst">#{num}</span>"</span>
+    description: <span class="hljs-string">"the numeric value #<span class="hljs-subst">#{num}</span>"</span>
+    type: <span class="hljs-string">'float'</span>
   <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> num &gt; <span class="hljs-number">4</span>
   exports.meta.values[<span class="hljs-string">"text<span class="hljs-subst">#{num}</span>"</span>] =
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"text-<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the text value #<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    title: <span class="hljs-string">"text-<span class="hljs-subst">#{num}</span>"</span>
+    description: <span class="hljs-string">"the text value #<span class="hljs-subst">#{num}</span>"</span>
+    type: <span class="hljs-string">'string'</span>
   exports.meta.values[<span class="hljs-string">"date<span class="hljs-subst">#{num}</span>"</span>] =
-    <span class="hljs-attribute">title</span>: <span class="hljs-string">"date-<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">description</span>: <span class="hljs-string">"the date value #<span class="hljs-subst">#{num}</span>"</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'date'</span></pre>
+    title: <span class="hljs-string">"date-<span class="hljs-subst">#{num}</span>"</span>
+    description: <span class="hljs-string">"the date value #<span class="hljs-subst">#{num}</span>"</span>
+    type: <span class="hljs-string">'date'</span></pre>
         </td>
       </tr>
     
@@ -320,14 +320,14 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.database}</span>:<span class="hljs-subst">#{string.shorten <span class="hljs-property">@conf</span>.query, <span class="hljs-number">30</span>}</span>"</span>
-  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
+  @name ?= <span class="hljs-string">"<span class="hljs-subst">#{@conf.database}</span>:<span class="hljs-subst">#{string.shorten @conf.query, <span class="hljs-number">30</span>}</span>"</span>
+  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> @conf.mapping
     v.name = k
     re = <span class="hljs-keyword">new</span> RegExp <span class="hljs-string">"\\b<span class="hljs-subst">#{k}</span>\\b"</span>, <span class="hljs-string">'g'</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.warn
-      <span class="hljs-property">@rule</span>.warn = <span class="hljs-property">@rule</span>.warn.replace re, v.storage
-    <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.fail
-      <span class="hljs-property">@rule</span>.fail = <span class="hljs-property">@rule</span>.fail.replace re, v.storage
+    <span class="hljs-keyword">if</span> @conf.warn
+      @rule.warn = @rule.warn.replace re, v.storage
+    <span class="hljs-keyword">if</span> @conf.fail
+      @rule.fail = @rule.fail.replace re, v.storage
   cb()</pre>
         </td>
       </tr>
@@ -356,7 +356,7 @@ Access Mappings (for Report)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">return</span> <span class="hljs-property">@conf</span>.mapping[name] <span class="hljs-keyword">if</span> <span class="hljs-property">@conf</span>.mapping[name]?</pre>
+          <pre class="coffeescript">  <span class="hljs-keyword">return</span> @conf.mapping[name] <span class="hljs-keyword">if</span> @conf.mapping[name]?</pre>
         </td>
       </tr>
     
@@ -369,7 +369,7 @@ Access Mappings (for Report)
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> @conf.mapping
     <span class="hljs-keyword">return</span> v <span class="hljs-keyword">if</span> v.storage <span class="hljs-keyword">is</span> name</pre>
         </td>
       </tr>
@@ -398,7 +398,7 @@ Run the Sensor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  database.record <span class="hljs-property">@conf</span>.database, <span class="hljs-property">@conf</span>.query, cb</pre>
+          <pre class="coffeescript">  database.record @conf.database, @conf.query, cb</pre>
         </td>
       </tr>
     
@@ -414,8 +414,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -428,7 +428,7 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]</pre>
+          <pre class="coffeescript">  @values.responseTime = @date[<span class="hljs-number">1</span>] - @date[<span class="hljs-number">0</span>]</pre>
         </td>
       </tr>
     
@@ -441,8 +441,8 @@ Get the results
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> <span class="hljs-property">@conf</span>.mapping
-    <span class="hljs-property">@values</span>[v.storage] = res[k] <span class="hljs-keyword">if</span> res[k]
+          <pre class="coffeescript">  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> @conf.mapping
+    @values[v.storage] = res[k] <span class="hljs-keyword">if</span> res[k]
   cb()</pre>
         </td>
       </tr>

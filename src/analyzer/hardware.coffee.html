@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/analyzer/hardware.coffee";
+    var thisFile = "src/analyzer/hardware.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -180,15 +180,15 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hardware Explorer"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to check the hardware of a server"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span></pre>
+  title: <span class="hljs-string">"Hardware Explorer"</span>
+  description: <span class="hljs-string">"the configuration to check the hardware of a server"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -205,10 +205,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Hardware Explorer'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the hardware of the given system."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Depending on the user rights this report may be more or less complete."</span></pre>
+  title: <span class="hljs-string">'Hardware Explorer'</span>
+  description: <span class="hljs-string">"Check the hardware of the given system."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"Depending on the user rights this report may be more or less complete."</span></pre>
         </td>
       </tr>
     
@@ -225,11 +225,11 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">systemId</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"System ID"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"name of the system by manufacturer"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span></pre>
+          <pre class="coffeescript">  values:
+    systemId:
+      title: <span class="hljs-string">"System ID"</span>
+      description: <span class="hljs-string">"name of the system by manufacturer"</span>
+      type: <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -261,9 +261,9 @@ Run the Sensor
         <td class="code highlight">
           <pre class="coffeescript">exports.run = <span class="hljs-function"><span class="hljs-params">(config, cb = -&gt;)</span> -&gt;</span>
   work =
-    <span class="hljs-attribute">explorer</span>: <span class="hljs-keyword">this</span>
-    <span class="hljs-attribute">config</span>: config
-    <span class="hljs-attribute">result</span>: {}
+    explorer: <span class="hljs-keyword">this</span>
+    config: config
+    result: {}
   explorer.start work</pre>
         </td>
       </tr>
@@ -303,10 +303,10 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: work.config.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'lshw'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-json'</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: work.config.remote
+    cmd: <span class="hljs-string">'lshw'</span>
+    args: [<span class="hljs-string">'-json'</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></pre>
         </td>
       </tr>
@@ -355,9 +355,9 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: work.config.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'dmidecode'</span>
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: work.config.remote
+    cmd: <span class="hljs-string">'dmidecode'</span>
+    priority: <span class="hljs-string">'immediately'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></pre>
         </td>
       </tr>
@@ -388,17 +388,17 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  async.map [
-    <span class="hljs-attribute">remote</span>: config.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'lscpu'</span>
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: config.remote
+    cmd: <span class="hljs-string">'lscpu'</span>
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: config.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'lspci'</span>
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: config.remote
+    cmd: <span class="hljs-string">'lspci'</span>
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: config.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'lsusb'</span>
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span></pre>
+    remote: config.remote
+    cmd: <span class="hljs-string">'lsusb'</span>
+    priority: <span class="hljs-string">'immediately'</span></pre>
         </td>
       </tr>
     

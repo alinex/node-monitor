@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/actor/email.coffee";
+    var thisFile = "src/actor/email.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -172,112 +172,112 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Email Configuration"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to send an email"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'active &gt;= 100%'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">base</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Base Settings"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"a reference to the base under /monitor/email"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">transport</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Server Setup"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the transport settings for the server"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+  title: <span class="hljs-string">"Email Configuration"</span>
+  description: <span class="hljs-string">"the configuration to send an email"</span>
+  type: <span class="hljs-string">'object'</span>
+  default:
+    warn: <span class="hljs-string">'active &gt;= 100%'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    base:
+      title: <span class="hljs-string">"Base Settings"</span>
+      description: <span class="hljs-string">"a reference to the base under /monitor/email"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    transport:
+      title: <span class="hljs-string">"Server Setup"</span>
+      description: <span class="hljs-string">"the transport settings for the server"</span>
+      type: <span class="hljs-string">'or'</span>
+      or: [
+        type: <span class="hljs-string">'string'</span>
       ,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
+        type: <span class="hljs-string">'object'</span>
       ]
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">from</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Sender's Address"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the address of the sender"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">to</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Receipient"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the address to send email to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">cc</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Carbon Copy"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the carbon copy address to send email to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">bcc</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Blind Carbon Copy"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the blind carbon copy address to send email to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-      <span class="hljs-attribute">toArray</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">entries</span>:
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">locale</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Locale Setting"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the locale setting for subject and body dates"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">minLength</span>: <span class="hljs-number">2</span>
-      <span class="hljs-attribute">maxLength</span>: <span class="hljs-number">5</span>
-      <span class="hljs-attribute">lowerCase</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">match</span>: <span class="hljs-regexp">/^[a-z]{2}(-[a-z]{2})?$/</span>
-    <span class="hljs-attribute">subject</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Subject"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the title of the message, defaults to body title text"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    from:
+      title: <span class="hljs-string">"Sender's Address"</span>
+      description: <span class="hljs-string">"the address of the sender"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    to:
+      title: <span class="hljs-string">"Receipient"</span>
+      description: <span class="hljs-string">"the address to send email to"</span>
+      type: <span class="hljs-string">'array'</span>
+      toArray: <span class="hljs-literal">true</span>
+      entries:
+        type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    cc:
+      title: <span class="hljs-string">"Carbon Copy"</span>
+      description: <span class="hljs-string">"the carbon copy address to send email to"</span>
+      type: <span class="hljs-string">'array'</span>
+      toArray: <span class="hljs-literal">true</span>
+      entries:
+        type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    bcc:
+      title: <span class="hljs-string">"Blind Carbon Copy"</span>
+      description: <span class="hljs-string">"the blind carbon copy address to send email to"</span>
+      type: <span class="hljs-string">'array'</span>
+      toArray: <span class="hljs-literal">true</span>
+      entries:
+        type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    locale:
+      title: <span class="hljs-string">"Locale Setting"</span>
+      description: <span class="hljs-string">"the locale setting for subject and body dates"</span>
+      type: <span class="hljs-string">'string'</span>
+      minLength: <span class="hljs-number">2</span>
+      maxLength: <span class="hljs-number">5</span>
+      lowerCase: <span class="hljs-literal">true</span>
+      match: <span class="hljs-regexp">/^[a-z]{2}(-[a-z]{2})?$/</span>
+    subject:
+      title: <span class="hljs-string">"Subject"</span>
+      description: <span class="hljs-string">"the title of the message, defaults to body title text"</span>
+      type: <span class="hljs-string">'or'</span>
+      or: [
+        type: <span class="hljs-string">'string'</span>
       ,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+        type: <span class="hljs-string">'handlebars'</span>
       ]
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">text</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Text Content"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the plain text content to be send"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    text:
+      title: <span class="hljs-string">"Text Content"</span>
+      description: <span class="hljs-string">"the plain text content to be send"</span>
+      type: <span class="hljs-string">'or'</span>
+      or: [
+        type: <span class="hljs-string">'string'</span>
       ,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+        type: <span class="hljs-string">'handlebars'</span>
       ]
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">html</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"HTML Content"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the html content to be send"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'or'</span>
-      <span class="hljs-attribute">or</span>: [
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    html:
+      title: <span class="hljs-string">"HTML Content"</span>
+      description: <span class="hljs-string">"the html content to be send"</span>
+      type: <span class="hljs-string">'or'</span>
+      or: [
+        type: <span class="hljs-string">'string'</span>
       ,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'handlebars'</span>
+        type: <span class="hljs-string">'handlebars'</span>
       ]
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">report</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Report"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the report to send as content (appended to text and html)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-      <span class="hljs-attribute">instanceOf</span>: Report
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">context</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Context"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the context to use for potentional handlebar templates"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">priority</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Priority"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the importance of the mail set in the header"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: [<span class="hljs-string">'high'</span>, <span class="hljs-string">'normal'</span>, <span class="hljs-string">'low'</span>]
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+      optional: <span class="hljs-literal">true</span>
+    report:
+      title: <span class="hljs-string">"Report"</span>
+      description: <span class="hljs-string">"the report to send as content (appended to text and html)"</span>
+      type: <span class="hljs-string">'object'</span>
+      instanceOf: Report
+      optional: <span class="hljs-literal">true</span>
+    context:
+      title: <span class="hljs-string">"Context"</span>
+      description: <span class="hljs-string">"the context to use for potentional handlebar templates"</span>
+      type: <span class="hljs-string">'object'</span>
+      optional: <span class="hljs-literal">true</span>
+    priority:
+      title: <span class="hljs-string">"Priority"</span>
+      description: <span class="hljs-string">"the importance of the mail set in the header"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: [<span class="hljs-string">'high'</span>, <span class="hljs-string">'normal'</span>, <span class="hljs-string">'low'</span>]
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -294,9 +294,9 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Email'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Send an @setup."</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"Check the error response and your spam folder if the email won't be
+  title: <span class="hljs-string">'Email'</span>
+  description: <span class="hljs-string">"Send an @setup."</span>
+  hint: <span class="hljs-string">"Check the error response and your spam folder if the email won't be
   delivered correctly."</span></pre>
         </td>
       </tr>
@@ -314,23 +314,23 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">accepted</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Accepted"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"list of accepted email addresses"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-    <span class="hljs-attribute">rejected</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Rejected"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"list of rejected email addresses"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'array'</span>
-    <span class="hljs-attribute">message</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Server Response"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"message from the mail server"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">code</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Code"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"smtp response code"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span></pre>
+          <pre class="coffeescript">  values:
+    accepted:
+      title: <span class="hljs-string">"Accepted"</span>
+      description: <span class="hljs-string">"list of accepted email addresses"</span>
+      type: <span class="hljs-string">'array'</span>
+    rejected:
+      title: <span class="hljs-string">"Rejected"</span>
+      description: <span class="hljs-string">"list of rejected email addresses"</span>
+      type: <span class="hljs-string">'array'</span>
+    message:
+      title: <span class="hljs-string">"Server Response"</span>
+      description: <span class="hljs-string">"message from the mail server"</span>
+      type: <span class="hljs-string">'string'</span>
+    code:
+      title: <span class="hljs-string">"Code"</span>
+      description: <span class="hljs-string">"smtp response code"</span>
+      type: <span class="hljs-string">'integer'</span></pre>
         </td>
       </tr>
     
@@ -346,7 +346,7 @@ Initialization
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.subject ? <span class="hljs-string">'&lt;Unnamed&gt;'</span>
+  @name ?= @conf.subject ? <span class="hljs-string">'&lt;Unnamed&gt;'</span>
   cb()</pre>
         </td>
       </tr>
@@ -375,7 +375,7 @@ Run the actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@setup</span> = object.clone <span class="hljs-property">@conf</span>.email</pre>
+          <pre class="coffeescript">  @setup = object.clone @conf.email</pre>
         </td>
       </tr>
     
@@ -388,10 +388,10 @@ Run the actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">while</span> <span class="hljs-property">@setup</span>.base
-    base = config.get <span class="hljs-string">"/monitor/email/<span class="hljs-subst">#{<span class="hljs-property">@setup</span>.base}</span>"</span>
-    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>.base
-    <span class="hljs-property">@setup</span> = object.extend {}, base, <span class="hljs-property">@setup</span></pre>
+          <pre class="coffeescript">  <span class="hljs-keyword">while</span> @setup.base
+    base = config.get <span class="hljs-string">"/monitor/email/<span class="hljs-subst">#{@setup.base}</span>"</span>
+    <span class="hljs-keyword">delete</span> @setup.base
+    @setup = object.extend {}, base, @setup</pre>
         </td>
       </tr>
     
@@ -446,8 +446,8 @@ Run the actor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>, <span class="hljs-string">'to'</span>, <span class="hljs-string">'cc'</span>, <span class="hljs-string">'bcc'</span>]
-    <span class="hljs-property">@setup</span>[f] = resolve <span class="hljs-property">@setup</span>[f]
-    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>[f] <span class="hljs-keyword">unless</span> <span class="hljs-property">@setup</span>[f]?</pre>
+    @setup[f] = resolve @setup[f]
+    <span class="hljs-keyword">delete</span> @setup[f] <span class="hljs-keyword">unless</span> @setup[f]?</pre>
         </td>
       </tr>
     
@@ -460,8 +460,8 @@ Run the actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@setup</span>[f] = <span class="hljs-property">@setup</span>[f]?[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>]
-  mails = <span class="hljs-property">@setup</span>.to?.map (e) -&gt; e.replace <span class="hljs-regexp">/".*?" &lt;(.*?)&gt;/g</span>, <span class="hljs-string">'$1'</span>
+          <pre class="coffeescript">  @setup[f] = @setup[f]?[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> [<span class="hljs-string">'from'</span>]
+  mails = @setup.to?.map (e) -&gt; e.replace <span class="hljs-regexp">/".*?" &lt;(.*?)&gt;/g</span>, <span class="hljs-string">'$1'</span>
   debug <span class="hljs-string">"sending email to <span class="hljs-subst">#{mails?.join <span class="hljs-string">', '</span>}</span>..."</span></pre>
         </td>
       </tr>
@@ -475,17 +475,17 @@ Run the actor
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.locale <span class="hljs-comment"># change locale</span>
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> @setup.locale <span class="hljs-comment"># change locale</span>
     oldLocale = moment.locale()
-    moment.locale <span class="hljs-property">@setup</span>.locale
-  <span class="hljs-property">@setup</span>.subject = <span class="hljs-property">@setup</span>.subject <span class="hljs-property">@controller</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.subject <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
-  <span class="hljs-property">@setup</span>.text = <span class="hljs-property">@setup</span>.text <span class="hljs-property">@controller</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.text <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
-  <span class="hljs-property">@setup</span>.html = <span class="hljs-property">@setup</span>.html <span class="hljs-property">@controller</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.html <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
-  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.body
+    moment.locale @setup.locale
+  @setup.subject = @setup.subject @controller <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> @setup.subject <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+  @setup.text = @setup.text @controller <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> @setup.text <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+  @setup.html = @setup.html @controller <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> @setup.html <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+  <span class="hljs-keyword">if</span> @setup.body
     report = <span class="hljs-keyword">new</span> Report
-      <span class="hljs-attribute">source</span>:
-        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> <span class="hljs-property">@setup</span>.body <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
-          <span class="hljs-property">@setup</span>.body(<span class="hljs-property">@controller</span>).replace <span class="hljs-regexp">/&amp;#x3D;/g</span>, <span class="hljs-string">'='</span></pre>
+      source:
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> @setup.body <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+          @setup.body(@controller).replace <span class="hljs-regexp">/&amp;#x3D;/g</span>, <span class="hljs-string">'='</span></pre>
         </td>
       </tr>
     
@@ -499,15 +499,15 @@ console.log report.body</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@setup</span>.text ?= report.toText()
-    <span class="hljs-property">@setup</span>.html ?= report.toHtml()
-    <span class="hljs-keyword">delete</span> <span class="hljs-property">@setup</span>.body
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@controller</span>.report
-    <span class="hljs-property">@setup</span>.text ?= <span class="hljs-property">@controller</span>.report.toText()
-    <span class="hljs-property">@setup</span>.html ?= <span class="hljs-property">@controller</span>.report.toHtml()
-  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.html
-    <span class="hljs-property">@setup</span>.subject ?= <span class="hljs-property">@setup</span>.html.match(<span class="hljs-regexp">/&lt;title&gt;([\s\S]*?)&lt;\/title&gt;/</span>)[<span class="hljs-number">1</span>]
-  <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.locale <span class="hljs-comment"># change locale back</span>
+          <pre class="coffeescript">    @setup.text ?= report.toText()
+    @setup.html ?= report.toHtml()
+    <span class="hljs-keyword">delete</span> @setup.body
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> @controller.report
+    @setup.text ?= @controller.report.toText()
+    @setup.html ?= @controller.report.toHtml()
+  <span class="hljs-keyword">if</span> @setup.html
+    @setup.subject ?= @setup.html.match(<span class="hljs-regexp">/&lt;title&gt;([\s\S]*?)&lt;\/title&gt;/</span>)[<span class="hljs-number">1</span>]
+  <span class="hljs-keyword">if</span> @setup.locale <span class="hljs-comment"># change locale back</span>
     moment.locale oldLocale</pre>
         </td>
       </tr>
@@ -521,7 +521,7 @@ console.log report.body</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  transporter = nodemailer.createTransport <span class="hljs-property">@setup</span>.transport ? <span class="hljs-string">'direct:?name=hostname'</span>
+          <pre class="coffeescript">  transporter = nodemailer.createTransport @setup.transport ? <span class="hljs-string">'direct:?name=hostname'</span>
   transporter.use <span class="hljs-string">'compile'</span>, inlineBase64
   debug chalk.grey <span class="hljs-string">"using <span class="hljs-subst">#{transporter.transporter.name}</span>"</span></pre>
         </td>
@@ -536,22 +536,22 @@ console.log report.body</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  transporter.sendMail <span class="hljs-property">@setup</span>, <span class="hljs-function"><span class="hljs-params">(err, info)</span> =&gt;</span>
+          <pre class="coffeescript">  transporter.sendMail @setup, <span class="hljs-function"><span class="hljs-params">(err, info)</span> =&gt;</span>
     <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">if</span> err.errors
         debug chalk.red e.message <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> err.errors
       <span class="hljs-keyword">else</span>
         debug chalk.red err.message
-      debug chalk.grey <span class="hljs-string">"send through "</span> + util.inspect <span class="hljs-property">@setup</span>.transport
+      debug chalk.grey <span class="hljs-string">"send through "</span> + util.inspect @setup.transport
     <span class="hljs-keyword">if</span> info
       debug <span class="hljs-string">"message send to"</span>
       debug chalk.grey util.inspect(info).replace <span class="hljs-regexp">/\s+/</span>, <span class="hljs-string">''</span>
       <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> [<span class="hljs-string">'accepted'</span>, <span class="hljs-string">'rejected'</span>]
-        <span class="hljs-property">@values</span>[e] = info[e] <span class="hljs-keyword">if</span> info[e]?.length
-      <span class="hljs-property">@values</span>.message = info.response
+        @values[e] = info[e] <span class="hljs-keyword">if</span> info[e]?.length
+      @values.message = info.response
       code = info.response?.match(<span class="hljs-regexp">/\d+/</span>)?[<span class="hljs-number">0</span>]
-      <span class="hljs-property">@values</span>.code = Number code <span class="hljs-keyword">if</span> code
-      debug chalk.grey util.inspect(<span class="hljs-property">@values</span>).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
+      @values.code = Number code <span class="hljs-keyword">if</span> code
+      debug chalk.grey util.inspect(@values).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>
       <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Some messages were rejected: <span class="hljs-subst">#{info.response}</span>"</span> <span class="hljs-keyword">if</span> info.rejected?.length
     cb err?.errors?[<span class="hljs-number">0</span>] ? err ? <span class="hljs-literal">null</span></pre>
         </td>

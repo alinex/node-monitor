@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/socket.coffee";
+    var thisFile = "src/sensor/socket.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -155,51 +155,51 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Socket connection test"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configuration to make TCP socket connections"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">host</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Hostname or IP"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the server hostname or ip address to establish connection to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'localhost'</span>
-    <span class="hljs-attribute">port</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Port"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the port number used to connect to"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-    <span class="hljs-attribute">transport</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transport Protocol"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the protocol used for internet transport layer"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">toLower</span>: <span class="hljs-literal">true</span>
-      <span class="hljs-attribute">values</span>: [<span class="hljs-string">'tcp'</span>, <span class="hljs-string">'udp'</span>]
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'tcp'</span>
-    <span class="hljs-attribute">timeout</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Timeout"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the timeout in milliseconds till the process is stopped
+  title: <span class="hljs-string">"Socket connection test"</span>
+  description: <span class="hljs-string">"the configuration to make TCP socket connections"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    host:
+      title: <span class="hljs-string">"Hostname or IP"</span>
+      description: <span class="hljs-string">"the server hostname or ip address to establish connection to"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'localhost'</span>
+    port:
+      title: <span class="hljs-string">"Port"</span>
+      description: <span class="hljs-string">"the port number used to connect to"</span>
+      type: <span class="hljs-string">'integer'</span>
+      min: <span class="hljs-number">1</span>
+    transport:
+      title: <span class="hljs-string">"Transport Protocol"</span>
+      description: <span class="hljs-string">"the protocol used for internet transport layer"</span>
+      type: <span class="hljs-string">'string'</span>
+      toLower: <span class="hljs-literal">true</span>
+      values: [<span class="hljs-string">'tcp'</span>, <span class="hljs-string">'udp'</span>]
+      default: <span class="hljs-string">'tcp'</span>
+    timeout:
+      title: <span class="hljs-string">"Timeout"</span>
+      description: <span class="hljs-string">"the timeout in milliseconds till the process is stopped
         and be considered as failed"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">500</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">2000</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span>
+      min: <span class="hljs-number">500</span>
+      default: <span class="hljs-number">2000</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -216,11 +216,11 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Socket'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Use TCP sockets to check for the availability of a service
+  title: <span class="hljs-string">'Socket'</span>
+  description: <span class="hljs-string">"Use TCP sockets to check for the availability of a service
   behind a given port."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'net'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"On problems the service may not run or a network problem exists. "</span></pre>
+  category: <span class="hljs-string">'net'</span>
+  hint: <span class="hljs-string">"On problems the service may not run or a network problem exists. "</span></pre>
         </td>
       </tr>
     
@@ -237,12 +237,12 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">responseTime</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Response Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"time in milliseconds till connection could be established"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'ms'</span></pre>
+          <pre class="coffeescript">  values:
+    responseTime:
+      title: <span class="hljs-string">"Response Time"</span>
+      description: <span class="hljs-string">"time in milliseconds till connection could be established"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'ms'</span></pre>
         </td>
       </tr>
     
@@ -263,7 +263,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.transport}</span> <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.port}</span>"</span>
+  @name ?= <span class="hljs-string">"<span class="hljs-subst">#{@conf.transport}</span> <span class="hljs-subst">#{@conf.remote ? <span class="hljs-string">'localhost'</span>}</span>-&gt;<span class="hljs-subst">#{@conf.host}</span>:<span class="hljs-subst">#{@conf.port}</span>"</span>
   cb()</pre>
         </td>
       </tr>
@@ -293,11 +293,11 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'bash'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"echo &gt; /dev/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.transport}</span>/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.host}</span>/<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.port}</span>"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
-    <span class="hljs-attribute">timeout</span>: <span class="hljs-property">@conf</span>.timeout
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'bash'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"echo &gt; /dev/<span class="hljs-subst">#{@conf.transport}</span>/<span class="hljs-subst">#{@conf.host}</span>/<span class="hljs-subst">#{@conf.port}</span>"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
+    timeout: @conf.timeout
   , cb</pre>
         </td>
       </tr>
@@ -314,11 +314,11 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data
-  <span class="hljs-property">@values</span>.responseTime = <span class="hljs-property">@date</span>[<span class="hljs-number">1</span>] - <span class="hljs-property">@date</span>[<span class="hljs-number">0</span>]
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data
+  @values.responseTime = @date[<span class="hljs-number">1</span>] - @date[<span class="hljs-number">0</span>]
   <span class="hljs-keyword">if</span> res.result.lines[<span class="hljs-number">0</span>]?[<span class="hljs-number">1</span>]
-    <span class="hljs-property">@err</span> = <span class="hljs-keyword">new</span> Error res.result.lines[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>].replace <span class="hljs-regexp">/bash:\s+/</span>, <span class="hljs-string">''</span>
+    @err = <span class="hljs-keyword">new</span> Error res.result.lines[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>].replace <span class="hljs-regexp">/bash:\s+/</span>, <span class="hljs-string">''</span>
   cb()</pre>
         </td>
       </tr>

@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-monitor/package.json";
+    var thisFile = "package.json";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -65,82 +65,82 @@
         </td>
         <td class="code highlight">
           <pre class="json">{
-  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"alinex-monitor"</span></span>,
-  "<span class="hljs-attribute">version</span>": <span class="hljs-value"><span class="hljs-string">"1.0.5"</span></span>,
-  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Monitoring IT services over the network."</span></span>,
-  "<span class="hljs-attribute">copyright</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling 2015-2016"</span></span>,
-  "<span class="hljs-attribute">private</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
-  "<span class="hljs-attribute">keywords</span>": <span class="hljs-value">[
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"alinex-monitor"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.5"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Monitoring IT services over the network."</span>,
+  <span class="hljs-attr">"copyright"</span>: <span class="hljs-string">"Alexander Schilling 2015-2016"</span>,
+  <span class="hljs-attr">"private"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"keywords"</span>: [
     <span class="hljs-string">"monitor"</span>,
     <span class="hljs-string">"analysis"</span>,
     <span class="hljs-string">"alarm"</span>,
     <span class="hljs-string">"sensor"</span>,
     <span class="hljs-string">"controller"</span>
-  ]</span>,
-  "<span class="hljs-attribute">homepage</span>": <span class="hljs-value"><span class="hljs-string">"http://alinex.github.io/node-monitor/"</span></span>,
-  "<span class="hljs-attribute">repository</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"git"</span></span>,
-    "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"https://github.com/alinex/node-monitor"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">bugs</span>": <span class="hljs-value"><span class="hljs-string">"https://github.com/alinex/node-monitor/issues"</span></span>,
-  "<span class="hljs-attribute">author</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling"</span></span>,
-    "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"info@alinex.de"</span></span>,
-    "<span class="hljs-attribute">web</span>": <span class="hljs-value"><span class="hljs-string">"http://alinex.de"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">contributors</span>": <span class="hljs-value">[]</span>,
-  "<span class="hljs-attribute">license</span>": <span class="hljs-value"><span class="hljs-string">"Apache-2.0"</span></span>,
-  "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"./lib/index.js"</span></span>,
-  "<span class="hljs-attribute">bin</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">monitor</span>": <span class="hljs-value"><span class="hljs-string">"./bin/monitor"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">man</span>": <span class="hljs-value"><span class="hljs-string">"./man/monitor.1"</span></span>,
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder -c compile --uglify"</span></span>,
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder -c test"</span></span>,
-    "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"bin/monitor"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">preferGlobal</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
-  "<span class="hljs-attribute">directories</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">bin</span>": <span class="hljs-value"><span class="hljs-string">"./bin"</span></span>,
-    "<span class="hljs-attribute">man</span>": <span class="hljs-value"><span class="hljs-string">"./man"</span></span>,
-    "<span class="hljs-attribute">lib</span>": <span class="hljs-value"><span class="hljs-string">"./lib"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">dependencies</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">alinex-core</span>": <span class="hljs-value"><span class="hljs-string">"^0.1.2"</span></span>,
-    "<span class="hljs-attribute">alinex-async</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.0"</span></span>,
-    "<span class="hljs-attribute">alinex-config</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.6"</span></span>,
-    "<span class="hljs-attribute">alinex-database</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.0"</span></span>,
-    "<span class="hljs-attribute">alinex-exec</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.1"</span></span>,
-    "<span class="hljs-attribute">alinex-fs</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.0"</span></span>,
-    "<span class="hljs-attribute">alinex-report</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.0"</span></span>,
-    "<span class="hljs-attribute">alinex-sshtunnel</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.1"</span></span>,
-    "<span class="hljs-attribute">alinex-util</span>": <span class="hljs-value"><span class="hljs-string">"^0.3.15"</span></span>,
-    "<span class="hljs-attribute">chalk</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.1"</span></span>,
-    "<span class="hljs-attribute">debug</span>": <span class="hljs-value"><span class="hljs-string">"^2.2.0"</span></span>,
-    "<span class="hljs-attribute">mathjs</span>": <span class="hljs-value"><span class="hljs-string">"^2.7.0"</span></span>,
-    "<span class="hljs-attribute">moment</span>": <span class="hljs-value"><span class="hljs-string">"^2.11.2"</span></span>,
-    "<span class="hljs-attribute">named-regexp</span>": <span class="hljs-value"><span class="hljs-string">"^0.1.1"</span></span>,
-    "<span class="hljs-attribute">nodemailer</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.0"</span></span>,
-    "<span class="hljs-attribute">nodemailer-plugin-inline-base64</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.1"</span></span>,
-    "<span class="hljs-attribute">ntp-client</span>": <span class="hljs-value"><span class="hljs-string">"^0.5.3"</span></span>,
-    "<span class="hljs-attribute">readline-history</span>": <span class="hljs-value"><span class="hljs-string">"^1.2.0"</span></span>,
-    "<span class="hljs-attribute">request</span>": <span class="hljs-value"><span class="hljs-string">"^2.65.0"</span></span>,
-    "<span class="hljs-attribute">socks5-http-client</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.1"</span></span>,
-    "<span class="hljs-attribute">socks5-https-client</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.1"</span></span>,
-    "<span class="hljs-attribute">yargs</span>": <span class="hljs-value"><span class="hljs-string">"^3.27.0"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">devDependencies</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">alinex-builder</span>": <span class="hljs-value"><span class="hljs-string">"^1.2.0"</span></span>,
-    "<span class="hljs-attribute">alinex-validator</span>": <span class="hljs-value"><span class="hljs-string">"^1.2.4"</span></span>,
-    "<span class="hljs-attribute">chai</span>": <span class="hljs-value"><span class="hljs-string">"^3.3.0"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">optionalDependencies</span>": <span class="hljs-value">{}</span>,
-  "<span class="hljs-attribute">engines</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">node</span>": <span class="hljs-value"><span class="hljs-string">"&gt;=0.10"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">os</span>": <span class="hljs-value">[]
-</span>}</pre>
+  ],
+  <span class="hljs-attr">"homepage"</span>: <span class="hljs-string">"http://alinex.github.io/node-monitor/"</span>,
+  <span class="hljs-attr">"repository"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"git"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://github.com/alinex/node-monitor"</span>
+  },
+  <span class="hljs-attr">"bugs"</span>: <span class="hljs-string">"https://github.com/alinex/node-monitor/issues"</span>,
+  <span class="hljs-attr">"author"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Alexander Schilling"</span>,
+    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"info@alinex.de"</span>,
+    <span class="hljs-attr">"web"</span>: <span class="hljs-string">"http://alinex.de"</span>
+  },
+  <span class="hljs-attr">"contributors"</span>: [],
+  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"Apache-2.0"</span>,
+  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"./lib/index.js"</span>,
+  <span class="hljs-attr">"bin"</span>: {
+    <span class="hljs-attr">"monitor"</span>: <span class="hljs-string">"./bin/monitor"</span>
+  },
+  <span class="hljs-attr">"man"</span>: <span class="hljs-string">"./man/monitor.1"</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"prepublish"</span>: <span class="hljs-string">"node_modules/.bin/builder -c compile --uglify"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"node_modules/.bin/builder -c test"</span>,
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"bin/monitor"</span>
+  },
+  <span class="hljs-attr">"preferGlobal"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"directories"</span>: {
+    <span class="hljs-attr">"bin"</span>: <span class="hljs-string">"./bin"</span>,
+    <span class="hljs-attr">"man"</span>: <span class="hljs-string">"./man"</span>,
+    <span class="hljs-attr">"lib"</span>: <span class="hljs-string">"./lib"</span>
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"alinex-core"</span>: <span class="hljs-string">"^0.1.2"</span>,
+    <span class="hljs-attr">"alinex-async"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"alinex-config"</span>: <span class="hljs-string">"^1.0.6"</span>,
+    <span class="hljs-attr">"alinex-database"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"alinex-exec"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"alinex-fs"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"alinex-report"</span>: <span class="hljs-string">"^1.0.0"</span>,
+    <span class="hljs-attr">"alinex-sshtunnel"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"alinex-util"</span>: <span class="hljs-string">"^0.3.15"</span>,
+    <span class="hljs-attr">"chalk"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"debug"</span>: <span class="hljs-string">"^2.2.0"</span>,
+    <span class="hljs-attr">"mathjs"</span>: <span class="hljs-string">"^2.7.0"</span>,
+    <span class="hljs-attr">"moment"</span>: <span class="hljs-string">"^2.11.2"</span>,
+    <span class="hljs-attr">"named-regexp"</span>: <span class="hljs-string">"^0.1.1"</span>,
+    <span class="hljs-attr">"nodemailer"</span>: <span class="hljs-string">"^2.0.0"</span>,
+    <span class="hljs-attr">"nodemailer-plugin-inline-base64"</span>: <span class="hljs-string">"^1.0.1"</span>,
+    <span class="hljs-attr">"ntp-client"</span>: <span class="hljs-string">"^0.5.3"</span>,
+    <span class="hljs-attr">"readline-history"</span>: <span class="hljs-string">"^1.2.0"</span>,
+    <span class="hljs-attr">"request"</span>: <span class="hljs-string">"^2.65.0"</span>,
+    <span class="hljs-attr">"socks5-http-client"</span>: <span class="hljs-string">"^1.0.1"</span>,
+    <span class="hljs-attr">"socks5-https-client"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"yargs"</span>: <span class="hljs-string">"^3.27.0"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"alinex-builder"</span>: <span class="hljs-string">"^1.2.0"</span>,
+    <span class="hljs-attr">"alinex-validator"</span>: <span class="hljs-string">"^1.2.4"</span>,
+    <span class="hljs-attr">"chai"</span>: <span class="hljs-string">"^3.3.0"</span>
+  },
+  <span class="hljs-attr">"optionalDependencies"</span>: {},
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;=0.10"</span>
+  },
+  <span class="hljs-attr">"os"</span>: []
+}</pre>
         </td>
       </tr>
     

@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/net.coffee";
+    var thisFile = "src/sensor/net.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -172,41 +172,41 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"Network Traffic Test"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the network traffic over a specified interface"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">'errors &gt; 50%'</span>
-    <span class="hljs-attribute">fail</span>: <span class="hljs-string">'errors &gt; 99%'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">interface</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Interface Name"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the name of the interface to analyze"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'eth0'</span>
-    <span class="hljs-attribute">time</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Measurement Time"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the time for the measurement"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'interval'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'s'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-number">10</span>
-      <span class="hljs-attribute">min</span>: <span class="hljs-number">1</span>
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'errors &gt; 50%'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'errors &gt; 99%'</span></pre>
+  title: <span class="hljs-string">"Network Traffic Test"</span>
+  description: <span class="hljs-string">"the network traffic over a specified interface"</span>
+  type: <span class="hljs-string">'object'</span>
+  default:
+    warn: <span class="hljs-string">'errors &gt; 50%'</span>
+    fail: <span class="hljs-string">'errors &gt; 99%'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    interface:
+      title: <span class="hljs-string">"Interface Name"</span>
+      description: <span class="hljs-string">"the name of the interface to analyze"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'eth0'</span>
+    time:
+      title: <span class="hljs-string">"Measurement Time"</span>
+      description: <span class="hljs-string">"the time for the measurement"</span>
+      type: <span class="hljs-string">'interval'</span>
+      unit: <span class="hljs-string">'s'</span>
+      default: <span class="hljs-number">10</span>
+      min: <span class="hljs-number">1</span>
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'errors &gt; 50%'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'errors &gt; 99%'</span></pre>
         </td>
       </tr>
     
@@ -223,10 +223,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Network Traffic'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the network traffic."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"If you see a high volume it may be overloaded or a attack is
+  title: <span class="hljs-string">'Network Traffic'</span>
+  description: <span class="hljs-string">"Check the network traffic."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"If you see a high volume it may be overloaded or a attack is
   running."</span></pre>
         </td>
       </tr>
@@ -244,104 +244,104 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">receivedBytes</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Receive Transfer"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of received bytes of data transmitted or received
+          <pre class="coffeescript">  values:
+    receivedBytes:
+      title: <span class="hljs-string">"Receive Transfer"</span>
+      description: <span class="hljs-string">"the number of received bytes of data transmitted or received
       by the interface"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">receivedPackets</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Received Packets"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of received packets of data transmitted or received
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    receivedPackets:
+      title: <span class="hljs-string">"Received Packets"</span>
+      description: <span class="hljs-string">"the number of received packets of data transmitted or received
       by the interface"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-    <span class="hljs-attribute">receivedErrors</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Receive Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage received of transmit or receive errors detected
+      type: <span class="hljs-string">'integer'</span>
+    receivedErrors:
+      title: <span class="hljs-string">"Receive Errors"</span>
+      description: <span class="hljs-string">"the percentage received of transmit or receive errors detected
       by the device driver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">receivedDrop</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Received Drops"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage received of packets dropped by the device driver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">receivedFifo</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Received FIFO Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage received of FIFO buffer errors"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">receivedFrames</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Received Frame Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage of receiving packet frame errors"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">transmitBytes</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transmit Transfer"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of transmitted bytes of data transmitted or received
+      type: <span class="hljs-string">'percent'</span>
+    receivedDrop:
+      title: <span class="hljs-string">"Received Drops"</span>
+      description: <span class="hljs-string">"the percentage received of packets dropped by the device driver"</span>
+      type: <span class="hljs-string">'percent'</span>
+    receivedFifo:
+      title: <span class="hljs-string">"Received FIFO Errors"</span>
+      description: <span class="hljs-string">"the percentage received of FIFO buffer errors"</span>
+      type: <span class="hljs-string">'percent'</span>
+    receivedFrames:
+      title: <span class="hljs-string">"Received Frame Errors"</span>
+      description: <span class="hljs-string">"the percentage of receiving packet frame errors"</span>
+      type: <span class="hljs-string">'percent'</span>
+    transmitBytes:
+      title: <span class="hljs-string">"Transmit Transfer"</span>
+      description: <span class="hljs-string">"the number of transmitted bytes of data transmitted or received
       by the interface"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">transmitPackets</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transmitted Packets"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of transmitted packets of data transmitted or received
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    transmitPackets:
+      title: <span class="hljs-string">"Transmitted Packets"</span>
+      description: <span class="hljs-string">"the number of transmitted packets of data transmitted or received
       by the interface"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-    <span class="hljs-attribute">transmitErrors</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transmit Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage transmitted of transmit or receive errors detected
+      type: <span class="hljs-string">'integer'</span>
+    transmitErrors:
+      title: <span class="hljs-string">"Transmit Errors"</span>
+      description: <span class="hljs-string">"the percentage transmitted of transmit or receive errors detected
       by the device driver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">transmitDrop</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transmitted Drops"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage transmitted of packets dropped by the device driver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">transmitFifo</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transmit FIFO Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage transmitted of FIFO buffer errors"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">transmitFrames</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Transmitted Frames"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage of transmitting packet frame errors"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">bytes</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Transfer"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of bytes of data transmitted or received by the interface"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'byte'</span>
-      <span class="hljs-attribute">unit</span>: <span class="hljs-string">'B'</span>
-    <span class="hljs-attribute">packets</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Packets"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the number of packets of data transmitted or received by the interface"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'integer'</span>
-    <span class="hljs-attribute">errors</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage of transmit or receive errors detected by the device driver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">drop</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Drops"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage of packets dropped by the device driver"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">fifo</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total FIFO Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage of FIFO buffer errors"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">frames</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Total Frame Errors"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the percentage of packet framing errors"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">state</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Interface State"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the state of the interface this may be UP, DOWN or UNKNOWN"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">mac</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Mac Address"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the mac address of the network card"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">ipv4</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"IP Address"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configured ip address"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">ipv6</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"IPv6 Address"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the configured ip version 6 address"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span></pre>
+      type: <span class="hljs-string">'percent'</span>
+    transmitDrop:
+      title: <span class="hljs-string">"Transmitted Drops"</span>
+      description: <span class="hljs-string">"the percentage transmitted of packets dropped by the device driver"</span>
+      type: <span class="hljs-string">'percent'</span>
+    transmitFifo:
+      title: <span class="hljs-string">"Transmit FIFO Errors"</span>
+      description: <span class="hljs-string">"the percentage transmitted of FIFO buffer errors"</span>
+      type: <span class="hljs-string">'percent'</span>
+    transmitFrames:
+      title: <span class="hljs-string">"Transmitted Frames"</span>
+      description: <span class="hljs-string">"the percentage of transmitting packet frame errors"</span>
+      type: <span class="hljs-string">'percent'</span>
+    bytes:
+      title: <span class="hljs-string">"Total Transfer"</span>
+      description: <span class="hljs-string">"the number of bytes of data transmitted or received by the interface"</span>
+      type: <span class="hljs-string">'byte'</span>
+      unit: <span class="hljs-string">'B'</span>
+    packets:
+      title: <span class="hljs-string">"Total Packets"</span>
+      description: <span class="hljs-string">"the number of packets of data transmitted or received by the interface"</span>
+      type: <span class="hljs-string">'integer'</span>
+    errors:
+      title: <span class="hljs-string">"Total Errors"</span>
+      description: <span class="hljs-string">"the percentage of transmit or receive errors detected by the device driver"</span>
+      type: <span class="hljs-string">'percent'</span>
+    drop:
+      title: <span class="hljs-string">"Total Drops"</span>
+      description: <span class="hljs-string">"the percentage of packets dropped by the device driver"</span>
+      type: <span class="hljs-string">'percent'</span>
+    fifo:
+      title: <span class="hljs-string">"Total FIFO Errors"</span>
+      description: <span class="hljs-string">"the percentage of FIFO buffer errors"</span>
+      type: <span class="hljs-string">'percent'</span>
+    frames:
+      title: <span class="hljs-string">"Total Frame Errors"</span>
+      description: <span class="hljs-string">"the percentage of packet framing errors"</span>
+      type: <span class="hljs-string">'percent'</span>
+    state:
+      title: <span class="hljs-string">"Interface State"</span>
+      description: <span class="hljs-string">"the state of the interface this may be UP, DOWN or UNKNOWN"</span>
+      type: <span class="hljs-string">'string'</span>
+    mac:
+      title: <span class="hljs-string">"Mac Address"</span>
+      description: <span class="hljs-string">"the mac address of the network card"</span>
+      type: <span class="hljs-string">'string'</span>
+    ipv4:
+      title: <span class="hljs-string">"IP Address"</span>
+      description: <span class="hljs-string">"the configured ip address"</span>
+      type: <span class="hljs-string">'string'</span>
+    ipv6:
+      title: <span class="hljs-string">"IPv6 Address"</span>
+      description: <span class="hljs-string">"the configured ip version 6 address"</span>
+      type: <span class="hljs-string">'string'</span></pre>
         </td>
       </tr>
     
@@ -362,7 +362,7 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{<span class="hljs-property">@conf</span>.interface}</span>"</span>
+  @name ?= <span class="hljs-string">"<span class="hljs-subst">#{@conf.remote ? <span class="hljs-string">'localhost'</span>}</span>:<span class="hljs-subst">#{@conf.interface}</span>"</span>
   cb()</pre>
         </td>
       </tr>
@@ -392,20 +392,20 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  async.map [
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.interface}</span> /proc/net/dev"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep <span class="hljs-subst">#{@conf.interface}</span> /proc/net/dev"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.time}</span> &amp;&amp; grep <span class="hljs-subst">#{<span class="hljs-property">@conf</span>.interface}</span> /proc/net/dev"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"sleep <span class="hljs-subst">#{@conf.time}</span> &amp;&amp; grep <span class="hljs-subst">#{@conf.interface}</span> /proc/net/dev"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   ,
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'ip'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'addr'</span>, <span class="hljs-string">'show'</span>, <span class="hljs-property">@conf</span>.interface]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'ip'</span>
+    args: [<span class="hljs-string">'addr'</span>, <span class="hljs-string">'show'</span>, @conf.interface]
+    priority: <span class="hljs-string">'immediately'</span>
   ], <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
     Exec.run setup, cb
   , cb</pre>
@@ -424,8 +424,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -442,25 +442,25 @@ Get the results
   l2 = res[<span class="hljs-number">1</span>].stdout().trim().split <span class="hljs-regexp">/\s+/</span>
 <span class="hljs-function">  <span class="hljs-title">diff</span> = <span class="hljs-params">(col)</span> -&gt;</span> l2[col] - l1[col]
 <span class="hljs-function">  <span class="hljs-title">percent</span> = <span class="hljs-params">(col, max)</span> -&gt;</span> (l2[col] - l1[col]) / max
-  <span class="hljs-property">@values</span>.receivedBytes = diff <span class="hljs-number">1</span>
-  <span class="hljs-property">@values</span>.receivedPackets = diff <span class="hljs-number">2</span>
-  <span class="hljs-property">@values</span>.receivedErrors = percent <span class="hljs-number">3</span>, <span class="hljs-property">@values</span>.receivedPackets
-  <span class="hljs-property">@values</span>.receivedDrop = percent <span class="hljs-number">4</span>, <span class="hljs-property">@values</span>.receivedPackets
-  <span class="hljs-property">@values</span>.receivedFifo = percent <span class="hljs-number">5</span>, <span class="hljs-property">@values</span>.receivedPackets
-  <span class="hljs-property">@values</span>.receivedFrames = percent <span class="hljs-number">6</span>, <span class="hljs-property">@values</span>.receivedPackets
-  <span class="hljs-property">@values</span>.transmitBytes = diff <span class="hljs-number">9</span>
-  <span class="hljs-property">@values</span>.transmitPackets = diff <span class="hljs-number">10</span>
-  <span class="hljs-property">@values</span>.transmitErrors = percent <span class="hljs-number">11</span>, <span class="hljs-property">@values</span>.transmitPackets
-  <span class="hljs-property">@values</span>.transmitDrop = percent <span class="hljs-number">12</span>, <span class="hljs-property">@values</span>.transmitPackets
-  <span class="hljs-property">@values</span>.transmitFifo = percent <span class="hljs-number">13</span>, <span class="hljs-property">@values</span>.transmitPackets
-  <span class="hljs-property">@values</span>.transmitFrames = percent <span class="hljs-number">14</span>, <span class="hljs-property">@values</span>.transmitPackets
-  <span class="hljs-property">@values</span>.bytes = <span class="hljs-property">@values</span>.receivedBytes + <span class="hljs-property">@values</span>.transmitBytes
-  <span class="hljs-property">@values</span>.packets = <span class="hljs-property">@values</span>.receivedPackets + <span class="hljs-property">@values</span>.transmitPackets
+  @values.receivedBytes = diff <span class="hljs-number">1</span>
+  @values.receivedPackets = diff <span class="hljs-number">2</span>
+  @values.receivedErrors = percent <span class="hljs-number">3</span>, @values.receivedPackets
+  @values.receivedDrop = percent <span class="hljs-number">4</span>, @values.receivedPackets
+  @values.receivedFifo = percent <span class="hljs-number">5</span>, @values.receivedPackets
+  @values.receivedFrames = percent <span class="hljs-number">6</span>, @values.receivedPackets
+  @values.transmitBytes = diff <span class="hljs-number">9</span>
+  @values.transmitPackets = diff <span class="hljs-number">10</span>
+  @values.transmitErrors = percent <span class="hljs-number">11</span>, @values.transmitPackets
+  @values.transmitDrop = percent <span class="hljs-number">12</span>, @values.transmitPackets
+  @values.transmitFifo = percent <span class="hljs-number">13</span>, @values.transmitPackets
+  @values.transmitFrames = percent <span class="hljs-number">14</span>, @values.transmitPackets
+  @values.bytes = @values.receivedBytes + @values.transmitBytes
+  @values.packets = @values.receivedPackets + @values.transmitPackets
 <span class="hljs-function">  <span class="hljs-title">percent</span> = <span class="hljs-params">(col1, col2, max)</span> -&gt;</span> (l2[col1] - l1[col1] + l2[col2] - l1[col2]) / max
-  <span class="hljs-property">@values</span>.errors = percent <span class="hljs-number">3</span>, <span class="hljs-number">11</span>, <span class="hljs-property">@values</span>.packets
-  <span class="hljs-property">@values</span>.drop = percent <span class="hljs-number">4</span>, <span class="hljs-number">12</span>, <span class="hljs-property">@values</span>.packets
-  <span class="hljs-property">@values</span>.fifo = percent <span class="hljs-number">5</span>, <span class="hljs-number">13</span>, <span class="hljs-property">@values</span>.packets
-  <span class="hljs-property">@values</span>.frames = percent <span class="hljs-number">6</span>, <span class="hljs-number">14</span>, <span class="hljs-property">@values</span>.packets</pre>
+  @values.errors = percent <span class="hljs-number">3</span>, <span class="hljs-number">11</span>, @values.packets
+  @values.drop = percent <span class="hljs-number">4</span>, <span class="hljs-number">12</span>, @values.packets
+  @values.fifo = percent <span class="hljs-number">5</span>, <span class="hljs-number">13</span>, @values.packets
+  @values.frames = percent <span class="hljs-number">6</span>, <span class="hljs-number">14</span>, @values.packets</pre>
         </td>
       </tr>
     
@@ -475,15 +475,15 @@ Get the results
         <td class="code highlight">
           <pre class="coffeescript">  lines = res[<span class="hljs-number">2</span>].stdout().split <span class="hljs-regexp">/\n\s*/</span>
   match = <span class="hljs-regexp">/state ([A-Z]+)/</span>.exec lines[<span class="hljs-number">0</span>]
-  <span class="hljs-property">@values</span>.state = match[<span class="hljs-number">1</span>]
+  @values.state = match[<span class="hljs-number">1</span>]
   match = <span class="hljs-regexp">/(([0-9a-f]{2}:){5}[0-9a-f]{2})/</span>.exec lines[<span class="hljs-number">1</span>]
-  <span class="hljs-property">@values</span>.mac = match[<span class="hljs-number">1</span>]
+  @values.mac = match[<span class="hljs-number">1</span>]
   <span class="hljs-keyword">if</span> lines.length &gt; <span class="hljs-number">1</span>
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines[<span class="hljs-number">2.</span>.]
       <span class="hljs-keyword">if</span> match = <span class="hljs-regexp">/^inet ((\d{1,3}.){3}\d{1,3})/</span>.exec line
-        <span class="hljs-property">@values</span>.ipv4 = match[<span class="hljs-number">1</span>]
+        @values.ipv4 = match[<span class="hljs-number">1</span>]
       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> match = <span class="hljs-regexp">/^inet6 (([0-9a-f]{0,4}:){5}[0-9a-f]{0,4})/</span>.exec line
-        <span class="hljs-property">@values</span>.ipv6 = match[<span class="hljs-number">1</span>]
+        @values.ipv6 = match[<span class="hljs-number">1</span>]
   cb()</pre>
         </td>
       </tr>

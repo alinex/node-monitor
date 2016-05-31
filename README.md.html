@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-monitor/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -328,7 +328,7 @@ rules the report may be send by email or a web request is made. Out of the store
 values time reports may be created.</p>
 <blockquote>
 <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
 <div class="pilwrap" id="install">
   <h2>
@@ -349,7 +349,7 @@ machines may be checked:</p>
 <p>Because this application works agentless, you don't have to do something special
 on your clients but often some simple changes can make the reports more powerful.
 If so you will get a hint in the report.</p>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -642,23 +642,23 @@ Contacts
 <p>The contacts are referenced from the controllers and are defined here in a central
 file under <code>/monitor/contacts</code>. Entries with array are groups and objects are
 address entries. Within the controller both may be used.</p>
-<pre><code class="yaml"># Contacts for Monitoring
-# =================================================
-# This file holds a list of contacts to be used from within the rules and
-# specific controllers.
+<pre><code class="yaml"><span class="hljs-comment"># Contacts for Monitoring</span>
+<span class="hljs-comment"># =================================================</span>
+<span class="hljs-comment"># This file holds a list of contacts to be used from within the rules and</span>
+<span class="hljs-comment"># specific controllers.</span>
 
-# Groups
-# -------------------------------------------------
-operations: [aschi]
+<span class="hljs-comment"># Groups</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-attr">operations:</span> [aschi]
 
-# Staff
-# -------------------------------------------------
-aschi:
-  name: Alexander Schilling
-  position: Developer
-  company: Alinex Project
-  email: info@alinex.de
-  phone: 07129/922545
+<span class="hljs-comment"># Staff</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-attr">aschi:</span>
+<span class="hljs-attr">  name:</span> Alexander Schilling
+<span class="hljs-attr">  position:</span> Developer
+<span class="hljs-attr">  company:</span> Alinex Project
+<span class="hljs-attr">  email:</span> info@alinex.de
+<span class="hljs-attr">  phone:</span> <span class="hljs-number">07129</span>/<span class="hljs-number">922545</span>
 </code></pre>
 <p>Multiple phone numbers as array are possible.</p>
 <p>The contact <code>monitor</code> is already defined and used as from address in emails. You
@@ -672,55 +672,55 @@ Email Templates
 <p>This templates are used for sending emails out. A <code>default</code> template is already
 defined and only needs the 'to' address. But you may define more templates under
 <code>/monitor/email</code>:</p>
-<pre><code class="yaml"># Email Report Configuration
-# =================================================
+<pre><code class="yaml"><span class="hljs-comment"># Email Report Configuration</span>
+<span class="hljs-comment"># =================================================</span>
 
-# Default (extended)
-# -------------------------------------------------
+<span class="hljs-comment"># Default (extended)</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
 
-default:
-  # already defined, so only set the 'To' address here.
-  to: operations
+<span class="hljs-attr">default:</span>
+  <span class="hljs-comment"># already defined, so only set the 'To' address here.</span>
+<span class="hljs-attr">  to:</span> operations
 
-# Own Templates
-# -------------------------------------------------
+<span class="hljs-comment"># Own Templates</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
 
-fail:
-  subject: &gt;
-    Failed {{alias}}
-  body: &gt;
-    {{name}}\n
+<span class="hljs-attr">fail:</span>
+<span class="hljs-attr">  subject:</span> <span class="hljs-string">&gt;
+    Failed <span class="hljs-template-variable">{{alias}}</span>
+</span><span class="hljs-attr">  body:</span> <span class="hljs-string">&gt;
+    <span class="hljs-template-variable">{{name}}</span>\n
     ==========================================================================\n
-    {{description}}\n
+    <span class="hljs-template-variable">{{description}}</span>\n
     \n
-    This test failed at {{date}}!\n
+    This test failed at <span class="hljs-template-variable">{{date}}</span>!\n
     \n
-    {{hint}}\n
+    <span class="hljs-template-variable">{{hint}}</span>\n
 
-warn:
-  subject: &gt;
-    Warning for {{alias}}
-  body: &gt;
-    {{name}}\n
+</span><span class="hljs-attr">warn:</span>
+<span class="hljs-attr">  subject:</span> <span class="hljs-string">&gt;
+    Warning for <span class="hljs-template-variable">{{alias}}</span>
+</span><span class="hljs-attr">  body:</span> <span class="hljs-string">&gt;
+    <span class="hljs-template-variable">{{name}}</span>\n
     ==========================================================================\n
-    {{description}}\n
+    <span class="hljs-template-variable">{{description}}</span>\n
     \n
-    This test failed at {{date}}!\n
+    This test failed at <span class="hljs-template-variable">{{date}}</span>!\n
     \n
-    {{hint}}\n
+    <span class="hljs-template-variable">{{hint}}</span>\n
 
-ok:
-  subject: &gt;
-    OK for {{alias}}
-  body: &gt;
-    {{name}}\n
+</span><span class="hljs-attr">ok:</span>
+<span class="hljs-attr">  subject:</span> <span class="hljs-string">&gt;
+    OK for <span class="hljs-template-variable">{{alias}}</span>
+</span><span class="hljs-attr">  body:</span> <span class="hljs-string">&gt;
+    <span class="hljs-template-variable">{{name}}</span>\n
     ==========================================================================\n
-    {{description}}\n
+    <span class="hljs-template-variable">{{description}}</span>\n
     \n
-    This test failed at {{date}}!\n
+    This test failed at <span class="hljs-template-variable">{{date}}</span>!\n
     \n
-    {{hint}}\n
-</code></pre>
+    <span class="hljs-template-variable">{{hint}}</span>\n
+</span></code></pre>
 <div class="pilwrap" id="rules">
   <h3>
     <a href="#rules" name="rules" class="pilcrow"></a>
@@ -728,37 +728,37 @@ Rules
   </h3>
 </div>
 <p>The rules specify what to do in specific situations under <code>/monitor/rule</code>:</p>
-<pre><code class="yaml"># Rule Definition
-# =================================================
+<pre><code class="yaml"><span class="hljs-comment"># Rule Definition</span>
+<span class="hljs-comment"># =================================================</span>
 
-# ### Set templates for default rules
-fail:
-  email:
-    base: fail
-warn:
-  email:
-    base: warn
-ok:
-  email:
-    base: ok
+<span class="hljs-comment"># ### Set templates for default rules</span>
+<span class="hljs-attr">fail:</span>
+<span class="hljs-attr">  email:</span>
+<span class="hljs-attr">    base:</span> fail
+<span class="hljs-attr">warn:</span>
+<span class="hljs-attr">  email:</span>
+<span class="hljs-attr">    base:</span> warn
+<span class="hljs-attr">ok:</span>
+<span class="hljs-attr">  email:</span>
+<span class="hljs-attr">    base:</span> ok
 
-# ### specific check
-specific:
-  # Only work on specific status.
-  status: fail
-  # Number of minimum attempts before informing.
-  attempt: 3
-  # Time (in seconds) to wait before informing.
-  latency: 60
-  # Only inform if dependent jobs not failed. This prevents of hundred of
-  # messages if a central system failed.
-  dependskip: true
-  # Type of actor to run with it's configuration
-  email:
-    base: fail # template to use defined under monitor/email
-    to: aschi # but send to myself
-  # Timeout (in seconds) without status change before informing again.
-  redo: 3h
+<span class="hljs-comment"># ### specific check</span>
+<span class="hljs-attr">specific:</span>
+  <span class="hljs-comment"># Only work on specific status.</span>
+<span class="hljs-attr">  status:</span> fail
+  <span class="hljs-comment"># Number of minimum attempts before informing.</span>
+<span class="hljs-attr">  attempt:</span> <span class="hljs-number">3</span>
+  <span class="hljs-comment"># Time (in seconds) to wait before informing.</span>
+<span class="hljs-attr">  latency:</span> <span class="hljs-number">60</span>
+  <span class="hljs-comment"># Only inform if dependent jobs not failed. This prevents of hundred of</span>
+  <span class="hljs-comment"># messages if a central system failed.</span>
+<span class="hljs-attr">  dependskip:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-comment"># Type of actor to run with it's configuration</span>
+<span class="hljs-attr">  email:</span>
+<span class="hljs-attr">    base:</span> fail <span class="hljs-comment"># template to use defined under monitor/email</span>
+<span class="hljs-attr">    to:</span> aschi <span class="hljs-comment"># but send to myself</span>
+  <span class="hljs-comment"># Timeout (in seconds) without status change before informing again.</span>
+<span class="hljs-attr">  redo:</span> <span class="hljs-number">3</span>h
 </code></pre>
 <div class="pilwrap" id="storage">
   <h3>
@@ -768,23 +768,23 @@ Storage
 </div>
 <p>If you want to store the measurement values, you need the following setup under
 <code>/monitor/storage</code>:</p>
-<pre><code class="yaml"># Storage settings
-# =================================================
-# There to store the results of the monitoring.
+<pre><code class="yaml"><span class="hljs-comment"># Storage settings</span>
+<span class="hljs-comment"># =================================================</span>
+<span class="hljs-comment"># There to store the results of the monitoring.</span>
 
-database: monitor
-prefix: mon_
+<span class="hljs-attr">database:</span> monitor
+<span class="hljs-attr">prefix:</span> mon_
 
-# When to cleanup entries from storage
-# -------------------------------------------------
-# The values are the number of max. entries of given interval.
-storage:
-  cleanup:
-    minute: 360 # 6 hours
-    hour: 96    # 4 days
-    day: 90     # 3 months
-    week: 104   # two years
-    month: 60   # 5 years
+<span class="hljs-comment"># When to cleanup entries from storage</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-comment"># The values are the number of max. entries of given interval.</span>
+<span class="hljs-attr">storage:</span>
+<span class="hljs-attr">  cleanup:</span>
+<span class="hljs-attr">    minute:</span> <span class="hljs-number">360</span> <span class="hljs-comment"># 6 hours</span>
+<span class="hljs-attr">    hour:</span> <span class="hljs-number">96</span>    <span class="hljs-comment"># 4 days</span>
+<span class="hljs-attr">    day:</span> <span class="hljs-number">90</span>     <span class="hljs-comment"># 3 months</span>
+<span class="hljs-attr">    week:</span> <span class="hljs-number">104</span>   <span class="hljs-comment"># two years</span>
+<span class="hljs-attr">    month:</span> <span class="hljs-number">60</span>   <span class="hljs-comment"># 5 years</span>
 </code></pre>
 <p>The referenced database have to be a <strong>postgresql</strong> database here and the data
 structure will be build on startup automatically. The concrete connection
@@ -810,91 +810,91 @@ Controller
 the system and may also depend on other controllers. Each controller is made by a
 specific configuration files containing meta information.</p>
 <p>See the following example for a full controller configuration:</p>
-<pre><code class="yaml"># Monitoring controller configuration
-# =================================================
-# This is an example of a complete controller configuration.
+<pre><code class="yaml"><span class="hljs-comment"># Monitoring controller configuration</span>
+<span class="hljs-comment"># =================================================</span>
+<span class="hljs-comment"># This is an example of a complete controller configuration.</span>
 
-name: Development Center
-description: Server containing miscellaneous tools to help in the development process.
+<span class="hljs-attr">name:</span> Development Center
+<span class="hljs-attr">description:</span> Server containing miscellaneous tools to help in the development process.
 
-# Monitor runtime configuration
-# -------------------------------------------------
-# Within the validity the same values will be used without rechecking them and
-# after the interval an automatic new run will be started in daemon mode.
+<span class="hljs-comment"># Monitor runtime configuration</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-comment"># Within the validity the same values will be used without rechecking them and</span>
+<span class="hljs-comment"># after the interval an automatic new run will be started in daemon mode.</span>
 
-# Time (in seconds) in which the value is seen as valid and should not be rechecked.
-validity: 1m
-# Time (in seconds) to rerun the check in daemon mode.
-interval: 5m
+<span class="hljs-comment"># Time (in seconds) in which the value is seen as valid and should not be rechecked.</span>
+<span class="hljs-attr">validity:</span> <span class="hljs-number">1</span>m
+<span class="hljs-comment"># Time (in seconds) to rerun the check in daemon mode.</span>
+<span class="hljs-attr">interval:</span> <span class="hljs-number">5</span>m
 
-# Sensors to run
-# -------------------------------------------------
-# The list of dependencies are sensors which have to work to make this controller
-# fully work.
-check:
-  - sensor: diskfree
+<span class="hljs-comment"># Sensors to run</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-comment"># The list of dependencies are sensors which have to work to make this controller</span>
+<span class="hljs-comment"># fully work.</span>
+<span class="hljs-attr">check:</span>
+<span class="hljs-attr">  - sensor:</span> diskfree
 
-    # ### Name and dependency
-    # The name is used for identifying and also to be referred in other checks as
-    # dependency meaning that a check only can run if all it's dependant checks are
-    # done and don't fail.
-    #name: mytest-3
-    #depend: mytest-1, mytest-2
+    <span class="hljs-comment"># ### Name and dependency</span>
+    <span class="hljs-comment"># The name is used for identifying and also to be referred in other checks as</span>
+    <span class="hljs-comment"># dependency meaning that a check only can run if all it's dependant checks are</span>
+    <span class="hljs-comment"># done and don't fail.</span>
+    <span class="hljs-comment">#name: mytest-3</span>
+    <span class="hljs-comment">#depend: mytest-1, mytest-2</span>
 
-    # ### Specific setup
-    config:
-      remote: my-develop
-      share: /
+    <span class="hljs-comment"># ### Specific setup</span>
+<span class="hljs-attr">    config:</span>
+<span class="hljs-attr">      remote:</span> my-develop
+<span class="hljs-attr">      share:</span> /
 
-    # ### Weight setting
-    # Specific to value of the following 'combine' setting.
-    # With the `weight` settings on the different entries single group entries may
-    # be rated specific not like the others. Use a number in `average` to make the
-    # weight higher (1 is normal). Also the weight 'up' and 'down' changes the error
-    # level for one step before using in calculation on all combine methods.
-    #weight: down
+    <span class="hljs-comment"># ### Weight setting</span>
+    <span class="hljs-comment"># Specific to value of the following 'combine' setting.</span>
+    <span class="hljs-comment"># With the `weight` settings on the different entries single group entries may</span>
+    <span class="hljs-comment"># be rated specific not like the others. Use a number in `average` to make the</span>
+    <span class="hljs-comment"># weight higher (1 is normal). Also the weight 'up' and 'down' changes the error</span>
+    <span class="hljs-comment"># level for one step before using in calculation on all combine methods.</span>
+    <span class="hljs-comment">#weight: down</span>
 
-    # ### Hint
-    # Specific hint as handlebars text which may include the current results. Use
-    # the following variables:
-    #
-    #     name: Name of the sensor
-    #     meta: Meta Information of the sensor
-    #     config: Sensor configuration
-    #     results: Results
-    #hint: |+
+    <span class="hljs-comment"># ### Hint</span>
+    <span class="hljs-comment"># Specific hint as handlebars text which may include the current results. Use</span>
+    <span class="hljs-comment"># the following variables:</span>
+    <span class="hljs-comment">#</span>
+    <span class="hljs-comment">#     name: Name of the sensor</span>
+    <span class="hljs-comment">#     meta: Meta Information of the sensor</span>
+    <span class="hljs-comment">#     config: Sensor configuration</span>
+    <span class="hljs-comment">#     results: Results</span>
+    <span class="hljs-comment">#hint: |+</span>
 
-# ### Max Parallel checks
-# This goes from 1 = serial to n parallel checks running. It is wise not to use
-# too high values here to not make a high load on the server by the monitor itself.
-parallel: 5
+<span class="hljs-comment"># ### Max Parallel checks</span>
+<span class="hljs-comment"># This goes from 1 = serial to n parallel checks running. It is wise not to use</span>
+<span class="hljs-comment"># too high values here to not make a high load on the server by the monitor itself.</span>
+<span class="hljs-attr">parallel:</span> <span class="hljs-number">5</span>
 
-# ### Combine values
-# For multiple dependencies this value defines how the individual sensors are
-# combined to calculate the overall status:
-#
-# - max - the one with the highest failure value is used
-# - min - the lowest failure value is used
-# - average - the average status (arithmetic round) is used
-combine: max
+<span class="hljs-comment"># ### Combine values</span>
+<span class="hljs-comment"># For multiple dependencies this value defines how the individual sensors are</span>
+<span class="hljs-comment"># combined to calculate the overall status:</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># - max - the one with the highest failure value is used</span>
+<span class="hljs-comment"># - min - the lowest failure value is used</span>
+<span class="hljs-comment"># - average - the average status (arithmetic round) is used</span>
+<span class="hljs-attr">combine:</span> max
 
-# Rules to process
-# -------------------------------------------------
-# The following rules will be processed after the controller is run. They will
-# decide which actions to run and how to do it.
-#
-# The following list references the active rules for this controller:
-rule:
-  - fail
-  - warn
-  - ok
+<span class="hljs-comment"># Rules to process</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-comment"># The following rules will be processed after the controller is run. They will</span>
+<span class="hljs-comment"># decide which actions to run and how to do it.</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># The following list references the active rules for this controller:</span>
+<span class="hljs-attr">rule:</span>
+<span class="hljs-bullet">  -</span> fail
+<span class="hljs-bullet">  -</span> warn
+<span class="hljs-bullet">  -</span> ok
 
-# Information Text
-# -------------------------------------------------
-# This is a general and unspecific information text for that controller.
-info: |+
+<span class="hljs-comment"># Information Text</span>
+<span class="hljs-comment"># -------------------------------------------------</span>
+<span class="hljs-comment"># This is a general and unspecific information text for that controller.</span>
+<span class="hljs-attr">info:</span> |+
   This system is used for software development, building and deployment. An
-  outage will have direct effects to the developers so that they can't submit,
+  outage will have direct effects to the developers so that they can<span class="hljs-string">'t submit,
   test and deploy their code.
 
 # ### Specific Hint
@@ -928,7 +928,7 @@ ref:
   #api:
   #code:
   #other:
-</code></pre>
+</span></code></pre>
 <p>The controller will call the sensors and collect the data. It may also generate
 reports or trigger specific actions.</p>
 <div class="pilwrap" id="structure">
@@ -1622,14 +1622,14 @@ connection: keep-alive
 vary: User-Agent,Accept-Encoding,X-Forwarded-Proto,X-Export-Format,X-Export-Agent
 </code></pre>
 <p><strong>Body:</strong></p>
-<pre><code class="html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"de"</span>&gt;</span>
+<pre><code class="html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"de"</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>heise online - IT-News, Nachrichten und Hintergründe
-    <span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"description"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware und Software sowie Downloads bei Heise Medien."</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"keywords"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"heise online, c't, iX, Technology Review"</span><span class="hljs-value">...</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>heise online - IT-News, Nachrichten und Hintergründe
+    <span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"News und Foren zu Computer, IT, Wissenschaft, Medien und Politik. Preisvergleich von Hardware und Software sowie Downloads bei Heise Medien."</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"heise online, c't, iX, Technology Review"</span><span class="hljs-attr">...</span>
 </span></code></pre>
 <blockquote>
 <p>If the server didn't respond it also may be a network problem.</p>
@@ -1871,12 +1871,12 @@ a database for long time analysis. This includes the following information:</p>
 <p><img src="src/doc/db-structure.png" alt="Database Structure"></p>
 <p>To get easy to view report diagrams out of this you may use the dbVisualizer
 tool. First make a script to select the values you want to display:</p>
-<pre><code class="sql"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> controller
+<pre><code class="sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> controller
 <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> <span class="hljs-keyword">check</span> <span class="hljs-keyword">USING</span> (controller_id)
 <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> sensor_cpu <span class="hljs-keyword">USING</span> (check_id)
-<span class="hljs-keyword">WHERE</span> controller.<span class="hljs-keyword">name</span>=<span class="hljs-string">'my-develop'</span> <span class="hljs-keyword">AND</span> <span class="hljs-built_in">interval</span>=<span class="hljs-string">'hour'</span>
+<span class="hljs-keyword">WHERE</span> controller.name=<span class="hljs-string">'my-develop'</span> <span class="hljs-keyword">AND</span> <span class="hljs-built_in">interval</span>=<span class="hljs-string">'hour'</span>
 <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">period</span>
-</span></code></pre>
+</code></pre>
 <p>In the result you may switch to graphical view and select the rows to display.</p>
 <p>To keep the data volume low old values will be removed.</p>
 <div class="pilwrap" id="actor">

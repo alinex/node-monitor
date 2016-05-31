@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-monitor/src/storage.coffee";
+    var thisFile = "src/storage.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -183,12 +183,12 @@ Configuration
         </td>
         <td class="code highlight">
           <pre class="coffeescript">cleanupInterval =
-  <span class="hljs-attribute">minute</span>: <span class="hljs-number">1800</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every half hour</span>
-  <span class="hljs-attribute">hour</span>: <span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every hour</span>
-  <span class="hljs-attribute">day</span>: <span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every day</span>
-  <span class="hljs-attribute">week</span>: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span>
-  <span class="hljs-attribute">month</span>: <span class="hljs-number">24</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every 24 days (maximum for setTimeout)</span>
-  <span class="hljs-attribute">other</span>: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span></pre>
+  minute: <span class="hljs-number">1800</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every half hour</span>
+  hour: <span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every hour</span>
+  day: <span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every day</span>
+  week: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span>
+  month: <span class="hljs-number">24</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every 24 days (maximum for setTimeout)</span>
+  other: <span class="hljs-number">7</span>*<span class="hljs-number">24</span>*<span class="hljs-number">3600</span>*<span class="hljs-number">1000</span> <span class="hljs-comment"># every week</span></pre>
         </td>
       </tr>
     
@@ -286,13 +286,13 @@ Create database structure
         <td class="code highlight">
           <pre class="coffeescript">  prefix = conf.storage.prefix
   queries =
-    <span class="hljs-attribute">controller</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    controller: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       CREATE TABLE IF NOT EXISTS <span class="hljs-subst">#{prefix}</span>controller (
         controller_id SERIAL PRIMARY KEY,
         name VARCHAR(32) UNIQUE NOT NULL
       )
       """</span>, cb
-    <span class="hljs-attribute">check</span>: [<span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    check: [<span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       CREATE TABLE IF NOT EXISTS <span class="hljs-subst">#{prefix}</span>check (
         check_id SERIAL PRIMARY KEY,
         controller_id INTEGER REFERENCES <span class="hljs-subst">#{prefix}</span>controller ON DELETE CASCADE,
@@ -302,7 +302,7 @@ Create database structure
         mapping TEXT
       )
       """</span>, cb]
-    <span class="hljs-attribute">idx_check</span>: [<span class="hljs-string">'check'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    idx_check: [<span class="hljs-string">'check'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       DO $$
       BEGIN
         IF NOT EXISTS (
@@ -316,7 +316,7 @@ Create database structure
         END IF;
       END$$;
       """</span>, cb]
-    <span class="hljs-attribute">intervalType</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    intervalType: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       DO $$
       BEGIN
           IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = '<span class="hljs-subst">#{prefix}</span>interval') THEN
@@ -324,7 +324,7 @@ Create database structure
           END IF;
       END$$;
       """</span>, cb
-    <span class="hljs-attribute">statusType</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    statusType: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       DO $$
       BEGIN
           IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = '<span class="hljs-subst">#{prefix}</span>status') THEN
@@ -332,7 +332,7 @@ Create database structure
           END IF;
       END$$;
       """</span>, cb
-    <span class="hljs-attribute">statusSensor</span>: [<span class="hljs-string">'statusType'</span>, <span class="hljs-string">'check'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    statusSensor: [<span class="hljs-string">'statusType'</span>, <span class="hljs-string">'check'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       CREATE TABLE IF NOT EXISTS <span class="hljs-subst">#{prefix}</span>status_check (
         check_id INTEGER REFERENCES <span class="hljs-subst">#{prefix}</span>check ON DELETE CASCADE,
         change TIMESTAMP WITH TIME ZONE,
@@ -340,14 +340,14 @@ Create database structure
         comment VARCHAR(120)
       )
       """</span>, cb]
-    <span class="hljs-attribute">statusController</span>: [<span class="hljs-string">'statusType'</span>, <span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    statusController: [<span class="hljs-string">'statusType'</span>, <span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       CREATE TABLE IF NOT EXISTS <span class="hljs-subst">#{prefix}</span>status_controller (
         controller_id INTEGER REFERENCES <span class="hljs-subst">#{prefix}</span>controller ON DELETE CASCADE,
         change TIMESTAMP WITH TIME ZONE,
         status <span class="hljs-subst">#{prefix}</span>status NOT NULL
       )
       """</span>, cb]
-    <span class="hljs-attribute">report</span>: [<span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
+    report: [<span class="hljs-string">'controller'</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> db.exec <span class="hljs-string">"""
       CREATE TABLE IF NOT EXISTS <span class="hljs-subst">#{prefix}</span>report (
         report_id SERIAL PRIMARY KEY,
         controller_id INTEGER REFERENCES <span class="hljs-subst">#{prefix}</span>controller ON DELETE CASCADE,
@@ -505,7 +505,7 @@ Get or register check
         mapping = {}
         <span class="hljs-keyword">for</span> key, set <span class="hljs-keyword">of</span> meta.mapping
           mapping[set.storage] =
-            <span class="hljs-attribute">name</span>: key
+            name: key
           mapping[set.storage].title = set.title <span class="hljs-keyword">if</span> set.title
           mapping[set.storage].type = set.type <span class="hljs-keyword">if</span> set.type
         mapping = JSON.stringify mapping

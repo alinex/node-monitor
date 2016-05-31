@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-monitor/src/sensor/load.coffee";
+    var thisFile = "src/sensor/load.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -171,30 +171,30 @@ compatible schema definition:</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.schema =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">"System load check"</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"the system load in the last time"</span>
-  <span class="hljs-attribute">type</span>: <span class="hljs-string">'object'</span>
-  <span class="hljs-attribute">allowedKeys</span>: <span class="hljs-literal">true</span>
-  <span class="hljs-attribute">default</span>:
-    <span class="hljs-attribute">warn</span>: <span class="hljs-string">"short &gt; 500%"</span>
-    <span class="hljs-attribute">analysis</span>:
-      <span class="hljs-attribute">minCpu</span>: <span class="hljs-number">0.1</span>
-  <span class="hljs-attribute">keys</span>:
-    <span class="hljs-attribute">remote</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Remote Server"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the remote server on which to run the command"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">values</span>: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
-    <span class="hljs-attribute">warn</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Warn if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'short &gt; 500%'</span>
-    <span class="hljs-attribute">fail</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"Fail if"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-      <span class="hljs-attribute">optional</span>: <span class="hljs-literal">true</span></pre>
+  title: <span class="hljs-string">"System load check"</span>
+  description: <span class="hljs-string">"the system load in the last time"</span>
+  type: <span class="hljs-string">'object'</span>
+  allowedKeys: <span class="hljs-literal">true</span>
+  default:
+    warn: <span class="hljs-string">"short &gt; 500%"</span>
+    analysis:
+      minCpu: <span class="hljs-number">0.1</span>
+  keys:
+    remote:
+      title: <span class="hljs-string">"Remote Server"</span>
+      description: <span class="hljs-string">"the remote server on which to run the command"</span>
+      type: <span class="hljs-string">'string'</span>
+      values: Object.keys config.get(<span class="hljs-string">'/exec/remote/server'</span>) ? {}
+    warn:
+      title: <span class="hljs-string">"Warn if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to warn"</span>
+      type: <span class="hljs-string">'string'</span>
+      default: <span class="hljs-string">'short &gt; 500%'</span>
+    fail:
+      title: <span class="hljs-string">"Fail if"</span>
+      description: <span class="hljs-string">"the javascript code to check to set status to fail"</span>
+      type: <span class="hljs-string">'string'</span>
+      optional: <span class="hljs-literal">true</span></pre>
         </td>
       </tr>
     
@@ -211,10 +211,10 @@ General information
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.meta =
-  <span class="hljs-attribute">title</span>: <span class="hljs-string">'Load'</span>
-  <span class="hljs-attribute">description</span>: <span class="hljs-string">"Check the local processor activity over the last minute to 15 minutes."</span>
-  <span class="hljs-attribute">category</span>: <span class="hljs-string">'sys'</span>
-  <span class="hljs-attribute">hint</span>: <span class="hljs-string">"A very high system load makes the system irresponsible or really slow.
+  title: <span class="hljs-string">'Load'</span>
+  description: <span class="hljs-string">"Check the local processor activity over the last minute to 15 minutes."</span>
+  category: <span class="hljs-string">'sys'</span>
+  hint: <span class="hljs-string">"A very high system load makes the system irresponsible or really slow.
   Mostly this is CPU-bound load, load caused by out of memory issues or I/O-bound
   load problems. "</span></pre>
         </td>
@@ -233,19 +233,19 @@ You may use any of these in your warn/fail expressions.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">values</span>:
-    <span class="hljs-attribute">short</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"1min Load"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"average value of one minute processor load (normalized)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">medium</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"5min Load"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"average value of 5 minute processor load (normalized)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span>
-    <span class="hljs-attribute">long</span>:
-      <span class="hljs-attribute">title</span>: <span class="hljs-string">"15min Load"</span>
-      <span class="hljs-attribute">description</span>: <span class="hljs-string">"average value of 15 minute processor load (normalized)"</span>
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'percent'</span></pre>
+          <pre class="coffeescript">  values:
+    short:
+      title: <span class="hljs-string">"1min Load"</span>
+      description: <span class="hljs-string">"average value of one minute processor load (normalized)"</span>
+      type: <span class="hljs-string">'percent'</span>
+    medium:
+      title: <span class="hljs-string">"5min Load"</span>
+      description: <span class="hljs-string">"average value of 5 minute processor load (normalized)"</span>
+      type: <span class="hljs-string">'percent'</span>
+    long:
+      title: <span class="hljs-string">"15min Load"</span>
+      description: <span class="hljs-string">"average value of 15 minute processor load (normalized)"</span>
+      type: <span class="hljs-string">'percent'</span></pre>
         </td>
       </tr>
     
@@ -266,15 +266,15 @@ Initialize check
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.init = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-property">@name</span> ?= <span class="hljs-property">@conf</span>.remote ? <span class="hljs-string">'localhost'</span>
+  @name ?= @conf.remote ? <span class="hljs-string">'localhost'</span>
   Exec.run
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep processor /proc/cpuinfo | wc -l"</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"grep processor /proc/cpuinfo | wc -l"</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    <span class="hljs-property">@base</span> = Number res.stdout()
+    @base = Number res.stdout()
     cb()</pre>
         </td>
       </tr>
@@ -304,10 +304,10 @@ Run the Sensor
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  Exec.run
-    <span class="hljs-attribute">remote</span>: <span class="hljs-property">@conf</span>.remote
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'cat'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'/proc/loadavg'</span>]
-    <span class="hljs-attribute">priority</span>: <span class="hljs-string">'immediately'</span>
+    remote: @conf.remote
+    cmd: <span class="hljs-string">'cat'</span>
+    args: [<span class="hljs-string">'/proc/loadavg'</span>]
+    priority: <span class="hljs-string">'immediately'</span>
   , cb</pre>
         </td>
       </tr>
@@ -324,8 +324,8 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">exports.calc = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> <span class="hljs-property">@err</span>
-  res = <span class="hljs-property">@result</span>.data</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> @err
+  res = @result.data</pre>
         </td>
       </tr>
     
@@ -339,9 +339,9 @@ Get the results
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  load = res.stdout().split <span class="hljs-regexp">/\s/</span>
-  <span class="hljs-property">@values</span>.short = Number(load[<span class="hljs-number">0</span>]) / <span class="hljs-property">@base</span>
-  <span class="hljs-property">@values</span>.medium = Number(load[<span class="hljs-number">1</span>]) / <span class="hljs-property">@base</span>
-  <span class="hljs-property">@values</span>.long = Number(load[<span class="hljs-number">2</span>]) / <span class="hljs-property">@base</span>
+  @values.short = Number(load[<span class="hljs-number">0</span>]) / @base
+  @values.medium = Number(load[<span class="hljs-number">1</span>]) / @base
+  @values.long = Number(load[<span class="hljs-number">2</span>]) / @base
   cb()</pre>
         </td>
       </tr>
