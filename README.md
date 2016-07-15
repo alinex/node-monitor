@@ -24,7 +24,7 @@ storage database and a detailed report will be created. Based on additional acti
 rules the report may be send by email or a web request is made. Out of the stored
 values time reports may be created.
 
-> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
